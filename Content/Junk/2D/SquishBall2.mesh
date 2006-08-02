@@ -1,0 +1,193 @@
+// Hamster //
+TotalMass 35
+
+Node	0	0
+Weight	25
+Sphere	24	
+
+Node	6 30
+//Hard
+Sphere	6
+Spring	-1
+
+Node	-6 30
+Sphere	6
+Spring	-1
+Spring	-2
+
+Node	-17 26
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+
+Node	-25 18
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+
+Node	-29 7
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+
+Node	-29 -6
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+
+Node	-24 -17
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+
+Node	-16 -25
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+
+Node	-5 -30
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+Spring	-9
+
+Node	8 -30
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+Spring	-9
+Spring	-10
+
+Node	18 -24
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+Spring	-9
+Spring	-10
+Spring	-11
+
+Node	26 -16
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+Spring	-9
+Spring	-10
+Spring	-11
+Spring	-12
+
+Node	30 -5
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+Spring	-9
+Spring	-10
+Spring	-11
+Spring	-12
+Spring	-13
+
+Node	30 8
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+Spring	-9
+Spring	-10
+Spring	-11
+Spring	-12
+Spring	-13
+Spring	-14
+
+Node	26 18
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+Spring	-9
+Spring	-10
+Spring	-11
+Spring	-12
+Spring	-13
+Spring	-14
+Spring	-15
+
+Node	17 26
+Sphere	6
+Spring	-1
+Spring	-2
+Spring	-3
+Spring	-4
+Spring	-5
+Spring	-6
+Spring	-7
+Spring	-8
+Spring	-9
+Spring	-10
+Spring	-11
+Spring	-12
+Spring	-13
+Spring	-14
+Spring	-15
+Spring	-16
+
+

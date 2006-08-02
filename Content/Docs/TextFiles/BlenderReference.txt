@@ -1,0 +1,45 @@
+
+- Global -
+TAB - Switch between Object Mode and Vertex Edit Mode
+Z - toggle wireframe/solid display mode
+A - Select All or Deselect All
+G - Grab Mode, i.e. move mode. (Also achived by drawing a line guesture with the LMB)
+S - Scale Mode (Also achieved by drawing a zig zag W line guesture with the LMB)
+R - Rotate Mode
+CTRL-S - Shear Mode
+SHIFT-W - Warp Mode
+Middle Mouse Button - On a bar or non 3D view, pans it, so you can click things outside the view
+SHIFT-Middle Mouse Button - PAN a 3D Area!!!
+
+- Object Mode -
+M - Select Layer(s) of currently selected object(s)
+
+- Edit Mode -
+B - Box Select Mode
+B-B - Circle Paint to Select Mode, mouse wheel to adjust size
+L - Select closed shape/curve near mouse cursor and vertex
+N - Tranformation Number Entry
+
+O - Proportional edit mode (relative shapes distort with your transformation)
+W - Special Options Window (like what a Right Click should be)
+
+P - Create new object from selection, removing it from the original	
+
+X/DEL - Erase selected elements (verts, edges, etc...)
+U - Undo changes
+SHIFT-U - Redo Changes
+ALT-U - List all Undoable Actions to select onea
+E - Extrude selected (verts, edges, faces (regions))
+M - Mirroring selected information (prefer modifiers)
+K - Knife mode (if I could figure out how it works)
+CTRL-N - Recalculate Normals Outside (of all selected verts)
+SHIFT-CTRL-N - Recalculate Normals Inside
+CTRL-T - Triangulates selected faces (or faces implied by selected verts)
+
+- Durring a Move -
+Middle Mouse Button - Toggle locking displacement to an axis
+X - Lock to X axis
+Y - Lock to Y axis
+Z - Lock to Z axis
+CTRL - Work in discreet gridlike steps, versus freeform by default
+
