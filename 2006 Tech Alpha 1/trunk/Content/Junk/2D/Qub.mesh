@@ -1,0 +1,16 @@
+// QUB Object //
+Node -90 10
+Spring +1
+Spring +2
+Quad +1 +2 +3
+
+Node 90 10
+Spring +1
+
+Node 90 -10
+Spring +1
+
+Node -90 -10
+Spring -3
+Spring -2
+

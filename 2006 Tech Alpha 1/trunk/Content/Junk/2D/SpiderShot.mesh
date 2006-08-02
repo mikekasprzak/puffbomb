@@ -1,0 +1,7 @@
+// Spider Shot //
+TotalMass 10
+
+// Body Center //
+Node	0	0
+Sphere	2
+Hard	false

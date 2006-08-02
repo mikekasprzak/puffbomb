@@ -1,0 +1,26 @@
+Texture	Explosion.png
+
+Vertex	-8.0	8.0
+Vertex	-8.0	-8.0
+Vertex	8.0	-8.0
+Vertex	8.0	8.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.1	0.0
+FUVb	0.1	0.12
+FUVc	0.22	0.12
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.1	0.0
+FUVb	0.22	0.12
+FUVc	0.22	0.0
+
+Time	1000.0
+
+LoopPoint 0
