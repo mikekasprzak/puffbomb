@@ -1,0 +1,8 @@
+#!/bin/sh
+cd $1
+
+if [ "$#" -gt "2" ]; then
+	$2 >$3
+else
+	$2
+fi
