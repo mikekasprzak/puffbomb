@@ -52,7 +52,7 @@ TestSuite:
 # - -------------------------------------------------------------------------------------------- - #
 config.mak:
 	@echo ---- No configuration found.  Acquiring default. ------------------------
-	cp Code/Tools/ToolChain/config.mak .
+	cp Code/Tools/_ToolChain/config.mak .
 	@echo ---- Configuration copied.  Dying... ------------------------------------
 	@1 
 # - -------------------------------------------------------------------------------------------- - #
