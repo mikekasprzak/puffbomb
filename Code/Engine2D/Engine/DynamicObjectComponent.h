@@ -1,30 +1,32 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DynamicObject //
+// DynamicObjectComponent //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObject_H__
-#define __Engine2D_Engine_DynamicObject_H__
+#ifndef __Engine2D_Engine_DynamicObjectComponent_H__
+#define __Engine2D_Engine_DynamicObjectComponent_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <vector>
+#include <Physics/Body2D.h>
+#include <Graphics/Mesh2D.h>
 
-#include "DynamicObjectComponent.h"
+#include <Physics/StateFlags.h>
+#include <Physics/CollisionFlags.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cDynamicObject {
+class cDynamicObjectComponent {
 public:
-	std::vector< cDynamicObjectComponent > Component;
+	// Parts of a component //
+	cBody2D Body;
+	cMesh2D Mesh;
+	
+	// Flags //
+	cStateFlags State;
+	cCollisionFlags Collision;
 
 public:
 	// Do physics //
 	inline void Step() {
 		// Clear Flags //
 		//Flags.Clear();
-		
-		
-	}
-
-	// Do any work (control/AI) I may have //
-	inline void Work() {
 	}
 
 	// Draw Myself //
@@ -38,7 +40,7 @@ public:
 
 public:
 	// Solve Collisions/Actions //
-	void Solve( cDynamicObject& _Vs );
+	void Solve( cDynamicObjectComponent& _Vs );
 	void Solve( class cStaticObject& _Vs );
 	void Solve( class cPassiveObject& _Vs );
 	void Solve( class cZone& _Vs );
@@ -49,5 +51,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObject_H__ //
+#endif // __Engine2D_Engine_DynamicObjectComponent_H__ //
 // - ------------------------------------------------------------------------------------------ - //

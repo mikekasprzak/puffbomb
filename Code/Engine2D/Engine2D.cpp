@@ -6,8 +6,92 @@ namespace Engine2D {
 // Our static instance of ourself //
 cEngine2D* cEngine2D::Current;
 // - ------------------------------------------------------------------------------------------ - //
+// - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::Step() {
+/*
+	// Physics Stage 1 -------------------------------------- //
+	// Step all the physics for all objects //
+	for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {
+		if ( DynamicObject[ idx ].IsActive() ) { 
+			DynamicObject[ idx ].Step();
+			
+			// Apply Impulses //
+			for ( size_t idx2 = 0; idx2 < Impulse.size(); idx2++ ) {
+				DynamicObject[ idx ].Solve( Impulse[ idx2 ] );
+			}
+		}
+	}
+	
+	// Clear Impulses //
+	Impulse.clear();	
 
+	// Physics Stage 2 -------------------------------------- //
+	// Run all contacts and springs twice, for cleaner results //
+	for ( int ContactsAndSprings = 0; ContactsAndSprings < 2; ContactsAndSprings++ ) {
+		// Step Physics for NodeLink's (i.e. global springs that connect several objects) //
+		for ( size_t idx = 0; idx < NodeLink.size(); ++idx ) {
+			if ( NodeLink[ idx ]->IsActive() ) { 
+				NodeLink[ idx ]->Step();
+			}
+		}		
+	
+		// ** this solving step shold solve for all components, not all objects ** //
+	
+		// Solve collisions for all objects //
+		for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {
+			if ( DynamicObject[ idx ].IsActive() ) { 
+				// Test and act versus zones //
+				for ( size_t idx2 = 0; idx2 < Zone.size(); ++idx2 ) {
+					DynamicObject[ idx ].Solve( Zone[ idx2 ] );
+				}
 
+				// No reason to repeat any //
+				for ( size_t idx2 = idx + 1; idx2 < DynamicObject.size(); ++idx2 ) {
+					if ( DynamicObject[ idx2 ].IsActive() ) { 
+						// (Test and) Solve collisions between these 2 objects //
+						DynamicObject[ idx ].Solve( SphereObject[ idx2 ] );
+					}
+				}
+				
+				// Test versus static collision only if you're awake //
+				if ( DynamicObject[ idx ].IsAwake() ) {
+					// Their statics, not part of our family.  So we sadly needs to do them all every time //
+					for ( size_t idx2 = 0; idx2 < StaticObject.size(); ++idx2 ) {
+						DynamicObject[ idx ].Solve( StaticObject[ idx2 ] );
+					}
+				}
+			}
+		}
+	}
+
+	// Physics Stage 3 -------------------------------------- //	
+	// All objects have now moved.  Now to have them do and interpret what they've learned //
+	for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {
+		if ( DynamicObject[ idx ].IsActive() ) {
+			DynamicObject[ idx ].Work();
+		}
+	}
+	
+	// - -------------------------------------------------------------------------------------- - //
+	// Particle Systems //
+//	FlatParticle.Step();
+//	AdditiveParticle.Step();
+
+	// - -------------------------------------------------------------------------------------- - //
+	// Other //
+//	Form.Step();
+
+*/
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::Draw() {
+/*
+	// Draw Objects //
+	for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {
+		DynamicObject[ idx ].Draw();
+	}
+*/
+}
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
