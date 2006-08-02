@@ -8,12 +8,26 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL.h>
 
+#include "../../Library/Util/ClassDesigner/Bits.h"
 #include "../../Library/Util/String.h"
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
-void CmdFilters( char* argv );
-void ExtFilters( char* argv );
+unsigned int Filters( const std::string PathFileName );
+// - ------------------------------------------------------------------------------------------ - //
+//	FlagFilters
+typedef const unsigned int fl;
+fl flFatten 	= bit4;
+fl flHalf 		= bit5;
+fl flQuarter 	= bit6;
+fl flEighth 	= bit7;
+
+fl flRGB 		= bit16;
+fl flRGBA 		= bit17;
+fl flBGR 		= bit18;
+fl flBGRA 		= bit19;
+fl flDXT 		= bit20;
+
 // - ------------------------------------------------------------------------------------------ - //
 int main( int argc, char* argv[] ) {
 	// Must have 2 or more arguments //
@@ -21,6 +35,7 @@ int main( int argc, char* argv[] ) {
 		return -1;
 
 	// - -------------------------------------------------------------------------------------- - //
+	unsigned int FilterFlags = 0;
 
 	SDL_Surface* Image = IMG_Load( argv[1] );
 	std::ofstream outfile ( argv[2], ofstream::binary );
@@ -34,20 +49,15 @@ int main( int argc, char* argv[] ) {
 	// - -------------------------------------------------------------------------------------- - //
 	for( int idx = 3; idx < argc; ++idx )
 	{
-		CmdFilters( argv[idx] );
+		std::string TempArg = argv[idx];
+		FilterFlags |= Filters( TempArg );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	// Extension Filters //
+	// Extension and Directory Name Filters //
 	// - -------------------------------------------------------------------------------------- - //
-	std::string PathFileName = argv[0];
-	
-	ExtFilters( argv[0] );
-	
-	// - -------------------------------------------------------------------------------------- - //
-	// Directory Name Filters //
-	// - -------------------------------------------------------------------------------------- - //
+	std::string PathFileName = argv[1];
 
-
+	FilterFlags |= Filters( PathFileName );
 	// - -------------------------------------------------------------------------------------- - //
 	if( Image->flags & SDL_SRCALPHA )
 	{
@@ -72,13 +82,45 @@ int main( int argc, char* argv[] ) {
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void CmdFilters( char* argv )
+unsigned int Filters( const std::string PathFileName )
 {
-	
-}
-// - ------------------------------------------------------------------------------------------ - //
-void ExtFilters( char* argv )
-{
-//	HasAnyExtension( const std::string& _FileName, const std::string& _Pattern )
+	unsigned int FilterFlags = 0;
+	if( String::HasAnyExtension( PathFileName, "fatten" ) )
+	{
+		FilterFlags |= flFatten;
+	}
+	if( String::HasAnyExtension( PathFileName, "half" ) )
+	{
+		FilterFlags |= flHalf;
+	}
+	if( String::HasAnyExtension( PathFileName, "quarter" ) )
+	{
+		FilterFlags |= flQuarter;
+	}
+	if( String::HasAnyExtension( PathFileName, "eighth" ) )
+	{
+		FilterFlags |= flEighth;
+	}
+	if( String::HasAnyExtension( PathFileName, "rgba" ) )
+	{
+		FilterFlags |= flRGBA;
+	}
+	else if( String::HasAnyExtension( PathFileName, "rgb" ) )
+	{
+		FilterFlags |= flRGB;
+	}
+	if( String::HasAnyExtension( PathFileName, "bgra" ) )
+	{
+		FilterFlags |= flBGRA;
+	}
+	else if( String::HasAnyExtension( PathFileName, "bgr" ) )
+	{
+		FilterFlags |= flBGR;
+	}
+	if( String::HasAnyExtension( PathFileName, "dxt" ) )
+	{
+		FilterFlags |= flDXT;
+	}
+	return FilterFlags;
 }
 // - ------------------------------------------------------------------------------------------ - //

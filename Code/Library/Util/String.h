@@ -11,6 +11,7 @@ namespace String {
 	const char Slash = '/';
 	const char OtherSlash = '\\';
 	const char Dot = '.';
+	const char Dash = '-';
 	const std::string Empty("");
 
 	// - -------------------------------------------------------------------------------------- - //
@@ -234,6 +235,8 @@ namespace String {
 	// - -------------------------------------------------------------------------------------- - //
 	// Like above, but returns if any extension from filenames or directory names contains pattern
 	inline bool HasAnyExtension( const std::string& _FileName, const std::string& _Pattern ) {
+		if ( _FileName.find( Dash + _Pattern ) != std::string::npos )
+			return true;
 		if ( _FileName.find( _Pattern + Dot ) != std::string::npos )
 			return true;
 		if ( _FileName.find( _Pattern + Slash ) != std::string::npos )

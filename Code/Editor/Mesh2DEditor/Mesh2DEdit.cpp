@@ -29,6 +29,8 @@ cMesh2DEdit::cMesh2DEdit() :
 	isDelete( false ),
 	EditMode( 0 ),
 	CurLayer( 0 ),
+	LastView( 1 ),
+	CurView( 1 ),
 	OldMousePos( Real(0.0), Real(0.0) ),
 	isGroupMove( false ),
 	UVScale( 256 ),
@@ -42,8 +44,6 @@ cMesh2DEdit::cMesh2DEdit() :
 	UVScrollMouseY( 0 ),
 	UVMiddleClick( false ),
 	UVMiddleClickLast( false ),
-	LastView( 1 ),
-	CurView( 1 ),
 	isUVGroupMove( false ),
 	SnapToUVGrid( false )
 {	
