@@ -1,7 +1,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <SDL/SDL.h>
-#include <GL/gl.h>  // **Remove** //
-#include <GL/glu.h> // **Remove** //
+#include <GL/gl.h> 
+#include <GL/glu.h>
 
 #include <Graphics/Gfx.h>
 #include <Game/Global.h>
