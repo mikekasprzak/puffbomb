@@ -274,13 +274,13 @@ void FattenFilter( cTex& Tex )
 
 						TempColor /= Tex.PixelSize;
 						
-						Tex.Pixels[ idx ] = TempColor;
+						Tex.Pixels[ idx + 1 ] = TempColor;
 												
 						TempColor = ( Left >> 16 ) & 0xff + ( Right >> 16 ) & 0xff + ( Up >> 16 ) & 0xff + ( Down >> 16 ) & 0xff;
 
 						TempColor /= Tex.PixelSize;
 						
-						Tex.Pixels[ idx ] = TempColor;
+						Tex.Pixels[ idx + 2 ] = TempColor;
 
 					}
 				}
