@@ -12,6 +12,9 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cDynamicObject {
 public:
+	// Parts connecting this object together //
+	
+	// Parts of this object //
 	std::vector< cDynamicObjectComponent > Component;
 
 public:

@@ -128,7 +128,7 @@ $(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3D
 # - -------------------------------------------------------------------------------------------- - #
 # Textures ------------------------------------------------------------------------------------- - #
 $(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
-	$(TextureTool) $< $(DATA_DIR)/$*.tx
+	$(TextureTool) $< $(DATA_DIR)/$*.tx -fatten
 	$(Compress) $(DATA_DIR)/$*.tx $@
 # - -------------------------------------------------------------------------------------------- - #
 # Specific unprocessed content ----------------------------------------------------------------- - #
