@@ -17,10 +17,10 @@ public:
 public:
 	// Do physics //
 	inline void Step() {
-		// Clear Flags //
-		//Flags.Clear();
-		
-		
+		// Move all my parts //
+		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+			Component[ idx ].Step();
+		}
 	}
 
 	// Do any work (control/AI) I may have //

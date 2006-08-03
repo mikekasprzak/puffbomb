@@ -4,6 +4,8 @@
 #ifndef __Util_ClassDesigner_H__
 #define __Util_ClassDesigner_H__
 // - ------------------------------------------------------------------------------------------ - //
+// Built in C types (size_t) //
+#include <stddef.h>
 
 // Bit names for easy enumeration of bits //
 #include "ClassDesigner/Bits.h"

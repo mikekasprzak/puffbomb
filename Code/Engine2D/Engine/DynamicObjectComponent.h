@@ -25,8 +25,10 @@ public:
 public:
 	// Do physics //
 	inline void Step() {
-		// Clear Flags //
-		//Flags.Clear();
+		// Clear Collision Flags //
+		Body.Collision.Clear();
+		// Step physics of object //
+		Body.Step();
 	}
 
 	// Draw Myself //
