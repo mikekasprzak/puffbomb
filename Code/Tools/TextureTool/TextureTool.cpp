@@ -23,7 +23,8 @@ public:
 };
 // - ------------------------------------------------------------------------------------------ - //
 unsigned int Filters( const std::string PathFileName );
-void ApplyProcFilters( unsigned int& FilterFlags, cTex& Tex );
+void ApplyFilters( unsigned int& FilterFlags, cTex& Tex );
+void FattenFilter( cTex& Tex );
 void HalfFilter( cTex& Tex );
 // - ------------------------------------------------------------------------------------------ - //
 //	FlagFilters
@@ -90,7 +91,7 @@ int main( int argc, char* argv[] ) {
 	// - -------------------------------------------------------------------------------------- - //
 	// Apply processing filters //
 	// - -------------------------------------------------------------------------------------- - //
-	ApplyProcFilters( FilterFlags, Tex );
+	ApplyFilters( FilterFlags, Tex );
 	
 	// - -------------------------------------------------------------------------------------- - //
 	outfile.write( (char*)&Tex.PixelSize, sizeof( unsigned int ) );
@@ -158,11 +159,12 @@ unsigned int Filters( const std::string PathFileName )
 // - ------------------------------------------------------------------------------------------ - //
 // Where the Process filters are executed //
 // - ------------------------------------------------------------------------------------------ - //
-void ApplyProcFilters( unsigned int& FilterFlags, cTex& Tex )
+void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 {
 	if( FilterFlags & flFatten )
 	{
-	
+		FattenFilter( Tex );
+		
 		FilterFlags ^= flFatten;
 		cout << "Fatten filter applied" << endl;
 	}
@@ -193,6 +195,98 @@ void ApplyProcFilters( unsigned int& FilterFlags, cTex& Tex )
 		cout << "Eighth size filter applied" << endl;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	if( FilterFlags & flBGR )
+	{
+	
+		FilterFlags ^= flBGR;
+		cout << "BGR filter applied" << endl;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	if( FilterFlags & flDXT )
+	{
+	
+		FilterFlags ^= flDXT;
+		cout << "DXT filter applied" << endl;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+}
+// - ------------------------------------------------------------------------------------------ - //
+void FattenFilter( cTex& Tex )
+{
+	if( Tex.PixelSize == 4 )
+	{
+		for( size_t y = 0; y < Tex.Height; ++y )
+		{
+			for( size_t x = 0; x < Tex.Width; ++x )
+			{
+				for( size_t ColorIdx = 0; ColorIdx < Tex.PixelSize; ++ColorIdx )
+				{
+					unsigned int Color = 0;
+					
+					unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) + ColorIdx;
+					
+					Color = Tex.Pixels[ idx ] + ( Tex.Pixels[ idx + 1 ] << 8 ) + ( Tex.Pixels[ idx + 2 ] << 16 ) + ( Tex.Pixels[ idx + 3 ] << 24 );
+					
+					if( Color == 0 && ColorIdx == 0 )
+					{
+						unsigned int Left = 0;
+						unsigned int Right = 0;
+						unsigned int Up = 0;
+						unsigned int Down = 0;
+						
+						if( x != 0 )
+						{
+							Left = Tex.Pixels[ idx - 4 ] 
+								 + ( Tex.Pixels[ idx - 3 ] << 8 ) 
+								 + ( Tex.Pixels[ idx - 2 ] << 16 ) 
+								 + ( Tex.Pixels[ idx - 1 ] << 24 );
+						}
+						if( x != Tex.Width - 2 )
+						{
+							Right = Tex.Pixels[ idx + 4 ] 
+								  + ( Tex.Pixels[ idx + 5 ] << 8 ) 
+								  + ( Tex.Pixels[ idx + 6 ] << 16 ) 
+								  + ( Tex.Pixels[ idx + 7 ] << 24 );
+						}
+						if( y != 0 )
+						{
+							Up = Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) ]
+							   + ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 1 ] << 8 )
+							   + ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 2 ] << 16 )
+							   + ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 3 ] << 24 );
+						}
+						if( y < Tex.Height - 2 )
+						{
+							Down = Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) ]
+							   	 + ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 1 ] << 8 )
+							  	 + ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 2 ] << 16 )
+							  	 + ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 3 ] << 24 );
+						}
+						
+						unsigned int TempColor = Left & 0xff + Right & 0xff + Up & 0xff + Down & 0xff;
+						
+						TempColor /= Tex.PixelSize;
+						
+						Tex.Pixels[ idx ] = TempColor;
+
+						TempColor = ( Left >> 8 ) & 0xff + ( Right >> 8 ) & 0xff + ( Up >> 8 ) & 0xff + ( Down >> 8 ) & 0xff;
+
+						TempColor /= Tex.PixelSize;
+						
+						Tex.Pixels[ idx ] = TempColor;
+												
+						TempColor = ( Left >> 16 ) & 0xff + ( Right >> 16 ) & 0xff + ( Up >> 16 ) & 0xff + ( Down >> 16 ) & 0xff;
+
+						TempColor /= Tex.PixelSize;
+						
+						Tex.Pixels[ idx ] = TempColor;
+
+					}
+				}
+			}
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void HalfFilter( cTex& Tex )
@@ -202,7 +296,6 @@ void HalfFilter( cTex& Tex )
 	
 	char* HalfedImage = new char[ NewWidth * NewHeight * Tex.PixelSize ];
 	
-	size_t OffsetIdx = 0;
 	for( size_t x = 0; x < NewWidth; ++x )
 	{
 		for( size_t y = 0; y < NewHeight; ++y )

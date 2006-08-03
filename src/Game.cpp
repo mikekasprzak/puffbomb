@@ -44,7 +44,8 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 		Platform::AspectRatio,
 		1.0,
 		100000.0,
-		HudZoom,
+		400.0,
+//		HudZoom,
 		HudZoom + Real( 8000 ),
 		HudZoom
 	 );
