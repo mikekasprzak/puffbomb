@@ -19,12 +19,12 @@ public:
 	unsigned int PixelSize;
 	unsigned int Width;
 	unsigned int Height;
-//	void* Pixels;
-	char* Pixels;
+	unsigned char* Pixels;
 };
 // - ------------------------------------------------------------------------------------------ - //
 unsigned int Filters( const std::string PathFileName );
 void ApplyProcFilters( unsigned int& FilterFlags, cTex& Tex );
+void HalfFilter( cTex& Tex );
 // - ------------------------------------------------------------------------------------------ - //
 //	FlagFilters
 typedef const unsigned int fl;
@@ -48,15 +48,14 @@ int main( int argc, char* argv[] ) {
 	unsigned int FilterFlags = 0;
 
 	SDL_Surface* Image = IMG_Load( argv[1] );
+
 	std::ofstream outfile ( argv[2], ofstream::binary );
 
 	cTex Tex;
 
-	Tex.PixelSize = 0;
 	Tex.Width = Image->w;
 	Tex.Height = Image->h;
-	Tex.Pixels = (char*)Image->pixels;
-	
+
 	if( Image->flags & SDL_SRCALPHA )
 	{
 		// RGBA Texture //
@@ -68,6 +67,11 @@ int main( int argc, char* argv[] ) {
 		Tex.PixelSize = 3;
 	}
 
+	Tex.Pixels = new unsigned char[ Tex.Width * Tex.Height * Tex.PixelSize ];
+	memcpy( Tex.Pixels, Image->pixels, Tex.Width * Tex.Height * Tex.PixelSize );
+	
+	SDL_FreeSurface( Image );
+	
 	// - -------------------------------------------------------------------------------------- - //
 	// Command Line Filters //
 	// - -------------------------------------------------------------------------------------- - //
@@ -93,16 +97,11 @@ int main( int argc, char* argv[] ) {
 	outfile.write( (char*)&Tex.Width, sizeof( unsigned int ) );
 	outfile.write( (char*)&Tex.Height, sizeof( unsigned int ) );
 	
-	outfile.write( Tex.Pixels, Tex.PixelSize * ( Tex.Width * Tex.Height ) );
+	outfile.write( ( char* )Tex.Pixels, Tex.PixelSize * ( Tex.Width * Tex.Height ) );
 	
 	outfile.close();
 	
-	if( Tex.Pixels != Image->pixels )
-	{
-		delete[] Tex.Pixels;
-	}
-
-	SDL_FreeSurface( Image );
+	delete[] Tex.Pixels;
 
 	return 0;
 }
@@ -170,55 +169,15 @@ void ApplyProcFilters( unsigned int& FilterFlags, cTex& Tex )
 	// - -------------------------------------------------------------------------------------- - //
 	if( FilterFlags & flHalf )
 	{
-		size_t NewSize = ( ( Tex.Width / 2 ) * ( Tex.Height / 2 ) * Tex.PixelSize );
-		char* HalfedImage = new char[ NewSize ];
-		
-		size_t AvgIdx = 0;
-		size_t OffsetIdx = 0;
-		cout << "SIZE " << NewSize << endl;
-		for( size_t idx = 0; idx < NewSize; ++idx )
-		{
-			AvgIdx = OffsetIdx;
-			unsigned int Color = 0;
-			
-			Color += Tex.Pixels[ AvgIdx ];
-			AvgIdx += Tex.PixelSize;
-			Color += Tex.Pixels[ AvgIdx ];
-			AvgIdx = OffsetIdx;
-			AvgIdx += ( Tex.Width * Tex.PixelSize );
-			Color += Tex.Pixels[ AvgIdx ];
-			AvgIdx += Tex.PixelSize;
-			Color += Tex.Pixels[ AvgIdx ];
-			
-			Color /= 4;
-			
-			HalfedImage[ idx ] = Color;
-			
-			OffsetIdx++;
-			
-			if( OffsetIdx % ( Tex.Width * Tex.PixelSize ) == 0 )
-			{
-				OffsetIdx += ( Tex.Width * Tex.PixelSize );
-			}
-			else if( OffsetIdx % Tex.PixelSize == 0 )
-			{
-				OffsetIdx += Tex.PixelSize;
-			}
-
-		}
-		
-		Tex.Width /= 2;
-		Tex.Height /= 2;		
-
-		Tex.Pixels = (char*)HalfedImage;
-		
+		HalfFilter( Tex );
 		FilterFlags ^= flHalf;
 		cout << "Half size filter applied" << endl;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	if( FilterFlags & flQuarter )
 	{
-		
+		HalfFilter( Tex );
+		HalfFilter( Tex );
 
 		FilterFlags ^= flQuarter;
 		cout << "Quarter size filter applied" << endl;
@@ -226,11 +185,53 @@ void ApplyProcFilters( unsigned int& FilterFlags, cTex& Tex )
 	// - -------------------------------------------------------------------------------------- - //
 	if( FilterFlags & flEighth )
 	{
-		
+		HalfFilter( Tex );
+		HalfFilter( Tex );
+		HalfFilter( Tex );
 
 		FilterFlags ^= flEighth;
 		cout << "Eighth size filter applied" << endl;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+}
+// - ------------------------------------------------------------------------------------------ - //
+void HalfFilter( cTex& Tex )
+{
+	size_t NewWidth = ( Tex.Width / 2 );
+	size_t NewHeight = ( Tex.Height / 2 );
+	
+	char* HalfedImage = new char[ NewWidth * NewHeight * Tex.PixelSize ];
+	
+	size_t OffsetIdx = 0;
+	for( size_t x = 0; x < NewWidth; ++x )
+	{
+		for( size_t y = 0; y < NewHeight; ++y )
+		{
+			for( size_t ColorIdx = 0; ColorIdx < Tex.PixelSize; ++ColorIdx )
+			{
+				unsigned int Color = 0;
+				
+				unsigned int idx = ( x * 2 * Tex.PixelSize ) + ( y * 2 * Tex.PixelSize * Tex.Width ) + ColorIdx;
+				
+				Color += Tex.Pixels[ idx ];
+				Color += Tex.Pixels[ idx + Tex.PixelSize ];
+				Color += Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) ];
+				Color += Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + Tex.PixelSize ];
+				
+				Color /= 4;
+				
+				HalfedImage[ ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * NewWidth ) + ColorIdx ] = Color;
+
+			}
+		}
+	}
+	
+	Tex.Width = NewWidth;
+	Tex.Height = NewHeight;	
+
+	delete[] Tex.Pixels;
+			
+	Tex.Pixels = (unsigned char*)HalfedImage;
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
