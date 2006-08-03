@@ -235,12 +235,23 @@ void FattenFilter( cTex& Tex )
 						unsigned int Up = 0;
 						unsigned int Down = 0;
 						
+						int RedCount = 0;
+						int GreenCount = 0;
+						int BlueCount = 0;
+						
 						if( x != 0 )
 						{
 							Left = Tex.Pixels[ idx - 4 ] 
 								 + ( Tex.Pixels[ idx - 3 ] << 8 ) 
 								 + ( Tex.Pixels[ idx - 2 ] << 16 ) 
 								 + ( Tex.Pixels[ idx - 1 ] << 24 );
+								 
+							if( Tex.Pixels[ idx - 4 ] != 0 )
+								RedCount++;
+							if( Tex.Pixels[ idx - 3 ] != 0 )
+								GreenCount++;
+							if( Tex.Pixels[ idx - 2 ] != 0 )
+								BlueCount++;
 						}
 						if( x != Tex.Width - 2 )
 						{
@@ -248,6 +259,14 @@ void FattenFilter( cTex& Tex )
 								  + ( Tex.Pixels[ idx + 5 ] << 8 ) 
 								  + ( Tex.Pixels[ idx + 6 ] << 16 ) 
 								  + ( Tex.Pixels[ idx + 7 ] << 24 );
+								  
+							if( Tex.Pixels[ idx + 4 ] != 0 )
+								RedCount++;
+							if( Tex.Pixels[ idx + 5 ] != 0 )
+								GreenCount++;
+							if( Tex.Pixels[ idx + 6 ] != 0 )
+								BlueCount++;
+
 						}
 						if( y != 0 )
 						{
@@ -255,6 +274,13 @@ void FattenFilter( cTex& Tex )
 							   + ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 1 ] << 8 )
 							   + ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 2 ] << 16 )
 							   + ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 3 ] << 24 );
+							   
+							if( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) ] != 0 )
+								RedCount++;
+							if( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 1 ] != 0 )
+								GreenCount++;
+							if( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 2 ] != 0 )
+								BlueCount++;
 						}
 						if( y < Tex.Height - 2 )
 						{
@@ -262,23 +288,42 @@ void FattenFilter( cTex& Tex )
 							   	 + ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 1 ] << 8 )
 							  	 + ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 2 ] << 16 )
 							  	 + ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 3 ] << 24 );
+							  	 
+							if( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) ] != 0 )
+								RedCount++;
+							if( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 1 ] != 0 )
+								GreenCount++;
+							if( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 2 ] != 0 )
+								BlueCount++;
+
 						}
+						
+						
 						
 						unsigned int TempColor = Left & 0xff + Right & 0xff + Up & 0xff + Down & 0xff;
 						
-						TempColor /= Tex.PixelSize;
+						if( RedCount != 0 )
+						{
+							TempColor /= RedCount;
+						}
 						
 						Tex.Pixels[ idx ] = TempColor;
 
 						TempColor = ( Left >> 8 ) & 0xff + ( Right >> 8 ) & 0xff + ( Up >> 8 ) & 0xff + ( Down >> 8 ) & 0xff;
-
-						TempColor /= Tex.PixelSize;
+						
+						if( GreenCount != 0 )
+						{
+							TempColor /= GreenCount;
+						}
 						
 						Tex.Pixels[ idx + 1 ] = TempColor;
 												
 						TempColor = ( Left >> 16 ) & 0xff + ( Right >> 16 ) & 0xff + ( Up >> 16 ) & 0xff + ( Down >> 16 ) & 0xff;
 
-						TempColor /= Tex.PixelSize;
+						if( BlueCount != 0 )
+						{
+							TempColor /= BlueCount;
+						}
 						
 						Tex.Pixels[ idx + 2 ] = TempColor;
 
