@@ -17,8 +17,7 @@ include $(ToolChain)/tools.mak
 
 
 # - -------------------------------------------------------------------------------------------- - #
-#CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Game/$(GAME_TARGET)
-CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Game ../src ../Platform/SDL
+CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Game # Game/$(GAME_TARGET)
 # - -------------------------------------------------------------------------------------------- - #
 CONTENT_DIRS	:=	$(GAME_TARGET)
 CONTENT_EXT		:=	.png .ogg .anim .font .form .map .body2d .mesh2d .body3d .mesh3d
@@ -122,24 +121,18 @@ $(RELEASE_DIR)/%: Content/$(SYSTEM_TARGET)/% $(ALL_DEPEND)
 
 # - -------------------------------------------------------------------------------------------- - #
 # 3D Meshes ------------------------------------------------------------------------------------ - #
-$(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3DTool) $(ALL_DEPEND)
+$(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3DTool)
 	$(Mesh3DTool) $< $(DATA_DIR)/$*.bin.mesh3d
 	$(Compress) $(DATA_DIR)/$*.bin.mesh3d $@
 # - -------------------------------------------------------------------------------------------- - #
 # Textures ------------------------------------------------------------------------------------- - #
-$(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
+$(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool)
 	$(TextureTool) $< $(DATA_DIR)/$*.tx -fatten
 	$(Compress) $(DATA_DIR)/$*.tx $@
 # - -------------------------------------------------------------------------------------------- - #
 # Specific unprocessed content ----------------------------------------------------------------- - #
-$(RELEASE_DIR)/%: Content/$(GAME_TARGET)/% $(ALL_DEPEND)
+$(RELEASE_DIR)/%: Content/$(GAME_TARGET)/%
 	cp $< $@
-# - -------------------------------------------------------------------------------------------- - #
-
-
-# - -------------------------------------------------------------------------------------------- - #
-#$(RELEASE_DIR)/%.tx: Content/$(GAME_TARGET)/%.png $(PngTool) $(ALL_DEPEND)
-#	$(PngTool) $< $@
 # - -------------------------------------------------------------------------------------------- - #
 
 	
