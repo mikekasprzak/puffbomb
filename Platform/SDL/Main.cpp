@@ -335,7 +335,7 @@ int main( int argc, char* argv[] ) {
 		
 		Log( LOG_HIGHEST_LEVEL, "Creating Game..." );
 		cGame Game( Platform::ScreenW, Platform::ScreenH );
-		cGlobal::Zoom = Real( -32.0 );
+//		cGlobal::Zoom = Real( -32.0 );
 		
 		#ifdef EDITOR		
 		Log( LOG_HIGHEST_LEVEL, "Creating Editor..." );
@@ -347,7 +347,7 @@ int main( int argc, char* argv[] ) {
 //		glLoadIdentity();
 //		gluPerspective( Camera.FovY, Camera.Aspect, Camera.NearClip, Camera.FarClip ); 
 //		glMatrixMode(GL_MODELVIEW); 
-		cGlobal::Origin = Vector2D( 0, 0 );
+	//	cGlobal::Origin = Vector2D( 0, 0 );
 		//cGlobal::Origin = -Game.Focus1->BoundingRect.Center();
 		
 		extern int GetTime();

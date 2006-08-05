@@ -27,14 +27,14 @@ public:
 	static int HudH;
 	static int HudW;
 		
-	static Vector2D Origin;
+//	static Vector2D Origin;
 	static int ScreenW;
 	static int ScreenH;
 	
 	static Real HudZoom;
 	
-	static Real Zoom;
-	static Real EditorZoom;
+//	static Real Zoom;
+//	static Real EditorZoom;
 	static bool IsEditMode;
 	static bool IsMesh2DEditor;
 	static bool Shutdown;	

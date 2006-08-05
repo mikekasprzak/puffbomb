@@ -131,7 +131,7 @@ void gfx::Face( const Vector2D& a, const Vector2D& b, const Vector2D& c,
 // - ------------------------------------------------------------------------------------------ - //
 void gfx::Polygon( const Vector3D& a, const Vector3D& b, const Vector3D& c, int Color )
 {
-	Vector3D Offset = Vector3D( cGlobal::Origin.x, cGlobal::Origin.y, 0.0 );
+//	Vector3D Offset = Vector3D( cGlobal::Origin.x, cGlobal::Origin.y, 0.0 );
 
 	glBegin(GL_POLYGON);
 		glNormal3f( 0.0f, 1.0f, 1.0f );

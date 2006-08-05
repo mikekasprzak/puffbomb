@@ -365,7 +365,7 @@ void cMapEdit::DrawMesh( int idx, Vector2D MapPos )
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ToggleEdit()
 {
-	cGlobal::Origin = Focus;
+//	cGlobal::Origin = Focus;
 	
 	if( cGlobal::DebugDraw & cGlobal::flExtraInfo )
 	{
@@ -381,7 +381,7 @@ void cMapEdit::ToggleEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ToggleGame()
 {
-	Focus = cGlobal::Origin;
+//	Focus = cGlobal::Origin;
  	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -396,8 +396,8 @@ void cMapEdit::Physics()
 		}*/
 		// Resets the zoom
 		Scale = Real::One;
-		cGlobal::Origin.x = 0;
-		cGlobal::Origin.y = 0;
+//		cGlobal::Origin.x = 0;
+//		cGlobal::Origin.y = 0;
 			
 		Camera->Pos.x = 0.0;
 		Camera->Pos.y = 0.0;

@@ -70,8 +70,8 @@ void cEditor::Step()
 			Mesh2DEdit->IsHelp = !Mesh2DEdit->IsHelp;
 			// Resets the zoom
 			Mesh2DEdit->Scale = Real::One;
-			cGlobal::Origin.x = 0;
-			cGlobal::Origin.y = 0;
+//			cGlobal::Origin.x = 0;
+//			cGlobal::Origin.y = 0;
 				
 			Mesh2DEdit->Camera->Pos.x = 0.0;
 			Mesh2DEdit->Camera->Pos.y = 0.0;
@@ -86,8 +86,8 @@ void cEditor::Step()
 			MapEdit->IsHelp = !MapEdit->IsHelp;
 			// Resets the zoom
 			MapEdit->Scale = Real::One;
-			cGlobal::Origin.x = 0;
-			cGlobal::Origin.y = 0;
+//			cGlobal::Origin.x = 0;
+//			cGlobal::Origin.y = 0;
 				
 			MapEdit->Camera->Pos.x = 0.0;
 			MapEdit->Camera->Pos.y = 0.0;

@@ -867,8 +867,8 @@ void cMesh2DEdit::Undo()
 	if ( Button[ KEY_TAB ].Pressed() )
 	{
 		Scale = Real::One;
-		cGlobal::Origin.x = 0;
-		cGlobal::Origin.y = 0;
+//		cGlobal::Origin.x = 0;
+//		cGlobal::Origin.y = 0;
 
 		Camera->Pos.x = 0.0;
 		Camera->Pos.y = 0.0;

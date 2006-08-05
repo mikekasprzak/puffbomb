@@ -12,12 +12,12 @@ int cGlobal::HudW = Real( 1920.0 );
 
 int cGlobal::ScreenW = 800;
 int cGlobal::ScreenH = 600;
-Vector2D cGlobal::Origin = Vector2D( 800, 600 );
+//Vector2D cGlobal::Origin = Vector2D( 800, 600 );
 	
 Real cGlobal::HudZoom = 1302.5;
 std::vector< size_t > cGlobal::SwitchTexture;
-Real cGlobal::Zoom;
-Real cGlobal::EditorZoom;
+//Real cGlobal::Zoom;
+//Real cGlobal::EditorZoom;
 bool cGlobal::IsEditMode = false;
 
 bool cGlobal::IsMesh2DEditor = false;
@@ -34,8 +34,8 @@ cGlobal::cGlobal( int _ScreenW, int _ScreenH )
 {
 	ScreenW = _ScreenW;
 	ScreenH = _ScreenH;
-	Origin = Vector2D( _ScreenW >> 1, _ScreenH >> 1 );
-	Zoom = Real::Zero;
+//	Origin = Vector2D( _ScreenW >> 1, _ScreenH >> 1 );
+//	Zoom = Real::Zero;
 	
 	DebugDraw = 0;//flCollision;
 	
