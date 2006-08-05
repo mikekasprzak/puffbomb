@@ -14,7 +14,11 @@
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
-
+#define MAP_EDITOR 			4
+#define COLLECTION_EDITOR 	5
+#define BODY_EDITOR 		6
+#define ANIMATION_EDITOR 	7
+#define MESH2D_EDITOR 		8
 // - ------------------------------------------------------------------------------------------ - //
 
 class cGlobal {
@@ -27,21 +31,17 @@ public:
 	static int HudH;
 	static int HudW;
 		
-//	static Vector2D Origin;
 	static int ScreenW;
 	static int ScreenH;
 	
 	static Real HudZoom;
 	
-//	static Real Zoom;
-//	static Real EditorZoom;
 	static bool IsEditMode;
-	static bool IsMesh2DEditor;
 	static bool Shutdown;	
 	
+	static int CurEditor;
+		
 	static Uint8 *key;
-	
-//	static SDL_Cursor *mouse;
 	
 	enum {
 		flCollision = bit0,

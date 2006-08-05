@@ -426,7 +426,7 @@ int main( int argc, char* argv[] ) {
 				
 					glDisable( GL_DEPTH_TEST );
 								
-					if( cGlobal::IsMesh2DEditor )	
+					if( cGlobal::CurEditor == MESH2D_EDITOR )	
 					{
 		
 						// Screen 1 (Left Side) //	
@@ -499,7 +499,86 @@ int main( int argc, char* argv[] ) {
 						Editor.Mesh2DEdit->HudDraw();
 						
 					}
-					else // One Screen Segment //
+					else if( cGlobal::CurEditor == COLLECTION_EDITOR )
+					{
+
+					}
+					else if( cGlobal::CurEditor == BODY_EDITOR )
+					{
+						
+					}
+					else if( cGlobal::CurEditor == ANIMATION_EDITOR )
+					{
+						// Screen 1 (Left Side) //	
+						glViewport( 0, 0, Real( Platform::ScreenW * 0.75), Platform::ScreenH );
+						glMatrixMode (GL_PROJECTION);
+						glLoadIdentity();
+						gluPerspective( 45.0, Platform::AspectRatio * Real(0.75), 1.0, 100000.0 ); 
+						glMatrixMode(GL_MODELVIEW);
+						
+						glLoadIdentity();
+						glTranslatef( 	-Editor.AnimationEdit->Camera->Pos.x,
+										-Editor.AnimationEdit->Camera->Pos.y,
+										-Editor.AnimationEdit->Camera->Pos.z
+									);
+						
+						Editor.Draw();
+
+
+	/*					// Screen 2 (Upper Right Screen) //
+						glViewport(
+							Real(Platform::ScreenW * 0.75 ),
+							Real(Platform::ScreenH * Editor.Mesh2DEdit->UVHeight ),
+							Real( Platform::ScreenW * Editor.Mesh2DEdit->UVWidth ),
+							Platform::ScreenH );
+						glMatrixMode (GL_PROJECTION);
+						glLoadIdentity();
+						gluPerspective( 45.0, Editor.Mesh2DEdit->UVHeight, 1.0, 100000.0 );
+						//gluPerspective( 45.0, 0.4, 1.0, 100000.0 );
+						glMatrixMode(GL_MODELVIEW);
+						
+						glLoadIdentity();
+						glTranslatef(	-Editor.AnimationEdit->PreviewCamera->Pos.x,
+										-Editor.AnimationEdit->PreviewCamera->Pos.y,
+										-Editor.AnimationEdit->PreviewCamera->Pos.z
+						);
+		
+						Editor.Mesh2DEdit->DrawPreview();
+						
+						
+						// Screen 3 (Lower Right Screen) //
+						glViewport(
+							Real(Platform::ScreenW * 0.75),
+							0,
+							Real( Platform::ScreenW * Editor.Mesh2DEdit->UVWidth ),
+							Real( Platform::ScreenH * Editor.Mesh2DEdit->UVHeight ) );
+						glMatrixMode (GL_PROJECTION);
+						glLoadIdentity();
+						gluPerspective( 45.0, 1.0, 1.0, 100000.0 );
+						glMatrixMode(GL_MODELVIEW);
+						
+						glLoadIdentity();
+						glTranslatef(	-Editor.AnimationEdit->UVCamera->Pos.x,
+										-Editor.AnimationEdit->UVCamera->Pos.y,
+										-Editor.AnimationEdit->UVCamera->Pos.z
+						);
+						Editor.Mesh2DEdit->DrawTextureCoord();
+						*/
+						// Draw Hud Info //
+						glViewport( 0, 0, Platform::ScreenW, Platform::ScreenH );
+						glMatrixMode (GL_PROJECTION);
+						glLoadIdentity();
+						gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 
+						glMatrixMode(GL_MODELVIEW);
+				
+						glLoadIdentity();
+						glTranslatef(	-Editor.AnimationEdit->HudCamera->Pos.x,
+										-Editor.AnimationEdit->HudCamera->Pos.y,
+										-Editor.AnimationEdit->HudCamera->Pos.z
+						);
+						Editor.AnimationEdit->HudDraw();						
+					}
+					else // MAP_EDITOR //
 					{
 						// Draw Map Editor // 
 						glLoadIdentity();

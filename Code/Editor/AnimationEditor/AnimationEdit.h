@@ -24,6 +24,7 @@ public:
 
 public:
 	void Draw();
+	void HudDraw();
 	void Step();
 
 };

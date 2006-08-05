@@ -14,11 +14,6 @@
 #include "Mesh2DEditor/Mesh2DEdit.h"
 #include "AnimationEditor/AnimationEdit.h"
 // - ------------------------------------------------------------------------------------------ - //
-#define MAP_EDITOR 			4
-#define COLLECTION_EDITOR 	5
-#define BODY_EDITOR 		6
-#define ANIMATION_EDITOR 	7
-#define MESH2D_EDITOR 		8
 
 // - ------------------------------------------------------------------------------------------ - //
 class cEditor {
@@ -28,8 +23,6 @@ public:
 	~cEditor();
 
 public:
-	int CurEditor;
-
 	cGame* Game;
 
 	cMapEdit* MapEdit;
