@@ -78,7 +78,7 @@ PLATFORM_CONTENT:=	$(subst .png,.pack.tx,$(PLATFORM_CONTENT))
 CONTENT			:=	$(CONST_CONTENT) $(PLATFORM_CONTENT)
 # - -------------------------------------------------------------------------------------------- - #
 
-ALL_DEPEND		:=	$(OBJ_DIR)/makedirs
+ALL_DEPEND		:=	$(OUT_DIR)/makedirs
 
 # - -------------------------------------------------------------------------------------------- - #
 # - Target specific compiling, linking, and executing ------------------------------------------ - #
@@ -106,7 +106,7 @@ endef
 makedirs:
 	$(_makedirs)
 # - -------------------------------------------------------------------------------------------- - #
-$(OBJ_DIR)/makedirs:
+$(OUT_DIR)/makedirs:
 	$(_makedirs)
 	$(Touch) $@
 # - -------------------------------------------------------------------------------------------- - #
@@ -121,17 +121,17 @@ $(RELEASE_DIR)/%: Content/$(SYSTEM_TARGET)/% $(ALL_DEPEND)
 
 # - -------------------------------------------------------------------------------------------- - #
 # 3D Meshes ------------------------------------------------------------------------------------ - #
-$(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3DTool)
+$(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3DTool) $(ALL_DEPEND)
 	$(Mesh3DTool) $< $(DATA_DIR)/$*.bin.mesh3d
 	$(Compress) $(DATA_DIR)/$*.bin.mesh3d $@
 # - -------------------------------------------------------------------------------------------- - #
 # Textures ------------------------------------------------------------------------------------- - #
-$(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool)
+$(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
 	$(TextureTool) $< $(DATA_DIR)/$*.tx -fatten
 	$(Compress) $(DATA_DIR)/$*.tx $@
 # - -------------------------------------------------------------------------------------------- - #
 # Specific unprocessed content ----------------------------------------------------------------- - #
-$(RELEASE_DIR)/%: Content/$(GAME_TARGET)/%
+$(RELEASE_DIR)/%: Content/$(GAME_TARGET)/% $(ALL_DEPEND)
 	cp $< $@
 # - -------------------------------------------------------------------------------------------- - #
 
