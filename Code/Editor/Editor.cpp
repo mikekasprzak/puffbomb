@@ -9,12 +9,13 @@
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cEditor::cEditor( cGame& _Game ) :
-	NonActiveZoom( -900.0 ),
-	NonActiveOrigin( Vector2D( 0.0, 0.0 ) ),
+	CurEditor( 4 ),
 	Game( &_Game )
 {
 	Mesh2DEdit = new cMesh2DEdit();
 	MapEdit = new cMapEdit( _Game, *Mesh2DEdit );
+	AnimationEdit = new cAnimationEdit();
+	
 
 }
 // - ------------------------------------------------------------------------------------------ - //	
@@ -23,11 +24,11 @@ cEditor::~cEditor()
 	Log( LOG_HIGHEST_LEVEL, "~cEditor() Delete Map and Mesh Editor" );
 	delete MapEdit;
 	delete Mesh2DEdit;
+	delete AnimationEdit;
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Step()
 {
-	
 	if( cGlobal::IsMesh2DEditor )
 	{
 		if( Mesh2DEdit->IsHelp )
@@ -99,7 +100,7 @@ void cEditor::Step()
 
 	}
 	
-	if ( Button[ KEY_F2 ].Pressed() )
+/*	if ( Button[ KEY_F2 ].Pressed() )
 	{
 		cGlobal::IsMesh2DEditor = !cGlobal::IsMesh2DEditor;
 		
@@ -113,7 +114,33 @@ void cEditor::Step()
 		NonActiveOrigin = cGlobal::Origin;
 		cGlobal::Origin = tempOrigin;
 		
+	}*/
+	if( Button[ KEY_F4 ].Pressed() )
+	{
+		cGlobal::IsMesh2DEditor = false;
+		CurEditor = MAP_EDITOR;
 	}
+	else if( Button[ KEY_F5 ].Pressed() )
+	{
+		cGlobal::IsMesh2DEditor = true;
+		CurEditor = COLLECTION_EDITOR;
+	}
+	else if( Button[ KEY_F6 ].Pressed() )
+	{
+		cGlobal::IsMesh2DEditor = true;
+		CurEditor = BODY_EDITOR;
+	}
+	else if( Button[ KEY_F7 ].Pressed() )
+	{
+		cGlobal::IsMesh2DEditor = true;
+		CurEditor = ANIMATION_EDITOR;
+	}
+	else if( Button[ KEY_F8 ].Pressed() )
+	{
+		cGlobal::IsMesh2DEditor = true;
+		CurEditor = MESH2D_EDITOR;
+	}
+	
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Draw()

@@ -73,7 +73,8 @@ public:
 	bool WithinBox( Vector2D &TestPoint, Vector2D &PointA, Vector2D &PointB );
 	Vector2D CalcSnapToGrid( Vector2D &TempVec2D, size_t CurGridDepth, Real* MyGridDepth );
 	int ArraySize( char * array );
-
+public:	
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

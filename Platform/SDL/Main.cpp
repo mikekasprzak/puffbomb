@@ -40,24 +40,24 @@ bool IsActive = true;
 bool IsSplitScreen = false;
 // ---------------------------------------------------------------------------------------------- //
 
-#ifdef EDITOR
-void GlobalInput( cEditor& Editor ) {
-#else // EDITOR //
+//#ifdef EDITOR
+//void GlobalInput( cEditor& Editor ) {
+//#else // EDITOR //
 void GlobalInput() {
-#endif // Editor //
+//#endif // Editor //
 	// Test for global keys //
 	if ( Input::Button[ KEY_F10 ].Pressed() ) {
 	    //QuitGame( 0 );
 	    cGlobal::Shutdown = true;
 	}
-	if ( Input::Button[ KEY_F7 ].Pressed() ) {
+//	if ( Input::Button[ KEY_F7 ].Pressed() ) {
 //		IsSplitScreen = false;
-	}
-	if ( Input::Button[ KEY_F8 ].Pressed() ) {
+//	}
+//	if ( Input::Button[ KEY_F8 ].Pressed() ) {
 //		IsSplitScreen = true;
-	}
+//	}
 	#ifdef EDITOR
-	if ( Input::Button[ KEY_F3 ].Pressed() ) {
+/*	if ( Input::Button[ KEY_F3 ].Pressed() ) {
 		cGlobal::IsEditMode = !cGlobal::IsEditMode;
 
 		if ( cGlobal::IsEditMode ) {
@@ -88,7 +88,18 @@ void GlobalInput() {
 		gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 
 		glMatrixMode(GL_MODELVIEW);
 
+	}*/
+	if ( Input::Button[ KEY_ESC ].Pressed()  )
+	{
+		cGlobal::IsEditMode = false;
 	}
+	if( Input::Button[ KEY_F4 ] || Input::Button[ KEY_F5 ] || Input::Button[ KEY_F6 ]
+	 || Input::Button[ KEY_F7 ] || Input::Button[ KEY_F8 ] )
+	{
+		cGlobal::IsEditMode = true;
+	}
+
+	
 	#endif // EDITOR //	
 }
 // ---------------------------------------------------------------------------------------------- //
@@ -374,12 +385,12 @@ int main( int argc, char* argv[] ) {
 				{
 					// Update this frames state of controls //
 					Input::Update();
-					#ifdef EDITOR
+					//#ifdef EDITOR
 					// Do our global input, cleaning up this function //
-					GlobalInput( Editor );
-					#else // EDITOR //
+					//GlobalInput( Editor );
+					//#else // EDITOR //
 					GlobalInput();
-					#endif // EDITOR //
+					//#endif // EDITOR //
 					
 					// Step appropriately the editor or the game, depending on the mode //
 					if( cGlobal::IsEditMode ) {
@@ -488,7 +499,7 @@ int main( int argc, char* argv[] ) {
 						Editor.Mesh2DEdit->HudDraw();
 						
 					}
-					else
+					else // One Screen Segment //
 					{
 						// Draw Map Editor // 
 						glLoadIdentity();
