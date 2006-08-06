@@ -503,7 +503,7 @@ int main( int argc, char* argv[] ) {
 					{
 
 					}
-					else if( cGlobal::CurEditor == BODY_EDITOR )
+					else if( cGlobal::CurEditor == BODY2D_EDITOR )
 					{
 						
 					}

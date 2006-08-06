@@ -16,7 +16,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #define MAP_EDITOR 			4
 #define COLLECTION_EDITOR 	5
-#define BODY_EDITOR 		6
+#define BODY2D_EDITOR 		6
 #define ANIMATION_EDITOR 	7
 #define MESH2D_EDITOR 		8
 // - ------------------------------------------------------------------------------------------ - //

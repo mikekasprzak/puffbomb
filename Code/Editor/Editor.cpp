@@ -46,9 +46,9 @@ void cEditor::Step()
 	{
 
 	}
-	else if( cGlobal::CurEditor == BODY_EDITOR )
+	else if( cGlobal::CurEditor == BODY2D_EDITOR )
 	{
-
+		
 	}
 	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 	{
@@ -92,7 +92,7 @@ void cEditor::Step()
 		{
 	
 		}
-		else if( cGlobal::CurEditor == BODY_EDITOR )
+		else if( cGlobal::CurEditor == BODY2D_EDITOR )
 		{
 	
 		}
@@ -141,7 +141,7 @@ void cEditor::Step()
 	}
 	else if( Button[ KEY_F6 ].Pressed() )
 	{
-		cGlobal::CurEditor = BODY_EDITOR;
+		cGlobal::CurEditor = BODY2D_EDITOR;
 	}
 	else if( Button[ KEY_F7 ].Pressed() )
 	{
@@ -178,7 +178,7 @@ void cEditor::Draw()
 	{
 
 	}
-	else if( cGlobal::CurEditor == BODY_EDITOR )
+	else if( cGlobal::CurEditor == BODY2D_EDITOR )
 	{
 
 	}
