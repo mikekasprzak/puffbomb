@@ -91,8 +91,6 @@ cEdit::~cEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::Scroll( cCamera* MyCamera )
 {
-//	cGlobal::HudH;
-	
 	// Scroll Mouse Button
 	// Pans the screen	
 	if( Button[ MOUSE_3 ] && MiddleClick == false )
@@ -117,9 +115,7 @@ void cEdit::Scroll( cCamera* MyCamera )
 	
 		MyCamera->View.x = MyCamera->Pos.x;
 		MyCamera->View.y = MyCamera->Pos.y;
-
 	}
-	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, bool DrawOrig, Real* MyGridDepth )
@@ -516,6 +512,39 @@ int cEdit::ArraySize( char * array )
 		TempChar = array[Idx];
 	}
 	return Idx;
+}
+// - ------------------------------------------------------------------------------------------ - //
+bool cEdit::CheckViewOne()
+{
+	if( Mouse.x * Real( cGlobal::HudW ) < Real(cGlobal::HudW * 0.75) )
+	{
+		return true;	
+	}
+	return false;
+}
+// - ------------------------------------------------------------------------------------------ - //
+bool cEdit::CheckViewTwo( const Real ViewHeight )
+{
+	if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
+	{
+		if( Mouse.y * Real( cGlobal::HudH ) < Real(cGlobal::HudH * ( 1 - ViewHeight ) ) )
+		{
+			return true;
+		}
+	}
+	return false;
+}
+// - ------------------------------------------------------------------------------------------ - //
+bool cEdit::CheckViewThree( const Real ViewHeight )
+{
+	if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
+	{
+		if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * ( 1 - ViewHeight ) ) )
+		{
+			return true;
+		}
+	}
+	return false;
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

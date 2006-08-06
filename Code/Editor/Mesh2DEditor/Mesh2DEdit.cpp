@@ -288,7 +288,7 @@ void cMesh2DEdit::DrawTextureCoord()
 		DisDrawUV();
 	}
 	
-	if( CheckViewThree() )
+	if( CheckViewThree( UVHeight ) )
 	{
 		
 		if( LastView != CurView )
@@ -435,7 +435,7 @@ void cMesh2DEdit::Step()
 			}
 		}
 	}
-	else if( CheckViewTwo() )
+	else if( CheckViewTwo( UVHeight ) )
 	{
 		CurView = 2;
 		// Handles scrolling around the map
@@ -444,12 +444,12 @@ void cMesh2DEdit::Step()
 		// Handles the zooming in and out of the preview
 		Zoom( Real( 32.0 ), PreviewCamera );
 	}
-	else if( CheckViewThree() )
+	else if( CheckViewThree( UVHeight ) )
 	{
 		CurView = 3;
 		if( EditMode == TEXTURE_MODE )
 		{
-			if( CheckViewThree() )
+			if( CheckViewThree( UVHeight ) )
 			{
 				if( !isUVGroupMove )
 				{
@@ -948,39 +948,6 @@ void cMesh2DEdit::Undo()
 			}
 		}
 	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-bool cMesh2DEdit::CheckViewOne()
-{
-	if( Mouse.x * Real( cGlobal::HudW ) < Real(cGlobal::HudW * 0.75) )
-	{
-		return true;	
-	}
-	return false;
-}
-// - ------------------------------------------------------------------------------------------ - //
-bool cMesh2DEdit::CheckViewTwo()
-{
-	if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
-	{
-		if( Mouse.y * Real( cGlobal::HudH ) < Real(cGlobal::HudH * ( 1 - UVHeight ) ) )
-		{
-			return true;
-		}
-	}
-	return false;
-}
-// - ------------------------------------------------------------------------------------------ - //
-bool cMesh2DEdit::CheckViewThree()
-{
-	if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
-	{
-		if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * ( 1 - UVHeight ) ) )
-		{
-			return true;
-		}
-	}
-	return false;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMesh2DEdit::DrawGroupAction()

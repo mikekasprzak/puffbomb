@@ -121,9 +121,6 @@ public:
 	Vector2D CalcMousePos();
 	void ActiveAction();
 	void Undo();
-	bool CheckViewOne();
-	bool CheckViewTwo();
-	bool CheckViewThree();
 	void DrawGroupAction();
 	void ToggleColToDis( int Mode );
 	void KeepWithinBox();
