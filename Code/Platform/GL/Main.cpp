@@ -426,6 +426,7 @@ int main( int argc, char* argv[] ) {
 				
 					glDisable( GL_DEPTH_TEST );
 								
+					// -------------------------------------------------------------------------- //
 					if( cGlobal::CurEditor == MESH2D_EDITOR )	
 					{
 		
@@ -454,7 +455,6 @@ int main( int argc, char* argv[] ) {
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
 						gluPerspective( 45.0, Editor.Mesh2DEdit->UVHeight, 1.0, 100000.0 );
-						//gluPerspective( 45.0, 0.4, 1.0, 100000.0 );
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
@@ -498,15 +498,78 @@ int main( int argc, char* argv[] ) {
 						);
 						Editor.Mesh2DEdit->HudDraw();
 						
-					}
+					} // MESH2D_EDITOR //
+					// -------------------------------------------------------------------------- //
 					else if( cGlobal::CurEditor == COLLECTION_EDITOR )
 					{
-
-					}
+						// Draw Collection Editor // 
+						glLoadIdentity();
+						glTranslatef( 	-Editor.CollectionEdit->Camera->Pos.x,
+										-Editor.CollectionEdit->Camera->Pos.y,
+										-Editor.CollectionEdit->Camera->Pos.z
+									);
+						Editor.Draw();
+						
+						// Draw Hud //
+						glLoadIdentity();
+						glTranslatef(	-Editor.CollectionEdit->HudCamera->Pos.x,
+										-Editor.CollectionEdit->HudCamera->Pos.y,
+										-Editor.CollectionEdit->HudCamera->Pos.z
+									);
+						Editor.CollectionEdit->HudDraw();
+					
+					} // COLLECTION_EDITOR //
+					// -------------------------------------------------------------------------- //
 					else if( cGlobal::CurEditor == BODY2D_EDITOR )
 					{
+						// Screen 1 (Left Side) //	
+						glViewport( 0, 0, Real( Platform::ScreenW * 0.75), Platform::ScreenH );
+						glMatrixMode (GL_PROJECTION);
+						glLoadIdentity();
+						gluPerspective( 45.0, Platform::AspectRatio * Real(0.75), 1.0, 100000.0 ); 
+						glMatrixMode(GL_MODELVIEW);
 						
-					}
+						glLoadIdentity();
+						glTranslatef( 	-Editor.Body2DEdit->Camera->Pos.x,
+										-Editor.Body2DEdit->Camera->Pos.y,
+										-Editor.Body2DEdit->Camera->Pos.z
+									);
+						
+						Editor.Draw();
+
+						// Screen 2 (Lower Right Screen) //
+						glViewport(
+							Real(Platform::ScreenW * 0.75),
+							0,
+							Real( Platform::ScreenW * Editor.Body2DEdit->PreviewWidth ),
+							Real( Platform::ScreenH * Editor.Body2DEdit->PreviewHeight ) );
+						glMatrixMode (GL_PROJECTION);
+						glLoadIdentity();
+						gluPerspective( 45.0, Editor.Body2DEdit->PreviewHeight, 1.0, 100000.0 );
+						glMatrixMode(GL_MODELVIEW);
+						
+						glLoadIdentity();
+						glTranslatef(	-Editor.Body2DEdit->PreviewCamera->Pos.x,
+										-Editor.Body2DEdit->PreviewCamera->Pos.y,
+										-Editor.Body2DEdit->PreviewCamera->Pos.z
+						);
+						Editor.Body2DEdit->PreviewDraw();
+						
+						// Draw Hud Info //
+						glViewport( 0, 0, Platform::ScreenW, Platform::ScreenH );
+						glMatrixMode (GL_PROJECTION);
+						glLoadIdentity();
+						gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 
+						glMatrixMode(GL_MODELVIEW);
+				
+						glLoadIdentity();
+						glTranslatef(	-Editor.Body2DEdit->HudCamera->Pos.x,
+										-Editor.Body2DEdit->HudCamera->Pos.y,
+										-Editor.Body2DEdit->HudCamera->Pos.z
+						);
+						Editor.Body2DEdit->HudDraw();
+					}  // BODY2D_EDITOR //
+					// -------------------------------------------------------------------------- //
 					else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 					{
 						// Screen 1 (Left Side) //	
@@ -524,17 +587,15 @@ int main( int argc, char* argv[] ) {
 						
 						Editor.Draw();
 
-
-	/*					// Screen 2 (Upper Right Screen) //
+						// Screen 2 (Upper Right Screen) //
 						glViewport(
 							Real(Platform::ScreenW * 0.75 ),
-							Real(Platform::ScreenH * Editor.Mesh2DEdit->UVHeight ),
-							Real( Platform::ScreenW * Editor.Mesh2DEdit->UVWidth ),
+							Real(Platform::ScreenH * Editor.AnimationEdit->UVHeight ),
+							Real( Platform::ScreenW * Editor.AnimationEdit->UVWidth ),
 							Platform::ScreenH );
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
-						gluPerspective( 45.0, Editor.Mesh2DEdit->UVHeight, 1.0, 100000.0 );
-						//gluPerspective( 45.0, 0.4, 1.0, 100000.0 );
+						gluPerspective( 45.0, Editor.AnimationEdit->UVHeight, 1.0, 100000.0 );
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
@@ -543,15 +604,14 @@ int main( int argc, char* argv[] ) {
 										-Editor.AnimationEdit->PreviewCamera->Pos.z
 						);
 		
-						Editor.Mesh2DEdit->DrawPreview();
-						
+						Editor.AnimationEdit->PreviewDraw();
 						
 						// Screen 3 (Lower Right Screen) //
 						glViewport(
 							Real(Platform::ScreenW * 0.75),
 							0,
-							Real( Platform::ScreenW * Editor.Mesh2DEdit->UVWidth ),
-							Real( Platform::ScreenH * Editor.Mesh2DEdit->UVHeight ) );
+							Real( Platform::ScreenW * Editor.AnimationEdit->UVWidth ),
+							Real( Platform::ScreenH * Editor.AnimationEdit->UVHeight ) );
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
 						gluPerspective( 45.0, 1.0, 1.0, 100000.0 );
@@ -562,8 +622,8 @@ int main( int argc, char* argv[] ) {
 										-Editor.AnimationEdit->UVCamera->Pos.y,
 										-Editor.AnimationEdit->UVCamera->Pos.z
 						);
-						Editor.Mesh2DEdit->DrawTextureCoord();
-						*/
+						Editor.AnimationEdit->UVDraw();
+						
 						// Draw Hud Info //
 						glViewport( 0, 0, Platform::ScreenW, Platform::ScreenH );
 						glMatrixMode (GL_PROJECTION);
@@ -576,8 +636,9 @@ int main( int argc, char* argv[] ) {
 										-Editor.AnimationEdit->HudCamera->Pos.y,
 										-Editor.AnimationEdit->HudCamera->Pos.z
 						);
-						Editor.AnimationEdit->HudDraw();						
-					}
+						Editor.AnimationEdit->HudDraw();
+					} // ANIMATION_EDITOR //
+					// -------------------------------------------------------------------------- //
 					else // MAP_EDITOR //
 					{
 						// Draw Map Editor // 
@@ -596,8 +657,9 @@ int main( int argc, char* argv[] ) {
 									);
 						Editor.MapEdit->HudDraw();
 
-					}
-					glEnable( GL_DEPTH_TEST );
+					} // MAP_EDITOR //
+					// -------------------------------------------------------------------------- //
+				glEnable( GL_DEPTH_TEST );
 					#endif // EDITOR //
 				}
 				else if( IsSplitScreen )

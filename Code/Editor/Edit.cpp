@@ -21,7 +21,6 @@ cEdit::cEdit() :
 	ScrollFrame( 10 ),
 	ScrollSpeed( 3.0 ),
 	GridSize( 16384.0 ),
-//	GridSize( 256.0 ),
 	CurrentGridDepth( 0 )
 {
 	// Create Camera //
@@ -120,35 +119,6 @@ void cEdit::Scroll( cCamera* MyCamera )
 		MyCamera->View.y = MyCamera->Pos.y;
 
 	}
-/*	
-	// Scroll Mouse Button
-	// Pans the screen	
-	if( Button[ MOUSE_3 ] && MiddleClick == false )
-	{
-		MiddleClick = true;
-		ScrollMouseX = int( Mouse.x * Real( cGlobal::ScreenW ) );
-		ScrollMouseY = int( -Mouse.y * Real( cGlobal::ScreenH ) );
-	}
-	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
-	{
-		MiddleClickLast = MiddleClick;
-		MiddleClick = false;
-	}
-	else if( MiddleClick )
-	{
-		MyCamera->Pos.x += ( int( Mouse.x * Real( cGlobal::ScreenW ) ) - ScrollMouseX )
-			* Real( -MyCamera->Pos.z / cGlobal::HudZoom );
-		MyCamera->Pos.y += ( int( -Mouse.y * Real( cGlobal::ScreenH ) ) - ScrollMouseY )
-			* Real( -MyCamera->Pos.z / cGlobal::HudZoom );
-		ScrollMouseX = int( Mouse.x * Real( cGlobal::ScreenW ) );
-		ScrollMouseY = int( -Mouse.y * Real( cGlobal::ScreenH ) );
-	
-		MyCamera->View.x = MyCamera->Pos.x;
-		MyCamera->View.y = MyCamera->Pos.y;
-		
-//		Log( LOG_HIGHEST_LEVEL, "HUDZOOM " << cGlobal::HudZoom );
-
-	}*/	
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -433,26 +403,6 @@ void cEdit::DrawOrigin()
 		4,
 		gfx::RGBA( 255, 255, 255, 128 )
 	);
-
-	/*
-	gfx::Line(
-		Real( 0 ),
-		Real( -GridSize ),
-		Real( 0 ),
-		Real( 0 ),
-		Real( GridSize ),
-		Real( 0 ),
-		gfx::RGBA( 255, 255, 255, 128 )
-	);
-	gfx::Line(
-		Real( -GridSize ),
-		Real( 0 ),
-		Real( 0 ),
-		Real( GridSize ),
-		Real( 0 ),
-		Real( 0 ),
-		gfx::RGBA( 255, 255, 255, 128 )
-	);*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::Zoom( Real ScaleAmount, cCamera* MyCamera )

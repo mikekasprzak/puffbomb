@@ -17,7 +17,12 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cAnimationEdit : public cEdit {
 public:
+	cCamera* UVCamera;
+	cCamera* PreviewCamera;
 	
+	Real UVWidth;
+	Real UVHeight;
+
 public:
 	cAnimationEdit();
 	~cAnimationEdit();
@@ -25,6 +30,8 @@ public:
 public:
 	void Draw();
 	void HudDraw();
+	void PreviewDraw();
+	void UVDraw();
 	void Step();
 
 };

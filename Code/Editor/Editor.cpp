@@ -11,17 +11,22 @@ using namespace Input;
 cEditor::cEditor( cGame& _Game ) :
 	Game( &_Game )
 {
-	Mesh2DEdit = new cMesh2DEdit();
-	MapEdit = new cMapEdit( _Game, *Mesh2DEdit );
+	CollectionEdit = new cCollectionEdit();
+	Body2DEdit = new cBody2DEdit();
 	AnimationEdit = new cAnimationEdit();
+	Mesh2DEdit = new cMesh2DEdit();
+
+	MapEdit = new cMapEdit( _Game, *Mesh2DEdit );
 }
 // - ------------------------------------------------------------------------------------------ - //	
 cEditor::~cEditor()
 {
 	Log( LOG_HIGHEST_LEVEL, "~cEditor() Delete Map and Mesh Editor" );
 	delete MapEdit;
-	delete Mesh2DEdit;
+	delete CollectionEdit;
+	delete Body2DEdit;
 	delete AnimationEdit;
+	delete Mesh2DEdit;
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Step()
@@ -44,11 +49,11 @@ void cEditor::Step()
 	}
 	else if( cGlobal::CurEditor == COLLECTION_EDITOR )
 	{
-
+		CollectionEdit->Step();
 	}
 	else if( cGlobal::CurEditor == BODY2D_EDITOR )
 	{
-		
+		Body2DEdit->Step();
 	}
 	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 	{
@@ -176,11 +181,11 @@ void cEditor::Draw()
 	}
 	else if( cGlobal::CurEditor == COLLECTION_EDITOR )
 	{
-
+		CollectionEdit->Draw();
 	}
 	else if( cGlobal::CurEditor == BODY2D_EDITOR )
 	{
-
+		Body2DEdit->Draw();
 	}
 	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 	{

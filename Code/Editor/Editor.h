@@ -11,8 +11,10 @@
 #include <Geometry/Vector.h>
 
 #include "MapEditor/MapEdit.h"
-#include "Mesh2DEditor/Mesh2DEdit.h"
+#include "CollectionEditor/CollectionEdit.h"
+#include "Body2DEditor/Body2DEdit.h"
 #include "AnimationEditor/AnimationEdit.h"
+#include "Mesh2DEditor/Mesh2DEdit.h"
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -26,8 +28,10 @@ public:
 	cGame* Game;
 
 	cMapEdit* MapEdit;
-	cMesh2DEdit* Mesh2DEdit;
+	cCollectionEdit* CollectionEdit;
+	cBody2DEdit* Body2DEdit;
 	cAnimationEdit* AnimationEdit;
+	cMesh2DEdit* Mesh2DEdit;
 
 public:	
 	void Step();

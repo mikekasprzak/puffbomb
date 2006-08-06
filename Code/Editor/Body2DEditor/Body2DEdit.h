@@ -16,7 +16,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cBody2DEdit : public cEdit {
 public:
+	cCamera* PreviewCamera;
 	
+	Real PreviewWidth;
+	Real PreviewHeight;
+
 public:
 	cBody2DEdit();
 	~cBody2DEdit();
@@ -24,6 +28,7 @@ public:
 public:
 	void Draw();
 	void HudDraw();
+	void PreviewDraw();
 	void Step();
 
 };
