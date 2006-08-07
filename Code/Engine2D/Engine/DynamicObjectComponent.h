@@ -7,7 +7,7 @@
 #include <Physics/Body2D.h>
 #include <Graphics/Mesh2D.h>
 
-#include <Physics/StateFlags.h>
+#include "StateFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

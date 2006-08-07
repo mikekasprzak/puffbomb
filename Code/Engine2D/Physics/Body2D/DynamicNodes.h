@@ -10,7 +10,6 @@
 #include <Geometry/Vector.h>
 
 #include <Physics/Physics.h>
-#include <Physics/StateFlags.h>
 #include "CollisionFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -29,7 +28,6 @@ public:
 	Real TotalMass;
 
 	cCollisionFlags Collision;
-	cStateFlags State;
 
 	int SleepClock;
 
