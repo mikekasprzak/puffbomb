@@ -17,7 +17,7 @@ include $(ToolChain)/tools.mak
 
 
 # - -------------------------------------------------------------------------------------------- - #
-CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Game # Game/$(GAME_TARGET)
+CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Game/JunkGame # Game/$(GAME_TARGET)
 # - -------------------------------------------------------------------------------------------- - #
 CONTENT_DIRS	:=	$(GAME_TARGET)
 CONTENT_EXT		:=	.png .ogg .anim .font .form .map .body2d .mesh2d .body3d .mesh3d

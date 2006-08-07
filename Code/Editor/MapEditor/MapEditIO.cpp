@@ -252,7 +252,7 @@ void cMapEdit::LoadZoneDesc()
 {
 	char Line[1024];
 	
-	ifstream InFile( "../../../../Code/Game/ZoneDescriptions.txt" );
+	ifstream InFile( "../../../../Content/ZoneDescriptions.txt" );
 
 	ZoneDesc.push_back( "Undefined" );
 

@@ -23,7 +23,7 @@
 #include <Geometry/Matrix.h>
 #include <Geometry/Rect.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Game/Global.h>
+#include <Global.h>
 #include <Phiz/Physics.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Phiz/SphereObject.h>
@@ -34,9 +34,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Phiz/Impulse.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Game/ObjectController.h>
-#include <Game/Zone.h>
-#include <Game/Element.h>
+#include <ObjectController.h>
+#include <Zone.h>
+#include <Element.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Animation/Animator.h>
 #include <Particle2D/ParticleFactory.h>
