@@ -7,11 +7,14 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicObjectComponent::Step() {
-	// Clear Collision Flags //
-	Body.Collision.Clear();
-	
-	// Step each Node //
-	Body.Nodes.Step();
+	// Step the nodes //
+	Body.Step();
+
+	// Physics relaxation loop //
+	for ( int NodeSteps = 0; NodeSteps < cPhysics::Current->RelaxationSteps; NodeSteps++ ) {
+		// Update all Springs //
+		Body.StepSprings();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicObjectComponent::Draw() {

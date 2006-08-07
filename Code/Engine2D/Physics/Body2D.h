@@ -43,6 +43,10 @@ public:
 	typedef RadiusRect2D RectType;
 	RectType BoundingRect;
 
+public:
+	void Step();
+	void StepSprings();
+
 public:	
 	// Solve Collisions/Actions //
 	void Solve( cBody2D& _Vs );

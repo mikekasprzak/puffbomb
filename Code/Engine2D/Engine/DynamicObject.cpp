@@ -7,16 +7,21 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicObject::Step() {
-	// Move all my parts //
+	// Step all the nodes //
 	for ( size_t idx = 0; idx < Component.size(); idx++ ) {
-		Component[ idx ].Step();
+		Component[ idx ].Body.Step();
 	}
 
 	// Physics relaxation loop //
 	for ( int NodeSteps = 0; NodeSteps < cPhysics::Current->RelaxationSteps; NodeSteps++ ) {
-		// Update Positions via NodeLinks //
+		// Update nodes via NodeLink springs //
 		for ( size_t idx = 0; idx < NodeLink.size(); idx++ ) {
-			
+			NodeLink[ idx ].Step( Component );
+		}
+		
+		// Update all Springs //
+		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+			Component[ idx ].Body.StepSprings();
 		}
 	}		
 }

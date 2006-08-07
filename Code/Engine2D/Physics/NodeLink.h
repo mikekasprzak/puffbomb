@@ -7,6 +7,8 @@
 #include <Geometry/Real.h>
 
 #include <Physics/CollisionFlags.h>
+
+#include <Engine/DynamicObjectComponent.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -20,7 +22,9 @@ public:
 	Real BreakPoint;
 
 	
-	
+public:
+	void Step( std::vector< cDynamicObjectComponent >& Component ) {
+	}
 	
 };
 // - ------------------------------------------------------------------------------------------ - //

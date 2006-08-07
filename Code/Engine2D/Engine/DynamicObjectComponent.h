@@ -25,6 +25,7 @@ public:
 public:
 	// Do physics as a self sustaining object. //
 	void Step();
+	
 	// Draw Myself //
 	void Draw();
 
