@@ -6,11 +6,13 @@
 #ifdef EDITOR
 // - ------------------------------------------------------------------------------------------ - //
 #include <string>
+#include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
 #include <Game/Global.h>
 
 #include <Animation/Animation.h>
+#include <Animation/Animator.h>
 #include <Graphics/Camera.h>
 #include "Editor/Edit.h"
 
@@ -22,6 +24,9 @@ public:
 	
 	Real UVWidth;
 	Real UVHeight;
+
+	std::vector< cAnimation* > Animations;
+	cAnimator Animator;
 
 public:
 	cAnimationEdit();

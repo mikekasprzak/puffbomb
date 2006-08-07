@@ -120,6 +120,8 @@ void cEdit::Scroll( cCamera* MyCamera )
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, bool DrawOrig, Real* MyGridDepth )
 {
+	glLineWidth( 1.0 );
+	
 	if ( Button[ KEY_END ].Pressed() )
 	{
 		AutoGridDepth = !AutoGridDepth;

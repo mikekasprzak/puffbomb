@@ -146,11 +146,11 @@ void cEditor::Step()
 	}
 	else if( Button[ KEY_F6 ].Pressed() )
 	{
-		cGlobal::CurEditor = BODY2D_EDITOR;
+		cGlobal::CurEditor = ANIMATION_EDITOR;
 	}
 	else if( Button[ KEY_F7 ].Pressed() )
 	{
-		cGlobal::CurEditor = ANIMATION_EDITOR;
+		cGlobal::CurEditor = BODY2D_EDITOR;
 	}
 	else if( Button[ KEY_F8 ].Pressed() )
 	{

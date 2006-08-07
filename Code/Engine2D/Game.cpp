@@ -37,30 +37,29 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 	
 	// Create Camera //
 	Camera = new cCamera(
-		Vector3D( 0.0, 0.0, HudZoom ),
-		Vector3D( 0.0, 0.0, 0.0 ),
-		Vector3D( 0.0, 1.0, 0.0 ),
-		45.0,
-		Platform::AspectRatio,
-		1.0,
-		100000.0,
-//		400.0,
-		HudZoom,
-		HudZoom + Real( 8000 ),
-		HudZoom
+		Vector3D( 0.0, 0.0, HudZoom ),					// Pos
+		Vector3D( 0.0, 0.0, 0.0 ),						// View
+		Vector3D( 0.0, 1.0, 0.0 ),						// Up
+		45.0,											// Field of View
+		Platform::AspectRatio,							// Aspect Ratio
+		1.0,											// NearClip
+		100000.0,										// FarClip
+		HudZoom,										// MinZoom
+		HudZoom + Real( 8000 ),							// MaxZoom
+		HudZoom											// HudZoom
 	 );
 
 	HudCamera = new cCamera(
-		Vector3D( 0.0, 0.0, HudZoom ),
-		Vector3D( 0.0, 0.0, 0.0 ),
-		Vector3D( 0.0, 1.0, 0.0 ),
-		45.0,
-		Platform::AspectRatio,
-		1.0,
-		100000.0,
-		HudZoom,
-		HudZoom,
-		HudZoom
+		Vector3D( 0.0, 0.0, HudZoom ),					// Pos
+		Vector3D( 0.0, 0.0, 0.0 ),						// View
+		Vector3D( 0.0, 1.0, 0.0 ),						// Up
+		45.0,											// Field of View
+		Platform::AspectRatio,							// Aspect Ratio
+		1.0,											// NearClip
+		100000.0,										// FarClip
+		HudZoom,										// MinZoom
+		HudZoom,										// MaxZoom
+		HudZoom											// HudZoom
 	 );
 	
 	

@@ -9,7 +9,6 @@
 class cAnimator
 {
 public:
-	// Stores a sequence of animations //
 	cAnimation* Animation;
 	
 	int CurrentFrame;
