@@ -26,11 +26,14 @@ public:
 	}
 	
 public:
-	// Do physics, as a self sustaining object.  This is unlikely overloaded. //
-	virtual void Step();
+	// Do physics, as a self sustaining object //
+	void Step();
+	// Step the node links //
+	void StepNodeLinks();
+	
 	// Do any work (control/AI) I may have.  This is commonly overloaded to provide control. //
 	virtual void Work();
-	// Draw Myself. This is uncommonly overloaded, unless you want a radically different display. //
+	// Draw Myself. This is uncommonly overloaded, unless you want a different display method. //
 	virtual void Draw();
 
 public:
