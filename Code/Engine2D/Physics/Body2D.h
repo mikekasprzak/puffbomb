@@ -39,9 +39,14 @@ public:
 	cCollisionFlags Collision;
 
 public:	
-	// Bounding Rectangle of all colliding objects //
 	typedef RadiusRect2D RectType;
+	
+	// Bounding rectangle, for early out test //
 	RectType BoundingRect;
+	// Calculate the rectangle for the object //
+	void CalcBoundingRect();
+	// Given a Sphere that caused a change, grow the bounding rectangle //
+	void GrowBoundingRectBySphere( const size_t _Index );
 
 public:
 	void Step();

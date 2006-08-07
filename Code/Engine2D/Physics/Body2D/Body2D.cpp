@@ -18,5 +18,54 @@ void cBody2D::StepSprings() {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cBody2D::CalcBoundingRect() {    
+	// If no nodes, bail (change to assert?) //
+	if ( Sphere.empty() )
+		return;
+
+	Vector2D MinPoint;
+	Vector2D MaxPoint;
+	
+	// Some initial Value (first sphere) //
+	MinPoint.x = Nodes.Pos( Sphere[ 0 ].Index ).x - Sphere[ 0 ].Radius;
+	MinPoint.y = Nodes.Pos( Sphere[ 0 ].Index ).y - Sphere[ 0 ].Radius;
+
+	MaxPoint.x = Nodes.Pos( Sphere[ 0 ].Index ).x + Sphere[ 0 ].Radius;
+	MaxPoint.y = Nodes.Pos( Sphere[ 0 ].Index ).y + Sphere[ 0 ].Radius;
+	
+	// For all spheres //
+	int SphereCount = Sphere.size();
+	for ( int idx = 1; idx < SphereCount; idx++ ) {
+		// Should work! //
+		MinPoint.MinClamp( (Nodes.Pos( Sphere[ idx ].Index ) - Sphere[ idx ].Radius) );
+		MaxPoint.MaxClamp( (Nodes.Pos( Sphere[ idx ].Index ) + Sphere[ idx ].Radius) );
+		
+//		if ( MinPoint.x > (Pos( Sphere[ idx ].Index ).x - Sphere[ idx ].Radius) ) {
+//			MinPoint.x = Pos( Sphere[ idx ].Index ).x - Sphere[ idx ].Radius;
+//		}
+//		if ( MinPoint.y > (Pos( Sphere[ idx ].Index ).y - Sphere[ idx ].Radius) ) {
+//			MinPoint.y = Pos( Sphere[ idx ].Index ).y - Sphere[ idx ].Radius;
+//		}
+//
+//		if ( MaxPoint.x < (Pos( Sphere[ idx ].Index ).x + Sphere[ idx ].Radius) ) {
+//			MaxPoint.x = Pos( Sphere[ idx ].Index ).x + Sphere[ idx ].Radius;
+//		}
+//		if ( MaxPoint.y < (Pos( Sphere[ idx ].Index ).y + Sphere[ idx ].Radius) ) {
+//			MaxPoint.y = Pos( Sphere[ idx ].Index ).y + Sphere[ idx ].Radius;
+//		}
+	};
+	
+	// Set the Rectangle //
+	BoundingRect = RectType::Pair( MinPoint, MaxPoint );
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::GrowBoundingRectBySphere( const size_t _Index ) {
+	// In theory, grow the bounding Rectangle by an added sphere //
+	BoundingRect = RectType::Pair( 
+		BoundingRect.P1().Min( (Nodes.Pos( Sphere[ _Index ].Index ) - Sphere[ _Index ].Radius) ),
+		BoundingRect.P2().Max( (Nodes.Pos( Sphere[ _Index ].Index ) + Sphere[ _Index ].Radius) )
+		);
+}
+// - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
