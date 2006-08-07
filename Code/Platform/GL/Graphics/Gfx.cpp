@@ -4,7 +4,7 @@
 #include <GL/glu.h>
 
 #include <Graphics/Gfx.h>
-#include <Game/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 void gfx::Circle( const Real& x, const Real& y, const Real& Radius, int Color ) {
 	glBegin(GL_LINE_STRIP);

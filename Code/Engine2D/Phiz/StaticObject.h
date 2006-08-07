@@ -14,7 +14,7 @@
 #include <Geometry/Real.h>
 #include <Geometry/Rect.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Game/Global.h>
+#include <Global.h>
 
 #include "StaticNodes.h"
 

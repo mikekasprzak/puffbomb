@@ -5,7 +5,7 @@
 #include "Phiz/SphereObject.h"
 #include <Graphics/Mesh3dPool.h>
 #include <Util/String.h>
-#include <Game/Global.h>
+#include <Global.h>
 #include <Util/DirectoryCache.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <sys/types.h>

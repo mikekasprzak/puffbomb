@@ -1,11 +1,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Game.h"
 // - ------------------------------------------------------------------------------------------ - //
-#include <Game/Objects/GenericController.h>
-#include <Game/Objects/SpiderController.h>
-#include <Game/Objects/AIController.h>
-#include <Game/Objects/TankController.h>
-#include <Game/Objects/HamsterController.h>
+#include <Objects/GenericController.h>
+#include <Objects/SpiderController.h>
+#include <Objects/AIController.h>
+#include <Objects/TankController.h>
+#include <Objects/HamsterController.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //

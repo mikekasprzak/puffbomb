@@ -8,7 +8,7 @@
 #include <string>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
-#include <Game/Global.h>
+#include <Global.h>
 
 #include <Graphics/Camera.h>
 #include "Editor/Edit.h"

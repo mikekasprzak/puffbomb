@@ -9,7 +9,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
-#include <Game/Global.h>
+#include <Global.h>
 
 #include <Animation/Animation.h>
 #include <Animation/Animator.h>
