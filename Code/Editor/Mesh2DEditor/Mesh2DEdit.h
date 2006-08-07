@@ -92,8 +92,8 @@ public:
 	Vector2D UVc;
 	Vector2D UVd;
 	Real UVScale;
-	Real UVZoom;
-	Vector2D UVOrigin;
+//	Real UVZoom;
+//	Vector2D UVOrigin;
 	size_t CurUVGridDepth;
 	Real UVWidth;
 	Real UVHeight;

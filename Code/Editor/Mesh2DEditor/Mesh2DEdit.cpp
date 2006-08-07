@@ -34,7 +34,7 @@ cMesh2DEdit::cMesh2DEdit() :
 	OldMousePos( Real(0.0), Real(0.0) ),
 	isGroupMove( false ),
 	UVScale( 256 ),
-	UVZoom( -612 ),
+//	UVZoom( -612 ),
 	CurUVGridDepth( 0 ),
 	UVWidth( 0.25 ),
 	UVHeight( 0.4 ),
@@ -116,7 +116,7 @@ cMesh2DEdit::cMesh2DEdit() :
 	UVc = Vector2D( 1.0, 1.0 );
 	UVd = Vector2D( 0.0, 1.0 );
 	
-	UVOrigin = Vector2D( -( UVScale / Real( 2 ) ), -( UVScale / Real( 2 ) ) );
+	//UVOrigin = Vector2D( -( UVScale / Real( 2 ) ), -( UVScale / Real( 2 ) ) );
 	
 	Real GridDepthValue = 0.5;
 	
@@ -867,8 +867,6 @@ void cMesh2DEdit::Undo()
 	if ( Button[ KEY_TAB ].Pressed() )
 	{
 		Scale = Real::One;
-//		cGlobal::Origin.x = 0;
-//		cGlobal::Origin.y = 0;
 
 		Camera->Pos.x = 0.0;
 		Camera->Pos.y = 0.0;
@@ -895,8 +893,8 @@ void cMesh2DEdit::Undo()
 		PreviewCamera->View.z = 0.0;
 
 
-		UVOrigin = Vector2D( -( UVScale / Real( 2 ) ), -( UVScale / Real( 2 ) ) );
-		UVZoom = Real( -612.0 );
+	//	UVOrigin = Vector2D( -( UVScale / Real( 2 ) ), -( UVScale / Real( 2 ) ) );
+	//	UVZoom = Real( -612.0 );
 	}
 	
 	if( Button[ KEY_LCTRL ] )

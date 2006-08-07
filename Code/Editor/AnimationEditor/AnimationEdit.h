@@ -9,6 +9,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
+#include <Geometry/Set.h>
 #include <Global.h>
 
 #include <Animation/Animation.h>
@@ -24,9 +25,18 @@ public:
 	
 	Real UVWidth;
 	Real UVHeight;
+	Real UVScale;
+	Real UVZoomOffsetX;
+	Real UVZoomOffsetY;
 
 	std::vector< cAnimation* > Animations;
 	cAnimator Animator;
+	
+	unsigned int CurFrame;
+	
+	ABCDSet< Vector3D > TexVertex;
+	ABCDSet< Vector2D > TexUV;
+	unsigned int TexIndices[4];
 
 public:
 	cAnimationEdit();
@@ -38,6 +48,12 @@ public:
 	void PreviewDraw();
 	void UVDraw();
 	void Step();
+	
+	void Undo();
+	
+	void ScrollUV();
+	Vector2D CalcUVMousePos();
+	void CalcUVZoomOffset();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

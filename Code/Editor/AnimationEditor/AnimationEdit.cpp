@@ -6,6 +6,13 @@
 
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
+
+// For FPS test //
+#include <Platform/Global.h>
+#include <Font/Fonts.h>
+#include <sstream>
+// ------------ //
+
 // - ------------------------------------------------------------------------------------------ - //
 #include <Platform/Global.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -13,7 +20,11 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cAnimationEdit::cAnimationEdit() :
 	UVWidth( 0.25 ),
-	UVHeight( 0.4 )
+	UVHeight( 0.4 ),
+	UVScale( 256.0 ),
+	UVZoomOffsetX( 144.5 ),
+	UVZoomOffsetY( 232 ),
+	CurFrame( 0 )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -30,8 +41,8 @@ cAnimationEdit::cAnimationEdit() :
 	);
 
 	PreviewCamera = new cCamera(
-		Vector3D( 0.0, 0.0, cGlobal::HudZoom ),			// Pos
-		Vector3D( 0.0, 0.0, 0.0 ),						// View
+		Vector3D( 0.0, 240.0, cGlobal::HudZoom ),		// Pos
+		Vector3D( 0.0, 240.0, 0.0 ),					// View
 		Vector3D( 0.0, 1.0, 0.0 ),						// Up
 		45.0,											// Field of View
 		Platform::AspectRatio,							// Aspect Ratio
@@ -42,9 +53,27 @@ cAnimationEdit::cAnimationEdit() :
 		cGlobal::HudZoom								// HudZoom
 	);
 	
+	Camera->Pos.z = Real( 800.0 );
+	
 	Animations.push_back( &AnimationPool.Load( "TestAnimation.anim" ) );
 	
 	Animator.Set( Animations[0], 0 );
+
+	TexVertex.a = Vector3D( 0.0, 0.0, 0.0 );
+	TexVertex.b = Vector3D( UVScale, 0.0, 0.0 );
+	TexVertex.c = Vector3D( UVScale, UVScale, 0.0 );
+	TexVertex.d = Vector3D( 0.0, UVScale, 0.0 );
+	TexUV.b = Vector2D( 1.0, 1.0 );
+	TexUV.a = Vector2D( 0.0, 1.0 );
+	TexUV.c = Vector2D( 1.0, 0.0 );
+	TexUV.d = Vector2D( 0.0, 0.0 );
+	TexIndices[0] = 0;
+	TexIndices[1] = 1;
+	TexIndices[2] = 2;
+	TexIndices[3] = 3;
+
+	CalcUVZoomOffset();
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 cAnimationEdit::~cAnimationEdit()
@@ -60,7 +89,20 @@ void cAnimationEdit::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::HudDraw()
 {
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
 	
+	//  DISPLAYS FPS  //
+	std::stringstream Temp;
+	Temp << Platform::FPS;
+	std::string TempString = Temp.str();
+	
+	Vector3D TempPos = Vector3D( cGlobal::Left, cGlobal::Top - Real( 45 ), 0.0 );
+
+	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), gfx::RGBA( 184, 0, 0, 255 ) );
+	// -------------- //
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::PreviewDraw()
@@ -76,7 +118,23 @@ void cAnimationEdit::PreviewDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::UVDraw()
 {
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	
+	Gfx::DrawQuads(
+		&TexVertex,
+		&TexUV,
+		TexIndices,
+		4,
+		Animator.Animation->Frame[ CurFrame ].GetFrame().TextureID,
+		gfx::RGBA( 255, 255, 255, 255 )
+	);
+	
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
+
 	DrawGrid( UVCamera, CurrentGridDepth, 32.0, true, GridDepth );
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::Step()
@@ -100,12 +158,94 @@ void cAnimationEdit::Step()
 	else if( CheckViewThree( UVHeight ) )
 	{
 		// Handles scrolling around the map
-		Scroll( Camera );
+		ScrollUV();
 
 		// Handles the zooming in and out of a map
-		Zoom( Real( 32.0 ), Camera );
+		Zoom( Real( 32.0 ), UVCamera );
 	}
 	Animator.Step();
+	
+	Undo();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::Undo()
+{
+	// Resets the zoom
+	if ( Button[ KEY_TAB ].Pressed() )
+	{
+		Camera->Pos.x = 0.0;
+		Camera->Pos.y = 0.0;
+		Camera->Pos.z = Real( 800.0 );
+		
+		Camera->View.x = Camera->Pos.x;
+		Camera->View.y = Camera->Pos.y;
+		Camera->View.z = 0.0;
+
+		UVCamera->Pos.x = 128.0;
+		UVCamera->Pos.y = 128.0;
+		UVCamera->Pos.z = 400.0;
+		
+		UVCamera->View.x = UVCamera->Pos.x;
+		UVCamera->View.y = UVCamera->Pos.y;
+		UVCamera->View.z = 0.0;
+
+		PreviewCamera->Pos.x = 0.0;
+		PreviewCamera->Pos.y = 240.0;
+		PreviewCamera->Pos.z = cGlobal::HudZoom;
+		
+		PreviewCamera->View.x = PreviewCamera->Pos.x;
+		PreviewCamera->View.y = PreviewCamera->Pos.y;
+		PreviewCamera->View.z = 0.0;
+	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::ScrollUV()
+{
+	// Scroll Mouse Button
+	// Pans the Hud	
+	if( Button[ MOUSE_3 ] && MiddleClick == false )
+	{
+		//UVMiddleClick = true;
+		MiddleClick = true;
+		ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
+		ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
+	}
+	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
+	{
+		MiddleClickLast = MiddleClick;
+		MiddleClick = false;
+	}
+	else if( MiddleClick )
+	{
+		UVCamera->Pos.x += ( int( Mouse.x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) - ScrollMouseX )
+			* Real( -UVCamera->Pos.z / UVZoomOffsetX );
+		UVCamera->Pos.y += ( int( -Mouse.y * ( Real( cGlobal::HudH ) ) * UVHeight ) - ScrollMouseY )
+			* Real( -UVCamera->Pos.z / UVZoomOffsetY );
+		ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
+		ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+Vector2D cAnimationEdit::CalcUVMousePos()
+{
+	return Vector2D(
+		Real( ( int( Mouse.x * Real( cGlobal::HudW * UVWidth ) ) )
+		- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
+		- ( ( Real(cGlobal::HudW) * UVWidth ) ) )
+		* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
+		+ ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) ),
+		Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * UVHeight )
+		+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
+		+ ( ( cGlobal::HudH * UVHeight ) ) )
+		* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
+		- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
+	);
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::CalcUVZoomOffset()
+{
+	UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
+	UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
