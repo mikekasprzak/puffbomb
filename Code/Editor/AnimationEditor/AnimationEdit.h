@@ -28,7 +28,7 @@ public:
 	Real UVScale;
 	Real UVZoomOffsetX;
 	Real UVZoomOffsetY;
-
+	
 	std::vector< cAnimation* > Animations;
 	cAnimator Animator;
 	

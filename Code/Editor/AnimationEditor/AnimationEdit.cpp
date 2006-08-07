@@ -72,8 +72,9 @@ cAnimationEdit::cAnimationEdit() :
 	TexIndices[2] = 2;
 	TexIndices[3] = 3;
 
-	CalcUVZoomOffset();
+	GridSize = 2048.0;
 
+	CalcUVZoomOffset();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cAnimationEdit::~cAnimationEdit()
@@ -110,6 +111,8 @@ void cAnimationEdit::PreviewDraw()
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	
+	Gfx::ResetColor();
+	
 	Animator.DrawQuad( Vector2D( 0, 0 ) );
 		
 	glDisable(GL_BLEND);
@@ -127,13 +130,13 @@ void cAnimationEdit::UVDraw()
 		TexIndices,
 		4,
 		Animator.Animation->Frame[ CurFrame ].GetFrame().TextureID,
-		gfx::RGBA( 255, 255, 255, 255 )
+		Gfx::White()
 	);
 	
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
-
-	DrawGrid( UVCamera, CurrentGridDepth, 32.0, true, GridDepth );
+	
+	DrawGrid( UVCamera, CurrentGridDepth, 40.0, true, GridDepth );
 
 }
 // - ------------------------------------------------------------------------------------------ - //

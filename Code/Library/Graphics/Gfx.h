@@ -105,6 +105,13 @@ namespace Gfx {
 		const unsigned int IndicesSize,
 		const int Color
 	);
+	// Resets the color back to white with no alpha
+	void ResetColor();
+	// Returns white with no alpha
+	unsigned int White();
+	int RGB( int r, int g, int b );
+	int RGBA( int r, int g, int b, int a );
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Graphics_Gfx_H__ //
