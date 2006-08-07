@@ -23,6 +23,13 @@ void cDynamicObject::Step() {
 		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
 			Component[ idx ].Body.StepSprings();
 		}
+
+		// Solve collisions between components //
+		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+			for ( size_t idx2 = idx+1; idx2 < Component.size(); idx2++ ) {
+				Component[ idx ].Solve( Component[ idx2 ] );
+			}
+		}
 	}		
 }
 // - ------------------------------------------------------------------------------------------ - //

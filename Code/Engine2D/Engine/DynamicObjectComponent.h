@@ -18,6 +18,9 @@ public:
 	cBody2D Body;
 	cMesh2D Mesh;
 	
+	// Who our parent is //
+	class cDynamicObject* Parent;
+	
 	// Flags //
 	cStateFlags State;
 	cCollisionFlags Collision;
@@ -32,12 +35,15 @@ public:
 public:
 	// Query the state to know if component is active //
 	inline bool IsActive() {
-		return State.IsActive();
+		return State.Active();
 	}
 
 public:
+	// Solve Collisions/Actions //
+	void Solve( cDynamicObjectComponent& _Vs );
 	
 	// Messanging //
+	// * needs to be here to relay the message back to the parent ** //
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

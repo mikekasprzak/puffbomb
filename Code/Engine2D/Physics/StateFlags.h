@@ -71,7 +71,7 @@ public:
 	// Create functions for Testing individual flags ------------------------------------------ - //
 	// - -------------------------------------------------------------------------------------- - //
 	#define __FLAG_TEST_FUNCTION( _flag ) \
-	inline const bool Is ## _flag() const { \
+	inline const bool _flag() const { \
 		return Flags & (fl ## _flag); \
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -87,6 +87,11 @@ public:
 	// Flag testing function ------------------------------------------------------------------ - //
 	inline const bool Is( unsigned int _Flag ) const {
 		return Flags & _Flag;
+	}
+	// - -------------------------------------------------------------------------------------- - //	
+	// Return true if you are only Active, so not to do othe work //
+	inline const bool OnlyActive() const {
+		return (Flags == flActive);
 	}
 	// - -------------------------------------------------------------------------------------- - //	
 };
