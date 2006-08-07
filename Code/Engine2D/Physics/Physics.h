@@ -15,16 +15,29 @@ class cPhysics {
 public:
 	static cPhysics* Current;
 public:	
+	// Default components for physics //
 	Real Friction;
 	Vector2D Force;
 
+	// Contact friction values //
 	Real AirFriction;
 	Real SurfaceFriction;
 	Real ObjectFriction;
 
+	// Spare internal variable set by collision code to return additional info about a collision //
 	int OperationFlags;
+	// Number of times to run the physics relaxation loop (springs and collision, not node steps) //
+	int RelaxationSteps;
 public:
-	cPhysics( );
+	cPhysics();
+	// Write the current status of physics to the log //
+	void Dump();
+
+public:
+	// Claim the controlling Physics property //
+	inline void SetActive() {
+		Current = this;
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

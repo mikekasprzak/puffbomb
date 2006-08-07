@@ -6,35 +6,35 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 
+#include <Physics/NodeLink.h>
 #include "DynamicObjectComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cDynamicObject {
 public:
-	// Parts connecting this object together //
-	
-	// Parts of this object //
+	// Components of this object //
 	std::vector< cDynamicObjectComponent > Component;
+	// Linkage in this object //
+	std::vector< cNodeLink > NodeLink;
 
 public:
-	// Do physics //
-	inline void Step() {
-		// Move all my parts //
-		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
-			Component[ idx ].Step();
-		}
+	cDynamicObject() {
 	}
-
-	// Do any work (control/AI) I may have //
-	inline void Work() {
+	
+	virtual ~cDynamicObject() {
 	}
-
-	// Draw Myself //
-	inline void Draw() {
-	}
+	
+public:
+	// Do physics, as a self sustaining object.  This is unlikely overloaded. //
+	virtual void Step();
+	// Do any work (control/AI) I may have.  This is commonly overloaded to provide control. //
+	virtual void Work();
+	// Draw Myself. This is uncommonly overloaded, unless you want a radically different display. //
+	virtual void Draw();
 
 public:
+	// Query if this object is, at all, enabled //
 	inline bool IsActive() {
 		return true;
 	}

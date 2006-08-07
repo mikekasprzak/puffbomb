@@ -41,7 +41,12 @@ public:
 
 	// Reset game back to a neutral state //
 	void Reset();
-	
+
+public:
+	// Claim to be the controlling Engine //
+	inline void SetActive() {
+		Current = this;
+	}	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

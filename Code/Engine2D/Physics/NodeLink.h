@@ -4,6 +4,8 @@
 #ifndef __Engine2D_Physics_NodeLink_H__
 #define __Engine2D_Physics_NodeLink_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <Geometry/Real.h>
+
 #include <Physics/CollisionFlags.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {

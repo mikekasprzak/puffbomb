@@ -23,21 +23,15 @@ public:
 	cCollisionFlags Collision;
 
 public:
-	// Do physics //
-	inline void Step() {
-		// Clear Collision Flags //
-		Body.Collision.Clear();
-		// Step physics of object //
-		Body.Nodes.Step();
-	}
-
+	// Do physics as a self sustaining object. //
+	void Step();
 	// Draw Myself //
-	inline void Draw() {
-	}
+	void Draw();
 
 public:
+	// Query the state to know if component is active //
 	inline bool IsActive() {
-		return true;
+		return State.IsActive();
 	}
 
 public:
