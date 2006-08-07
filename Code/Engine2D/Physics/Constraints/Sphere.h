@@ -5,7 +5,7 @@
 #define __Engine2D_Physics_Constraints_Constraint_Sphere_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
-#include <Physics/CollisionFlags.h>
+#include <Physics/Body2D/CollisionFlags.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

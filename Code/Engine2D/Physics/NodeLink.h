@@ -6,8 +6,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
 
-#include <Physics/CollisionFlags.h>
-
 #include <Engine/DynamicObjectComponent.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {

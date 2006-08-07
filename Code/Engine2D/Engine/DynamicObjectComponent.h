@@ -8,7 +8,6 @@
 #include <Graphics/Mesh2D.h>
 
 #include <Physics/StateFlags.h>
-#include <Physics/CollisionFlags.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -23,7 +22,6 @@ public:
 	
 	// Flags //
 	cStateFlags State;
-	cCollisionFlags Collision;
 
 public:
 	// Do physics as a self sustaining object. //

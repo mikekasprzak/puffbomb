@@ -7,13 +7,11 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-
 #include <Geometry/Vector.h>
 
 #include <Physics/Physics.h>
-
 #include <Physics/StateFlags.h>
-#include <Physics/CollisionFlags.h>
+#include "CollisionFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

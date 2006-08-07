@@ -8,8 +8,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Rect.h>
 
-#include <Physics/DynamicNodes.h>
-#include <Physics/CollisionFlags.h>
+#include <Physics/Body2D/DynamicNodes.h>
+#include <Physics/Body2D/CollisionFlags.h>
 
 #include <Physics/Constraints/Spring.h>
 #include <Physics/Constraints/Sphere.h>
