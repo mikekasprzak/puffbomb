@@ -6,23 +6,29 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 cPhysics* cPhysics::Current;
 // - ------------------------------------------------------------------------------------------ - //
-cPhysics::cPhysics() {
-	Current = this;
+// The settings found here should somehow become game specific. Else it could break old games. //
+// - ------------------------------------------------------------------------------------------ - //
+cPhysics::cPhysics() :
+	Friction( Real::One ),
+	AirFriction( 0.999f ),
+	SurfaceFriction( 0.94 ), //( 0.795 ),
+	ObjectFriction( 0.8f ),
+	OperationFlags( 0 ),
+	RelaxationSteps( 2 )
+{
+	// Use normal gravity //
+	NormalGravity();
 	
-	Friction = Real::One;
-	Force = Vector2D( 0.0f, -0.1f );
-	AirFriction = 0.999f;
-	SurfaceFriction = 0.94;//0.795f;
-	ObjectFriction = 0.8f;
-	
-	// Clear the Flags //
-	OperationFlags = 0;
-	
-	// The number of times to do the relaxation loop //
-	RelaxationSteps = 2;
-
 	// A log message to know what just happened //
 	Dump();	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cPhysics::NormalGravity() {
+	Force = Vector2D( 0.0f, -0.1f );
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cPhysics::ZeroGravity() {
+	Force = Vector2D::Zero;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cPhysics::Dump() {

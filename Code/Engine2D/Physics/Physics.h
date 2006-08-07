@@ -37,6 +37,10 @@ public:
 		Current = this;
 	}
 
+	// Normal functions for changing the state of gravity //	
+	void NormalGravity();
+	void ZeroGravity();
+	
 public:
 	// Write the current status of physics to the log //
 	void Dump();
