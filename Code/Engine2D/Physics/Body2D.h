@@ -17,8 +17,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cBody2D: public cDynamicNodes {
+class cBody2D {
 public:
+	// Nodes //
+	cDynamicNodes Nodes;
+	
 	// Constraints //
 	std::vector< cSpring > Spring;
 	std::vector< cSphere > Sphere;

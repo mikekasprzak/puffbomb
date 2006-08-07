@@ -10,6 +10,7 @@ cEngine2D* cEngine2D::Current;
 void cEngine2D::Step() {
 	// Set Current Instance equal to self, that way, any attempts to access self will point here //
 	Current = this;
+	cPhysics::Current = &Physics;
 /*
 	// Physics Stage 1 -------------------------------------- //
 	// Step all the physics for all objects //
@@ -92,6 +93,7 @@ void cEngine2D::Step() {
 void cEngine2D::Draw() {
 	// Set Current Instance equal to self, that way, any attempts to access self will point here //
 	Current = this;
+	cPhysics::Current = &Physics;
 /*
 	// Draw Objects //
 	for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {

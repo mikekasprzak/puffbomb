@@ -5,7 +5,7 @@
 #define __Engine2D_Physics_Constraints_StaticEdge_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
-#include <Phiz/Physics.h>
+#include <Physics/Physics.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -42,7 +42,7 @@ public:
 		flCorner = bit2
 	};
 	
-	inline const Vector2D ClosestPoint( cStaticNodes& Node, const Vector2D& Vs, int& Flags = cPhysics::OperationFlags ) const {
+	inline const Vector2D ClosestPoint( cStaticNodes& Node, const Vector2D& Vs, int& Flags = cPhysics::Current->OperationFlags ) const {
 		Vector2D ToCorner = Node.Pos( a ) - Vs;
 		Real DistanceToSurface = ToCorner * SurfaceNormal();
 		Vector2D Point = Vs + (DistanceToSurface * SurfaceNormal());

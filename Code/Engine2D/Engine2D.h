@@ -20,7 +20,8 @@ public:
 	// Current instance of the Engine. Step and Draw update this, so to support multiple engines. //
 	static cEngine2D* Current;
 public:
-	
+	// Our instance of physics engine info //
+	cPhysics Physics;
 
 public:
 	// Our in game entities //

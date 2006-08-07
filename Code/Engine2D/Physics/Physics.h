@@ -1,51 +1,33 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DynamicObjectComponent //
+// Physics //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObjectComponent_H__
-#define __Engine2D_Engine_DynamicObjectComponent_H__
+#ifndef __Engine2D_Physics_Physics_H__
+#define __Engine2D_Physics_Physics_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Physics/Body2D.h>
-#include <Graphics/Mesh2D.h>
+#include <Util/ClassDesigner.h>
 
-#include <Physics/StateFlags.h>
-#include <Physics/CollisionFlags.h>
+#include <Geometry/Real.h>
+#include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cDynamicObjectComponent {
+class cPhysics {
 public:
-	// Parts of a component //
-	cBody2D Body;
-	cMesh2D Mesh;
-	
-	// Flags //
-	cStateFlags State;
-	cCollisionFlags Collision;
+	static cPhysics* Current;
+public:	
+	Real Friction;
+	Vector2D Force;
 
+	Real AirFriction;
+	Real SurfaceFriction;
+	Real ObjectFriction;
+
+	int OperationFlags;
 public:
-	// Do physics //
-	inline void Step() {
-		// Clear Collision Flags //
-		Body.Collision.Clear();
-		// Step physics of object //
-		Body.Nodes.Step();
-	}
-
-	// Draw Myself //
-	inline void Draw() {
-	}
-
-public:
-	inline bool IsActive() {
-		return true;
-	}
-
-public:
-	
-	// Messanging //
+	cPhysics( );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObjectComponent_H__ //
+#endif // __Engine2D_Physics_Physics_H__ //
 // - ------------------------------------------------------------------------------------------ - //

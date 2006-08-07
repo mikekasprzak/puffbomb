@@ -9,10 +9,11 @@
 #include <Util/Debug.h>
 
 #include <Geometry/Vector.h>
+
+#include <Physics/Physics.h>
+
 #include <Physics/StateFlags.h>
 #include <Physics/CollisionFlags.h>
-
-//#include "Physics.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -169,8 +170,8 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	inline void Reset( int Index ) {
-//		Friction[ Index ] = cPhysics::Friction;
-//		Force[ Index ] = cPhysics::Force;
+		Friction[ Index ] = cPhysics::Current->Friction;
+		Force[ Index ] = cPhysics::Current->Force;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 public:
