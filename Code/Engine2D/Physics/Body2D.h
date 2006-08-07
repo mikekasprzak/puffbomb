@@ -35,7 +35,7 @@ public:
 //	std::vector< cPolygon > Polygon;	// or C ?
 	
 	
-	// Flags //
+	// Member collision monitoring flags //
 	cCollisionFlags Collision;
 
 public:	
@@ -49,8 +49,13 @@ public:
 	void GrowBoundingRectBySphere( const size_t _Index );
 
 public:
+	// Step the nodes in the body. //
+	// Unlike cDynamicObject/Component, this is not a self sufficent physics system. //
 	void Step();
+	// Step the springs in the body. //
 	void StepSprings();
+	// Calculate the length of all springs (given their current positions) //
+	void CalculateSpringLength();
 
 public:	
 	// Solve Collisions/Actions //

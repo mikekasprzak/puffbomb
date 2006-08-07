@@ -7,13 +7,15 @@
 #include <Util/ClassDesigner.h>
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
+
+#include <Physics/Body2D/DynamicNodes.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cSpring {
 public:	
 	// Length of the Spring //
-	Real Length;	
+	Real Length;
 	// How well to solve the spring.  1.0 is a normal stiff spring.  Less than .5 gets gooey. //
 	Real Strength;
 
@@ -42,11 +44,19 @@ public:
 	{
 	}
 
+	// Get the current length of the spring //
 	inline Real CurrentLength( cDynamicNodes& Node ) {
 		Vector2D Line = Node.Pos( IndexB ) - Node.Pos( IndexA );
 		return Line.Magnitude();
 	}
+
+	// Calculate the length of the spring given these positions //
+	inline void CalcLength( cDynamicNodes& Node ) {
+		Vector2D Line = Node.Pos( IndexB ) - Node.Pos( IndexA );
+		Length = Line.Magnitude();
+	}
 	
+	// 
 	inline void Step( cDynamicNodes& Node ) {
 //		// Optimized Verlet with Square Root Approximation //
 //		Vector2D Ray = Node.Pos( IndexB ) - Node.Pos( IndexA );

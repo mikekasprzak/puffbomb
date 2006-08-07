@@ -9,6 +9,9 @@ void cBody2D::Step() {
 	
 	// Step each Node //
 	Nodes.Step();
+	
+	// Calculate Bounding Rectange //
+	CalcBoundingRect();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::StepSprings() {
@@ -65,6 +68,13 @@ void cBody2D::GrowBoundingRectBySphere( const size_t _Index ) {
 		BoundingRect.P1().Min( (Nodes.Pos( Sphere[ _Index ].Index ) - Sphere[ _Index ].Radius) ),
 		BoundingRect.P2().Max( (Nodes.Pos( Sphere[ _Index ].Index ) + Sphere[ _Index ].Radius) )
 		);
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::CalculateSpringLength() {
+	// For all springs, calculate their length //
+	for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
+		Spring[ idx ].CalcLength( Nodes );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
