@@ -1,28 +1,42 @@
 // - ------------------------------------------------------------------------------------------ - //
-// NodeLink //
+// Sphere //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Physics_NodeLink_H__
-#define __Engine2D_Physics_NodeLink_H__
+#ifndef __Engine2D_Physics_Constraints_Constraint_Sphere_H__
+#define __Engine2D_Physics_Constraints_Constraint_Sphere_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <Util/ClassDesigner.h>
 #include <Physics/CollisionFlags.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cNodeLink {
+class cSphere {
 public:
-	// Length of the Spring //
-	Real Length;	
-	// How well to solve the spring.  1.0 is a normal stiff spring.  Less than .5 gets gooey. //
-	Real Strength;
-	// When to detach the spring (if enabled) //
-	Real BreakPoint;
+	Real Radius;
+	cCollisionFlags Flags;
 
+	// Indices at the end for consistency //
+	size_t Index;
+
+public:
+	inline cSphere() {
+	}
 	
+	inline cSphere( size_t _Index ) :
+		Radius( Real::One ),
+		Index( _Index )
+	{
+	}
+
+	inline const Real Area() {
+		return Real::Pi * Radius * Radius;
+	}
 	
-	
+	inline const Real RadiusSquared() {
+		return Radius * Radius;
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Physics_NodeLink_H__ //
+#endif // __Engine2D_Physics_Constraints_Constraint_Sphere_H__ //
 // - ------------------------------------------------------------------------------------------ - //

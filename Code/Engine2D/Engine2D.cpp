@@ -8,6 +8,8 @@ cEngine2D* cEngine2D::Current;
 // - ------------------------------------------------------------------------------------------ - //
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Step() {
+	// Set Current Instance equal to self, that way, any attempts to access self will point here //
+	Current = this;
 /*
 	// Physics Stage 1 -------------------------------------- //
 	// Step all the physics for all objects //
@@ -28,7 +30,10 @@ void cEngine2D::Step() {
 	// Physics Stage 2 -------------------------------------- //
 	// Run all contacts and springs twice, for cleaner results //
 	for ( int ContactsAndSprings = 0; ContactsAndSprings < 2; ContactsAndSprings++ ) {
-		// Step Physics for NodeLink's (i.e. global springs that connect several objects) //
+		// Step Physics for all Springs inside each component inside this object //
+
+
+		// Step Physics for NodeLink's (i.e. global springs that connect several components) //
 		for ( size_t idx = 0; idx < NodeLink.size(); ++idx ) {
 			if ( NodeLink[ idx ]->IsActive() ) { 
 				NodeLink[ idx ]->Step();
@@ -85,6 +90,8 @@ void cEngine2D::Step() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Draw() {
+	// Set Current Instance equal to self, that way, any attempts to access self will point here //
+	Current = this;
 /*
 	// Draw Objects //
 	for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {

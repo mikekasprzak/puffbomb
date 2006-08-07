@@ -36,19 +36,19 @@ public:
 
 public:
 	// Constructor //
-	cDynamicNodes( size_t _Count ) :
-		NodeA( _Count ),
-		NodeB( _Count ),
-		Force( _Count ),
-		Friction( _Count ),
-		_InvMass( _Count ),
-		Mass( _Count )
-	{		
-		WakeUp();
-		
-		// Not really a nice spot to print this here, so remove this //
-		Log( LOG_PHIZOBJECT_INFO, "Node set created (" << _Count << ")" );
-	}
+//	cDynamicNodes( size_t _Count ) :
+//		NodeA( _Count ),
+//		NodeB( _Count ),
+//		Force( _Count ),
+//		Friction( _Count ),
+//		_InvMass( _Count ),
+//		Mass( _Count )
+//	{		
+//		WakeUp();
+//		
+//		// Not really a nice spot to print this here, so remove this //
+//		Log( LOG_PHIZOBJECT_INFO, "Node set created (" << _Count << ")" );
+//	}
 	
 	// Destructor //
 	~cDynamicNodes() {
