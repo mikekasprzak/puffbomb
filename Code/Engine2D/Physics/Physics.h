@@ -30,14 +30,17 @@ public:
 	int RelaxationSteps;
 public:
 	cPhysics();
-	// Write the current status of physics to the log //
-	void Dump();
 
 public:
 	// Claim the controlling Physics property //
 	inline void SetActive() {
 		Current = this;
 	}
+
+public:
+	// Write the current status of physics to the log //
+	void Dump();
+
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

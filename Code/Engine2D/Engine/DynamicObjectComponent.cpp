@@ -4,6 +4,7 @@
 
 #include <Physics/Physics.h>
 #include <Engine/DynamicObject.h>
+#include <Engine/StaticObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -38,6 +39,24 @@ void cDynamicObjectComponent::Solve( cDynamicObjectComponent& _Vs ) {
 
 		// If either of us are inactive objects, bail //
 		if ( !State.Active() || !_Vs.State.Active() ) {
+			return;
+		}
+	}
+	
+	// Solve the collision //
+	Body.Solve( _Vs.Body ); 
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicObjectComponent::Solve( cStaticObject& _Vs ) {
+	// If I'm more than simply active //
+	if ( !State.OnlyActive() ) {
+		// If I'm ignoring scenery, bail//
+		if ( State.IgnoreScenery() ) {
+			return;
+		}
+
+		// If I'm inactive, bail //
+		if ( !State.Active() ) {
 			return;
 		}
 	}

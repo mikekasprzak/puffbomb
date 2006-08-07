@@ -43,7 +43,7 @@ public:
 	void Reset();
 
 public:
-	// Claim to be the controlling Engine //
+	// Claim the engine in control status //
 	inline void SetActive() {
 		Current = this;
 	}	
