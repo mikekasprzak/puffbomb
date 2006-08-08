@@ -32,6 +32,7 @@ public:
 public:
 	// Common Rectangle type for bounding boxes //
 	typedef RadiusRect2D BoundingRectType;	
+	typedef RadiusRect3D Bounding3DRectType;
 
 public:
 	cPhysics();
