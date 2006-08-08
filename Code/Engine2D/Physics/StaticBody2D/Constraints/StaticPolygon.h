@@ -44,11 +44,15 @@ public:
 		MaxPoint = MinPoint;
 
 		for ( size_t idx = 1; idx < Index.size(); idx++ ) {
-			MinPoint.x = MinPoint.x.Min( Node.Pos( Index[ idx ] ).x );
-			MinPoint.y = MinPoint.y.Min( Node.Pos( Index[ idx ] ).y );
-			
-			MaxPoint.x = MaxPoint.x.Max( Node.Pos( Index[ idx ] ).x );
-			MaxPoint.y = MaxPoint.y.Max( Node.Pos( Index[ idx ] ).y );
+			// Should work! //
+			MinPoint.MinClamp( Node.Pos( Index[ idx ] ) );			
+			MaxPoint.MaxClamp( Node.Pos( Index[ idx ] ) );
+
+//			MinPoint.x = MinPoint.x.Min( Node.Pos( Index[ idx ] ).x );
+//			MinPoint.y = MinPoint.y.Min( Node.Pos( Index[ idx ] ).y );
+//			
+//			MaxPoint.x = MaxPoint.x.Max( Node.Pos( Index[ idx ] ).x );
+//			MaxPoint.y = MaxPoint.y.Max( Node.Pos( Index[ idx ] ).y );
 		}
 		
 		// Set it //
