@@ -130,6 +130,81 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 	
 	size_t LastGridDepth = CurGridDepth;
 	
+	
+	SetGridDepth( MyCamera, CurGridDepth, GridChange );
+	
+/*	
+	if( AutoGridDepth )
+	{
+		for( int idx = 1; idx < 13; ++idx )
+		{
+			if( MyCamera->Pos.z < GridChange )
+			{
+				CurGridDepth = idx;
+				break;
+			}	
+			GridChange *= Real(2.0);
+		}
+	}
+	else
+	{
+		if ( Button[ KEY_PGDN ].Pressed() )
+		{
+			if( CurGridDepth >= 12 )
+			{
+				CurGridDepth = 1;
+			}
+			else
+			{
+				++CurGridDepth;	
+			}
+				
+		}
+		else if ( Button[ KEY_PGUP ].Pressed() )
+		{
+			if( CurGridDepth <= 1 )
+			{
+				CurGridDepth = 12;
+			}
+			else
+			{
+				--CurGridDepth;	
+			}
+		}
+	}*/
+	if( LastGridDepth != CurGridDepth )
+	{
+		SetGridArray( CurGridDepth, MyGridDepth );
+	}
+	
+	Gfx::EnableBlend();
+
+	Gfx::DrawLines(
+		&GridVertex[0],
+		&GridIndices[0],
+		GridIndicesSize,
+		gfx::RGBA( colour, colour, colour, 128 )
+	);
+	
+	colour = 65;
+	
+	Gfx::DrawLines(
+		&GridVertex2[0],
+		&GridIndices2[0],
+		GridIndicesSize2,
+		gfx::RGBA( colour, colour, colour, 128 )
+	);
+	
+	Gfx::DisableBlend();
+	
+	if( DrawOrig )
+	{	
+		DrawOrigin();
+	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEdit::SetGridDepth( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange )
+{
 	if( AutoGridDepth )
 	{
 		for( int idx = 1; idx < 13; ++idx )
@@ -168,36 +243,6 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 			}
 		}
 	}
-	if( LastGridDepth != CurGridDepth )
-	{
-		SetGridArray( CurGridDepth, MyGridDepth );
-			
-	}
-	
-	Gfx::EnableBlend();
-
-	Gfx::DrawLines(
-		&GridVertex[0],
-		&GridIndices[0],
-		GridIndicesSize,
-		gfx::RGBA( colour, colour, colour, 128 )
-	);
-	
-	colour = 65;
-	
-	Gfx::DrawLines(
-		&GridVertex2[0],
-		&GridIndices2[0],
-		GridIndicesSize2,
-		gfx::RGBA( colour, colour, colour, 128 )
-	);
-	
-	Gfx::DisableBlend();
-	
-	if( DrawOrig )
-	{	
-		DrawOrigin();
-	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::SetGridArray( size_t CurGridDepth, Real* MyGridDepth )

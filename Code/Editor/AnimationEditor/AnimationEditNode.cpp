@@ -42,12 +42,11 @@ void cAnimationEdit::SelectNode()
 	{
 		//Vector2D CurMousePos = CalcMousePos();
 		// Group add-select //
-/*		if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
+		if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
 		{
-			for( size_t idx = 0; idx < DisplayMesh[ CurrentObject ].size(); ++idx )
+			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
 			{
-				if( WithinBox( DisplayMesh[ CurrentObject ].Pos( idx ), CurMousePos,
-					 OldMousePos ) )
+				if( WithinBox( CurFrame->Vertex[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					bool CurSelectedTest = false;
 					for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -64,7 +63,7 @@ void cAnimationEdit::SelectNode()
 				}
 			}
 			// Single add-select //
-			int temp = DisSingleSelect( CurMousePos );
+			int temp = SingleSelect();
 			if( temp != -1 )
 			{
 				bool CurSelectedTest = false;
@@ -84,10 +83,9 @@ void cAnimationEdit::SelectNode()
 		// Group de-select //
 		else if( Button[ KEY_LCTRL ] || Button[ KEY_RCTRL ] )
 		{
-			for( size_t idx = 0; idx < DisplayMesh[ CurrentObject ].size(); ++idx )
+			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
 			{
-				if( WithinBox( DisplayMesh[ CurrentObject ].Pos( idx ), CurMousePos,
-					 OldMousePos ) )
+				if( WithinBox( CurFrame->Vertex[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					for( size_t i = 0; i < CurSelected.size(); ++i )
 					{
@@ -107,7 +105,7 @@ void cAnimationEdit::SelectNode()
 				}
 			}
 			// Single de-select //
-			int temp = DisSingleSelect( CurMousePos );
+			int temp = SingleSelect();
 			if( temp != -1 )
 			{
 				for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -128,7 +126,7 @@ void cAnimationEdit::SelectNode()
 			}
 		}
 		// Standard group select //
-		else*/
+		else
 		{
 			CurSelected.clear();
 
@@ -149,11 +147,84 @@ void cAnimationEdit::SelectNode()
 				}
 			}
 		}
-		
-/*		if( !CurSelected.empty() )
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::MoveNode()
+{
+	if( Button[ MOUSE_1 ].Pressed() )
+	{
+		if( !Button[ KEY_LCTRL ] || !Button[ KEY_RCTRL ] )
 		{
-			CurrentNode = CurSelected[0];
-		}*/
+			int temp = SingleSelect();
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			{
+				if( temp == int(CurSelected[idx]) )
+				{
+					isGroupMove = true;
+				}
+			}
+		}
+		// Snaps to grid
+		if( !Button[ KEY_LSHIFT ] && isGroupMove )
+		{
+			SnapToGrid = true;
+		}
+		else
+		{
+			SnapToGrid = false;
+		}
+	}
+	if( Button[ MOUSE_1 ].Released() )
+	{
+		isGroupMove = false;
+		
+		if( SnapToGrid )
+		{
+			SetGridDepth( Camera, CurrentGridDepth, 40.0 );
+			SetGridArray( CurrentGridDepth, GridDepth );
+
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			{
+			
+				CalcSnapToGrid( CurFrame->Vertex[ CurSelected[idx] ].Pos, CurrentGridDepth, GridDepth );
+			}
+			SnapToGrid = false;
+			ActiveAction();
+		}
+		else
+		{
+			ActiveAction();
+		}
+	}
+	if( isGroupMove )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			CurFrame->Vertex[ CurSelected[idx] ].Pos.x -=
+				( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
+				Real( Camera->Pos.z / cGlobal::HudZoom );
+			
+			CurFrame->Vertex[ CurSelected[idx] ].Pos.y +=
+				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
+				Real( Camera->Pos.z / cGlobal::HudZoom );
+		
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::AddNode()
+{
+	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() /* || isPaste == true */ )
+	{
+		CurFrame->Vertex.push_back( cFrame::cVertex( CurMousePos ) );
+
+		SetGridDepth( Camera, CurrentGridDepth, 40.0 );
+		SetGridArray( CurrentGridDepth, GridDepth );
+		
+		CalcSnapToGrid( CurFrame->Vertex[CurFrame->Vertex.size() - 1].Pos, CurrentGridDepth, GridDepth );
+		
+		ActiveAction();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

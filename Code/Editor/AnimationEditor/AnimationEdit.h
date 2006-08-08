@@ -31,7 +31,12 @@ public:
 	Real UVScale;
 	Real UVZoomOffsetX;
 	Real UVZoomOffsetY;
-	
+
+	size_t UVCurGridDepth;
+
+	bool SnapToGrid;
+	bool isGroupMove;
+
 	std::vector< cAnimation* > Animations;
 	cAnimator Animator;
 	cFrame* CurFrame;
@@ -64,6 +69,7 @@ public:
 	void Step();
 	
 	void Undo();
+	void ActiveAction();
 	
 	void ScrollUV();
 	void CalcUVZoomOffset();
@@ -77,6 +83,8 @@ public:
 	// AnimationEditNode.cpp //
 	int SingleSelect();
 	void SelectNode();
+	void MoveNode();
+	void AddNode();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

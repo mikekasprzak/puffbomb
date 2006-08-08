@@ -19,16 +19,6 @@
 #include "Editor/Edit.h"
 #include "Mesh2DInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
-#define NODE_MODE 				0
-#define SPHERE_MODE 			1
-#define SPRING_MODE 			2
-#define DISPLAY_NODE_MODE		3
-#define PIVOT_HANDLE_MODE 		4
-#define FACE_MODE	 			5
-#define TEXTURE_MODE 			6
-#define DRAWING_ORDER_MODE		7
-#define SUPER_MODE 				8
-// - ------------------------------------------------------------------------------------------ - //
 class cMesh2DEdit : public cEdit {
 public:
 	// Construct, and require an associated object //

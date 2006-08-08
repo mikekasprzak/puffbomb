@@ -24,6 +24,9 @@ cAnimationEdit::cAnimationEdit() :
 	UVScale( 256.0 ),
 	UVZoomOffsetX( 144.5 ),
 	UVZoomOffsetY( 232 ),
+	UVCurGridDepth( 0 ),
+	SnapToGrid( false ),
+	isGroupMove( false ),
 	FrameIdx( 0 ),
 	NodeRadius( 6.0 ),
 	OldMousePos( Real(0.0), Real(0.0) ),
@@ -80,6 +83,9 @@ cAnimationEdit::cAnimationEdit() :
 	GridSize = 2048.0;
 
 	CalcUVZoomOffset();
+	
+	CurMode = NODE_MODE;
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 cAnimationEdit::~cAnimationEdit()
@@ -169,7 +175,24 @@ void cAnimationEdit::Step()
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), Camera );
 		
-		SelectNode();
+		if( CurMode == NODE_MODE )
+		{
+			if( !isGroupMove )
+			{
+				SelectNode();
+			
+				AddNode();
+			}
+			MoveNode();
+		}
+		else if( CurMode == FACE_MODE )
+		{	
+
+		}
+		else if( CurMode == TEXTURE_MODE )
+		{	
+
+		}
 	}
 	else if( CheckViewTwo( UVHeight ) )
 	{
@@ -229,6 +252,24 @@ void cAnimationEdit::Undo()
 		PreviewCamera->View.y = PreviewCamera->Pos.y;
 		PreviewCamera->View.z = 0.0;
 	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::ActiveAction()
+{
+/*	cDisplayMesh tempTexObj;
+		DisplayMesh.push_back( tempTexObj );
+
+	Mesh2DInfo[CurrentObject].UndoObject.push_back(
+		cCompleteMesh( Object[ CurrentObject ], tempTexObj )
+	);
+	
+	Mesh2DInfo[CurrentObject].UndoObject.back().DisplayMesh = DisplayMesh[ CurrentObject ];
+	
+	Mesh2DInfo[CurrentObject].isSaved = false;
+	if( Mesh2DInfo[CurrentObject].UndoObject.size() > 1 )
+	{
+		Mesh2DInfo[CurrentObject].RedoObject.clear();
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::ScrollUV()
@@ -361,7 +402,10 @@ void cAnimationEdit::DrawSelected()
 {
 	Gfx::DisableTex2D();
  
-	DrawSelBox();
+ 	if( !isGroupMove )
+	{
+		DrawSelBox();
+	}
 	
 	glLineWidth( 4.0 );
 
