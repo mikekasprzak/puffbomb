@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // DynamicObjectComponent //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObjectComponent_H__
-#define __Engine2D_Engine_DynamicObjectComponent_H__
+#ifndef __Engine2D_Engine_DynamicObject_DynamicObjectComponent_H__
+#define __Engine2D_Engine_DynamicObject_DynamicObjectComponent_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Physics/Body2D.h>
 #include <Graphics/Mesh2D.h>
@@ -47,5 +47,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObjectComponent_H__ //
+#endif // __Engine2D_Engine_DynamicObject_DynamicObjectComponent_H__ //
 // - ------------------------------------------------------------------------------------------ - //
