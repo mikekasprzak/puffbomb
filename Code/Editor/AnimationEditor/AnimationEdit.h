@@ -31,8 +31,9 @@ public:
 	
 	std::vector< cAnimation* > Animations;
 	cAnimator Animator;
+	cFrame* CurFrame;
 	
-	unsigned int CurFrame;
+	unsigned int FrameIdx;
 	
 	ABCDSet< Vector3D > TexVertex;
 	ABCDSet< Vector2D > TexUV;
@@ -54,6 +55,8 @@ public:
 	void ScrollUV();
 	Vector2D CalcUVMousePos();
 	void CalcUVZoomOffset();
+	
+	void DrawFrame();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

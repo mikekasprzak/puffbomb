@@ -24,7 +24,7 @@ cAnimationEdit::cAnimationEdit() :
 	UVScale( 256.0 ),
 	UVZoomOffsetX( 144.5 ),
 	UVZoomOffsetY( 232 ),
-	CurFrame( 0 )
+	FrameIdx( 0 )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -58,6 +58,8 @@ cAnimationEdit::cAnimationEdit() :
 	Animations.push_back( &AnimationPool.Load( "TestAnimation.anim" ) );
 	
 	Animator.Set( Animations[0], 0 );
+	
+	CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 
 	TexVertex.a = Vector3D( 0.0, 0.0, 0.0 );
 	TexVertex.b = Vector3D( UVScale, 0.0, 0.0 );
@@ -85,7 +87,14 @@ cAnimationEdit::~cAnimationEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::Draw()
 {
-	Gfx::Circle( Vector3D( Real( 0.0 ), Real( 0.0 ), Real( 0.0 ) ), Real( 20.0 ), Gfx::White() );
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+
+	Gfx::ResetColor();
+	DrawFrame();
+
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 	
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 }
@@ -132,7 +141,7 @@ void cAnimationEdit::UVDraw()
 		&TexUV,
 		TexIndices,
 		4,
-		Animator.Animation->Frame[ CurFrame ].GetFrame().TextureID,
+		Animator.Animation->Frame[ FrameIdx ].GetFrame().TextureID,
 		Gfx::White()
 	);
 	
@@ -258,6 +267,25 @@ void cAnimationEdit::CalcUVZoomOffset()
 {
 	UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
 	UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::DrawFrame()
+{
+	for( size_t idx = 0; idx < CurFrame->Face.size(); ++idx )
+	{
+		gfx::Face(
+			CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.a ].Pos,
+			CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.c ].Pos,
+			CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.b ].Pos,
+			CurFrame->Face[ idx ].UV.a,
+			CurFrame->Face[ idx ].UV.b,
+			CurFrame->Face[ idx ].UV.c
+		);
+	}
+	//Animator.Animation->Frame[ FrameIdx ].GetFrame()->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos
+	
+	// Animator.Animation->Frame[ FrameIdx ].GetFrame()
+	//	Gfx::Circle( Vector3D( Real( 0.0 ), Real( 0.0 ), Real( 0.0 ) ), Real( 20.0 ), Gfx::White() );
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
