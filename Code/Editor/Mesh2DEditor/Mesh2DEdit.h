@@ -67,9 +67,6 @@ public:
 	int CurLayer;
 //	int LowLayer;
 //	int HighLayer;
-	int LastView;
-	int CurView;
-	
 	Real UVGridDepth[ 13 ];
 	
 	std::vector< int > DrawLayers;

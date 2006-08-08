@@ -19,6 +19,8 @@ cEdit::cEdit() :
 	ScrollMouseX( 0 ),
 	ScrollMouseY( 0 ),
 	ScrollFrame( 10 ),
+	CurView( 1 ),
+	LastView( 0 ),
 	ScrollSpeed( 3.0 ),
 	GridSize( 16384.0 ),
 	CurrentGridDepth( 0 )
@@ -93,7 +95,7 @@ void cEdit::Scroll( cCamera* MyCamera )
 {
 	// Scroll Mouse Button
 	// Pans the screen	
-	if( Button[ MOUSE_3 ] && MiddleClick == false )
+	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
 	{
 		MiddleClick = true;
 		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) );

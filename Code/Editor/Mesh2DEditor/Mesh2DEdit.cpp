@@ -29,8 +29,6 @@ cMesh2DEdit::cMesh2DEdit() :
 	isDelete( false ),
 	EditMode( 0 ),
 	CurLayer( 0 ),
-	LastView( 1 ),
-	CurView( 1 ),
 	OldMousePos( Real(0.0), Real(0.0) ),
 	isGroupMove( false ),
 	UVScale( 256 ),

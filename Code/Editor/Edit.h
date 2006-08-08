@@ -36,6 +36,9 @@ public:
 	int ScrollMouseY;
 	int ScrollFrame;
 
+	int CurView;
+	int LastView;
+
 	Real ScrollSpeed;
 	Real Scale;
 

@@ -93,15 +93,15 @@ void cAnimationEdit::HudDraw()
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	
-	//  DISPLAYS FPS  //
-	std::stringstream Temp;
-	Temp << Platform::FPS;
-	std::string TempString = Temp.str();
-	
-	Vector3D TempPos = Vector3D( cGlobal::Left, cGlobal::Top - Real( 45 ), 0.0 );
-
-	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), gfx::RGBA( 184, 0, 0, 255 ) );
-	// -------------- //
+//	//  DISPLAYS FPS  //
+//	std::stringstream Temp;
+//	Temp << Platform::FPS;
+//	std::string TempString = Temp.str();
+//	
+//	Vector3D TempPos = Vector3D( cGlobal::Left, cGlobal::Top - Real( 45 ), 0.0 );
+//
+//	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), gfx::RGBA( 184, 0, 0, 255 ) );
+//	// -------------- //
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
 }
@@ -113,7 +113,8 @@ void cAnimationEdit::PreviewDraw()
 	
 	Gfx::ResetColor();
 	
-	Animator.DrawQuad( Vector2D( 0, 0 ) );
+//	Animator.DrawQuad( Vector2D( 0, 0 ) );
+	Animator.Draw( Vector2D( 0, 0 ) );
 		
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
@@ -144,6 +145,7 @@ void cAnimationEdit::Step()
 {
 	if( CheckViewOne() )
 	{
+		CurView = 1;
 		// Handles scrolling around the map
 		Scroll( Camera );
 
@@ -152,6 +154,7 @@ void cAnimationEdit::Step()
 	}
 	else if( CheckViewTwo( UVHeight ) )
 	{
+		CurView = 2;
 		// Handles scrolling around the map
 		Scroll( PreviewCamera );
 
@@ -160,6 +163,7 @@ void cAnimationEdit::Step()
 	}
 	else if( CheckViewThree( UVHeight ) )
 	{
+		CurView = 3;
 		// Handles scrolling around the map
 		ScrollUV();
 
@@ -169,6 +173,8 @@ void cAnimationEdit::Step()
 	Animator.Step();
 	
 	Undo();
+	
+	LastView = CurView;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::Undo()
@@ -206,19 +212,20 @@ void cAnimationEdit::ScrollUV()
 {
 	// Scroll Mouse Button
 	// Pans the Hud	
-	if( Button[ MOUSE_3 ] && MiddleClick == false )
+	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
 	{
 		//UVMiddleClick = true;
 		MiddleClick = true;
 		ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
 		ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
+			
 	}
 	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
 	{
 		MiddleClickLast = MiddleClick;
 		MiddleClick = false;
 	}
-	else if( MiddleClick )
+	if( MiddleClick )
 	{
 		UVCamera->Pos.x += ( int( Mouse.x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) - ScrollMouseX )
 			* Real( -UVCamera->Pos.z / UVZoomOffsetX );
