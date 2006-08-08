@@ -40,12 +40,14 @@ public:
 	
 	Real NodeRadius;
 	
+	Vector2D OldMousePos;
 
 public:
 	cAnimationEdit();
 	~cAnimationEdit();
 
 public:
+	// AnimationEdit.cpp //
 	void Draw();
 	void HudDraw();
 	void PreviewDraw();
@@ -55,10 +57,14 @@ public:
 	void Undo();
 	
 	void ScrollUV();
-	Vector2D CalcUVMousePos();
 	void CalcUVZoomOffset();
+	Vector2D CalcUVMousePos();
+	Vector2D CalcMousePos();
 	
 	void DrawFrame();
+	
+	// AnimationEditNode.cpp //
+	void SelectNode();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

@@ -25,7 +25,8 @@ cAnimationEdit::cAnimationEdit() :
 	UVZoomOffsetX( 144.5 ),
 	UVZoomOffsetY( 232 ),
 	FrameIdx( 0 ),
-	NodeRadius( 6.0 )
+	NodeRadius( 6.0 ),
+	OldMousePos( Real(0.0), Real(0.0) )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -248,6 +249,28 @@ void cAnimationEdit::ScrollUV()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::CalcUVZoomOffset()
+{
+	UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
+	UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
+}
+// - ------------------------------------------------------------------------------------------ - //
+Vector2D cAnimationEdit::CalcMousePos()
+{
+	Vector2D tempMousPos = Vector2D(
+			Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
+			- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
+			- ( ( Real(cGlobal::HudW) * Real( 0.75 ) ) / Real(2) ) )
+			* Real( Camera->Pos.z / cGlobal::HudZoom ),
+			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
+			+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom  ) )
+			+ ( cGlobal::HudH >> 1 ) )
+			* Real( Camera->Pos.z / cGlobal::HudZoom )
+	);
+
+	return tempMousPos;
+}
+// - ------------------------------------------------------------------------------------------ - //
 Vector2D cAnimationEdit::CalcUVMousePos()
 {
 	return Vector2D(
@@ -262,12 +285,6 @@ Vector2D cAnimationEdit::CalcUVMousePos()
 		* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
 		- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
 	);
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cAnimationEdit::CalcUVZoomOffset()
-{
-	UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
-	UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawFrame()
@@ -327,6 +344,8 @@ void cAnimationEdit::DrawFrame()
 	
 	Gfx::EnableTex2D();
 }
+// - ------------------------------------------------------------------------------------------ - //
+
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
