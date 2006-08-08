@@ -79,12 +79,22 @@ public:
 	void DrawFrame();
 	void DrawSelected();
 	void DrawSelBox();
-		
+	
+	void SwitchFrame();
+
+public:
 	// AnimationEditNode.cpp //
-	int SingleSelect();
+	int SingleSelectNode();
 	void SelectNode();
 	void MoveNode();
 	void AddNode();
+	void DeleteNode();
+	
+public:
+	// AnimationEditFace.cpp //
+	void SelectFace();
+	bool FaceInBox( int i, int idx );
+	int SingleSelectFace();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

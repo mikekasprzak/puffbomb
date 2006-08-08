@@ -219,6 +219,8 @@ void cAnimationEdit::Step()
 	Animator.Step();
 	
 	Undo();
+
+	SwitchFrame();
 	
 	LastView = CurView;
 }
@@ -439,7 +441,35 @@ void cAnimationEdit::DrawSelBox()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-
+void cAnimationEdit::SwitchFrame()
+{	
+	if ( Button[ KEY_LEFT ].Pressed() )
+	{
+		if( FrameIdx > 0 )
+		{
+			--FrameIdx;
+		}
+		else
+		{
+			FrameIdx = Animator.Animation->Frame.size() - 1;
+		}
+		CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
+		CurSelected.clear();
+	}
+	if ( Button[ KEY_RIGHT ].Pressed() )
+	{
+		if( FrameIdx < Animator.Animation->Frame.size() - 1 )
+		{
+			++FrameIdx;
+		}
+		else
+		{
+			FrameIdx = 0;
+		}
+		CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
+		CurSelected.clear();
+	}
+}
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //

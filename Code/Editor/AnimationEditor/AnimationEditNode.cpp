@@ -10,7 +10,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-int cAnimationEdit::SingleSelect()
+int cAnimationEdit::SingleSelectNode()
 {
 	int LastIdx = -1;
 	Real LastDistance = NodeRadius;
@@ -63,7 +63,7 @@ void cAnimationEdit::SelectNode()
 				}
 			}
 			// Single add-select //
-			int temp = SingleSelect();
+			int temp = SingleSelectNode();
 			if( temp != -1 )
 			{
 				bool CurSelectedTest = false;
@@ -105,7 +105,7 @@ void cAnimationEdit::SelectNode()
 				}
 			}
 			// Single de-select //
-			int temp = SingleSelect();
+			int temp = SingleSelectNode();
 			if( temp != -1 )
 			{
 				for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -140,7 +140,7 @@ void cAnimationEdit::SelectNode()
 			// Single select //
 			if( CurSelected.empty() )
 			{
-				int temp = SingleSelect();
+				int temp = SingleSelectNode();
 				if( temp != -1 )
 				{
 					CurSelected.push_back( temp );
@@ -156,7 +156,7 @@ void cAnimationEdit::MoveNode()
 	{
 		if( !Button[ KEY_LCTRL ] || !Button[ KEY_RCTRL ] )
 		{
-			int temp = SingleSelect();
+			int temp = SingleSelectNode();
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				if( temp == int(CurSelected[idx]) )
@@ -227,6 +227,44 @@ void cAnimationEdit::AddNode()
 		ActiveAction();
 	}
 }
+void cAnimationEdit::DeleteNode()
+{
+	if( !CurSelected.empty() )
+	{
+		if( Button[ KEY_DELETE ].Pressed() )
+		{
+		/*	
+			isDelete = true;
+			DisDeleteFace();
+			isDelete = false;
+						
+			std::vector< cDisplayMesh::cDisplayNode > tempDisNode;
+			for( size_t idx = 0; idx < DisplayMesh[ CurrentObject ].size(); ++idx )
+			{
+				isDelete = false;
+				for( size_t i = 0; i < CurSelected.size(); ++i )
+				{
+					if( idx == CurSelected[i] )
+					{
+						isDelete = true;	
+					}
+				}	
+				if( !isDelete )
+				{
+					tempDisNode.push_back( DisplayMesh[ CurrentObject ].DisplayNode[idx] );
+				}
+			}
+			DisplayMesh[ CurrentObject ].DisplayNode.clear();
+			DisplayMesh[ CurrentObject ].DisplayNode.swap( tempDisNode );
+			
+			CurSelected.clear();
+			CurrentNode = DisplayMesh[ CurrentObject ].size() - 1;
+			CurrentFace = DisplayMesh[ CurrentObject ].Face.size() - 1;*/
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
