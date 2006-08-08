@@ -8,12 +8,12 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Rect.h>
 
-#include <Physics/Body2D/DynamicNodes.h>
-#include <Physics/Body2D/CollisionFlags.h>
+#include "Body2D/DynamicNodes.h"
+#include "Body2D/CollisionFlags.h"
 
-#include <Physics/Constraints/Spring.h>
-#include <Physics/Constraints/Sphere.h>
-#include <Physics/Constraints/Anchor.h>
+#include "Body2D/Constraints/Spring.h"
+#include "Body2D/Constraints/Sphere.h"
+#include "Body2D/Constraints/Anchor.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
