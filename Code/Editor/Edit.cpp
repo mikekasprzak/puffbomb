@@ -7,7 +7,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Platform/Global.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <SDL/SDL.h>
+//#include <SDL/SDL.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
@@ -68,9 +68,6 @@ cEdit::cEdit() :
 		
 		GridRangeValue *= Real(2.0);
 	}
-
-
-//	CurrentDir = "Content/PuffBOMB/";
 	CurrentDir = "../../../../Content/PuffBOMB/";
 	
 	
@@ -177,7 +174,7 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 			
 	}
 	
-	glEnable(GL_BLEND);
+	Gfx::EnableBlend();
 
 	Gfx::DrawLines(
 		&GridVertex[0],
@@ -195,7 +192,7 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 		gfx::RGBA( colour, colour, colour, 128 )
 	);
 	
-	glDisable(GL_BLEND);
+	Gfx::DisableBlend();
 	
 	if( DrawOrig )
 	{	

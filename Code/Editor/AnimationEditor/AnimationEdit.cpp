@@ -24,7 +24,8 @@ cAnimationEdit::cAnimationEdit() :
 	UVScale( 256.0 ),
 	UVZoomOffsetX( 144.5 ),
 	UVZoomOffsetY( 232 ),
-	FrameIdx( 0 )
+	FrameIdx( 0 ),
+	NodeRadius( 6.0 )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -271,23 +272,60 @@ void cAnimationEdit::CalcUVZoomOffset()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawFrame()
 {
-	Gfx::BindTexture( CurFrame->TextureID );
-		
+	ABCSet< Vector3D > PolyVertex[ CurFrame->Face.size() ];
+	ABCSet< Vector2D > PolyTexCoord[ CurFrame->Face.size() ];
+	unsigned int PolyIndicesSize = CurFrame->Face.size() * 3;
+	unsigned int PolyIndices[ PolyIndicesSize ];
+
+	ABSet< Vector3D > LineVertex[ CurFrame->Face.size() * 3 ];
+	unsigned int LineIndicesSize = CurFrame->Face.size() * 6;
+	unsigned int LineIndices[ LineIndicesSize ];
+
 	for( size_t idx = 0; idx < CurFrame->Face.size(); ++idx )
 	{
-		gfx::Face(
-			CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.a ].Pos,
-			CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.c ].Pos,
-			CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.b ].Pos,
-			CurFrame->Face[ idx ].UV.a,
-			CurFrame->Face[ idx ].UV.b,
-			CurFrame->Face[ idx ].UV.c
-		);
+		PolyVertex[ idx ].a = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.a ].Pos.ToVector3D();
+		PolyVertex[ idx ].b = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.b ].Pos.ToVector3D();
+		PolyVertex[ idx ].c = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.c ].Pos.ToVector3D();
+		
+		LineVertex[ idx ].a = PolyVertex[ idx ].a;
+		LineVertex[ idx ].b = PolyVertex[ idx ].b;
+
+		LineVertex[ idx + CurFrame->Face.size() ].a = PolyVertex[ idx ].b;
+		LineVertex[ idx + CurFrame->Face.size() ].b = PolyVertex[ idx ].c;
+
+		LineVertex[ idx + ( CurFrame->Face.size() * 2 ) ].a = PolyVertex[ idx ].a;
+		LineVertex[ idx + ( CurFrame->Face.size() * 2 ) ].b = PolyVertex[ idx ].c;
+
+		PolyTexCoord[ idx ].a = CurFrame->Face[ idx ].UV.a;
+		PolyTexCoord[ idx ].b = CurFrame->Face[ idx ].UV.b;
+		PolyTexCoord[ idx ].c = CurFrame->Face[ idx ].UV.c;
+		
+		PolyIndices[ idx ] = idx;
+		LineIndices[ idx ] = idx;
 	}
-	//Animator.Animation->Frame[ FrameIdx ].GetFrame()->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos
 	
-	// Animator.Animation->Frame[ FrameIdx ].GetFrame()
-	//	Gfx::Circle( Vector3D( Real( 0.0 ), Real( 0.0 ), Real( 0.0 ) ), Real( 20.0 ), Gfx::White() );
+	for( size_t idx = CurFrame->Face.size(); idx < PolyIndicesSize; ++idx )
+	{
+		PolyIndices[ idx ] = idx;
+	}
+	for( size_t idx = CurFrame->Face.size(); idx < LineIndicesSize; ++idx )
+	{
+		LineIndices[ idx ] = idx;
+	}
+	// Draw textured faces //
+	Gfx::DrawPolygons( PolyVertex, PolyTexCoord, PolyIndices, PolyIndicesSize, CurFrame->TextureID, Gfx::White() );
+
+	Gfx::DisableTex2D();
+	// Draw lines showing faces //
+	Gfx::DrawLines( LineVertex, LineIndices, LineIndicesSize, Gfx::RGBA( 0, 200, 0, 255 ) );
+	
+	// Draw circles representing vertex's //
+	for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
+	{
+		Gfx::Circle( CurFrame->Vertex[ idx ].Pos, NodeRadius, Gfx::White() );
+	}
+	
+	Gfx::EnableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

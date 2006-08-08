@@ -424,7 +424,7 @@ namespace Gfx
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void DrawQuads(
+	void DrawPolygons(
 		const ABCSet< Vector3D >* Vertex,
 		const ABCSet< Vector2D >* TexCoord,
 		const unsigned int* Indices,

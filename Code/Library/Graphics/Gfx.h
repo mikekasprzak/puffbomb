@@ -81,7 +81,7 @@ namespace Gfx {
 		const unsigned int& TextureID
 	);
 	// Draw Polygons with Vertex, TexCoord and one Color //
-	void DrawQuads(
+	void DrawPolygons(
 		const ABCSet< Vector3D >* Vertex,
 		const ABCSet< Vector2D >* TexCoord,
 		const unsigned int* Indices,

@@ -32,12 +32,14 @@ public:
 	std::vector< cAnimation* > Animations;
 	cAnimator Animator;
 	cFrame* CurFrame;
-	
 	unsigned int FrameIdx;
 	
 	ABCDSet< Vector3D > TexVertex;
 	ABCDSet< Vector2D > TexUV;
 	unsigned int TexIndices[4];
+	
+	Real NodeRadius;
+	
 
 public:
 	cAnimationEdit();
