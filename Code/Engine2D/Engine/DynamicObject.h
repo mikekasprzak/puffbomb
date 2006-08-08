@@ -7,7 +7,7 @@
 #include <vector>
 
 #include <Physics/NodeLink.h>
-#include "DynamicObjectComponent.h"
+#include "DynamicObject/DynamicObjectComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
