@@ -502,6 +502,27 @@ namespace Gfx
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	void DrawLineStrip(
+		const Vector3D* Vertex,
+		const unsigned int* Indices,
+		const unsigned int IndicesSize,
+		const int Color
+	)
+	{
+		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
+		
+		glEnableClientState(GL_VERTEX_ARRAY);
+	
+		glVertexPointer(3, GL_FLOAT, 0, &Vertex[0]);
+	
+		glDrawElements(
+			GL_LINE_STRIP, IndicesSize,
+			GL_UNSIGNED_INT, &Indices[0]
+		);
+	
+		glDisableClientState(GL_VERTEX_ARRAY);
+	}
+	// - -------------------------------------------------------------------------------------- - //
 	void ResetColor()
 	{
 		glColor4ub( 255, 255, 255, 255 );
@@ -520,6 +541,41 @@ namespace Gfx
 	int RGBA( int r, int g, int b, int a )
 	{
 		return r|(g << 8)|(b << 16)|(a << 24);
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Circle( const Vector3D& Pos, const Real& Radius, int Color )
+	{
+		int MaxSteps = 20;
+		
+		Vector3D Vertex[ MaxSteps + 1 ];
+		unsigned int Indices[ MaxSteps + 1 ];
+		
+		for( int idx = 0; idx <= MaxSteps; idx++ )
+		{
+			Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+
+			Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
+
+			Point *= Radius;
+			
+			Point += Vector2D( Pos.x, Pos.y );
+			
+			Vertex[ idx ] = Vector3D( Point.x, Point.y, Pos.z );
+			
+			Indices[ idx ] = idx;
+		}
+		
+		DrawLineStrip( Vertex, Indices, MaxSteps + 1, Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Circle( const Real& x, const Real& y, const Real& Radius, int Color )
+	{
+		Circle( Vector3D( x, y, Real::Zero ), Radius, Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Circle( const Vector2D& Pos, const Real& Radius, int Color )
+	{
+		Circle( Vector3D( Pos.x, Pos.y, Real::Zero ), Radius, Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 

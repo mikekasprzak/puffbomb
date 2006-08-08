@@ -85,6 +85,8 @@ cAnimationEdit::~cAnimationEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::Draw()
 {
+	Gfx::Circle( Vector3D( Real( 0.0 ), Real( 0.0 ), Real( 0.0 ) ), Real( 20.0 ), Gfx::White() );
+	
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -105,12 +105,22 @@ namespace Gfx {
 		const unsigned int IndicesSize,
 		const int Color
 	);
+	// Draw a linestrip with Vertex and one Color //
+	void DrawLineStrip(
+		const Vector3D* Vertex,
+		const unsigned int* Indices,
+		const unsigned int IndicesSize,
+		const int Color
+	);
 	// Resets the color back to white with no alpha
 	void ResetColor();
 	// Returns white with no alpha
 	unsigned int White();
 	int RGB( int r, int g, int b );
 	int RGBA( int r, int g, int b, int a );
+	void Circle( const Vector3D& Pos, const Real& Radius, int Color );
+	void Circle( const Real& x, const Real& y, const Real& Radius, int Color );
+	void Circle( const Vector2D& Pos, const Real& Radius, int Color );
 	
 };
 // - ------------------------------------------------------------------------------------------ - //
