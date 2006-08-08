@@ -87,22 +87,22 @@ cAnimationEdit::~cAnimationEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::Draw()
 {
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
 
 	Gfx::ResetColor();
 	DrawFrame();
 
-	glDisable(GL_BLEND);
-	glDisable(GL_TEXTURE_2D);
+	Gfx::DisableBlend();
+	Gfx::DisableTex2D();
 	
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::HudDraw()
 {
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
 	
 //	//  DISPLAYS FPS  //
 //	std::stringstream Temp;
@@ -113,40 +113,40 @@ void cAnimationEdit::HudDraw()
 //
 //	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), gfx::RGBA( 184, 0, 0, 255 ) );
 //	// -------------- //
-	glDisable(GL_BLEND);
-	glDisable(GL_TEXTURE_2D);
+	Gfx::DisableBlend();
+	Gfx::DisableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::PreviewDraw()
 {
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
 	
 	Gfx::ResetColor();
 	
 //	Animator.DrawQuad( Vector2D( 0, 0 ) );
 	Animator.Draw( Vector2D( 0, 0 ) );
 		
-	glDisable(GL_BLEND);
-	glDisable(GL_TEXTURE_2D);
+	Gfx::DisableBlend();
+	Gfx::DisableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::UVDraw()
 {
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
 	
 	Gfx::DrawQuads(
 		&TexVertex,
 		&TexUV,
 		TexIndices,
 		4,
-		Animator.Animation->Frame[ FrameIdx ].GetFrame().TextureID,
+		CurFrame->TextureID,
 		Gfx::White()
 	);
 	
-	glDisable(GL_BLEND);
-	glDisable(GL_TEXTURE_2D);
+	Gfx::DisableBlend();
+	Gfx::DisableTex2D();
 	
 	DrawGrid( UVCamera, CurrentGridDepth, 40.0, true, GridDepth );
 
@@ -271,6 +271,8 @@ void cAnimationEdit::CalcUVZoomOffset()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawFrame()
 {
+	Gfx::BindTexture( CurFrame->TextureID );
+		
 	for( size_t idx = 0; idx < CurFrame->Face.size(); ++idx )
 	{
 		gfx::Face(

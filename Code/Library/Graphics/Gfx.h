@@ -121,6 +121,17 @@ namespace Gfx {
 	void Circle( const Vector3D& Pos, const Real& Radius, int Color );
 	void Circle( const Real& x, const Real& y, const Real& Radius, int Color );
 	void Circle( const Vector2D& Pos, const Real& Radius, int Color );
+	// - -------------------------------------------------------------------------------------- - //
+	void EnableTex2D();
+	void DisableTex2D();
+	void EnableBlend();
+	void DisableBlend();
+	void EnableAddBlend();
+	void DisableAddBlend();
+	void EnableDepth();
+	void DisableDepth();
+	void BindTexture( unsigned int& TextureID );
+	// - -------------------------------------------------------------------------------------- - //
 	
 };
 // - ------------------------------------------------------------------------------------------ - //
