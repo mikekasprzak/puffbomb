@@ -21,7 +21,6 @@ void cDynamicNodes::DeleteNode( size_t Number ) {
 	// Make this an assert //
 	if ( Number >= Size() )
 		return;
-	// Test for less than zero too //
 		
 	NodeA.erase( NodeA.begin() + Number );
 	NodeB.erase( NodeB.begin() + Number );
