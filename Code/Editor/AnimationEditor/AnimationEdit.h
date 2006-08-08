@@ -16,7 +16,10 @@
 #include <Animation/Animator.h>
 #include <Graphics/Camera.h>
 #include "Editor/Edit.h"
-
+// - ------------------------------------------------------------------------------------------ - //
+/*#define NODE_MODE 0
+#define FACE_MODE 1
+#define TEXTURE_MODE 2*/
 // - ------------------------------------------------------------------------------------------ - //
 class cAnimationEdit : public cEdit {
 public:
@@ -38,9 +41,15 @@ public:
 	ABCDSet< Vector2D > TexUV;
 	unsigned int TexIndices[4];
 	
+	Vector3D SelBoxVertex[4];
+	unsigned int SelBoxIndices[5];
+	
 	Real NodeRadius;
 	
 	Vector2D OldMousePos;
+	Vector2D CurMousePos;
+	
+	std::vector<size_t> CurSelected;
 
 public:
 	cAnimationEdit();
@@ -62,8 +71,11 @@ public:
 	Vector2D CalcMousePos();
 	
 	void DrawFrame();
-	
+	void DrawSelected();
+	void DrawSelBox();
+		
 	// AnimationEditNode.cpp //
+	int SingleSelect();
 	void SelectNode();
 
 };

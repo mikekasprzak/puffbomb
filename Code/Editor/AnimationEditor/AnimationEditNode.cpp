@@ -10,7 +10,26 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-
+int cAnimationEdit::SingleSelect()
+{
+	int LastIdx = -1;
+	Real LastDistance = NodeRadius;
+	Real TestDistance = NodeRadius;
+	
+	for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
+	{
+		TestDistance = ( CurFrame->Vertex[ idx ].Pos - CurMousePos ).Magnitude();
+		if( TestDistance < Real( NodeRadius ) )
+		{
+			if( TestDistance < LastDistance )
+			{
+				LastDistance = TestDistance;
+				LastIdx = idx;
+			}
+		}
+	}
+	return LastIdx;
+}
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::SelectNode()
 {
@@ -21,7 +40,7 @@ void cAnimationEdit::SelectNode()
 	
 	if( Button[ MOUSE_1 ].Released() )
 	{
-		Vector2D CurMousePos = CalcMousePos();
+		//Vector2D CurMousePos = CalcMousePos();
 		// Group add-select //
 /*		if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
 		{
@@ -109,14 +128,13 @@ void cAnimationEdit::SelectNode()
 			}
 		}
 		// Standard group select //
-		else
+		else*/
 		{
 			CurSelected.clear();
 
-			for( size_t idx = 0; idx < DisplayMesh[ CurrentObject ].size(); ++idx )
+			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
 			{
-				if( WithinBox( DisplayMesh[ CurrentObject ].Pos( idx ), CurMousePos, 
-					OldMousePos ) )
+				if( WithinBox( CurFrame->Vertex[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					CurSelected.push_back( idx );
 				}
@@ -124,7 +142,7 @@ void cAnimationEdit::SelectNode()
 			// Single select //
 			if( CurSelected.empty() )
 			{
-				int temp = DisSingleSelect( CurMousePos );
+				int temp = SingleSelect();
 				if( temp != -1 )
 				{
 					CurSelected.push_back( temp );
@@ -132,7 +150,7 @@ void cAnimationEdit::SelectNode()
 			}
 		}
 		
-		if( !CurSelected.empty() )
+/*		if( !CurSelected.empty() )
 		{
 			CurrentNode = CurSelected[0];
 		}*/

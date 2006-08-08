@@ -26,7 +26,8 @@ cAnimationEdit::cAnimationEdit() :
 	UVZoomOffsetY( 232 ),
 	FrameIdx( 0 ),
 	NodeRadius( 6.0 ),
-	OldMousePos( Real(0.0), Real(0.0) )
+	OldMousePos( Real(0.0), Real(0.0) ),
+	CurMousePos( Real(0.0), Real(0.0) )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -92,8 +93,9 @@ void cAnimationEdit::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-	Gfx::ResetColor();
 	DrawFrame();
+	
+	DrawSelected();
 
 	Gfx::DisableBlend();
 	Gfx::DisableTex2D();
@@ -113,7 +115,7 @@ void cAnimationEdit::HudDraw()
 //	
 //	Vector3D TempPos = Vector3D( cGlobal::Left, cGlobal::Top - Real( 45 ), 0.0 );
 //
-//	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), gfx::RGBA( 184, 0, 0, 255 ) );
+//	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 184, 0, 0, 255 ) );
 //	// -------------- //
 	Gfx::DisableBlend();
 	Gfx::DisableTex2D();
@@ -159,15 +161,21 @@ void cAnimationEdit::Step()
 	if( CheckViewOne() )
 	{
 		CurView = 1;
+		CurMousePos = CalcMousePos();
+
 		// Handles scrolling around the map
 		Scroll( Camera );
 
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), Camera );
+		
+		SelectNode();
 	}
 	else if( CheckViewTwo( UVHeight ) )
 	{
 		CurView = 2;
+		CurMousePos = CalcMousePos();
+
 		// Handles scrolling around the map
 		Scroll( PreviewCamera );
 
@@ -177,6 +185,8 @@ void cAnimationEdit::Step()
 	else if( CheckViewThree( UVHeight ) )
 	{
 		CurView = 3;
+		CurMousePos = CalcUVMousePos();
+
 		// Handles scrolling around the map
 		ScrollUV();
 
@@ -289,6 +299,8 @@ Vector2D cAnimationEdit::CalcUVMousePos()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawFrame()
 {
+	glLineWidth( 1.0 );
+		
 	ABCSet< Vector3D > PolyVertex[ CurFrame->Face.size() ];
 	ABCSet< Vector2D > PolyTexCoord[ CurFrame->Face.size() ];
 	unsigned int PolyIndicesSize = CurFrame->Face.size() * 3;
@@ -343,6 +355,44 @@ void cAnimationEdit::DrawFrame()
 	}
 	
 	Gfx::EnableTex2D();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::DrawSelected()
+{
+	Gfx::DisableTex2D();
+ 
+	DrawSelBox();
+	
+	glLineWidth( 4.0 );
+
+	// Draw circles representing vertex's //
+	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+	{
+		Gfx::Circle( CurFrame->Vertex[ CurSelected[ idx ] ].Pos, NodeRadius, Gfx::RGBA( 0, 150, 255, 255 ) );
+	}
+	
+	Gfx::EnableTex2D();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::DrawSelBox()
+{
+	if( Button[ MOUSE_1 ] )
+	{	
+		glLineWidth( 1.0 );
+		
+			SelBoxVertex[ 0 ] = Vector3D( CurMousePos.x, CurMousePos.y, Real::Zero );
+			SelBoxVertex[ 1 ] = Vector3D( CurMousePos.x, OldMousePos.y, Real::Zero );
+			SelBoxVertex[ 2 ] = Vector3D( OldMousePos.x, OldMousePos.y, Real::Zero );
+			SelBoxVertex[ 3 ] = Vector3D( OldMousePos.x, CurMousePos.y, Real::Zero );
+				
+		for( size_t idx = 0; idx < 4; ++idx )
+		{
+			SelBoxIndices[ idx ] = idx;
+		}
+		SelBoxIndices[ 4 ] = 0;
+	
+		Gfx::DrawLineStrip( SelBoxVertex, SelBoxIndices, 5, Gfx::White() );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 
