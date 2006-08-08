@@ -54,7 +54,6 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Get the Current Position as a pointer //
 	inline Vector2D* const Pos() {
-		//return PosPtr;
 		return &NodeA[ 0 ];
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -67,7 +66,6 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Get the Old Position as a pointer //
 	inline Vector2D* const Old() {
-		//return OldPtr;
 		return &NodeB[ 0 ];
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -136,36 +134,35 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	inline void Step() {
 		if ( SleepClock > 0 ) {
-			Vector2D TotalMotion( Vector2D::Zero );
+			Real TotalMotion( Real::Zero );
 			Vector2D Velocity;
 			
 			// step physics for all DynamicNodes //
 			for ( size_t idx = 0; idx < NodeA.size(); idx++ ) {
 				// With added forces on the outside //
 				Velocity = ((Pos( idx ) - Old( idx ) ) * Friction[ idx ]) + Force[ idx ];
-				TotalMotion += Velocity;
+				TotalMotion += Velocity.Manhattan();
 				Old( idx ) = Pos( idx ) + Velocity;
 				
 				// With added forces on the inside //
 				//Old( idx ) = Pos( idx ) + ((Pos( idx ) - Old( idx ) + Force[ idx ] ) * Friction[ idx ]);
 				
-				Reset( idx );
+				ResetFactors( idx );
 			}
 			// Swap the Old and Pos, as they are now backwards //
 			Swap();
 		
 			TotalMotion /= NodeA.size();
-			Real Motion = TotalMotion.Manhattan();
 			
 			// Tweak the sleep clock //
-			if ( Motion > Real( 0.2 ) )
+			if ( TotalMotion > Real( 0.2 ) )
 				WakeUp();
 			else
 				SleepClock--;
 		}		
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline void Reset( int Index ) {
+	inline void ResetFactors( int Index ) {
 		Friction[ Index ] = cPhysics::Current->Friction;
 		Force[ Index ] = cPhysics::Current->Force;
 	}
