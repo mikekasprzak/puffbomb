@@ -7,15 +7,16 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
-#include <Geometry/Rect.h>
+
+#include <Physics/Physics.h>
+
 #include "../StaticNodes.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cStaticPolygon {
 public:
-	typedef RadiusRect2D RectType;
-	RectType BoundingRect;
+	cPhysics::BoundingRectType BoundingRect;
 
 	// Index List.  A reference to verts in the object. //
 	std::vector< size_t > Index;	
@@ -51,7 +52,7 @@ public:
 		}
 		
 		// Set it //
-		BoundingRect = RectType::Pair( MinPoint, MaxPoint );
+		BoundingRect = cPhysics::BoundingRectType::Pair( MinPoint, MaxPoint );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //

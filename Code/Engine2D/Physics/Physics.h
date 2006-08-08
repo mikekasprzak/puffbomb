@@ -8,6 +8,7 @@
 
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
+#include <Geometry/Rect.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -28,6 +29,10 @@ public:
 	int OperationFlags;
 	// Number of times to run the physics relaxation loop (springs and collision, not node steps) //
 	int RelaxationSteps;
+public:
+	// Common Rectangle type for bounding boxes //
+	typedef RadiusRect2D BoundingRectType;	
+
 public:
 	cPhysics();
 

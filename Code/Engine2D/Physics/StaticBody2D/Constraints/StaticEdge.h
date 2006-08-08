@@ -5,6 +5,8 @@
 #define __Engine2D_Physics_StaticBody2D_Constraints_StaticEdge_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
+#include <Geometry/Set.h>
+
 #include <Physics/Physics.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -15,8 +17,7 @@ public:
 	Real Length;
 
 public:
-	typedef RadiusRect2D RectType;
-	RectType BoundingRect;
+	cPhysics::BoundingRectType BoundingRect;
 	
 public:
 	cStaticEdge( ) {
@@ -75,7 +76,7 @@ public:
 	}
 	
 	inline void CalcBoundingRect( cStaticNodes& Node ) {
-		BoundingRect = RectType::Pair( Node.Pos( a ), Node.Pos( b ) );
+		BoundingRect = cPhysics::BoundingRectType::Pair( Node.Pos( a ), Node.Pos( b ) );
 	}	
 };
 // - ------------------------------------------------------------------------------------------ - //

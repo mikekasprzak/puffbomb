@@ -59,12 +59,12 @@ void cBody2D::CalcBoundingRect() {
 	};
 	
 	// Set the Rectangle //
-	BoundingRect = RectType::Pair( MinPoint, MaxPoint );
+	BoundingRect = cPhysics::BoundingRectType::Pair( MinPoint, MaxPoint );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::GrowBoundingRectBySphere( const size_t _Index ) {
 	// In theory, grow the bounding Rectangle by an added sphere //
-	BoundingRect = RectType::Pair( 
+	BoundingRect = cPhysics::BoundingRectType::Pair( 
 		BoundingRect.P1().Min( (Nodes.Pos( Sphere[ _Index ].Index ) - Sphere[ _Index ].Radius) ),
 		BoundingRect.P2().Max( (Nodes.Pos( Sphere[ _Index ].Index ) + Sphere[ _Index ].Radius) )
 		);

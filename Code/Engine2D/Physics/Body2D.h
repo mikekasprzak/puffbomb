@@ -6,7 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Rect.h>
+#include <Physics/Physics.h>
 
 #include "Body2D/DynamicNodes.h"
 #include "Body2D/CollisionFlags.h"
@@ -39,10 +39,8 @@ public:
 	cCollisionFlags Collision;
 
 public:	
-	typedef RadiusRect2D RectType;
-	
 	// Bounding rectangle, for early out test //
-	RectType BoundingRect;
+	cPhysics::BoundingRectType BoundingRect;
 	// Calculate the rectangle for the object //
 	void CalcBoundingRect();
 	// Given a Sphere that caused a change, grow the bounding rectangle //
