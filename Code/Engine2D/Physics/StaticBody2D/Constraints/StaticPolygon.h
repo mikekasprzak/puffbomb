@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // StaticPolygon //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Physics_Constraints_StaticPolygon_H__
-#define __Engine2D_Physics_Constraints_StaticPolygon_H__
+#ifndef __Engine2D_Physics_StaticBody2D_Constraints_StaticPolygon_H__
+#define __Engine2D_Physics_StaticBody2D_Constraints_StaticPolygon_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
@@ -57,5 +57,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Physics_Constraints_StaticPolygon_H__ //
+#endif // __Engine2D_Physics_StaticBody2D_Constraints_StaticPolygon_H__ //
 // - ------------------------------------------------------------------------------------------ - //

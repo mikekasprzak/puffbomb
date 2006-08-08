@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Anchor //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Physics_Constraints_Constraint_Anchor_H__
-#define __Engine2D_Physics_Constraints_Constraint_Anchor_H__
+#ifndef __Engine2D_Physics_Body2D_Constraints_Anchor_H__
+#define __Engine2D_Physics_Body2D_Constraints_Anchor_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
 #include <Geometry/Vector.h>
@@ -55,5 +55,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Physics_Constraints_Constraint_Anchor_H__ //
+#endif // __Engine2D_Physics_Body2D_Constraints_Anchor_H__ //
 // - ------------------------------------------------------------------------------------------ - //

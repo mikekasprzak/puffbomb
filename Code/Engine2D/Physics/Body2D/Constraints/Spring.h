@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Spring //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Physics_Constraints_Constraint_Spring_H__
-#define __Engine2D_Physics_Constraints_Constraint_Spring_H__
+#ifndef __Engine2D_Physics_Body2D_Constraints_Spring_H__
+#define __Engine2D_Physics_Body2D_Constraints_Spring_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
 #include <Geometry/Real.h>
@@ -93,5 +93,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Physics_Constraints_Constraint_Spring_H__ //
+#endif // __Engine2D_Physics_Body2D_Constraints_Spring_H__ //
 // - ------------------------------------------------------------------------------------------ - //
