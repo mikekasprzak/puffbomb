@@ -29,7 +29,8 @@ public:
 		
 		flInside = bit16,	// The centerpoint of the sphere got inside //
 		
-		flCollision = flObject | flScenery,		// Any Collision //
+		
+		flImpulse = bit17,	// The collision involved an impulse //		
 	};
 	// - -------------------------------------------------------------------------------------- - //
 
