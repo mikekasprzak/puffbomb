@@ -24,6 +24,10 @@ public:
 	cStateFlags State;
 
 public:
+	cDynamicObjectComponent();
+	cDynamicObjectComponent( class cDynamicObject* _Parent );
+
+public:
 	// Do physics as a self sustaining object. //
 	void Step();
 	
