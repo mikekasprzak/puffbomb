@@ -1,24 +1,31 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Physics/Physics.h>
-
-#include "DynamicObjectComponent.h"
+#include <Engine/DynamicObject/DynamicObjectComponent.h>
+#include <Engine/PassiveObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectComponent::Step() {
-	// Step the nodes //
-	Body.Step();
+void cDynamicObjectComponent::Solve( cPassiveObject& _Vs ) {
+	// If I'm more than simply active //
+	if ( !State.OnlyActive() ) {
+		// If I'm ignoring scenery, bail//
+		if ( State.IgnorePassive() ) {
+			return;
+		}
 
-	// Physics relaxation loop //
-	for ( int NodeSteps = 0; NodeSteps < cPhysics::Current->RelaxationSteps; NodeSteps++ ) {
-		// Update all Springs //
-		Body.StepSprings();
+		// If I'm inactive, bail //
+		if ( !State.Active() ) {
+			return;
+		}
 	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectComponent::Draw() {
+	
+	// Test Bounding Rectangles //
+	if ( Body.BoundingRect != _Vs.BoundingRect )
+		return;
+
+	// Send message //
+	_Vs.Action( *this );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
