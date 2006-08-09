@@ -45,22 +45,31 @@ cAnimationEdit::cAnimationEdit() :
 		cGlobal::HudZoom,								// MaxZoom
 		cGlobal::HudZoom								// HudZoom
 	);
+	
+	Real PreviewHeight = UVHeight;
 
+	if( Platform::AspectRatio < Real( 0.79 ) )
+	{
+	//	Real( 1.66 )
+		PreviewHeight = 0.75;
+	}
+	
 	PreviewCamera = new cCamera(
-		Vector3D( 0.0, 240.0, cGlobal::HudZoom ),		// Pos
-		Vector3D( 0.0, 240.0, 0.0 ),					// View
-		Vector3D( 0.0, 1.0, 0.0 ),						// Up
-		45.0,											// Field of View
-		Platform::AspectRatio,							// Aspect Ratio
-		1.0,											// NearClip
-		100000.0,										// FarClip
-		cGlobal::HudZoom,								// MinZoom
-		cGlobal::HudZoom,								// MaxZoom
-		cGlobal::HudZoom								// HudZoom
+		Vector3D( 0.0, 0.0, cGlobal::HudZoom * ( Real( 1 ) - PreviewHeight ) ),		// Pos
+		Vector3D( 0.0, 0.0, 0.0 ),					// View
+		Vector3D( 0.0, 1.0, 0.0 ),					// Up
+		45.0,										// Field of View
+		Platform::AspectRatio,						// Aspect Ratio
+		1.0,										// NearClip
+		100000.0,									// FarClip
+		cGlobal::HudZoom,							// MinZoom
+		cGlobal::HudZoom,							// MaxZoom
+		cGlobal::HudZoom							// HudZoom
 	);
 	
 	Camera->Pos.z = Real( 800.0 );
-	
+//	Camera->Pos.z = Real( cGlobal::HudZoom );
+		
 	Animations.push_back( &AnimationPool.Load( "TestAnimation.anim" ) );
 	
 	Animator.Set( Animations[0], 0 );
@@ -202,8 +211,16 @@ void cAnimationEdit::Step()
 		CurMousePos = CalcMousePos();
 
 		// Handles scrolling around the map
-		Scroll( PreviewCamera );
-
+		//Scroll( PreviewCamera );
+		
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			Scroll( PreviewCamera, Real( 0.325 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+		}
+		else
+		{
+			Scroll( PreviewCamera, Real( UVWidth * Real( Real( 1 ) + UVWidth ) / Real( 2 ) ), Real( UVHeight * Real( Real( 1 ) + UVHeight ) / Real( 2 ) ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+		}
 		// Handles the zooming in and out of the preview
 		Zoom( Real( 32.0 ), PreviewCamera );
 	}
@@ -213,7 +230,15 @@ void cAnimationEdit::Step()
 		CurMousePos = CalcUVMousePos();
 
 		// Handles scrolling around the map
-		ScrollUV();
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			Scroll( UVCamera, Real( 0.33 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+		}
+		else
+		{
+			Scroll( UVCamera, UVWidth, UVHeight, Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+		}
+		//ScrollUV();
 
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), UVCamera );
@@ -249,8 +274,15 @@ void cAnimationEdit::Undo()
 		UVCamera->View.z = 0.0;
 
 		PreviewCamera->Pos.x = 0.0;
-		PreviewCamera->Pos.y = 240.0;
-		PreviewCamera->Pos.z = cGlobal::HudZoom;
+		PreviewCamera->Pos.y = 0.0;
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			PreviewCamera->Pos.z = cGlobal::HudZoom * ( Real( 1 ) - Real( 0.25 ) );
+		}
+		else
+		{
+			PreviewCamera->Pos.z = cGlobal::HudZoom * ( Real( 1 ) - UVHeight );
+		}	
 		
 		PreviewCamera->View.x = PreviewCamera->Pos.x;
 		PreviewCamera->View.y = PreviewCamera->Pos.y;
@@ -284,8 +316,16 @@ void cAnimationEdit::ScrollUV()
 	{
 		//UVMiddleClick = true;
 		MiddleClick = true;
-		ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
-		ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * Real( 0.33 ) ) );
+			ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * Real( 0.25 ) ) );
+		}
+		else
+		{
+			ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
+			ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
+		}
 			
 	}
 	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
@@ -295,19 +335,39 @@ void cAnimationEdit::ScrollUV()
 	}
 	if( MiddleClick )
 	{
-		UVCamera->Pos.x += ( int( Mouse.x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) - ScrollMouseX )
-			* Real( -UVCamera->Pos.z / UVZoomOffsetX );
-		UVCamera->Pos.y += ( int( -Mouse.y * ( Real( cGlobal::HudH ) ) * UVHeight ) - ScrollMouseY )
-			* Real( -UVCamera->Pos.z / UVZoomOffsetY );
-		ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
-		ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			UVCamera->Pos.x += ( int( Mouse.x * ( Real( cGlobal::HudW ) * ( Real( 0.33 ) ) ) ) - ScrollMouseX )
+				* Real( -UVCamera->Pos.z / UVZoomOffsetX );
+			UVCamera->Pos.y += ( int( -Mouse.y * ( Real( cGlobal::HudH ) ) * Real( 0.25 ) ) - ScrollMouseY )
+				* Real( -UVCamera->Pos.z / UVZoomOffsetY );
+			ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * Real( 0.33 ) ) );
+			ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * Real( 0.25 ) ) );
+		}
+		else
+		{
+			UVCamera->Pos.x += ( int( Mouse.x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) - ScrollMouseX )
+				* Real( -UVCamera->Pos.z / UVZoomOffsetX );
+			UVCamera->Pos.y += ( int( -Mouse.y * ( Real( cGlobal::HudH ) ) * UVHeight ) - ScrollMouseY )
+				* Real( -UVCamera->Pos.z / UVZoomOffsetY );
+			ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
+			ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );				
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::CalcUVZoomOffset()
 {
-	UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
-	UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
+	if( Platform::AspectRatio < Real( 0.79 ) )
+	{
+		UVZoomOffsetX = Real( 138.0 );
+		UVZoomOffsetY = Real( 105.5 );
+	}
+	else
+	{
+		UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
+		UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cAnimationEdit::CalcMousePos()
@@ -345,18 +405,36 @@ Vector2D cAnimationEdit::CalcMousePos()
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cAnimationEdit::CalcUVMousePos()
 {
-	return Vector2D(
-		Real( ( int( Mouse.x * Real( cGlobal::HudW * UVWidth ) ) )
-		- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
-		- ( ( Real(cGlobal::HudW) * UVWidth ) ) )
-		* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
-		+ ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) ),
-		Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * UVHeight )
-		+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
-		+ ( ( cGlobal::HudH * UVHeight ) ) )
-		* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
-		- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
-	);
+	if( Platform::AspectRatio < Real( 0.79 ) )
+	{
+		return Vector2D(
+			Real( ( int( Mouse.x * Real( cGlobal::HudW * Real( 0.33 ) ) ) )
+			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
+			- ( ( Real(cGlobal::HudW) * Real( 0.33 ) ) ) )
+			* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
+			+ ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) ),
+			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * Real( 0.25 ) )
+			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
+			+ ( ( cGlobal::HudH * Real( 0.25 ) ) ) )
+			* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
+			- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
+		);
+	}
+	else
+	{
+		return Vector2D(
+			Real( ( int( Mouse.x * Real( cGlobal::HudW * UVWidth ) ) )
+			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
+			- ( ( Real(cGlobal::HudW) * UVWidth ) ) )
+			* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
+			+ ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) ),
+			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * UVHeight )
+			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
+			+ ( ( cGlobal::HudH * UVHeight ) ) )
+			* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
+			- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
+		);
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawFrame()

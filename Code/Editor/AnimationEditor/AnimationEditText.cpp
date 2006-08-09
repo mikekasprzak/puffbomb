@@ -39,7 +39,12 @@ void cAnimationEdit::DisplayNodeInfo()
 		Real XShift = 120;
 		Real YShift = 40;
 		Real XPos = 0;
+		Real YPos = 0;
 		
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			YPos = cGlobal::HudH * 0.25;
+		}
 		int Color = gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
 		
@@ -47,7 +52,7 @@ void cAnimationEdit::DisplayNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node #",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YShift, 0.0 ),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -56,7 +61,7 @@ void cAnimationEdit::DisplayNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + Real( 6 ), 0.0 ),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -66,7 +71,7 @@ void cAnimationEdit::DisplayNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node X",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YShift, 0.0 ),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -75,7 +80,7 @@ void cAnimationEdit::DisplayNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + Real( 6 ), 0.0 ),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -85,7 +90,7 @@ void cAnimationEdit::DisplayNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node Y",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YShift, 0.0 ),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -94,7 +99,7 @@ void cAnimationEdit::DisplayNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + Real( 6 ), 0.0 ),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);

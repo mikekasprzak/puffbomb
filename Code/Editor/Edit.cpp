@@ -90,13 +90,17 @@ cEdit::~cEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::Scroll( cCamera* MyCamera )
 {
+	Scroll( MyCamera, Real( 1.0 ), Real( 1.0 ), Vector2D( cGlobal::HudZoom, cGlobal::HudZoom ) );
+}
+void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH, const Vector2D ZoomInfo )
+{
 	// Scroll Mouse Button
 	// Pans the screen	
 	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
 	{
 		MiddleClick = true;
-		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) );
-		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) );
+		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
+		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
 	}
 	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
 	{
@@ -105,12 +109,12 @@ void cEdit::Scroll( cCamera* MyCamera )
 	}
 	else if( MiddleClick )
 	{
-		MyCamera->Pos.x += ( int( Mouse.x * Real( cGlobal::HudW ) ) - ScrollMouseX )
-			* Real( -MyCamera->Pos.z / cGlobal::HudZoom );
-		MyCamera->Pos.y += ( int( -Mouse.y * Real( cGlobal::HudH ) ) - ScrollMouseY )
-			* Real( -MyCamera->Pos.z / cGlobal::HudZoom );
-		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) );
-		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) );
+		MyCamera->Pos.x += ( int( Mouse.x * Real( cGlobal::HudW ) * PercentW ) - ScrollMouseX )
+			* Real( -MyCamera->Pos.z / ZoomInfo.x );
+		MyCamera->Pos.y += ( int( -Mouse.y * Real( cGlobal::HudH ) * PercentH ) - ScrollMouseY )
+			* Real( -MyCamera->Pos.z / ZoomInfo.y );
+		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
+		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
 	
 		MyCamera->View.x = MyCamera->Pos.x;
 		MyCamera->View.y = MyCamera->Pos.y;

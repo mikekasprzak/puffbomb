@@ -79,6 +79,7 @@ public:
 	
 public:	
 	void Scroll( cCamera* MyCamera );
+	void Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH, const Vector2D ZoomInfo );
 
 	void DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, bool DrawOrig, Real* MyGridDepth );
 	void SetGridDepth( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange );

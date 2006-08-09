@@ -603,14 +603,9 @@ int main( int argc, char* argv[] ) {
 							glViewport(
 								Real(Platform::ScreenW * 0.33 ),
 								0,
-								Real( Platform::ScreenW ),
+								Real(Platform::ScreenW * 0.67 ),
 								Real( Platform::ScreenH * 0.25 ) );
 
-/*							glViewport(
-								Real(Platform::ScreenW * Editor.AnimationEdit->UVHeight ),
-								0,
-								Real( Platform::ScreenW ),
-								Real( Platform::ScreenH * Editor.AnimationEdit->UVWidth ) );*/
 						}
 						else
 						{
@@ -618,11 +613,18 @@ int main( int argc, char* argv[] ) {
 								Real(Platform::ScreenW * 0.75 ),
 								Real(Platform::ScreenH * Editor.AnimationEdit->UVHeight ),
 								Real( Platform::ScreenW * Editor.AnimationEdit->UVWidth ),
-								Platform::ScreenH );
+								Real(Platform::ScreenH * ( 1 - Editor.AnimationEdit->UVHeight ) ) );
 						}
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
-						gluPerspective( 45.0, Editor.AnimationEdit->UVHeight, 1.0, 100000.0 );
+						if( Platform::AspectRatio < Real( 0.79 ) )
+						{
+							gluPerspective( 45.0, Platform::AspectRatio * Real( 2.67 ), 1.0, 100000.0 );
+						}
+						else
+						{
+							gluPerspective( 45.0, Platform::AspectRatio * Editor.AnimationEdit->UVHeight, 1.0, 100000.0 );
+						}
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
@@ -641,15 +643,6 @@ int main( int argc, char* argv[] ) {
 								0,
 								Real( Platform::ScreenW * 0.33 ),
 								Real( Platform::ScreenH * 0.25 ) );
-
-/*
-
-							glViewport(
-								0,
-								0,
-								Real( Platform::ScreenW * Editor.AnimationEdit->UVHeight ),
-								Real( Platform::ScreenH * Editor.AnimationEdit->UVWidth ) );
-*/
 						}
 						else
 						{
@@ -717,7 +710,7 @@ int main( int argc, char* argv[] ) {
 					glLoadIdentity();
 					gluPerspective( 45.0, Platform::AspectRatio / Real( 2.0 ), 1.0, 100000.0 ); 
 					glMatrixMode(GL_MODELVIEW);
-					
+					 
 					glLoadIdentity();
 					glTranslatef ( 0, 0, cGlobal::Zoom );
 					
