@@ -114,6 +114,8 @@ void cAnimationEdit::HudDraw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	
+	DisplayText();
+	
 //	//  DISPLAYS FPS  //
 //	std::stringstream Temp;
 //	Temp << Platform::FPS;
@@ -310,17 +312,34 @@ void cAnimationEdit::CalcUVZoomOffset()
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cAnimationEdit::CalcMousePos()
 {
-	Vector2D tempMousPos = Vector2D(
-			Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
-			- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-			- ( ( Real(cGlobal::HudW) * Real( 0.75 ) ) / Real(2) ) )
-			* Real( Camera->Pos.z / cGlobal::HudZoom ),
-			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
-			+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom  ) )
-			+ ( cGlobal::HudH >> 1 ) )
-			* Real( Camera->Pos.z / cGlobal::HudZoom )
-	);
-
+	Vector2D tempMousPos;
+	if( Platform::AspectRatio < Real( 0.79 ) )
+	{
+		tempMousPos = Vector2D(
+				Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
+				- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
+				- ( ( Real(cGlobal::HudW) ) / Real(2) ) )
+				* Real( Camera->Pos.z / cGlobal::HudZoom ),
+				Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
+				+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom ) )
+				+ ( ( Real(cGlobal::HudH) * Real( 0.25 ) ) ) )
+				* Real( Camera->Pos.z / cGlobal::HudZoom )
+		);
+	}
+	else
+	{
+		tempMousPos = Vector2D(
+				Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
+				- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
+				- ( ( Real(cGlobal::HudW) * Real( 0.75 ) ) / Real(2) ) )
+				* Real( Camera->Pos.z / cGlobal::HudZoom ),
+				Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
+				+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom  ) )
+				+ ( cGlobal::HudH >> 1 ) )
+				* Real( Camera->Pos.z / cGlobal::HudZoom )
+		);
+	}
+	
 	return tempMousPos;
 }
 // - ------------------------------------------------------------------------------------------ - //

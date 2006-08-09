@@ -95,7 +95,14 @@ public:
 	void SelectFace();
 	bool FaceInBox( int i, int idx );
 	int SingleSelectFace();
-
+	
+public:
+	// AnimationEditText.cpp //
+	void DisplayText();
+	void DisplayNodeInfo();
+	void DisplayFaceInfo();
+	void DisplayTextureInfo();
+	void DisplayMode();
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

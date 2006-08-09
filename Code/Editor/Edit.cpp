@@ -130,48 +130,8 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 	
 	size_t LastGridDepth = CurGridDepth;
 	
-	
 	SetGridDepth( MyCamera, CurGridDepth, GridChange );
-	
-/*	
-	if( AutoGridDepth )
-	{
-		for( int idx = 1; idx < 13; ++idx )
-		{
-			if( MyCamera->Pos.z < GridChange )
-			{
-				CurGridDepth = idx;
-				break;
-			}	
-			GridChange *= Real(2.0);
-		}
-	}
-	else
-	{
-		if ( Button[ KEY_PGDN ].Pressed() )
-		{
-			if( CurGridDepth >= 12 )
-			{
-				CurGridDepth = 1;
-			}
-			else
-			{
-				++CurGridDepth;	
-			}
-				
-		}
-		else if ( Button[ KEY_PGUP ].Pressed() )
-		{
-			if( CurGridDepth <= 1 )
-			{
-				CurGridDepth = 12;
-			}
-			else
-			{
-				--CurGridDepth;	
-			}
-		}
-	}*/
+
 	if( LastGridDepth != CurGridDepth )
 	{
 		SetGridArray( CurGridDepth, MyGridDepth );
@@ -562,20 +522,43 @@ int cEdit::ArraySize( char * array )
 // - ------------------------------------------------------------------------------------------ - //
 bool cEdit::CheckViewOne()
 {
-	if( Mouse.x * Real( cGlobal::HudW ) < Real(cGlobal::HudW * 0.75) )
+ 	if( Platform::AspectRatio < Real( 0.79 ) )
 	{
-		return true;	
+		if( Mouse.y * Real( cGlobal::HudH ) < Real(cGlobal::HudH * 0.75) )
+		{
+			return true;	
+		}
+	}
+	else
+	{
+		if( Mouse.x * Real( cGlobal::HudW ) < Real(cGlobal::HudW * 0.75) )
+		{
+			return true;	
+		}
 	}
 	return false;
 }
 // - ------------------------------------------------------------------------------------------ - //
 bool cEdit::CheckViewTwo( const Real ViewHeight )
 {
-	if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
+ 	if( Platform::AspectRatio < Real( 0.79 ) )
 	{
-		if( Mouse.y * Real( cGlobal::HudH ) < Real(cGlobal::HudH * ( 1 - ViewHeight ) ) )
+		if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * 0.75) )
 		{
-			return true;
+			if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * ( 0.33 ) ) )
+			{
+				return true;
+			}
+		}	
+	}
+	else
+	{
+		if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
+		{
+			if( Mouse.y * Real( cGlobal::HudH ) < Real(cGlobal::HudH * ( 1 - ViewHeight ) ) )
+			{
+				return true;
+			}
 		}
 	}
 	return false;
@@ -583,11 +566,24 @@ bool cEdit::CheckViewTwo( const Real ViewHeight )
 // - ------------------------------------------------------------------------------------------ - //
 bool cEdit::CheckViewThree( const Real ViewHeight )
 {
-	if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
+ 	if( Platform::AspectRatio < Real( 0.79 ) )
 	{
-		if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * ( 1 - ViewHeight ) ) )
+		if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * 0.75) )
 		{
-			return true;
+			if( Mouse.x * Real( cGlobal::HudW ) < Real(cGlobal::HudW * ( 0.33 ) ) )
+			{
+				return true;
+			}
+		}	
+	}
+	else
+	{
+		if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
+		{
+			if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * ( 1 - ViewHeight ) ) )
+			{
+				return true;
+			}
 		}
 	}
 	return false;

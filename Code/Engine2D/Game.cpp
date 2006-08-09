@@ -401,6 +401,17 @@ Real cGame::SetHudData()
 		cGlobal::Right = Real( 640.0 );
 
 	}
+	// 3:4 // Tablet pc res //
+	else if( Platform::AspectRatio > Real( 0.70 ) && Platform::AspectRatio < Real( 0.79 ) )
+	{
+		HudZoom = 1690.5;
+		
+		cGlobal::Top = Real( 700.0 );
+		cGlobal::Bottom = Real( -700.0 );
+		cGlobal::Left = Real( -525.0 );
+		cGlobal::Right = Real( 525.0 );
+	}
+	
 	
 	cGlobal::HudH = Real( cGlobal::Top * Real( 2.0 ) );
 	cGlobal::HudW = Real( cGlobal::Right * Real( 2.0 ) );

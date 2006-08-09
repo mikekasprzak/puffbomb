@@ -573,10 +573,20 @@ int main( int argc, char* argv[] ) {
 					else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 					{
 						// Screen 1 (Left Side) //	
-						glViewport( 0, 0, Real( Platform::ScreenW * 0.75), Platform::ScreenH );
-						glMatrixMode (GL_PROJECTION);
-						glLoadIdentity();
-						gluPerspective( 45.0, Platform::AspectRatio * Real(0.75), 1.0, 100000.0 ); 
+						if( Platform::AspectRatio < Real( 0.79 ) )
+						{
+							glViewport( 0, Real( Platform::ScreenH * 0.25 ), Real( Platform::ScreenW ), Real( Platform::ScreenH ) );
+							glMatrixMode (GL_PROJECTION);
+							glLoadIdentity();
+							gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 	
+						}
+						else
+						{
+							glViewport( 0, 0, Real( Platform::ScreenW * 0.75), Platform::ScreenH );
+							glMatrixMode (GL_PROJECTION);
+							glLoadIdentity();
+							gluPerspective( 45.0, Platform::AspectRatio * Real(0.75), 1.0, 100000.0 ); 
+						}
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
@@ -588,11 +598,28 @@ int main( int argc, char* argv[] ) {
 						Editor.Draw();
 
 						// Screen 2 (Upper Right Screen) //
-						glViewport(
-							Real(Platform::ScreenW * 0.75 ),
-							Real(Platform::ScreenH * Editor.AnimationEdit->UVHeight ),
-							Real( Platform::ScreenW * Editor.AnimationEdit->UVWidth ),
-							Platform::ScreenH );
+						if( Platform::AspectRatio < Real( 0.79 ) )
+						{
+							glViewport(
+								Real(Platform::ScreenW * 0.33 ),
+								0,
+								Real( Platform::ScreenW ),
+								Real( Platform::ScreenH * 0.25 ) );
+
+/*							glViewport(
+								Real(Platform::ScreenW * Editor.AnimationEdit->UVHeight ),
+								0,
+								Real( Platform::ScreenW ),
+								Real( Platform::ScreenH * Editor.AnimationEdit->UVWidth ) );*/
+						}
+						else
+						{
+							glViewport(
+								Real(Platform::ScreenW * 0.75 ),
+								Real(Platform::ScreenH * Editor.AnimationEdit->UVHeight ),
+								Real( Platform::ScreenW * Editor.AnimationEdit->UVWidth ),
+								Platform::ScreenH );
+						}
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
 						gluPerspective( 45.0, Editor.AnimationEdit->UVHeight, 1.0, 100000.0 );
@@ -607,11 +634,31 @@ int main( int argc, char* argv[] ) {
 						Editor.AnimationEdit->PreviewDraw();
 						
 						// Screen 3 (Lower Right Screen) //
-						glViewport(
-							Real(Platform::ScreenW * 0.75),
-							0,
-							Real( Platform::ScreenW * Editor.AnimationEdit->UVWidth ),
-							Real( Platform::ScreenH * Editor.AnimationEdit->UVHeight ) );
+						if( Platform::AspectRatio < Real( 0.79 ) )
+						{
+							glViewport(
+								0,
+								0,
+								Real( Platform::ScreenW * 0.33 ),
+								Real( Platform::ScreenH * 0.25 ) );
+
+/*
+
+							glViewport(
+								0,
+								0,
+								Real( Platform::ScreenW * Editor.AnimationEdit->UVHeight ),
+								Real( Platform::ScreenH * Editor.AnimationEdit->UVWidth ) );
+*/
+						}
+						else
+						{
+							glViewport(
+								Real(Platform::ScreenW * 0.75),
+								0,
+								Real( Platform::ScreenW * Editor.AnimationEdit->UVWidth ),
+								Real( Platform::ScreenH * Editor.AnimationEdit->UVHeight ) );
+						}
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
 						gluPerspective( 45.0, 1.0, 1.0, 100000.0 );
