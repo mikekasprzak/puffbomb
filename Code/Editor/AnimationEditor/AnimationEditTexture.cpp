@@ -151,10 +151,16 @@ int cAnimationEdit::SingleSelectFace()
 		Real InSideB = ( Pcb * Bm );
 		Real InSideC = ( Pac * Cm );
 		
+		// seem to need both of these //
 		if( InSideA > 1 && InSideB > 1 && InSideC > 1 )
 		{
 			return idx;
 		}
+		if( InSideA < 1 && InSideB < 1 && InSideC < 1 )
+		{
+			return idx;
+		}
+
 	}
 	return -1;
 }

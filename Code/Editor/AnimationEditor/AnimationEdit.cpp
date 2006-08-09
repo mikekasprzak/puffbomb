@@ -199,6 +199,8 @@ void cAnimationEdit::Step()
 		else if( CurMode == FACE_MODE )
 		{	
 			SelectNode();
+			
+			AddFace();
 		}
 		else if( CurMode == TEXTURE_MODE )
 		{	

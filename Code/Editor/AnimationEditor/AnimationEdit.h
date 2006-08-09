@@ -92,7 +92,9 @@ public:
 	
 public:
 	// AnimationEditFace.cpp //
-
+	void AddFace();
+	void DeleteFace();
+	void Clockwise( cFrame::cFace &tempFace );
 	
 public:
 	// AnimationEditTexture.cpp //
