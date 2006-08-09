@@ -39,7 +39,7 @@ public:
 	cCollisionFlags Collision;
 
 public:	
-	// Bounding rectangle, for early out test //
+	// Bounding rectangle, for early out test, and partitioning //
 	cPhysics::BoundingRectType BoundingRect;
 	// Calculate the rectangle for the object //
 	void CalcBoundingRect();

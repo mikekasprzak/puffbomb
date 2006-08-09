@@ -29,7 +29,6 @@ public:
 		
 		flInside = bit16,	// The centerpoint of the sphere got inside //
 		
-		
 		flImpulse = bit17,	// The collision involved an impulse //		
 	};
 	// - -------------------------------------------------------------------------------------- - //
@@ -65,6 +64,7 @@ public:
 	__FLAG_SET_FUNCTION( Polygon );
 	__FLAG_SET_FUNCTION( Box );
 	__FLAG_SET_FUNCTION( Inside );
+	__FLAG_SET_FUNCTION( Impulse );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_SET_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -88,6 +88,7 @@ public:
 	__FLAG_RESET_FUNCTION( Polygon );
 	__FLAG_RESET_FUNCTION( Box );
 	__FLAG_RESET_FUNCTION( Inside );
+	__FLAG_RESET_FUNCTION( Impulse );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_RESET_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -110,6 +111,7 @@ public:
 	__FLAG_TEST_FUNCTION( Polygon );
 	__FLAG_TEST_FUNCTION( Box );
 	__FLAG_TEST_FUNCTION( Inside );
+	__FLAG_TEST_FUNCTION( Impulse );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_TEST_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //

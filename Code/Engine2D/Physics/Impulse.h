@@ -6,7 +6,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
-#include <Geometry/Rect.h>
+
+#include <Physics/Physics.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -44,8 +45,8 @@ public:
 	Real RadiusDiff;
 	Real InvRadiusDiff;
 	
-	// BoundingRectangle for grid searching //
-	//Rect2D BoundingRect;
+	// Bounding rectangle, for early out test, and partitioning //
+	cPhysics::BoundingRectType BoundingRect;
 	
 public:
 	// Standard Constructor //
@@ -61,6 +62,7 @@ public:
 		RadiusDiff( _OuterRadius - _InnerRadius ),
 		InvRadiusDiff( Real::One / RadiusDiff )
 	{
+		CalcBoundingRect();
 	}
 
 	// Get the force on you, given your position //
@@ -85,7 +87,12 @@ public:
 //			Real ForceScalar = Mag*Mag / (RadiusDiff*RadiusDiff); // * InvRadiusDiff;
 //			return Line * (ForceDiff * (Real::One - ForceScalar));
 		}
-	}		
+	}
+	
+	// Calculate the bounding rectangle for the impulse, mainly used by partitioning //
+	inline void CalcBoundingRect() {
+		BoundingRect = cPhysics::BoundingRectType::Pair( Pos - Outer.Radius, Pos + Outer.Radius );
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
