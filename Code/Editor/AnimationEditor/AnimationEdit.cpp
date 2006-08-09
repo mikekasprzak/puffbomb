@@ -198,11 +198,11 @@ void cAnimationEdit::Step()
 		}
 		else if( CurMode == FACE_MODE )
 		{	
-
+			SelectNode();
 		}
 		else if( CurMode == TEXTURE_MODE )
 		{	
-
+			SelectFace();
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )
@@ -219,7 +219,12 @@ void cAnimationEdit::Step()
 		}
 		else
 		{
-			Scroll( PreviewCamera, Real( UVWidth * Real( Real( 1 ) + UVWidth ) / Real( 2 ) ), Real( UVHeight * Real( Real( 1 ) + UVHeight ) / Real( 2 ) ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+			Scroll(
+				PreviewCamera,
+				Real( UVWidth * Real( Real( 1 ) + UVWidth ) / Real( 2 ) ),
+				Real( UVHeight * Real( Real( 1 ) + UVHeight ) / Real( 2 ) ),
+				Vector2D( UVZoomOffsetX, UVZoomOffsetY )
+			);
 		}
 		// Handles the zooming in and out of the preview
 		Zoom( Real( 32.0 ), PreviewCamera );
@@ -238,7 +243,6 @@ void cAnimationEdit::Step()
 		{
 			Scroll( UVCamera, UVWidth, UVHeight, Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
 		}
-		//ScrollUV();
 
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), UVCamera );
@@ -246,6 +250,8 @@ void cAnimationEdit::Step()
 	Animator.Step();
 	
 	Undo();
+
+	SwitchMode();
 
 	SwitchFrame();
 	
@@ -292,68 +298,7 @@ void cAnimationEdit::Undo()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::ActiveAction()
 {
-/*	cDisplayMesh tempTexObj;
-		DisplayMesh.push_back( tempTexObj );
 
-	Mesh2DInfo[CurrentObject].UndoObject.push_back(
-		cCompleteMesh( Object[ CurrentObject ], tempTexObj )
-	);
-	
-	Mesh2DInfo[CurrentObject].UndoObject.back().DisplayMesh = DisplayMesh[ CurrentObject ];
-	
-	Mesh2DInfo[CurrentObject].isSaved = false;
-	if( Mesh2DInfo[CurrentObject].UndoObject.size() > 1 )
-	{
-		Mesh2DInfo[CurrentObject].RedoObject.clear();
-	}*/
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cAnimationEdit::ScrollUV()
-{
-	// Scroll Mouse Button
-	// Pans the Hud	
-	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
-	{
-		//UVMiddleClick = true;
-		MiddleClick = true;
-		if( Platform::AspectRatio < Real( 0.79 ) )
-		{
-			ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * Real( 0.33 ) ) );
-			ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * Real( 0.25 ) ) );
-		}
-		else
-		{
-			ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
-			ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
-		}
-			
-	}
-	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
-	{
-		MiddleClickLast = MiddleClick;
-		MiddleClick = false;
-	}
-	if( MiddleClick )
-	{
-		if( Platform::AspectRatio < Real( 0.79 ) )
-		{
-			UVCamera->Pos.x += ( int( Mouse.x * ( Real( cGlobal::HudW ) * ( Real( 0.33 ) ) ) ) - ScrollMouseX )
-				* Real( -UVCamera->Pos.z / UVZoomOffsetX );
-			UVCamera->Pos.y += ( int( -Mouse.y * ( Real( cGlobal::HudH ) ) * Real( 0.25 ) ) - ScrollMouseY )
-				* Real( -UVCamera->Pos.z / UVZoomOffsetY );
-			ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * Real( 0.33 ) ) );
-			ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * Real( 0.25 ) ) );
-		}
-		else
-		{
-			UVCamera->Pos.x += ( int( Mouse.x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) - ScrollMouseX )
-				* Real( -UVCamera->Pos.z / UVZoomOffsetX );
-			UVCamera->Pos.y += ( int( -Mouse.y * ( Real( cGlobal::HudH ) ) * UVHeight ) - ScrollMouseY )
-				* Real( -UVCamera->Pos.z / UVZoomOffsetY );
-			ScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
-			ScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );				
-		}
-	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::CalcUVZoomOffset()
@@ -505,15 +450,47 @@ void cAnimationEdit::DrawSelected()
 	{
 		DrawSelBox();
 	}
-	
-	glLineWidth( 4.0 );
-
-	// Draw circles representing vertex's //
-	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		
+	if( CurSelected.size() > 0 )
 	{
-		Gfx::Circle( CurFrame->Vertex[ CurSelected[ idx ] ].Pos, NodeRadius, Gfx::RGBA( 0, 150, 255, 255 ) );
-	}
+		glLineWidth( 4.0 );
 	
+		if( CurMode == NODE_MODE || CurMode == FACE_MODE )
+		{
+			// Draw circles representing vertex's //
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			{
+				Gfx::Circle( CurFrame->Vertex[ CurSelected[ idx ] ].Pos, NodeRadius, Gfx::RGBA( 0, 150, 255, 255 ) );
+			}
+		}
+		else if( CurMode == TEXTURE_MODE )
+		{
+			ABSet< Vector3D > LineVertex[ CurSelected.size() * 3 ];
+			unsigned int LineIndicesSize = CurSelected.size() * 6;
+			unsigned int LineIndices[ LineIndicesSize ];
+			
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			{
+				LineVertex[ idx ].a = CurFrame->Vertex[ CurFrame->Face[ CurSelected[ idx ] ].VertexIdx.a ].Pos.ToVector3D();
+				LineVertex[ idx ].b = CurFrame->Vertex[ CurFrame->Face[ CurSelected[ idx ] ].VertexIdx.b ].Pos.ToVector3D();
+		
+				LineVertex[ idx + CurSelected.size() ].a = LineVertex[ idx ].b;
+				LineVertex[ idx + CurSelected.size() ].b = CurFrame->Vertex[ CurFrame->Face[ CurSelected[ idx ] ].VertexIdx.c ].Pos.ToVector3D();
+		
+				LineVertex[ idx + ( CurSelected.size() * 2 ) ].a = LineVertex[ idx ].a;
+				LineVertex[ idx + ( CurSelected.size() * 2 ) ].b = LineVertex[ idx + CurSelected.size() ].b;
+	
+				LineIndices[ idx ] = idx;
+			}
+			for( size_t idx = CurSelected.size(); idx < LineIndicesSize; ++idx )
+			{
+				LineIndices[ idx ] = idx;
+			}
+			
+			// Draw lines showing faces //
+			Gfx::DrawLines( LineVertex, LineIndices, LineIndicesSize, Gfx::RGBA( 255, 0, 0, 255 ) );
+		}
+	}
 	Gfx::EnableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -535,6 +512,29 @@ void cAnimationEdit::DrawSelBox()
 		SelBoxIndices[ 4 ] = 0;
 	
 		Gfx::DrawLineStrip( SelBoxVertex, SelBoxIndices, 5, Gfx::White() );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::SwitchMode()
+{	
+	unsigned int LastMode = CurMode;
+	
+	if ( Button[ KEY_1 ].Pressed() )
+	{
+		CurMode = NODE_MODE;
+	}
+	else if ( Button[ KEY_2 ].Pressed() )
+	{
+		CurMode = FACE_MODE;
+	}
+	else if ( Button[ KEY_3 ].Pressed() )
+	{
+		CurMode = TEXTURE_MODE;
+	}
+	
+	if( LastMode != CurMode )
+	{
+		CurSelected.clear();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

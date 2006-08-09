@@ -35,7 +35,7 @@ void cAnimationEdit::SelectNode()
 {
 	if( Button[ MOUSE_1 ].Pressed() )
 	{
-		OldMousePos = CalcMousePos();
+		OldMousePos = CurMousePos;
 	}
 	
 	if( Button[ MOUSE_1 ].Released() )

@@ -70,8 +70,7 @@ public:
 	
 	void Undo();
 	void ActiveAction();
-	
-	void ScrollUV();
+
 	void CalcUVZoomOffset();
 	Vector2D CalcUVMousePos();
 	Vector2D CalcMousePos();
@@ -80,6 +79,7 @@ public:
 	void DrawSelected();
 	void DrawSelBox();
 	
+	void SwitchMode();
 	void SwitchFrame();
 
 public:
@@ -92,6 +92,10 @@ public:
 	
 public:
 	// AnimationEditFace.cpp //
+
+	
+public:
+	// AnimationEditTexture.cpp //
 	void SelectFace();
 	bool FaceInBox( int i, int idx );
 	int SingleSelectFace();
