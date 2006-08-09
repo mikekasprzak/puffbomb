@@ -1,10 +1,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-#include "DynamicObjectComponent.h"
 
 #include <Physics/Physics.h>
-#include <Engine/DynamicObject.h>
-#include <Engine/StaticObject.h>
+
+#include "DynamicObjectComponent.h"
+#include <Engine/StaticObject/StaticObjectComponent.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -47,7 +47,7 @@ void cDynamicObjectComponent::Solve( cDynamicObjectComponent& _Vs ) {
 	Body.Solve( _Vs.Body ); 
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectComponent::Solve( cStaticObject& _Vs ) {
+void cDynamicObjectComponent::Solve( cStaticObjectComponent& _Vs ) {
 	// If I'm more than simply active //
 	if ( !State.OnlyActive() ) {
 		// If I'm ignoring scenery, bail//

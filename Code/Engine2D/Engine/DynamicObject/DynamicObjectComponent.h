@@ -39,7 +39,7 @@ public:
 public:
 	// Solve Collisions/Actions //
 	void Solve( cDynamicObjectComponent& _Vs );
-	void Solve( class cStaticObject& _Vs );
+	void Solve( class cStaticObjectComponent& _Vs );
 	
 	// Messanging //
 	// * needs to be here to relay the message back to the parent ** //
