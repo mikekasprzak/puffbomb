@@ -59,8 +59,6 @@ public:
 	// Solve Collisions/Actions //
 	void Solve( cBody2D& _Vs );
 	void Solve( class cStaticBody2D& _Vs );
-//	void Solve( class cPassiveObject& _Vs );
-//	void Solve( class cZone& _Vs );
 	void Solve( class cImpulse& _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //

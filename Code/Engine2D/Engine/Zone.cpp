@@ -35,18 +35,18 @@ bool cZone::InitZone( ) {
 	switch ( Id ) {
 		// Camera Boundary //
 		case 1: {
-//			cGame::Current->Camera->CameraBounds = BoundingRect.ToPairRect();
+//			cEngine2D::Current->Camera->CameraBounds = BoundingRect.ToPairRect();
 //
 //			Log( 10, "New Camera Bounds: (" <<
-//				cGame::Current->Camera->CameraBounds.P1().x << ", " <<
-//				cGame::Current->Camera->CameraBounds.P1().y << ") -> (" <<
-//				cGame::Current->Camera->CameraBounds.P2().x << ", " <<
-//				cGame::Current->Camera->CameraBounds.P2().y << ")" );
+//				cEngine2D::Current->Camera->CameraBounds.P1().x << ", " <<
+//				cEngine2D::Current->Camera->CameraBounds.P1().y << ") -> (" <<
+//				cEngine2D::Current->Camera->CameraBounds.P2().x << ", " <<
+//				cEngine2D::Current->Camera->CameraBounds.P2().y << ")" );
 		}
 
 		// Level Boundary //
 		case 2: {
-			//cGame::Current->Camera->LevelBounds = BoundingRect;			
+			//cEngine2D::Current->Camera->LevelBounds = BoundingRect;			
 		}
 		
 		default: {
