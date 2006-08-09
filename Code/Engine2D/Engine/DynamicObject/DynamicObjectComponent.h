@@ -40,6 +40,8 @@ public:
 	// Solve Collisions/Actions //
 	void Solve( cDynamicObjectComponent& _Vs );
 	void Solve( class cStaticObjectComponent& _Vs );
+	void Solve( class cPassiveObject& _Vs );
+	void Solve( class cZone& _Vs );
 	
 	// Messanging //
 	// * needs to be here to relay the message back to the parent ** //

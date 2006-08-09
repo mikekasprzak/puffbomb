@@ -5,6 +5,8 @@
 
 #include "DynamicObjectComponent.h"
 #include <Engine/StaticObject/StaticObjectComponent.h>
+#include <Engine/Zone.h>
+#include <Engine/PassiveObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -63,6 +65,50 @@ void cDynamicObjectComponent::Solve( cStaticObjectComponent& _Vs ) {
 	
 	// Solve the collision //
 	Body.Solve( _Vs.Body ); 
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicObjectComponent::Solve( cZone& _Vs ) {
+	// If I'm more than simply active //
+	if ( !State.OnlyActive() ) {
+		// If I'm ignoring scenery, bail//
+		if ( State.IgnoreZones() ) {
+			return;
+		}
+
+		// If I'm inactive, bail //
+		if ( !State.Active() ) {
+			return;
+		}
+	}
+	
+	// Test Bounding Rectangles //
+	if ( Body.BoundingRect != _Vs.BoundingRect )
+		return;
+
+	// Send message //
+	_Vs.Action( *this );
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicObjectComponent::Solve( cPassiveObject& _Vs ) {
+	// If I'm more than simply active //
+	if ( !State.OnlyActive() ) {
+		// If I'm ignoring scenery, bail//
+		if ( State.IgnorePassive() ) {
+			return;
+		}
+
+		// If I'm inactive, bail //
+		if ( !State.Active() ) {
+			return;
+		}
+	}
+	
+	// Test Bounding Rectangles //
+	if ( Body.BoundingRect != _Vs.BoundingRect )
+		return;
+
+	// Send message //
+	_Vs.Action( *this );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

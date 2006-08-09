@@ -1,18 +1,33 @@
 // - ------------------------------------------------------------------------------------------ - //
-#include <Physics/Body2D.h>
+// PassiveObject //
 // - ------------------------------------------------------------------------------------------ - //
-#include <Engine/Zone.h>
+#include <Util/Debug.h>
+
+#include "PassiveObject.h"
+#include <Engine/DynamicObject/DynamicObjectComponent.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-//void cBody2D::Solve( cZone& _Vs ) {
-//	// Test Bounding Rectangles //
-//	if ( BoundingRect != _Vs.BoundingRect )
-//		return;
-//
-//	// Cheesy bounding rect version //
-//	_Vs.Action( *this );
-//}
+void cPassiveObject::Action( cDynamicObjectComponent& _Vs ) {
+	switch ( Id ) {
+		// Camera Boundary //
+		case 1: {
+			
+		}
+
+		// Level Boundary //
+		case 2: {
+			
+		}
+		
+		// ??? //
+		case 3: {
+			if ( _Vs.Body.Sphere.size() ) {
+				// Uhh //	
+			}
+		}
+	};
+}
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //

@@ -4,11 +4,27 @@
 #ifndef __Engine2D_Engine_PassiveObject_H__
 #define __Engine2D_Engine_PassiveObject_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <Geometry/Vector.h>
+
+#include <Physics/Physics.h>
+// - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cPassiveObject {
 public:
+	Vector2D Pos;
 	
+	// Bounding rectangle //
+	cPhysics::BoundingRectType BoundingRect;
+
+	int Id;
+	int Argument;
+
+public:
+	
+
+public:	
+	void Action( class cDynamicObjectComponent& _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

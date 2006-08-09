@@ -19,6 +19,8 @@ public:
 		flIgnoreFamily = bit1,	// Ignore interactions with other components part of same object //
 		flIgnoreObjects = bit2,	// Ignore interactions with other components //
 		flIgnoreScenery = bit3,	// Ignore interactions with scenery //
+		flIgnoreZones = bit4,	// Ignore interactions with zones //
+		flIgnorePassive = bit5,	// Ignore interactions with passive objects //
 	};
 	// - -------------------------------------------------------------------------------------- - //
 
@@ -44,6 +46,8 @@ public:
 	__FLAG_SET_FUNCTION( IgnoreFamily );
 	__FLAG_SET_FUNCTION( IgnoreObjects );
 	__FLAG_SET_FUNCTION( IgnoreScenery );
+	__FLAG_SET_FUNCTION( IgnoreZones );
+	__FLAG_SET_FUNCTION( IgnorePassive );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_SET_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -62,6 +66,8 @@ public:
 	__FLAG_RESET_FUNCTION( IgnoreFamily );
 	__FLAG_RESET_FUNCTION( IgnoreObjects );
 	__FLAG_RESET_FUNCTION( IgnoreScenery );
+	__FLAG_RESET_FUNCTION( IgnoreZones );
+	__FLAG_RESET_FUNCTION( IgnorePassive );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_RESET_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -79,6 +85,8 @@ public:
 	__FLAG_TEST_FUNCTION( IgnoreFamily );
 	__FLAG_TEST_FUNCTION( IgnoreObjects );
 	__FLAG_TEST_FUNCTION( IgnoreScenery );
+	__FLAG_TEST_FUNCTION( IgnoreZones );
+	__FLAG_TEST_FUNCTION( IgnorePassive );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_TEST_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
