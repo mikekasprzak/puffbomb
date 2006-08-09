@@ -9,7 +9,7 @@ namespace Engine2D {
 void cDynamicObjectComponent::Solve( cZone& _Vs ) {
 	// If I'm more than simply active //
 	if ( !State.OnlyActive() ) {
-		// If I'm ignoring scenery, bail//
+		// If I'm ignoring zones, bail//
 		if ( State.IgnoreZones() ) {
 			return;
 		}

@@ -42,6 +42,7 @@ public:
 	void Solve( class cStaticObjectComponent& _Vs );
 	void Solve( class cPassiveObject& _Vs );
 	void Solve( class cZone& _Vs );
+	void Solve( class cImpulse& _Vs );
 	
 	// Messanging //
 	// * needs to be here to relay the message back to the parent ** //
