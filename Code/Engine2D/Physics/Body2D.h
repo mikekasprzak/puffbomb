@@ -38,6 +38,12 @@ public:
 	// Member collision monitoring flags //
 	cCollisionFlags Collision;
 
+public:
+	cBody2D() {
+		
+	}
+
+
 public:	
 	// Bounding rectangle, for early out test, and partitioning //
 	cPhysics::BoundingRectType BoundingRect;
@@ -52,6 +58,7 @@ public:
 	void Step();
 	// Step the springs in the body. //
 	void StepSprings();
+	
 	// Calculate the length of all springs (given their current positions) //
 	void CalculateSpringLength();
 
