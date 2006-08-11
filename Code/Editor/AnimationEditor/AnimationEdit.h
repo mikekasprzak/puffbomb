@@ -93,7 +93,7 @@ public:
 public:
 	// AnimationEditFace.cpp //
 	void AddFace();
-	void DeleteFace();
+	void DeleteFaceFromNodes();
 	void Clockwise( cFrame::cFace &tempFace );
 	
 public:
@@ -101,6 +101,7 @@ public:
 	void SelectFace();
 	bool FaceInBox( int i, int idx );
 	int SingleSelectFace();
+	void DeleteFaceFromFace();
 	
 public:
 	// AnimationEditText.cpp //

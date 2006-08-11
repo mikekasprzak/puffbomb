@@ -38,15 +38,15 @@ void cAnimationEdit::AddFace()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cAnimationEdit::DeleteFace()
+void cAnimationEdit::DeleteFaceFromNodes()
 {
-	/*if( Button[ KEY_DELETE ].Pressed() || isDelete )
+	if( Button[ KEY_DELETE ].Pressed() )
 	{
 		if( !CurSelected.empty() )
 		{
-			std::vector < cDisplayMesh::cFace > tempFace;
+			std::vector < cFrame::cFace > tempFace;
 		
-			for( size_t i = 0; i < DisplayMesh[ CurrentObject ].Face.size(); ++i )
+			for( size_t i = 0; i < CurFrame->Face.size(); ++i )
 			{
 				bool IndexA = false;
 				bool IndexB = false;
@@ -54,15 +54,15 @@ void cAnimationEdit::DeleteFace()
 			
 				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 				{
-					if( DisplayMesh[ CurrentObject ].Face[i].Vertex.a == int(CurSelected[idx]) )
+					if( CurFrame->Face[i].VertexIdx.a == int(CurSelected[idx]) )
 					{
 						IndexA = true;
 					}
-					if( DisplayMesh[ CurrentObject ].Face[i].Vertex.b == int(CurSelected[idx]) )
+					if( CurFrame->Face[i].VertexIdx.b == int(CurSelected[idx]) )
 					{
 						IndexB = true;
 					}
-					if( DisplayMesh[ CurrentObject ].Face[i].Vertex.c == int(CurSelected[idx]) )
+					if( CurFrame->Face[i].VertexIdx.c == int(CurSelected[idx]) )
 					{
 						IndexC = true;
 					}
@@ -72,76 +72,15 @@ void cAnimationEdit::DeleteFace()
 				{
 					
 				}
-				else if( isDelete )
-				{
-					if( IndexA || IndexB || IndexC )
-					{
-						
-					}
-					else
-					{
-						tempFace.push_back( DisplayMesh[ CurrentObject ].Face[i] );
-					}
-				}
 				else
 				{
-					tempFace.push_back( DisplayMesh[ CurrentObject ].Face[i] );
+					tempFace.push_back( CurFrame->Face[i] );
 				}
 			}
-			DisplayMesh[ CurrentObject ].Face.clear();
-			DisplayMesh[ CurrentObject ].Face.swap( tempFace );
-			if( !isDelete )
-			{
-				CurSelected.clear();
-				CurrentNode = DisplayMesh[ CurrentObject ].size() - 1;
-				CurrentFace = DisplayMesh[ CurrentObject ].Face.size() - 1;
-				ActiveAction();
-			}
-			else
-			{
-				std::vector< ABCSet<int> > subFace;
-				
-				ABCSet< int > tempABC;
-
-				tempABC.a = 0;
-				tempABC.b = 0;
-				tempABC.c = 0;
-				
-				for( size_t idx = 0; idx < DisplayMesh[ CurrentObject ].Face.size(); ++idx )
-				{
-					subFace.push_back( tempABC );
-				}
-								
-				for( size_t idx = 0; idx < DisplayMesh[ CurrentObject ].Face.size(); ++idx )
-				{
-					for( size_t ii = 0; ii < CurSelected.size(); ++ii )
-					{						
-						if( DisplayMesh[ CurrentObject ].Face[idx].Vertex.a 
-							> int( CurSelected[ii] ) )
-						{
-							++subFace[ idx ].a;
-						}
-						if( DisplayMesh[ CurrentObject ].Face[idx].Vertex.b 
-							> int( CurSelected[ii] ) )
-						{
-							++subFace[ idx ].b;
-						}
-						if( DisplayMesh[ CurrentObject ].Face[idx].Vertex.c 
-							> int( CurSelected[ii] ) )
-						{
-							++subFace[ idx ].c;
-						}
-					}
-				}
-				for( size_t idx = 0; idx < DisplayMesh[ CurrentObject ].Face.size(); ++idx )
-				{
-					DisplayMesh[ CurrentObject ].Face[idx].Vertex.a -= subFace[ idx ].a;
-					DisplayMesh[ CurrentObject ].Face[idx].Vertex.b -= subFace[ idx ].b;
-					DisplayMesh[ CurrentObject ].Face[idx].Vertex.c -= subFace[ idx ].c;
-				}			
-			}
+			CurFrame->Face.clear();
+			CurFrame->Face.swap( tempFace );
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::Clockwise( cFrame::cFace &tempFace )

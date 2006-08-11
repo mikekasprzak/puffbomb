@@ -201,10 +201,13 @@ void cAnimationEdit::Step()
 			SelectNode();
 			
 			AddFace();
+
+			DeleteFaceFromNodes();
 		}
 		else if( CurMode == TEXTURE_MODE )
 		{	
 			SelectFace();
+			DeleteFaceFromFace();
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )
@@ -235,7 +238,7 @@ void cAnimationEdit::Step()
 	{
 		CurView = 3;
 		CurMousePos = CalcUVMousePos();
-
+		
 		// Handles scrolling around the map
 		if( Platform::AspectRatio < Real( 0.79 ) )
 		{

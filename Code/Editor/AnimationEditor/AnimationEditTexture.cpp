@@ -165,5 +165,39 @@ int cAnimationEdit::SingleSelectFace()
 	return -1;
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::DeleteFaceFromFace()
+{
+	if( Button[ KEY_DELETE ].Pressed() )
+	{
+		if( !CurSelected.empty() )
+		{
+			std::vector < cFrame::cFace > tempFace;
+		
+			for( size_t i = 0; i < CurFrame->Face.size(); ++i )
+			{
+				bool IsSelected = false;
+								
+				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+				{
+					if( i == CurSelected[idx] )
+					{
+						IsSelected = true;
+						break;
+					}
+				}
+				
+				if( !IsSelected )
+				{
+					tempFace.push_back( CurFrame->Face[i] );
+				}
+			}
+			CurFrame->Face.clear();
+			CurFrame->Face.swap( tempFace );
+			
+			CurSelected.clear();
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
