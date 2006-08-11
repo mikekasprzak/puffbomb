@@ -231,39 +231,38 @@ void cAnimationEdit::AddNode()
 		ActiveAction();
 	}
 }
+// - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DeleteNode()
 {
 	if( !CurSelected.empty() )
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
-		{
-		/*	
-			isDelete = true;
-			DisDeleteFace();
-			isDelete = false;
+		{	
+			isDeleteNode = true;
+			DeleteFaceFromNodes();
+			isDeleteNode = false;
 						
-			std::vector< cDisplayMesh::cDisplayNode > tempDisNode;
-			for( size_t idx = 0; idx < DisplayMesh[ CurrentObject ].size(); ++idx )
+			std::vector< cFrame::cVertex > tempVertex;
+			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
 			{
-				isDelete = false;
+				isDeleteNode = false;
 				for( size_t i = 0; i < CurSelected.size(); ++i )
 				{
 					if( idx == CurSelected[i] )
 					{
-						isDelete = true;	
+						isDeleteNode = true;	
 					}
 				}	
-				if( !isDelete )
+				if( !isDeleteNode )
 				{
-					tempDisNode.push_back( DisplayMesh[ CurrentObject ].DisplayNode[idx] );
+					tempVertex.push_back( CurFrame->Vertex[idx] );
 				}
 			}
-			DisplayMesh[ CurrentObject ].DisplayNode.clear();
-			DisplayMesh[ CurrentObject ].DisplayNode.swap( tempDisNode );
+			CurFrame->Vertex.clear();
+			CurFrame->Vertex.swap( tempVertex );
 			
 			CurSelected.clear();
-			CurrentNode = DisplayMesh[ CurrentObject ].size() - 1;
-			CurrentFace = DisplayMesh[ CurrentObject ].Face.size() - 1;*/
+			isDeleteNode = false;
 		}
 	}
 }

@@ -36,6 +36,7 @@ public:
 
 	bool SnapToGrid;
 	bool isGroupMove;
+	bool isDeleteNode;
 
 	std::vector< cAnimation* > Animations;
 	cAnimator Animator;

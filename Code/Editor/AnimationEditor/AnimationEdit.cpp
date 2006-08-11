@@ -27,6 +27,7 @@ cAnimationEdit::cAnimationEdit() :
 	UVCurGridDepth( 0 ),
 	SnapToGrid( false ),
 	isGroupMove( false ),
+	isDeleteNode( false ),
 	FrameIdx( 0 ),
 	NodeRadius( 6.0 ),
 	OldMousePos( Real(0.0), Real(0.0) ),
@@ -166,8 +167,54 @@ void cAnimationEdit::UVDraw()
 		Gfx::White()
 	);
 	
-	Gfx::DisableBlend();
 	Gfx::DisableTex2D();
+	
+	
+	if( CurMode == TEXTURE_MODE )
+	{
+		glLineWidth( 1.0 );
+		
+
+		ABSet< Vector3D > LineVertex[ CurSelected.size() * 3 ];
+		unsigned int LineIndicesSize = CurSelected.size() * 6;
+		unsigned int LineIndices[ LineIndicesSize ];
+
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Vector2D UVa = Vector2D( CurFrame->Face[ CurSelected[ idx ] ].UV.a.x * UVScale,
+					UVScale - ( CurFrame->Face[ CurSelected[ idx ] ].UV.a.y * UVScale ) );
+			Vector2D UVb = Vector2D( CurFrame->Face[ CurSelected[ idx ] ].UV.b.x * UVScale,
+					UVScale - ( CurFrame->Face[ CurSelected[ idx ] ].UV.b.y * UVScale ) );
+			Vector2D UVc = Vector2D( CurFrame->Face[ CurSelected[ idx ] ].UV.c.x * UVScale,
+					UVScale - ( CurFrame->Face[ CurSelected[ idx ] ].UV.c.y * UVScale ) );
+			
+			// Draw circles representing selected faces UV coord's //
+			Gfx::Circle( UVa, NodeRadius, Gfx::RGBA( 200, 0, 0, 255 ) );
+			Gfx::Circle( UVb, NodeRadius, Gfx::RGBA( 0, 200, 0, 255 ) );
+			Gfx::Circle( UVc, NodeRadius, Gfx::RGBA( 0, 0, 200, 255 ) );
+			
+			LineVertex[ idx ].a = UVa.ToVector3D();
+			LineVertex[ idx ].b = UVb.ToVector3D();
+	
+			LineVertex[ idx + CurSelected.size() ].a = LineVertex[ idx ].b;
+			LineVertex[ idx + CurSelected.size() ].b = UVc.ToVector3D();
+	
+			LineVertex[ idx + ( CurSelected.size() * 2 ) ].a = LineVertex[ idx ].a;
+			LineVertex[ idx + ( CurSelected.size() * 2 ) ].b = LineVertex[ idx + CurSelected.size() ].b;
+
+			LineIndices[ idx ] = idx;
+		}
+	
+		for( size_t idx = CurSelected.size(); idx < LineIndicesSize; ++idx )
+		{
+			LineIndices[ idx ] = idx;
+		}
+		
+		// Draw Lines representing selected faces UV coord's//
+		Gfx::DrawLines( LineVertex, LineIndices, LineIndicesSize, Gfx::RGBA( 0, 200, 0, 255 ) );
+	}
+	
+	Gfx::DisableBlend();
 	
 	DrawGrid( UVCamera, CurrentGridDepth, 40.0, true, GridDepth );
 
@@ -193,6 +240,8 @@ void cAnimationEdit::Step()
 				SelectNode();
 			
 				AddNode();
+				
+				DeleteNode();
 			}
 			MoveNode();
 		}

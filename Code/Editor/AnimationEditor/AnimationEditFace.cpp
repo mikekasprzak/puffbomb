@@ -40,7 +40,7 @@ void cAnimationEdit::AddFace()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DeleteFaceFromNodes()
 {
-	if( Button[ KEY_DELETE ].Pressed() )
+	if( Button[ KEY_DELETE ].Pressed() || isDeleteNode )
 	{
 		if( !CurSelected.empty() )
 		{
@@ -72,6 +72,17 @@ void cAnimationEdit::DeleteFaceFromNodes()
 				{
 					
 				}
+				else if( isDeleteNode )
+				{
+					if( IndexA || IndexB || IndexC )
+					{
+						
+					}
+					else
+					{
+						tempFace.push_back( CurFrame->Face[i] );
+					}
+				}
 				else
 				{
 					tempFace.push_back( CurFrame->Face[i] );
@@ -79,6 +90,54 @@ void cAnimationEdit::DeleteFaceFromNodes()
 			}
 			CurFrame->Face.clear();
 			CurFrame->Face.swap( tempFace );
+			if( !isDeleteNode )
+			{
+				CurSelected.clear();
+				ActiveAction();
+			}
+			else
+			{
+				std::vector< ABCSet<int> > subFace;
+				
+				ABCSet< int > tempABC;
+
+				tempABC.a = 0;
+				tempABC.b = 0;
+				tempABC.c = 0;
+				
+				for( size_t idx = 0; idx < CurFrame->Face.size(); ++idx )
+				{
+					subFace.push_back( tempABC );
+				}
+								
+				for( size_t idx = 0; idx < CurFrame->Face.size(); ++idx )
+				{
+					for( size_t ii = 0; ii < CurSelected.size(); ++ii )
+					{						
+						if( CurFrame->Face[idx].VertexIdx.a 
+							> int( CurSelected[ii] ) )
+						{
+							++subFace[ idx ].a;
+						}
+						if( CurFrame->Face[idx].VertexIdx.b 
+							> int( CurSelected[ii] ) )
+						{
+							++subFace[ idx ].b;
+						}
+						if( CurFrame->Face[idx].VertexIdx.c 
+							> int( CurSelected[ii] ) )
+						{
+							++subFace[ idx ].c;
+						}
+					}
+				}
+				for( size_t idx = 0; idx < CurFrame->Face.size(); ++idx )
+				{
+					CurFrame->Face[idx].VertexIdx.a -= subFace[ idx ].a;
+					CurFrame->Face[idx].VertexIdx.b -= subFace[ idx ].b;
+					CurFrame->Face[idx].VertexIdx.c -= subFace[ idx ].c;
+				}			
+			}
 		}
 	}
 }
