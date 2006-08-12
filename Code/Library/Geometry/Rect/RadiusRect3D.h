@@ -10,7 +10,11 @@
 #include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 
-class RadiusRect3D {
+class RadiusRect3D : 
+	boost::additive<RadiusRect3D,
+	boost::arithmetic2<RadiusRect3D, Vector3D
+	> >
+{
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// A typedef for the current rect type, that way, similar code can be cut+paste easier //
@@ -179,22 +183,20 @@ public:
 	inline const bool operator == ( const VectorType& Vs ) const;
 	// - -------------------------------------------------------------------------------------- - //
 	// Rectangle Difference //
-	inline const RectType operator - ( const RectType& Vs ) const {
-		return Pair(
-			VectorType( P1().x.Max( Vs.P1().x ), P1().y.Max( Vs.P1().y ), P1().z.Max( Vs.P1().z ) ),
-			VectorType( P2().x.Min( Vs.P2().x ), P2().y.Min( Vs.P2().y ), P1().z.Min( Vs.P1().z ) )
-			);
+	inline const RectType& operator -= ( const RectType& Vs ) {
+		*this = Pair( P1().Max( Vs.P1() ), P2().Min( Vs.P2() ) );
+
+		return *this;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Rectangle Union //
-	inline const RectType operator + ( const RectType& Vs ) const {
-		return Pair(
-			VectorType( P1().x.Min( Vs.P1().x ), P1().y.Min( Vs.P1().y ), P1().z.Min( Vs.P1().z ) ),
-			VectorType( P2().x.Max( Vs.P2().x ), P2().y.Max( Vs.P2().y ), P1().z.Max( Vs.P1().z ) )
-			);
+	inline const RectType& operator += ( const RectType& Vs ) {
+		*this = Pair( P1().Min( Vs.P1() ), P2().Max( Vs.P2() ) );
+
+		return *this;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline VectorType ClosestPoint( const VectorType& v ) const {
+	inline const VectorType ClosestPoint( const VectorType& v ) const {
 		VectorType Point;
 	
 		if ( v.x < P1().x )
@@ -224,13 +226,15 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Adding vectors to offset the position of a rectangle //
-	inline const RectType operator + ( const VectorType& Vs ) const {
-		return Pair( P1() + Vs, P2() + Vs );
+	inline const RectType& operator += ( const VectorType& Vs ) {
+		*this = Pair( P1() + Vs, P2() + Vs );
+		return *this;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Subtracting vectors to offset the position of a rectangle //
-	inline const RectType operator - ( const VectorType& Vs ) const {
-		return Pair( P1() - Vs, P2() - Vs );
+	inline const RectType& operator -= ( const VectorType& Vs ) {
+		*this = Pair( P1() - Vs, P2() - Vs );
+		return *this;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 public:
