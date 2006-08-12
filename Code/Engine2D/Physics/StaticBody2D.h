@@ -28,6 +28,10 @@ public:
 	cPhysics::BoundingRectType BoundingRect;
 	// Calculate the rectangle for the object //
 	void CalcBoundingRect();
+	
+public:
+	// Generate some 2D collision from a 3D mesh //
+	void GenerateCollision( const class cMesh3D& _Mesh );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
