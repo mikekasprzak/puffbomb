@@ -13,8 +13,12 @@
 class Rect3D {
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	Vector3D _P1;
-	Vector3D _Shape;
+	// A typedef for the current rect type, that way, similar code can be cut+paste easier //
+	typedef Rect3D RectType;
+	typedef Vector3D VectorType;
+	// - -------------------------------------------------------------------------------------- - //
+	VectorType _P1;
+	VectorType _Shape;
 	// - -------------------------------------------------------------------------------------- - //
 public:
 	// - -------------------------------------------------------------------------------------- - //
@@ -31,7 +35,7 @@ public:
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const Vector3D& _Vec1, const Vector3D& _Vec2 ) :
+	inline Rect3D( const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1 ),
 		_Shape( _Vec2 )
 	{
@@ -41,13 +45,13 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Pair Creation (P1, P2) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const bool&, const Vector3D& _Vec1, const Vector3D& _Vec2 ) :
+	inline Rect3D( const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1.x.Min( _Vec2.x ), _Vec1.y.Min( _Vec2.y ), _Vec1.z.Min( _Vec2.z ) ),
 		_Shape( (_Vec2.x - _Vec1.x).Abs(), (_Vec2.y - _Vec1.y).Abs(), (_Vec2.z - _Vec1.z).Abs() )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const bool&, const bool&, const Vector3D& _Vec1, const Vector3D& _Vec2 ) :
+	inline Rect3D( const bool&, const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1 ),
 		_Shape( _Vec2 - _Vec1 )
 	{
@@ -57,7 +61,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Radius Creation (Center, HalfShape) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const bool&, const bool&, const bool&, const Vector3D& _VecCenter, const Vector3D& _VecShape ) :
+	inline Rect3D( const bool&, const bool&, const bool&, const VectorType& _VecCenter, const VectorType& _VecShape ) :
 		_P1( _VecCenter - _VecShape ),
 		_Shape( _VecShape + _VecShape )
 	{
@@ -68,46 +72,46 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Creation as a Pair //
 	// - -------------------------------------------------------------------------------------- - //
-	inline static const Rect3D Pair( const Real& _x1, const Real& _y1, const Real& _z1, const Real& _x2, const Real& _y2, const Real& _z2 ) {
-		return Rect3D( true, Vector3D( _x1, _y1, _z1 ), Vector3D( _x2, _y2, _z2 ) );
+	inline static const RectType Pair( const Real& _x1, const Real& _y1, const Real& _z1, const Real& _x2, const Real& _y2, const Real& _z2 ) {
+		return RectType( true, VectorType( _x1, _y1, _z1 ), VectorType( _x2, _y2, _z2 ) );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline static const Rect3D Pair( const Vector3D& _Vec1, const Vector3D& _Vec2 ) {
-		return Rect3D( true, _Vec1, _Vec2 );
+	inline static const RectType Pair( const VectorType& _Vec1, const VectorType& _Vec2 ) {
+		return RectType( true, _Vec1, _Vec2 );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Optimized Pair Creation (both points must be in the correct space, no min/max'ing done) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline static const Rect3D _Pair( const Vector3D& _Vec1, const Vector3D& _Vec2 ) {
-		return Rect3D( true, true, _Vec1, _Vec2 );
+	inline static const RectType _Pair( const VectorType& _Vec1, const VectorType& _Vec2 ) {
+		return RectType( true, true, _Vec1, _Vec2 );
 	}
 	// - -------------------------------------------------------------------------------------- - //	
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Creation as a Radius //
 	// - -------------------------------------------------------------------------------------- - //
-	inline static const Rect3D Radius( const Real& _x1, const Real& _y1, const Real& _z1, const Real& _x2, const Real& _y2, const Real& _z2 ) {
-		return Rect3D( true, true, true, Vector3D( _x1, _y1, _z1 ), Vector3D( _x2, _y2, _z2 ) );
+	inline static const RectType Radius( const Real& _x1, const Real& _y1, const Real& _z1, const Real& _x2, const Real& _y2, const Real& _z2 ) {
+		return RectType( true, true, true, VectorType( _x1, _y1, _z1 ), VectorType( _x2, _y2, _z2 ) );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline static const Rect3D Radius( const Vector3D& _Vec1, const Vector3D& _Vec2 ) {
-		return Rect3D( true, true, true, _Vec1, _Vec2 );
+	inline static const RectType Radius( const VectorType& _Vec1, const VectorType& _Vec2 ) {
+		return RectType( true, true, true, _Vec1, _Vec2 );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	inline const Vector3D P1() const {
+	inline const VectorType P1() const {
 		return _P1;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline const Vector3D P2() const {
+	inline const VectorType P2() const {
 		return _P1 + _Shape;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 
 	// - -------------------------------------------------------------------------------------- - //
-	inline const Vector3D Center() const {
+	inline const VectorType Center() const {
 		return P1() + HalfShape();
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -139,11 +143,11 @@ public:
 	// - -------------------------------------------------------------------------------------- - //	
 
 	// - -------------------------------------------------------------------------------------- - //
-	inline const Vector3D Shape() const {
+	inline const VectorType Shape() const {
 		return _Shape;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline const Vector3D HalfShape() const {
+	inline const VectorType HalfShape() const {
 		return Shape() * Real::Half;
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -157,33 +161,33 @@ public:
 public:	
 	// - -------------------------------------------------------------------------------------- - //
 	// Test for intersection between Rectangles //
-	inline const bool operator == ( const Rect3D& Vs ) const;
+	inline const bool operator == ( const RectType& Vs ) const;
 	// - -------------------------------------------------------------------------------------- - //
-	inline const bool operator != ( const Rect3D& Vs ) const {
+	inline const bool operator != ( const RectType& Vs ) const {
 		return !(*this == Vs);
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline const bool operator == ( const Vector3D& Vs ) const;
+	inline const bool operator == ( const VectorType& Vs ) const;
 	// - -------------------------------------------------------------------------------------- - //
 	// Rectangle Difference //
-	inline const Rect3D operator - ( const Rect3D& Vs ) const {
+	inline const RectType operator - ( const RectType& Vs ) const {
 		return Pair(
-			Vector3D( P1().x.Max( Vs.P1().x ), P1().y.Max( Vs.P1().y ), P1().z.Max( Vs.P1().z ) ),
-			Vector3D( P2().x.Min( Vs.P2().x ), P2().y.Min( Vs.P2().y ), P1().z.Min( Vs.P1().z ) )
+			VectorType( P1().x.Max( Vs.P1().x ), P1().y.Max( Vs.P1().y ), P1().z.Max( Vs.P1().z ) ),
+			VectorType( P2().x.Min( Vs.P2().x ), P2().y.Min( Vs.P2().y ), P1().z.Min( Vs.P1().z ) )
 			);
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Rectangle Union //
-	inline const Rect3D operator + ( const Rect3D& Vs ) const {
+	inline const RectType operator + ( const RectType& Vs ) const {
 		return Pair(
-			Vector3D( P1().x.Min( Vs.P1().x ), P1().y.Min( Vs.P1().y ), P1().z.Min( Vs.P1().z ) ),
-			Vector3D( P2().x.Max( Vs.P2().x ), P2().y.Max( Vs.P2().y ), P1().z.Max( Vs.P1().z ) )
+			VectorType( P1().x.Min( Vs.P1().x ), P1().y.Min( Vs.P1().y ), P1().z.Min( Vs.P1().z ) ),
+			VectorType( P2().x.Max( Vs.P2().x ), P2().y.Max( Vs.P2().y ), P1().z.Max( Vs.P1().z ) )
 			);
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Given a point, find the closest point on the Rectangle //
-	inline Vector3D ClosestPoint( const Vector3D& v ) const {
-		Vector3D Point;
+	inline VectorType ClosestPoint( const VectorType& v ) const {
+		VectorType Point;
 	
 		if ( v.x < P1().x )
 			Point.x = P1().x;
@@ -212,12 +216,12 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Adding vectors to offset the position of a rectangle //
-	inline const Rect3D operator + ( const Vector3D& Vs ) const {
+	inline const RectType operator + ( const VectorType& Vs ) const {
 		return Pair( P1() + Vs, P2() + Vs );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Subtracting vectors to offset the position of a rectangle //
-	inline const Rect3D operator - ( const Vector3D& Vs ) const {
+	inline const RectType operator - ( const VectorType& Vs ) const {
 		return Pair( P1() - Vs, P2() - Vs );
 	}
 	// - -------------------------------------------------------------------------------------- - //
