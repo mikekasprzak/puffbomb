@@ -5,13 +5,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::Solve( cStaticBody2D& _Vs ) {
+void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 	// Test Bounding Rectangles //
-	if ( BoundingRect != _Vs.BoundingRect )
+	if ( (BoundingRect - _Offset) != _Vs.BoundingRect )
 		return;
 
 	// Find overlap Region //		
-	cPhysics::BoundingRectType OverlapRect = BoundingRect - _Vs.BoundingRect;
+	cPhysics::BoundingRectType OverlapRect = (BoundingRect - _Offset) - _Vs.BoundingRect;
 
 	// Find all spheres //
 	std::vector< int > SphereIndex;							// Store this Vector in thread/worker //
@@ -19,8 +19,8 @@ void cBody2D::Solve( cStaticBody2D& _Vs ) {
 	for ( size_t idx = 0; idx < Sphere.size(); idx++ ) {
 		// Make a rectangle for the sphere //
 		cPhysics::BoundingRectType Rect = cPhysics::BoundingRectType::Pair(
-			Nodes.Pos( Sphere[ idx ].Index ) - Sphere[ idx ].Radius,
-			Nodes.Pos( Sphere[ idx ].Index ) + Sphere[ idx ].Radius
+			Nodes.Pos( Sphere[ idx ].Index ) - _Offset - Sphere[ idx ].Radius,
+			Nodes.Pos( Sphere[ idx ].Index ) - _Offset + Sphere[ idx ].Radius
 			);
 		// Test the sphere against the region //
 		if ( OverlapRect == Rect ) {
@@ -49,8 +49,8 @@ void cBody2D::Solve( cStaticBody2D& _Vs ) {
 	// Do tests //
 	for ( size_t idx = 0; idx < SphereIndex.size(); idx++ ) {
 		// Store the Point //
-		Vector2D& Point = Nodes.Pos( Sphere[ SphereIndex[idx] ].Index );
-		Vector2D& PointOld = Nodes.Old( Sphere[ SphereIndex[idx] ].Index );
+		Vector2D Point = Nodes.Pos( Sphere[ SphereIndex[idx] ].Index ) - _Offset;
+		Vector2D PointOld = Nodes.Old( Sphere[ SphereIndex[idx] ].Index ) - _Offset;
 		Vector2D PointVelocity = Nodes.Velocity( Sphere[ SphereIndex[idx] ].Index );
 
 		// Versus Edges //
