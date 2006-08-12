@@ -210,6 +210,18 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Adding vectors to offset the position of a rectangle //
+	inline const PairRect3D operator + ( const Vector3D& Vs ) const {
+		return Pair( P1() + Vs, P2() + Vs );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Subtracting vectors to offset the position of a rectangle //
+	inline const PairRect3D operator - ( const Vector3D& Vs ) const {
+		return Pair( P1() - Vs, P2() - Vs );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+public:
 	inline const class Rect3D ToRect() const;
 	inline const class RadiusRect3D ToRadiusRect() const;
 	inline const PairRect3D& ToPairRect() const {

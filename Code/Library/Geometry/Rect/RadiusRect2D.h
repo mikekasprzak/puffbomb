@@ -201,6 +201,18 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //	
 public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Adding vectors to offset the position of a rectangle //
+	inline const RadiusRect2D operator + ( const Vector2D& Vs ) const {
+		return Pair( P1() + Vs, P2() + Vs );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Subtracting vectors to offset the position of a rectangle //
+	inline const RadiusRect2D operator - ( const Vector2D& Vs ) const {
+		return Pair( P1() - Vs, P2() - Vs );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+public:
 	inline const class Rect2D ToRect() const;
 	inline const class PairRect2D ToPairRect() const;
 	inline const RadiusRect2D& ToRadiusRect() const {
