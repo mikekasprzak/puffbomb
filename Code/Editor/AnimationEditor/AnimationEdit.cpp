@@ -52,6 +52,9 @@ cAnimationEdit::cAnimationEdit() :
 	if( Platform::AspectRatio < Real( 0.79 ) )
 	{
 		PreviewHeight = 0.75;
+		
+		UVWidth = 0.33;
+		UVHeight = 0.25;
 	}
 	
 	PreviewCamera = new cCamera(
@@ -176,7 +179,10 @@ void cAnimationEdit::UVDraw()
 
 	if( CheckViewThree( UVHeight ) )
 	{
-		DrawSelBox();
+		if( !isGroupMove )
+		{
+			DrawSelBox();
+		}
 	}
 	
 	Gfx::DisableBlend();
@@ -225,7 +231,7 @@ void cAnimationEdit::Step()
 			DeleteFaceFromNodes();
 		}
 		else if( CurMode == TEXTURE_MODE )
-		{	
+		{
 			SelectFace();
 			DeleteFaceFromFace();
 		}
@@ -259,7 +265,11 @@ void cAnimationEdit::Step()
 		CurView = 3;
 		CurMousePos = CalcUVMousePos();
 		
-		SelectUV();
+		if( !isGroupMove )
+		{
+			SelectUV();
+		}
+		MoveUV();
 		
 		// Handles scrolling around the map
 		if( Platform::AspectRatio < Real( 0.79 ) )
@@ -391,7 +401,7 @@ Vector2D cAnimationEdit::CalcUVMousePos()
 			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
 			+ ( ( cGlobal::HudH * Real( 0.25 ) ) ) )
 			* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
-			- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
+			- ( ( UVCamera->Pos.z - Real( 611 ) ) / Real( 611 ) )
 		);
 	}
 	else
@@ -401,12 +411,12 @@ Vector2D cAnimationEdit::CalcUVMousePos()
 			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
 			- ( ( Real(cGlobal::HudW) * UVWidth ) ) )
 			* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
-			+ ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) ),
+			+ ( ( UVCamera->Pos.z - Real( 611 ) ) / Real( 611 ) ),
 			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * UVHeight )
 			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
 			+ ( ( cGlobal::HudH * UVHeight ) ) )
 			* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
-			- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
+			- ( ( UVCamera->Pos.z - Real( 618 ) ) / Real( 618 ) )
 		);
 	}
 

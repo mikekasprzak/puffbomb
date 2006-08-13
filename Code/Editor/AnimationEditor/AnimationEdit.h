@@ -108,6 +108,7 @@ public:
 	void DrawSelectedUV();
 	void SelectUV();
 	int SingleSelectUV( const Vector2D& CurPos );
+	void MoveUV();
 	
 public:
 	// AnimationEditText.cpp //

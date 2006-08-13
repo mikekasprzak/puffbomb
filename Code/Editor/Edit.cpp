@@ -119,32 +119,6 @@ void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH,
 		MyCamera->View.x = MyCamera->Pos.x;
 		MyCamera->View.y = MyCamera->Pos.y;
 	}
-/*	
-	// Scroll Mouse Button
-	// Pans the screen	
-	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
-	{
-		MiddleClick = true;
-		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
-		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
-	}
-	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
-	{
-		MiddleClickLast = MiddleClick;
-		MiddleClick = false;
-	}
-	else if( MiddleClick )
-	{
-		MyCamera->Pos.x += ( int( Mouse.x * Real( cGlobal::HudW ) * PercentW ) - ScrollMouseX )
-			* Real( -MyCamera->Pos.z / ZoomInfo.x );
-		MyCamera->Pos.y += ( int( -Mouse.y * Real( cGlobal::HudH ) * PercentH ) - ScrollMouseY )
-			* Real( -MyCamera->Pos.z / ZoomInfo.y );
-		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
-		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
-	
-		MyCamera->View.x = MyCamera->Pos.x;
-		MyCamera->View.y = MyCamera->Pos.y;
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, bool DrawOrig, Real* MyGridDepth )

@@ -508,5 +508,132 @@ int cAnimationEdit::SingleSelectUV( const Vector2D& CurPos )
 	return -1;
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::MoveUV()
+{
+	if( Button[ MOUSE_1 ].Pressed() )
+	{
+		if( !Button[ KEY_LCTRL ] )
+		{
+			Vector2D CurPos = CurMousePos;
+			CurPos /= UVScale;
+			CurPos.y = ( CurPos.y - Real(1.0) ) * Real(-1.0);
+
+			int temp = SingleSelectUV( CurPos );
+//			CurPos *= UVScale;
+			for( size_t idx = 0; idx < CurSelUV.size(); ++idx )
+			{
+				if( temp == int(CurSelUV[idx]) )
+				{
+					isGroupMove = true;
+				}
+			}
+		}
+		// Snaps to grid
+		if( !Button[ KEY_LSHIFT ] && isGroupMove )
+		{
+			SnapToGrid = true;
+		}
+		else
+		{
+			SnapToGrid = false;
+		}
+	}
+	if( Button[ MOUSE_1 ].Released() )
+	{
+		isGroupMove = false;
+		
+		if( SnapToGrid )
+		{
+			for( size_t idx = 0; idx < CurSelUV.size(); ++idx )
+			{
+				int VertexNum = CurSelUV[idx] % 3;
+				int i = ( CurSelUV[idx] / 3 );
+				
+				if( VertexNum == 0 )
+				{
+					CurFrame->Face[ i ].UV.a.x *= UVScale;
+					CurFrame->Face[ i ].UV.a.y *= UVScale;
+					
+					CalcSnapToGrid( CurFrame->Face[ i ].UV.a, CurrentGridDepth, GridDepth );
+					
+					//CalcSnapToGrid( CurFrame->Face[ i ].UV.a, CurUVGridDepth, UVGridDepth );
+					
+					CurFrame->Face[ i ].UV.a.x /= UVScale;
+					CurFrame->Face[ i ].UV.a.y /= UVScale;
+				}
+				else if( VertexNum == 1 )
+				{
+					CurFrame->Face[ i ].UV.b.x *= UVScale;
+					CurFrame->Face[ i ].UV.b.y *= UVScale;
+					
+					CalcSnapToGrid( CurFrame->Face[ i ].UV.b, CurrentGridDepth, GridDepth );
+					//CalcSnapToGrid( CurFrame->Face[ i ].UV.b, CurUVGridDepth, UVGridDepth );
+					
+					CurFrame->Face[ i ].UV.b.x /= UVScale;
+					CurFrame->Face[ i ].UV.b.y /= UVScale;
+				}
+				else if( VertexNum == 2 )
+				{
+					CurFrame->Face[ i ].UV.c.x *= UVScale;
+					CurFrame->Face[ i ].UV.c.y *= UVScale;
+					
+					CalcSnapToGrid( CurFrame->Face[ i ].UV.c, CurrentGridDepth, GridDepth );
+					
+					//CalcSnapToGrid( CurFrame->Face[ i ].UV.c, CurUVGridDepth, UVGridDepth );
+					
+					CurFrame->Face[ i ].UV.c.x /= UVScale;
+					CurFrame->Face[ i ].UV.c.y /= UVScale;
+				}
+			}
+			SnapToGrid = false;
+			ActiveAction();
+		}
+		else
+		{
+			//ActiveAction();
+		}
+	}
+	if( isGroupMove )
+	{
+		for( size_t idx = 0; idx < CurSelUV.size(); ++idx )
+		{
+			int VertexNum = CurSelUV[idx] % 3;
+			int i = ( CurSelUV[idx] / 3 );
+				
+			if( VertexNum == 0 )
+			{
+				CurFrame->Face[ i ].UV.a.x -=
+				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale );
+				
+				CurFrame->Face[ i ].UV.a.y +=
+				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale ) * Real(-1.0);
+			}
+			else if( VertexNum == 1 )
+			{
+				CurFrame->Face[ i ].UV.b.x -=
+				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale );
+				
+				CurFrame->Face[ i ].UV.b.y +=
+				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale ) * Real(-1.0);
+
+			}
+			else if( VertexNum == 2 )
+			{
+				CurFrame->Face[ i ].UV.c.x -=
+				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale );
+				
+				CurFrame->Face[ i ].UV.c.y +=
+				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale ) * Real(-1.0);
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //

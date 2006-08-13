@@ -580,7 +580,7 @@ int main( int argc, char* argv[] ) {
 							glMatrixMode (GL_PROJECTION);
 							glLoadIdentity();
 							gluPerspective( 45.0, Platform::AspectRatio * Real(1.33), 1.0, 100000.0 ); 	
-//							gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 	
+//							gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 	  
 						}
 						else
 						{
