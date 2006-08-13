@@ -109,6 +109,9 @@ public:
 	void SelectUV();
 	int SingleSelectUV( const Vector2D& CurPos );
 	void MoveUV();
+	void RotateUV();
+	void RotateUVRGB();
+	void InvertUV();
 	
 public:
 	// AnimationEditText.cpp //

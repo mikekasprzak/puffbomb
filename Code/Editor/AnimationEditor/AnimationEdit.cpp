@@ -293,6 +293,13 @@ void cAnimationEdit::Step()
 
 	SwitchFrame();
 	
+	if( CurMode == TEXTURE_MODE )
+	{
+		RotateUV();
+		RotateUVRGB();
+		InvertUV();
+	}
+	
 	LastView = CurView;
 }
 // - ------------------------------------------------------------------------------------------ - //

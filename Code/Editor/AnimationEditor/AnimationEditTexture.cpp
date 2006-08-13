@@ -635,5 +635,71 @@ void cAnimationEdit::MoveUV()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::RotateUV()
+{
+	if( Button[ KEY_T ].Pressed() )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			CurFrame->Face[CurSelected[idx]].UV.a.x =
+			( CurFrame->Face[CurSelected[idx]].UV.a.x - Real(1.0) )
+			* Real(-1.0);
+			CurFrame->Face[CurSelected[idx]].UV.a.y = 
+			( CurFrame->Face[CurSelected[idx]].UV.a.y - Real(1.0) )
+			* Real(-1.0);
+			
+			CurFrame->Face[CurSelected[idx]].UV.b.x =
+			( CurFrame->Face[CurSelected[idx]].UV.b.x - Real(1.0) )
+			* Real(-1.0);
+			CurFrame->Face[CurSelected[idx]].UV.b.y = 
+			( CurFrame->Face[CurSelected[idx]].UV.b.y - Real(1.0) )
+			* Real(-1.0);
+
+			CurFrame->Face[CurSelected[idx]].UV.c.x =
+			( CurFrame->Face[CurSelected[idx]].UV.c.x - Real(1.0) )
+			* Real(-1.0);
+			CurFrame->Face[CurSelected[idx]].UV.c.y = 
+			( CurFrame->Face[CurSelected[idx]].UV.c.y - Real(1.0) )
+			* Real(-1.0);
+
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::RotateUVRGB()
+{
+	if( Button[ KEY_R ].Pressed() )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Vector2D temp = CurFrame->Face[CurSelected[idx]].UV.a;
+
+			CurFrame->Face[CurSelected[idx]].UV.a = 
+			CurFrame->Face[CurSelected[idx]].UV.c;
+
+			CurFrame->Face[CurSelected[idx]].UV.c = 
+			CurFrame->Face[CurSelected[idx]].UV.b;
+
+			CurFrame->Face[CurSelected[idx]].UV.b = temp;
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::InvertUV()
+{
+	if( Button[ KEY_I ].Pressed() )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Vector2D temp = CurFrame->Face[CurSelected[idx]].UV.a;
+
+			CurFrame->Face[CurSelected[idx]].UV.a = 
+			CurFrame->Face[CurSelected[idx]].UV.b;
+
+			CurFrame->Face[CurSelected[idx]].UV.b = temp;
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //

@@ -19,10 +19,19 @@ void cAnimationEdit::AddFace()
 			cFrame::cFace tempFace;
 			
 			Clockwise( tempFace );
-						
-			tempFace.UV.a = Vector2D( 0.0, 0.0 );
-			tempFace.UV.b = Vector2D( 0.0, 1.0 );
-			tempFace.UV.c = Vector2D( 1.0, 1.0 );
+			
+			if( CurFrame->Face.size() % 2 == 0 )
+			{
+				tempFace.UV.a = Vector2D( 0.0, 0.0 );
+				tempFace.UV.b = Vector2D( 0.0, 1.0 );
+				tempFace.UV.c = Vector2D( 1.0, 1.0 );
+			}
+			else
+			{
+				tempFace.UV.a = Vector2D( 0.0, 0.0 );
+				tempFace.UV.b = Vector2D( 1.0, 1.0 );
+				tempFace.UV.c = Vector2D( 1.0, 0.0 );
+			}
 			
 			/*tempFace.UV.a = Vector2D( 0.0, 0.0 );
 			tempFace.UV.b = Vector2D( 0.0, 1.0 );  // NEED SOMTHING BETTER THEN THIS SHIT
