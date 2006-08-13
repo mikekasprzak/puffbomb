@@ -30,7 +30,7 @@ public:
 		StaticArray< unsigned int >* Indices;
 		
 		StaticArray< char >* TextureName; 
-		unsigned int TextureID;				
+		unsigned int TextureID;
 	};
 	std::vector< cData > Data;
 		

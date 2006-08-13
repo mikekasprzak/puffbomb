@@ -30,8 +30,8 @@
 
 #include "Triangulate.h"
 
-extern int __vp[V_MAX];
-int __vp[V_MAX];
+//extern int __vp[V_MAX];
+//int __vp[V_MAX];
 
 /*
  * orientation
