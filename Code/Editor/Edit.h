@@ -42,8 +42,11 @@ public:
 
 	bool AutoGridDepth;
 
-	int ScrollMouseX;
-	int ScrollMouseY;
+//	int ScrollMouseX;
+//	int ScrollMouseY;
+
+	Real ScrollMouseX;
+	Real ScrollMouseY;
 	int ScrollFrame;
 
 	int CurView;

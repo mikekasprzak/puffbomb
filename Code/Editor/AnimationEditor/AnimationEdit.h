@@ -56,6 +56,7 @@ public:
 	Vector2D CurMousePos;
 	
 	std::vector<size_t> CurSelected;
+	std::vector<size_t> CurSelUV;
 
 public:
 	cAnimationEdit();
@@ -103,6 +104,10 @@ public:
 	bool FaceInBox( int i, int idx );
 	int SingleSelectFace();
 	void DeleteFaceFromFace();
+	void DrawUV();
+	void DrawSelectedUV();
+	void SelectUV();
+	int SingleSelectUV( const Vector2D& CurPos );
 	
 public:
 	// AnimationEditText.cpp //

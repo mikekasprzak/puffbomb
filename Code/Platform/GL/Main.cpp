@@ -40,8 +40,8 @@ bool IsActive = true;
 bool IsSplitScreen = false;
 // ---------------------------------------------------------------------------------------------- //
 
-//#ifdef EDITOR
-//void GlobalInput( cEditor& Editor ) {
+//#ifdef EDITOR 
+//void GlobalInput( cEditor& Editor ) {   
 //#else // EDITOR //
 void GlobalInput() {
 //#endif // Editor //
@@ -575,10 +575,12 @@ int main( int argc, char* argv[] ) {
 						// Screen 1 (Left Side) //	
 						if( Platform::AspectRatio < Real( 0.79 ) )
 						{
-							glViewport( 0, Real( Platform::ScreenH * 0.25 ), Real( Platform::ScreenW ), Real( Platform::ScreenH ) );
+							glViewport( 0, Real( Platform::ScreenH * 0.25 ), Real( Platform::ScreenW ), Real( Platform::ScreenH * 0.75 ) );
+//							glViewport( 0, Real( Platform::ScreenH * 0.25 ), Real( Platform::ScreenW ), Real( Platform::ScreenH ) );
 							glMatrixMode (GL_PROJECTION);
 							glLoadIdentity();
-							gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 	
+							gluPerspective( 45.0, Platform::AspectRatio * Real(1.33), 1.0, 100000.0 ); 	
+//							gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 	
 						}
 						else
 						{

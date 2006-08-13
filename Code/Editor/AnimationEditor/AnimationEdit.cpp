@@ -51,7 +51,6 @@ cAnimationEdit::cAnimationEdit() :
 
 	if( Platform::AspectRatio < Real( 0.79 ) )
 	{
-	//	Real( 1.66 )
 		PreviewHeight = 0.75;
 	}
 	
@@ -168,50 +167,16 @@ void cAnimationEdit::UVDraw()
 	);
 	
 	Gfx::DisableTex2D();
-	
-	
+
 	if( CurMode == TEXTURE_MODE )
 	{
-		glLineWidth( 1.0 );
-		
+		DrawUV();
+		DrawSelectedUV();
+	}
 
-		ABSet< Vector3D > LineVertex[ CurSelected.size() * 3 ];
-		unsigned int LineIndicesSize = CurSelected.size() * 6;
-		unsigned int LineIndices[ LineIndicesSize ];
-
-		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-		{
-			Vector2D UVa = Vector2D( CurFrame->Face[ CurSelected[ idx ] ].UV.a.x * UVScale,
-					UVScale - ( CurFrame->Face[ CurSelected[ idx ] ].UV.a.y * UVScale ) );
-			Vector2D UVb = Vector2D( CurFrame->Face[ CurSelected[ idx ] ].UV.b.x * UVScale,
-					UVScale - ( CurFrame->Face[ CurSelected[ idx ] ].UV.b.y * UVScale ) );
-			Vector2D UVc = Vector2D( CurFrame->Face[ CurSelected[ idx ] ].UV.c.x * UVScale,
-					UVScale - ( CurFrame->Face[ CurSelected[ idx ] ].UV.c.y * UVScale ) );
-			
-			// Draw circles representing selected faces UV coord's //
-			Gfx::Circle( UVa, NodeRadius, Gfx::RGBA( 200, 0, 0, 255 ) );
-			Gfx::Circle( UVb, NodeRadius, Gfx::RGBA( 0, 200, 0, 255 ) );
-			Gfx::Circle( UVc, NodeRadius, Gfx::RGBA( 0, 0, 200, 255 ) );
-			
-			LineVertex[ idx ].a = UVa.ToVector3D();
-			LineVertex[ idx ].b = UVb.ToVector3D();
-	
-			LineVertex[ idx + CurSelected.size() ].a = LineVertex[ idx ].b;
-			LineVertex[ idx + CurSelected.size() ].b = UVc.ToVector3D();
-	
-			LineVertex[ idx + ( CurSelected.size() * 2 ) ].a = LineVertex[ idx ].a;
-			LineVertex[ idx + ( CurSelected.size() * 2 ) ].b = LineVertex[ idx + CurSelected.size() ].b;
-
-			LineIndices[ idx ] = idx;
-		}
-	
-		for( size_t idx = CurSelected.size(); idx < LineIndicesSize; ++idx )
-		{
-			LineIndices[ idx ] = idx;
-		}
-		
-		// Draw Lines representing selected faces UV coord's//
-		Gfx::DrawLines( LineVertex, LineIndices, LineIndicesSize, Gfx::RGBA( 0, 200, 0, 255 ) );
+	if( CheckViewThree( UVHeight ) )
+	{
+		DrawSelBox();
 	}
 	
 	Gfx::DisableBlend();
@@ -228,8 +193,14 @@ void cAnimationEdit::Step()
 		CurMousePos = CalcMousePos();
 
 		// Handles scrolling around the map
-		Scroll( Camera );
-
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			Scroll( Camera, Real( 1.33 ), Real( 1.33 ), Vector2D( cGlobal::HudZoom, cGlobal::HudZoom ) );
+		}
+		else
+		{
+			Scroll( Camera );
+		}
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), Camera );
 		
@@ -288,9 +259,12 @@ void cAnimationEdit::Step()
 		CurView = 3;
 		CurMousePos = CalcUVMousePos();
 		
+		SelectUV();
+		
 		// Handles scrolling around the map
 		if( Platform::AspectRatio < Real( 0.79 ) )
 		{
+	
 			Scroll( UVCamera, Real( 0.33 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
 		}
 		else
@@ -337,7 +311,7 @@ void cAnimationEdit::Undo()
 		PreviewCamera->Pos.y = 0.0;
 		if( Platform::AspectRatio < Real( 0.79 ) )
 		{
-			PreviewCamera->Pos.z = cGlobal::HudZoom * ( Real( 1 ) - Real( 0.25 ) );
+			PreviewCamera->Pos.z = cGlobal::HudZoom * ( Real( 1 ) - Real( 0.75 ) );
 		}
 		else
 		{
@@ -375,13 +349,13 @@ Vector2D cAnimationEdit::CalcMousePos()
 	if( Platform::AspectRatio < Real( 0.79 ) )
 	{
 		tempMousPos = Vector2D(
-				Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
+				Real( ( int( Mouse.x * Real( cGlobal::HudW * Real( 1.33 ) ) ) )
 				- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-				- ( ( Real(cGlobal::HudW) ) / Real(2) ) )
+				- ( ( Real(cGlobal::HudW) * Real( 1.33 ) ) / Real(2) ) )
 				* Real( Camera->Pos.z / cGlobal::HudZoom ),
-				Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
+				Real( ( int( -Mouse.y * Real( cGlobal::HudH * Real( 1.33 ) ) ) )
 				+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-				+ ( ( Real(cGlobal::HudH) * Real( 0.25 ) ) ) )
+				+ ( ( Real(cGlobal::HudH * Real( 0.75 ) ) * Real( 1.33 ) ) / Real(2) ) )
 				* Real( Camera->Pos.z / cGlobal::HudZoom )
 		);
 	}
@@ -404,14 +378,15 @@ Vector2D cAnimationEdit::CalcMousePos()
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cAnimationEdit::CalcUVMousePos()
 {
+	Vector2D tempMousPos;
 	if( Platform::AspectRatio < Real( 0.79 ) )
 	{
-		return Vector2D(
+		tempMousPos = Vector2D(
 			Real( ( int( Mouse.x * Real( cGlobal::HudW * Real( 0.33 ) ) ) )
 			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
 			- ( ( Real(cGlobal::HudW) * Real( 0.33 ) ) ) )
 			* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
-			+ ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) ),
+			+ ( ( UVCamera->Pos.z - Real( 122 ) ) / Real( 122 ) ),
 			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * Real( 0.25 ) )
 			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
 			+ ( ( cGlobal::HudH * Real( 0.25 ) ) ) )
@@ -421,7 +396,7 @@ Vector2D cAnimationEdit::CalcUVMousePos()
 	}
 	else
 	{
-		return Vector2D(
+		tempMousPos =  Vector2D(
 			Real( ( int( Mouse.x * Real( cGlobal::HudW * UVWidth ) ) )
 			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
 			- ( ( Real(cGlobal::HudW) * UVWidth ) ) )
@@ -434,6 +409,10 @@ Vector2D cAnimationEdit::CalcUVMousePos()
 			- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
 		);
 	}
+
+	tempMousPos *= UVScale;
+
+	return tempMousPos;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawFrame()
@@ -502,7 +481,10 @@ void cAnimationEdit::DrawSelected()
  
  	if( !isGroupMove )
 	{
-		DrawSelBox();
+		if( CheckViewOne() )
+		{
+			DrawSelBox();
+		}
 	}
 		
 	if( CurSelected.size() > 0 )
