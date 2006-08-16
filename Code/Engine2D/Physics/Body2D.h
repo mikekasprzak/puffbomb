@@ -75,6 +75,7 @@ public:
 
 	int AddSpring( size_t _IndexA, size_t _IndexB );
 	void DeleteSpring( size_t Number );
+	
 	int AddSphere( size_t _Index );
 	void DeleteSphere( size_t Number );
 #endif // EDITOR //

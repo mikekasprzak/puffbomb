@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <Physics/NodeLink.h>
+#include <Physics/NodeAnchor.h>
 #include "DynamicObject/DynamicObjectComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -15,8 +16,11 @@ class cDynamicObject {
 public:
 	// Components of this object //
 	std::vector< cDynamicObjectComponent > Component;
-	// Linkage in this object //
+	
+	// Node Linkage in this object //
 	std::vector< cNodeLink > NodeLink;
+	// Anchoring (locking) points in this object //
+	std::vector< cNodeAnchor > NodeAnchor;
 
 public:
 	cDynamicObject() {
@@ -28,8 +32,8 @@ public:
 public:
 	// Do physics, as a self sustaining object //
 	void Step();
-	// Step the node links //
-	void StepNodeLinks();
+	// Step the mass body linkage (node links and anchors) //
+	void StepLinkage();
 	
 	// Do any work (control/AI) I may have.  This is commonly overloaded to provide control. //
 	virtual void Work();
@@ -45,14 +49,6 @@ public:
 public:
 	// Messanging //
 	
-	
-	
-	// Solve Collisions/Actions (not needed) //
-//	void Solve( cDynamicObject& _Vs );
-//	void Solve( class cStaticObject& _Vs );
-//	void Solve( class cPassiveObject& _Vs );
-//	void Solve( class cZone& _Vs );
-//	void Solve( class cImpulse& _Vs );	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

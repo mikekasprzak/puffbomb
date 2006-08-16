@@ -15,7 +15,7 @@ void cDynamicObject::Step() {
 	// Physics relaxation loop //
 	for ( int NodeSteps = 0; NodeSteps < cPhysics::Current->RelaxationSteps; NodeSteps++ ) {
 		// Update nodes via NodeLink springs //
-		StepNodeLinks();
+		StepLinkage();
 		
 		// Update all Springs //
 		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
@@ -31,7 +31,12 @@ void cDynamicObject::Step() {
 	}		
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObject::StepNodeLinks() {
+void cDynamicObject::StepLinkage() {
+	// Update nodes via Anchors //
+	for ( size_t idx = 0; idx < NodeAnchor.size(); idx++ ) {
+		NodeAnchor[ idx ].Step( Component );
+	}
+
 	// Update nodes via NodeLink springs //
 	for ( size_t idx = 0; idx < NodeLink.size(); idx++ ) {
 		NodeLink[ idx ].Step( Component );
