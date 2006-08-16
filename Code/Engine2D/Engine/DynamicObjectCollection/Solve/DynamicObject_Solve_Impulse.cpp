@@ -1,12 +1,12 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Engine/DynamicObject/DynamicObjectComponent.h>
+#include <Engine/DynamicObjectCollection/DynamicObject.h>
 #include <Physics/Impulse.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectComponent::Solve( cImpulse& _Vs ) {
+void cDynamicObject::Solve( cImpulse& _Vs ) {
 	// If I'm more than simply active //
 	if ( !State.OnlyActive() ) {
 		// If I'm ignoring impulses, bail//

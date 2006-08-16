@@ -1,12 +1,12 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Engine/DynamicObject/DynamicObjectComponent.h>
+#include <Engine/DynamicObjectCollection/DynamicObject.h>
 #include <Engine/PassiveObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectComponent::Solve( cPassiveObject& _Vs ) {
+void cDynamicObject::Solve( cPassiveObject& _Vs ) {
 	// If I'm more than simply active //
 	if ( !State.OnlyActive() ) {
 		// If I'm ignoring passive objects, bail//
