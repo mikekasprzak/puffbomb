@@ -96,7 +96,7 @@ public:
 		Real Diff = Dividend / Divisor;
 		
 		ObjectA->Pos( IndexA ) += ObjectA->InvMass( IndexA ) * Ray * Diff * Strength;
-		ObjectB->Pos( IndexB ) -= ObjectB->InvMass( IndexB ) * Ray * Diff * Strength;		
+		ObjectB->Pos( IndexB ) -= ObjectB->InvMass( IndexB ) * Ray * Diff * Strength;
 	}
 	
 	void DebugDraw() {
