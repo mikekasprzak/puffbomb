@@ -625,6 +625,7 @@ void cAnimationEdit::SwitchFrame()
 		CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 		CurSelected.clear();
 		CurSelUV.clear();
+		CurTexIdx = FindTexture( CurFrame->TextureID );
 	}
 	if ( Button[ KEY_RIGHT ].Pressed() )
 	{
@@ -639,6 +640,16 @@ void cAnimationEdit::SwitchFrame()
 		CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 		CurSelected.clear();
 		CurSelUV.clear();
+		CurTexIdx = FindTexture( CurFrame->TextureID );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::AddFrame()
+{	
+	if( Button[ KEY_F ].Pressed() )
+	{
+		
+		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

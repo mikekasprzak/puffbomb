@@ -88,6 +88,7 @@ public:
 	
 	void SwitchMode();
 	void SwitchFrame();
+	void AddFrame();
 
 public:
 	// AnimationEditNode.cpp //
