@@ -6,14 +6,14 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-#include "StaticObjectCollection/StaticObject.h"
+#include "StaticObjectCollection/StaticObjectInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cStaticObjectCollection {
 public:
 	// Components in this object //
-	std::vector< cStaticObject > Component;	
+	std::vector< cStaticObjectInstance > Component;	
 
 public:
 
