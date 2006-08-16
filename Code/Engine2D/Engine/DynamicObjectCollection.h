@@ -8,7 +8,7 @@
 
 #include <Physics/NodeLink.h>
 #include <Physics/NodeAnchor.h>
-#include "DynamicObjectCollection/DynamicObjectCollectionComponent.h"
+#include "DynamicObjectCollection/DynamicObject.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
