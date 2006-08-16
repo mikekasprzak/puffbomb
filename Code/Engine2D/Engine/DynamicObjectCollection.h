@@ -1,21 +1,21 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DynamicObject - A collection of Components //
+// DynamicObjectCollection - A collection of Components //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObject_H__
-#define __Engine2D_Engine_DynamicObject_H__
+#ifndef __Engine2D_Engine_DynamicObjectCollection_H__
+#define __Engine2D_Engine_DynamicObjectCollection_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 
 #include <Physics/NodeLink.h>
 #include <Physics/NodeAnchor.h>
-#include "DynamicObject/DynamicObjectComponent.h"
+#include "DynamicObjectCollection/DynamicObjectCollectionComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cDynamicObject {
+class cDynamicObjectCollection {
 public:
 	// Components of this object //
-	std::vector< cDynamicObjectComponent > Component;
+	std::vector< cDynamicObject > Component;
 	
 	// Node Linkage in this object //
 	std::vector< cNodeLink > NodeLink;
@@ -23,10 +23,10 @@ public:
 	std::vector< cNodeAnchor > NodeAnchor;
 
 public:
-	cDynamicObject() {
+	cDynamicObjectCollection() {
 	}
 	
-	virtual ~cDynamicObject() {
+	virtual ~cDynamicObjectCollection() {
 	}
 	
 public:
@@ -53,5 +53,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObject_H__ //
+#endif // __Engine2D_Engine_DynamicObjectCollection_H__ //
 // - ------------------------------------------------------------------------------------------ - //
