@@ -21,9 +21,15 @@ public:
 	// When to detach the spring (if enabled) //
 	Real BreakPoint;
 
-	
+
+	// Object number and Index numbers used //
+	unsigned int Object, Index;
+		
 public:
 	void Step( std::vector< cDynamicObject >& Component ) {
+		Vector2D& Point = Component[ Object ].Body.Nodes.Pos( Index );
+		
+		// Do spring thing //
 	}
 	
 };
