@@ -7,7 +7,7 @@
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
 
-#include <Engine/DynamicObject/DynamicObjectComponent.h>
+#include <Engine/DynamicObjectCollection/DynamicObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -23,7 +23,7 @@ public:
 
 	
 public:
-	void Step( std::vector< cDynamicObjectComponent >& Component ) {
+	void Step( std::vector< cDynamicObject >& Component ) {
 	}
 	
 };

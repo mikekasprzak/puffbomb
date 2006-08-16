@@ -6,11 +6,11 @@
 #include <Engine2D.h>
 
 #include <Engine/Zone.h>
-#include <Engine/DynamicObject/DynamicObjectComponent.h>
+#include <Engine/DynamicObjectCollection/DynamicObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cZone::Action( cDynamicObjectComponent& _Vs ) {
+void cZone::Action( cDynamicObject& _Vs ) {
 	switch ( Id ) {
 		// Camera Boundary //
 		case 1: {

@@ -43,7 +43,7 @@ public:
 public:
 	// Solve Collisions/Actions //
 	void Solve( cDynamicObject& _Vs );
-	void Solve( class cStaticObjectComponent& _Vs );
+	void Solve( class cStaticObject& _Vs );
 	void Solve( class cPassiveObject& _Vs );
 	void Solve( class cZone& _Vs );
 	void Solve( class cImpulse& _Vs );

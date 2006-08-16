@@ -25,7 +25,7 @@ public:
 	}
 
 public:
-	void Action( class cDynamicObjectComponent& _Vs );
+	void Action( class cDynamicObject& _Vs );
 	bool InitZone( );
 };
 // - ------------------------------------------------------------------------------------------ - //

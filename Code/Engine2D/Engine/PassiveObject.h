@@ -24,7 +24,7 @@ public:
 	
 
 public:	
-	void Action( class cDynamicObjectComponent& _Vs );
+	void Action( class cDynamicObject& _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
