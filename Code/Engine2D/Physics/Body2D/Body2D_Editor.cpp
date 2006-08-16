@@ -9,9 +9,9 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 int cBody2D::AddSpring( size_t _IndexA, size_t _IndexB ) {
 	// Make this an assert //
-	if ( _IndexA >= size() )
+	if ( _IndexA >= Nodes.Size() )
 		return -1;
-	if ( _IndexB >= size() )
+	if ( _IndexB >= Nodes.Size() )
 		return -1;
 	// Test for less than zero too //
 	
@@ -33,7 +33,7 @@ void cBody2D::DeleteSpring( size_t Number ) {
 // - ------------------------------------------------------------------------------------------ - //
 int cBody2D::AddSphere( size_t _Index ) {
 	// Make this an assert //
-	if ( _Index >= size() )
+	if ( _Index >= Nodes.Size() )
 		return -1;
 	// Test for less than zero too //
 	
@@ -59,7 +59,7 @@ void cBody2D::DeleteSphere( size_t Number ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 int cBody2D::AddNode() {
-	return Body.AddNode();
+	return Nodes.AddNode();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DeleteNode( size_t Number ) {

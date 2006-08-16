@@ -67,6 +67,7 @@ public:
 	void Solve( class cStaticBody2D& _Vs, const Vector2D& _Offset = Vector2D::Zero );
 	void Solve( class cImpulse& _Vs );
 	
+#ifdef EDITOR
 public:
 	// Editor Function //
 	int AddNode();
@@ -76,6 +77,7 @@ public:
 	void DeleteSpring( size_t Number );
 	int AddSphere( size_t _Index );
 	void DeleteSphere( size_t Number );
+#endif // EDITOR //
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
