@@ -8,17 +8,17 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 // In the case of a component without a parent, if checks should be placed to stop messanging //
-cDynamicObjectComponent::cDynamicObjectComponent( ) :
+cDynamicObject::cDynamicObject( ) :
 	Parent( 0 )
 {	
 }
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicObjectComponent::cDynamicObjectComponent( class cDynamicObject* _Parent ) :
+cDynamicObject::cDynamicObject( class cDynamicObject* _Parent ) :
 	Parent( _Parent )
 {	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectComponent::Step() {
+void cDynamicObject::Step() {
 	// Step the nodes //
 	Body.Step();
 
@@ -29,7 +29,7 @@ void cDynamicObjectComponent::Step() {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectComponent::Draw() {
+void cDynamicObject::Draw() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
