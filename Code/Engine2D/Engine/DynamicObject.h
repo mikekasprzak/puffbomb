@@ -1,5 +1,5 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DynamicObject //
+// DynamicObject - A collection of Components //
 // - ------------------------------------------------------------------------------------------ - //
 #ifndef __Engine2D_Engine_DynamicObject_H__
 #define __Engine2D_Engine_DynamicObject_H__
