@@ -26,12 +26,40 @@ public:
 	
 public:
 	void Step( std::vector< cDynamicObject >& Component ) {
-		Vector2D& PointA = Component[ ObjectA ].Body.Nodes.Pos( IndexA );
-		Vector2D& PointB = Component[ ObjectB ].Body.Nodes.Pos( IndexB );
+		cBody2D& BodyA = Component[ ObjectA ].Body;
+		cBody2D& BodyB = Component[ ObjectB ].Body;
+
+		Vector2D& PointA = BodyA.Nodes.Pos( IndexA );
+		Vector2D& PointB = BodyB.Nodes.Pos( IndexB );
+		const Real& InvMassA = BodyA.Nodes.InvMass( IndexA );
+		const Real& InvMassB = BodyB.Nodes.InvMass( IndexB );
 		
 		// Do spring thing //
+		Vector2D Ray = PointB - PointA;
+		Real RayLength = Ray.Magnitude();
+		
+		Real Dividend = (RayLength - Length);
+
+		// Early out for all flag tests //
+//		if ( Flags & (flIgnoreMinimum | flIgnoreMaximum )) {
+//			if ( Flags & flIgnoreMinimum ) {
+//				if ( Dividend <= Real::Zero )
+//					return;
+//			}
+//			else if ( Flags & flIgnoreMaximum ) {
+//				if ( Dividend > Real::Zero )
+//					return;
+//			}
+//		}
+
+		Real Divisor = RayLength * (InvMassA + InvMassB);
+		if ( Divisor.IsZero() )
+			return;
+		Real Diff = Dividend / Divisor;
+		
+		PointA += InvMassA * Ray * Diff * Strength;
+		PointB -= InvMassB * Ray * Diff * Strength;
 	}
-	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

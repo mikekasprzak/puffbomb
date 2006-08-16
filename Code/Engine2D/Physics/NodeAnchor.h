@@ -27,9 +27,38 @@ public:
 		
 public:
 	void Step( std::vector< cDynamicObject >& Component ) {
-		Vector2D& Point = Component[ Object ].Body.Nodes.Pos( Index );
+		cBody2D& Body = Component[ Object ].Body;
+
+		Vector2D& PointA = Body.Nodes.Pos( Index );
+		const Vector2D& PointB = Pos;
+		
+		const Real& InvMass = Body.Nodes.InvMass( Index );
 		
 		// Do spring thing //
+		Vector2D Ray = PointB - PointA;
+		Real RayLength = Ray.Magnitude();
+		
+		Real Dividend = (RayLength - Real::Zero);
+
+		// Early out for all flag tests //
+//		if ( Flags & (flIgnoreMinimum | flIgnoreMaximum )) {
+//			if ( Flags & flIgnoreMinimum ) {
+//				if ( Dividend <= Real::Zero )
+//					return;
+//			}
+//			else if ( Flags & flIgnoreMaximum ) {
+//				if ( Dividend > Real::Zero )
+//					return;
+//			}
+//		}
+
+		Real Divisor = RayLength;// * (InvMassA + Real::Zero);
+		if ( Divisor.IsZero() )
+			return;
+		Real Diff = Dividend / Divisor;
+		
+		//PointA += InvMassA * Ray * Diff * Strength;
+		PointA += Ray * Diff * Strength;
 	}
 	
 };
