@@ -22,7 +22,7 @@ cEdit::cEdit() :
 	ScrollMouseY( 0.0 ),
 	ScrollFrame( 10 ),
 	CurView( 1 ),
-	LastView( 0 ),
+	LastView( 1 ),
 	ScrollSpeed( 3.0 ),
 	GridSize( 16384.0 ),
 	CurrentGridDepth( 0 )
@@ -100,6 +100,7 @@ void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH,
 {
 	// Scroll Mouse Button
 	// Pans the screen	
+//	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
 	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
 	{
 		MiddleClick = true;
