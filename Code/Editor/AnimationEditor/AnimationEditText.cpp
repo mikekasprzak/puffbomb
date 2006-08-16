@@ -24,8 +24,9 @@ void cAnimationEdit::DisplayText()
 		else if( CurMode == TEXTURE_MODE )
 		{	
 			DisplayFaceInfo();
-			DisplayTextureInfo();
+			//DisplayTextureInfo();
 		}
+		DisplayTextureInfo();
 	}
 	
 	DisplayMode();
@@ -113,7 +114,56 @@ void cAnimationEdit::DisplayFaceInfo()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DisplayTextureInfo()
 {
+	Real FontSize = 0.5;
+	Real XShift = 80;
+	Real YShift = 40;
+	Real XPos = 0;
+	Real YPos = -140;
 	
+	if( Platform::AspectRatio < Real( 0.79 ) )
+	{
+		YPos = cGlobal::HudH * 0.25;
+	}
+	int Color = gfx::RGBA( 255, 255, 255, 255 );
+	std::stringstream Temp;
+	
+	// Displays the current texture name //
+	// - ---------------------------------------------------------------------------------- - //
+	cFonts::FlangeLight.Write(
+		"Tex Name",
+		Vector3D( cGlobal::Left + XPos, cGlobal::Top + YPos + YShift, 0.0 ),
+		FontSize,
+		Color
+	);
+	
+	Temp << TextureName[CurTexIdx];
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( cGlobal::Left + XPos, cGlobal::Top + YPos + Real( 6 ), 0.0 ),
+		FontSize,
+		Color
+	);
+	YPos -= 30;
+	Temp.str(std::string());
+		
+	// Displays the current texture number //
+	// - ---------------------------------------------------------------------------------- - //
+	cFonts::FlangeLight.Write(
+		"Tex #",
+		Vector3D( cGlobal::Left + XPos, cGlobal::Top + YPos , 0.0 ),
+		FontSize,
+		Color
+	);
+	
+	Temp << CurTexIdx;
+	XPos += XShift;
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( cGlobal::Left + XPos, cGlobal::Top + YPos, 0.0 ),
+		FontSize,
+		Color
+	);
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DisplayMode()

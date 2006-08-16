@@ -28,10 +28,13 @@ cAnimationEdit::cAnimationEdit() :
 	SnapToGrid( false ),
 	isGroupMove( false ),
 	isDeleteNode( false ),
+	isScaleNode( false ),
+	isRotateNode( false ),
 	FrameIdx( 0 ),
 	NodeRadius( 6.0 ),
 	OldMousePos( Real(0.0), Real(0.0) ),
-	CurMousePos( Real(0.0), Real(0.0) )
+	CurMousePos( Real(0.0), Real(0.0) ),
+	CurTexIdx( 0 )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -97,7 +100,9 @@ cAnimationEdit::cAnimationEdit() :
 	CalcUVZoomOffset();
 	
 	CurMode = NODE_MODE;
-
+	
+	CurTexIdx = FindTexture( CurFrame->TextureID );
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cAnimationEdit::~cAnimationEdit()
@@ -177,14 +182,16 @@ void cAnimationEdit::UVDraw()
 		DrawSelectedUV();
 	}
 
-	if( CheckViewThree( UVHeight ) )
+	if( !isScaleNode )  // Change this to flag //
 	{
-		if( !isGroupMove )
+		if( CheckViewThree( UVHeight ) )
 		{
-			DrawSelBox();
+			if( !isGroupMove )
+			{
+				DrawSelBox();
+			}
 		}
-	}
-	
+	}	
 	Gfx::DisableBlend();
 	
 	DrawGrid( UVCamera, CurrentGridDepth, 40.0, true, GridDepth );
@@ -193,97 +200,100 @@ void cAnimationEdit::UVDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::Step()
 {
-	if( CheckViewOne() )
+	if( !isScaleNode )  // Change this to flag //
 	{
-		CurView = 1;
-		CurMousePos = CalcMousePos();
-
-		// Handles scrolling around the map
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( CheckViewOne() )
 		{
-			Scroll( Camera, Real( 1.33 ), Real( 1.33 ), Vector2D( cGlobal::HudZoom, cGlobal::HudZoom ) );
+			CurView = 1;
+			CurMousePos = CalcMousePos();
+	
+			// Handles scrolling around the map
+			if( Platform::AspectRatio < Real( 0.79 ) )
+			{
+				Scroll( Camera, Real( 1.33 ), Real( 1.33 ), Vector2D( cGlobal::HudZoom, cGlobal::HudZoom ) );
+			}
+			else
+			{
+				Scroll( Camera );
+			}
+			// Handles the zooming in and out of a map
+			Zoom( Real( 32.0 ), Camera );
+			
+			if( CurMode == NODE_MODE )
+			{
+				if( !isGroupMove )
+				{
+					SelectNode();
+				
+					AddNode();
+					
+					DeleteNode();
+				}
+				MoveNode();
+			}
+			else if( CurMode == FACE_MODE )
+			{	
+				SelectNode();
+				
+				AddFace();
+	
+				DeleteFaceFromNodes();
+			}
+			else if( CurMode == TEXTURE_MODE )
+			{
+				SelectFace();
+				DeleteFaceFromFace();
+			}
 		}
-		else
+		else if( CheckViewTwo( UVHeight ) )
 		{
-			Scroll( Camera );
+			CurView = 2;
+			CurMousePos = CalcMousePos();
+	
+			// Handles scrolling around the map
+			//Scroll( PreviewCamera );
+			
+			if( Platform::AspectRatio < Real( 0.79 ) )
+			{
+				Scroll( PreviewCamera, Real( 0.325 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+			}
+			else
+			{
+				Scroll(
+					PreviewCamera,
+					Real( UVWidth * Real( Real( 1 ) + UVWidth ) / Real( 2 ) ),
+					Real( UVHeight * Real( Real( 1 ) + UVHeight ) / Real( 2 ) ),
+					Vector2D( UVZoomOffsetX, UVZoomOffsetY )
+				);
+			}
+			// Handles the zooming in and out of the preview
+			Zoom( Real( 32.0 ), PreviewCamera );
 		}
-		// Handles the zooming in and out of a map
-		Zoom( Real( 32.0 ), Camera );
-		
-		if( CurMode == NODE_MODE )
+		else if( CheckViewThree( UVHeight ) )
 		{
+			CurView = 3;
+			CurMousePos = CalcUVMousePos();
+			
 			if( !isGroupMove )
 			{
-				SelectNode();
-			
-				AddNode();
-				
-				DeleteNode();
+				SelectUV();
 			}
-			MoveNode();
-		}
-		else if( CurMode == FACE_MODE )
-		{	
-			SelectNode();
+			MoveUV();
 			
-			AddFace();
-
-			DeleteFaceFromNodes();
-		}
-		else if( CurMode == TEXTURE_MODE )
-		{
-			SelectFace();
-			DeleteFaceFromFace();
-		}
-	}
-	else if( CheckViewTwo( UVHeight ) )
-	{
-		CurView = 2;
-		CurMousePos = CalcMousePos();
-
-		// Handles scrolling around the map
-		//Scroll( PreviewCamera );
+			// Handles scrolling around the map
+			if( Platform::AspectRatio < Real( 0.79 ) )
+			{
 		
-		if( Platform::AspectRatio < Real( 0.79 ) )
-		{
-			Scroll( PreviewCamera, Real( 0.325 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
-		}
-		else
-		{
-			Scroll(
-				PreviewCamera,
-				Real( UVWidth * Real( Real( 1 ) + UVWidth ) / Real( 2 ) ),
-				Real( UVHeight * Real( Real( 1 ) + UVHeight ) / Real( 2 ) ),
-				Vector2D( UVZoomOffsetX, UVZoomOffsetY )
-			);
-		}
-		// Handles the zooming in and out of the preview
-		Zoom( Real( 32.0 ), PreviewCamera );
-	}
-	else if( CheckViewThree( UVHeight ) )
-	{
-		CurView = 3;
-		CurMousePos = CalcUVMousePos();
-		
-		if( !isGroupMove )
-		{
-			SelectUV();
-		}
-		MoveUV();
-		
-		// Handles scrolling around the map
-		if( Platform::AspectRatio < Real( 0.79 ) )
-		{
+				Scroll( UVCamera, Real( 0.33 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+			}
+			else
+			{
+				Scroll( UVCamera, UVWidth, UVHeight, Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+			}
 	
-			Scroll( UVCamera, Real( 0.33 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
+			// Handles the zooming in and out of a map
+			Zoom( Real( 32.0 ), UVCamera );
 		}
-		else
-		{
-			Scroll( UVCamera, UVWidth, UVHeight, Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
-		}
-
-		// Handles the zooming in and out of a map
-		Zoom( Real( 32.0 ), UVCamera );
 	}
 	Animator.Step();
 	
@@ -293,13 +303,20 @@ void cAnimationEdit::Step()
 
 	SwitchFrame();
 	
-	if( CurMode == TEXTURE_MODE )
+	SwitchTexture();
+	
+	if( CurMode == NODE_MODE )
+	{
+		ScaleNode();
+		RotateNode();
+	}
+	else if( CurMode == TEXTURE_MODE )
 	{
 		RotateUV();
 		RotateUVRGB();
 		InvertUV();
 	}
-	
+
 	LastView = CurView;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -496,14 +513,16 @@ void cAnimationEdit::DrawSelected()
 {
 	Gfx::DisableTex2D();
  
- 	if( !isGroupMove )
+	if( !isScaleNode )  // Change this to flag maybe can combine isGroupMove and this //
 	{
-		if( CheckViewOne() )
+	 	if( !isGroupMove )
 		{
-			DrawSelBox();
+			if( CheckViewOne() )
+			{
+				DrawSelBox();
+			}
 		}
 	}
-		
 	if( CurSelected.size() > 0 )
 	{
 		glLineWidth( 4.0 );
@@ -605,6 +624,7 @@ void cAnimationEdit::SwitchFrame()
 		}
 		CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 		CurSelected.clear();
+		CurSelUV.clear();
 	}
 	if ( Button[ KEY_RIGHT ].Pressed() )
 	{
@@ -618,6 +638,7 @@ void cAnimationEdit::SwitchFrame()
 		}
 		CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 		CurSelected.clear();
+		CurSelUV.clear();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

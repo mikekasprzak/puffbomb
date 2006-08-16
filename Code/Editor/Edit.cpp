@@ -7,7 +7,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Platform/Global.h>
 // - ------------------------------------------------------------------------------------------ - //
-//#include <SDL/SDL.h>
+#include <Util/String.h>
+#include <Util/DirectoryCache.h>
+#include <Graphics/TexturePool.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
@@ -80,6 +82,8 @@ cEdit::cEdit() :
 	GridIndicesSize2 = 0;
 	
 	LastCamera = Camera;
+	
+	LoadTextures();
 }
 
 cEdit::~cEdit()
@@ -99,8 +103,8 @@ void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH,
 	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
 	{
 		MiddleClick = true;
-		ScrollMouseX = ( Mouse.x * Real( cGlobal::HudW ) * PercentW );
-		ScrollMouseY = ( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
+		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
+		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
 	}
 	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
 	{
@@ -109,12 +113,12 @@ void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH,
 	}
 	else if( MiddleClick )
 	{
-		MyCamera->Pos.x += ( ( Mouse.x * Real( cGlobal::HudW ) * PercentW ) - ScrollMouseX )
+		MyCamera->Pos.x += ( int( Mouse.x * Real( cGlobal::HudW ) * PercentW ) - ScrollMouseX )
 			* Real( -MyCamera->Pos.z / ZoomInfo.x );
-		MyCamera->Pos.y += ( ( -Mouse.y * Real( cGlobal::HudH ) * PercentH ) - ScrollMouseY )
+		MyCamera->Pos.y += ( int( -Mouse.y * Real( cGlobal::HudH ) * PercentH ) - ScrollMouseY )
 			* Real( -MyCamera->Pos.z / ZoomInfo.y );
-		ScrollMouseX = ( Mouse.x * Real( cGlobal::HudW ) * PercentW );
-		ScrollMouseY = ( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
+		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
+		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
 	
 		MyCamera->View.x = MyCamera->Pos.x;
 		MyCamera->View.y = MyCamera->Pos.y;
@@ -591,6 +595,41 @@ bool cEdit::CheckViewThree( const Real ViewHeight )
 		}
 	}
 	return false;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEdit::LoadTextures()
+{
+	Log( LOG_HIGHEST_LEVEL, "LoadTextures" );
+	std::string DirPrefix = "Textures/";
+
+	cDirectoryCache cDirCache( DirPrefix );
+	
+	for( size_t idx = 0; idx < cDirCache.File.size(); ++idx )
+	{
+		if( String::LastExtension( cDirCache.File[idx] ) == ".tx" )
+		{
+			std::string NoDir = String::BaseName( cDirCache.File[idx] ) + String::LastExtension( cDirCache.File[idx] );
+			
+			TextureID.push_back( TexturePool.Load( NoDir ).ID );
+			
+			std::string NoPack = String::BaseName( NoDir ) + String::LastExtension( NoDir );
+			
+			TextureName.push_back( NoPack );
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+int cEdit::FindTexture( const unsigned int& TempTextureID )
+{
+	for( size_t idx = 0; idx < TextureID.size(); ++idx )
+	{
+		if( TempTextureID == TextureID[ idx ] )
+		{
+			return idx;
+			break;	
+		}
+	}
+	return -1;
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

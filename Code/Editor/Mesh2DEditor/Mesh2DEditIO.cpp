@@ -109,28 +109,6 @@ void cMesh2DEdit::OpenDMesh( string &Dir )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMesh2DEdit::LoadTextures()
-{
-	Log( LOG_HIGHEST_LEVEL, "LoadTextures" );
-	string DirPrefix = "Textures/";
-
-	cDirectoryCache cDirCache( DirPrefix );
-	
-	for( size_t idx = 0; idx < cDirCache.File.size(); ++idx )
-	{
-		if( String::LastExtension( cDirCache.File[idx] ) == ".tx" )
-		{
-			std::string NoDir = String::BaseName( cDirCache.File[idx] ) + String::LastExtension( cDirCache.File[idx] );
-			
-			TextureID.push_back( TexturePool.Load( NoDir ).ID );
-			
-			std::string NoPack = String::BaseName( NoDir ) + String::LastExtension( NoDir );
-			
-			TextureName.push_back( NoPack );
-		}
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
 void cMesh2DEdit::SaveCurrentMesh()
 {
 	if( Input::Button[ KEY_LCTRL ] )

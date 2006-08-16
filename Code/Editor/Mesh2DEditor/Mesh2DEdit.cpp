@@ -87,8 +87,6 @@ cMesh2DEdit::cMesh2DEdit() :
 		DisplayMesh.push_back( tempTexObj );
 	}
 	
-	LoadTextures();
-	
 	OpenDMesh( CurrentDir );
 	
 	for( size_t idx = 0; idx < Mesh2DInfo.size(); ++idx )

@@ -32,14 +32,11 @@ public:
 	
 	std::vector< cSphereObject > Object;
 	std::vector< cDisplayMesh > DisplayMesh;
-	std::vector< GLuint > TextureID;
 	
 	// Undo Mesh //		
 	std::vector< cMesh2DInfo > Mesh2DInfo;
 
 	std::vector< cStoreMesh > StoreMesh;
-
-	std::vector< std::string > TextureName;
 
 	Real ScrollSpeed;
 	size_t CurrentObject;
@@ -180,7 +177,7 @@ public:
 	// Mesh2DEditIO.cpp //	
 	void OpenCMesh( const std::string &Dir );
 	void OpenDMesh( std::string &Dir );
-	void LoadTextures();
+	//void LoadTextures();
 	void SaveCurrentMesh();
 	void SaveDMesh( const char* File );
 	

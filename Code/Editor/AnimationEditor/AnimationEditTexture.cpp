@@ -701,5 +701,39 @@ void cAnimationEdit::InvertUV()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::SwitchTexture()
+{
+	if( Button[ KEY_N ].Pressed() )
+	{
+		int temp = FindTexture( CurFrame->TextureID );
+		temp--;
+		if( temp >= 0 )
+		{
+			CurFrame->TextureID = TextureID[ temp ];
+			CurTexIdx = temp;
+		}
+		else
+		{
+			CurFrame->TextureID = TextureID[ TextureID.size() - 1 ];
+			CurTexIdx = TextureID.size() - 1;
+		}
+	}
+	else if( Button[ KEY_M ].Pressed() )
+	{
+		int temp = FindTexture( CurFrame->TextureID );
+		temp++;
+		if( temp < int( TextureID.size() ) )
+		{
+			CurFrame->TextureID = TextureID[ temp ];
+			CurTexIdx = temp;
+		}
+		else
+		{
+			CurFrame->TextureID = TextureID[ 0 ];
+			CurTexIdx = 0;
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //

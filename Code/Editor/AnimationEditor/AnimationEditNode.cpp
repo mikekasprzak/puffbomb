@@ -241,7 +241,7 @@ void cAnimationEdit::DeleteNode()
 			isDeleteNode = true;
 			DeleteFaceFromNodes();
 			isDeleteNode = false;
-						
+
 			std::vector< cFrame::cVertex > tempVertex;
 			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
 			{
@@ -267,7 +267,73 @@ void cAnimationEdit::DeleteNode()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-
+void cAnimationEdit::ScaleNode()
+{
+	if( Button[ KEY_L ].Pressed() )
+	{
+		isScaleNode = !isScaleNode;	
+	}
+	if( Button[ MOUSE_1 ].Pressed() && isScaleNode )
+	{
+		isScaleNode = false;
+		CurMousePos = CalcMousePos();
+		OldMousePos = CurMousePos;
+	}
+	if( isScaleNode )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			CurFrame->Vertex[ CurSelected[idx] ].Pos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+//			CurFrame->Vertex[ CurSelected[idx] ].Pos.x *= Real( Real( 1 ) - Mouse.Diff().x );
+//			CurFrame->Vertex[ CurSelected[idx] ].Pos.y *= Real( Real( 1 ) - Mouse.Diff().y );
+		}	
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cAnimationEdit::RotateNode()
+{
+/*	if( Button[ KEY_K ].Pressed() )
+	{
+		isRotateNode = !isRotateNode;	
+	}
+	if( Button[ MOUSE_1 ].Pressed() && isRotateNode )
+	{
+		isRotateNode = false;
+		CurMousePos = CalcMousePos();
+		OldMousePos = CurMousePos;
+	}
+	if( isRotateNode )
+	{
+		int MaxSteps = 16;
+		
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+//			for( int i = 0; i <= MaxSteps; i++ )
+			for( int i = 0; i <= MaxSteps; i++ )
+			{
+				Real StepAsRadian = (Real( 8 ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+				
+				Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
+				
+				Point *= Real( Mouse.Diff().x * Real( 2 ) );
+				
+				Real StepAsRadian2 = (Real( 9 ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+				
+				Vector2D Point2( sin( StepAsRadian2 ), cos( StepAsRadian2 ) );
+				
+				Point = Vector2D( Point2 - Point ).Magnitude() );
+////				Point *= Real( 1 );
+	
+				//Point += Vector2D( CurFrame->Vertex[ CurSelected[idx] ].Pos.x, CurFrame->Vertex[ CurSelected[idx] ].Pos.y );
+				
+				CurFrame->Vertex[ CurSelected[idx] ].Pos += Point;
+	//			CurFrame->Vertex[ CurSelected[idx] ].Pos += Point;
+				
+				//CurFrame->Vertex[ CurSelected[idx] ].Pos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+			}
+		}	
+	}*/
+}
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //

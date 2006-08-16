@@ -38,6 +38,9 @@ public:
 	bool isGroupMove;
 	bool isDeleteNode;
 
+	bool isScaleNode;
+	bool isRotateNode;
+
 	std::vector< cAnimation* > Animations;
 	cAnimator Animator;
 	cFrame* CurFrame;
@@ -57,6 +60,8 @@ public:
 	
 	std::vector<size_t> CurSelected;
 	std::vector<size_t> CurSelUV;
+		
+	int CurTexIdx;
 
 public:
 	cAnimationEdit();
@@ -91,6 +96,8 @@ public:
 	void MoveNode();
 	void AddNode();
 	void DeleteNode();
+	void ScaleNode();
+	void RotateNode();
 	
 public:
 	// AnimationEditFace.cpp //
@@ -112,6 +119,7 @@ public:
 	void RotateUV();
 	void RotateUVRGB();
 	void InvertUV();
+	void SwitchTexture();
 	
 public:
 	// AnimationEditText.cpp //

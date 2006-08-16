@@ -42,11 +42,11 @@ public:
 
 	bool AutoGridDepth;
 
-//	int ScrollMouseX;
-//	int ScrollMouseY;
+	int ScrollMouseX;
+	int ScrollMouseY;
 
-	Real ScrollMouseX;
-	Real ScrollMouseY;
+//	Real ScrollMouseX;
+//	Real ScrollMouseY;
 	int ScrollFrame;
 
 	int CurView;
@@ -72,7 +72,9 @@ public:
 		
 	cCamera *LastCamera;
 	
-	
+	std::vector< unsigned int > TextureID;
+	std::vector< std::string > TextureName;
+
 public:
 	std::string CurrentDir;
 	
@@ -96,6 +98,8 @@ public:
 	bool CheckViewOne();
 	bool CheckViewTwo( const Real ViewHeight );
 	bool CheckViewThree( const Real ViewHeight );
+	void LoadTextures();
+	int FindTexture( const unsigned int& TempTextureID );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
