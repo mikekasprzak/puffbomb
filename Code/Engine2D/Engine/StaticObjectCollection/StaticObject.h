@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// StaticObjectComponent //
+// StaticObject //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_StaticObject_StaticObjectComponent_H__
-#define __Engine2D_Engine_StaticObject_StaticObjectComponent_H__
+#ifndef __Engine2D_Engine_StaticObjectCollection_StaticObject_H__
+#define __Engine2D_Engine_StaticObjectCollection_StaticObject_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Physics/StaticBody2D.h>
 // Update this one day.  This should replace the general purpose "Mesh3D" under library/graphics //
@@ -10,7 +10,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cStaticObjectComponent {
+class cStaticObject {
 public:
 	cStaticBody2D Body;
 	cMesh3D Mesh;
@@ -20,5 +20,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_StaticObject_StaticObjectComponent_H__ //
+#endif // __Engine2D_Engine_StaticObject_StaticObject_H__ //
 // - ------------------------------------------------------------------------------------------ - //

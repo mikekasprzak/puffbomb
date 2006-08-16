@@ -1,24 +1,24 @@
 // - ------------------------------------------------------------------------------------------ - //
-// StaticObjectComponentInstance //
+// StaticObjectInstance //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_StaticObject_StaticObjectComponentInstance_H__
-#define __Engine2D_Engine_StaticObject_StaticObjectComponentInstance_H__
+#ifndef __Engine2D_Engine_StaticObjectCollection_StaticObjectInstance_H__
+#define __Engine2D_Engine_StaticObjectCollection_StaticObjectInstance_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Engine/StaticObject/StaticObjectComponent.h>
+#include <Engine/StaticObject/StaticObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cStaticObjectComponentInstance {
+class cStaticObjectInstance {
 public:
 	// Position of this instance //
 	Vector2D Pos;
 	// Pointer to the contents of the instance inside the pool //
-	cStatiObjectComponent* Instance;
+	cStatiObject* Instance;
 	
 	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_StaticObject_StaticObjectComponentInstance_H__ //
+#endif // __Engine2D_Engine_StaticObjectCollection_StaticObjectInstance_H__ //
 // - ------------------------------------------------------------------------------------------ - //

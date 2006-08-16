@@ -1,19 +1,19 @@
 // - ------------------------------------------------------------------------------------------ - //
 // StaticObject //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_StaticObject_H__
-#define __Engine2D_Engine_StaticObject_H__
+#ifndef __Engine2D_Engine_StaticObjectCollection_H__
+#define __Engine2D_Engine_StaticObjectCollection_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-#include "StaticObject/StaticObjectComponent.h"
+#include "StaticObjectCollection/StaticObject.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cStaticObject {
+class cStaticObjectCollection {
 public:
 	// Components in this object //
-	std::vector< cStaticObjectComponent > Component;	
+	std::vector< cStaticObject > Component;	
 
 public:
 
@@ -21,5 +21,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_StaticObject_H__ //
+#endif // __Engine2D_Engine_StaticObjectCollection_H__ //
 // - ------------------------------------------------------------------------------------------ - //
