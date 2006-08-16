@@ -13,7 +13,6 @@
 
 #include "Body2D/Constraints/Spring.h"
 #include "Body2D/Constraints/Sphere.h"
-#include "Body2D/Constraints/Anchor.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -25,7 +24,7 @@ public:
 	// Constraints //
 	std::vector< cSpring > Spring;
 	std::vector< cSphere > Sphere;
-	std::vector< cAnchor > Anchor;
+//	std::vector< cAnchor > Anchor;
 		
 //	std::vector< cCylinder > Cylinder;	// A ?
 //	std::vector< cCapsule > Capsule;	// or B ?
@@ -67,6 +66,16 @@ public:
 	void Solve( cBody2D& _Vs );
 	void Solve( class cStaticBody2D& _Vs, const Vector2D& _Offset = Vector2D::Zero );
 	void Solve( class cImpulse& _Vs );
+	
+public:
+	// Editor Function //
+	int AddNode();
+	void DeleteNode( size_t Number );
+
+	int AddSpring( size_t _IndexA, size_t _IndexB );
+	void DeleteSpring( size_t Number );
+	int AddSphere( size_t _Index );
+	void DeleteSphere( size_t Number );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
