@@ -61,6 +61,8 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 // New Structure //
 namespace Gfx {
+	typedef unsigned int Color;
+	
 	void DrawMesh3d( const cLevelData* LevelData );
 	// Draw Quads with Vertex, TexCoord and one Color //
 	void DrawQuads(
