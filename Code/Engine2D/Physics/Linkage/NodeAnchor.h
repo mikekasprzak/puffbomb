@@ -28,7 +28,7 @@ public:
 	
 
 	// Object number and Index numbers used //
-	unsigned int Object, Index;
+	size_t Object, Index;
 		
 public:
 	inline void Step( std::vector< cDynamicObject >& Component ) {

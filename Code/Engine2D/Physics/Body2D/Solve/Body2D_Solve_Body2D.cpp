@@ -19,11 +19,16 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 	{
 		for ( size_t idx = 0; idx < Sphere.size(); idx++ ) {
 			for ( size_t idx2 = 0; idx2 < _Vs.Sphere.size(); idx2++ ) {
-				const int& Index = Sphere[ idx ].Index;
-				const int& VsIndex = _Vs.Sphere[ idx2 ].Index;
+				// Shorthand references to avoid typo errors //
+				cSphere& MySphere = Sphere[ idx ];
+				cSphere& HisSphere = _Vs.Sphere[ idx2 ];
+				
+				const int& Index = MySphere.Index;
+				const int& VsIndex = HisSphere.Index;
+
 
 				// Sum of Radius //				
-				Real RadiusSum = Sphere[ idx ].Radius + _Vs.Sphere[ idx2 ].Radius;
+				Real RadiusSum = MySphere.Radius + HisSphere.Radius;
 				Real RadiusSumSquared = RadiusSum * RadiusSum;
 				
 				// Optimized Verlet with Square Root Approximation //
@@ -32,6 +37,28 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 				// Bail if not touching //
 				if ( RadiusSumSquared < Ray.MagnitudeSquared() )
 					continue;
+				
+				
+				// If my sphere is a sensor //
+				if ( MySphere.Sensor ) {
+					// And his is not //
+					if ( !HisSphere.Sensor ) {
+						// Note senses of an interaction with a sphere //
+						MySphere.Flags.SetObject().SetSphere();
+						continue;
+					}
+				}
+
+				// If his sphere is a sensor //
+				if ( HisSphere.Sensor ) {
+					// And not mine //
+					if ( !MySphere.Sensor ) {
+						// Note senses of an interaction with a sphere //
+						HisSphere.Flags.SetObject().SetSphere();
+						continue;
+					}
+				}
+				
 				
 //				// Massless with square root approximation //
 //				Ray *= (RadiusSumSquared) / ( (Ray * Ray) + (RadiusSumSquared) ) - Real( 0.5 );
@@ -56,13 +83,13 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 
 				Nodes.Pos( Index ) += MyPush;
 //				Nodes.Pos( Index ) += MyPush - (HisFriction * _Vs.InvMass( VsIndex ) * Diff);
-				Sphere[ idx ].Flags.SetObject().SetSphere();
-				Collision.Set( Sphere[ idx ].Flags );
+				MySphere.Flags.SetObject().SetSphere();
+				Collision.Set( MySphere.Flags );
 					
 				_Vs.Nodes.Pos( VsIndex ) -= HisPush;
 //				_Vs.Nodes.Pos( VsIndex ) -= HisPush - (MyFriction * InvMass( Index ) * Diff);
-				_Vs.Sphere[ idx2 ].Flags.SetObject().SetSphere();
-				_Vs.Collision.Set( _Vs.Sphere[ idx2 ].Flags );
+				HisSphere.Flags.SetObject().SetSphere();
+				_Vs.Collision.Set( HisSphere.Flags );
 
 
 
@@ -90,26 +117,6 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 //				Vs.WakeUp();
 			}
 		};
-	
-		// Sensor Spheres.  See other objects //
-//		for ( size_t idx = 0; idx < SensorSphere.size(); idx++ ) {
-//			for ( size_t idx2 = 0; idx2 < Vs.Sphere.size(); idx2++ ) {
-//				// Optimized Verlet with Square Root Approximation //
-//				Vector2D Ray = Vs.Nodes.Pos( Vs.Sphere[ idx2 ].Index ) - Nodes.Pos( SensorSphere[ idx ].Index );
-//				
-//				Real RadiusSum = SensorSphere[ idx ].Radius + Vs.Sphere[ idx2 ].Radius;
-//				Real RadiusSumSquared = RadiusSum * RadiusSum;
-//				
-//				// Bail if not touching //
-//				if ( RadiusSumSquared < Ray.MagnitudeSquared() )
-//					continue;
-//
-//				SensorSphere[ idx ].Flags.SetObject().SetSphere();
-//				Flags.Set( SensorSphere[ idx ].Flags );
-//				_Vs.Sphere[ idx2 ].Flags.SetObject().SetSphere();				
-//				_Vs.Collision.Set( _Vs.Sphere[ idx2 ].Flags );
-//			}
-//		}	
 	}
 
 	// Recalculate Bounding Rectangles //

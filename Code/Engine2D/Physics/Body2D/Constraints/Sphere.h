@@ -11,29 +11,32 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cSphere {
 public:
-	Real Radius;
-	cCollisionFlags Flags;
-
-	// Indices at the end for consistency //
+	// Node Index that's my position //
 	size_t Index;
+	// Radius of the Sphere //
+	Real Radius;
+
+	// Flags set with information about contacts //
+	cCollisionFlags Flags;	
+	// True if I'm a sensor (I collect flags only, no solving) //
+	bool Sensor;
 
 public:
-	inline cSphere() {
-	}
-	
-	inline cSphere( size_t _Index ) :
-		Radius( Real::One ),
-		Index( _Index )
+	inline cSphere( const size_t _Index = 0, const Real _Radius = Real::One, const bool _Sensor = false ) :
+		Index( _Index ),
+		Radius( _Radius ),
+		Sensor( _Sensor )
 	{
 	}
 
+public:
 	inline const Real Area() {
 		return Real::Pi * Radius * Radius;
 	}
 	
 	inline const Real RadiusSquared() {
 		return Radius * Radius;
-	}
+	}	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
