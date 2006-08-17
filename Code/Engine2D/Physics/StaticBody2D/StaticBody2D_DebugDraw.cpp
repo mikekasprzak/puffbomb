@@ -20,6 +20,26 @@ void cStaticBody2D::DrawNode( const size_t Index, const bool Selected ) const {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+void cStaticBody2D::DrawNodes( const std::vector< size_t >& SelectionVector ) const {
+	// For every node //
+	for ( size_t idx = 0; idx < Nodes.Size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our node //
+		DrawNode( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 void cStaticBody2D::DrawBoundingRect( const bool Selected ) const {
 	Gfx::Rect(
 		BoundingRect.ToRect(),
