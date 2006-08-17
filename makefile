@@ -1,5 +1,6 @@
 # - -------------------------------------------------------------------------------------------- - #
 -include config.mak
+-include Code/Game/$(GAME_TARGET)/game.mak
 # - -------------------------------------------------------------------------------------------- - #
 ifeq "$(PLATFORM)" "Tools"
 ARGS		:=	-j$(THREADS) -f Code/$(PLATFORM)/makefile.mak -k --no-print-directory
@@ -51,8 +52,20 @@ TestSuite:
 
 # - -------------------------------------------------------------------------------------------- - #
 config.mak:
-	@echo ---- No configuration found.  Acquiring default. ------------------------
-	cp Code/Tools/_ToolChain/config.mak .
-	@echo ---- Configuration copied.  Dying... ------------------------------------
+ifndef GAME_TARGET
+	@echo ---- Error!  No configuration found!! -----------------------------------
+	@echo -- Do "make GAME_TARGET=PROJECTNAME" to acquire a configuration ---------
+	@echo --
+	@echo -- Available Projects: PuffBOMB
+	@echo --
+	@echo -- Dying... -------------------------------------------------------------
 	@1 
+else
+	@echo ---- Copying default game configuration from GAME_TARGET ----------------
+	cp Code/Game/$(GAME_TARGET)/config.mak .
+	@echo ---- Configuration copied.  You can use "make", "make run", "make clean"
+	@echo --
+	@echo -- Dying... -------------------------------------------------------------
+	@1 
+endif
 # - -------------------------------------------------------------------------------------------- - #
