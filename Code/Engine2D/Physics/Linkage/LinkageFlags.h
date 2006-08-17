@@ -14,16 +14,23 @@ public:
 	// Linkage Flags ---------------- //
 	enum {
 		flActive = bit0,			// If the Link is active //
+		flBreakable = bit1,			// If the Link is breakable //
 
-		flIgnoreMinimum = bit4,		// Don't solve if the distance is less than my length //
-		flIgnoreMaximum = bit5,		// Don't solve if the distance is greater than my length //
+		flBroken = bit4,			// If the Link is broken //
+		flIgnoreMinimum = bit5,		// Don't solve if the distance is less than my length //
+		flIgnoreMaximum = bit6,		// Don't solve if the distance is greater than my length //
 	};
 	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	inline cLinkageFlags() :
-		cBasicFlags( flActive )
+		cBasicFlags( flActive | flBreakable )
+	{
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline cLinkageFlags( const FlagType _Flags ) :
+		cBasicFlags( _Flags )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -39,6 +46,8 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( Broken );
+	__FLAG_FUNCTION( Breakable );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -56,6 +65,8 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( Broken );
+	__FLAG_FUNCTION( Breakable );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -72,6 +83,8 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( Broken );
+	__FLAG_FUNCTION( Breakable );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -88,11 +101,22 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( Broken );
+	__FLAG_FUNCTION( Breakable );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
+	
+public:
+	// - -------------------------------------------------------------------------------------- - //
+	// If we're active and not broken --------------------------------------------------------- - //
+	inline const bool ActiveAndNotBroken() const {
+		if ( Active() )
+			return !Broken();
+		return false;
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

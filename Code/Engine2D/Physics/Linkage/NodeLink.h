@@ -32,7 +32,7 @@ public:
 public:
 	inline void Step( std::vector< cDynamicObject >& Component ) {
 		// Bail if inactive //
-		if ( !Flags.Active() )
+		if ( !Flags.ActiveAndNotBroken() )
 			return;
 		
 		// Create some nice easier to use references //
@@ -51,7 +51,8 @@ public:
 		Real Dividend = (RayLength - Length);
 
 		// Early out for all flag tests //
-		if ( Flags.OnlyActive() ) {
+		if ( !Flags.OnlyActive() ) {
+			// Disabling of Minimum and Maximum constraining //
 			if ( Flags.IgnoreMinimum() ) {
 				if ( Dividend <= Real::Zero )
 					return;
@@ -59,6 +60,15 @@ public:
 			else if ( Flags.IgnoreMaximum() ) {
 				if ( Dividend > Real::Zero )
 					return;
+			}
+			
+			// If Breakable //
+			if ( Flags.Breakable() ) {
+				// Test if we've reached the break point //
+				if ( Dividend >= BreakPoint ) {
+					// Break the link //
+					Flags.SetBroken();
+				}
 			}
 		}
 
