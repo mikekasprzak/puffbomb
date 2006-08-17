@@ -30,8 +30,17 @@ public:
 	void CalcBoundingRect();
 	
 public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Generate some 2D collision from a 3D mesh //
 	void GenerateCollision( const class cMesh3D& _Mesh );
+	
+public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Debug Drawing Functions //
+	void DrawNode( const size_t Index, const bool Selected = false ) const;	
+
+	void DrawBoundingRect( const bool Selected = false ) const;
+	// - -------------------------------------------------------------------------------------- - //
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

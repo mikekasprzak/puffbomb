@@ -31,6 +31,16 @@ public:
 		return Node[ _Index ];
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Get the Current Position as a pointer //
+	inline const Vector2D* const Pos() const {
+		return &Node[ 0 ];
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get the Current Position as an index //
+	inline const Vector2D& Pos( const size_t& _Index ) const {
+		return Node[ _Index ];
+	}
+	// - -------------------------------------------------------------------------------------- - //
 	
 	// - -------------------------------------------------------------------------------------- - //
 	inline void Resize( size_t _Size ) {
