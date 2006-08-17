@@ -24,7 +24,6 @@ public:
 	// Constraints //
 	std::vector< cSpring > Spring;
 	std::vector< cSphere > Sphere;
-//	std::vector< cAnchor > Anchor;
 		
 //	std::vector< cCylinder > Cylinder;	// A ?
 //	std::vector< cCapsule > Capsule;	// or B ?
