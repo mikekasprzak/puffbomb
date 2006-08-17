@@ -10,26 +10,54 @@
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::cComponentEdit() :
-	PreviewWidth( 0.25 ),
-	PreviewHeight( 0.4 )
+	UVWidth( 0.25 ),
+	UVHeight( 0.4 )
 {
-	// Create Preview Camera
+	// Create Cameras //
+	UVCamera = new cCamera(
+		Vector3D( 128.0, 128.0, 400.0 ),				// Pos
+		Vector3D( 0.0, 0.0, 0.0 ),						// View
+		Vector3D( 0.0, 1.0, 0.0 ),						// Up
+		45.0,											// Field of View
+		Platform::AspectRatio,							// Aspect Ratio
+		1.0,											// NearClip
+		100000.0,										// FarClip
+		cGlobal::HudZoom,								// MinZoom
+		cGlobal::HudZoom,								// MaxZoom
+		cGlobal::HudZoom								// HudZoom
+	);
+	
+	Real PreviewHeight = UVHeight;
+
+	if( Platform::AspectRatio < Real( 0.79 ) )
+	{
+		PreviewHeight = 0.75;
+		
+		UVWidth = 0.33;
+		UVHeight = 0.25;
+	}
+	
 	PreviewCamera = new cCamera(
-		Vector3D( 0.0, 0.0, 500.0 ),
-		Vector3D( 0.0, 0.0, 0.0 ),
-		Vector3D( 0.0, 1.0, 0.0 ),
-		45.0,
-		Platform::AspectRatio,
-		1.0,
-		100000.0,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom
-	 );
+		Vector3D( 0.0, 0.0, cGlobal::HudZoom * ( Real( 1 ) - PreviewHeight ) ),		// Pos
+		Vector3D( 0.0, 0.0, 0.0 ),					// View
+		Vector3D( 0.0, 1.0, 0.0 ),					// Up
+		45.0,										// Field of View
+		Platform::AspectRatio,						// Aspect Ratio
+		1.0,										// NearClip
+		100000.0,									// FarClip
+		cGlobal::HudZoom,							// MinZoom
+		cGlobal::HudZoom,							// MaxZoom
+		cGlobal::HudZoom							// HudZoom
+	);
+	
+	Camera->Pos.z = Real( 800.0 );
+
+	GridSize = 2048.0;
 }
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::~cComponentEdit()
 {
+	delete UVCamera;
 	delete PreviewCamera;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -48,6 +76,11 @@ void cComponentEdit::PreviewDraw()
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::UVDraw()
+{
+	
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Step()
 {
 	if( CheckViewOne() )
@@ -58,7 +91,7 @@ void cComponentEdit::Step()
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), Camera );
 	}
-	else if( CheckViewTwo( PreviewHeight ) )
+	else if( CheckViewTwo( UVHeight ) )
 	{
 		// Handles scrolling around the map
 		Scroll( PreviewCamera );

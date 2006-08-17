@@ -16,10 +16,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentEdit : public cEdit {
 public:
+	cCamera* UVCamera;
 	cCamera* PreviewCamera;
-	
-	Real PreviewWidth;
-	Real PreviewHeight;
+
+	Real UVWidth;
+	Real UVHeight;
 
 public:
 	cComponentEdit();
@@ -29,6 +30,7 @@ public:
 	void Draw();
 	void HudDraw();
 	void PreviewDraw();
+	void UVDraw();
 	void Step();
 
 };

@@ -523,10 +523,20 @@ int main( int argc, char* argv[] ) {
 					else if( cGlobal::CurEditor == COMPONENT_EDITOR )
 					{
 						// Screen 1 (Left Side) //	
-						glViewport( 0, 0, Real( Platform::ScreenW * 0.75), Platform::ScreenH );
-						glMatrixMode (GL_PROJECTION);
-						glLoadIdentity();
-						gluPerspective( 45.0, Platform::AspectRatio * Real(0.75), 1.0, 100000.0 ); 
+						if( Platform::AspectRatio < Real( 0.79 ) )
+						{
+							glViewport( 0, Real( Platform::ScreenH * 0.25 ), Real( Platform::ScreenW ), Real( Platform::ScreenH * 0.75 ) );
+							glMatrixMode (GL_PROJECTION);
+							glLoadIdentity();
+							gluPerspective( 45.0, Platform::AspectRatio * Real(1.33), 1.0, 100000.0 ); 	
+						}
+						else
+						{
+							glViewport( 0, 0, Real( Platform::ScreenW * 0.75), Platform::ScreenH );
+							glMatrixMode (GL_PROJECTION);
+							glLoadIdentity();
+							gluPerspective( 45.0, Platform::AspectRatio * Real(0.75), 1.0, 100000.0 ); 
+						}
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
@@ -537,15 +547,34 @@ int main( int argc, char* argv[] ) {
 						
 						Editor.Draw();
 
-						// Screen 2 (Lower Right Screen) //
-						glViewport(
-							Real(Platform::ScreenW * 0.75),
-							0,
-							Real( Platform::ScreenW * Editor.ComponentEdit->PreviewWidth ),
-							Real( Platform::ScreenH * Editor.ComponentEdit->PreviewHeight ) );
+						// Screen 2 (Upper Right Screen) //
+						if( Platform::AspectRatio < Real( 0.79 ) )
+						{
+							glViewport(
+								Real(Platform::ScreenW * 0.33 ),
+								0,
+								Real(Platform::ScreenW * 0.67 ),
+								Real( Platform::ScreenH * 0.25 ) );
+
+						}
+						else
+						{
+							glViewport(
+								Real(Platform::ScreenW * 0.75 ),
+								Real(Platform::ScreenH * Editor.ComponentEdit->UVHeight ),
+								Real( Platform::ScreenW * Editor.ComponentEdit->UVWidth ),
+								Real(Platform::ScreenH * ( 1 - Editor.ComponentEdit->UVHeight ) ) );
+						}
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
-						gluPerspective( 45.0, Editor.ComponentEdit->PreviewHeight, 1.0, 100000.0 );
+						if( Platform::AspectRatio < Real( 0.79 ) )
+						{
+							gluPerspective( 45.0, Platform::AspectRatio * Real( 2.67 ), 1.0, 100000.0 );
+						}
+						else
+						{
+							gluPerspective( 45.0, Platform::AspectRatio * Editor.ComponentEdit->UVHeight, 1.0, 100000.0 );
+						}
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
@@ -553,7 +582,37 @@ int main( int argc, char* argv[] ) {
 										-Editor.ComponentEdit->PreviewCamera->Pos.y,
 										-Editor.ComponentEdit->PreviewCamera->Pos.z
 						);
+		
 						Editor.ComponentEdit->PreviewDraw();
+						
+						// Screen 3 (Lower Right Screen) //
+						if( Platform::AspectRatio < Real( 0.79 ) )
+						{
+							glViewport(
+								0,
+								0,
+								Real( Platform::ScreenW * 0.33 ),
+								Real( Platform::ScreenH * 0.25 ) );
+						}
+						else
+						{
+							glViewport(
+								Real(Platform::ScreenW * 0.75),
+								0,
+								Real( Platform::ScreenW * Editor.ComponentEdit->UVWidth ),
+								Real( Platform::ScreenH * Editor.ComponentEdit->UVHeight ) );
+						}
+						glMatrixMode (GL_PROJECTION);
+						glLoadIdentity();
+						gluPerspective( 45.0, 1.0, 1.0, 100000.0 );
+						glMatrixMode(GL_MODELVIEW);
+						
+						glLoadIdentity();
+						glTranslatef(	-Editor.ComponentEdit->UVCamera->Pos.x,
+										-Editor.ComponentEdit->UVCamera->Pos.y,
+										-Editor.ComponentEdit->UVCamera->Pos.z
+						);
+						Editor.ComponentEdit->UVDraw();
 						
 						// Draw Hud Info //
 						glViewport( 0, 0, Platform::ScreenW, Platform::ScreenH );
@@ -576,11 +635,9 @@ int main( int argc, char* argv[] ) {
 						if( Platform::AspectRatio < Real( 0.79 ) )
 						{
 							glViewport( 0, Real( Platform::ScreenH * 0.25 ), Real( Platform::ScreenW ), Real( Platform::ScreenH * 0.75 ) );
-//							glViewport( 0, Real( Platform::ScreenH * 0.25 ), Real( Platform::ScreenW ), Real( Platform::ScreenH ) );
 							glMatrixMode (GL_PROJECTION);
 							glLoadIdentity();
 							gluPerspective( 45.0, Platform::AspectRatio * Real(1.33), 1.0, 100000.0 ); 	
-//							gluPerspective( 45.0, Platform::AspectRatio, 1.0, 100000.0 ); 	   
 						}
 						else
 						{
