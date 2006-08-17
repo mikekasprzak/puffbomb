@@ -530,9 +530,9 @@ int main( int argc, char* argv[] ) {
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
-						glTranslatef( 	-Editor.Body2DEdit->Camera->Pos.x,
-										-Editor.Body2DEdit->Camera->Pos.y,
-										-Editor.Body2DEdit->Camera->Pos.z
+						glTranslatef( 	-Editor.ComponentEdit->Camera->Pos.x,
+										-Editor.ComponentEdit->Camera->Pos.y,
+										-Editor.ComponentEdit->Camera->Pos.z
 									);
 						
 						Editor.Draw();
@@ -541,19 +541,19 @@ int main( int argc, char* argv[] ) {
 						glViewport(
 							Real(Platform::ScreenW * 0.75),
 							0,
-							Real( Platform::ScreenW * Editor.Body2DEdit->PreviewWidth ),
-							Real( Platform::ScreenH * Editor.Body2DEdit->PreviewHeight ) );
+							Real( Platform::ScreenW * Editor.ComponentEdit->PreviewWidth ),
+							Real( Platform::ScreenH * Editor.ComponentEdit->PreviewHeight ) );
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
-						gluPerspective( 45.0, Editor.Body2DEdit->PreviewHeight, 1.0, 100000.0 );
+						gluPerspective( 45.0, Editor.ComponentEdit->PreviewHeight, 1.0, 100000.0 );
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
-						glTranslatef(	-Editor.Body2DEdit->PreviewCamera->Pos.x,
-										-Editor.Body2DEdit->PreviewCamera->Pos.y,
-										-Editor.Body2DEdit->PreviewCamera->Pos.z
+						glTranslatef(	-Editor.ComponentEdit->PreviewCamera->Pos.x,
+										-Editor.ComponentEdit->PreviewCamera->Pos.y,
+										-Editor.ComponentEdit->PreviewCamera->Pos.z
 						);
-						Editor.Body2DEdit->PreviewDraw();
+						Editor.ComponentEdit->PreviewDraw();
 						
 						// Draw Hud Info //
 						glViewport( 0, 0, Platform::ScreenW, Platform::ScreenH );
@@ -563,11 +563,11 @@ int main( int argc, char* argv[] ) {
 						glMatrixMode(GL_MODELVIEW);
 				
 						glLoadIdentity();
-						glTranslatef(	-Editor.Body2DEdit->HudCamera->Pos.x,
-										-Editor.Body2DEdit->HudCamera->Pos.y,
-										-Editor.Body2DEdit->HudCamera->Pos.z
+						glTranslatef(	-Editor.ComponentEdit->HudCamera->Pos.x,
+										-Editor.ComponentEdit->HudCamera->Pos.y,
+										-Editor.ComponentEdit->HudCamera->Pos.z
 						);
-						Editor.Body2DEdit->HudDraw();
+						Editor.ComponentEdit->HudDraw();
 					}  // BODY2D_EDITOR //
 					// -------------------------------------------------------------------------- //
 					else if( cGlobal::CurEditor == ANIMATION_EDITOR )

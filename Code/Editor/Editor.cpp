@@ -12,7 +12,7 @@ cEditor::cEditor( cGame& _Game ) :
 	Game( &_Game )
 {
 	CollectionEdit = new cCollectionEdit();
-	Body2DEdit = new cBody2DEdit();
+	ComponentEdit = new cComponentEdit();
 	AnimationEdit = new cAnimationEdit();
 	Mesh2DEdit = new cMesh2DEdit();
 
@@ -24,7 +24,7 @@ cEditor::~cEditor()
 	Log( LOG_HIGHEST_LEVEL, "~cEditor() Delete Map and Mesh Editor" );
 	delete MapEdit;
 	delete CollectionEdit;
-	delete Body2DEdit;
+	delete ComponentEdit;
 	delete AnimationEdit;
 	delete Mesh2DEdit;
 }
@@ -53,7 +53,7 @@ void cEditor::Step()
 	}
 	else if( cGlobal::CurEditor == BODY2D_EDITOR )
 	{
-		Body2DEdit->Step();
+		ComponentEdit->Step();
 	}
 	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 	{
@@ -185,7 +185,7 @@ void cEditor::Draw()
 	}
 	else if( cGlobal::CurEditor == BODY2D_EDITOR )
 	{
-		Body2DEdit->Draw();
+		ComponentEdit->Draw();
 	}
 	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 	{

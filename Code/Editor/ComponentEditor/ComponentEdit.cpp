@@ -1,6 +1,6 @@
 #ifdef EDITOR
 // - ------------------------------------------------------------------------------------------ - //
-#include "Body2DEdit.h"
+#include "ComponentEdit.h"
 
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
@@ -9,7 +9,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-cBody2DEdit::cBody2DEdit() :
+cComponentEdit::cComponentEdit() :
 	PreviewWidth( 0.25 ),
 	PreviewHeight( 0.4 )
 {
@@ -28,27 +28,27 @@ cBody2DEdit::cBody2DEdit() :
 	 );
 }
 // - ------------------------------------------------------------------------------------------ - //
-cBody2DEdit::~cBody2DEdit()
+cComponentEdit::~cComponentEdit()
 {
 	delete PreviewCamera;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2DEdit::Draw()
+void cComponentEdit::Draw()
 {
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2DEdit::HudDraw()
+void cComponentEdit::HudDraw()
 {
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2DEdit::PreviewDraw()
+void cComponentEdit::PreviewDraw()
 {
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2DEdit::Step()
+void cComponentEdit::Step()
 {
 	if( CheckViewOne() )
 	{

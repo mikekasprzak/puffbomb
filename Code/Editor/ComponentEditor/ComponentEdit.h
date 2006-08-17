@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Body2DEdit //
+// ComponentEdit //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Editor_Body2DEdit_H__
-#define __Editor_Body2DEdit_H__
+#ifndef __Editor_ComponentEdit_H__
+#define __Editor_ComponentEdit_H__
 #ifdef EDITOR
 // - ------------------------------------------------------------------------------------------ - //
 #include <string>
@@ -14,7 +14,7 @@
 #include "Editor/Edit.h"
 
 // - ------------------------------------------------------------------------------------------ - //
-class cBody2DEdit : public cEdit {
+class cComponentEdit : public cEdit {
 public:
 	cCamera* PreviewCamera;
 	
@@ -22,8 +22,8 @@ public:
 	Real PreviewHeight;
 
 public:
-	cBody2DEdit();
-	~cBody2DEdit();
+	cComponentEdit();
+	~cComponentEdit();
 
 public:
 	void Draw();
@@ -35,5 +35,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Editor_Body2DEdit_H__ //
+#endif // __Editor_ComponentEdit_H__ //
 // - ------------------------------------------------------------------------------------------ - //

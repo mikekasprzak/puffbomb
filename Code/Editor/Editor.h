@@ -12,7 +12,7 @@
 
 #include "MapEditor/MapEdit.h"
 #include "CollectionEditor/CollectionEdit.h"
-#include "Body2DEditor/Body2DEdit.h"
+#include "ComponentEditor/ComponentEdit.h"
 #include "AnimationEditor/AnimationEdit.h"
 #include "Mesh2DEditor/Mesh2DEdit.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -29,7 +29,7 @@ public:
 
 	cMapEdit* MapEdit;
 	cCollectionEdit* CollectionEdit;
-	cBody2DEdit* Body2DEdit;
+	cComponentEdit* ComponentEdit;
 	cAnimationEdit* AnimationEdit;
 	cMesh2DEdit* Mesh2DEdit;
 
