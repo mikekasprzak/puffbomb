@@ -48,71 +48,94 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for setting individual flags ------------------------------------------ - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_SET_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline cCollisionFlags& Set ## _flag() { \
 		Flags |= fl ## _flag; \
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_SET_FUNCTION( Object );
-	__FLAG_SET_FUNCTION( Sphere );
-	__FLAG_SET_FUNCTION( Cylinder );
-	__FLAG_SET_FUNCTION( Edge );
-	__FLAG_SET_FUNCTION( Corner );
-	__FLAG_SET_FUNCTION( Scenery );
-	__FLAG_SET_FUNCTION( Polygon );
-	__FLAG_SET_FUNCTION( Box );
-	__FLAG_SET_FUNCTION( Inside );
-	__FLAG_SET_FUNCTION( Impulse );
+	__FLAG_FUNCTION( Object );
+	__FLAG_FUNCTION( Sphere );
+	__FLAG_FUNCTION( Cylinder );
+	__FLAG_FUNCTION( Edge );
+	__FLAG_FUNCTION( Corner );
+	__FLAG_FUNCTION( Scenery );
+	__FLAG_FUNCTION( Polygon );
+	__FLAG_FUNCTION( Box );
+	__FLAG_FUNCTION( Inside );
+	__FLAG_FUNCTION( Impulse );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_SET_FUNCTION
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for resetting individual flags ---------------------------------------- - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_RESET_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline cCollisionFlags& Reset ## _flag() { \
 		Flags &= ~(fl ## _flag); \
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_RESET_FUNCTION( Object );
-	__FLAG_RESET_FUNCTION( Sphere );
-	__FLAG_RESET_FUNCTION( Cylinder );
-	__FLAG_RESET_FUNCTION( Edge );
-	__FLAG_RESET_FUNCTION( Corner );
-	__FLAG_RESET_FUNCTION( Scenery );
-	__FLAG_RESET_FUNCTION( Polygon );
-	__FLAG_RESET_FUNCTION( Box );
-	__FLAG_RESET_FUNCTION( Inside );
-	__FLAG_RESET_FUNCTION( Impulse );
+	__FLAG_FUNCTION( Object );
+	__FLAG_FUNCTION( Sphere );
+	__FLAG_FUNCTION( Cylinder );
+	__FLAG_FUNCTION( Edge );
+	__FLAG_FUNCTION( Corner );
+	__FLAG_FUNCTION( Scenery );
+	__FLAG_FUNCTION( Polygon );
+	__FLAG_FUNCTION( Box );
+	__FLAG_FUNCTION( Inside );
+	__FLAG_FUNCTION( Impulse );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_RESET_FUNCTION
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for Testing individual flags ------------------------------------------ - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_TEST_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline const bool _flag() const { \
 		return Flags & (fl ## _flag); \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_TEST_FUNCTION( Object );
-	__FLAG_TEST_FUNCTION( Sphere );
-	__FLAG_TEST_FUNCTION( Cylinder );
-	__FLAG_TEST_FUNCTION( Edge );
-	__FLAG_TEST_FUNCTION( Corner );
-	__FLAG_TEST_FUNCTION( Scenery );
-	__FLAG_TEST_FUNCTION( Polygon );
-	__FLAG_TEST_FUNCTION( Box );
-	__FLAG_TEST_FUNCTION( Inside );
-	__FLAG_TEST_FUNCTION( Impulse );
+	__FLAG_FUNCTION( Object );
+	__FLAG_FUNCTION( Sphere );
+	__FLAG_FUNCTION( Cylinder );
+	__FLAG_FUNCTION( Edge );
+	__FLAG_FUNCTION( Corner );
+	__FLAG_FUNCTION( Scenery );
+	__FLAG_FUNCTION( Polygon );
+	__FLAG_FUNCTION( Box );
+	__FLAG_FUNCTION( Inside );
+	__FLAG_FUNCTION( Impulse );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_TEST_FUNCTION
+	#undef __FLAG_FUNCTION
+	// - -------------------------------------------------------------------------------------- - //
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Create functions for Testing individual flags only ------------------------------------- - //
+	// - -------------------------------------------------------------------------------------- - //
+	#define __FLAG_FUNCTION( _flag ) \
+	inline const bool Only ## _flag() const { \
+		return Flags == (fl ## _flag); \
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	__FLAG_FUNCTION( Object );
+	__FLAG_FUNCTION( Sphere );
+	__FLAG_FUNCTION( Cylinder );
+	__FLAG_FUNCTION( Edge );
+	__FLAG_FUNCTION( Corner );
+	__FLAG_FUNCTION( Scenery );
+	__FLAG_FUNCTION( Polygon );
+	__FLAG_FUNCTION( Box );
+	__FLAG_FUNCTION( Inside );
+	__FLAG_FUNCTION( Impulse );
+	// - -------------------------------------------------------------------------------------- - //
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 
 public:

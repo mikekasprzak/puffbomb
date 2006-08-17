@@ -36,70 +36,82 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for setting individual flags ------------------------------------------ - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_SET_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline cStateFlags& Set ## _flag() { \
 		Flags |= fl ## _flag; \
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_SET_FUNCTION( Active );
-	__FLAG_SET_FUNCTION( IgnoreFamily );
-	__FLAG_SET_FUNCTION( IgnoreObjects );
-	__FLAG_SET_FUNCTION( IgnoreScenery );
-	__FLAG_SET_FUNCTION( IgnoreZones );
-	__FLAG_SET_FUNCTION( IgnorePassives );
-	__FLAG_SET_FUNCTION( IgnoreImpulses );
+	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( IgnoreFamily );
+	__FLAG_FUNCTION( IgnoreObjects );
+	__FLAG_FUNCTION( IgnoreScenery );
+	__FLAG_FUNCTION( IgnoreZones );
+	__FLAG_FUNCTION( IgnorePassives );
+	__FLAG_FUNCTION( IgnoreImpulses );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_SET_FUNCTION
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for resetting individual flags ---------------------------------------- - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_RESET_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline cStateFlags& Reset ## _flag() { \
 		Flags &= ~(fl ## _flag); \
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_RESET_FUNCTION( Active );
-	__FLAG_RESET_FUNCTION( IgnoreFamily );
-	__FLAG_RESET_FUNCTION( IgnoreObjects );
-	__FLAG_RESET_FUNCTION( IgnoreScenery );
-	__FLAG_RESET_FUNCTION( IgnoreZones );
-	__FLAG_RESET_FUNCTION( IgnorePassives );
-	__FLAG_RESET_FUNCTION( IgnoreImpulses );
+	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( IgnoreFamily );
+	__FLAG_FUNCTION( IgnoreObjects );
+	__FLAG_FUNCTION( IgnoreScenery );
+	__FLAG_FUNCTION( IgnoreZones );
+	__FLAG_FUNCTION( IgnorePassives );
+	__FLAG_FUNCTION( IgnoreImpulses );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_RESET_FUNCTION
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for Testing individual flags ------------------------------------------ - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_TEST_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline const bool _flag() const { \
 		return Flags & (fl ## _flag); \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_TEST_FUNCTION( Active );
-	__FLAG_TEST_FUNCTION( IgnoreFamily );
-	__FLAG_TEST_FUNCTION( IgnoreObjects );
-	__FLAG_TEST_FUNCTION( IgnoreScenery );
-	__FLAG_TEST_FUNCTION( IgnoreZones );
-	__FLAG_TEST_FUNCTION( IgnorePassives );
-	__FLAG_TEST_FUNCTION( IgnoreImpulses );
+	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( IgnoreFamily );
+	__FLAG_FUNCTION( IgnoreObjects );
+	__FLAG_FUNCTION( IgnoreScenery );
+	__FLAG_FUNCTION( IgnoreZones );
+	__FLAG_FUNCTION( IgnorePassives );
+	__FLAG_FUNCTION( IgnoreImpulses );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_TEST_FUNCTION
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 
-public:	
-	// - -------------------------------------------------------------------------------------- - //	
-	// Return true if you are only Active, so not to do othe work //
-	inline const bool OnlyActive() const {
-		return (Flags == flActive);
+public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Create functions for Testing individual flags only ------------------------------------- - //
+	// - -------------------------------------------------------------------------------------- - //
+	#define __FLAG_FUNCTION( _flag ) \
+	inline const bool Only ## _flag() const { \
+		return Flags == (fl ## _flag); \
 	}
+	// - -------------------------------------------------------------------------------------- - //
+	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( IgnoreFamily );
+	__FLAG_FUNCTION( IgnoreObjects );
+	__FLAG_FUNCTION( IgnoreScenery );
+	__FLAG_FUNCTION( IgnoreZones );
+	__FLAG_FUNCTION( IgnorePassives );
+	__FLAG_FUNCTION( IgnoreImpulses );
+	// - -------------------------------------------------------------------------------------- - //
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 };
 // - ------------------------------------------------------------------------------------------ - //

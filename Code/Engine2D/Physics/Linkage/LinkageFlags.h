@@ -32,47 +32,66 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for setting individual flags ------------------------------------------ - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_SET_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline cLinkageFlags& Set ## _flag() { \
 		Flags |= fl ## _flag; \
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_SET_FUNCTION( IgnoreMinimum );
-	__FLAG_SET_FUNCTION( IgnoreMaximum );
+	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( IgnoreMinimum );
+	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_SET_FUNCTION
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for resetting individual flags ---------------------------------------- - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_RESET_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline cLinkageFlags& Reset ## _flag() { \
 		Flags &= ~(fl ## _flag); \
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_RESET_FUNCTION( IgnoreMinimum );
-	__FLAG_RESET_FUNCTION( IgnoreMaximum );
+	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( IgnoreMinimum );
+	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_RESET_FUNCTION
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Create functions for Testing individual flags ------------------------------------------ - //
 	// - -------------------------------------------------------------------------------------- - //
-	#define __FLAG_TEST_FUNCTION( _flag ) \
+	#define __FLAG_FUNCTION( _flag ) \
 	inline const bool _flag() const { \
 		return Flags & (fl ## _flag); \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_TEST_FUNCTION( IgnoreMinimum );
-	__FLAG_TEST_FUNCTION( IgnoreMaximum );
+	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( IgnoreMinimum );
+	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
-	#undef __FLAG_TEST_FUNCTION
+	#undef __FLAG_FUNCTION
+	// - -------------------------------------------------------------------------------------- - //
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Create functions for Testing individual flags only ------------------------------------- - //
+	// - -------------------------------------------------------------------------------------- - //
+	#define __FLAG_FUNCTION( _flag ) \
+	inline const bool Only ## _flag() const { \
+		return Flags == (fl ## _flag); \
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	__FLAG_FUNCTION( Active );
+	__FLAG_FUNCTION( IgnoreMinimum );
+	__FLAG_FUNCTION( IgnoreMaximum );
+	// - -------------------------------------------------------------------------------------- - //
+	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
 };
 // - ------------------------------------------------------------------------------------------ - //

@@ -30,7 +30,12 @@ public:
 	unsigned int ObjectB, IndexB;
 	
 public:
-	void Step( std::vector< cDynamicObject >& Component ) {
+	inline void Step( std::vector< cDynamicObject >& Component ) {
+		// Bail if inactive //
+		if ( !Flags.Active() )
+			return;
+		
+		// Create some nice easier to use references //
 		cBody2D& BodyA = Component[ ObjectA ].Body;
 		cBody2D& BodyB = Component[ ObjectB ].Body;
 
@@ -46,22 +51,24 @@ public:
 		Real Dividend = (RayLength - Length);
 
 		// Early out for all flag tests //
-//		if ( Flags & (flIgnoreMinimum | flIgnoreMaximum )) {
-//			if ( Flags & flIgnoreMinimum ) {
-//				if ( Dividend <= Real::Zero )
-//					return;
-//			}
-//			else if ( Flags & flIgnoreMaximum ) {
-//				if ( Dividend > Real::Zero )
-//					return;
-//			}
-//		}
+		if ( Flags.OnlyActive() ) {
+			if ( Flags.IgnoreMinimum() ) {
+				if ( Dividend <= Real::Zero )
+					return;
+			}
+			else if ( Flags.IgnoreMaximum() ) {
+				if ( Dividend > Real::Zero )
+					return;
+			}
+		}
 
+		// Calculate the 
 		Real Divisor = RayLength * (InvMassA + InvMassB);
 		if ( Divisor.IsZero() )
 			return;
 		Real Diff = Dividend / Divisor;
 		
+		// Solve the Spring //
 		PointA += InvMassA * Ray * Diff * Strength;
 		PointB -= InvMassB * Ray * Diff * Strength;
 	}
