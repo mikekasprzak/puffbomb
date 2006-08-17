@@ -80,6 +80,7 @@ public:
 	void DrawSprings( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	void DrawSpheres( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	
+	void DrawBoundingRect( const bool Selected = false ) const;
 	// - -------------------------------------------------------------------------------------- - //
 #ifdef EDITOR
 public:

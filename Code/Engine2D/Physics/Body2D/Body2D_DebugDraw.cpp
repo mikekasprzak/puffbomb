@@ -27,21 +27,21 @@ void cBody2D::DrawSpring( const size_t Index, const bool Selected ) const {
 		// Never gets too big //
 		Gfx::Line(
 			PointA, PointB,
-			Selected ? Gfx::RGBA(148, 192, 64, 255) : Gfx::RGBA(96, 128, 0, 128)
+			Selected ? Gfx::RGBA(148, 192, 64, 192) : Gfx::RGBA(96, 128, 0, 128)
 			);
 	}
 	else if ( MySpring.Flags.IgnoreMaximum() ) {
 		// Never gets too small //
 		Gfx::Line(
 			PointA, PointB,
-			Selected ? Gfx::RGBA(192, 148, 64, 255) : Gfx::RGBA(128, 96, 0, 128)
+			Selected ? Gfx::RGBA(192, 148, 64, 192) : Gfx::RGBA(128, 96, 0, 128)
 			);
 	}
 	else {
 		// Normal spring //
 		Gfx::Line(
 			PointA, PointB,
-			Selected ? Gfx::RGBA(64, 192, 64, 255) : Gfx::RGBA(0, 128, 0, 128)
+			Selected ? Gfx::RGBA(64, 192, 64, 192) : Gfx::RGBA(0, 128, 0, 128)
 			);
 	}
 }
@@ -122,6 +122,15 @@ void cBody2D::DrawSpheres( const std::vector< size_t >& SelectionVector ) const 
 		// Draw our Sphere //
 		DrawSphere( idx, Selected );
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::DrawBoundingRect( const bool Selected ) const {
+	Gfx::Rect(
+		BoundingRect.ToRect(),
+		Selected ? Gfx::RGBA(128, 128, 255, 192) : Gfx::RGBA(64, 64, 192, 128)
+		);
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
