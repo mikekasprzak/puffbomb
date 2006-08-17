@@ -16,6 +16,12 @@ void cBody2D::Solve( cImpulse& _Vs ) {
 		Vector2D Force = _Vs.GetForce( Nodes.Pos( Sphere[ idx ].Index ) ) * Nodes.InvMass( Sphere[ idx ].Index );
 		// If the force is worth caring about //
 		if ( !Force.IsZero() ) {
+			// If a sensor, note the touch of an impulse, but don't act on it //
+			if ( Sphere[ idx ].Sensor ) {
+				Sphere[ idx ].Flags.SetImpulse();
+				continue;
+			}
+			
 			Nodes.AddForce( Sphere[ idx ].Index, Force );
 			// Grow the bounding rectangle //
 			GrowBoundingRectBySphere( idx );

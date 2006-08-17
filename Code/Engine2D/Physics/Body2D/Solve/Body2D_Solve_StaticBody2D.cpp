@@ -70,6 +70,13 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				
 				// If touching the edge //
 				if ( ToPoint.MagnitudeSquared() < Sphere[ SphereIndex[idx] ].RadiusSquared() ) {
+					// If a sensor, note our contact, but don't solve //
+					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
+						Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetEdge();
+						continue;
+					}
+
+
 					// Calculate the penetration depth of the collision //
 					Real Penetration = Sphere[ SphereIndex[idx] ].Radius - ToPoint.Magnitude();
 
@@ -203,6 +210,12 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				
 				// If touching the edge //
 				if ( ToPoint.MagnitudeSquared() < Sphere[ SphereIndex[idx] ].RadiusSquared() ) {
+					// If a sensor, note our contact, but don't solve //
+					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
+						Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetCorner();
+						continue;
+					}
+
 					// Calculate the penetration depth of the collision //
 					Real Penetration = Sphere[ SphereIndex[idx] ].Radius - ToPoint.Magnitude();
 
@@ -339,6 +352,12 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				
 				// Solve for the found edge //
 				if ( FoundPoint ) {
+					// If a sensor, note our contact, but don't solve //
+					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
+						Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetInside();
+						continue;
+					}
+					
 					// Solve //
 					Push += (Push.Normal() * Sphere[ SphereIndex[idx] ].Radius);
 					Point += Push * Real::Half;
