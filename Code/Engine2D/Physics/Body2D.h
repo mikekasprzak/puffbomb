@@ -72,9 +72,13 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Debug Drawing Functions //
-	void DrawNode( const size_t Index, const bool Selected = false );
-	void DrawSpring( const size_t Index, const bool Selected = false );
-	void DrawSphere( const size_t Index, const bool Selected = false );
+	void DrawNode( const size_t Index, const bool Selected = false ) const;
+	void DrawSpring( const size_t Index, const bool Selected = false ) const;
+	void DrawSphere( const size_t Index, const bool Selected = false ) const;
+
+	void DrawNodes( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+	void DrawSpring( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+	void DrawSpheres( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	
 	// - -------------------------------------------------------------------------------------- - //
 #ifdef EDITOR

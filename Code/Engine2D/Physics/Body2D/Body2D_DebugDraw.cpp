@@ -7,7 +7,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::DrawNode( const size_t Index, const bool Selected ) {
+void cBody2D::DrawNode( const size_t Index, const bool Selected ) const {
 	const Vector2D& MyNode = Nodes.Pos( Index );
 
 	// Draw a circle for our node //
@@ -18,7 +18,7 @@ void cBody2D::DrawNode( const size_t Index, const bool Selected ) {
 		);
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::DrawSpring( const size_t Index, const bool Selected ) {
+void cBody2D::DrawSpring( const size_t Index, const bool Selected ) const {
 	const cSpring& MySpring = Spring[ Index ];
 	const Vector2D& PointA = Nodes.Pos( MySpring.IndexA );
 	const Vector2D& PointB = Nodes.Pos( MySpring.IndexB );
@@ -46,7 +46,7 @@ void cBody2D::DrawSpring( const size_t Index, const bool Selected ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::DrawSphere( const size_t Index, const bool Selected ) {
+void cBody2D::DrawSphere( const size_t Index, const bool Selected ) const {
 	const cSphere& MySphere = Sphere[ Index ];
 	const Vector2D& Pos = Nodes.Pos( MySphere.Index );
 
@@ -66,6 +66,62 @@ void cBody2D::DrawSphere( const size_t Index, const bool Selected ) {
 			MySphere.Radius
 			);
 	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::DrawNodes( const std::vector< size_t >& SelectionVector ) const {
+	// For every node //
+	for ( size_t idx = 0; idx < Nodes.Size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our node //
+		DrawNode( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::DrawSpring( const std::vector< size_t >& SelectionVector ) const {
+	// For every spring //
+	for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our spring //
+		DrawSpring( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::DrawSpheres( const std::vector< size_t >& SelectionVector ) const {
+	// For every sphere //
+	for ( size_t idx = 0; idx < Sphere.size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our Sphere //
+		DrawSphere( idx, Selected );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

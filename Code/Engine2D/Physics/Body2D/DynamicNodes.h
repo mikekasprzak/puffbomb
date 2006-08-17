@@ -59,6 +59,16 @@ public:
 		return *(Pos() + _Index);
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Get the Current Position as a pointer //
+	inline const Vector2D* const Pos() const {
+		return &NodeA[ 0 ];
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get the Current Position as an index, and return a reference so it may be changed //
+	inline const Vector2D& Pos( const size_t& _Index ) const {
+		return *(Pos() + _Index);
+	}
+	// - -------------------------------------------------------------------------------------- - //
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Get the Old Position as a pointer //
@@ -71,10 +81,20 @@ public:
 		return *(Old() + _Index);
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Get the Old Position as a pointer //
+	inline const Vector2D* const Old() const {
+		return &NodeB[ 0 ];
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get the Old Position as an index, and return a reference so it may be changed //
+	inline const Vector2D& Old( const size_t& _Index ) const {
+		return *(Old() + _Index);
+	}
+	// - -------------------------------------------------------------------------------------- - //
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Get the Velocity //
-	inline const Vector2D Velocity( const size_t& _Index ) {
+	inline const Vector2D Velocity( const size_t& _Index ) const {
 		return Pos( _Index ) - Old( _Index );
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -166,7 +186,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	inline size_t Size() {
+	inline const size_t Size() const {
 		return NodeA.size();
 	}
 	// - -------------------------------------------------------------------------------------- - //
