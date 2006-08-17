@@ -62,7 +62,7 @@ public:
 			}
 		}
 
-		// Calculate the 
+		// Calculate the weighted push based on masses //
 		Real Divisor = RayLength * (InvMassA + InvMassB);
 		if ( Divisor.IsZero() )
 			return;

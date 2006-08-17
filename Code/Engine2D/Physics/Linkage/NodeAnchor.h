@@ -31,7 +31,12 @@ public:
 	unsigned int Object, Index;
 		
 public:
-	void Step( std::vector< cDynamicObject >& Component ) {
+	inline void Step( std::vector< cDynamicObject >& Component ) {
+		// Bail if inactive //
+		if ( !Flags.Active() )
+			return;
+
+		// Create some nice easier to use references //
 		cBody2D& Body = Component[ Object ].Body;
 
 		Vector2D& PointA = Body.Nodes.Pos( Index );
@@ -45,27 +50,21 @@ public:
 		
 		Real Dividend = (RayLength - Real::Zero);
 
-		// Early out for all flag tests //
-//		if ( Flags & (flIgnoreMinimum | flIgnoreMaximum )) {
-//			if ( Flags & flIgnoreMinimum ) {
-//				if ( Dividend <= Real::Zero )
-//					return;
-//			}
-//			else if ( Flags & flIgnoreMaximum ) {
-//				if ( Dividend > Real::Zero )
-//					return;
-//			}
+		// Flag Tests (Redundant.  May as well make inactive) //
+//		if ( Flags.IgnoreMaximum() ) {
+//			if ( Dividend > Real::Zero )
+//				return;
 //		}
 
-		Real Divisor = RayLength;// * (InvMassA + Real::Zero);
+		// Calculate the push //
+		Real Divisor = RayLength;
 		if ( Divisor.IsZero() )
 			return;
 		Real Diff = Dividend / Divisor;
-		
-		//PointA += InvMassA * Ray * Diff * Strength;
+
+		// Solve the Anchor //
 		PointA += Ray * Diff * Strength;
 	}
-	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
