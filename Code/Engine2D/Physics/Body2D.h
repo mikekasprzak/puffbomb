@@ -9,7 +9,7 @@
 #include <Physics/Physics.h>
 
 #include "Body2D/DynamicNodes.h"
-#include "Body2D/CollisionFlags.h"
+#include "Body2D/Constraints/CollisionFlags.h"
 
 #include "Body2D/Constraints/Spring.h"
 #include "Body2D/Constraints/Sphere.h"
