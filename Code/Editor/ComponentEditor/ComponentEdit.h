@@ -29,6 +29,12 @@ public:
 	void PreviewDraw();
 	void UVDraw();
 	void Step();
+	
+	Vector2D CalcMousePos();
+	Vector2D CalcUVMousePos();
+	
+	void Undo();
+	void ActiveAction();
 
 };
 // - ------------------------------------------------------------------------------------------ - //
