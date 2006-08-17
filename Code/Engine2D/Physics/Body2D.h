@@ -43,6 +43,7 @@ public:
 
 
 public:	
+	// - -------------------------------------------------------------------------------------- - //
 	// Bounding rectangle, for early out test, and partitioning //
 	cPhysics::BoundingRectType BoundingRect;
 	// Calculate the rectangle for the object //
@@ -51,6 +52,7 @@ public:
 	void GrowBoundingRectBySphere( const size_t _Index );
 
 public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Step the nodes in the body. //
 	// Unlike cDynamicObject/Component, this is not a self sufficent physics system. //
 	void Step();
@@ -61,11 +63,20 @@ public:
 	void CalculateSpringLength();
 
 public:	
+	// - -------------------------------------------------------------------------------------- - //
 	// Solve Collisions/Actions //
 	void Solve( cBody2D& _Vs );
 	void Solve( class cStaticBody2D& _Vs, const Vector2D& _Offset = Vector2D::Zero );
 	void Solve( class cImpulse& _Vs );
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Debug Drawing Functions //
+	void DrawNode( const size_t Index, const bool Selected = false );
+	void DrawSpring( const size_t Index, const bool Selected = false );
+	void DrawSphere( const size_t Index, const bool Selected = false );
 	
+	// - -------------------------------------------------------------------------------------- - //
 #ifdef EDITOR
 public:
 	// Editor Function //
@@ -78,6 +89,7 @@ public:
 	int AddSphere( size_t _Index );
 	void DeleteSphere( size_t Number );
 #endif // EDITOR //
+	// - -------------------------------------------------------------------------------------- - //
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
