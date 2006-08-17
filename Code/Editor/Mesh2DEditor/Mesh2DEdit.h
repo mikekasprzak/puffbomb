@@ -44,7 +44,7 @@ public:
 	size_t CurrentSpring;
 	size_t CurrentFace;
 		
-	bool SnapToGrid;
+//	bool SnapToGrid;
 	bool LeftClicked;
 	bool SpringPlacement;
 	bool isPaste;
@@ -52,8 +52,6 @@ public:
 	int EditMode;
 	
 	int CurLayer;
-//	int LowLayer;
-//	int HighLayer;
 	Real UVGridDepth[ 13 ];
 	
 	std::vector< int > DrawLayers;
@@ -62,7 +60,7 @@ public:
 		
 	Vector2D OldMousePos;
 	std::vector<size_t> CurSelected;
-	bool isGroupMove;
+//	bool isGroupMove;
 	
 public:	
 	std::vector<size_t> CurSelUV;
@@ -79,10 +77,10 @@ public:
 //	Real UVZoom;
 //	Vector2D UVOrigin;
 	size_t CurUVGridDepth;
-	Real UVWidth;
-	Real UVHeight;
-	Real UVZoomOffsetX;
-	Real UVZoomOffsetY;
+//	Real UVWidth;
+//	Real UVHeight;
+//	Real UVZoomOffsetX;
+//	Real UVZoomOffsetY;
 	Real UVScrollMouseX;
 	Real UVScrollMouseY;
 	bool UVMiddleClick;

@@ -25,7 +25,16 @@ cEdit::cEdit() :
 	LastView( 1 ),
 	ScrollSpeed( 3.0 ),
 	GridSize( 16384.0 ),
-	CurrentGridDepth( 0 )
+	CurrentGridDepth( 0 ),
+	UVWidth( 0.25 ),
+	UVHeight( 0.4 ),
+	UVScale( 256.0 ),
+	UVZoomOffsetX( 144.5 ),
+	UVZoomOffsetY( 232 ),
+	SnapToGrid( false ),
+	isGroupMove( false ),
+	OldMousePos( Real(0.0), Real(0.0) ),
+	CurMousePos( Real(0.0), Real(0.0) )
 {
 	// Create Camera //
 	Camera = new cCamera(

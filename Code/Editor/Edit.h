@@ -60,6 +60,17 @@ public:
 	Real GridRange[ 13 ];
 	size_t CurrentGridDepth;
 	
+	Real UVWidth;
+	Real UVHeight;
+	Real UVScale;
+	Real UVZoomOffsetX;
+	Real UVZoomOffsetY;
+	//size_t CurUVGridDepth;
+	bool SnapToGrid;
+	bool isGroupMove;
+	Vector2D OldMousePos;
+	Vector2D CurMousePos;
+	
 	std::vector< ABSet< Vector3D > > GridVertex;
 	std::vector< unsigned int > GridIndices;
 	unsigned int GridIndicesSize;

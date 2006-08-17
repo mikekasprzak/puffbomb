@@ -9,9 +9,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-cComponentEdit::cComponentEdit() :
-	UVWidth( 0.25 ),
-	UVHeight( 0.4 )
+cComponentEdit::cComponentEdit()
 {
 	// Create Cameras //
 	UVCamera = new cCamera(

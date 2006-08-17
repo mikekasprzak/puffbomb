@@ -19,9 +19,6 @@ public:
 	cCamera* UVCamera;
 	cCamera* PreviewCamera;
 
-	Real UVWidth;
-	Real UVHeight;
-
 public:
 	cComponentEdit();
 	~cComponentEdit();

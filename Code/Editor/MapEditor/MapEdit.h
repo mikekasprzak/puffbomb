@@ -59,13 +59,13 @@ public:
 	std::vector< cUndoObject > UndoObject;
 	std::vector< cUndoObject > RedoObject;
 		
-	Vector2D OldMousePos;
+//	Vector2D OldMousePos;
 	
 	int Focus1;
 	int Focus2;
 	
-	bool SnapToGrid;
-	bool isGroupMove;
+//	bool SnapToGrid;
+//	bool isGroupMove;
 	bool isPaste;
 	bool isSaved;
 

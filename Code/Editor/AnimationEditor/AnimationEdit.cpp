@@ -19,21 +19,11 @@
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cAnimationEdit::cAnimationEdit() :
-	UVWidth( 0.25 ),
-	UVHeight( 0.4 ),
-	UVScale( 256.0 ),
-	UVZoomOffsetX( 144.5 ),
-	UVZoomOffsetY( 232 ),
-	UVCurGridDepth( 0 ),
-	SnapToGrid( false ),
-	isGroupMove( false ),
 	isDeleteNode( false ),
 	isScaleNode( false ),
 	isRotateNode( false ),
 	FrameIdx( 0 ),
 	NodeRadius( 6.0 ),
-	OldMousePos( Real(0.0), Real(0.0) ),
-	CurMousePos( Real(0.0), Real(0.0) ),
 	CurTexIdx( 0 )
 {
 	// Create Cameras //

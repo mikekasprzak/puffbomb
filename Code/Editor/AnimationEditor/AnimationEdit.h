@@ -26,16 +26,6 @@ public:
 	cCamera* UVCamera;
 	cCamera* PreviewCamera;
 	
-	Real UVWidth;
-	Real UVHeight;
-	Real UVScale;
-	Real UVZoomOffsetX;
-	Real UVZoomOffsetY;
-
-	size_t UVCurGridDepth;
-
-	bool SnapToGrid;
-	bool isGroupMove;
 	bool isDeleteNode;
 
 	bool isScaleNode;
@@ -54,9 +44,6 @@ public:
 	unsigned int SelBoxIndices[5];
 	
 	Real NodeRadius;
-	
-	Vector2D OldMousePos;
-	Vector2D CurMousePos;
 	
 	std::vector<size_t> CurSelected;
 	std::vector<size_t> CurSelUV;
