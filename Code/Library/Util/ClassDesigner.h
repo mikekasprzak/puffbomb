@@ -16,6 +16,9 @@
 // A useful library from boost for automatically generating operators from one pattern //
 #include <boost/operators.hpp>
 
+// A base class for common flag functionality //
+#include "ClassDesigner/BasicFlags.h"
+
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Util_ClassDesigner_H__ //
 // - ------------------------------------------------------------------------------------------ - //

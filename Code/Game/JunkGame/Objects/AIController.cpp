@@ -24,7 +24,7 @@ void cAIController::Step() {
 	for ( int idx = 0; idx < 16; idx++ )
 	{
 
-		if( SphereObject->Sphere[idx+1].Flags.IsScenery() )
+		if( SphereObject->Sphere[idx+1].Flags.Scenery() )
 		{
 			++CollisionCount;
 		}

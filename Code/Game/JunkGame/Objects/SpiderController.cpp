@@ -106,7 +106,7 @@ void cSpiderController::Step() {
 		// If it has not hit anything yet //
 		if ( !Shot[CurrentShot]->Hard[ 0 ].IsActive() ) {
 			// Hit Scenery //
-			if ( Shot[CurrentShot]->Sphere[ 0 ].Flags.IsScenery() ) {
+			if ( Shot[CurrentShot]->Sphere[ 0 ].Flags.Scenery() ) {
 
 				// Calculate ray from center to shot //
 				Vector2D Ray = ( Shot[CurrentShot]->Pos( 0 ) - SphereObject->Pos( 0 ) );
@@ -151,7 +151,7 @@ void cSpiderController::Step() {
 				}
 			}
 			// Hit Enemy (or something/self) //
-			else if ( Shot[CurrentShot]->Sphere[ 0 ].Flags.IsObject() ) {
+			else if ( Shot[CurrentShot]->Sphere[ 0 ].Flags.Object() ) {
 				// Temporarily for now, remove it //
 				Shot[CurrentShot]->Hard[ 0 ].Unlock();
 				Shot[CurrentShot]->Flags.SetInactive();
