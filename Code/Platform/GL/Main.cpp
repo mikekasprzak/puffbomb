@@ -520,7 +520,7 @@ int main( int argc, char* argv[] ) {
 					
 					} // COLLECTION_EDITOR //
 					// -------------------------------------------------------------------------- //
-					else if( cGlobal::CurEditor == BODY2D_EDITOR )
+					else if( cGlobal::CurEditor == COMPONENT_EDITOR )
 					{
 						// Screen 1 (Left Side) //	
 						glViewport( 0, 0, Real( Platform::ScreenW * 0.75), Platform::ScreenH );
@@ -568,7 +568,7 @@ int main( int argc, char* argv[] ) {
 										-Editor.ComponentEdit->HudCamera->Pos.z
 						);
 						Editor.ComponentEdit->HudDraw();
-					}  // BODY2D_EDITOR //
+					}  // COMPONENT_EDITOR //
 					// -------------------------------------------------------------------------- //
 					else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 					{

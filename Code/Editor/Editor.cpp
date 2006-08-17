@@ -51,7 +51,7 @@ void cEditor::Step()
 	{
 		CollectionEdit->Step();
 	}
-	else if( cGlobal::CurEditor == BODY2D_EDITOR )
+	else if( cGlobal::CurEditor == COMPONENT_EDITOR )
 	{
 		ComponentEdit->Step();
 	}
@@ -97,7 +97,7 @@ void cEditor::Step()
 		{
 	
 		}
-		else if( cGlobal::CurEditor == BODY2D_EDITOR )
+		else if( cGlobal::CurEditor == COMPONENT_EDITOR )
 		{
 	
 		}
@@ -150,7 +150,7 @@ void cEditor::Step()
 	}
 	else if( Button[ KEY_F7 ].Pressed() )
 	{
-		cGlobal::CurEditor = BODY2D_EDITOR;
+		cGlobal::CurEditor = COMPONENT_EDITOR;
 	}
 	else if( Button[ KEY_F8 ].Pressed() )
 	{
@@ -183,7 +183,7 @@ void cEditor::Draw()
 	{
 		CollectionEdit->Draw();
 	}
-	else if( cGlobal::CurEditor == BODY2D_EDITOR )
+	else if( cGlobal::CurEditor == COMPONENT_EDITOR )
 	{
 		ComponentEdit->Draw();
 	}
