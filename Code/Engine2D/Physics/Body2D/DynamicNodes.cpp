@@ -5,7 +5,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-int cDynamicNodes::AddNode() {
+int cDynamicNodes::Add() {
 	NodeA.push_back( Vector2D::Zero );
 	NodeB.push_back( Vector2D::Zero );
 	Force.push_back( Vector2D::Zero );
@@ -17,7 +17,7 @@ int cDynamicNodes::AddNode() {
 	return NodeA.size() - 1;
 }	
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicNodes::DeleteNode( size_t Number ) {
+void cDynamicNodes::Remove( const size_t Number ) {
 	// Make this an assert //
 	if ( Number >= Size() )
 		return;

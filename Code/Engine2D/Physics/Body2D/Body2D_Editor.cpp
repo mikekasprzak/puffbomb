@@ -59,7 +59,7 @@ void cBody2D::DeleteSphere( size_t Number ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 int cBody2D::AddNode() {
-	return Nodes.AddNode();
+	return Nodes.Add();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DeleteNode( size_t Number ) {
@@ -95,7 +95,7 @@ void cBody2D::DeleteNode( size_t Number ) {
 	}
 		
 	// Remove the Node //
-	Nodes.DeleteNode( Number );
+	Nodes.Remove( Number );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

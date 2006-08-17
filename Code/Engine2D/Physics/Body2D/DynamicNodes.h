@@ -185,8 +185,9 @@ public:
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Features for object building //
-	int AddNode();
-	void DeleteNode( size_t Number );
+	int Add();
+	void Remove( const size_t Number );
+	
 	// Dump contents to the console //
 	void Dump();
 	// - -------------------------------------------------------------------------------------- - //
