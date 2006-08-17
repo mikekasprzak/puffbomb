@@ -88,7 +88,7 @@ void cBody2D::DrawNodes( const std::vector< size_t >& SelectionVector ) const {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::DrawSpring( const std::vector< size_t >& SelectionVector ) const {
+void cBody2D::DrawSprings( const std::vector< size_t >& SelectionVector ) const {
 	// For every spring //
 	for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
 		bool Selected = false;

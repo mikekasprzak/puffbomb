@@ -77,7 +77,7 @@ public:
 	void DrawSphere( const size_t Index, const bool Selected = false ) const;
 
 	void DrawNodes( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
-	void DrawSpring( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+	void DrawSprings( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	void DrawSpheres( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	
 	// - -------------------------------------------------------------------------------------- - //
