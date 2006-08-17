@@ -6,8 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 
-#include <Physics/NodeLink.h>
-#include <Physics/NodeAnchor.h>
+#include <Physics/Linkage.h>
 #include "DynamicObjectCollection/DynamicObject.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {

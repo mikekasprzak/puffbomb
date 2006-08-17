@@ -1,44 +1,49 @@
 // - ------------------------------------------------------------------------------------------ - //
-// NodeLink //
+// NodeAnchor //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Physics_NodeLink_H__
-#define __Engine2D_Physics_NodeLink_H__
+#ifndef __Engine2D_Physics_NodeAnchor_H__
+#define __Engine2D_Physics_NodeAnchor_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
+#include <Geometry/Vector.h>
 
 #include <Engine/DynamicObjectCollection/DynamicObject.h>
+
+#include "LinkageFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cNodeLink {
+class cNodeAnchor {
 public:
-	// Length of the Spring //
-	Real Length;	
+	// Where to pull the anchored point towards //
+	Vector2D Pos;	
+
 	// How well to solve the spring.  1.0 is a normal stiff spring.  Less than .5 gets gooey. //
 	Real Strength;
 	// When to detach the spring (if enabled) //
 	Real BreakPoint;
 
+	// Flags for controlling the function of the Anchor //
+	cLinkageFlags Flags;
+	
 
 	// Object number and Index numbers used //
-	unsigned int ObjectA, IndexA;
-	unsigned int ObjectB, IndexB;
-	
+	unsigned int Object, Index;
+		
 public:
 	void Step( std::vector< cDynamicObject >& Component ) {
-		cBody2D& BodyA = Component[ ObjectA ].Body;
-		cBody2D& BodyB = Component[ ObjectB ].Body;
+		cBody2D& Body = Component[ Object ].Body;
 
-		Vector2D& PointA = BodyA.Nodes.Pos( IndexA );
-		Vector2D& PointB = BodyB.Nodes.Pos( IndexB );
-		const Real& InvMassA = BodyA.Nodes.InvMass( IndexA );
-		const Real& InvMassB = BodyB.Nodes.InvMass( IndexB );
+		Vector2D& PointA = Body.Nodes.Pos( Index );
+		const Vector2D& PointB = Pos;
+		
+		const Real& InvMass = Body.Nodes.InvMass( Index );
 		
 		// Do spring thing //
 		Vector2D Ray = PointB - PointA;
 		Real RayLength = Ray.Magnitude();
 		
-		Real Dividend = (RayLength - Length);
+		Real Dividend = (RayLength - Real::Zero);
 
 		// Early out for all flag tests //
 //		if ( Flags & (flIgnoreMinimum | flIgnoreMaximum )) {
@@ -52,17 +57,18 @@ public:
 //			}
 //		}
 
-		Real Divisor = RayLength * (InvMassA + InvMassB);
+		Real Divisor = RayLength;// * (InvMassA + Real::Zero);
 		if ( Divisor.IsZero() )
 			return;
 		Real Diff = Dividend / Divisor;
 		
-		PointA += InvMassA * Ray * Diff * Strength;
-		PointB -= InvMassB * Ray * Diff * Strength;
+		//PointA += InvMassA * Ray * Diff * Strength;
+		PointA += Ray * Diff * Strength;
 	}
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Physics_NodeLink_H__ //
+#endif // __Engine2D_Physics_NodeAnchor_H__ //
 // - ------------------------------------------------------------------------------------------ - //
