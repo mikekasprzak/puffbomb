@@ -7,7 +7,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::DrawNode( const size_t Index, const bool Selected = false ) {
+void cBody2D::DrawNode( const size_t Index, const bool Selected ) {
 	const Vector2D& MyNode = Nodes.Pos( Index );
 
 	// Draw a circle for our node //
@@ -18,7 +18,7 @@ void cBody2D::DrawNode( const size_t Index, const bool Selected = false ) {
 		);
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::DrawSpring( const size_t Index, const bool Selected = false ) {
+void cBody2D::DrawSpring( const size_t Index, const bool Selected ) {
 	const cSpring& MySpring = Spring[ Index ];
 	const Vector2D& PointA = Nodes.Pos( MySpring.IndexA );
 	const Vector2D& PointB = Nodes.Pos( MySpring.IndexB );
@@ -46,7 +46,7 @@ void cBody2D::DrawSpring( const size_t Index, const bool Selected = false ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::DrawSphere( const size_t Index, const bool Selected = false ) {
+void cBody2D::DrawSphere( const size_t Index, const bool Selected ) {
 	const cSphere& MySphere = Sphere[ Index ];
 	const Vector2D& Pos = Nodes.Pos( MySphere.Index );
 
