@@ -1,23 +1,18 @@
 // - ------------------------------------------------------------------------------------------ - //
-// LinkageFlags //
+// SpringFlags //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Physics_Body2D_LinkageFlags_H__
-#define __Engine2D_Physics_Body2D_LinkageFlags_H__
+#ifndef __Engine2D_Physics_Body2D_Constraints_SpringFlags_H__
+#define __Engine2D_Physics_Body2D_Constraints_SpringFlags_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cLinkageFlags: public cBasicFlags {
+class cSpringFlags: public cBasicFlags {
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	// Linkage Flags ---------------- //
+	// Spring Flags ---------------- //
 	enum {
-		flActive = bit0,			// If the Link is active //
-		flBreakable = bit1,			// If the Link is breakable //
-
-		flBroken = bit4,			// If the Link is broken //
-
 		flIgnoreMinimum = bit8,		// Don't solve if the distance is less than my length //
 		flIgnoreMaximum = bit9,		// Don't solve if the distance is greater than my length //
 	};
@@ -25,12 +20,12 @@ public:
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	inline cLinkageFlags() :
-		cBasicFlags( flActive | flBreakable )
+	inline cSpringFlags() :
+		cBasicFlags( 0 )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline cLinkageFlags( const FlagType _Flags ) :
+	inline cSpringFlags( const FlagType _Flags ) :
 		cBasicFlags( _Flags )
 	{
 	}
@@ -41,14 +36,11 @@ public:
 	// Create functions for setting individual flags ------------------------------------------ - //
 	// - -------------------------------------------------------------------------------------- - //
 	#define __FLAG_FUNCTION( _flag ) \
-	inline cLinkageFlags& Set ## _flag() { \
+	inline cSpringFlags& Set ## _flag() { \
 		Flags |= fl ## _flag; \
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_FUNCTION( Active );
-	__FLAG_FUNCTION( Broken );
-	__FLAG_FUNCTION( Breakable );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -60,14 +52,11 @@ public:
 	// Create functions for resetting individual flags ---------------------------------------- - //
 	// - -------------------------------------------------------------------------------------- - //
 	#define __FLAG_FUNCTION( _flag ) \
-	inline cLinkageFlags& Reset ## _flag() { \
+	inline cSpringFlags& Reset ## _flag() { \
 		Flags &= ~(fl ## _flag); \
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_FUNCTION( Active );
-	__FLAG_FUNCTION( Broken );
-	__FLAG_FUNCTION( Breakable );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -83,9 +72,6 @@ public:
 		return Flags & (fl ## _flag); \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_FUNCTION( Active );
-	__FLAG_FUNCTION( Broken );
-	__FLAG_FUNCTION( Breakable );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -101,26 +87,14 @@ public:
 		return Flags == (fl ## _flag); \
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	__FLAG_FUNCTION( Active );
-	__FLAG_FUNCTION( Broken );
-	__FLAG_FUNCTION( Breakable );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
-	
-public:
-	// - -------------------------------------------------------------------------------------- - //
-	// If we're active and not broken --------------------------------------------------------- - //
-	inline const bool ActiveAndNotBroken() const {
-		if ( Active() )
-			return !Broken();
-		return false;
-	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Physics_LinkageFlags_H__ //
+#endif // __Engine2D_Physics_Body2D_Constraints_SpringFlags_H__ //
 // - ------------------------------------------------------------------------------------------ - //
