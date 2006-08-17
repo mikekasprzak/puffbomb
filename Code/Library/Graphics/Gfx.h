@@ -120,9 +120,22 @@ namespace Gfx {
 	unsigned int White();
 	int RGB( int r, int g, int b );
 	int RGBA( int r, int g, int b, int a );
+	// - -------------------------------------------------------------------------------------- - //
 	void Circle( const Vector3D& Pos, const Real& Radius, int Color );
 	void Circle( const Real& x, const Real& y, const Real& Radius, int Color );
 	void Circle( const Vector2D& Pos, const Real& Radius, int Color );
+	// - -------------------------------------------------------------------------------------- - //
+	void Line( const Vector3D& v1, const Vector3D& v2, int Color );
+	void Line( const Vector2D& v1, const Vector2D& v2, int Color );
+	void Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color );
+	void Line( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, int Color );
+	// - -------------------------------------------------------------------------------------- - //
+	void Rect( const Vector3D& v1, const Vector3D& v2, int Color );
+	void Rect( const Vector2D& v1, const Vector2D& v2, int Color );
+	void Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color );
+	void Rect( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, int Color );
+	void Rect( const Rect2D& _Rect, int Color );
+	void Rect( const Rect3D& _Rect, int Color );
 	// - -------------------------------------------------------------------------------------- - //
 	void EnableTex2D();
 	void DisableTex2D();

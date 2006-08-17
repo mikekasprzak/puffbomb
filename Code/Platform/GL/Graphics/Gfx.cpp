@@ -545,7 +545,7 @@ namespace Gfx
 	// - -------------------------------------------------------------------------------------- - //
 	void Circle( const Vector3D& Pos, const Real& Radius, int Color )
 	{
-		int MaxSteps = 20;
+		int MaxSteps = 16;
 		
 		Vector3D Vertex[ MaxSteps + 1 ];
 		unsigned int Indices[ MaxSteps + 1 ];
@@ -576,6 +576,79 @@ namespace Gfx
 	void Circle( const Vector2D& Pos, const Real& Radius, int Color )
 	{
 		Circle( Vector3D( Pos.x, Pos.y, Real::Zero ), Radius, Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Line( const Vector3D& v1, const Vector3D& v2, int Color )
+	{
+		Vector3D Vertex[ 2 ];
+		unsigned int Indices[ 2 ];
+		
+		Vertex[ 0 ] = v1;
+		Vertex[ 1 ] = v2;
+		
+		Indices[ 0 ] = 0;
+		Indices[ 1 ] = 1;
+				
+		DrawLineStrip( Vertex, Indices, 2, Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Line( const Vector2D& v1, const Vector2D& v2, int Color )
+	{
+		Line( v1.ToVector3D(), v2.ToVector3D(), Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color )
+	{
+		Line( Vector3D( x1, y1, Real( 0.0 ) ), Vector3D( x2, y2, Real( 0.0 ) ), Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Line( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, int Color )
+	{
+		Line( Vector3D( x1, y1, z1 ), Vector3D( x2, y2, z2 ), Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Rect( const Vector3D& v1, const Vector3D& v2, int Color )
+	{
+		Vector3D Vertex[ 4 ];
+		unsigned int Indices[ 5 ];
+		
+		Vertex[ 0 ] = v1;
+		Vertex[ 1 ] = Vector3D( v1.x, v2.y, v1.z );
+		Vertex[ 2 ] = v2;
+		Vertex[ 3 ] = Vector3D( v2.x, v1.y, v2.z );
+		
+		for( int idx = 0; idx < 4; idx++ )
+		{
+			Indices[ idx ] = idx;
+		}
+		Indices[ 4 ] = 0;
+				
+		DrawLineStrip( Vertex, Indices, 5, Color );		
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Rect( const Vector2D& v1, const Vector2D& v2, int Color )
+	{
+		Rect( v1.ToVector3D(), v2.ToVector3D(), Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color )
+	{
+		Rect( Vector3D( x1, y1, Real( 0.0 ) ), Vector3D( x2, y2, Real( 0.0 ) ), Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Rect( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, int Color )
+	{
+		Rect( Vector3D( x1, y1, z1 ), Vector3D( x2, y2, z2 ), Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Rect( const Rect2D& _Rect, int Color )
+	{
+		Rect( _Rect._P1.ToVector3D(), _Rect._Shape.ToVector3D(), Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Rect( const Rect3D& _Rect, int Color )
+	{
+		Rect( _Rect._P1, _Rect._Shape, Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// This section is to add a wrapper to the gl functions we can't do without.

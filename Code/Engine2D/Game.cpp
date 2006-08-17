@@ -321,6 +321,8 @@ void cGame::Draw() {
 
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
+	
+	//Gfx::Rect( Vector2D( 0.0, 0.0 ), Vector2D( 590.0, 590.0 ), Gfx::White() );
 
 	glEnable(GL_DEPTH_TEST);
 }
