@@ -10,7 +10,6 @@
 #include <Geometry/Vector.h>
 
 #include <Physics/Physics.h>
-#include "CollisionFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -26,8 +25,6 @@ class cDynamicNodes {
 public:
 	std::vector< Real > Mass;
 	Real TotalMass;
-
-	cCollisionFlags Collision;
 
 	int SleepClock;
 
