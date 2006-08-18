@@ -22,12 +22,6 @@ void cStaticBody2D::DrawEdge( const size_t Index, const bool Selected ) const {
 	const cStaticEdge& MyEdge = Edge[ Index ];
 	const Vector2D& PointA = Nodes.Pos( MyEdge.a );
 	const Vector2D& PointB = Nodes.Pos( MyEdge.b );
-	
-	// Draw surrounding Rectangle //
-	Gfx::Rect(
-		MyEdge.BoundingRect.ToRect(),
-		Selected ? Gfx::RGBA(128, 128, 255, 192) : Gfx::RGBA(64, 64, 192, 128)
-		);
 
 	// Draw the Edge //
 	Gfx::Line(
@@ -51,13 +45,6 @@ void cStaticBody2D::DrawEdge( const size_t Index, const bool Selected ) const {
 // - ------------------------------------------------------------------------------------------ - //
 void cStaticBody2D::DrawPolygon( const size_t Index, const bool Selected ) const {
 	const cStaticPolygon& MyPolygon = Polygon[ Index ];
-
-	// Draw surrounding Rectangle //
-	Gfx::Rect(
-		MyPolygon.BoundingRect.ToRect(),
-		Selected ? Gfx::RGBA(128, 128, 255, 192) : Gfx::RGBA(64, 64, 192, 128)
-		);
-
 
 	// Draw the Edges of the Polygon //
 	{
@@ -106,6 +93,29 @@ void cStaticBody2D::DrawPolygon( const size_t Index, const bool Selected ) const
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+void cStaticBody2D::DrawEdgeRect( const size_t Index, const bool Selected ) const {
+	const cStaticEdge& MyEdge = Edge[ Index ];
+	
+	// Draw surrounding Rectangle //
+	Gfx::Rect(
+		MyEdge.BoundingRect.ToRect(),
+		Selected ? Gfx::RGBA(128, 128, 255, 192) : Gfx::RGBA(64, 64, 192, 128)
+		);
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cStaticBody2D::DrawPolygonRect( const size_t Index, const bool Selected ) const {
+	const cStaticPolygon& MyPolygon = Polygon[ Index ];
+
+	// Draw surrounding Rectangle //
+	Gfx::Rect(
+		MyPolygon.BoundingRect.ToRect(),
+		Selected ? Gfx::RGBA(128, 128, 255, 192) : Gfx::RGBA(64, 64, 192, 128)
+		);
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 void cStaticBody2D::DrawNodes( const std::vector< size_t >& SelectionVector ) const {
@@ -159,6 +169,44 @@ void cStaticBody2D::DrawPolygons( const std::vector< size_t >& SelectionVector )
 		
 		// Draw our node //
 		DrawPolygon( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+void cStaticBody2D::DrawEdgeRects( const std::vector< size_t >& SelectionVector ) const {
+	// For every node //
+	for ( size_t idx = 0; idx < Edge.size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our node //
+		DrawEdgeRect( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cStaticBody2D::DrawPolygonRects( const std::vector< size_t >& SelectionVector ) const {
+	// For every node //
+	for ( size_t idx = 0; idx < Polygon.size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our node //
+		DrawPolygonRect( idx, Selected );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

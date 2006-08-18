@@ -40,10 +40,14 @@ public:
 	void DrawNode( const size_t Index, const bool Selected = false ) const;	
 	void DrawEdge( const size_t Index, const bool Selected = false ) const;
 	void DrawPolygon( const size_t Index, const bool Selected = false ) const;
+	void DrawEdgeRect( const size_t Index, const bool Selected = false ) const;
+	void DrawPolygonRect( const size_t Index, const bool Selected = false ) const;
 
 	void DrawNodes( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	void DrawEdges( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	void DrawPolygons( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+	void DrawEdgeRects( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+	void DrawPolygonRects( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	
 	void DrawBoundingRect( const bool Selected = false ) const;
 	// - -------------------------------------------------------------------------------------- - //
