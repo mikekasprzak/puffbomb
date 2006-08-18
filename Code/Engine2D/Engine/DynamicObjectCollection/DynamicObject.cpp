@@ -38,6 +38,8 @@ void cDynamicObject::DrawBody( const bool Selected ) const {
 	Body.DrawSpheres();
 	Body.DrawSprings();
 	Body.DrawNodes();
+	
+	Body.DrawBoundingRect();
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

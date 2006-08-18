@@ -7,6 +7,15 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
+void cDynamicObjectCollection::DebugDraw() const {
+	// Draw debug information for this object //
+	DrawComponents();
+	DrawNodeLinks();
+	DrawNodeAnchors();
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 void cDynamicObjectCollection::DrawComponent( const size_t Index, const bool Selected ) const {
 	// Draw specific component //
 	Component[ Index ].DrawBody( Selected );
@@ -91,7 +100,7 @@ void cDynamicObjectCollection::DrawComponents( const std::vector< size_t >& Sele
 			}
 		}
 		
-		// Draw our node //
+		// Draw our component //
 		DrawComponent( idx, Selected );
 	}
 }
@@ -109,7 +118,7 @@ void cDynamicObjectCollection::DrawNodeLinks( const std::vector< size_t >& Selec
 			}
 		}
 		
-		// Draw our node //
+		// Draw our link //
 		DrawNodeLink( idx, Selected );
 	}
 }
@@ -127,7 +136,7 @@ void cDynamicObjectCollection::DrawNodeAnchors( const std::vector< size_t >& Sel
 			}
 		}
 		
-		// Draw our node //
+		// Draw our anchor //
 		DrawNodeAnchor( idx, Selected );
 	}
 }
@@ -136,11 +145,22 @@ void cDynamicObjectCollection::DrawNodeAnchors( const std::vector< size_t >& Sel
 
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicObjectCollection::DrawBoundingRect( const bool Selected ) const {
+	// If no components, nothing to draw //
+	if ( Component.empty() )
+		return;
 	
-//	Gfx::Rect(
-//		BoundingRect.ToRect(),
-//		Selected ? Gfx::RGBA(128, 128, 255, 192) : Gfx::RGBA(64, 64, 192, 128)
-//		);
+	// Calculate bounding rect by summing all the bounding rects inside //
+	cPhysics::BoundingRectType RectSum = Component[0].Body.BoundingRect;
+
+	for ( size_t idx = 1; idx < Component.size(); idx++ ) {
+		RectSum += Component[ idx ].Body.BoundingRect;
+	}
+	
+	// Draw the rectangle //
+	Gfx::Rect(
+		RectSum.ToRect(),
+		Selected ? Gfx::RGBA(255, 255, 255, 192) : Gfx::RGBA(192, 192, 192, 128)
+		);
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

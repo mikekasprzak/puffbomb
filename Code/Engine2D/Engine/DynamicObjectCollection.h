@@ -46,7 +46,7 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Debug Drawing Functions //
-	void DebugDraw();
+	void DebugDraw() const;
 	
 	void DrawComponent( const size_t Index, const bool Selected = false ) const;
 	void DrawNodeLink( const size_t Index, const bool Selected = false ) const;
