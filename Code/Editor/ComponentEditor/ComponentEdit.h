@@ -49,7 +49,7 @@ public:
 	void Undo();
 	void ActiveAction();
 public:
-	// ComponentEditNode.cpp //
+	// ComponentEditBodyNode.cpp //
 	int BodySingleSelectNode();
 	void BodySelectNode();
 	void BodyMoveNode();
@@ -58,14 +58,14 @@ public:
 	void BodyScaleNode();
 
 public:
-	// ComponentEditSphere.cpp //
+	// ComponentEditBodySphere.cpp //
 	void BodySetRadius( Real RadiusDiff, int Node );
 	void BodyAddSphere();
 	void BodySphereCheck();
 	void BodyDeleteSphere();
 	void BodyRadius( Real RadiusDiff );
 public:
-	// ComponentEditSpring.cpp //
+	// ComponentEditBodySpring.cpp //
 	void BodySelectSpring();
 	void BodyAddSpring();
 	void BodyDeleteSpring();
