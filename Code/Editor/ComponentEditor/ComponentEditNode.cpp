@@ -2,6 +2,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "ComponentEdit.h"
 
+#include <algorithm>
+#include <functional>
+
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -211,10 +214,8 @@ void cComponentEdit::AddNode()
 	{
 		CurSelected.clear();
 		
-		Body2D[ CurBody ].AddNode();
+		size_t tempIdx = Body2D[ CurBody ].AddNode();
 
-		size_t tempIdx = Body2D[ CurBody ].Nodes.Size() - 1;
-		
 		Body2D[ CurBody ].Nodes.Pos( tempIdx ) = CurMousePos;
 
 		SetGridDepth( Camera, CurrentGridDepth, 40.0 );
@@ -234,9 +235,12 @@ void cComponentEdit::DeleteNode()
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			sort( CurSelected.begin(), CurSelected.end() );
+			for( int idx = CurSelected.size() - 1; idx > -1; --idx )
 			{
 				Body2D[ CurBody ].DeleteNode( CurSelected[idx] );
+				
+//				Log( LOG_HIGHEST_LEVEL, "CurSelected[idx]  " << CurSelected[idx] );
 			}
 			
 			CurSelected.clear();

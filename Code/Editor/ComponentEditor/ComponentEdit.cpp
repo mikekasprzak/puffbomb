@@ -100,6 +100,8 @@ void cComponentEdit::Draw()
 	DrawSelected();
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+	
+	CurMode = NODE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::HudDraw()
