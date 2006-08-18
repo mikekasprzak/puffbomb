@@ -51,6 +51,17 @@ cComponentEdit::cComponentEdit()
 	Camera->Pos.z = Real( 800.0 );
 
 	GridSize = 2048.0;
+	
+	Body2D.push_back( Engine2D::cBody2D() );
+		
+	CurSelected.push_back( Body2D[ 0 ].AddNode() );
+	CurSelected.push_back( Body2D[ 0 ].AddNode() );
+	Body2D[ 0 ].AddNode();
+
+	Body2D[ 0 ].Nodes.Pos( 0 ) = Vector2D( 50.0, 20.0 );
+	Body2D[ 0 ].Nodes.Pos( 1 ) = Vector2D( 20.0, 50.0 );
+	
+	Body2D[ 0 ].DeleteNode( 2 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::~cComponentEdit()
@@ -64,13 +75,21 @@ void cComponentEdit::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-
 	Gfx::DisableTex2D();	
 
 	glLineWidth( 1.0 );
+	
 	DrawSelected();
 	
 	Gfx::DisableBlend();
+
+	for( size_t idx = 0; idx < Body2D.size(); ++idx )
+	{
+		for( size_t NodeIdx = 0; NodeIdx < Body2D[ idx ].Nodes.Size(); ++NodeIdx )
+		{
+			Body2D[ idx ].DrawNode( NodeIdx, false );
+		}
+	}
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 }
