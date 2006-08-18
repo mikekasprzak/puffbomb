@@ -13,7 +13,7 @@ void cBody2D::DrawNode( const size_t Index, const bool Selected ) const {
 	// Draw a circle for our node //
 	Gfx::Circle(
 		MyNode,
-		Real( 2 ),
+		Real( 3 ),
 		Selected ? Gfx::RGBA(192, 192, 192, 192) : Gfx::RGBA(128, 128, 128, 128)
 		);
 }
