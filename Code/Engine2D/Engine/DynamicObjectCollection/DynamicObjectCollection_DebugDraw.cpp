@@ -78,6 +78,63 @@ void cDynamicObjectCollection::DrawNodeAnchor( const size_t Index, const bool Se
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+void cDynamicObjectCollection::DrawComponents( const std::vector< size_t >& SelectionVector ) const {
+	// For every node //
+	for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our node //
+		DrawComponent( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicObjectCollection::DrawNodeLinks( const std::vector< size_t >& SelectionVector ) const {
+	// For every node //
+	for ( size_t idx = 0; idx < NodeLink.size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our node //
+		DrawNodeLink( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicObjectCollection::DrawNodeAnchors( const std::vector< size_t >& SelectionVector ) const {
+	// For every node //
+	for ( size_t idx = 0; idx < NodeAnchor.size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our node //
+		DrawNodeAnchor( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
 void cDynamicObjectCollection::DrawBoundingRect( const bool Selected ) const {
 	
 //	Gfx::Rect(
