@@ -10,7 +10,9 @@
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::cComponentEdit() :
-	CurBody( 0 )
+	CurBody( 0 ),
+	NodeRadius( 3 ),
+	isDeleteNode( false )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -80,17 +82,22 @@ void cComponentEdit::Draw()
 
 	glLineWidth( 1.0 );
 	
-	DrawSelected();
+	if( !isGroupMove )
+	{
+		if( CheckViewOne() )
+		{
+			DrawSelBox();
+		}
+	}
 	
 	Gfx::DisableBlend();
 
-	for( size_t idx = 0; idx < Body2D.size(); ++idx )
+	for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
 	{
-		for( size_t NodeIdx = 0; NodeIdx < Body2D[ idx ].Nodes.Size(); ++NodeIdx )
-		{
-			Body2D[ idx ].DrawNode( NodeIdx, false );
-		}
+		Body2D[ CurBody ].DrawNode( idx, false );
 	}
+
+	DrawSelected();
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 }
@@ -166,7 +173,11 @@ void cComponentEdit::Step()
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), Camera );
 		
+		SelectNode();
+		
 		AddNode();
+		
+		DeleteNode();
 
 	}
 	else if( CheckViewTwo( UVHeight ) )
@@ -221,12 +232,11 @@ void cComponentEdit::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DrawSelected()
 {
-	if( !isGroupMove )
+	glLineWidth( 3.0 );
+
+	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 	{
-		if( CheckViewOne() )
-		{
-			DrawSelBox();
-		}
+		Body2D[ CurBody ].DrawNode( CurSelected[idx], true );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -11,13 +11,13 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 int cComponentEdit::SingleSelectNode()
 {
-	/*int LastIdx = -1;
+	int LastIdx = -1;
 	Real LastDistance = NodeRadius;
 	Real TestDistance = NodeRadius;
 	
-	for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
+	for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
 	{
-		TestDistance = ( CurFrame->Vertex[ idx ].Pos - CurMousePos ).Magnitude();
+		TestDistance = ( Body2D[ CurBody ].Nodes.Pos( idx ) - CurMousePos ).Magnitude();
 		if( TestDistance < Real( NodeRadius ) )
 		{
 			if( TestDistance < LastDistance )
@@ -27,20 +27,19 @@ int cComponentEdit::SingleSelectNode()
 			}
 		}
 	}
-	return LastIdx;*/
+	return LastIdx;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::SelectNode()
 {
-	/*if( Button[ MOUSE_1 ].Released() )
+	if( Button[ MOUSE_1 ].Released() )
 	{
-		//Vector2D CurMousePos = CalcMousePos();
 		// Group add-select //
 		if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
 		{
-			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
+			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
 			{
-				if( WithinBox( CurFrame->Vertex[ idx ].Pos, CurMousePos, OldMousePos ) )
+				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
 				{
 					bool CurSelectedTest = false;
 					for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -77,9 +76,9 @@ void cComponentEdit::SelectNode()
 		// Group de-select //
 		else if( Button[ KEY_LCTRL ] || Button[ KEY_RCTRL ] )
 		{
-			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
+			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
 			{
-				if( WithinBox( CurFrame->Vertex[ idx ].Pos, CurMousePos, OldMousePos ) )
+				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
 				{
 					for( size_t i = 0; i < CurSelected.size(); ++i )
 					{
@@ -123,10 +122,10 @@ void cComponentEdit::SelectNode()
 		else
 		{
 			CurSelected.clear();
-
-			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
+			
+			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
 			{
-				if( WithinBox( CurFrame->Vertex[ idx ].Pos, CurMousePos, OldMousePos ) )
+				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
 				{
 					CurSelected.push_back( idx );
 				}
@@ -141,7 +140,7 @@ void cComponentEdit::SelectNode()
 				}
 			}
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::MoveNode()
@@ -236,11 +235,11 @@ void cComponentEdit::DeleteNode()
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{	
-		/*	isDeleteNode = true;
-			DeleteFaceFromNodes();
+			/*isDeleteNode = true;
+			//DeleteFaceFromNodes();
 			isDeleteNode = false;
 
-			std::vector< cFrame::cVertex > tempVertex;
+			std::vector< Engine2D::cBody2D > tempBody2D;
 			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
 			{
 				isDeleteNode = false;
@@ -253,14 +252,21 @@ void cComponentEdit::DeleteNode()
 				}	
 				if( !isDeleteNode )
 				{
-					tempVertex.push_back( CurFrame->Vertex[idx] );
+					tempBody2D.push_back( CurFrame->Vertex[idx] );
 				}
 			}
 			CurFrame->Vertex.clear();
-			CurFrame->Vertex.swap( tempVertex );
+			CurFrame->Vertex.swap( tempBody2D );
 			
 			CurSelected.clear();
 			isDeleteNode = false;*/
+			
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			{
+				Body2D[ CurBody ].DeleteNode( CurSelected[idx] );
+			}
+			//Body2D[ CurBody ].DeleteNode( 2 );
+			
 		}
 	}
 }

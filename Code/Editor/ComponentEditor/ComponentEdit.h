@@ -26,6 +26,9 @@ public:
 	// Body2D //
 	std::vector< Engine2D::cBody2D > Body2D;
 	size_t CurBody;
+	Real NodeRadius;
+
+	bool isDeleteNode;
 
 public:
 	cComponentEdit();
