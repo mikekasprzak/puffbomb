@@ -13,9 +13,9 @@ cDynamicObject::cDynamicObject( ) :
 {	
 }
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicObject::cDynamicObject( class cDynamicObject* _Parent ) :
+cDynamicObject::cDynamicObject( const class cDynamicObject* const _Parent ) :
 	Parent( _Parent )
-{	
+{
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicObject::Step() {
@@ -30,6 +30,13 @@ void cDynamicObject::Step() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicObject::Draw() {
+	Mesh.Draw( Body );
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicObject::DebugDraw() {
+	Body.DrawSpheres();
+	Body.DrawSprings();
+	Body.DrawNodes();
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

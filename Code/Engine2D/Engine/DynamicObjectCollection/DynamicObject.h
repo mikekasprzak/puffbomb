@@ -18,14 +18,14 @@ public:
 	cMesh2D Mesh;
 	
 	// Who our parent is //
-	class cDynamicObject* Parent;
+	const class cDynamicObject* Parent;
 	
-	// Flags //
+	// Activity State Flags //
 	cStateFlags State;
 
 public:
 	cDynamicObject();
-	cDynamicObject( class cDynamicObject* _Parent );
+	cDynamicObject( const class cDynamicObject* const _Parent );
 
 public:
 	// Do physics as a self sustaining object. //
@@ -33,6 +33,7 @@ public:
 	
 	// Draw Myself //
 	void Draw();
+	void DebugDraw();
 
 public:
 	// Query the state to know if component is active //
