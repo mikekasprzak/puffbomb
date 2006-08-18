@@ -33,10 +33,15 @@ void cDynamicObject::Draw() {
 	Mesh.Draw( Body );
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObject::DebugDraw() {
+void cDynamicObject::DrawBody() {
+	// Draw the debug body information //
 	Body.DrawSpheres();
 	Body.DrawSprings();
 	Body.DrawNodes();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicObject::DrawMesh() {
+	// Draw the debug mesh information //
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

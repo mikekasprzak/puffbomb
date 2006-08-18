@@ -28,12 +28,15 @@ public:
 	cDynamicObject( const class cDynamicObject* const _Parent );
 
 public:
-	// Do physics as a self sustaining object. //
+	// Do physics as a self sustaining object //
 	void Step();
 	
-	// Draw Myself //
+	// Draw object Mesh transformed by Body //
 	void Draw();
-	void DebugDraw();
+	
+	// Debug Drawing //
+	void DrawBody();
+	void DrawMesh(); // May not need //
 
 public:
 	// Query the state to know if component is active //
