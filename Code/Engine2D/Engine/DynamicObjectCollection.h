@@ -29,23 +29,44 @@ public:
 	}
 	
 public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Do physics, as a self sustaining object //
 	void Step();
 	// Step the mass body linkage (node links and anchors) //
 	void StepLinkage();
-	
+
 	// Do any work (control/AI) I may have.  This is commonly overloaded to provide control. //
 	virtual void Work();
-	// Draw Myself. This is uncommonly overloaded, unless you want a different display method. //
-	virtual void Draw();
 
 public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Draw this object, and all it's Meshes transformed by it's Bodies //
+	void Draw();
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Debug Drawing Functions //
+	void DebugDraw();
+	
+	void DrawComponent( const size_t Index, const bool Selected = false ) const;
+	void DrawNodeLink( const size_t Index, const bool Selected = false ) const;
+	void DrawNodeAnchor( const size_t Index, const bool Selected = false ) const;
+
+	void DrawComponents( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+	void DrawNodeLinks( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+	void DrawNodeAnchors( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+
+	void DrawBoundingRect( const bool Selected = false ) const;
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Query if this object is, at all, enabled //
 	inline bool IsActive() {
 		return true;
 	}
 
 public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
 	
 };

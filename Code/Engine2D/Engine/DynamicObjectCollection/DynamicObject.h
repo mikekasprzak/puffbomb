@@ -28,30 +28,38 @@ public:
 	cDynamicObject( const class cDynamicObject* const _Parent );
 
 public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Do physics as a self sustaining object //
 	void Step();
-	
+
+public:	
+	// - -------------------------------------------------------------------------------------- - //
 	// Draw object Mesh transformed by Body //
 	void Draw();
-	
-	// Debug Drawing //
-	void DrawBody();
-	void DrawMesh(); // May not need //
 
 public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Debug Drawing //
+	void DrawBody( const bool Selected = false ) const;
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Query the state to know if component is active //
 	inline bool IsActive() {
 		return State.Active();
 	}
 
 public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Solve Collisions/Actions //
 	void Solve( cDynamicObject& _Vs );
 	void Solve( class cStaticObject& _Vs );
 	void Solve( class cPassiveObject& _Vs );
 	void Solve( class cZone& _Vs );
 	void Solve( class cImpulse& _Vs );
-	
+
+public:	
+	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
 	// * needs to be here to relay the message back to the parent ** //
 };
