@@ -50,19 +50,31 @@ public:
 	void ActiveAction();
 public:
 	// ComponentEditNode.cpp //
-	int SingleSelectNode();
-	void SelectNode();
-	void MoveNode();
-	void AddNode();
-	void DeleteNode();
-	void ScaleNode();
+	int BodySingleSelectNode();
+	void BodySelectNode();
+	void BodyMoveNode();
+	void BodyAddNode();
+	void BodyDeleteNode();
+	void BodyScaleNode();
 
+public:
+	// ComponentEditSphere.cpp //
+	void BodySetRadius( Real RadiusDiff, int Node );
+	void BodyAddSphere();
+	void BodySphereCheck();
+	void BodyDeleteSphere();
+	void BodyRadius( Real RadiusDiff );
+public:
+	// ComponentEditSpring.cpp //
+	void BodySelectSpring();
+	void BodyAddSpring();
+	void BodyDeleteSpring();
+	
 public:
 	// ComponentEditText.cpp //
 	void DisplayText();
 	void DisplayNodeInfo();
 	void DisplayMode();
-
 
 };
 // - ------------------------------------------------------------------------------------------ - //

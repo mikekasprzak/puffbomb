@@ -179,13 +179,13 @@ void cComponentEdit::Step()
 		{
 			if( !isGroupMove )
 			{
-				SelectNode();
+				BodySelectNode();
 			
-				AddNode();
+				BodyAddNode();
 				
-				DeleteNode();
+				BodyDeleteNode();
 			}
-			MoveNode();
+			BodyMoveNode();
 		}
 		else if( CurMode == SPHERE_MODE )
 		{

@@ -12,7 +12,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-int cComponentEdit::SingleSelectNode()
+int cComponentEdit::BodySingleSelectNode()
 {
 	int LastIdx = -1;
 	Real LastDistance = NodeRadius;
@@ -33,7 +33,7 @@ int cComponentEdit::SingleSelectNode()
 	return LastIdx;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SelectNode()
+void cComponentEdit::BodySelectNode()
 {
 	if( Button[ MOUSE_1 ].Released() )
 	{
@@ -59,7 +59,7 @@ void cComponentEdit::SelectNode()
 				}
 			}
 			// Single add-select //
-			int temp = SingleSelectNode();
+			int temp = BodySingleSelectNode();
 			if( temp != -1 )
 			{
 				bool CurSelectedTest = false;
@@ -101,7 +101,7 @@ void cComponentEdit::SelectNode()
 				}
 			}
 			// Single de-select //
-			int temp = SingleSelectNode();
+			int temp = BodySingleSelectNode();
 			if( temp != -1 )
 			{
 				for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -136,7 +136,7 @@ void cComponentEdit::SelectNode()
 			// Single select //
 			if( CurSelected.empty() )
 			{
-				int temp = SingleSelectNode();
+				int temp = BodySingleSelectNode();
 				if( temp != -1 )
 				{
 					CurSelected.push_back( temp );
@@ -146,13 +146,13 @@ void cComponentEdit::SelectNode()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::MoveNode()
+void cComponentEdit::BodyMoveNode()
 {
 	if( Button[ MOUSE_1 ].Pressed() )
 	{
 		if( !Button[ KEY_LCTRL ] || !Button[ KEY_RCTRL ] )
 		{
-			int temp = SingleSelectNode();
+			int temp = BodySingleSelectNode();
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				if( temp == int(CurSelected[idx]) )
@@ -208,7 +208,7 @@ void cComponentEdit::MoveNode()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::AddNode()
+void cComponentEdit::BodyAddNode()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() /* || isPaste == true */ )
 	{
@@ -229,7 +229,7 @@ void cComponentEdit::AddNode()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::DeleteNode()
+void cComponentEdit::BodyDeleteNode()
 {
 	if( !CurSelected.empty() )
 	{
@@ -248,7 +248,7 @@ void cComponentEdit::DeleteNode()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::ScaleNode()
+void cComponentEdit::BodyScaleNode()
 {
 	/*if( Button[ KEY_L ].Pressed() )
 	{
