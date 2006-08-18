@@ -57,6 +57,13 @@ public:
 	void DeleteNode();
 	void ScaleNode();
 
+public:
+	// ComponentEditText.cpp //
+	void DisplayText();
+	void DisplayNodeInfo();
+	void DisplayMode();
+
+
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

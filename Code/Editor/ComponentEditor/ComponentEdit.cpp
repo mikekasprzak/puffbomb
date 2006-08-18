@@ -109,7 +109,7 @@ void cComponentEdit::HudDraw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	
-	//DisplayText();
+	DisplayText();
 	
 //	//  DISPLAYS FPS  //
 //	std::stringstream Temp;
