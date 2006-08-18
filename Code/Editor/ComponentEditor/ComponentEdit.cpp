@@ -63,8 +63,14 @@ cComponentEdit::cComponentEdit() :
 
 	Body2D[ 0 ].Nodes.Pos( 0 ) = Vector2D( 50.0, 20.0 );
 	Body2D[ 0 ].Nodes.Pos( 1 ) = Vector2D( 20.0, 50.0 );
+
+	Body2D[ 0 ].AddNode();
+
+	Body2D[ 0 ].AddSphere( 1 );
+	Body2D[ 0 ].AddSphere( 0 );
+	Body2D[ 0 ].Sphere[ 0 ].Radius = Real( 30 );
 	
-	//Body2D[ 0 ].DeleteNode( 2 );
+	CurMode = NODE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::~cComponentEdit()
@@ -92,16 +98,27 @@ void cComponentEdit::Draw()
 	
 	Gfx::DisableBlend();
 
-	for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
-	{
-		Body2D[ CurBody ].DrawNode( idx, false );
-	}
-
-	DrawSelected();
-
-	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+	// Draw nodes and selected nodes //
+	Body2D[ CurBody ].DrawNodes( CurSelected );
 	
-	CurMode = NODE_MODE;
+	// Draw spheres //
+	for( size_t idx = 0; idx < Body2D[ CurBody ].Sphere.size(); ++idx )
+	{
+		Body2D[ CurBody ].DrawSphere( idx, false );
+	}
+	// Draw selected spheres //
+	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+	{
+		for( size_t SphereIdx = 0; SphereIdx < Body2D[ CurBody ].Sphere.size(); ++SphereIdx )
+		{
+			if( CurSelected[idx] == Body2D[ CurBody ].Sphere[ SphereIdx ].Index )
+			{
+				Body2D[ CurBody ].DrawSphere( SphereIdx, true );
+			}
+		}
+	}
+	
+	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::HudDraw()
@@ -172,9 +189,12 @@ void cComponentEdit::Step()
 		{
 			Scroll( Camera );
 		}
-		// Handles the zooming in and out of a map
-		Zoom( Real( 32.0 ), Camera );
 		
+		if( !Button[ KEY_LSHIFT ] && !Button[ KEY_LCTRL ] )
+		{
+			// Handles the zooming in and out of a map
+			Zoom( Real( 32.0 ), Camera );
+		}	
 		if( CurMode == NODE_MODE )
 		{
 			if( !isGroupMove )
@@ -189,7 +209,22 @@ void cComponentEdit::Step()
 		}
 		else if( CurMode == SPHERE_MODE )
 		{
+			if( !isGroupMove )
+			{
+				BodySelectNode();
 			
+				BodyAddSphere();
+				
+				if( Button[ KEY_LSHIFT ] )
+				{
+					BodyRadius( Real( 0.1 ) );
+				}
+				else
+				{
+					BodyRadius( Real( 1 ) );
+				}
+			}
+			BodyMoveNode();
 		}
 		else if( CurMode == SPRING_MODE )
 		{
@@ -242,29 +277,10 @@ void cComponentEdit::Step()
 	}
 	
 	Undo();
-
+	
+	SwitchMode();
+	
 	LastView = CurView;
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::DrawSelected()
-{
-	glLineWidth( 3.0 );
-
-	if( CurMode == NODE_MODE )
-	{
-		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-		{
-			Body2D[ CurBody ].DrawNode( CurSelected[idx], true );
-		}
-	}
-	else if( CurMode == SPHERE_MODE )
-	{
-		
-	}
-	else if( CurMode == SPRING_MODE )
-	{
-		
-	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cComponentEdit::CalcMousePos()
@@ -380,6 +396,33 @@ void cComponentEdit::Undo()
 void cComponentEdit::ActiveAction()
 {
 	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::SwitchMode()
+{	
+	unsigned int LastMode = CurMode;
+	
+	if ( Button[ KEY_1 ].Pressed() )
+	{
+		CurMode = NODE_MODE;
+	}
+	else if ( Button[ KEY_2 ].Pressed() )
+	{
+		CurMode = SPHERE_MODE;
+	}
+	else if ( Button[ KEY_3 ].Pressed() )
+	{
+		CurMode = SPRING_MODE;
+	}
+	
+	if( LastMode <= SPRING_MODE && CurMode <= SPRING_MODE )
+	{
+		
+	}
+	else
+	{
+		CurSelected.clear();	
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

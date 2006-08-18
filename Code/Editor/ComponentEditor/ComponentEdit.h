@@ -41,13 +41,14 @@ public:
 	void PreviewDraw();
 	void UVDraw();
 	void Step();
-	void DrawSelected();
 	
 	Vector2D CalcMousePos();
 	Vector2D CalcUVMousePos();
 	
 	void Undo();
 	void ActiveAction();
+	void SwitchMode();
+	
 public:
 	// ComponentEditBodyNode.cpp //
 	int BodySingleSelectNode();
@@ -64,6 +65,7 @@ public:
 	void BodySphereCheck();
 	void BodyDeleteSphere();
 	void BodyRadius( Real RadiusDiff );
+	
 public:
 	// ComponentEditBodySpring.cpp //
 	void BodySelectSpring();
