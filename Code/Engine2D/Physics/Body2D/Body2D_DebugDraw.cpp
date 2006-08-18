@@ -13,8 +13,8 @@ void cBody2D::DrawNode( const size_t Index, const bool Selected ) const {
 	// Draw a circle for our node //
 	Gfx::Circle(
 		MyNode,
-		Selected ? Gfx::RGBA(192, 192, 192, 192) : Gfx::RGBA(128, 128, 128, 128),
-		Real( 2 )
+		Real( 2 ),
+		Selected ? Gfx::RGBA(192, 192, 192, 192) : Gfx::RGBA(128, 128, 128, 128)
 		);
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -54,16 +54,16 @@ void cBody2D::DrawSphere( const size_t Index, const bool Selected ) const {
 		// A sphere acting as a sensor //
 		Gfx::Circle(
 			Pos,
-			Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192),
-			MySphere.Radius
+			MySphere.Radius,
+			Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192)
 			);
 	}
 	else {
 		// A normal sphere //
 		Gfx::Circle(
 			Pos,
-			Selected ? Gfx::RGBA(192, 96, 64, 255) : Gfx::RGBA(128, 32, 0, 192),
-			MySphere.Radius
+			MySphere.Radius,
+			Selected ? Gfx::RGBA(192, 96, 64, 255) : Gfx::RGBA(128, 32, 0, 192)
 			);
 	}	
 }

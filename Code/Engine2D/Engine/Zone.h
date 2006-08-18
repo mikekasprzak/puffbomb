@@ -10,22 +10,31 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cZone {
 public:
-	// Bounding rectangle, the only thing a Zone has going for it, beyond actions //
-	cPhysics::BoundingRectType BoundingRect;
-	
 	int Id;
 	int Argument;
 
 public:
+	// Bounding rectangle, the only thing a Zone has going for it, beyond actions //
+	cPhysics::BoundingRectType BoundingRect;
+	// Draw it //
+	void DrawBoundingRect( const bool Selected = false ) const;
+
+public:
 	cZone( const Vector2D Pos1, const Vector2D Pos2 ) :
-		BoundingRect( cPhysics::BoundingRectType::Pair( Pos1, Pos2 ) ),
 		Id( 0 ),
-		Argument( 0 )
+		Argument( 0 ),
+		BoundingRect( cPhysics::BoundingRectType::Pair( Pos1, Pos2 ) )
 	{
 	}
 
 public:
+	void DebugDraw() const;
+public:
+	// Messanging //
 	void Action( class cDynamicObject& _Vs );
+	
+	// Functioning (actions to take with zones on initialization) //
+	// Return true to kill it after executing //
 	bool InitZone( );
 };
 // - ------------------------------------------------------------------------------------------ - //

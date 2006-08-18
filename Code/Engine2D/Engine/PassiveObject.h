@@ -14,16 +14,25 @@ class cPassiveObject {
 public:
 	Vector2D Pos;
 	
-	// Bounding rectangle //
-	cPhysics::BoundingRectType BoundingRect;
-
 	int Id;
 	int Argument;
+	
+	//cAnimator Animator;
 
 public:
-	
+	// Bounding rectangle //
+	cPhysics::BoundingRectType BoundingRect;
+	// Draw it //
+	void DrawBoundingRect( const bool Selected = false ) const;
 
 public:	
+	void Draw() const;
+	void DebugDraw() const;
+	
+	virtual void Work();
+
+public:
+	// Messanging //
 	void Action( class cDynamicObject& _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //

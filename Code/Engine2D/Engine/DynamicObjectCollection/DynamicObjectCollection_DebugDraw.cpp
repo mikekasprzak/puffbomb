@@ -65,6 +65,7 @@ void cDynamicObjectCollection::DrawNodeAnchor( const size_t Index, const bool Se
 	const Vector2D& PointA = Component[ MySpring.Object ].Body.Nodes.Pos( MySpring.Index );
 	const Vector2D& PointB = MySpring.Pos;
 	
+	// Draw the line //
 	if ( MySpring.Flags.Broken() ) {
 		// Bail if broken spring distance exceeds threshold // 
 		if ( (PointB - PointA).MagnitudeSquared() > (Real(256) * Real(256)) )
@@ -83,6 +84,13 @@ void cDynamicObjectCollection::DrawNodeAnchor( const size_t Index, const bool Se
 			Selected ? Gfx::RGBA(255, 128, 64, 192) : Gfx::RGBA(192, 96, 0, 128)
 			);
 	}
+
+	// Draw a red cirle representing the anchoring position //
+	Gfx::Circle(
+		PointB,
+		Real( 4 ),
+		Selected ? Gfx::RGBA(255, 64, 64, 192) : Gfx::RGBA(192, 0, 0, 128)
+		);
 }
 // - ------------------------------------------------------------------------------------------ - //
 
