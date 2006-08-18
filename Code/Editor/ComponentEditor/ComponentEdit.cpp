@@ -61,6 +61,17 @@ cComponentEdit::~cComponentEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Draw()
 {
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
+
+
+	Gfx::DisableTex2D();	
+
+	glLineWidth( 1.0 );
+	DrawSelected();
+	
+	Gfx::DisableBlend();
+
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -91,14 +102,24 @@ void cComponentEdit::PreviewDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::UVDraw()
 {
+	glLineWidth( 1.0 );
+	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	
-	
 	Gfx::DisableTex2D();
-	Gfx::DisableBlend();
 	
+	if( !isGroupMove )
+	{
+		if( CheckViewThree( UVHeight ) )
+		{
+			DrawSelBox();
+		}
+	}
+	Gfx::DisableBlend();
+
 	DrawGrid( UVCamera, CurrentGridDepth, 40.0, true, GridDepth );
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Step()
@@ -107,6 +128,11 @@ void cComponentEdit::Step()
 	{
 		CurView = 1;
 		CurMousePos = CalcMousePos();
+
+		if( Button[ MOUSE_1 ].Pressed() )
+		{
+			OldMousePos = CurMousePos;
+		}
 
 		// Handles scrolling around the map
 		if( Platform::AspectRatio < Real( 0.79 ) )
@@ -147,6 +173,11 @@ void cComponentEdit::Step()
 	{
 		CurView = 3;
 		CurMousePos = CalcUVMousePos();
+		
+		if( Button[ MOUSE_1 ].Pressed() )
+		{
+			OldMousePos = CurMousePos;
+		}
 
 		// Handles scrolling around the map
 		if( Platform::AspectRatio < Real( 0.79 ) )
@@ -164,8 +195,18 @@ void cComponentEdit::Step()
 	
 	Undo();
 
-
 	LastView = CurView;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::DrawSelected()
+{
+	if( !isGroupMove )
+	{
+		if( CheckViewOne() )
+		{
+			DrawSelBox();
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cComponentEdit::CalcMousePos()
@@ -280,7 +321,7 @@ void cComponentEdit::Undo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::ActiveAction()
 {
-
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

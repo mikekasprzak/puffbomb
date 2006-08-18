@@ -45,8 +45,6 @@ public:
 	int ScrollMouseX;
 	int ScrollMouseY;
 
-//	Real ScrollMouseX;
-//	Real ScrollMouseY;
 	int ScrollFrame;
 
 	int CurView;
@@ -86,13 +84,18 @@ public:
 	std::vector< unsigned int > TextureID;
 	std::vector< std::string > TextureName;
 
+	std::vector<size_t> CurSelected;
+
+	Vector3D SelBoxVertex[4];
+	unsigned int SelBoxIndices[5];
+
 public:
 	std::string CurrentDir;
 	
 	std::ostringstream TempStringStream;
 	std::string TempString;
 	Vector3D TempLocation;
-	
+
 public:	
 	void Scroll( cCamera* MyCamera );
 	void Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH, const Vector2D ZoomInfo );
@@ -111,6 +114,8 @@ public:
 	bool CheckViewThree( const Real ViewHeight );
 	void LoadTextures();
 	int FindTexture( const unsigned int& TempTextureID );
+	void DrawSelBox();
+
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

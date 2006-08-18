@@ -51,7 +51,7 @@ public:
 	int SceneryIdx;
 	
 	size_t CurrentObject;
-	std::vector<size_t> CurSelected;
+//	std::vector<size_t> CurSelected;
 	
 	std::vector<cMapObject> MapObject;
 	std::vector<cMapObject> CopyStorage;

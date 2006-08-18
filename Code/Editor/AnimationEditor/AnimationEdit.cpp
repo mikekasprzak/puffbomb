@@ -556,27 +556,6 @@ void cAnimationEdit::DrawSelected()
 	Gfx::EnableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cAnimationEdit::DrawSelBox()
-{
-	if( Button[ MOUSE_1 ] )
-	{	
-		glLineWidth( 1.0 );
-		
-			SelBoxVertex[ 0 ] = Vector3D( CurMousePos.x, CurMousePos.y, Real::Zero );
-			SelBoxVertex[ 1 ] = Vector3D( CurMousePos.x, OldMousePos.y, Real::Zero );
-			SelBoxVertex[ 2 ] = Vector3D( OldMousePos.x, OldMousePos.y, Real::Zero );
-			SelBoxVertex[ 3 ] = Vector3D( OldMousePos.x, CurMousePos.y, Real::Zero );
-				
-		for( size_t idx = 0; idx < 4; ++idx )
-		{
-			SelBoxIndices[ idx ] = idx;
-		}
-		SelBoxIndices[ 4 ] = 0;
-	
-		Gfx::DrawLineStrip( SelBoxVertex, SelBoxIndices, 5, Gfx::White() );
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::SwitchMode()
 {	
 	unsigned int LastMode = CurMode;

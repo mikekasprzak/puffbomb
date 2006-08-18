@@ -58,8 +58,8 @@ public:
 			
 	std::vector<bool> HasSphere;
 		
-	Vector2D OldMousePos;
-	std::vector<size_t> CurSelected;
+//	Vector2D OldMousePos;
+//	std::vector<size_t> CurSelected;
 //	bool isGroupMove;
 	
 public:	

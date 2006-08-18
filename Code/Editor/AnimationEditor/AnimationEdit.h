@@ -40,12 +40,9 @@ public:
 	ABCDSet< Vector2D > TexUV;
 	unsigned int TexIndices[4];
 	
-	Vector3D SelBoxVertex[4];
-	unsigned int SelBoxIndices[5];
-	
 	Real NodeRadius;
 	
-	std::vector<size_t> CurSelected;
+//	std::vector<size_t> CurSelected;
 	std::vector<size_t> CurSelUV;
 		
 	int CurTexIdx;
@@ -71,7 +68,6 @@ public:
 	
 	void DrawFrame();
 	void DrawSelected();
-	void DrawSelBox();
 	
 	void SwitchMode();
 	void SwitchFrame();

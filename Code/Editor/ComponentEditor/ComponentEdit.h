@@ -29,6 +29,7 @@ public:
 	void PreviewDraw();
 	void UVDraw();
 	void Step();
+	void DrawSelected();
 	
 	Vector2D CalcMousePos();
 	Vector2D CalcUVMousePos();
