@@ -11,8 +11,8 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::cComponentEdit() :
 	CurBody( 0 ),
-	NodeRadius( 3 ),
-	isDeleteNode( false )
+	NodeRadius( 3 )
+//	isDeleteNode( false )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -173,12 +173,26 @@ void cComponentEdit::Step()
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), Camera );
 		
-		SelectNode();
-		
-		AddNode();
-		
-		DeleteNode();
-
+		if( CurMode == NODE_MODE )
+		{
+			if( !isGroupMove )
+			{
+				SelectNode();
+			
+				AddNode();
+				
+				DeleteNode();
+			}
+			MoveNode();
+		}
+		else if( CurMode == SPHERE_MODE )
+		{
+			
+		}
+		else if( CurMode == SPRING_MODE )
+		{
+			
+		}
 	}
 	else if( CheckViewTwo( UVHeight ) )
 	{
@@ -234,9 +248,20 @@ void cComponentEdit::DrawSelected()
 {
 	glLineWidth( 3.0 );
 
-	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+	if( CurMode == NODE_MODE )
 	{
-		Body2D[ CurBody ].DrawNode( CurSelected[idx], true );
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Body2D[ CurBody ].DrawNode( CurSelected[idx], true );
+		}
+	}
+	else if( CurMode == SPHERE_MODE )
+	{
+		
+	}
+	else if( CurMode == SPRING_MODE )
+	{
+		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -145,7 +145,7 @@ void cComponentEdit::SelectNode()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::MoveNode()
 {
-	/*if( Button[ MOUSE_1 ].Pressed() )
+	if( Button[ MOUSE_1 ].Pressed() )
 	{
 		if( !Button[ KEY_LCTRL ] || !Button[ KEY_RCTRL ] )
 		{
@@ -179,8 +179,7 @@ void cComponentEdit::MoveNode()
 
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
-			
-				CalcSnapToGrid( CurFrame->Vertex[ CurSelected[idx] ].Pos, CurrentGridDepth, GridDepth );
+				CalcSnapToGrid( Body2D[ CurBody ].Nodes.Pos( CurSelected[idx] ), CurrentGridDepth, GridDepth );
 			}
 			SnapToGrid = false;
 			ActiveAction();
@@ -194,16 +193,16 @@ void cComponentEdit::MoveNode()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			CurFrame->Vertex[ CurSelected[idx] ].Pos.x -=
+			Body2D[ CurBody ].Nodes.Pos( CurSelected[idx] ).x -=
 				( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
 				Real( Camera->Pos.z / cGlobal::HudZoom );
 			
-			CurFrame->Vertex[ CurSelected[idx] ].Pos.y +=
+			Body2D[ CurBody ].Nodes.Pos( CurSelected[idx] ).y +=
 				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
 				Real( Camera->Pos.z / cGlobal::HudZoom );
 		
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::AddNode()
@@ -212,9 +211,9 @@ void cComponentEdit::AddNode()
 	{
 		CurSelected.clear();
 		
-		size_t tempIdx = Body2D[ CurBody ].Nodes.Size() - 1;
-		
 		Body2D[ CurBody ].AddNode();
+
+		size_t tempIdx = Body2D[ CurBody ].Nodes.Size() - 1;
 		
 		Body2D[ CurBody ].Nodes.Pos( tempIdx ) = CurMousePos;
 
@@ -234,39 +233,13 @@ void cComponentEdit::DeleteNode()
 	if( !CurSelected.empty() )
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
-		{	
-			/*isDeleteNode = true;
-			//DeleteFaceFromNodes();
-			isDeleteNode = false;
-
-			std::vector< Engine2D::cBody2D > tempBody2D;
-			for( size_t idx = 0; idx < CurFrame->Vertex.size(); ++idx )
-			{
-				isDeleteNode = false;
-				for( size_t i = 0; i < CurSelected.size(); ++i )
-				{
-					if( idx == CurSelected[i] )
-					{
-						isDeleteNode = true;	
-					}
-				}	
-				if( !isDeleteNode )
-				{
-					tempBody2D.push_back( CurFrame->Vertex[idx] );
-				}
-			}
-			CurFrame->Vertex.clear();
-			CurFrame->Vertex.swap( tempBody2D );
-			
-			CurSelected.clear();
-			isDeleteNode = false;*/
-			
+		{
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				Body2D[ CurBody ].DeleteNode( CurSelected[idx] );
 			}
-			//Body2D[ CurBody ].DeleteNode( 2 );
 			
+			CurSelected.clear();
 		}
 	}
 }

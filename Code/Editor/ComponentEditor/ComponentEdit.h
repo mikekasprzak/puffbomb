@@ -28,7 +28,7 @@ public:
 	size_t CurBody;
 	Real NodeRadius;
 
-	bool isDeleteNode;
+	//bool isDeleteNode;
 
 public:
 	cComponentEdit();
