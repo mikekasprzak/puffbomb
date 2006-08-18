@@ -211,18 +211,22 @@ void cComponentEdit::AddNode()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() /* || isPaste == true */ )
 	{
-		/*CurSelected.clear();
+		CurSelected.clear();
 		
-		CurFrame->Vertex.push_back( cFrame::cVertex( CurMousePos ) );
+		size_t tempIdx = Body2D[ CurBody ].Nodes.Size() - 1;
+		
+		Body2D[ CurBody ].AddNode();
+		
+		Body2D[ CurBody ].Nodes.Pos( tempIdx ) = CurMousePos;
 
 		SetGridDepth( Camera, CurrentGridDepth, 40.0 );
 		SetGridArray( CurrentGridDepth, GridDepth );
 		
-		CalcSnapToGrid( CurFrame->Vertex[CurFrame->Vertex.size() - 1].Pos, CurrentGridDepth, GridDepth );
+		CalcSnapToGrid( Body2D[ CurBody ].Nodes.Pos( tempIdx ), CurrentGridDepth, GridDepth );
 		
-		CurSelected.push_back( CurFrame->Vertex.size() - 1 );
+		CurSelected.push_back( tempIdx );
 		
-		ActiveAction();*/
+		ActiveAction();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

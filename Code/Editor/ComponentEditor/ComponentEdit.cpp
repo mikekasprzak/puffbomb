@@ -9,7 +9,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-cComponentEdit::cComponentEdit()
+cComponentEdit::cComponentEdit() :
+	CurBody( 0 )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -61,7 +62,7 @@ cComponentEdit::cComponentEdit()
 	Body2D[ 0 ].Nodes.Pos( 0 ) = Vector2D( 50.0, 20.0 );
 	Body2D[ 0 ].Nodes.Pos( 1 ) = Vector2D( 20.0, 50.0 );
 	
-	Body2D[ 0 ].DeleteNode( 2 );
+	//Body2D[ 0 ].DeleteNode( 2 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::~cComponentEdit()
@@ -164,7 +165,8 @@ void cComponentEdit::Step()
 		}
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), Camera );
-
+		
+		AddNode();
 
 	}
 	else if( CheckViewTwo( UVHeight ) )

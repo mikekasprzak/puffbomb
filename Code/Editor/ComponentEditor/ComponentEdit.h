@@ -25,6 +25,7 @@ public:
 public:
 	// Body2D //
 	std::vector< Engine2D::cBody2D > Body2D;
+	size_t CurBody;
 
 public:
 	cComponentEdit();
