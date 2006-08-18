@@ -17,7 +17,12 @@ public:
 	Real Length;
 
 public:
+	// Bounding rectangle, for early out test //
 	cPhysics::BoundingRectType BoundingRect;
+	// Calculate the rectangle for the object //
+	inline void CalcBoundingRect( const cStaticNodes& Node ) {
+		BoundingRect = cPhysics::BoundingRectType::Pair( Node.Pos( a ), Node.Pos( b ) );
+	}	
 	
 public:
 	cStaticEdge( ) {
@@ -43,7 +48,7 @@ public:
 		flCorner = bit2
 	};
 	
-	inline const Vector2D ClosestPoint( cStaticNodes& Node, const Vector2D& Vs, int& Flags = cPhysics::Current->OperationFlags ) const {
+	inline const Vector2D ClosestPoint( const cStaticNodes& Node, const Vector2D& Vs, int& Flags = cPhysics::Current->OperationFlags ) const {
 		Vector2D ToCorner = Node.Pos( a ) - Vs;
 		Real DistanceToSurface = ToCorner * SurfaceNormal();
 		Vector2D Point = Vs + (DistanceToSurface * SurfaceNormal());
@@ -66,7 +71,7 @@ public:
 	}
 
 public:
-	inline void CalcNormal( cStaticNodes& Node ) {
+	inline void CalcNormal( const cStaticNodes& Node ) {
 		// Calculate the Directional Vector //
 		Normal = Node.Pos( a ) - Node.Pos( b );
 		// Normalize it, and store the Length //
@@ -74,10 +79,6 @@ public:
 		// Now, take the Tangent of the vector //
 		Normal = Normal.Tangent();
 	}
-	
-	inline void CalcBoundingRect( cStaticNodes& Node ) {
-		BoundingRect = cPhysics::BoundingRectType::Pair( Node.Pos( a ), Node.Pos( b ) );
-	}	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

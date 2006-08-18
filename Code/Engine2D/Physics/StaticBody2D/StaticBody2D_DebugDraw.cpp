@@ -37,7 +37,7 @@ void cStaticBody2D::DrawEdge( const size_t Index, const bool Selected ) const {
 		// Draw the Normal //
 		Gfx::Line(
 			Center,
-			Center + (MyEdge.Normal * Real( 10 )),
+			Center + (MyEdge.SurfaceNormal() * Real( 10 )),
 			Selected ? Gfx::RGBA(255, 255, 255, 192) : Gfx::RGBA(255, 255, 255, 128)
 			);
 	}
