@@ -60,9 +60,7 @@ public:
 
 public:
 	// ComponentEditBodySphere.cpp //
-	void BodySetRadius( Real RadiusDiff, int Node );
 	void BodyAddSphere();
-	void BodySphereCheck();
 	void BodyDeleteSphere();
 	void BodyRadius( Real RadiusDiff );
 	

@@ -215,6 +215,8 @@ void cComponentEdit::Step()
 			
 				BodyAddSphere();
 				
+				BodyDeleteSphere();
+					
 				if( Button[ KEY_LSHIFT ] )
 				{
 					BodyRadius( Real( 0.1 ) );
