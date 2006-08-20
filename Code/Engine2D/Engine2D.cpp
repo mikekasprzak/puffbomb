@@ -1,10 +1,31 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Engine2D.h"
+
+#include <Platform/Global.h>
+
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 // Static instance to know who's active //
 cEngine2D* cEngine2D::Current;
+// - ------------------------------------------------------------------------------------------ - //
+cEngine2D::cEngine2D() {
+	Real HudZoom = 1302.5;
+	
+	// Create Camera //
+	Camera = Engine2D::cCamera(
+		Vector3D( 0.0, 0.0, HudZoom ),					// Pos
+		Vector3D( 0.0, 0.0, 0.0 ),						// View
+		Vector3D( 0.0, 1.0, 0.0 ),						// Up
+		45.0,											// Field of View
+		Platform::AspectRatio,							// Aspect Ratio
+		1.0,											// NearClip
+		100000.0,										// FarClip
+		HudZoom,										// MinZoom
+		HudZoom + Real( 8000 ),							// MaxZoom
+		HudZoom											// HudZoom
+	 );	
+}
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Step() {
 	// Set my Engine and Physics instance to be the active ones //

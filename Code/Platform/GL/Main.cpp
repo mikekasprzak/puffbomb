@@ -20,9 +20,12 @@ using namespace std;
 
 #include <Global.h>
 #include <Game.h>
+#include <Engine2D.h>
 #include <Editor/Editor.h>
 #include <Particle2D/ParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // ---------------------------------------------------------------------------------------------- //
 extern void QuitGame( int ReturnCode );
@@ -312,6 +315,102 @@ int main( int argc, char* argv[] ) {
 	    Log( LOG_HIGHEST_LEVEL, "Video mode set failed: " << SDL_GetError() );
 	    QuitGame( 1 );
 	}
+
+
+#ifdef NEWENGINE
+	// New Loop //
+	while( !Input::Button[ KEY_ESC ].Pressed() /*!cGlobal::Shutdown*/ ) {
+		glCullFace( GL_BACK );
+		glFrontFace( GL_CCW );
+		// This enables backface culling //
+		glEnable( GL_CULL_FACE );
+	
+		glEnable( GL_LINE_SMOOTH );
+		glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
+		glLineWidth( 1.5 );
+		
+		glShadeModel( GL_SMOOTH );
+		glEnable( GL_DEPTH_TEST );
+		glDepthFunc( GL_LEQUAL );
+		glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
+		
+		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+		
+		Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
+		Engine2D::cEngine2D Engine;//( /*Platform::ScreenW, Platform::ScreenH*/ );
+
+		int LastTime = SDL_GetTicks();
+		
+		Platform::FrameClock = LastTime;
+		Platform::FPS = 0;
+		int FramesPast = 0;
+
+		// Standard Rendering Loop //
+		while( !Input::Button[ KEY_ESC ].Pressed()  /*!cGlobal::Shutdown*/ ) {
+			// The SDL Message Loop, correctly setting input flags and shutdown stuff //
+			MessageLoop();
+	
+			// A whole bunch of complicated crap to give us a flexible framerate //			
+			int FPS = 60;
+			int MS = 1000 / FPS;
+			
+			int ThisTime = SDL_GetTicks();
+			
+			if ( Platform::FrameClock + 1000 < ThisTime ) {
+				Platform::FrameClock = ThisTime;
+				Platform::FPS = FramesPast;
+				FramesPast = 0;
+			}
+			
+			if ( ThisTime - LastTime >= MS ) {
+				int Loops = (ThisTime - LastTime) / MS;
+				LastTime += Loops * MS;
+				FramesPast++;
+				// Step the engine //
+				for ( int idx = 0; idx < Loops; idx ++ ) {
+					// Update controls //
+					Input::Update();
+					
+					// Reset Hack //					
+					if ( Input::Button[ KEY_TAB ] ) {
+						if ( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
+							break;
+						}
+					}
+					
+					if ( !Input::Button[ KEY_SPACE ] ) {
+						// Normal Game Loopage //
+						Engine.Step();
+					}
+				}
+	
+				// Draw the Game //
+				{
+					glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+					// Translate Camera //
+					glLoadIdentity();
+					glTranslatef ( -Engine.Camera.Pos.x, -Engine.Camera.Pos.y, -Engine.Camera.Pos.z );
+
+					// Temp circle for verification //
+					Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
+
+
+					// Draw Game //
+					Engine.Draw();
+					
+					// Draw Hud //
+//					glLoadIdentity();
+//					glTranslatef ( -Game.HudCamera->Pos.x, -Game.HudCamera->Pos.y, -Game.HudCamera->Pos.z );
+//					Game.HudDraw();
+				}
+				
+			    SDL_GL_SwapBuffers();
+			}
+		}				
+	}
+
+#else // NEWENGINE //
 
 	// Master Loop //	
 	while( !cGlobal::Shutdown ) {
@@ -808,7 +907,8 @@ int main( int argc, char* argv[] ) {
 			}
 		}
 	}
-	
+#endif // NEWENGINE //
+
 	QuitGame( 0 );
 	return 0;
 }

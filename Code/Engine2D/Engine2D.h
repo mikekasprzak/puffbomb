@@ -12,10 +12,12 @@
 #include <Engine/Zone.h>
 
 #include <Physics/Impulse.h>
+
+#include <Engine2D/Graphics/NewCamera.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cEngine2D {
+class cEngine2D { 
 public:
 	// Current instance of the Engine. Step and Draw update this, so to support multiple engines. //
 	static cEngine2D* Current;
@@ -33,6 +35,9 @@ public:
 	// A collection of impulse forces to apply to dynamic objects //
 	std::vector< cImpulse > Impulse;
 
+public:
+	cEngine2D();
+	Engine2D::cCamera Camera;
 
 public:
 	// Move and Display Everything //
