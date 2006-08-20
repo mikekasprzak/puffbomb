@@ -37,13 +37,6 @@ void cComponentEdit::BodyDeleteSphere()
 				}
 			}
 		}
-		
-		
-		/*for( size_t idx = 0; idx < Object[ CurrentObject ].Sphere.size(); idx++ ) {
-			if ( Object[ CurrentObject ].Sphere[ idx ].Index == size_t(Node) ) {
-				Object[ CurrentObject ].DeleteSphere( idx );
-			}
-		}*/
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

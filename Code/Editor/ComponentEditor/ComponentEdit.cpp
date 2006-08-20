@@ -64,8 +64,6 @@ cComponentEdit::cComponentEdit() :
 	Body2D[ 0 ].Nodes.Pos( 0 ) = Vector2D( 50.0, 20.0 );
 	Body2D[ 0 ].Nodes.Pos( 1 ) = Vector2D( 20.0, 50.0 );
 
-	Body2D[ 0 ].AddNode();
-
 	Body2D[ 0 ].AddSphere( 1 );
 	Body2D[ 0 ].AddSphere( 0 );
 	Body2D[ 0 ].Sphere[ 0 ].Radius = Real( 30 );

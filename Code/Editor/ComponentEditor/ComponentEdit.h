@@ -74,6 +74,7 @@ public:
 	// ComponentEditText.cpp //
 	void DisplayText();
 	void DisplayNodeInfo();
+	void DisplaySphereInfo();
 	void DisplayMode();
 
 };

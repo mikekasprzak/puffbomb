@@ -19,7 +19,7 @@ void cComponentEdit::DisplayText()
 		}
 		else if( CurMode == SPHERE_MODE )
 		{	
-
+			DisplaySphereInfo();
 		}
 		else if( CurMode == SPRING_MODE )
 		{	
@@ -102,6 +102,75 @@ void cComponentEdit::DisplayNodeInfo()
 			FontSize,
 			Color
 		);
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::DisplaySphereInfo()
+{
+	if( CurSelected.size() > 0 && Body2D[ CurBody ].Sphere.size() > 0 )
+	{
+		Real FontSize = 0.5;
+		Real XShift = 120;
+		Real YShift = 40;
+		Real XPos = 0;
+		Real YPos = 0;
+		
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			YPos = cGlobal::HudH * 0.25;
+		}
+		int Color = gfx::RGBA( 255, 255, 255, 255 );
+		std::stringstream Temp;
+		
+		int SphereIdx = -1;
+		for( size_t idx = 0; idx < Body2D[ CurBody ].Sphere.size(); ++idx )
+		{
+			if( CurSelected[0] == Body2D[ CurBody ].Sphere[ idx ].Index )
+			{
+				SphereIdx = idx;
+				break;
+			}
+		}
+		
+		if( SphereIdx != -1 )
+		{
+			// Displays the current sphere number //
+			// - ---------------------------------------------------------------------------------- - //
+			cFonts::FlangeLight.Write(
+				"Sphere#",
+				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+				FontSize,
+				Color
+			);
+			
+			Temp << SphereIdx;
+		
+			cFonts::FlangeLight.Write(
+				Temp.str(),
+				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+				FontSize,
+				Color
+			);
+			XPos += XShift;
+			Temp.str(std::string());
+			// Displays the sphere radius //
+			// - ---------------------------------------------------------------------------------- - //
+			cFonts::FlangeLight.Write(
+				"Radius",
+				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+				FontSize,
+				Color
+			);
+			
+			Temp << Body2D[ CurBody ].Sphere[ SphereIdx ].Radius;
+		
+			cFonts::FlangeLight.Write(
+				Temp.str(),
+				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+				FontSize,
+				Color
+			);
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
