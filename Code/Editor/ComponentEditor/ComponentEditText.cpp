@@ -28,6 +28,13 @@ void cComponentEdit::DisplayText()
 	}
 	
 	DisplayMode();
+	cFonts::FlangeLight.Write(
+		"Component Editor",
+		Vector3D( cGlobal::Left + Real( 20 ), cGlobal::Top - Real( 30 ), 0.0 ),
+		Real( 0.5 ),
+		gfx::RGBA( 100, 100, 255, 255 )
+	);
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplayNodeInfo()
@@ -180,14 +187,14 @@ void cComponentEdit::DisplayMode()
 	// - -------------------------------------------------------------------------------------- - //
 	Real FontSize = 0.5;
 	int Color = gfx::RGBA( 255, 100, 100, 255 );
-	Vector3D ModePos = Vector3D( cGlobal::Right - Real( 750 ), cGlobal::Top - Real( 40 ), 0.0 );
+	Vector3D ModePos = Vector3D( cGlobal::Right - Real( 250 ), cGlobal::Top - Real( 30 ), 0.0 );
 		
 	switch( CurMode )
 	{ 
 		case NODE_MODE:
 		{
 			cFonts::FlangeLight.Write(
-				"Node Mode",
+				"BodyNode Mode",
 				ModePos,
 				FontSize,
 				Color
@@ -207,6 +214,7 @@ void cComponentEdit::DisplayMode()
 		case SPRING_MODE:
 		{
 			cFonts::FlangeLight.Write(
+//				"Pivot Handle Mode",
 				"Spring Mode",
 				ModePos,
 				FontSize,

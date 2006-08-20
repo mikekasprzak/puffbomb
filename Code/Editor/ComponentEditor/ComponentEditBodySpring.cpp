@@ -38,21 +38,9 @@ void cComponentEdit::BodySelectSpring()
 	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
-/*void cComponentEdit::DrawSpringPlacement()
-{
-	if( SpringPlacement )
-	{
-		Vector2D MousePos = CalcMousePos();
-		
-		gfx::Line( Object[ CurrentObject ].Pos( CurrentNode ),
-		CalcMousePos(),
-		gfx::RGB( 0, 255, 0 ) );
-	}
-}*/
-// - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::BodyAddSpring()
 {
-	/*if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
+	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
 		if( !CurSelected.empty() )
 		{
@@ -60,13 +48,15 @@ void cComponentEdit::BodyAddSpring()
 			{
 				for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 				{
-					CurrentSpring = 
-						Object[ CurrentObject ].AddSpring( CurSelected[idx], CurSelected[i] );
+					Body2D[ CurBody ].AddSpring( CurSelected[idx], CurSelected[i] );
+					
+					//CurrentSpring = 
+					//	Object[ CurrentObject ].AddSpring( CurSelected[idx], CurSelected[i] );
 				}
 			}
 			ActiveAction();
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::BodyDeleteSpring()
@@ -105,34 +95,6 @@ void cComponentEdit::BodyDeleteSpring()
 		}
 	}*/
 }
-// - ------------------------------------------------------------------------------------------ - //
-/*void cComponentEdit::SwitchSpring()
-{	
-	if( Button[ KEY_UP ].Pressed() )
-	{
-	
-		if( CurrentSpring > 0 )
-		{
-			--CurrentSpring;
-		}
-		else
-		{
-			CurrentSpring = Object[ CurrentObject ].Spring.size() - 1;
-		}
-	}
-	else if( Button[ KEY_DOWN ].Pressed() )
-	{
-
-		if( CurrentSpring < Object[ CurrentObject ].Spring.size() - 1 )
-		{
-			++CurrentSpring;	
-		}
-		else
-		{
-			CurrentSpring = 0;	
-		}
-	}
-}*/
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
