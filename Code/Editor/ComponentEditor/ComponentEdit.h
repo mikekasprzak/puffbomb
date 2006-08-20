@@ -74,6 +74,7 @@ public:
 	void DisplayText();
 	void DisplayNodeInfo();
 	void DisplaySphereInfo();
+	void DisplaySpringInfo();
 	void DisplayMode();
 
 };

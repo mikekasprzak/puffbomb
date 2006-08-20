@@ -121,30 +121,27 @@ void cComponentEdit::Draw()
 		Body2D[ CurBody ].DrawSpring( idx, false );
 	}
 	// Draw selected springs //
-	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+	for( size_t SpringIdx = 0; SpringIdx < Body2D[ CurBody ].Spring.size(); ++SpringIdx )
 	{
-		for( size_t SpringIdx = 0; SpringIdx < Body2D[ CurBody ].Spring.size(); ++SpringIdx )
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 			{
-				for( size_t i = idx + 1; i < CurSelected.size(); ++i )
+				if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexA == CurSelected[idx] )
 				{
-					if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexA == CurSelected[idx] )
+					if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexB == CurSelected[i] )
 					{
-						if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexB == CurSelected[i] )
-						{
-							Body2D[ CurBody ].DrawSpring( SpringIdx, true );
-						}
+						Body2D[ CurBody ].DrawSpring( SpringIdx, true );
 					}
-					if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexB == CurSelected[idx] )
+				}
+				if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexB == CurSelected[idx] )
+				{
+					if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexA == CurSelected[i] )
 					{
-						if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexA == CurSelected[i] )
-						{
-							Body2D[ CurBody ].DrawSpring( SpringIdx, true );
-						}
+						Body2D[ CurBody ].DrawSpring( SpringIdx, true );
 					}
-				}	
-			}
+				}
+			}	
 		}
 	}
 	
