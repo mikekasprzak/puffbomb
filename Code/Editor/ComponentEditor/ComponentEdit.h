@@ -57,12 +57,13 @@ public:
 	void BodyAddNode();
 	void BodyDeleteNode();
 	void BodyScaleNode();
+	void BodyMass( const Real MassDiff );
 
 public:
 	// ComponentEditBodySphere.cpp //
 	void BodyAddSphere();
 	void BodyDeleteSphere();
-	void BodyRadius( Real RadiusDiff );
+	void BodyRadius( const Real RadiusDiff );
 	
 public:
 	// ComponentEditBodySpring.cpp //

@@ -40,7 +40,7 @@ void cComponentEdit::BodyDeleteSphere()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::BodyRadius( Real RadiusDiff )
+void cComponentEdit::BodyRadius( const Real RadiusDiff )
 {
 	if( Button[ KEY_LCTRL ] )
 	{
@@ -62,7 +62,7 @@ void cComponentEdit::BodyRadius( Real RadiusDiff )
 							Body2D[ CurBody ].Sphere[ SphereIdx ].Radius -= RadiusDiff;
 						}		
 					}
-					// - -------------------------------------------------------------------------- - //
+					// - ---------------------------------------------------------------------- - //
 					if( Button[ KEY_EQUALS ] )
 					{
 						Body2D[ CurBody ].Sphere[ SphereIdx ].Radius += RadiusDiff;
@@ -76,7 +76,6 @@ void cComponentEdit::BodyRadius( Real RadiusDiff )
 				}
 			}
 		}
-	
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

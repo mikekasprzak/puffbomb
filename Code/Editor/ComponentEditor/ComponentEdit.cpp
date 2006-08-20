@@ -231,6 +231,15 @@ void cComponentEdit::Step()
 				BodyAddNode();
 				
 				BodyDeleteNode();
+				
+				if( Button[ KEY_LSHIFT ] )
+				{
+					BodyMass( Real( 0.1 ) );
+				}
+				else
+				{
+					BodyMass( Real( 1 ) );
+				}
 			}
 			BodyMoveNode();
 		}

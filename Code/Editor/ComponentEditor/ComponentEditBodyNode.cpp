@@ -269,5 +269,36 @@ void cComponentEdit::BodyScaleNode()
 	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::BodyMass( const Real MassDiff )
+{
+	if( Button[ KEY_LCTRL ] )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			if( Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] > Real( 1.0 ) )
+			{
+				if ( Button[ KEY_MINUS ] )
+				{
+					Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] -= MassDiff;
+				}
+				
+				if( Mouse.Wheel.Diff() < 0 )
+				{
+					Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] -= MassDiff;
+				}		
+			}
+			// - ---------------------------------------------------------------------- - //
+			if( Button[ KEY_EQUALS ] )
+			{
+				Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] += MassDiff;
+			}
+			if( Mouse.Wheel.Diff() > 0 )
+			{
+				Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] += MassDiff;
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //

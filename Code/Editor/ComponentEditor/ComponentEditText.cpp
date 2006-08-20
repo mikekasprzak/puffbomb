@@ -109,6 +109,46 @@ void cComponentEdit::DisplayNodeInfo()
 			FontSize,
 			Color
 		);
+		XPos += XShift;
+		Temp.str(std::string());
+		// Displays the current mass //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"Mass",
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << Body2D[ CurBody ].Nodes.Mass[ CurSelected[0] ];
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			FontSize,
+			Color
+		);
+		XPos += XShift;
+		Temp.str(std::string());
+		// Displays the total mass //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"Total Mass",
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << Body2D[ CurBody ].Nodes.TotalMass;
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			FontSize,
+			Color
+		);
+
+		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
