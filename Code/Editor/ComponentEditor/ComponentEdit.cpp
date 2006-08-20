@@ -263,6 +263,8 @@ void cComponentEdit::Step()
 			BodySelectNode();
 			
 			BodyAddSpring();
+
+			BodyDeleteSpring();
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )

@@ -66,7 +66,6 @@ public:
 	
 public:
 	// ComponentEditBodySpring.cpp //
-	void BodySelectSpring();
 	void BodyAddSpring();
 	void BodyDeleteSpring();
 	
