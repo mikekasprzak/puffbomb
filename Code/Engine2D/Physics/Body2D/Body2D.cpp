@@ -5,7 +5,10 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::Step() {
 	// Clear Collision Flags //
-	Collision.Clear();
+	CollisionFlags.Clear();
+	for ( size_t idx = 0; idx < SphereFlags.size(); idx++ ) {
+		SphereFlags[ idx ].Clear();
+	}
 	
 	// Step each Node //
 	Nodes.Step();
@@ -15,13 +18,19 @@ void cBody2D::Step() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::StepSprings() {
+	// Convert our pose parts in to something local //
+	std::vector< cSpring >& Spring = Pose->Spring;
+	
 	// Solve all springs in the component //
 	for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
 		Spring[ idx ].Step( Nodes );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::CalcBoundingRect() {    
+void cBody2D::CalcBoundingRect() {
+	// Convert our pose parts in to something local //
+	std::vector< cSphere >& Sphere = Pose->Sphere;
+	
 	// If no nodes, bail (change to assert?) //
 	if ( Sphere.empty() )
 		return;
@@ -63,6 +72,9 @@ void cBody2D::CalcBoundingRect() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::GrowBoundingRectBySphere( const size_t _Index ) {
+	// Convert our pose parts in to something local //
+	std::vector< cSphere >& Sphere = Pose->Sphere;
+
 	// In theory, grow the bounding Rectangle by an added sphere //
 	BoundingRect = cPhysics::BoundingRectType::Pair( 
 		BoundingRect.P1().Min( (Nodes.Pos( Sphere[ _Index ].Index ) - Sphere[ _Index ].Radius) ),
@@ -71,8 +83,15 @@ void cBody2D::GrowBoundingRectBySphere( const size_t _Index ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::CalculateSpringLength() {
+	// Convert our pose parts in to something local //
+	std::vector< cSpring >& Spring = Pose->Spring;
+
 	// For all springs, calculate their length //
 	for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
+		// *** Make this use local nodes instead of my nodes!!! *** //
+		
+		// If it's an auto length spring //
+		//if ()
 		Spring[ idx ].CalcLength( Nodes );
 	}
 }

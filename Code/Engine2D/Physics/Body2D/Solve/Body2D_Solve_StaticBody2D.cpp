@@ -6,6 +6,9 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
+	// Convert our pose parts in to something local //
+	std::vector< cSphere >& Sphere = Pose->Sphere;
+
 	// Test Bounding Rectangles //
 	if ( (BoundingRect - _Offset) != _Vs.BoundingRect )
 		return;
@@ -72,7 +75,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				if ( ToPoint.MagnitudeSquared() < Sphere[ SphereIndex[idx] ].RadiusSquared() ) {
 					// If a sensor, note our contact, but don't solve //
 					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
-						Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetEdge();
+						SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetEdge();
 						continue;
 					}
 
@@ -104,8 +107,8 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 					}
 
 					// Set Flags //
-					Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetEdge();
-					Collision.Set( Sphere[ SphereIndex[idx] ].Flags );
+					SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetEdge();
+					CollisionFlags.Set( SphereFlags[ SphereIndex[idx] ] );
 
 					
 					//Real Penetration = (ToPoint * _Vs.Edge[ EdgeIndex[idx2] ].SurfaceNormal());
@@ -241,8 +244,8 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 					}
 
 					// Set Flags //
-					Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetCorner();
-					Collision.Set( Sphere[ SphereIndex[idx] ].Flags );
+					SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetCorner();
+					CollisionFlags.Set( SphereFlags[ SphereIndex[idx] ] );
 				}				
 			}			
 		}
@@ -354,7 +357,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				if ( FoundPoint ) {
 					// If a sensor, note our contact, but don't solve //
 					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
-						Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetInside();
+						SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetInside();
 						continue;
 					}
 					
@@ -369,8 +372,8 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 						
 
 					// Set Flags //
-					Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetInside();
-					Collision.Set( Sphere[ SphereIndex[idx] ].Flags );
+					SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetInside();
+					CollisionFlags.Set( SphereFlags[ SphereIndex[idx] ] );
 
 					// Get Rotational Energy //
 //					Sphere[ SphereIndex[idx] ].RotationalEnergy +=

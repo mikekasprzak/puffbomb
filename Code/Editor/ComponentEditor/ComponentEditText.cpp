@@ -154,7 +154,7 @@ void cComponentEdit::DisplayNodeInfo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplaySphereInfo()
 {
-	if( CurSelected.size() > 0 && Body2D[ CurBody ].Sphere.size() > 0 )
+	if( CurSelected.size() > 0 && Body2D[ CurBody ].SphereSize() > 0 )
 	{
 		Real FontSize = 0.5;
 		Real XShift = 120;
@@ -170,9 +170,9 @@ void cComponentEdit::DisplaySphereInfo()
 		std::stringstream Temp;
 		
 		int SphereIdx = -1;
-		for( size_t idx = 0; idx < Body2D[ CurBody ].Sphere.size(); ++idx )
+		for( size_t idx = 0; idx < Body2D[ CurBody ].SphereSize(); ++idx )
 		{
-			if( CurSelected[0] == Body2D[ CurBody ].Sphere[ idx ].Index )
+			if( CurSelected[0] == Body2D[ CurBody ].Sphere( idx ).Index )
 			{
 				SphereIdx = idx;
 				break;
@@ -209,7 +209,7 @@ void cComponentEdit::DisplaySphereInfo()
 				Color
 			);
 			
-			Temp << Body2D[ CurBody ].Sphere[ SphereIdx ].Radius;
+			Temp << Body2D[ CurBody ].Sphere( SphereIdx ).Radius;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -223,7 +223,7 @@ void cComponentEdit::DisplaySphereInfo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplaySpringInfo()
 {
-	if( CurSelected.size() > 0 && Body2D[ CurBody ].Spring.size() > 0 )
+	if( CurSelected.size() > 0 && Body2D[ CurBody ].SpringSize() > 0 )
 	{
 		Real FontSize = 0.5;
 		Real XShift = 120;
@@ -239,23 +239,23 @@ void cComponentEdit::DisplaySpringInfo()
 		std::stringstream Temp;
 			
 		int SpringNum = -1;
-		for( size_t SpringIdx = 0; SpringIdx < Body2D[ CurBody ].Spring.size(); ++SpringIdx )
+		for( size_t SpringIdx = 0; SpringIdx < Body2D[ CurBody ].SpringSize(); ++SpringIdx )
 		{
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 				{
-					if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexA == CurSelected[idx] )
+					if( Body2D[ CurBody ].Spring( SpringIdx ).IndexA == CurSelected[idx] )
 					{
-						if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexB == CurSelected[i] )
+						if( Body2D[ CurBody ].Spring( SpringIdx ).IndexB == CurSelected[i] )
 						{
 							SpringNum = SpringIdx;
 							break;
 						}
 					}
-					if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexB == CurSelected[idx] )
+					if( Body2D[ CurBody ].Spring( SpringIdx ).IndexB == CurSelected[idx] )
 					{
-						if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexA == CurSelected[i] )
+						if( Body2D[ CurBody ].Spring( SpringIdx ).IndexA == CurSelected[i] )
 						{
 							SpringNum = SpringIdx;
 							break;
@@ -298,7 +298,7 @@ void cComponentEdit::DisplaySpringInfo()
 				Color
 			);
 			
-			Temp << Body2D[ CurBody ].Spring[SpringNum].IndexA;
+			Temp << Body2D[ CurBody ].Spring(SpringNum).IndexA;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -317,7 +317,7 @@ void cComponentEdit::DisplaySpringInfo()
 				Color
 			);
 			
-			Temp << Body2D[ CurBody ].Spring[SpringNum].IndexB;
+			Temp << Body2D[ CurBody ].Spring(SpringNum).IndexB;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -336,7 +336,7 @@ void cComponentEdit::DisplaySpringInfo()
 				Color
 			);
 			
-			Temp << Body2D[ CurBody ].Spring[SpringNum].Strength;
+			Temp << Body2D[ CurBody ].Spring(SpringNum).Strength;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -355,7 +355,7 @@ void cComponentEdit::DisplaySpringInfo()
 				Color
 			);
 			
-			Temp << Body2D[ CurBody ].Spring[SpringNum].Length;
+			Temp << Body2D[ CurBody ].Spring(SpringNum).Length;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),

@@ -9,6 +9,7 @@
 #include <Physics/Physics.h>
 
 #include "Body2D/DynamicNodes.h"
+#include "Body2D/Body2DPose.h"
 #include "Body2D/Constraints/CollisionFlags.h"
 
 #include "Body2D/Constraints/Spring.h"
@@ -21,9 +22,26 @@ public:
 	// Nodes //
 	cDynamicNodes Nodes;
 	
+	// Pose //
+	cBody2DPose* Pose;
+	
 	// Constraints //
-	std::vector< cSpring > Spring;
-	std::vector< cSphere > Sphere;
+	inline cSpring& Spring( const size_t _Index ) const {
+		return Pose->Spring[ _Index ];
+	}
+	inline const size_t SpringSize( ) const {
+		return Pose->Spring.size();
+	}
+
+	inline cSphere& Sphere( const size_t _Index ) const {
+		return Pose->Sphere[ _Index ];
+	}
+	inline const size_t SphereSize( ) const {
+		return Pose->Sphere.size();
+	}
+	
+//	std::vector< cSpring > Spring;
+//	std::vector< cSphere > Sphere;
 	
 //	std::vector< cCylinder > Cylinder;	// A ?
 //	std::vector< cCapsule > Capsule;	// or B ?
@@ -33,12 +51,29 @@ public:
 //	std::vector< cPolygon > Polygon;	// or C ?
 	
 	
-	// Member collision monitoring flags //
-	cCollisionFlags Collision;
+	// Collision monitoring flags //
+	cCollisionFlags CollisionFlags;
+	std::vector< cCollisionFlags > SphereFlags;	
 
 public:
 	cBody2D() {
-		
+		//Log( 10, "Haaagendaz" );
+		Pose = new cBody2DPose();
+	}
+	
+	cBody2D( const cBody2D& Copy ) :
+		Nodes( Copy.Nodes ),
+		CollisionFlags( Copy.CollisionFlags ),
+		SphereFlags( Copy.SphereFlags ),
+		BoundingRect( Copy.BoundingRect )
+	{
+		//Log( 10, "Haaagendaz Go Go Duplicatotron!" );
+		Pose = new cBody2DPose( *Copy.Pose );
+	}
+
+	~cBody2D() {
+		//Log( 10, "Haaagendaz 4 evah!" );
+		delete Pose;
 	}
 
 

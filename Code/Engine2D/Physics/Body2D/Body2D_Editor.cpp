@@ -15,18 +15,18 @@ int cBody2D::AddSpring( size_t _IndexA, size_t _IndexB ) {
 		return -1;
 	// Test for less than zero too //
 	
-	Spring.push_back( cSpring( _IndexA, _IndexB ) );
+	Pose->Spring.push_back( cSpring( _IndexA, _IndexB ) );
 	
-	return Spring.size() - 1;
+	return Pose->Spring.size() - 1;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DeleteSpring( size_t Number ) {
 	// Make this an assert //
-	if ( Number >= Spring.size() )
+	if ( Number >= Pose->Spring.size() )
 		return;
 	// Test for less than zero too //
 	
-	Spring.erase( Spring.begin() + Number );
+	Pose->Spring.erase( Pose->Spring.begin() + Number );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -37,14 +37,14 @@ int cBody2D::AddSphere( size_t _Index ) {
 		return -1;
 	// Test for less than zero too //
 	
-	Sphere.push_back( cSphere( _Index ) );
+	Pose->Sphere.push_back( cSphere( _Index ) );
 
-	return Sphere.size() - 1;
+	return Pose->Sphere.size() - 1;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DeleteSphere( size_t Number ) {
 	// Make this an assert //
-	if ( Number >= Sphere.size() )
+	if ( Number >= Pose->Sphere.size() )
 		return;
 	// Test for less than zero too //
 	
@@ -53,48 +53,50 @@ void cBody2D::DeleteSphere( size_t Number ) {
 //			Iterator++;
 //		}
 	
-	Sphere.erase( Sphere.begin() + Number );
+	Pose->Sphere.erase( Pose->Sphere.begin() + Number );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 int cBody2D::AddNode() {
+	Pose->Node.push_back( cBody2DPose::cNode() );
 	return Nodes.Add();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DeleteNode( size_t Number ) {
 	// Remove Spheres //
-	for( size_t idx = 0; idx < Sphere.size(); idx++ ) {
-		if ( Sphere[ idx ].Index == Number ) {
+	for( size_t idx = 0; idx < Pose->Sphere.size(); idx++ ) {
+		if ( Pose->Sphere[ idx ].Index == Number ) {
 			DeleteSphere( idx );
 		}
 	}
 	// Update offsets //
-	for( size_t idx = 0; idx < Sphere.size(); idx++ ) {
-		if ( Sphere[ idx ].Index > Number ) {
-			Sphere[ idx ].Index--;
+	for( size_t idx = 0; idx < Pose->Sphere.size(); idx++ ) {
+		if ( Pose->Sphere[ idx ].Index > Number ) {
+			Pose->Sphere[ idx ].Index--;
 		}
 	}
 	
 	// Remove Springs, and offset greater ones //
-	for( size_t idx = 0; idx < Spring.size(); idx++ ) {
-		if ( Spring[ idx ].IndexA == Number ) {
+	for( size_t idx = 0; idx < Pose->Spring.size(); idx++ ) {
+		if ( Pose->Spring[ idx ].IndexA == Number ) {
 			DeleteSpring( idx );
 		}
-		if ( Spring[ idx ].IndexB == Number ) {
+		if ( Pose->Spring[ idx ].IndexB == Number ) {
 			DeleteSpring( idx );
 		}
 	}
-	for( size_t idx = 0; idx < Spring.size(); idx++ ) {			
-		if ( Spring[ idx ].IndexA > Number ) {
-			Spring[ idx ].IndexA--;
+	for( size_t idx = 0; idx < Pose->Spring.size(); idx++ ) {			
+		if ( Pose->Spring[ idx ].IndexA > Number ) {
+			Pose->Spring[ idx ].IndexA--;
 		}
-		if ( Spring[ idx ].IndexB > Number ) {
-			Spring[ idx ].IndexB--;
+		if ( Pose->Spring[ idx ].IndexB > Number ) {
+			Pose->Spring[ idx ].IndexB--;
 		}
 	}
 		
 	// Remove the Node //
+	Pose->Node.erase( Pose->Node.begin() + Number );
 	Nodes.Remove( Number );
 }
 // - ------------------------------------------------------------------------------------------ - //

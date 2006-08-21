@@ -4,6 +4,10 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::Solve( cBody2D& _Vs ) {
+	// Convert our pose parts in to something local //
+	std::vector< cSphere >& Sphere = Pose->Sphere;
+	std::vector< cSphere >& _VsSphere = _Vs.Pose->Sphere;
+
 	// If Asleep, Bail //
 //	if ( !IsAwake() )
 //		if ( !_Vs.IsAwake() )
@@ -18,10 +22,10 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 	// Test Sphere's //
 	{
 		for ( size_t idx = 0; idx < Sphere.size(); idx++ ) {
-			for ( size_t idx2 = 0; idx2 < _Vs.Sphere.size(); idx2++ ) {
+			for ( size_t idx2 = 0; idx2 < _VsSphere.size(); idx2++ ) {
 				// Shorthand references to avoid typo errors //
 				cSphere& MySphere = Sphere[ idx ];
-				cSphere& HisSphere = _Vs.Sphere[ idx2 ];
+				cSphere& HisSphere = _VsSphere[ idx2 ];
 				
 				const int& Index = MySphere.Index;
 				const int& VsIndex = HisSphere.Index;
@@ -44,7 +48,7 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 					// And his is not //
 					if ( !HisSphere.Sensor ) {
 						// Note senses of an interaction with a sphere //
-						MySphere.Flags.SetObject().SetSphere();
+						SphereFlags[ idx ].SetObject().SetSphere();
 						continue;
 					}
 				}
@@ -54,7 +58,7 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 					// And not mine //
 					if ( !MySphere.Sensor ) {
 						// Note senses of an interaction with a sphere //
-						HisSphere.Flags.SetObject().SetSphere();
+						_Vs.SphereFlags[ idx2 ].SetObject().SetSphere();
 						continue;
 					}
 				}
@@ -83,13 +87,13 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 
 				Nodes.Pos( Index ) += MyPush;
 //				Nodes.Pos( Index ) += MyPush - (HisFriction * _Vs.InvMass( VsIndex ) * Diff);
-				MySphere.Flags.SetObject().SetSphere();
-				Collision.Set( MySphere.Flags );
+				SphereFlags[ idx ].SetObject().SetSphere();
+				CollisionFlags.Set( SphereFlags[ idx ] );
 					
 				_Vs.Nodes.Pos( VsIndex ) -= HisPush;
 //				_Vs.Nodes.Pos( VsIndex ) -= HisPush - (MyFriction * InvMass( Index ) * Diff);
-				HisSphere.Flags.SetObject().SetSphere();
-				_Vs.Collision.Set( HisSphere.Flags );
+				_Vs.SphereFlags[ idx2 ].SetObject().SetSphere();
+				_Vs.CollisionFlags.Set( _Vs.SphereFlags[ idx2 ] );
 
 
 

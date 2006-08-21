@@ -66,7 +66,7 @@ cComponentEdit::cComponentEdit() :
 
 	Body2D[ 0 ].AddSphere( 1 );
 	Body2D[ 0 ].AddSphere( 0 );
-	Body2D[ 0 ].Sphere[ 0 ].Radius = Real( 30 );
+	Body2D[ 0 ].Sphere( 0 ).Radius = Real( 30 );
 	
 	CurMode = NODE_MODE;
 }
@@ -100,43 +100,43 @@ void cComponentEdit::Draw()
 	Body2D[ CurBody ].DrawNodes( CurSelected );
 	
 	// Draw spheres //
-	for( size_t idx = 0; idx < Body2D[ CurBody ].Sphere.size(); ++idx )
+	for( size_t idx = 0; idx < Body2D[ CurBody ].SphereSize(); ++idx )
 	{
 		Body2D[ CurBody ].DrawSphere( idx, false );
 	}
 	// Draw selected spheres //
 	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 	{
-		for( size_t SphereIdx = 0; SphereIdx < Body2D[ CurBody ].Sphere.size(); ++SphereIdx )
+		for( size_t SphereIdx = 0; SphereIdx < Body2D[ CurBody ].SphereSize(); ++SphereIdx )
 		{
-			if( CurSelected[idx] == Body2D[ CurBody ].Sphere[ SphereIdx ].Index )
+			if( CurSelected[idx] == Body2D[ CurBody ].Sphere( SphereIdx ).Index )
 			{
 				Body2D[ CurBody ].DrawSphere( SphereIdx, true );
 			}
 		}
 	}
 	// Draw springs //
-	for( size_t idx = 0; idx < Body2D[ CurBody ].Spring.size(); ++idx )
+	for( size_t idx = 0; idx < Body2D[ CurBody ].SpringSize(); ++idx )
 	{
 		Body2D[ CurBody ].DrawSpring( idx, false );
 	}
 	// Draw selected springs //
-	for( size_t SpringIdx = 0; SpringIdx < Body2D[ CurBody ].Spring.size(); ++SpringIdx )
+	for( size_t SpringIdx = 0; SpringIdx < Body2D[ CurBody ].SpringSize(); ++SpringIdx )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
 			for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 			{
-				if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexA == CurSelected[idx] )
+				if( Body2D[ CurBody ].Spring( SpringIdx ).IndexA == CurSelected[idx] )
 				{
-					if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexB == CurSelected[i] )
+					if( Body2D[ CurBody ].Spring( SpringIdx ).IndexB == CurSelected[i] )
 					{
 						Body2D[ CurBody ].DrawSpring( SpringIdx, true );
 					}
 				}
-				if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexB == CurSelected[idx] )
+				if( Body2D[ CurBody ].Spring( SpringIdx ).IndexB == CurSelected[idx] )
 				{
-					if( Body2D[ CurBody ].Spring[ SpringIdx ].IndexA == CurSelected[i] )
+					if( Body2D[ CurBody ].Spring( SpringIdx ).IndexA == CurSelected[i] )
 					{
 						Body2D[ CurBody ].DrawSpring( SpringIdx, true );
 					}

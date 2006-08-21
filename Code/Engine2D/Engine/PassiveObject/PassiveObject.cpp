@@ -24,7 +24,7 @@ void cPassiveObject::Action( cDynamicObject& _Vs ) {
 		
 		// ??? //
 		case 3: {
-			if ( _Vs.Body.Sphere.size() ) {
+			if ( _Vs.Body.Pose->Sphere.size() ) {
 				// Uhh //	
 			}
 		}

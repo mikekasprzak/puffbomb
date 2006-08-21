@@ -6,6 +6,9 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::Solve( cImpulse& _Vs ) {
+	// Convert our pose parts in to something local //
+	std::vector< cSphere >& Sphere = Pose->Sphere;
+
 	// Test Bounding Rectangles //
 //	if ( BoundingRect != _Vs.BoundingRect )
 //		return;
@@ -27,7 +30,7 @@ void cBody2D::Solve( cImpulse& _Vs ) {
 			GrowBoundingRectBySphere( idx );
 			// Wake up and set flags //
 			//WakeUp();
-			Sphere[ idx ].Flags.SetImpulse();
+			SphereFlags[ idx ].SetImpulse();
 		}
 	}
 }

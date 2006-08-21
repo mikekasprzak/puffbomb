@@ -19,7 +19,7 @@ void cBody2D::DrawNode( const size_t Index, const bool Selected ) const {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DrawSpring( const size_t Index, const bool Selected ) const {
-	const cSpring& MySpring = Spring[ Index ];
+	const cSpring& MySpring = Pose->Spring[ Index ];
 	const Vector2D& PointA = Nodes.Pos( MySpring.IndexA );
 	const Vector2D& PointB = Nodes.Pos( MySpring.IndexB );
 	
@@ -47,7 +47,7 @@ void cBody2D::DrawSpring( const size_t Index, const bool Selected ) const {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DrawSphere( const size_t Index, const bool Selected ) const {
-	const cSphere& MySphere = Sphere[ Index ];
+	const cSphere& MySphere = Pose->Sphere[ Index ];
 	const Vector2D& Pos = Nodes.Pos( MySphere.Index );
 
 	if ( MySphere.Sensor ) {
@@ -89,6 +89,9 @@ void cBody2D::DrawNodes( const std::vector< size_t >& SelectionVector ) const {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DrawSprings( const std::vector< size_t >& SelectionVector ) const {
+	// Convert our pose parts in to something local //
+	std::vector< cSpring >& Spring = Pose->Spring;
+
 	// For every spring //
 	for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
 		bool Selected = false;
@@ -107,6 +110,9 @@ void cBody2D::DrawSprings( const std::vector< size_t >& SelectionVector ) const 
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DrawSpheres( const std::vector< size_t >& SelectionVector ) const {
+	// Convert our pose parts in to something local //
+	std::vector< cSphere >& Sphere = Pose->Sphere;
+
 	// For every sphere //
 	for ( size_t idx = 0; idx < Sphere.size(); idx++ ) {
 		bool Selected = false;

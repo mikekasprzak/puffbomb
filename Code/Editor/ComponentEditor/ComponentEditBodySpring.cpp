@@ -31,18 +31,18 @@ void cComponentEdit::BodyDeleteSpring()
 	{
 		if( !CurSelected.empty() )
 		{
-			for( int spring = Body2D[ CurBody ].Spring.size() - 1; spring >= 0; --spring )
+			for( int spring = Body2D[ CurBody ].SpringSize() - 1; spring >= 0; --spring )
 			{
 				bool IndexA = false;
 				bool IndexB = false;
 				
 				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 				{
-					if( Body2D[ CurBody ].Spring[spring].IndexA == CurSelected[idx] )
+					if( Body2D[ CurBody ].Spring(spring).IndexA == CurSelected[idx] )
 					{
 						IndexA = true;
 					}
-					if( Body2D[ CurBody ].Spring[spring].IndexB == CurSelected[idx] )
+					if( Body2D[ CurBody ].Spring(spring).IndexB == CurSelected[idx] )
 					{
 						IndexB = true;
 					}
