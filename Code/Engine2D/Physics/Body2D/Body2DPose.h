@@ -25,6 +25,8 @@ public:
 	std::vector< cNode > Node;
 	std::vector< cSpring > Spring;
 	std::vector< cSphere > Sphere;
+		
+	Real TotalMass;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

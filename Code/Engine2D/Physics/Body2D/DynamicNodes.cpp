@@ -15,6 +15,15 @@ int cDynamicNodes::Add() {
 	Mass.push_back( Real::One );
 	
 	return NodeA.size() - 1;
+}
+// - ------------------------------------------------------------------------------------------ - //
+const size_t cDynamicNodes::Resize( const size_t _Size ) {
+	NodeA.resize( _Size );
+	NodeB.resize( _Size );
+	Force.resize( _Size );
+	Friction.resize( _Size );
+	_InvMass.resize( _Size );
+	Mass.resize( _Size );
 }	
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicNodes::Remove( const size_t Number ) {
