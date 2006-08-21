@@ -12,9 +12,7 @@ using namespace Input;
 cComponentEdit::cComponentEdit() :
 	CurObj( 0 ),
 	CurPose( 0 ),
-//	CurBody( 0 ),
 	NodeRadius( 3 )
-//	isDeleteNode( false )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -62,8 +60,6 @@ cComponentEdit::cComponentEdit() :
 	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	DynObj[ 0 ].AnimationSet->Pose.push_back( Engine2D::cBody2DPose() );
 	
-//	Body2D.push_back( DynObj[ 0 ].Body );
-	
 	Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
 	
 	DynObj[ 0 ].Body.Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
@@ -74,42 +70,7 @@ cComponentEdit::cComponentEdit() :
 
 	DynObj[ 0 ].Body.SetPos( 0, Vector2D( 50.0, 20.0 ) );
 	DynObj[ 0 ].Body.SetPos( 1, Vector2D( 20.0, 50.0 ) );
-	
-	//Body2D.push_back( Engine2D::cBody2D() );
-//	Body2D[ 0 ].Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
-	/*
-	void SetPos( const size_t Index, const Vector2D& _Pos ) {
-		Pose->Node[ Index ].Pos = _Pos;
-		Nodes.Pos( Index ) = _Pos;
-		Nodes.Old( Index ) = _Pos;
-	}
 
-	void SetMass( const size_t Index, const Real& _Mass ) {
-		Pose->Node[ Index ].Mass = _Mass;
-		Nodes.Mass[ Index ] = _Mass;
-	}
-
-	void SetTotalMass( const Real& _Mass ) {
-		Pose->TotalMass = _Mass;
-		Nodes.TotalMass = _Mass;
-	}*/
-	
-//	CurSelected.push_back( Body2D[ 0 ].AddNode() );
-//	CurSelected.push_back( Body2D[ 0 ].AddNode() );
-//	Body2D[ 0 ].AddNode();
-//	Body2D[ 0 ].AddNode();
-//	Body2D[ 0 ].AddNode();
-
-//	Body2D[ 0 ].Nodes.Pos( 0 ) = Vector2D( 50.0, 20.0 );
-//	Body2D[ 0 ].SetPos( 0, Vector2D( 50.0, 20.0 ) );
-
-//	Body2D[ 0 ].Nodes.Pos( 1 ) = Vector2D( 20.0, 50.0 );
-//	Body2D[ 0 ].SetPos( 1, Vector2D( 20.0, 50.0 ) );
-
-//	Body2D[ 0 ].AddSphere( 1 );
-//	Body2D[ 0 ].AddSphere( 0 );
-//	Body2D[ 0 ].Sphere( 0 ).Radius = Real( 30 );
-	
 	CurMode = NODE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
