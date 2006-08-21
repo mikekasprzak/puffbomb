@@ -78,6 +78,8 @@ cComponentEdit::~cComponentEdit()
 {
 	delete UVCamera;
 	delete PreviewCamera;
+	
+	delete DynObj[ 0 ].AnimationSet;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Draw()
@@ -99,9 +101,18 @@ void cComponentEdit::Draw()
 	
 	Gfx::DisableBlend();
 
-	// Draw nodes and selected nodes //
-	DynObj[ CurObj ].Body.DrawNodes( CurSelected );
-	
+//	DynObj[ CurObj ].Body.DrawNodes( CurSelected );
+	// Draw nodes //
+//	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.NodeSize(); ++idx )
+	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+	{
+		DynObj[ CurObj ].Body.DrawNode( idx, false );
+	}
+	// Draw selected nodes //
+	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+	{
+		DynObj[ CurObj ].Body.DrawNode( CurSelected[ idx ], true );
+	}
 	// Draw spheres //
 	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.SphereSize(); ++idx )
 	{
@@ -320,10 +331,16 @@ void cComponentEdit::Step()
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), UVCamera );
 	}
+
+	if( CurMode == COMPONENT_MODE )
+	{
+		BodyAddPose();
+	}		
 	
 	Undo();
 	
 	SwitchMode();
+	SwitchPose();
 	
 	LastView = CurView;
 }
@@ -447,26 +464,74 @@ void cComponentEdit::SwitchMode()
 {	
 	unsigned int LastMode = CurMode;
 	
-	if ( Button[ KEY_1 ].Pressed() )
+	if( Button[ KEY_1 ].Pressed() )
 	{
 		CurMode = NODE_MODE;
 	}
-	else if ( Button[ KEY_2 ].Pressed() )
+	else if( Button[ KEY_2 ].Pressed() )
 	{
 		CurMode = SPHERE_MODE;
 	}
-	else if ( Button[ KEY_3 ].Pressed() )
+	else if( Button[ KEY_3 ].Pressed() )
 	{
 		CurMode = SPRING_MODE;
 	}
-	
+	else if( Button[ KEY_0 ].Pressed() )
+	{
+		CurMode = COMPONENT_MODE;	
+	} 
 	if( LastMode <= SPRING_MODE && CurMode <= SPRING_MODE )
 	{
 		
 	}
 	else
 	{
-		CurSelected.clear();	
+		CurSelected.clear();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::BodyAddPose()
+{
+	//CurPose++;
+	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
+	{
+		DynObj[ CurObj ].AnimationSet->Pose.push_back( Engine2D::cBody2DPose() );
+		CurPose = DynObj[ CurObj ].AnimationSet->Pose.size() - 1;
+		
+		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+		
+		DynObj[ CurObj ].Body.Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::SwitchPose()
+{
+	if ( Button[ KEY_LEFT ].Pressed() )
+	{
+		if( CurPose > 0 )
+		{
+			--CurPose;
+		}
+		else
+		{
+			CurPose = DynObj[ CurObj ].AnimationSet->Pose.size() - 1;
+		}
+		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+		DynObj[ CurObj ].Body.Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+			
+	}
+	else if ( Button[ KEY_RIGHT ].Pressed() )
+	{
+		if( CurPose < DynObj[ CurObj ].AnimationSet->Pose.size() - 1 )
+		{
+			++CurPose;
+		}
+		else
+		{
+			CurPose = 0;	
+		}
+		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+		DynObj[ CurObj ].Body.Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

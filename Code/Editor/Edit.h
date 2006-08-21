@@ -24,6 +24,7 @@
 #define TEXTURE_MODE 			6
 #define DRAWING_ORDER_MODE		7
 #define SUPER_MODE 				8
+#define COMPONENT_MODE			9
 // - ------------------------------------------------------------------------------------------ - //
 class cEdit {
 public:

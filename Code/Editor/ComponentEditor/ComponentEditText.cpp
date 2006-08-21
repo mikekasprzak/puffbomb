@@ -28,13 +28,8 @@ void cComponentEdit::DisplayText()
 	}
 	
 	DisplayMode();
-	cFonts::FlangeLight.Write(
-		"Component Editor",
-		Vector3D( cGlobal::Left + Real( 20 ), cGlobal::Top - Real( 30 ), 0.0 ),
-		Real( 0.5 ),
-		gfx::RGBA( 100, 100, 255, 255 )
-	);
 	
+	DisplayComponentInfo();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplayNodeInfo()
@@ -409,11 +404,48 @@ void cComponentEdit::DisplayMode()
 			);
 			break;
 		}
+		case COMPONENT_MODE:
+		{
+			cFonts::FlangeLight.Write(
+				"Component Mode",
+				ModePos,
+				FontSize,
+				Color
+			);
+			break;
+		}
 		default:
 		{
 			break;	
 		}
 	}
+}
+void cComponentEdit::DisplayComponentInfo()
+{
+	cFonts::FlangeLight.Write(
+		"Component Editor",
+		Vector3D( cGlobal::Left + Real( 20 ), cGlobal::Top - Real( 30 ), 0.0 ),
+		Real( 0.5 ),
+		gfx::RGBA( 100, 100, 255, 255 )
+	);
+
+	cFonts::FlangeLight.Write(
+		"Current Pose",
+		Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 30 ), 0.0 ),
+		Real( 0.5 ),
+		gfx::RGBA( 100, 255, 100, 255 )
+	);
+	
+	std::stringstream Temp;
+
+	Temp << CurPose;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( cGlobal::Right - Real( 400 ), cGlobal::Top - Real( 30 ), 0.0 ),
+		Real( 0.5 ),
+		gfx::RGBA( 100, 255, 100, 255 )
+	);
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

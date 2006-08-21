@@ -24,15 +24,12 @@ public:
 
 
 public:
-	// Body2D //
-//	std::vector< Engine2D::cBody2D > Body2D;
 	std::vector< Engine2D::cDynamicObject > DynObj;
 	Engine2D::cBody2DPose* Pose;
 	
 	size_t CurObj;
 	size_t CurPose;
 	
-//	size_t CurBody;
 	Real NodeRadius;
 
 	//bool isDeleteNode;
@@ -55,6 +52,9 @@ public:
 	void Undo();
 	void ActiveAction();
 	void SwitchMode();
+	
+	void BodyAddPose();
+	void SwitchPose();
 	
 public:
 	// ComponentEditBodyNode.cpp //
@@ -84,6 +84,7 @@ public:
 	void DisplaySphereInfo();
 	void DisplaySpringInfo();
 	void DisplayMode();
+	void DisplayComponentInfo();
 
 };
 // - ------------------------------------------------------------------------------------------ - //
