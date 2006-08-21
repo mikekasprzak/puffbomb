@@ -58,7 +58,7 @@ public:
 public:
 	cBody2D() {
 		//Log( 10, "Haaagendaz" );
-		Pose = new cBody2DPose();
+//		Pose = new cBody2DPose();
 	}
 	
 	cBody2D( cBody2DPose& _Pose ) :
@@ -76,19 +76,19 @@ public:
 		Nodes.TotalMass = Pose->TotalMass;
 	}
 	
-	cBody2D( const cBody2D& Copy ) :
-		Nodes( Copy.Nodes ),
-		CollisionFlags( Copy.CollisionFlags ),
-		SphereFlags( Copy.SphereFlags ),
-		BoundingRect( Copy.BoundingRect )
-	{
-		//Log( 10, "Haaagendaz Go Go Duplicatotron!" );
-		Pose = new cBody2DPose( *Copy.Pose );
-	}
+//	cBody2D( const cBody2D& Copy ) :
+//		Nodes( Copy.Nodes ),
+//		CollisionFlags( Copy.CollisionFlags ),
+//		SphereFlags( Copy.SphereFlags ),
+//		BoundingRect( Copy.BoundingRect )
+//	{
+//		//Log( 10, "Haaagendaz Go Go Duplicatotron!" );
+//		Pose = new cBody2DPose( *Copy.Pose );
+//	}
 
 	~cBody2D() {
 		//Log( 10, "Haaagendaz 4 evah!" );
-		delete Pose;
+//		delete Pose;
 	}
 
 
@@ -143,6 +143,22 @@ public:
 	
 	int AddSphere( size_t _Index );
 	void DeleteSphere( size_t Number );
+	
+	void SetPos( const size_t Index, const Vector2D& _Pos ) {
+		Pose->Node[ Index ].Pos = _Pos;
+		Nodes.Pos( Index ) = _Pos;
+		Nodes.Old( Index ) = _Pos;
+	}
+
+	void SetMass( const size_t Index, const Real& _Mass ) {
+		Pose->Node[ Index ].Mass = _Mass;
+		Nodes.Mass[ Index ] = _Mass;
+	}
+
+	void SetTotalMass( const size_t Index, const Real& _Mass ) {
+		Pose->TotalMass = _Mass;
+		Nodes.TotalMass = _Mass;
+	}
 #endif // EDITOR //
 	// - -------------------------------------------------------------------------------------- - //
 };
