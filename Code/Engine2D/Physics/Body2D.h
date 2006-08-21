@@ -155,7 +155,7 @@ public:
 		Nodes.Mass[ Index ] = _Mass;
 	}
 
-	void SetTotalMass( const size_t Index, const Real& _Mass ) {
+	void SetTotalMass( const Real& _Mass ) {
 		Pose->TotalMass = _Mass;
 		Nodes.TotalMass = _Mass;
 	}
