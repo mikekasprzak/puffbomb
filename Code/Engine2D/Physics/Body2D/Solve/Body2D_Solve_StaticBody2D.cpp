@@ -215,7 +215,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				if ( ToPoint.MagnitudeSquared() < Sphere[ SphereIndex[idx] ].RadiusSquared() ) {
 					// If a sensor, note our contact, but don't solve //
 					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
-						Sphere[ SphereIndex[idx] ].Flags.SetScenery().SetPolygon().SetCorner();
+						SphereFlags[ idx ].SetScenery().SetPolygon().SetCorner();
 						continue;
 					}
 

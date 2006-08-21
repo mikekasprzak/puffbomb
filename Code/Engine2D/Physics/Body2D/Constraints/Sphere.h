@@ -17,7 +17,7 @@ public:
 	Real Radius;
 
 	// Flags set with information about contacts //
-	cCollisionFlags Flags;	
+	//cCollisionFlags Flags;	
 	// True if I'm a sensor (I collect flags only, no solving) //
 	bool Sensor;
 
