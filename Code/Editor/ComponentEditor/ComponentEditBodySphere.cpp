@@ -13,7 +13,7 @@ void cComponentEdit::BodyAddSphere()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			Body2D[ CurBody ].AddSphere( CurSelected[idx] );
+			DynObj[ CurObj ].Body.AddSphere( CurSelected[idx] );
 		}
 
 		//if( !isPaste )
@@ -29,11 +29,11 @@ void cComponentEdit::BodyDeleteSphere()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t SphereIdx = 0; SphereIdx < Body2D[ CurBody ].SphereSize(); ++SphereIdx )
+			for( size_t SphereIdx = 0; SphereIdx < DynObj[ CurObj ].Body.SphereSize(); ++SphereIdx )
 			{
-				if( CurSelected[idx] == Body2D[ CurBody ].Sphere( SphereIdx ).Index )
+				if( CurSelected[idx] == DynObj[ CurObj ].Body.Sphere( SphereIdx ).Index )
 				{
-					Body2D[ CurBody ].DeleteSphere( SphereIdx );
+					DynObj[ CurObj ].Body.DeleteSphere( SphereIdx );
 				}
 			}
 		}
@@ -46,30 +46,30 @@ void cComponentEdit::BodyRadius( const Real RadiusDiff )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t SphereIdx = 0; SphereIdx < Body2D[ CurBody ].SphereSize(); ++SphereIdx )
+			for( size_t SphereIdx = 0; SphereIdx < DynObj[ CurObj ].Body.SphereSize(); ++SphereIdx )
 			{
-				if( CurSelected[idx] == Body2D[ CurBody ].Sphere( SphereIdx ).Index )
+				if( CurSelected[idx] == DynObj[ CurObj ].Body.Sphere( SphereIdx ).Index )
 				{
-					if( Body2D[ CurBody ].Sphere( SphereIdx ).Radius > Real( 1.0 ) )
+					if( DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius > Real( 1.0 ) )
 					{
 						if ( Button[ KEY_MINUS ] )
 						{
-							Body2D[ CurBody ].Sphere( SphereIdx ).Radius -= RadiusDiff;
+							DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius -= RadiusDiff;
 						}
 						
 						if( Mouse.Wheel.Diff() < 0 )
 						{
-							Body2D[ CurBody ].Sphere( SphereIdx ).Radius -= RadiusDiff;
+							DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius -= RadiusDiff;
 						}		
 					}
 					// - ---------------------------------------------------------------------- - //
 					if( Button[ KEY_EQUALS ] )
 					{
-						Body2D[ CurBody ].Sphere( SphereIdx ).Radius += RadiusDiff;
+						DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius += RadiusDiff;
 					}
 					if( Mouse.Wheel.Diff() > 0 )
 					{
-						Body2D[ CurBody ].Sphere( SphereIdx ).Radius += RadiusDiff;
+						DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius += RadiusDiff;
 					}
 					
 					break;

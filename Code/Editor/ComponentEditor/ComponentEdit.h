@@ -15,6 +15,7 @@
 #include "Editor/Edit.h"
 
 #include <Physics/Body2D.h>
+#include <Engine2D/Engine/DynamicObjectCollection/DynamicObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentEdit : public cEdit {
 public:
@@ -24,8 +25,14 @@ public:
 
 public:
 	// Body2D //
-	std::vector< Engine2D::cBody2D > Body2D;
-	size_t CurBody;
+//	std::vector< Engine2D::cBody2D > Body2D;
+	std::vector< Engine2D::cDynamicObject > DynObj;
+	Engine2D::cBody2DPose* Pose;
+	
+	size_t CurObj;
+	size_t CurPose;
+	
+//	size_t CurBody;
 	Real NodeRadius;
 
 	//bool isDeleteNode;

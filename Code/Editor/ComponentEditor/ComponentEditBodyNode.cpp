@@ -18,9 +18,11 @@ int cComponentEdit::BodySingleSelectNode()
 	Real LastDistance = NodeRadius;
 	Real TestDistance = NodeRadius;
 	
-	for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
+//	for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
+	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 	{
-		TestDistance = ( Body2D[ CurBody ].Nodes.Pos( idx ) - CurMousePos ).Magnitude();
+//		TestDistance = ( Body2D[ CurBody ].Nodes.Pos( idx ) - CurMousePos ).Magnitude();
+		TestDistance = ( Pose->Node[ idx ].Pos - CurMousePos ).Magnitude();
 		if( TestDistance < Real( NodeRadius ) )
 		{
 			if( TestDistance < LastDistance )
@@ -40,9 +42,11 @@ void cComponentEdit::BodySelectNode()
 		// Group add-select //
 		if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
 		{
-			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
+//			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
+			for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 			{
-				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
+//				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
+				if( WithinBox( Pose->Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					bool CurSelectedTest = false;
 					for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -79,9 +83,11 @@ void cComponentEdit::BodySelectNode()
 		// Group de-select //
 		else if( Button[ KEY_LCTRL ] || Button[ KEY_RCTRL ] )
 		{
-			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
+//			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
+			for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 			{
-				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
+//				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
+				if( WithinBox( Pose->Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					for( size_t i = 0; i < CurSelected.size(); ++i )
 					{
@@ -126,9 +132,11 @@ void cComponentEdit::BodySelectNode()
 		{
 			CurSelected.clear();
 			
-			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
+//			for( size_t idx = 0; idx < Body2D[ CurBody ].Nodes.Size(); ++idx )
+			for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 			{
-				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
+//				if( WithinBox( Body2D[ CurBody ].Nodes.Pos( idx ), CurMousePos, OldMousePos ) )
+				if( WithinBox( Pose->Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					CurSelected.push_back( idx );
 				}
@@ -182,7 +190,13 @@ void cComponentEdit::BodyMoveNode()
 
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
-				CalcSnapToGrid( Body2D[ CurBody ].Nodes.Pos( CurSelected[idx] ), CurrentGridDepth, GridDepth );
+				//Pose->Node[ idx ].Pos
+				//Body2D[ 0 ].SetPos(
+//				CalcSnapToGrid( Body2D[ CurBody ].Nodes.Pos( CurSelected[idx] ), CurrentGridDepth, GridDepth );
+				Vector2D TempPos = Pose->Node[ CurSelected[idx] ].Pos;
+				CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
+				DynObj[ CurObj ].Body.SetPos( CurSelected[idx], TempPos );
+				
 			}
 			SnapToGrid = false;
 			ActiveAction();
@@ -196,6 +210,20 @@ void cComponentEdit::BodyMoveNode()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
+			
+			
+			Real TempX = Pose->Node[ CurSelected[idx] ].Pos.x;
+			TempX -=
+				( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
+				Real( Camera->Pos.z / cGlobal::HudZoom );
+			
+			Real TempY = Pose->Node[ CurSelected[idx] ].Pos.y;
+			TempY +=
+				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
+				Real( Camera->Pos.z / cGlobal::HudZoom );
+					
+			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );
+/*
 			Body2D[ CurBody ].Nodes.Pos( CurSelected[idx] ).x -=
 				( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
 				Real( Camera->Pos.z / cGlobal::HudZoom );
@@ -203,7 +231,7 @@ void cComponentEdit::BodyMoveNode()
 			Body2D[ CurBody ].Nodes.Pos( CurSelected[idx] ).y +=
 				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
 				Real( Camera->Pos.z / cGlobal::HudZoom );
-		
+*/		
 		}
 	}
 }
@@ -214,16 +242,24 @@ void cComponentEdit::BodyAddNode()
 	{
 		CurSelected.clear();
 		
-		size_t tempIdx = Body2D[ CurBody ].AddNode();
+//		size_t tempIdx = Body2D[ CurBody ].AddNode();
+		size_t TempIdx = DynObj[ CurObj ].Body.AddNode();
 
-		Body2D[ CurBody ].Nodes.Pos( tempIdx ) = CurMousePos;
-
+		//Body2D[ CurBody ].Nodes.Pos( tempIdx ) = CurMousePos;
+		Vector2D TempPos = CurMousePos;
+		
 		SetGridDepth( Camera, CurrentGridDepth, 40.0 );
 		SetGridArray( CurrentGridDepth, GridDepth );
+
+		if( !Button[ KEY_LCTRL ].Pressed() )
+		{
+			CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
+		}
+		DynObj[ CurObj ].Body.SetPos( TempIdx, TempPos );
+
+		//CalcSnapToGrid( Body2D[ CurBody ].Nodes.Pos( tempIdx ), CurrentGridDepth, GridDepth );
 		
-		CalcSnapToGrid( Body2D[ CurBody ].Nodes.Pos( tempIdx ), CurrentGridDepth, GridDepth );
-		
-		CurSelected.push_back( tempIdx );
+		CurSelected.push_back( TempIdx );
 		
 		ActiveAction();
 	}
@@ -238,7 +274,7 @@ void cComponentEdit::BodyDeleteNode()
 			sort( CurSelected.begin(), CurSelected.end() );
 			for( int idx = CurSelected.size() - 1; idx > -1; --idx )
 			{
-				Body2D[ CurBody ].DeleteNode( CurSelected[idx] );
+				DynObj[ CurObj ].Body.DeleteNode( CurSelected[idx] );
 				
 //				Log( LOG_HIGHEST_LEVEL, "CurSelected[idx]  " << CurSelected[idx] );
 			}
@@ -275,26 +311,33 @@ void cComponentEdit::BodyMass( const Real MassDiff )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			if( Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] > Real( 1.0 ) )
+		//	if( Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] > Real( 1.0 ) )
+			if( Pose->Node[ CurSelected[idx] ].Mass > Real( 1.0 ) )
 			{
 				if ( Button[ KEY_MINUS ] )
 				{
-					Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] -= MassDiff;
+					DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass - MassDiff );
+					
+				//	Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] -= MassDiff;
 				}
 				
 				if( Mouse.Wheel.Diff() < 0 )
 				{
-					Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] -= MassDiff;
+					DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass - MassDiff );
+	
+//					Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] -= MassDiff;
 				}		
 			}
 			// - ---------------------------------------------------------------------- - //
 			if( Button[ KEY_EQUALS ] )
 			{
-				Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] += MassDiff;
+				DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass + MassDiff );
+				//Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] += MassDiff;
 			}
 			if( Mouse.Wheel.Diff() > 0 )
 			{
-				Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] += MassDiff;
+				DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass + MassDiff );
+				//Body2D[ CurBody ].Nodes.Mass[ CurSelected[idx] ] += MassDiff;
 			}
 		}
 	}

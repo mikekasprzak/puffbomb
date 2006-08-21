@@ -10,7 +10,9 @@
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::cComponentEdit() :
-	CurBody( 0 ),
+	CurObj( 0 ),
+	CurPose( 0 ),
+//	CurBody( 0 ),
 	NodeRadius( 3 )
 //	isDeleteNode( false )
 {
@@ -55,18 +57,58 @@ cComponentEdit::cComponentEdit() :
 
 	GridSize = 2048.0;
 	
-	Body2D.push_back( Engine2D::cBody2D() );
-		
-	CurSelected.push_back( Body2D[ 0 ].AddNode() );
-	CurSelected.push_back( Body2D[ 0 ].AddNode() );
-	Body2D[ 0 ].AddNode();
+	
+	DynObj.push_back( Engine2D::cDynamicObject() );
+	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
+	DynObj[ 0 ].AnimationSet->Pose.push_back( Engine2D::cBody2DPose() );
+	
+//	Body2D.push_back( DynObj[ 0 ].Body );
+	
+	Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
+	
+	DynObj[ 0 ].Body.Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
 
-	Body2D[ 0 ].Nodes.Pos( 0 ) = Vector2D( 50.0, 20.0 );
-	Body2D[ 0 ].Nodes.Pos( 1 ) = Vector2D( 20.0, 50.0 );
+	DynObj[ 0 ].Body.AddNode();
+	DynObj[ 0 ].Body.AddNode();
+	DynObj[ 0 ].Body.AddNode();
 
-	Body2D[ 0 ].AddSphere( 1 );
-	Body2D[ 0 ].AddSphere( 0 );
-	Body2D[ 0 ].Sphere( 0 ).Radius = Real( 30 );
+	DynObj[ 0 ].Body.SetPos( 0, Vector2D( 50.0, 20.0 ) );
+	DynObj[ 0 ].Body.SetPos( 1, Vector2D( 20.0, 50.0 ) );
+	
+	//Body2D.push_back( Engine2D::cBody2D() );
+//	Body2D[ 0 ].Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
+	/*
+	void SetPos( const size_t Index, const Vector2D& _Pos ) {
+		Pose->Node[ Index ].Pos = _Pos;
+		Nodes.Pos( Index ) = _Pos;
+		Nodes.Old( Index ) = _Pos;
+	}
+
+	void SetMass( const size_t Index, const Real& _Mass ) {
+		Pose->Node[ Index ].Mass = _Mass;
+		Nodes.Mass[ Index ] = _Mass;
+	}
+
+	void SetTotalMass( const Real& _Mass ) {
+		Pose->TotalMass = _Mass;
+		Nodes.TotalMass = _Mass;
+	}*/
+	
+//	CurSelected.push_back( Body2D[ 0 ].AddNode() );
+//	CurSelected.push_back( Body2D[ 0 ].AddNode() );
+//	Body2D[ 0 ].AddNode();
+//	Body2D[ 0 ].AddNode();
+//	Body2D[ 0 ].AddNode();
+
+//	Body2D[ 0 ].Nodes.Pos( 0 ) = Vector2D( 50.0, 20.0 );
+//	Body2D[ 0 ].SetPos( 0, Vector2D( 50.0, 20.0 ) );
+
+//	Body2D[ 0 ].Nodes.Pos( 1 ) = Vector2D( 20.0, 50.0 );
+//	Body2D[ 0 ].SetPos( 1, Vector2D( 20.0, 50.0 ) );
+
+//	Body2D[ 0 ].AddSphere( 1 );
+//	Body2D[ 0 ].AddSphere( 0 );
+//	Body2D[ 0 ].Sphere( 0 ).Radius = Real( 30 );
 	
 	CurMode = NODE_MODE;
 }
@@ -97,48 +139,48 @@ void cComponentEdit::Draw()
 	Gfx::DisableBlend();
 
 	// Draw nodes and selected nodes //
-	Body2D[ CurBody ].DrawNodes( CurSelected );
+	DynObj[ CurObj ].Body.DrawNodes( CurSelected );
 	
 	// Draw spheres //
-	for( size_t idx = 0; idx < Body2D[ CurBody ].SphereSize(); ++idx )
+	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.SphereSize(); ++idx )
 	{
-		Body2D[ CurBody ].DrawSphere( idx, false );
+		DynObj[ CurObj ].Body.DrawSphere( idx, false );
 	}
 	// Draw selected spheres //
 	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 	{
-		for( size_t SphereIdx = 0; SphereIdx < Body2D[ CurBody ].SphereSize(); ++SphereIdx )
+		for( size_t SphereIdx = 0; SphereIdx < DynObj[ CurObj ].Body.SphereSize(); ++SphereIdx )
 		{
-			if( CurSelected[idx] == Body2D[ CurBody ].Sphere( SphereIdx ).Index )
+			if( CurSelected[idx] == DynObj[ CurObj ].Body.Sphere( SphereIdx ).Index )
 			{
-				Body2D[ CurBody ].DrawSphere( SphereIdx, true );
+				DynObj[ CurObj ].Body.DrawSphere( SphereIdx, true );
 			}
 		}
 	}
 	// Draw springs //
-	for( size_t idx = 0; idx < Body2D[ CurBody ].SpringSize(); ++idx )
+	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.SpringSize(); ++idx )
 	{
-		Body2D[ CurBody ].DrawSpring( idx, false );
+		DynObj[ CurObj ].Body.DrawSpring( idx, false );
 	}
 	// Draw selected springs //
-	for( size_t SpringIdx = 0; SpringIdx < Body2D[ CurBody ].SpringSize(); ++SpringIdx )
+	for( size_t SpringIdx = 0; SpringIdx < DynObj[ CurObj ].Body.SpringSize(); ++SpringIdx )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
 			for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 			{
-				if( Body2D[ CurBody ].Spring( SpringIdx ).IndexA == CurSelected[idx] )
+				if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[idx] )
 				{
-					if( Body2D[ CurBody ].Spring( SpringIdx ).IndexB == CurSelected[i] )
+					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[i] )
 					{
-						Body2D[ CurBody ].DrawSpring( SpringIdx, true );
+						DynObj[ CurObj ].Body.DrawSpring( SpringIdx, true );
 					}
 				}
-				if( Body2D[ CurBody ].Spring( SpringIdx ).IndexB == CurSelected[idx] )
+				if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[idx] )
 				{
-					if( Body2D[ CurBody ].Spring( SpringIdx ).IndexA == CurSelected[i] )
+					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[i] )
 					{
-						Body2D[ CurBody ].DrawSpring( SpringIdx, true );
+						DynObj[ CurObj ].Body.DrawSpring( SpringIdx, true );
 					}
 				}
 			}	
