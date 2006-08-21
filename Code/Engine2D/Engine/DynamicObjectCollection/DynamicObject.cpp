@@ -30,7 +30,7 @@ void cDynamicObject::Step() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicObject::Draw() {
-	Mesh.Draw( Body );
+	//Mesh.Draw( Body );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicObject::DrawBody( const bool Selected ) const {

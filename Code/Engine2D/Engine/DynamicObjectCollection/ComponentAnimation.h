@@ -1,33 +1,22 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Body2DPose //
+// ComponentAnimation //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Physics_Body2D_Body2DPose_H__
-#define __Engine2D_Physics_Body2D_Body2DPose_H__
+#ifndef __Engine2D_Engine_DynamicObjectComponent_ComponentAnimation_H__
+#define __Engine2D_Engine_DynamicObjectComponent_ComponentAnimation_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Real.h>
-#include <Geometry/Vector.h>
-// - ------------------------------------------------------------------------------------------ - //
-#include "Constraints/Spring.h"
-#include "Constraints/Sphere.h"
+#include "ComponentFrame.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cBody2DPose {
+class cComponentAnimation {
 public:
-	class cNode {
-	public:
-		Vector2D Pos;
-		Real Mass;
-	};
-
-	std::vector< cNode > Node;
-	std::vector< cSpring > Spring;
-	std::vector< cSphere > Sphere;
+	std::vector< cComponentFrame > Frame;
+	unsigned int LoopPoint;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Physics_Body2D_Body2DPose_H__ //
+#endif // __Engine2D_Engine_DynamicObjectComponent_ComponentAnimation_H__ //
 // - ------------------------------------------------------------------------------------------ - //

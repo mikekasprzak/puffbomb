@@ -4,8 +4,11 @@
 #ifndef __Engine2D_Engine_DynamicObjectCollection_DynamicObject_H__
 #define __Engine2D_Engine_DynamicObjectCollection_DynamicObject_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <vector>
+// - ------------------------------------------------------------------------------------------ - //
 #include <Physics/Body2D.h>
-#include <Graphics/Mesh2D.h>
+#include "ComponentAnimation.h"
+//#include <Graphics/Mesh2D.h>
 
 #include "StateFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -15,7 +18,7 @@ class cDynamicObject {
 public:
 	// Parts of a component //
 	cBody2D Body;
-	cMesh2D Mesh;
+	std::vector< cComponentAnimation >* Animation;
 	
 	// Who our parent is //
 	const class cDynamicObject* Parent;
