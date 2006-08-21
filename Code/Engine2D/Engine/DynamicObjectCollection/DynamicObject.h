@@ -7,7 +7,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Physics/Body2D.h>
-#include "ComponentAnimation.h"
+#include "ComponentAnimationSet.h"
 //#include <Graphics/Mesh2D.h>
 
 #include "StateFlags.h"
@@ -18,7 +18,7 @@ class cDynamicObject {
 public:
 	// Parts of a component //
 	cBody2D Body;
-	std::vector< cComponentAnimation >* Animation;
+	cComponentAnimationSet* AnimationSet;
 	
 	// Who our parent is //
 	const class cDynamicObject* Parent;

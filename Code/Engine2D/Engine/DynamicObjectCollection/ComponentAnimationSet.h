@@ -1,26 +1,22 @@
 // - ------------------------------------------------------------------------------------------ - //
-// ComponentFrame //
+// ComponentAnimationSet //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObjectComponent_ComponentFrame_H__
-#define __Engine2D_Engine_DynamicObjectComponent_ComponentFrame_H__
+#ifndef __Engine2D_Engine_DynamicObjectComponent_ComponentAnimationSet_H__
+#define __Engine2D_Engine_DynamicObjectComponent_ComponentAnimationSet_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Physics/Body2D/Body2DPose.h>
-//#include <Graphics/Mesh2DFrame.h>
+#include "ComponentAnimation.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cComponentFrame {
+class cComponentAnimationSet {
 public:
-	//cBody2DPose Body;
-	size_t PoseIndex;
-	//cMesh2DFrame Mesh;
-
-	unsigned int Time;
+	std::vector< cComponentAnimation > Animation;
+	std::vector< cBody2DPose > Pose;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObjectComponent_ComponentFrame_H__ //
+#endif // __Engine2D_Engine_DynamicObjectComponent_ComponentAnimationSet_H__ //
 // - ------------------------------------------------------------------------------------------ - //
