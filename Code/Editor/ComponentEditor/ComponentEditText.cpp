@@ -446,6 +446,55 @@ void cComponentEdit::DisplayComponentInfo()
 		Real( 0.5 ),
 		gfx::RGBA( 100, 255, 100, 255 )
 	);
+	
+	int EqualNodeSizes = Pose->Node.size();
+	int EqualSphereSizes = Pose->Sphere.size();
+	int EqualSpringSizes = Pose->Spring.size();
+	
+	
+	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Pose.size(); ++idx )
+	{
+		if( EqualNodeSizes != int( DynObj[ CurObj ].AnimationSet->Pose[idx].Node.size() ) )
+		{
+			EqualNodeSizes = -1;
+		}
+		if( EqualSphereSizes != int( DynObj[ CurObj ].AnimationSet->Pose[idx].Sphere.size() ) )
+		{
+			EqualSphereSizes = -1;
+		}
+		if( EqualSpringSizes != int( DynObj[ CurObj ].AnimationSet->Pose[idx].Spring.size() ) )
+		{
+			EqualSpringSizes = -1;
+		}
+	}
+	if( EqualNodeSizes == -1 )
+	{
+		cFonts::FlangeLight.Write(
+			"Unequal node sizes",
+			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 70 ), 0.0 ),
+			Real( 0.5 ),
+			gfx::RGBA( 255, 0, 0, 255 )
+		);
+	}
+	if( EqualSphereSizes == -1 )
+	{
+		cFonts::FlangeLight.Write(
+			"Unequal sphere sizes",
+			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 110 ), 0.0 ),
+			Real( 0.5 ),
+			gfx::RGBA( 255, 0, 0, 255 )
+		);
+	}
+	if( EqualSpringSizes == -1 )
+	{
+		cFonts::FlangeLight.Write(
+			"Unequal spring sizes",
+			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 150 ), 0.0 ),
+			Real( 0.5 ),
+			gfx::RGBA( 255, 0, 0, 255 )
+		);
+	}
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
