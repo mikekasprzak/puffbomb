@@ -65,6 +65,7 @@ public:
 	void BodyDeleteNode();
 	void BodyScaleNode();
 	void BodyMass( const Real MassDiff );
+	void BodyCalcTotalMass();
 
 public:
 	// ComponentEditBodySphere.cpp //

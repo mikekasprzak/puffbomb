@@ -21,6 +21,7 @@ void cComponentEdit::BodyAddSpring()
 				}
 			}
 			ActiveAction();
+			DynObj[ CurObj ].Body.CalculateSpringLength();
 		}
 	}
 }

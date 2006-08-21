@@ -188,10 +188,12 @@ void cComponentEdit::BodyMoveNode()
 				
 			}
 			SnapToGrid = false;
+			DynObj[ CurObj ].Body.CalculateSpringLength();
 			ActiveAction();
 		}
 		else
 		{
+			DynObj[ CurObj ].Body.CalculateSpringLength();
 			ActiveAction();
 		}
 	}
@@ -234,6 +236,10 @@ void cComponentEdit::BodyAddNode()
 		DynObj[ CurObj ].Body.SetPos( TempIdx, TempPos );
 		
 		CurSelected.push_back( TempIdx );
+		
+		DynObj[ CurObj ].Body.SetMass( TempIdx, Real( 1 ) );
+	
+		BodyCalcTotalMass();
 		
 		ActiveAction();
 	}
@@ -287,27 +293,31 @@ void cComponentEdit::BodyMass( const Real MassDiff )
 		{
 			if( Pose->Node[ CurSelected[idx] ].Mass > Real( 1.0 ) )
 			{
-				if ( Button[ KEY_MINUS ] )
+				if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
 				{
 					DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass - MassDiff );
+					BodyCalcTotalMass();
 				}
-				
-				if( Mouse.Wheel.Diff() < 0 )
-				{
-					DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass - MassDiff );
-				}		
 			}
-			// - ---------------------------------------------------------------------- - //
-			if( Button[ KEY_EQUALS ] )
+			if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
 			{
 				DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass + MassDiff );
-			}
-			if( Mouse.Wheel.Diff() > 0 )
-			{
-				DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass + MassDiff );
+				BodyCalcTotalMass();
 			}
 		}
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::BodyCalcTotalMass()
+{
+	Real TempMass = Real( 0 );
+	
+	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+	{
+		TempMass += Pose->Node[ idx ].Mass;
+	}
+	
+	DynObj[ CurObj ].Body.SetTotalMass( TempMass );
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
