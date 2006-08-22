@@ -13,6 +13,16 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
+const fl cEdit::flDelete			= bit4;
+const fl cEdit::flMove				= bit5;
+const fl cEdit::flScale	 			= bit6;
+const fl cEdit::flHelp	 			= bit7;
+const fl cEdit::flMiddleClick	 	= bit8;
+const fl cEdit::flMiddleClickLast	= bit9;
+const fl cEdit::flAutoGridDepth		= bit10;
+const fl cEdit::flSnapToGrid		= bit11;
+const fl cEdit::flisGroupMove		= bit12;
+// - ------------------------------------------------------------------------------------------ - //
 cEdit::cEdit() :
 	IsHelp( false ),
 	MiddleClick( false ),

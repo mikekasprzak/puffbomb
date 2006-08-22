@@ -11,6 +11,7 @@
 #include <Geometry/Vector.h>
 #include <Global.h>
 
+#include <Util/ClassDesigner/Bits.h>
 #include <Graphics/Camera.h>
 
 #include "Mesh2DEditor/Mesh2DInfo.h"
@@ -26,6 +27,8 @@
 #define SUPER_MODE 				8
 #define COMPONENT_MODE			9
 // - ------------------------------------------------------------------------------------------ - //
+typedef const unsigned int fl;
+// - ------------------------------------------------------------------------------------------ - //
 class cEdit {
 public:
 	// Construct, and require an associated object //
@@ -35,6 +38,21 @@ public:
 public:
 	cCamera* Camera;
 	cCamera* HudCamera;
+
+	//	EventFlags
+	// - -------------------------------------------------------------------------------------- - //
+	static const fl flDelete;
+	static const fl flMove;
+	static const fl flScale;
+	static const fl flHelp;
+	static const fl flMiddleClick;
+	static const fl flMiddleClickLast;
+	static const fl flAutoGridDepth;
+	static const fl flSnapToGrid;
+	static const fl flisGroupMove;
+	
+	unsigned int EventFlags;
+	// - -------------------------------------------------------------------------------------- - //
 
 	bool IsHelp;
 	
