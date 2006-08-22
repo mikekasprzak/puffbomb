@@ -24,6 +24,7 @@ const fl cEdit::flSnapToGrid		= bit11;
 const fl cEdit::flisGroupMove		= bit12;
 // - ------------------------------------------------------------------------------------------ - //
 cEdit::cEdit() :
+	EditEventFlags( 0 ),
 	IsHelp( false ),
 	MiddleClick( false ),
 	MiddleClickLast( false ),

@@ -266,23 +266,26 @@ void cComponentEdit::BodyDeleteNode()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::BodyScaleNode()
 {
-	/*if( Button[ KEY_L ].Pressed() )
+	if( Button[ KEY_L ].Pressed() )
 	{
-		isScaleNode = !isScaleNode;	
+		EditEventFlags |= flScale;
 	}
-	if( Button[ MOUSE_1 ].Pressed() && isScaleNode )
+	if( Button[ MOUSE_1 ].Pressed() && EditEventFlags & flScale )
 	{
-		isScaleNode = false;
+		EditEventFlags ^= flScale;
 		CurMousePos = CalcMousePos();
 		OldMousePos = CurMousePos;
 	}
-	if( isScaleNode )
+	if( EditEventFlags & flScale )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			CurFrame->Vertex[ CurSelected[idx] ].Pos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+			Vector2D TempPos = Pose->Node[ CurSelected[idx] ].Pos;
+			TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+			
+			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], TempPos );
 		}	
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::BodyMass( const Real MassDiff )

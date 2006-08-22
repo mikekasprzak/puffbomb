@@ -256,6 +256,8 @@ void cComponentEdit::Step()
 				}
 			}
 			BodyMoveNode();
+
+			BodyScaleNode();
 		}
 		else if( CurMode == SPHERE_MODE )
 		{

@@ -51,7 +51,7 @@ public:
 	static const fl flSnapToGrid;
 	static const fl flisGroupMove;
 	
-	unsigned int EventFlags;
+	unsigned int EditEventFlags;
 	// - -------------------------------------------------------------------------------------- - //
 
 	bool IsHelp;
