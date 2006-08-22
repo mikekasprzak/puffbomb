@@ -22,7 +22,6 @@ public:
 	cCamera* UVCamera;
 	cCamera* PreviewCamera;
 
-
 public:
 	std::vector< Engine2D::cDynamicObject > DynObj;
 	Engine2D::cBody2DPose* Pose;

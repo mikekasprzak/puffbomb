@@ -18,17 +18,16 @@ const fl cEdit::flMove				= bit5;
 const fl cEdit::flScale	 			= bit6;
 const fl cEdit::flHelp	 			= bit7;
 const fl cEdit::flMiddleClick	 	= bit8;
-const fl cEdit::flMiddleClickLast	= bit9;
-const fl cEdit::flAutoGridDepth		= bit10;
-const fl cEdit::flSnapToGrid		= bit11;
-const fl cEdit::flisGroupMove		= bit12;
+const fl cEdit::flAutoGridDepth		= bit9;
+const fl cEdit::flSnapToGrid		= bit10;
+const fl cEdit::flisGroupMove		= bit11;
 // - ------------------------------------------------------------------------------------------ - //
 cEdit::cEdit() :
 	EditEventFlags( 0 ),
 	IsHelp( false ),
-	MiddleClick( false ),
-	MiddleClickLast( false ),
-	AutoGridDepth( true ),
+//	MiddleClick( false ),
+//	MiddleClickLast( false ),
+//	AutoGridDepth( true ),
 	ScrollMouseX( 0 ),
 	ScrollMouseY( 0 ),
 	ScrollFrame( 10 ),
@@ -47,6 +46,8 @@ cEdit::cEdit() :
 	OldMousePos( Real(0.0), Real(0.0) ),
 	CurMousePos( Real(0.0), Real(0.0) )
 {
+	EditEventFlags |= flAutoGridDepth;
+	
 	// Create Camera //
 	Camera = new cCamera(
 		Vector3D( 0.0, 0.0, cGlobal::HudZoom ),
@@ -118,21 +119,20 @@ void cEdit::Scroll( cCamera* MyCamera )
 }
 void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH, const Vector2D ZoomInfo )
 {
-	// Scroll Mouse Button
 	// Pans the screen	
-//	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
-	if( Button[ MOUSE_3 ] && MiddleClick == false || LastView != CurView )
+	if( ( Button[ MOUSE_3 ] ) && ( !( EditEventFlags & flMiddleClick ) ) || ( LastView != CurView ) )
 	{
-		MiddleClick = true;
+		EditEventFlags |= flMiddleClick;
+		//MiddleClick = true;
 		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
 		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
 	}
-	else if( !( Button[ MOUSE_3 ] ) && MiddleClick )
+	else if( ( !( Button[ MOUSE_3 ] ) ) && ( EditEventFlags & flMiddleClick ) )
 	{
-		MiddleClickLast = MiddleClick;
-		MiddleClick = false;
+		EditEventFlags &= ~flMiddleClick;
+		//MiddleClick = false;
 	}
-	else if( MiddleClick )
+	else if( EditEventFlags & flMiddleClick )
 	{
 		MyCamera->Pos.x += ( int( Mouse.x * Real( cGlobal::HudW ) * PercentW ) - ScrollMouseX )
 			* Real( -MyCamera->Pos.z / ZoomInfo.x );
@@ -150,9 +150,13 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 {
 	glLineWidth( 1.0 );
 	
-	if ( Button[ KEY_END ].Pressed() )
+	if( Button[ KEY_END ].Pressed() )
 	{
-		AutoGridDepth = !AutoGridDepth;
+		EditEventFlags &= ~flAutoGridDepth;
+	}
+	else if( Button[ KEY_HOME ].Pressed() )
+	{
+		EditEventFlags |= flAutoGridDepth;
 	}
 
 	int colour = 40;
@@ -194,7 +198,8 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::SetGridDepth( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange )
 {
-	if( AutoGridDepth )
+//	if( AutoGridDepth )
+	if( ( EditEventFlags & flAutoGridDepth ) )
 	{
 		for( int idx = 1; idx < 13; ++idx )
 		{

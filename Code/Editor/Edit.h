@@ -46,7 +46,7 @@ public:
 	static const fl flScale;
 	static const fl flHelp;
 	static const fl flMiddleClick;
-	static const fl flMiddleClickLast;
+//	static const fl flMiddleClickLast;
 	static const fl flAutoGridDepth;
 	static const fl flSnapToGrid;
 	static const fl flisGroupMove;
@@ -56,10 +56,10 @@ public:
 
 	bool IsHelp;
 	
-	bool MiddleClick;
-	bool MiddleClickLast;
+//	bool MiddleClick;
+//	bool MiddleClickLast;
 
-	bool AutoGridDepth;
+//	bool AutoGridDepth;
 
 	int ScrollMouseX;
 	int ScrollMouseY;
