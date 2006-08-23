@@ -12,6 +12,7 @@ using namespace Input;
 cComponentEdit::cComponentEdit() :
 	CurObj( 0 ),
 	CurPose( 0 ),
+	CurTexPreview( 0 ),
 	NodeRadius( 3 )
 {
 	// Create Cameras //
@@ -55,6 +56,10 @@ cComponentEdit::cComponentEdit() :
 
 	GridSize = 2048.0;
 	
+	PreviewTexVertex.a = Vector3D( -UVScale, -UVScale, 0.0 );
+	PreviewTexVertex.b = Vector3D( UVScale, -UVScale, 0.0 );
+	PreviewTexVertex.c = Vector3D( UVScale, UVScale, 0.0 );
+	PreviewTexVertex.d = Vector3D( -UVScale, UVScale, 0.0 );
 
 	DynObj.push_back( Engine2D::cDynamicObject() );
 	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
@@ -86,6 +91,18 @@ void cComponentEdit::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
+	if( ( CurMode == NODE_MODE ) || ( CurMode == SPHERE_MODE ) || ( CurMode == SPRING_MODE ) )
+	{
+		// Draw preview texture //
+		Gfx::DrawQuads(
+			&PreviewTexVertex,
+			&TexUV,
+			TexIndices,
+			4,
+			TextureID[ CurTexPreview ],
+			Gfx::RGBA( 255, 255, 255, 64 )
+		);
+	}
 	// Draw Mesh2D stuff here //
 
 
@@ -101,7 +118,7 @@ void cComponentEdit::Draw()
 		}
 	}
 	
-	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );	
+	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 		
 	// Draw nodes //
 	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
@@ -186,11 +203,11 @@ void cComponentEdit::PreviewDraw()
 {
 	glLineWidth( 1.0 );
 	
-	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	// Draw the Mesh2D //
 	
+
 	Gfx::DisableTex2D();
 
 	// Draw the Body2D debug information //	
@@ -208,6 +225,15 @@ void cComponentEdit::UVDraw()
 	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
+
+	Gfx::DrawQuads(
+		&TexVertex,
+		&TexUV,
+		TexIndices,
+		4,
+		TextureID[ CurTexPreview ],
+		Gfx::White()
+	);
 	
 	Gfx::DisableTex2D();
 	
@@ -349,11 +375,16 @@ void cComponentEdit::Step()
 		Zoom( Real( 32.0 ), UVCamera );
 	}
 
-	if( CurMode == COMPONENT_MODE )
+	if( ( CurMode == NODE_MODE ) || ( CurMode == SPHERE_MODE ) || ( CurMode == SPRING_MODE ) )
+	{
+		SwitchTexture();	
+	}
+	else if( CurMode == COMPONENT_MODE )
 	{
 		BodyAddPose();
 		BodyDeletePose();
-	}		
+	}
+		
 	
 	Undo();
 	
@@ -587,6 +618,32 @@ void cComponentEdit::SwitchPose()
 		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 		CurSelected.clear();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::SwitchTexture()
+{
+	if( Button[ KEY_N ].Pressed() )
+	{
+		if( CurTexPreview > 0 )
+		{
+			CurTexPreview--;
+		}
+		else
+		{
+			CurTexPreview = TextureID.size() - 1;
+		}
+	}
+	else if( Button[ KEY_M ].Pressed() )
+	{
+		if( CurTexPreview < TextureID.size() - 1 )
+		{
+			CurTexPreview++;
+		}
+		else
+		{
+			CurTexPreview = 0;
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

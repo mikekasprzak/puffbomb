@@ -36,10 +36,6 @@ public:
 	cFrame* CurFrame;
 	unsigned int FrameIdx;
 	
-	ABCDSet< Vector3D > TexVertex;
-	ABCDSet< Vector2D > TexUV;
-	unsigned int TexIndices[4];
-	
 	Real NodeRadius;
 	
 //	std::vector<size_t> CurSelected;

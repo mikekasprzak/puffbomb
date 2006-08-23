@@ -96,6 +96,10 @@ public:
 	std::vector< unsigned int > GridIndices2;
 	unsigned int GridIndicesSize2;
 	
+	ABCDSet< Vector3D > TexVertex;
+	ABCDSet< Vector2D > TexUV;
+	unsigned int TexIndices[4];
+	
 	unsigned int CurMode;
 		
 	cCamera *LastCamera;

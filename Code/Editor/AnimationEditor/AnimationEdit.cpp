@@ -72,19 +72,6 @@ cAnimationEdit::cAnimationEdit() :
 	
 	CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 
-	TexVertex.a = Vector3D( 0.0, 0.0, 0.0 );
-	TexVertex.b = Vector3D( UVScale, 0.0, 0.0 );
-	TexVertex.c = Vector3D( UVScale, UVScale, 0.0 );
-	TexVertex.d = Vector3D( 0.0, UVScale, 0.0 );
-	TexUV.b = Vector2D( 1.0, 1.0 );
-	TexUV.a = Vector2D( 0.0, 1.0 );
-	TexUV.c = Vector2D( 1.0, 0.0 );
-	TexUV.d = Vector2D( 0.0, 0.0 );
-	TexIndices[0] = 0;
-	TexIndices[1] = 1;
-	TexIndices[2] = 2;
-	TexIndices[3] = 3;
-
 	GridSize = 2048.0;
 
 	CalcUVZoomOffset();

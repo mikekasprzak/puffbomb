@@ -28,10 +28,12 @@ public:
 	
 	size_t CurObj;
 	size_t CurPose;
+
+	size_t CurTexPreview;
 	
 	Real NodeRadius;
 
-	//bool isDeleteNode;
+	ABCDSet< Vector3D > PreviewTexVertex;
 
 public:
 	cComponentEdit();
@@ -55,6 +57,7 @@ public:
 	void BodyAddPose();
 	void BodyDeletePose();
 	void SwitchPose();
+	void SwitchTexture();
 	
 public:
 	// ComponentEditBodyNode.cpp //
