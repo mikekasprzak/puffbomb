@@ -27,7 +27,7 @@ public:
 	}
 
 public:
-	void CalculateHomeMatrix( cDynamicNodes& Node ) {
+	void CalculateHomeMatrix( const cDynamicNodes& Node ) {
 		Vector2D Line = Node.Pos( HandleIndex ) - Node.Pos( PivotIndex );
 		Line.Normalize();
 		
@@ -40,7 +40,7 @@ public:
 	}
 
 public:
-	Matrix2x2 CalculateMatrix( cDynamicNodes& Node ) const {
+	Matrix2x2 CalculateMatrix( const cDynamicNodes& Node ) const {
 		Vector2D Line = Node.Pos( HandleIndex ) - Node.Pos( PivotIndex );
 		Line.Normalize();
 

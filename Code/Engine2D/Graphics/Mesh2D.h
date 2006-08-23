@@ -8,7 +8,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/Texture.h>
 
-#include "Mesh2D/MeshNode.h"
+#include "Mesh2D/MeshVertex.h"
 #include "Mesh2D/MeshFace.h"
 #include "Mesh2D/MeshOrientation.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -16,7 +16,7 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cMesh2D {
 public:
-	std::vector< cMeshNode > Node;
+	std::vector< cMeshVertex > Vertex;
 	std::vector< cMeshFace > Face;
 	std::vector< cMeshOrientation >	Orientation;
 

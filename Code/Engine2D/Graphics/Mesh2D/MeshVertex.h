@@ -1,19 +1,19 @@
 // - ------------------------------------------------------------------------------------------ - //
-// MeshNode //
+// MeshVertex //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Graphics_Mesh2D_MeshNode_H__
-#define __Engine2D_Graphics_Mesh2D_MeshNode_H__
+#ifndef __Engine2D_Graphics_Mesh2D_MeshVertex_H__
+#define __Engine2D_Graphics_Mesh2D_MeshVertex_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cMeshNode: public Vector2D {
+class cMeshVertex: public Vector2D {
 public:
 	size_t OrientationIndex;
 
 public:
-	cMeshNode( const Vector2D& _Vector, const size_t _OrientationIndex ) :
+	cMeshVertex( const Vector2D& _Vector, const size_t _OrientationIndex ) :
 		Vector2D( _Vector ),
 		OrientationIndex( _OrientationIndex )
 	{
@@ -22,5 +22,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Graphics_Mesh2D_MeshNode_H__ //
+#endif // __Engine2D_Graphics_Mesh2D_MeshVertex_H__ //
 // - ------------------------------------------------------------------------------------------ - //
