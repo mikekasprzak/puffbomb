@@ -268,13 +268,23 @@ void cComponentEdit::BodyScaleNode()
 {
 	if( Button[ KEY_L ].Pressed() )
 	{
-		EditEventFlags |= flScale;
+		if( !( EditEventFlags & flScale ) )
+		{
+			EditEventFlags |= flScale;
+		}
+		else if( ( EditEventFlags & flScale ) )
+		{
+			EditEventFlags &= ~flScale;
+			DynObj[ CurObj ].Body.CalculateSpringLength();
+		}
 	}
 	if( Button[ MOUSE_1 ].Pressed() && EditEventFlags & flScale )
 	{
-		EditEventFlags ^= flScale;
+		EditEventFlags &= ~flScale;
 		CurMousePos = CalcMousePos();
 		OldMousePos = CurMousePos;
+		
+		DynObj[ CurObj ].Body.CalculateSpringLength();		
 	}
 	if( EditEventFlags & flScale )
 	{
