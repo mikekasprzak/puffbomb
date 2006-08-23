@@ -1,30 +1,21 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Body2DPose //
+// PoseNode //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Physics_Body2D_Body2DPose_H__
-#define __Engine2D_Physics_Body2D_Body2DPose_H__
-// - ------------------------------------------------------------------------------------------ - //
-#include <vector>
+#ifndef __Engine2D_Physics_Body2D_PoseNode_H__
+#define __Engine2D_Physics_Body2D_PoseNode_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include "PoseNode.h"
-#include "Constraints/Spring.h"
-#include "Constraints/Sphere.h"
-// - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cBody2DPose {
+class cPoseNode {
 public:
-	std::vector< cPoseNode > Node;
-	std::vector< cSpring > Spring;
-	std::vector< cSphere > Sphere;
-		
-	Real TotalMass;
+	Vector2D Pos;
+	Real Mass;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Physics_Body2D_Body2DPose_H__ //
+#endif // __Engine2D_Physics_Body2D_PoseNode_H__ //
 // - ------------------------------------------------------------------------------------------ - //

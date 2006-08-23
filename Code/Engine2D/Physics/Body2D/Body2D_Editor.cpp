@@ -59,7 +59,7 @@ void cBody2D::DeleteSphere( size_t Number ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 int cBody2D::AddNode() {
-	Pose->Node.push_back( cBody2DPose::cNode() );
+	Pose->Node.push_back( cPoseNode() );
 	return Nodes.Add();
 }
 // - ------------------------------------------------------------------------------------------ - //
