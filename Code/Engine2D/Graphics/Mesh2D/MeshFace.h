@@ -1,31 +1,28 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Mesh2D //
+// MeshFace //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Graphics_Mesh2D_H__
-#define __Engine2D_Graphics_Mesh2D_H__
+#ifndef __Engine2D_Graphics_Mesh2D_MeshFace_H__
+#define __Engine2D_Graphics_Mesh2D_MeshFace_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <vector>
-// - ------------------------------------------------------------------------------------------ - //
-#include <Graphics/Texture.h>
-
-#include "Mesh2D/MeshNode.h"
-#include "Mesh2D/MeshFace.h"
-#include "Mesh2D/MeshOrientation.h"
+#include <Geometry/Vector.h>
+#include <Geometry/Set.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cMesh2D {
+class cMeshFace {
 public:
-	std::vector< cMeshNode > Node;
-	std::vector< cMeshFace > Face;
-	std::vector< cMeshOrientation >	Orientation;
+	ABCSet< size_t > NodeIndex;
+	ABCSet< Vector2D > UV;
 
-	cTexture Texture;
 public:
-	void Draw( const class cBody2D& Body ) const;
+	cMeshFace( const ABCSet< size_t >& _Index, const ABCSet<Vector2D>& _UV ) :
+		NodeIndex( _Index ),
+		UV( _UV )
+	{
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Graphics_Mesh2D_H__ //
+#endif // __Engine2D_Graphics_Mesh2D_MeshFace_H__ //
 // - ------------------------------------------------------------------------------------------ - //

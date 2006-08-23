@@ -7,7 +7,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Physics/Body2D/Body2DPose.h>
-//#include <Graphics/Mesh2DFrame.h>
+#include <Engine2D/Graphics/Mesh2D.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -15,7 +15,7 @@ class cComponentFrame {
 public:
 	//cBody2DPose Body;
 	size_t PoseIndex;
-	//cMesh2DFrame Mesh;
+	cMesh2D Mesh;
 
 	unsigned int Time;
 };
