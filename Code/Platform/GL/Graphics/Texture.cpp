@@ -27,8 +27,8 @@ void cTexture::Load( const std::string& FileName )
 
 		Pixels = (unsigned char*)&Buffer[12];
 		
-		glGenTextures( 1, &ID );
-		glBindTexture( GL_TEXTURE_2D, ID );
+		glGenTextures( 1, &Id );
+		glBindTexture( GL_TEXTURE_2D, Id );
 	
 //		Log( LOG_HIGHEST_LEVEL, "PixelSize = " << PixelSize );
 //		Log( LOG_HIGHEST_LEVEL, "Width = " << Width );

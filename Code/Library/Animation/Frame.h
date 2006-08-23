@@ -48,7 +48,7 @@ public:
 	std::vector< cVertex > Vertex;
 	std::vector< cFace > Face;
 
-	unsigned int TextureID;
+	unsigned int TextureId;
 		
 public:
 	cFrame()

@@ -85,7 +85,7 @@ void cAnimator::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::Draw( const Vector2D& Offset )
 {
-	glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureID );
+	glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureId );
 
 	for( size_t idx = 0; idx < CurDrawFrame->Face.size(); ++idx )
 	{
@@ -102,7 +102,7 @@ void cAnimator::Draw( const Vector2D& Offset )
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix )
 {
-	glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureID );
+	glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureId );
 
 	for( size_t idx = 0; idx < CurDrawFrame->Face.size(); ++idx )
 	{
@@ -121,7 +121,7 @@ void cAnimator::DrawQuad( const Vector2D& Offset )
 {
 	if( !CurDrawFrame->Face.empty() )
 	{
-		glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureID );
+		glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureId );
 	
 		gfx::Quad(
 			CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Offset,
@@ -140,7 +140,7 @@ void cAnimator::DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix )
 {
 	if( !CurDrawFrame->Face.empty() )
 	{
-		glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureID );
+		glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureId );
 	
 		gfx::Quad(
 			( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos.ToMatrix2x1() * Matrix ) + Offset,

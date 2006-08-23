@@ -50,7 +50,7 @@ cSpiderController::cSpiderController(
 		Mass.push_back( Real::One / _Object->InvMass( idx ) );
 	}
 
-	TextureId = TexturePool.Load( "SpiderTexture.tx" ).ID;
+	TextureId = TexturePool.Load( "SpiderTexture.tx" ).Id;
 	
 	MyPad = 0;
 }

@@ -6,20 +6,32 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
+#include <Geometry/Vector.h>
+#include <Geometry/Set.h>
+
 #include <Graphics/Texture.h>
 
 #include "Mesh2D/MeshVertex.h"
-#include "Mesh2D/MeshFace.h"
+//#include "Mesh2D/MeshFace.h"
 #include "Mesh2D/MeshOrientation.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cMesh2D {
 public:
+	// Vertices (with orientation indices for transformations) //
 	std::vector< cMeshVertex > Vertex;
-	std::vector< cMeshFace > Face;
+	// A UV for every vertex (streamable) //
+	std::vector< Vector2D > UV;
+
+	// Face list //
+	std::vector< ABCSet< size_t > > Face;
+	
+	// Relative Orientations //
 	std::vector< cMeshOrientation >	Orientation;
 
+
+	// Texture Used //
 	cTexture Texture;
 public:
 	void Draw( const class cBody2D& Body ) const;

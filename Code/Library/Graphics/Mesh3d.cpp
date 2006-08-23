@@ -35,7 +35,7 @@ void cMesh3d::Load( const std::string& FileName )
 		Data[0].TextureName = (StaticArray< char >*) &(*Data[0].Indices)[ Data[0].Indices->Size() ];
 
 		std::string TempTextureName( &(*Data[0].TextureName)[0] );
-		Data[0].TextureID = TexturePool.Load( TempTextureName ).ID;
+		Data[0].TextureID = TexturePool.Load( TempTextureName ).Id;
 	
 		for( size_t obj = 1; obj < ObjSize; ++obj )
 		{
@@ -56,7 +56,7 @@ void cMesh3d::Load( const std::string& FileName )
 			Data[obj].TextureName = (StaticArray< char >*) &(*Data[obj].Indices)[ Data[obj].Indices->Size() ];
 			
 			TempTextureName = &(*Data[obj].TextureName)[0];
-			Data[obj].TextureID = TexturePool.Load( TempTextureName ).ID;
+			Data[obj].TextureID = TexturePool.Load( TempTextureName ).Id;
 
 		}
 		

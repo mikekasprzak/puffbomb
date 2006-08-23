@@ -1,6 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/Mesh2D.h>
 #include <Physics/Body2D.h>
+
+#include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -12,18 +14,25 @@ void cMesh2D::Draw( const cBody2D& Body ) const {
 	}
 	
 	// Transform Vertices //
-	std::vector< Vector2D > MyVertex( Vertex.size() );
+	std::vector< Vector3D > MyVertex( Vertex.size() );
 	for ( size_t idx = 0; idx < Vertex.size(); idx++ ) {
 		const cMeshVertex& Vert = Vertex[ idx ];		
 		const Matrix2x2& InvHome = Orientation[ Vert.OrientationIndex ].InvHomeMatrix;
 		const Matrix2x2& Matrix = MyOrientation[ Vert.OrientationIndex ];
 		
-		MyVertex[ idx ] =
+		MyVertex[ idx ] = (
 			(Vert.ToMatrix2x1() * InvHome * Matrix).ToVector2D() +
-			Body.Nodes.Pos( Orientation[ Vert.OrientationIndex ].PivotIndex );
+			Body.Nodes.Pos( Orientation[ Vert.OrientationIndex ].PivotIndex ) ).ToVector3D();
 	}
 	
 	// Draw //
+	Gfx::DrawPolygons(
+		&MyVertex[0],
+		&UV[0],
+		(unsigned int*)&Face[0],
+		Face.size() * 3,
+		Texture.Id
+		);
 	
 //	glEnable(GL_TEXTURE_2D);
 //	glEnable(GL_BLEND);

@@ -12,7 +12,7 @@ public:
 	unsigned int PixelSize;
 	unsigned int Width;
 	unsigned int Height;
-	unsigned int ID;  // Prob GL specific //
+	unsigned int Id;  // Prob GL specific //
 	
 	void* Pixels;
 	
@@ -31,7 +31,7 @@ public:
 		PixelSize( 0 ),
 		Width( 0 ),
 		Height( 0 ),
-		ID( 0 )
+		Id( 0 )
 	{
 		Load( FileName );	
 	}

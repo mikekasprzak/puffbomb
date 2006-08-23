@@ -13,7 +13,6 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentFrame {
 public:
-	//cBody2DPose Body;
 	size_t PoseIndex;
 	cMesh2D Mesh;
 

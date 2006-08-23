@@ -705,31 +705,31 @@ void cAnimationEdit::SwitchTexture()
 {
 	if( Button[ KEY_N ].Pressed() )
 	{
-		int temp = FindTexture( CurFrame->TextureID );
+		int temp = FindTexture( CurFrame->TextureId );
 		temp--;
 		if( temp >= 0 )
 		{
-			CurFrame->TextureID = TextureID[ temp ];
+			CurFrame->TextureId = TextureID[ temp ];
 			CurTexIdx = temp;
 		}
 		else
 		{
-			CurFrame->TextureID = TextureID[ TextureID.size() - 1 ];
+			CurFrame->TextureId = TextureID[ TextureID.size() - 1 ];
 			CurTexIdx = TextureID.size() - 1;
 		}
 	}
 	else if( Button[ KEY_M ].Pressed() )
 	{
-		int temp = FindTexture( CurFrame->TextureID );
+		int temp = FindTexture( CurFrame->TextureId );
 		temp++;
 		if( temp < int( TextureID.size() ) )
 		{
-			CurFrame->TextureID = TextureID[ temp ];
+			CurFrame->TextureId = TextureID[ temp ];
 			CurTexIdx = temp;
 		}
 		else
 		{
-			CurFrame->TextureID = TextureID[ 0 ];
+			CurFrame->TextureId = TextureID[ 0 ];
 			CurTexIdx = 0;
 		}
 	}

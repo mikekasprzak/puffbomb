@@ -373,7 +373,7 @@ namespace Gfx
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID,
-		const int Color
+		const Gfx::Color Color
 		)
 	{
 		glBindTexture( GL_TEXTURE_2D, TextureID );
@@ -430,12 +430,41 @@ namespace Gfx
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID,
-		const int Color
+		const Gfx::Color Color
 		)
 	{
 		glBindTexture( GL_TEXTURE_2D, TextureID );
 	
 		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
+		
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+		glVertexPointer(3, GL_FLOAT, 0, &Vertex[0]);
+		glTexCoordPointer(2, GL_FLOAT, 0, &TexCoord[0]);
+	
+		glDrawElements(
+			GL_TRIANGLES, IndicesSize,
+			GL_UNSIGNED_INT, &Indices[0]
+		);
+	
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void DrawPolygons(
+		const Vector3D* Vertex,
+		const Vector2D* TexCoord,
+		const unsigned int* Indices,
+		const unsigned int IndicesSize,
+		const unsigned int& TextureId,
+		const Gfx::Color Color
+		)
+	{
+		glBindTexture( GL_TEXTURE_2D, TextureId );
+	
+		//glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
+		glColor4ubv( (GLubyte*)&Color );
 		
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -485,7 +514,7 @@ namespace Gfx
 		const ABSet< Vector3D >* Vertex,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
-		const int Color
+		const Gfx::Color Color
 	)
 	{
 		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
@@ -506,7 +535,7 @@ namespace Gfx
 		const Vector3D* Vertex,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
-		const int Color
+		const Gfx::Color Color
 	)
 	{
 		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
@@ -533,17 +562,17 @@ namespace Gfx
 		return (255) | (255<<8) | (255<<16) | (255<<24);
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	int RGB( int r, int g, int b )
+	Gfx::Color RGB( int r, int g, int b )
 	{
 		return r|(g << 8)|(b << 16);
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	int RGBA( int r, int g, int b, int a )
+	Gfx::Color RGBA( int r, int g, int b, int a )
 	{
 		return r|(g << 8)|(b << 16)|(a << 24);
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Circle( const Vector3D& Pos, const Real& Radius, int Color )
+	void Circle( const Vector3D& Pos, const Real& Radius, Gfx::Color Color )
 	{
 		int MaxSteps = 16;
 		
@@ -568,17 +597,17 @@ namespace Gfx
 		DrawLineStrip( Vertex, Indices, MaxSteps + 1, Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Circle( const Real& x, const Real& y, const Real& Radius, int Color )
+	void Circle( const Real& x, const Real& y, const Real& Radius, Gfx::Color Color )
 	{
 		Circle( Vector3D( x, y, Real::Zero ), Radius, Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Circle( const Vector2D& Pos, const Real& Radius, int Color )
+	void Circle( const Vector2D& Pos, const Real& Radius, Gfx::Color Color )
 	{
 		Circle( Vector3D( Pos.x, Pos.y, Real::Zero ), Radius, Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Line( const Vector3D& v1, const Vector3D& v2, int Color )
+	void Line( const Vector3D& v1, const Vector3D& v2, Gfx::Color Color )
 	{
 		Vector3D Vertex[ 2 ];
 		unsigned int Indices[ 2 ];
@@ -592,22 +621,22 @@ namespace Gfx
 		DrawLineStrip( Vertex, Indices, 2, Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Line( const Vector2D& v1, const Vector2D& v2, int Color )
+	void Line( const Vector2D& v1, const Vector2D& v2, Gfx::Color Color )
 	{
 		Line( v1.ToVector3D(), v2.ToVector3D(), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color )
+	void Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, Gfx::Color Color )
 	{
 		Line( Vector3D( x1, y1, Real( 0.0 ) ), Vector3D( x2, y2, Real( 0.0 ) ), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Line( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, int Color )
+	void Line( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, Gfx::Color Color )
 	{
 		Line( Vector3D( x1, y1, z1 ), Vector3D( x2, y2, z2 ), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Rect( const Vector3D& v1, const Vector3D& v2, int Color )
+	void Rect( const Vector3D& v1, const Vector3D& v2, Gfx::Color Color )
 	{
 		Vector3D Vertex[ 4 ];
 		unsigned int Indices[ 5 ];
@@ -626,27 +655,27 @@ namespace Gfx
 		DrawLineStrip( Vertex, Indices, 5, Color );		
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Rect( const Vector2D& v1, const Vector2D& v2, int Color )
+	void Rect( const Vector2D& v1, const Vector2D& v2, Gfx::Color Color )
 	{
 		Rect( v1.ToVector3D(), v2.ToVector3D(), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color )
+	void Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, Gfx::Color Color )
 	{
 		Rect( Vector3D( x1, y1, Real( 0.0 ) ), Vector3D( x2, y2, Real( 0.0 ) ), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Rect( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, int Color )
+	void Rect( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, Gfx::Color Color )
 	{
 		Rect( Vector3D( x1, y1, z1 ), Vector3D( x2, y2, z2 ), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Rect( const Rect2D& _Rect, int Color )
+	void Rect( const Rect2D& _Rect, Gfx::Color Color )
 	{
 		Rect( _Rect._P1.ToVector3D(), _Rect._Shape.ToVector3D(), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Rect( const Rect3D& _Rect, int Color )
+	void Rect( const Rect3D& _Rect, Gfx::Color Color )
 	{
 		Rect( _Rect._P1, _Rect._Shape, Color );
 	}

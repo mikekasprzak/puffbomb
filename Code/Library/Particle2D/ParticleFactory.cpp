@@ -70,7 +70,7 @@ void ParticleFactory::Step()
 	}
 	if( ParticleSize > 0 )
 	{
-		TextureID = Alive.begin()->Animator.CurDrawFrame->TextureID;
+		TextureID = Alive.begin()->Animator.CurDrawFrame->TextureId;
 				
 		size_t VertexSize = ParticleSize;
 		ParticleSize *= 4;

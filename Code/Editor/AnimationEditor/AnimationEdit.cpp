@@ -91,7 +91,7 @@ cAnimationEdit::cAnimationEdit() :
 	
 	CurMode = NODE_MODE;
 	
-	CurTexIdx = FindTexture( CurFrame->TextureID );
+	CurTexIdx = FindTexture( CurFrame->TextureId );
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -160,7 +160,7 @@ void cAnimationEdit::UVDraw()
 		&TexUV,
 		TexIndices,
 		4,
-		CurFrame->TextureID,
+		CurFrame->TextureId,
 		Gfx::White()
 	);
 	
@@ -484,7 +484,7 @@ void cAnimationEdit::DrawFrame()
 		LineIndices[ idx ] = idx;
 	}
 	// Draw textured faces //
-	Gfx::DrawPolygons( PolyVertex, PolyTexCoord, PolyIndices, PolyIndicesSize, CurFrame->TextureID, Gfx::White() );
+	Gfx::DrawPolygons( PolyVertex, PolyTexCoord, PolyIndices, PolyIndicesSize, CurFrame->TextureId, Gfx::White() );
 
 	Gfx::DisableTex2D();
 	// Draw lines showing faces //
@@ -594,7 +594,7 @@ void cAnimationEdit::SwitchFrame()
 		CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 		CurSelected.clear();
 		CurSelUV.clear();
-		CurTexIdx = FindTexture( CurFrame->TextureID );
+		CurTexIdx = FindTexture( CurFrame->TextureId );
 	}
 	if ( Button[ KEY_RIGHT ].Pressed() )
 	{
@@ -609,7 +609,7 @@ void cAnimationEdit::SwitchFrame()
 		CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 		CurSelected.clear();
 		CurSelUV.clear();
-		CurTexIdx = FindTexture( CurFrame->TextureID );
+		CurTexIdx = FindTexture( CurFrame->TextureId );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

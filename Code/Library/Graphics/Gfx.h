@@ -62,6 +62,14 @@ public:
 // New Structure //
 namespace Gfx {
 	typedef unsigned int Color;
+
+	// Resets the color back to white with no alpha
+	void ResetColor();
+	// Returns white with no alpha
+	Gfx::Color White();
+	Gfx::Color RGB( int r, int g, int b );
+	Gfx::Color RGBA( int r, int g, int b, int a );
+
 	
 	void DrawMesh3d( const cLevelData* LevelData );
 	// Draw Quads with Vertex, TexCoord and one Color //
@@ -71,7 +79,7 @@ namespace Gfx {
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID,
-		const int Color
+		const Gfx::Color Color = White()
 	);
 	// Draw Quads with Vertex, TexCoord, Color //
 	void DrawQuads(
@@ -89,7 +97,7 @@ namespace Gfx {
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID,
-		const int Color
+		const Gfx::Color Color = White()
 	);
 	// Draw Polygons with Vertex, TexCoord, Color //
 	void DrawPolygons(
@@ -100,42 +108,46 @@ namespace Gfx {
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID
 	);
+
+	void DrawPolygons(
+		const Vector3D* Vertex,
+		const Vector2D* TexCoord,
+		const unsigned int* Indices,
+		const unsigned int IndicesSize,
+		const unsigned int& TextureId,
+		const Gfx::Color Color = White()
+		);
+
 	// Draw Lines with Vertex and one Color //
 	void DrawLines(
 		const ABSet< Vector3D >* Vertex,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
-		const int Color
+		const Gfx::Color Color = White()
 	);
 	// Draw a linestrip with Vertex and one Color //
 	void DrawLineStrip(
 		const Vector3D* Vertex,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
-		const int Color
+		const Gfx::Color Color = White()
 	);
-	// Resets the color back to white with no alpha
-	void ResetColor();
-	// Returns white with no alpha
-	unsigned int White();
-	int RGB( int r, int g, int b );
-	int RGBA( int r, int g, int b, int a );
 	// - -------------------------------------------------------------------------------------- - //
-	void Circle( const Vector3D& Pos, const Real& Radius, int Color );
-	void Circle( const Real& x, const Real& y, const Real& Radius, int Color );
-	void Circle( const Vector2D& Pos, const Real& Radius, int Color );
+	void Circle( const Vector3D& Pos, const Real& Radius, Gfx::Color Color );
+	void Circle( const Real& x, const Real& y, const Real& Radius, Gfx::Color Color );
+	void Circle( const Vector2D& Pos, const Real& Radius, Gfx::Color Color );
 	// - -------------------------------------------------------------------------------------- - //
-	void Line( const Vector3D& v1, const Vector3D& v2, int Color );
-	void Line( const Vector2D& v1, const Vector2D& v2, int Color );
-	void Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color );
-	void Line( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, int Color );
+	void Line( const Vector3D& v1, const Vector3D& v2, Gfx::Color Color );
+	void Line( const Vector2D& v1, const Vector2D& v2, Gfx::Color Color );
+	void Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, Gfx::Color Color );
+	void Line( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, Gfx::Color Color );
 	// - -------------------------------------------------------------------------------------- - //
-	void Rect( const Vector3D& v1, const Vector3D& v2, int Color );
-	void Rect( const Vector2D& v1, const Vector2D& v2, int Color );
-	void Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color );
-	void Rect( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, int Color );
-	void Rect( const Rect2D& _Rect, int Color );
-	void Rect( const Rect3D& _Rect, int Color );
+	void Rect( const Vector3D& v1, const Vector3D& v2, Gfx::Color Color );
+	void Rect( const Vector2D& v1, const Vector2D& v2, Gfx::Color Color );
+	void Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, Gfx::Color Color );
+	void Rect( const Real& x1, const Real& y1, const Real& z1, const Real& x2, const Real& y2, const Real& z2, Gfx::Color Color );
+	void Rect( const Rect2D& _Rect, Gfx::Color Color );
+	void Rect( const Rect3D& _Rect, Gfx::Color Color );
 	// - -------------------------------------------------------------------------------------- - //
 	void EnableTex2D();
 	void DisableTex2D();

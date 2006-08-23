@@ -11,8 +11,8 @@ cTexturePool::~cTexturePool()
 {
 	for( std::map<std::string,cTexture>::iterator it = Pool.begin(); it != Pool.end(); ++it )
 	{
-		glDeleteTextures( 1, &it->second.ID );
-		Log( LOG_HIGHEST_LEVEL, "Deleted Texture ID (Mesh3dPool) " );
+		glDeleteTextures( 1, &it->second.Id );
+		Log( LOG_HIGHEST_LEVEL, "Deleted Texture Id (Mesh3dPool) " );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
