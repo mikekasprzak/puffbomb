@@ -184,7 +184,22 @@ void cComponentEdit::HudDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::PreviewDraw()
 {
+	glLineWidth( 1.0 );
 	
+	
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
+	// Draw the Mesh2D //
+	
+	Gfx::DisableTex2D();
+
+	// Draw the Body2D debug information //	
+	DynObj[ CurObj ].Body.DrawNodes();
+	DynObj[ CurObj ].Body.DrawSpheres();
+	DynObj[ CurObj ].Body.DrawSprings();
+	
+	Gfx::DisableBlend();
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::UVDraw()

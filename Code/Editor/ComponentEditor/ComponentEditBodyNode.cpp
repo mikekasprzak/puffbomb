@@ -255,10 +255,8 @@ void cComponentEdit::BodyDeleteNode()
 			for( int idx = CurSelected.size() - 1; idx > -1; --idx )
 			{
 				DynObj[ CurObj ].Body.DeleteNode( CurSelected[idx] );
-				
-//				Log( LOG_HIGHEST_LEVEL, "CurSelected[idx]  " << CurSelected[idx] );
+
 			}
-			
 			CurSelected.clear();
 		}
 	}
