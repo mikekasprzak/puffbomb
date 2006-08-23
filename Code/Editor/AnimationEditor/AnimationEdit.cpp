@@ -73,8 +73,6 @@ cAnimationEdit::cAnimationEdit() :
 	CurFrame = &Animator.Animation->Frame[ FrameIdx ].GetFrame();
 
 	GridSize = 2048.0;
-
-	CalcUVZoomOffset();
 	
 	CurMode = NODE_MODE;
 	
@@ -338,20 +336,6 @@ void cAnimationEdit::Undo()
 void cAnimationEdit::ActiveAction()
 {
 
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cAnimationEdit::CalcUVZoomOffset()
-{
-	if( Platform::AspectRatio < Real( 0.79 ) )
-	{
-		UVZoomOffsetX = Real( 138.0 );
-		UVZoomOffsetY = Real( 105.5 );
-	}
-	else
-	{
-		UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
-		UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
-	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cAnimationEdit::CalcMousePos()

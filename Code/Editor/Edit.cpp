@@ -119,6 +119,8 @@ cEdit::cEdit() :
 	TexIndices[2] = 2;
 	TexIndices[3] = 3;
 
+	CalcUVZoomOffset();
+	
 }
 
 cEdit::~cEdit()
@@ -686,6 +688,20 @@ void cEdit::DrawSelBox()
 		SelBoxIndices[ 4 ] = 0;
 	
 		Gfx::DrawLineStrip( SelBoxVertex, SelBoxIndices, 5, Gfx::White() );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEdit::CalcUVZoomOffset()
+{
+	if( Platform::AspectRatio < Real( 0.79 ) )
+	{
+		UVZoomOffsetX = Real( 138.0 );
+		UVZoomOffsetY = Real( 105.5 );
+	}
+	else
+	{
+		UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
+		UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -138,6 +138,7 @@ public:
 	void LoadTextures();
 	int FindTexture( const unsigned int& TempTextureID );
 	void DrawSelBox();
+	void CalcUVZoomOffset();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

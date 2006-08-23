@@ -58,7 +58,6 @@ public:
 	void Undo();
 	void ActiveAction();
 
-	void CalcUVZoomOffset();
 	Vector2D CalcUVMousePos();
 	Vector2D CalcMousePos();
 	

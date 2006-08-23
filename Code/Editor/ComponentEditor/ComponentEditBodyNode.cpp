@@ -201,7 +201,7 @@ void cComponentEdit::BodyMoveNode()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			Real TempX = Pose->Node[ CurSelected[idx] ].Pos.x;
+/*			Real TempX = Pose->Node[ CurSelected[idx] ].Pos.x;
 			TempX -=
 				( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
 				Real( Camera->Pos.z / cGlobal::HudZoom );
@@ -211,8 +211,17 @@ void cComponentEdit::BodyMoveNode()
 				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
 				Real( Camera->Pos.z / cGlobal::HudZoom );
 					
+			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );*/
+			
+			Real TempX = Pose->Node[ CurSelected[idx] ].Pos.x;
+			TempX -= OldMousePos.x - CurMousePos.x;
+			
+			Real TempY = Pose->Node[ CurSelected[idx] ].Pos.y;
+			TempY -= OldMousePos.y - CurMousePos.y;
+					
 			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );
 		}
+		OldMousePos = CurMousePos;
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
