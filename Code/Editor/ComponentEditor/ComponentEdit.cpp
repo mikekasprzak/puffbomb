@@ -56,10 +56,13 @@ cComponentEdit::cComponentEdit() :
 
 	GridSize = 2048.0;
 	
-	PreviewTexVertex.a = Vector3D( -UVScale, -UVScale, 0.0 );
-	PreviewTexVertex.b = Vector3D( UVScale, -UVScale, 0.0 );
-	PreviewTexVertex.c = Vector3D( UVScale, UVScale, 0.0 );
-	PreviewTexVertex.d = Vector3D( -UVScale, UVScale, 0.0 );
+	Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
+	Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
+
+	PreviewTexVertex.a = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+	PreviewTexVertex.b = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+	PreviewTexVertex.c = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+	PreviewTexVertex.d = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 
 	DynObj.push_back( Engine2D::cDynamicObject() );
 	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
@@ -633,6 +636,13 @@ void cComponentEdit::SwitchTexture()
 		{
 			CurTexPreview = TextureID.size() - 1;
 		}
+		Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
+		Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
+
+		PreviewTexVertex.a = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex.b = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex.c = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+		PreviewTexVertex.d = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 	}
 	else if( Button[ KEY_M ].Pressed() )
 	{
@@ -644,6 +654,14 @@ void cComponentEdit::SwitchTexture()
 		{
 			CurTexPreview = 0;
 		}
+		
+		Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
+		Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
+
+		PreviewTexVertex.a = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex.b = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex.c = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+		PreviewTexVertex.d = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
