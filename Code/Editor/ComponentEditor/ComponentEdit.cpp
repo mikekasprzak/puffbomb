@@ -55,21 +55,21 @@ cComponentEdit::cComponentEdit() :
 
 	GridSize = 2048.0;
 	
-	
+
 	DynObj.push_back( Engine2D::cDynamicObject() );
 	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	DynObj[ 0 ].AnimationSet->Pose.push_back( Engine2D::cBody2DPose() );
 		
 	DynObj[ 0 ].Body = DynObj[ 0 ].AnimationSet->Pose[ 0 ];
 	Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
-
+/*
 	DynObj[ 0 ].Body.AddNode();
 	DynObj[ 0 ].Body.AddNode();
 	DynObj[ 0 ].Body.AddNode();
 
 	DynObj[ 0 ].Body.SetPos( 0, Vector2D( 50.0, 20.0 ) );
 	DynObj[ 0 ].Body.SetPos( 1, Vector2D( 20.0, 50.0 ) );
-
+*/
 	CurMode = NODE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -86,7 +86,10 @@ void cComponentEdit::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-	Gfx::DisableTex2D();	
+	// Draw Mesh2D stuff here //
+
+
+	Gfx::DisableTex2D();
 
 	glLineWidth( 1.0 );
 	
@@ -99,12 +102,8 @@ void cComponentEdit::Draw()
 	}
 	
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );	
-	
-	Gfx::EnableBlend();
 		
-//	DynObj[ CurObj ].Body.DrawNodes( CurSelected );
 	// Draw nodes //
-//	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.NodeSize(); ++idx )
 	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 	{
 		DynObj[ CurObj ].Body.DrawNode( idx, false );
@@ -204,10 +203,10 @@ void cComponentEdit::UVDraw()
 			DrawSelBox();
 		}
 	}
-	Gfx::DisableBlend();
 
 	DrawGrid( UVCamera, CurrentGridDepth, 40.0, true, GridDepth );
 
+	Gfx::DisableBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Step()
@@ -338,6 +337,7 @@ void cComponentEdit::Step()
 	if( CurMode == COMPONENT_MODE )
 	{
 		BodyAddPose();
+		BodyDeletePose();
 	}		
 	
 	Undo();
@@ -495,12 +495,47 @@ void cComponentEdit::SwitchMode()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::BodyAddPose()
 {
-	//CurPose++;
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
-		DynObj[ CurObj ].AnimationSet->Pose.push_back( Engine2D::cBody2DPose() );
-		CurPose = DynObj[ CurObj ].AnimationSet->Pose.size() - 1;
+		std::vector< Engine2D::cBody2DPose > TempPose;
+		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Pose.size(); ++idx )
+		{
+			TempPose.push_back( DynObj[ CurObj ].AnimationSet->Pose[ idx ] );
+			
+			if( idx == CurPose )
+			{
+				TempPose.push_back( DynObj[ CurObj ].AnimationSet->Pose[ CurPose ] );
+			}
+		}
+		DynObj[ CurObj ].AnimationSet->Pose.clear();
+		DynObj[ CurObj ].AnimationSet->Pose.swap( TempPose );
 		
+		CurPose++;
+	
+		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+
+		CurMode = NODE_MODE;
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::BodyDeletePose()
+{
+	if( Button[ KEY_DELETE ].Pressed() && DynObj[ CurObj ].AnimationSet->Pose.size() > 1 )
+	{
+		std::vector< Engine2D::cBody2DPose > TempPose;
+		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Pose.size(); ++idx )
+		{
+			if( idx != CurPose )
+			{
+				TempPose.push_back( DynObj[ CurObj ].AnimationSet->Pose[ idx ] );
+			}
+		}
+		DynObj[ CurObj ].AnimationSet->Pose.clear();
+		DynObj[ CurObj ].AnimationSet->Pose.swap( TempPose );
+		
+		CurPose = DynObj[ CurObj ].AnimationSet->Pose.size() - 1;
+	
 		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 	}
@@ -521,6 +556,7 @@ void cComponentEdit::SwitchPose()
 		
 		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+		CurSelected.clear();
 	}
 	else if ( Button[ KEY_RIGHT ].Pressed() )
 	{
@@ -535,6 +571,7 @@ void cComponentEdit::SwitchPose()
 		
 		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
+		CurSelected.clear();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

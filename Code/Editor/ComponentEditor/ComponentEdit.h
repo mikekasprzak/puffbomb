@@ -53,6 +53,7 @@ public:
 	void SwitchMode();
 	
 	void BodyAddPose();
+	void BodyDeletePose();
 	void SwitchPose();
 	
 public:
