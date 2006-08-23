@@ -170,8 +170,6 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 		SetGridArray( CurGridDepth, MyGridDepth );
 	}
 	
-	Gfx::EnableBlend();
-
 	Gfx::DrawLines(
 		&GridVertex[0],
 		&GridIndices[0],
@@ -187,9 +185,7 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 		GridIndicesSize2,
 		gfx::RGBA( colour, colour, colour, 128 )
 	);
-	
-	Gfx::DisableBlend();
-	
+		
 	if( DrawOrig )
 	{	
 		DrawOrigin();
@@ -437,7 +433,7 @@ void cEdit::DrawOrigin()
 		OriginVertex,
 		OriginIndices,
 		4,
-		gfx::RGBA( 255, 255, 255, 128 )
+		gfx::RGBA( 192, 192, 192, 128 )
 	);
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -59,10 +59,9 @@ cComponentEdit::cComponentEdit() :
 	DynObj.push_back( Engine2D::cDynamicObject() );
 	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	DynObj[ 0 ].AnimationSet->Pose.push_back( Engine2D::cBody2DPose() );
-	
+		
+	DynObj[ 0 ].Body = DynObj[ 0 ].AnimationSet->Pose[ 0 ];
 	Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
-	
-	DynObj[ 0 ].Body.Pose = &DynObj[ 0 ].AnimationSet->Pose[ 0 ];
 
 	DynObj[ 0 ].Body.AddNode();
 	DynObj[ 0 ].Body.AddNode();
@@ -99,8 +98,10 @@ void cComponentEdit::Draw()
 		}
 	}
 	
-	Gfx::DisableBlend();
-
+	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );	
+	
+	Gfx::EnableBlend();
+		
 //	DynObj[ CurObj ].Body.DrawNodes( CurSelected );
 	// Draw nodes //
 //	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.NodeSize(); ++idx )
@@ -158,8 +159,8 @@ void cComponentEdit::Draw()
 			}	
 		}
 	}
-	
-	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+
+	Gfx::DisableBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::HudDraw()
@@ -500,9 +501,8 @@ void cComponentEdit::BodyAddPose()
 		DynObj[ CurObj ].AnimationSet->Pose.push_back( Engine2D::cBody2DPose() );
 		CurPose = DynObj[ CurObj ].AnimationSet->Pose.size() - 1;
 		
+		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
-		
-		DynObj[ CurObj ].Body.Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -518,9 +518,9 @@ void cComponentEdit::SwitchPose()
 		{
 			CurPose = DynObj[ CurObj ].AnimationSet->Pose.size() - 1;
 		}
+		
+		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
-		DynObj[ CurObj ].Body.Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
-			
 	}
 	else if ( Button[ KEY_RIGHT ].Pressed() )
 	{
@@ -532,8 +532,9 @@ void cComponentEdit::SwitchPose()
 		{
 			CurPose = 0;	
 		}
+		
+		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 		Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
-		DynObj[ CurObj ].Body.Pose = &DynObj[ CurObj ].AnimationSet->Pose[ CurPose ];
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
