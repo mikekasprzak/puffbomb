@@ -35,9 +35,13 @@ public:
 	
 	unsigned int TextureID;
 	
-	std::vector< ABCDSet< Vector3D > > Vertex;
-	std::vector< ABCDSet< Vector2D > > TexCoord;
-	std::vector< ABCDSet< unsigned int > > VertColor;
+//	std::vector< ABCDSet< Vector3D > > Vertex;
+//	std::vector< ABCDSet< Vector2D > > TexCoord;
+//	std::vector< ABCDSet< unsigned int > > VertColor;
+
+	std::vector< Vector3D > Vertex;
+	std::vector< Vector2D > TexCoord;
+	std::vector< unsigned int > VertColor;
 	std::vector< unsigned int > Indices;
 
 	// - -------------------------------------------------------------------------------------- - //

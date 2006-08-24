@@ -10,10 +10,11 @@ ParticleFactory AdditiveParticle;
 // - ------------------------------------------------------------------------------------------ - //
 void ParticleFactory::Populate( int Num )
 {
-	Vertex.resize( Num );
-	TexCoord.resize( Num );
-	VertColor.resize( Num );
+	Vertex.resize( Num * 4 );
+	TexCoord.resize( Num * 4 );
+	VertColor.resize( Num * 4 );
 	Indices.resize( Num * 4 );
+//	Indices.resize( Num * 4 );
 	
 	for( int idx = 0; idx < Num; ++idx )
 	{
@@ -47,6 +48,24 @@ void ParticleFactory::Step()
 		else
 		{
 		
+			Vertex[ ParticleSize ] = (iter->Animator.CurDrawFrame->Vertex[ iter->Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + iter->Pos).ToVector3D();
+			Vertex[ ParticleSize + 1 ] = (iter->Animator.CurDrawFrame->Vertex[ iter->Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + iter->Pos).ToVector3D();
+			Vertex[ ParticleSize + 2 ] = (iter->Animator.CurDrawFrame->Vertex[ iter->Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + iter->Pos).ToVector3D();
+			Vertex[ ParticleSize + 3 ] = (iter->Animator.CurDrawFrame->Vertex[ iter->Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + iter->Pos).ToVector3D();
+			TexCoord[ ParticleSize ] = iter->Animator.CurDrawFrame->Face[ 0 ].UV.a;
+			TexCoord[ ParticleSize + 1 ] = iter->Animator.CurDrawFrame->Face[ 0 ].UV.b;
+			TexCoord[ ParticleSize + 2 ] = iter->Animator.CurDrawFrame->Face[ 0 ].UV.c;
+			TexCoord[ ParticleSize + 3 ] = iter->Animator.CurDrawFrame->Face[ 1 ].UV.c;
+			VertColor[ ParticleSize ] = gfx::RGBA( 255, 255, 255, iter->Alpha );
+			VertColor[ ParticleSize + 1 ] = VertColor[ ParticleSize ];
+			VertColor[ ParticleSize + 2 ] = VertColor[ ParticleSize ];
+			VertColor[ ParticleSize + 3 ] = VertColor[ ParticleSize ];
+
+			ParticleSize += 4;
+
+/*
+//			Indices[ ParticleSize ] = ParticleSize;
+
 			Vertex[ ParticleSize ].a = (iter->Animator.CurDrawFrame->Vertex[ iter->Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + iter->Pos).ToVector3D();
 			Vertex[ ParticleSize ].b = (iter->Animator.CurDrawFrame->Vertex[ iter->Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + iter->Pos).ToVector3D();
 			Vertex[ ParticleSize ].c = (iter->Animator.CurDrawFrame->Vertex[ iter->Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + iter->Pos).ToVector3D();
@@ -63,18 +82,20 @@ void ParticleFactory::Step()
 			Indices[ ParticleSize ] = ParticleSize;
 			
 			++ParticleSize;
+*/
 			
-			//TextureID = iter->Animator.CurDrawFrame->TextureID;
+//			TextureID = iter->Animator.CurDrawFrame->TextureId;
 			
 		}	
 	}
 	if( ParticleSize > 0 )
 	{
 		TextureID = Alive.begin()->Animator.CurDrawFrame->TextureId;
-				
-		size_t VertexSize = ParticleSize;
-		ParticleSize *= 4;
-		for( size_t idx = VertexSize; idx < ParticleSize; ++idx )
+		//Log( LOG_HIGHEST_LEVEL, "ParticleSize " << ParticleSize );
+		
+		ParticleSize -= 3;
+		
+		for( size_t idx = 0; idx < ParticleSize; ++idx )
 		{
 			Indices[ idx ] = idx;
 		}

@@ -83,32 +83,24 @@ namespace Gfx {
 	);
 	// Draw Quads with Vertex, TexCoord, Color //
 	void DrawQuads(
-		const ABCDSet< Vector3D >* Vertex,
-		const ABCDSet< Vector2D >* TexCoord,
-		const ABCDSet< unsigned int >* Color,
+		const Vector3D* Vertex,
+		const Vector2D* TexCoord,
+		const unsigned int* Color,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID
 	);
-	// Draw Polygons with Vertex, TexCoord and one Color //
-	void DrawPolygons(
-		const ABCSet< Vector3D >* Vertex,
-		const ABCSet< Vector2D >* TexCoord,
-		const unsigned int* Indices,
-		const unsigned int IndicesSize,
-		const unsigned int& TextureID,
-		const Gfx::Color Color = White()
-	);
 	// Draw Polygons with Vertex, TexCoord, Color //
 	void DrawPolygons(
-		const ABCSet< Vector3D >* Vertex,
-		const ABCSet< Vector2D >* TexCoord,
+		const Vector3D* Vertex,
+		const Vector2D* TexCoord,
 		const unsigned int* Color,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID
 	);
 
+	// Draw Polygons with Vertex, TexCoord and one Color //
 	void DrawPolygons(
 		const Vector3D* Vertex,
 		const Vector2D* TexCoord,

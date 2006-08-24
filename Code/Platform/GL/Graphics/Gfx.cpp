@@ -396,9 +396,9 @@ namespace Gfx
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	void DrawQuads(
-		const ABCDSet< Vector3D >* Vertex,
-		const ABCDSet< Vector2D >* TexCoord,
-		const ABCDSet< unsigned int >* Color,
+		const Vector3D* Vertex,
+		const Vector2D* TexCoord,
+		const unsigned int* Color,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID
@@ -425,22 +425,22 @@ namespace Gfx
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	void DrawPolygons(
-		const ABCSet< Vector3D >* Vertex,
-		const ABCSet< Vector2D >* TexCoord,
+		const Vector3D* Vertex,
+		const Vector2D* TexCoord,
+		const unsigned int* Color,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
-		const unsigned int& TextureID,
-		const Gfx::Color Color
-		)
+		const unsigned int& TextureID
+	)
 	{
 		glBindTexture( GL_TEXTURE_2D, TextureID );
-	
-		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
 		
 		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
 		glVertexPointer(3, GL_FLOAT, 0, &Vertex[0]);
+		glColorPointer(4, GL_UNSIGNED_BYTE, 0, &Color[0]);
 		glTexCoordPointer(2, GL_FLOAT, 0, &TexCoord[0]);
 	
 		glDrawElements(
@@ -449,6 +449,7 @@ namespace Gfx
 		);
 	
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -478,35 +479,6 @@ namespace Gfx
 		);
 	
 		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	}
-	// - -------------------------------------------------------------------------------------- - //
-	void DrawPolygons(
-		const ABCSet< Vector3D >* Vertex,
-		const ABCSet< Vector2D >* TexCoord,
-		const unsigned int* Color,
-		const unsigned int* Indices,
-		const unsigned int IndicesSize,
-		const unsigned int& TextureID
-	)
-	{
-		glBindTexture( GL_TEXTURE_2D, TextureID );
-		
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_COLOR_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-		glVertexPointer(3, GL_FLOAT, 0, &Vertex[0]);
-		glColorPointer(4, GL_UNSIGNED_BYTE, 0, &Color[0]);
-		glTexCoordPointer(2, GL_FLOAT, 0, &TexCoord[0]);
-	
-		glDrawElements(
-			GL_TRIANGLES, IndicesSize,
-			GL_UNSIGNED_INT, &Indices[0]
-		);
-	
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 	// - -------------------------------------------------------------------------------------- - //

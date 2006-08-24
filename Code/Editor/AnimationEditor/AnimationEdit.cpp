@@ -413,37 +413,50 @@ Vector2D cAnimationEdit::CalcUVMousePos()
 void cAnimationEdit::DrawFrame()
 {
 	glLineWidth( 1.0 );
-		
-	ABCSet< Vector3D > PolyVertex[ CurFrame->Face.size() ];
-	ABCSet< Vector2D > PolyTexCoord[ CurFrame->Face.size() ];
+	
 	unsigned int PolyIndicesSize = CurFrame->Face.size() * 3;
+	
+	Vector3D PolyVertex[ PolyIndicesSize ];
+	Vector2D PolyTexCoord[ PolyIndicesSize ];
 	unsigned int PolyIndices[ PolyIndicesSize ];
 
 	ABSet< Vector3D > LineVertex[ CurFrame->Face.size() * 3 ];
 	unsigned int LineIndicesSize = CurFrame->Face.size() * 6;
 	unsigned int LineIndices[ LineIndicesSize ];
 
+	unsigned int VertIdx = 0;
 	for( size_t idx = 0; idx < CurFrame->Face.size(); ++idx )
 	{
-		PolyVertex[ idx ].a = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.a ].Pos.ToVector3D();
-		PolyVertex[ idx ].b = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.b ].Pos.ToVector3D();
-		PolyVertex[ idx ].c = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.c ].Pos.ToVector3D();
-		
-		LineVertex[ idx ].a = PolyVertex[ idx ].a;
-		LineVertex[ idx ].b = PolyVertex[ idx ].b;
+//		PolyVertex[ idx ].a = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.a ].Pos.ToVector3D();
+//		PolyVertex[ idx ].b = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.b ].Pos.ToVector3D();
+//		PolyVertex[ idx ].c = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.c ].Pos.ToVector3D();
 
-		LineVertex[ idx + CurFrame->Face.size() ].a = PolyVertex[ idx ].b;
-		LineVertex[ idx + CurFrame->Face.size() ].b = PolyVertex[ idx ].c;
+		PolyVertex[ VertIdx ] = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.a ].Pos.ToVector3D();
+		PolyVertex[ VertIdx + 1 ] = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.b ].Pos.ToVector3D();
+		PolyVertex[ VertIdx + 2 ] = CurFrame->Vertex[ CurFrame->Face[ idx ].VertexIdx.c ].Pos.ToVector3D();
 
-		LineVertex[ idx + ( CurFrame->Face.size() * 2 ) ].a = PolyVertex[ idx ].a;
-		LineVertex[ idx + ( CurFrame->Face.size() * 2 ) ].b = PolyVertex[ idx ].c;
+		LineVertex[ idx ].a = PolyVertex[ VertIdx ];
+		LineVertex[ idx ].b = PolyVertex[ VertIdx + 1 ];
 
-		PolyTexCoord[ idx ].a = CurFrame->Face[ idx ].UV.a;
-		PolyTexCoord[ idx ].b = CurFrame->Face[ idx ].UV.b;
-		PolyTexCoord[ idx ].c = CurFrame->Face[ idx ].UV.c;
+		LineVertex[ idx + CurFrame->Face.size() ].a = PolyVertex[ VertIdx + 1 ];
+		LineVertex[ idx + CurFrame->Face.size() ].b = PolyVertex[ VertIdx + 2 ];
+
+		LineVertex[ idx + ( CurFrame->Face.size() * 2 ) ].a = PolyVertex[ VertIdx ];
+		LineVertex[ idx + ( CurFrame->Face.size() * 2 ) ].b = PolyVertex[ VertIdx + 2 ];
+
+//		PolyTexCoord[ idx ].a = CurFrame->Face[ idx ].UV.a;
+//		PolyTexCoord[ idx ].b = CurFrame->Face[ idx ].UV.b;
+//		PolyTexCoord[ idx ].c = CurFrame->Face[ idx ].UV.c;
+
+		PolyTexCoord[ VertIdx ] = CurFrame->Face[ idx ].UV.a;
+		PolyTexCoord[ VertIdx + 1 ] = CurFrame->Face[ idx ].UV.b;
+		PolyTexCoord[ VertIdx + 2 ] = CurFrame->Face[ idx ].UV.c;
+
 		
 		PolyIndices[ idx ] = idx;
 		LineIndices[ idx ] = idx;
+		
+		VertIdx += 3;
 	}
 	
 	for( size_t idx = CurFrame->Face.size(); idx < PolyIndicesSize; ++idx )
@@ -456,7 +469,7 @@ void cAnimationEdit::DrawFrame()
 	}
 	// Draw textured faces //
 	Gfx::DrawPolygons( PolyVertex, PolyTexCoord, PolyIndices, PolyIndicesSize, CurFrame->TextureId, Gfx::White() );
-
+	
 	Gfx::DisableTex2D();
 	// Draw lines showing faces //
 	Gfx::DrawLines( LineVertex, LineIndices, LineIndicesSize, Gfx::RGBA( 0, 200, 0, 255 ) );
