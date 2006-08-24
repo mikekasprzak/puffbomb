@@ -5,11 +5,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicObjectCollection* CreateCollectionInstance( unsigned int Id, Vector2D Pos, int Argument ) {
+cDynamicCollection* CreateCollectionInstance( unsigned int Id, Vector2D Pos, int Argument ) {
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
 		case 1: {
-			//return new cDynamicObjectCollection( "Hamster.obj", Pos );
+			//return new cDynamicCollection( "Hamster.obj", Pos );
 			break;
 		}
 		

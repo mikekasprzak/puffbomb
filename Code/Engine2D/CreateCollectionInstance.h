@@ -6,12 +6,12 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
 
-#include <Engine/DynamicObjectCollection.h>
+#include <Engine/DynamicCollection.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 // Create an instance of the requested object //
-extern cDynamicObjectCollection* CreateCollectionInstance(
+extern cDynamicCollection* CreateCollectionInstance(
 	unsigned int Id,
 	Vector2D Pos = Vector2D::Zero,
 	int Argument = 0

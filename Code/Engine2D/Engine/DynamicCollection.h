@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DynamicObjectCollection - A collection of Components //
+// DynamicCollection - A collection of Components //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObjectCollection_H__
-#define __Engine2D_Engine_DynamicObjectCollection_H__
+#ifndef __Engine2D_Engine_DynamicCollection_H__
+#define __Engine2D_Engine_DynamicCollection_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 
@@ -11,7 +11,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cDynamicObjectCollection {
+class cDynamicCollection {
 public:
 	// Components of this object //
 	std::vector< cDynamicComponent > Component;
@@ -22,10 +22,10 @@ public:
 	std::vector< cNodeAnchor > NodeAnchor;
 
 public:
-	cDynamicObjectCollection() {
+	cDynamicCollection() {
 	}
 	
-	virtual ~cDynamicObjectCollection() {
+	virtual ~cDynamicCollection() {
 	}
 	
 public:
@@ -73,5 +73,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObjectCollection_H__ //
+#endif // __Engine2D_Engine_DynamicCollection_H__ //
 // - ------------------------------------------------------------------------------------------ - //

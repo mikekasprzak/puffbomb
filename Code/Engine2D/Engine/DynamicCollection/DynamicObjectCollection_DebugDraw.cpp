@@ -1,13 +1,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Displayed Debug Information //
 // - ------------------------------------------------------------------------------------------ - //
-#include <Engine/DynamicObjectCollection.h>
+#include <Engine/DynamicCollection.h>
 
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::DebugDraw() const {
+void cDynamicCollection::DebugDraw() const {
 	// Draw debug information for this object //
 	DrawComponents();
 	DrawNodeLinks();
@@ -16,12 +16,12 @@ void cDynamicObjectCollection::DebugDraw() const {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::DrawComponent( const size_t Index, const bool Selected ) const {
+void cDynamicCollection::DrawComponent( const size_t Index, const bool Selected ) const {
 	// Draw specific component //
 	Component[ Index ].DrawBody( Selected );
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::DrawNodeLink( const size_t Index, const bool Selected ) const {
+void cDynamicCollection::DrawNodeLink( const size_t Index, const bool Selected ) const {
 	const cNodeLink& MySpring = NodeLink[ Index ];
 	const Vector2D& PointA = Component[ MySpring.ObjectA ].Body.Nodes.Pos( MySpring.IndexA );
 	const Vector2D& PointB = Component[ MySpring.ObjectB ].Body.Nodes.Pos( MySpring.IndexB );
@@ -60,7 +60,7 @@ void cDynamicObjectCollection::DrawNodeLink( const size_t Index, const bool Sele
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::DrawNodeAnchor( const size_t Index, const bool Selected ) const {
+void cDynamicCollection::DrawNodeAnchor( const size_t Index, const bool Selected ) const {
 	const cNodeAnchor& MySpring = NodeAnchor[ Index ];
 	const Vector2D& PointA = Component[ MySpring.Object ].Body.Nodes.Pos( MySpring.Index );
 	const Vector2D& PointB = MySpring.Pos;
@@ -95,7 +95,7 @@ void cDynamicObjectCollection::DrawNodeAnchor( const size_t Index, const bool Se
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::DrawComponents( const std::vector< size_t >& SelectionVector ) const {
+void cDynamicCollection::DrawComponents( const std::vector< size_t >& SelectionVector ) const {
 	// For every node //
 	for ( size_t idx = 0; idx < Component.size(); idx++ ) {
 		bool Selected = false;
@@ -113,7 +113,7 @@ void cDynamicObjectCollection::DrawComponents( const std::vector< size_t >& Sele
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::DrawNodeLinks( const std::vector< size_t >& SelectionVector ) const {
+void cDynamicCollection::DrawNodeLinks( const std::vector< size_t >& SelectionVector ) const {
 	// For every node //
 	for ( size_t idx = 0; idx < NodeLink.size(); idx++ ) {
 		bool Selected = false;
@@ -131,7 +131,7 @@ void cDynamicObjectCollection::DrawNodeLinks( const std::vector< size_t >& Selec
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::DrawNodeAnchors( const std::vector< size_t >& SelectionVector ) const {
+void cDynamicCollection::DrawNodeAnchors( const std::vector< size_t >& SelectionVector ) const {
 	// For every node //
 	for ( size_t idx = 0; idx < NodeAnchor.size(); idx++ ) {
 		bool Selected = false;
@@ -152,7 +152,7 @@ void cDynamicObjectCollection::DrawNodeAnchors( const std::vector< size_t >& Sel
 
 
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::DrawBoundingRect( const bool Selected ) const {
+void cDynamicCollection::DrawBoundingRect( const bool Selected ) const {
 	// If no components, nothing to draw //
 	if ( Component.empty() )
 		return;

@@ -3,7 +3,7 @@
 
 #include <Physics/Physics.h>
 
-#include <Engine/DynamicObjectCollection.h>
+#include <Engine/DynamicCollection.h>
 #include "../DynamicComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -14,7 +14,7 @@ cDynamicComponent::cDynamicComponent( ) :
 {	
 }
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicComponent::cDynamicComponent( const cDynamicObjectCollection* const _Parent ) :
+cDynamicComponent::cDynamicComponent( const cDynamicCollection* const _Parent ) :
 	Parent( _Parent )
 {
 }

@@ -1,12 +1,12 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-#include <Engine/DynamicObjectCollection.h>
+#include <Engine/DynamicCollection.h>
 
 #include <Physics/Physics.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::Step() {
+void cDynamicCollection::Step() {
 	// Step all the nodes //
 	for ( size_t idx = 0; idx < Component.size(); idx++ ) {
 		Component[ idx ].Body.Step();
@@ -31,7 +31,7 @@ void cDynamicObjectCollection::Step() {
 	}		
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::StepLinkage() {
+void cDynamicCollection::StepLinkage() {
 	// Update nodes via Anchors //
 	for ( size_t idx = 0; idx < NodeAnchor.size(); idx++ ) {
 		NodeAnchor[ idx ].Step( Component );
@@ -45,12 +45,12 @@ void cDynamicObjectCollection::StepLinkage() {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::Draw() {
+void cDynamicCollection::Draw() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObjectCollection::Work() {
+void cDynamicCollection::Work() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

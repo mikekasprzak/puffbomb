@@ -20,14 +20,14 @@ public:
 	cComponentAnimationSet* AnimationSet;
 	
 	// Who our parent is //
-	const class cDynamicObjectCollection* Parent;
+	const class cDynamicCollection* Parent;
 	
 	// Activity State Flags //
 	cStateFlags State;
 
 public:
 	cDynamicComponent();
-	cDynamicComponent( const class cDynamicObjectCollection* const _Parent );
+	cDynamicComponent( const class cDynamicCollection* const _Parent );
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // StateFlags //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObjectCollection_StateFlags_H__
-#define __Engine2D_Engine_DynamicObjectCollection_StateFlags_H__
+#ifndef __Engine2D_Engine_DynamicComponent_StateFlags_H__
+#define __Engine2D_Engine_DynamicComponent_StateFlags_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -117,5 +117,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObjectCollection_StateFlags_H__ //
+#endif // __Engine2D_Engine_DynamicComponent_StateFlags_H__ //
 // - ------------------------------------------------------------------------------------------ - //
