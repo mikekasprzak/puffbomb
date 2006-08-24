@@ -96,8 +96,8 @@ public:
 	std::vector< unsigned int > GridIndices2;
 	unsigned int GridIndicesSize2;
 	
-	ABCDSet< Vector3D > TexVertex;
-	ABCDSet< Vector2D > TexUV;
+	Vector3D TexVertex[4];
+	Vector2D TexUV[4];
 	unsigned int TexIndices[4];
 	
 	unsigned int CurMode;

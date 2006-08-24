@@ -368,8 +368,8 @@ namespace Gfx
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	void DrawQuads(
-		const ABCDSet< Vector3D >* Vertex,
-		const ABCDSet< Vector2D >* TexCoord,
+		const Vector3D* Vertex,
+		const Vector2D* TexCoord,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID,

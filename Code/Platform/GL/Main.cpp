@@ -293,15 +293,15 @@ int main( int argc, char* argv[] ) {
 	
 
 	// Disable Vertical Sync //	
-//	{
-//		typedef void (APIENTRY * WGLSWAPINTERVALEXT) ( int ) ;
-//				
-//		WGLSWAPINTERVALEXT wglSwapIntervalEXT = (WGLSWAPINTERVALEXT) SDL_GL_GetProcAddress( "wglSwapIntervalEXT" ) ;
-//		if ( wglSwapIntervalEXT != 0 ) {
-//			// Disable vertical synchronisation :
-//			wglSwapIntervalEXT( 0 ) ;
-//		} 
-//	}
+	{
+		typedef void (APIENTRY * WGLSWAPINTERVALEXT) ( int ) ;
+				
+		WGLSWAPINTERVALEXT wglSwapIntervalEXT = (WGLSWAPINTERVALEXT) SDL_GL_GetProcAddress( "wglSwapIntervalEXT" ) ;
+		if ( wglSwapIntervalEXT != 0 ) {
+			// Disable vertical synchronisation :
+			wglSwapIntervalEXT( 0 ) ;
+		} 
+	}
 	
 	
 	cGlobal::Shutdown = false;
@@ -474,7 +474,7 @@ int main( int argc, char* argv[] ) {
 				Platform::FPS = FramesPast;
 				FramesPast = 0;
 			}
-			if ( ThisTime - LastTime >= MS )  // !!!! //
+			//if ( ThisTime - LastTime >= MS )  // !!!! //
 			{
 				int Loops = (ThisTime - LastTime) / MS;
 				LastTime += Loops * MS;

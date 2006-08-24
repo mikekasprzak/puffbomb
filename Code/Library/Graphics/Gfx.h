@@ -74,8 +74,8 @@ namespace Gfx {
 	void DrawMesh3d( const cLevelData* LevelData );
 	// Draw Quads with Vertex, TexCoord and one Color //
 	void DrawQuads(
-		const ABCDSet< Vector3D >* Vertex,
-		const ABCDSet< Vector2D >* TexCoord,
+		const Vector3D* Vertex,
+		const Vector2D* TexCoord,
 		const unsigned int* Indices,
 		const unsigned int IndicesSize,
 		const unsigned int& TextureID,

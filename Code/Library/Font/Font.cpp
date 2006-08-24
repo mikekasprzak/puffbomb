@@ -129,12 +129,17 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 	
 	unsigned int IndicesSize = Text.size() * 4;
 	
-	ABCDSet< Vector3D > Vertex[ Text.size() ];
-	ABCDSet< Vector2D > TexCoord[ Text.size() ];
+/*	ABCDSet< Vector3D > Vertex[ Text.size() ];
+	ABCDSet< Vector2D > TexCoord[ Text.size() ];*/
+	Vector3D Vertex[ IndicesSize ];
+	Vector2D TexCoord[ IndicesSize ];
+
 	unsigned int Indices[ IndicesSize ];
 	
 	unsigned int TextureID; 
-
+	
+	unsigned int VertIdx = 0;
+	
 	for( size_t idx = 0; idx < Text.size(); ++idx )
 	{
 		cCharacter& TempChar = FindCharacter( Text[idx] );
@@ -155,10 +160,10 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 
 		//gfx::Quad( b, Pos, d, c, TempChar.UVa, TempChar.UVb );
 // - ------------------------------------------------------------------------------------------ - //
-		Vertex[ idx ].a = b;
-		Vertex[ idx ].b = Pos;
-		Vertex[ idx ].c = d;
-		Vertex[ idx ].d = c;
+		Vertex[ VertIdx ] = b;
+		Vertex[ VertIdx + 1 ] = Pos;
+		Vertex[ VertIdx + 2 ] = d;
+		Vertex[ VertIdx + 3 ] = c;
 		
 		Vector2D UVa = Vector2D::Zero;
 		Vector2D UVb = Vector2D::Zero;
@@ -169,15 +174,15 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 			UVa.y = TempChar.UVa.y / Real( TextureHeight );
 			UVb.y = TempChar.UVb.y / Real( TextureHeight );
 		}
-		TexCoord[ idx ].a = UVa;
+		TexCoord[ VertIdx ] = UVa;
 		
-		TexCoord[ idx ].b.x = UVa.x;
-		TexCoord[ idx ].b.y = UVb.y;
+		TexCoord[ VertIdx + 1 ].x = UVa.x;
+		TexCoord[ VertIdx + 1 ].y = UVb.y;
 		
-		TexCoord[ idx ].c = UVb;
+		TexCoord[ VertIdx + 2 ] = UVb;
 		
-		TexCoord[ idx ].d.x = UVb.x;
-		TexCoord[ idx ].d.y = UVa.y;
+		TexCoord[ VertIdx + 3 ].x = UVb.x;
+		TexCoord[ VertIdx + 3 ].y = UVa.y;
 	
 		Indices[ idx ] = idx;	
 // - ------------------------------------------------------------------------------------------ - //
@@ -186,6 +191,8 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 		Pos.x += TempChar.RightKerning - TempChar.UVb.x;
 	
 		Pos.x += ( UV.x * Size ) + Real( 1.0 );
+		
+		VertIdx += 4;
 	}
 
 	for( size_t idx = Text.size(); idx < IndicesSize; ++idx )

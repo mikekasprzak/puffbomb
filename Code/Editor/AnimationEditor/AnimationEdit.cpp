@@ -141,8 +141,8 @@ void cAnimationEdit::UVDraw()
 	Gfx::EnableBlend();
 	
 	Gfx::DrawQuads(
-		&TexVertex,
-		&TexUV,
+		&TexVertex[0],
+		&TexUV[0],
 		TexIndices,
 		4,
 		CurFrame->TextureId,

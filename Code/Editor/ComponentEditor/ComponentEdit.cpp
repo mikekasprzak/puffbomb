@@ -59,10 +59,10 @@ cComponentEdit::cComponentEdit() :
 	Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
 	Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
 
-	PreviewTexVertex.a = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-	PreviewTexVertex.b = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-	PreviewTexVertex.c = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-	PreviewTexVertex.d = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
+	PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+	PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+	PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+	PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 
 	DynObj.push_back( Engine2D::cDynamicComponent() );
 	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
@@ -98,8 +98,8 @@ void cComponentEdit::Draw()
 	{
 		// Draw preview texture //
 		Gfx::DrawQuads(
-			&PreviewTexVertex,
-			&TexUV,
+			&PreviewTexVertex[0],
+			&TexUV[0],
 			TexIndices,
 			4,
 			TextureID[ CurTexPreview ],
@@ -230,8 +230,8 @@ void cComponentEdit::UVDraw()
 	Gfx::EnableBlend();
 
 	Gfx::DrawQuads(
-		&TexVertex,
-		&TexUV,
+		&TexVertex[0],
+		&TexUV[0],
 		TexIndices,
 		4,
 		TextureID[ CurTexPreview ],
@@ -639,10 +639,10 @@ void cComponentEdit::SwitchTexture()
 		Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
 		Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
 
-		PreviewTexVertex.a = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex.b = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex.c = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-		PreviewTexVertex.d = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
+		PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 	}
 	else if( Button[ KEY_M ].Pressed() )
 	{
@@ -658,10 +658,10 @@ void cComponentEdit::SwitchTexture()
 		Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
 		Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
 
-		PreviewTexVertex.a = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex.b = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex.c = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-		PreviewTexVertex.d = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
+		PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

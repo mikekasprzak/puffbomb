@@ -33,7 +33,7 @@ public:
 	
 	Real NodeRadius;
 
-	ABCDSet< Vector3D > PreviewTexVertex;
+	Vector3D PreviewTexVertex[4];
 
 public:
 	cComponentEdit();
