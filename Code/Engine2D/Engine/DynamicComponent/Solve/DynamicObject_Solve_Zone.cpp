@@ -1,7 +1,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Engine/DynamicObjectCollection/DynamicObject.h>
+#include <Engine/DynamicObject.h>
 #include <Engine/Zone.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {

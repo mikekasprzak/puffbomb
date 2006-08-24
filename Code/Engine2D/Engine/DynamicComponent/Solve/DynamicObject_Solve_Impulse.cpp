@@ -1,16 +1,16 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Engine/DynamicObjectCollection/DynamicObject.h>
-#include <Engine/PassiveObject.h>
+#include <Engine/DynamicObject.h>
+#include <Physics/Impulse.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObject::Solve( cPassiveObject& _Vs ) {
+void cDynamicObject::Solve( cImpulse& _Vs ) {
 	// If I'm more than simply active //
 	if ( !State.OnlyActive() ) {
-		// If I'm ignoring passive objects, bail//
-		if ( State.IgnorePassives() ) {
+		// If I'm ignoring impulses, bail//
+		if ( State.IgnoreImpulses() ) {
 			return;
 		}
 
@@ -20,12 +20,8 @@ void cDynamicObject::Solve( cPassiveObject& _Vs ) {
 		}
 	}
 	
-	// Test Bounding Rectangles //
-	if ( Body.BoundingRect != _Vs.BoundingRect )
-		return;
-
-	// Send message //
-	_Vs.Action( *this );
+	// Solve the collision //
+	Body.Solve( _Vs ); 
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

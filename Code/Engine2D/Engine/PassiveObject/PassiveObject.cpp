@@ -4,7 +4,7 @@
 #include <Util/Debug.h>
 
 #include <Engine/PassiveObject.h>
-#include <Engine/DynamicObjectCollection/DynamicObject.h>
+#include <Engine/DynamicObject.h>
 
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //

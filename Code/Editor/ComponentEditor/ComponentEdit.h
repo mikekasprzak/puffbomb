@@ -15,7 +15,7 @@
 #include "Editor/Edit.h"
 
 #include <Physics/Body2D.h>
-#include <Engine2D/Engine/DynamicObjectCollection/DynamicObject.h>
+#include <Engine/DynamicObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentEdit : public cEdit {
 public:

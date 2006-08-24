@@ -7,7 +7,7 @@
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
 
-#include <Engine/DynamicObjectCollection/DynamicObject.h>
+#include <Engine/DynamicObject.h>
 
 #include "LinkageFlags.h"
 // - ------------------------------------------------------------------------------------------ - //

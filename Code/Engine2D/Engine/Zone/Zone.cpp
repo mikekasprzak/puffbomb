@@ -6,7 +6,7 @@
 #include <Engine2D.h>
 
 #include <Engine/Zone.h>
-#include <Engine/DynamicObjectCollection/DynamicObject.h>
+#include <Engine/DynamicObject.h>
 
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //

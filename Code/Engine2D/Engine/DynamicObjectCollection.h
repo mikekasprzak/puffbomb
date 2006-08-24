@@ -7,7 +7,7 @@
 #include <vector>
 
 #include <Physics/Linkage.h>
-#include "DynamicObjectCollection/DynamicObject.h"
+#include "DynamicObject.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

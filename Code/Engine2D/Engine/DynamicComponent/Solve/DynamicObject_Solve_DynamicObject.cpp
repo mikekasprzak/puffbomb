@@ -1,21 +1,27 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Engine/DynamicObjectCollection/DynamicObject.h>
-#include <Engine/StaticObjectCollection/StaticObject.h>
+#include <Engine/DynamicObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObject::Solve( cStaticObject& _Vs ) {
-	// If I'm more than simply active //
-	if ( !State.OnlyActive() ) {
-		// If I'm ignoring scenery, bail//
-		if ( State.IgnoreScenery() ) {
+void cDynamicObject::Solve( cDynamicObject& _Vs ) {
+	// If either object is more than simply active //
+	if ( !State.OnlyActive() || !_Vs.State.OnlyActive() ) {
+		// If either of us are ignoring our family, and we are part of the same family, bail //
+		if ( State.IgnoreFamily() || _Vs.State.IgnoreFamily() ) {
+			if ( Parent == _Vs.Parent ) {
+				return;
+			}
+		}
+		
+		// If either of us are ignoring objects, bail //
+		if ( State.IgnoreObjects() || _Vs.State.IgnoreObjects() ) {
 			return;
 		}
 
-		// If I'm inactive, bail //
-		if ( !State.Active() ) {
+		// If either of us are inactive objects, bail //
+		if ( !State.Active() || !_Vs.State.Active() ) {
 			return;
 		}
 	}
