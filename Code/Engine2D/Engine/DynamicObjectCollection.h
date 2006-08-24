@@ -7,14 +7,14 @@
 #include <vector>
 
 #include <Physics/Linkage.h>
-#include "DynamicObject.h"
+#include "DynamicComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cDynamicObjectCollection {
 public:
 	// Components of this object //
-	std::vector< cDynamicObject > Component;
+	std::vector< cDynamicComponent > Component;
 	
 	// Node Linkage in this object //
 	std::vector< cNodeLink > NodeLink;

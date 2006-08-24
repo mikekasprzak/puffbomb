@@ -1,16 +1,16 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Engine/DynamicObject.h>
-#include <Engine/Zone.h>
+#include <Engine/DynamicComponent.h>
+#include <Engine/StaticObjectCollection/StaticObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObject::Solve( cZone& _Vs ) {
+void cDynamicComponent::Solve( cStaticObject& _Vs ) {
 	// If I'm more than simply active //
 	if ( !State.OnlyActive() ) {
-		// If I'm ignoring zones, bail//
-		if ( State.IgnoreZones() ) {
+		// If I'm ignoring scenery, bail//
+		if ( State.IgnoreScenery() ) {
 			return;
 		}
 
@@ -20,12 +20,8 @@ void cDynamicObject::Solve( cZone& _Vs ) {
 		}
 	}
 	
-	// Test Bounding Rectangles //
-	if ( Body.BoundingRect != _Vs.BoundingRect )
-		return;
-
-	// Send message //
-	_Vs.Action( *this );
+	// Solve the collision //
+	Body.Solve( _Vs.Body ); 
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

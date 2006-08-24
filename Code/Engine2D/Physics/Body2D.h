@@ -104,7 +104,7 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Step the nodes in the body. //
-	// Unlike cDynamicObject/Component, this is not a self sufficent physics system. //
+	// Unlike cDynamicComponent/Collection, this is not a self sufficent physics system. //
 	void Step();
 	// Step the springs in the body. //
 	void StepSprings();

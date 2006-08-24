@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // ComponentFrame //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObjectComponent_ComponentFrame_H__
-#define __Engine2D_Engine_DynamicObjectComponent_ComponentFrame_H__
+#ifndef __Engine2D_Engine_DynamicComponent_ComponentFrame_H__
+#define __Engine2D_Engine_DynamicComponent_ComponentFrame_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
@@ -21,5 +21,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObjectComponent_ComponentFrame_H__ //
+#endif // __Engine2D_Engine_DynamicComponent_ComponentFrame_H__ //
 // - ------------------------------------------------------------------------------------------ - //

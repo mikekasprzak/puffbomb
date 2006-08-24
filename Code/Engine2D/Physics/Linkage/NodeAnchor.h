@@ -7,7 +7,7 @@
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
 
-#include <Engine/DynamicObject.h>
+#include <Engine/DynamicComponent.h>
 
 #include "LinkageFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -31,7 +31,7 @@ public:
 	size_t Object, Index;
 		
 public:
-	inline void Step( std::vector< cDynamicObject >& Component ) {
+	inline void Step( std::vector< cDynamicComponent >& Component ) {
 		// Bail if inactive //
 		if ( !Flags.ActiveAndNotBroken() )
 			return;

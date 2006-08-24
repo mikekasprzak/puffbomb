@@ -15,7 +15,7 @@
 #include "Editor/Edit.h"
 
 #include <Physics/Body2D.h>
-#include <Engine/DynamicObject.h>
+#include <Engine/DynamicComponent.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentEdit : public cEdit {
 public:
@@ -23,7 +23,7 @@ public:
 	cCamera* PreviewCamera;
 
 public:
-	std::vector< Engine2D::cDynamicObject > DynObj;
+	std::vector< Engine2D::cDynamicComponent > DynObj;
 	Engine2D::cBody2DPose* Pose;
 	
 	size_t CurObj;

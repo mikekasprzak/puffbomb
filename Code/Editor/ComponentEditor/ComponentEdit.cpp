@@ -64,7 +64,7 @@ cComponentEdit::cComponentEdit() :
 	PreviewTexVertex.c = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
 	PreviewTexVertex.d = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 
-	DynObj.push_back( Engine2D::cDynamicObject() );
+	DynObj.push_back( Engine2D::cDynamicComponent() );
 	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	DynObj[ 0 ].AnimationSet->Pose.push_back( Engine2D::cBody2DPose() );
 		

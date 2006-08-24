@@ -35,13 +35,13 @@ void cEngine2D::Step() {
 /*
 	// Physics Stage 1 -------------------------------------- //
 	// Step all the physics for all objects //
-	for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {
-		if ( DynamicObject[ idx ].IsActive() ) { 
-			DynamicObject[ idx ].Step();
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		if ( DynamicComponent[ idx ].IsActive() ) { 
+			DynamicComponent[ idx ].Step();
 			
 			// Apply Impulses //
 			for ( size_t idx2 = 0; idx2 < Impulse.size(); idx2++ ) {
-				DynamicObject[ idx ].Solve( Impulse[ idx2 ] );
+				DynamicComponent[ idx ].Solve( Impulse[ idx2 ] );
 			}
 		}
 	}
@@ -65,26 +65,26 @@ void cEngine2D::Step() {
 		// ** this solving step shold solve for all components, not all objects ** //
 	
 		// Solve collisions for all objects //
-		for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {
-			if ( DynamicObject[ idx ].IsActive() ) { 
+		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+			if ( DynamicComponent[ idx ].IsActive() ) { 
 				// Test and act versus zones //
 				for ( size_t idx2 = 0; idx2 < Zone.size(); ++idx2 ) {
-					DynamicObject[ idx ].Solve( Zone[ idx2 ] );
+					DynamicComponent[ idx ].Solve( Zone[ idx2 ] );
 				}
 
 				// No reason to repeat any //
-				for ( size_t idx2 = idx + 1; idx2 < DynamicObject.size(); ++idx2 ) {
-					if ( DynamicObject[ idx2 ].IsActive() ) { 
+				for ( size_t idx2 = idx + 1; idx2 < DynamicComponent.size(); ++idx2 ) {
+					if ( DynamicComponent[ idx2 ].IsActive() ) { 
 						// (Test and) Solve collisions between these 2 objects //
-						DynamicObject[ idx ].Solve( SphereObject[ idx2 ] );
+						DynamicComponent[ idx ].Solve( SphereObject[ idx2 ] );
 					}
 				}
 				
 				// Test versus static collision only if you're awake //
-				if ( DynamicObject[ idx ].IsAwake() ) {
+				if ( DynamicComponent[ idx ].IsAwake() ) {
 					// Their statics, not part of our family.  So we sadly needs to do them all every time //
 					for ( size_t idx2 = 0; idx2 < StaticObject.size(); ++idx2 ) {
-						DynamicObject[ idx ].Solve( StaticObject[ idx2 ] );
+						DynamicComponent[ idx ].Solve( StaticObject[ idx2 ] );
 					}
 				}
 			}
@@ -93,9 +93,9 @@ void cEngine2D::Step() {
 
 	// Physics Stage 3 -------------------------------------- //	
 	// All objects have now moved.  Now to have them do and interpret what they've learned //
-	for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {
-		if ( DynamicObject[ idx ].IsActive() ) {
-			DynamicObject[ idx ].Work();
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		if ( DynamicComponent[ idx ].IsActive() ) {
+			DynamicComponent[ idx ].Work();
 		}
 	}
 	
@@ -118,8 +118,8 @@ void cEngine2D::Draw() {
 
 /*
 	// Draw Objects //
-	for ( size_t idx = 0; idx < DynamicObject.size(); ++idx ) {
-		DynamicObject[ idx ].Draw();
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		DynamicComponent[ idx ].Draw();
 	}
 */
 }

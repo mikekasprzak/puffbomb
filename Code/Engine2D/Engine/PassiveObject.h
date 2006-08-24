@@ -33,7 +33,7 @@ public:
 
 public:
 	// Messanging //
-	void Action( class cDynamicObject& _Vs );
+	void Action( class cDynamicComponent& _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

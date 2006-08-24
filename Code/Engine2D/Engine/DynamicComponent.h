@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DynamicObject //
+// DynamicComponent //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicObjectCollection_DynamicObject_H__
-#define __Engine2D_Engine_DynamicObjectCollection_DynamicObject_H__
+#ifndef __Engine2D_Engine_DynamicComponent_H__
+#define __Engine2D_Engine_DynamicComponent_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
@@ -13,21 +13,21 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cDynamicObject {
+class cDynamicComponent {
 public:
 	// Parts of a component //
 	cBody2D Body;
 	cComponentAnimationSet* AnimationSet;
 	
 	// Who our parent is //
-	const class cDynamicObject* Parent;
+	const class cDynamicObjectCollection* Parent;
 	
 	// Activity State Flags //
 	cStateFlags State;
 
 public:
-	cDynamicObject();
-	cDynamicObject( const class cDynamicObject* const _Parent );
+	cDynamicComponent();
+	cDynamicComponent( const class cDynamicObjectCollection* const _Parent );
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
@@ -54,7 +54,7 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Solve Collisions/Actions //
-	void Solve( cDynamicObject& _Vs );
+	void Solve( cDynamicComponent& _Vs );
 	void Solve( class cStaticObject& _Vs );
 	void Solve( class cPassiveObject& _Vs );
 	void Solve( class cZone& _Vs );
@@ -68,5 +68,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicObjectCollection_DynamicObject_H__ //
+#endif // __Engine2D_Engine_DynamicComponent_H__ //
 // - ------------------------------------------------------------------------------------------ - //

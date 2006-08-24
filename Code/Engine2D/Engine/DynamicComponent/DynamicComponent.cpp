@@ -3,22 +3,23 @@
 
 #include <Physics/Physics.h>
 
-#include "../DynamicObject.h"
+#include <Engine/DynamicObjectCollection.h>
+#include "../DynamicComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 // In the case of a component without a parent, if checks should be placed to stop messanging //
-cDynamicObject::cDynamicObject( ) :
+cDynamicComponent::cDynamicComponent( ) :
 	Parent( 0 )
 {	
 }
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicObject::cDynamicObject( const class cDynamicObject* const _Parent ) :
+cDynamicComponent::cDynamicComponent( const cDynamicObjectCollection* const _Parent ) :
 	Parent( _Parent )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObject::Step() {
+void cDynamicComponent::Step() {
 	// Step the nodes //
 	Body.Step();
 
@@ -29,11 +30,11 @@ void cDynamicObject::Step() {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObject::Draw() {
+void cDynamicComponent::Draw() {
 	//Mesh.Draw( Body );
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicObject::DrawBody( const bool Selected ) const {
+void cDynamicComponent::DrawBody( const bool Selected ) const {
 	// Draw the debug body information //
 	Body.DrawSpheres();
 	Body.DrawSprings();
