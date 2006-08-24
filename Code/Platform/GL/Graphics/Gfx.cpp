@@ -418,7 +418,7 @@ namespace Gfx
 			GL_QUADS, IndicesSize,
 			GL_UNSIGNED_INT, &Indices[0]
 		);
-	
+		
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);

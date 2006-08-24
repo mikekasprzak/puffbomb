@@ -109,7 +109,6 @@ namespace Gfx {
 		const unsigned int& TextureId,
 		const Gfx::Color Color = White()
 		);
-
 	// Draw Lines with Vertex and one Color //
 	void DrawLines(
 		const ABSet< Vector3D >* Vertex,
