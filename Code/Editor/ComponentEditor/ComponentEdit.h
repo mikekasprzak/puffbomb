@@ -32,6 +32,8 @@ public:
 	size_t CurTexPreview;
 	
 	Real NodeRadius;
+	
+	Real UVGridDepth[ 13 ];
 
 	Vector3D PreviewTexVertex[4];
 

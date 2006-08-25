@@ -6,6 +6,14 @@
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Platform/Global.h>
+
+// For FPS test //
+//#include <Platform/Global.h>
+//#include <Font/Fonts.h>
+//#include <sstream>
+// ------------ //
+
+
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
@@ -78,6 +86,17 @@ cComponentEdit::cComponentEdit() :
 	DynObj[ 0 ].Body.SetPos( 0, Vector2D( 50.0, 20.0 ) );
 	DynObj[ 0 ].Body.SetPos( 1, Vector2D( 20.0, 50.0 ) );
 */
+
+	Real GridDepthValue = 0.5;
+	
+	for( int idx = 0; idx < 13; ++idx )
+	{
+		UVGridDepth[idx] = GridDepthValue;
+		
+		GridDepthValue *= Real(2.0);
+	}
+
+
 	CurMode = NODE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -121,7 +140,8 @@ void cComponentEdit::Draw()
 		}
 	}
 	
-	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+//	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+	DrawGrid( Camera, CurrentGridDepth, 32.0, true, UVGridDepth );
 		
 	// Draw nodes //
 	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
@@ -248,7 +268,7 @@ void cComponentEdit::UVDraw()
 		}
 	}
 
-	DrawGrid( UVCamera, CurrentGridDepth, 40.0, true, GridDepth );
+	DrawGrid( UVCamera, CurrentGridDepth, 32.0, true, UVGridDepth );
 
 	Gfx::DisableBlend();
 }
