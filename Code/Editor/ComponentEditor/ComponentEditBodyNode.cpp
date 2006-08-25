@@ -177,13 +177,13 @@ void cComponentEdit::BodyMoveNode()
 		
 		if( SnapToGrid )
 		{
-			SetGridDepth( Camera, CurrentGridDepth, 40.0 );
-			SetGridArray( CurrentGridDepth, GridDepth );
+			SetGridDepth( Camera, CurrentGridDepth, 32.0 );
+			SetGridArray( CurrentGridDepth, UVGridDepth );
 
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				Vector2D TempPos = Pose->Node[ CurSelected[idx] ].Pos;
-				CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
+				CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
 				DynObj[ CurObj ].Body.SetPos( CurSelected[idx], TempPos );
 				
 			}
@@ -235,12 +235,12 @@ void cComponentEdit::BodyAddNode()
 
 		Vector2D TempPos = CurMousePos;
 		
-		SetGridDepth( Camera, CurrentGridDepth, 40.0 );
-		SetGridArray( CurrentGridDepth, GridDepth );
+		SetGridDepth( Camera, CurrentGridDepth, 32.0 );
+		SetGridArray( CurrentGridDepth, UVGridDepth );
 
 		if( !Button[ KEY_LCTRL ].Pressed() )
 		{
-			CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
+			CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
 		}
 		DynObj[ CurObj ].Body.SetPos( TempIdx, TempPos );
 		
