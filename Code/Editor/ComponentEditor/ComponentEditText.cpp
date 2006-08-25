@@ -452,17 +452,17 @@ void cComponentEdit::DisplayComponentInfo()
 	int EqualSpringSizes = Pose->Spring.size();
 	
 	
-	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Pose.size(); ++idx )
+	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->BodyPose.size(); ++idx )
 	{
-		if( EqualNodeSizes != int( DynObj[ CurObj ].AnimationSet->Pose[idx].Node.size() ) )
+		if( EqualNodeSizes != int( DynObj[ CurObj ].AnimationSet->BodyPose[idx].Node.size() ) )
 		{
 			EqualNodeSizes = -1;
 		}
-		if( EqualSphereSizes != int( DynObj[ CurObj ].AnimationSet->Pose[idx].Sphere.size() ) )
+		if( EqualSphereSizes != int( DynObj[ CurObj ].AnimationSet->BodyPose[idx].Sphere.size() ) )
 		{
 			EqualSphereSizes = -1;
 		}
-		if( EqualSpringSizes != int( DynObj[ CurObj ].AnimationSet->Pose[idx].Spring.size() ) )
+		if( EqualSpringSizes != int( DynObj[ CurObj ].AnimationSet->BodyPose[idx].Spring.size() ) )
 		{
 			EqualSpringSizes = -1;
 		}

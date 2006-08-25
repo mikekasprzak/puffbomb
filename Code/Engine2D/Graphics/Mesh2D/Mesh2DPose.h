@@ -1,29 +1,26 @@
 // - ------------------------------------------------------------------------------------------ - //
-// ComponentFrame //
+// Mesh2DPose //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicComponent_ComponentFrame_H__
-#define __Engine2D_Engine_DynamicComponent_ComponentFrame_H__
+#ifndef __Engine2D_Graphics_Mesh2D_Mesh2DPose_H__
+#define __Engine2D_Graphics_Mesh2D_Mesh2DPose_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Physics/Body2D/Body2DPose.h>
-#include <Engine2D/Graphics/Mesh2D.h>
+#include <Geometry/Real.h>
+#include <Geometry/Vector.h>
+// - ------------------------------------------------------------------------------------------ - //
+#include "MeshPoseNode.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cComponentFrame {
+class cMesh2DPose {
 public:
-	size_t BodyPoseIndex;
-	cMesh2D Mesh;
-
-#ifdef EDITOR
-	size_t MeshPoseIndex;
-#endif // EDITOR //
-
-	unsigned int Time;
+	std::vector< cMeshPoseNode > Node;
+	
+	// Face //
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicComponent_ComponentFrame_H__ //
+#endif // __Engine2D_Graphics_Mesh2D_Mesh2DPose_H__ //
 // - ------------------------------------------------------------------------------------------ - //
