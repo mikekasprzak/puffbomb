@@ -23,9 +23,6 @@ void ParticleFactory::Populate( int Num )
 // - ------------------------------------------------------------------------------------------ - //
 void ParticleFactory::Step()
 {
-	std::list< cParticle >::iterator iter;
-	std::list< cParticle >::iterator TempIter;
-	
 	ParticleSize = 0;
 	
 	for ( iter = Alive.begin(); iter != Alive.end(); iter++ )

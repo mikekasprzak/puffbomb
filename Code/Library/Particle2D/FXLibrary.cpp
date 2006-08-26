@@ -312,6 +312,9 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
 	cAnimation& OutlineTest = AnimationPool.Load( "OutlineTest.anim" );
 
+//	ParticleTest.Interpolate = false;
+//	OutlineTest.Interpolate = false;
+
 	int MaxSteps = 80;
 	for( int idx = 0; idx < MaxSteps; idx++ )
 	{

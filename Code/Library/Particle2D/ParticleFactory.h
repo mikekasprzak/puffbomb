@@ -35,9 +35,8 @@ public:
 	
 	unsigned int TextureID;
 	
-//	std::vector< ABCDSet< Vector3D > > Vertex;
-//	std::vector< ABCDSet< Vector2D > > TexCoord;
-//	std::vector< ABCDSet< unsigned int > > VertColor;
+	std::list< cParticle >::iterator iter;
+	std::list< cParticle >::iterator TempIter;
 
 	std::vector< Vector3D > Vertex;
 	std::vector< Vector2D > TexCoord;

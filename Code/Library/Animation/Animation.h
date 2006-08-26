@@ -53,7 +53,9 @@ public:
 		Frame.push_back( cFrameInfo() );
 	}
 	
-	inline cAnimation( const std::string& FileName )
+	inline cAnimation( const std::string& FileName ) :
+		LoopPoint( 0 ),
+		Interpolate( false )
 	{
 		Load( FileName );	
 	}

@@ -27,60 +27,63 @@ void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::Step()
 {
-	if( Animation->Interpolate )
+	if( Animation->Frame.size() != 1 )
 	{
-		if( size_t( CurrentFrame ) < Animation->Frame.size() - 1 )
+		if( Animation->Interpolate )
 		{
-			if( Animation->Frame[ CurrentFrame ].MyFrame.Vertex.size() ==
-				Animation->Frame[ CurrentFrame + 1 ].MyFrame.Vertex.size() )
+			if( size_t( CurrentFrame ) < Animation->Frame.size() - 1 )
 			{
-				for( size_t idx = 0; idx < InterpFrame.Vertex.size(); ++idx )
+				if( Animation->Frame[ CurrentFrame ].MyFrame.Vertex.size() ==
+					Animation->Frame[ CurrentFrame + 1 ].MyFrame.Vertex.size() )
 				{
-					InterpFrame.Vertex[ idx ].Pos
-					 += ( Animation->Frame[ CurrentFrame + 1 ].MyFrame.Vertex[ idx ].Pos -
-						Animation->Frame[ CurrentFrame ].MyFrame.Vertex[ idx ].Pos ) *
-						( Real( 1 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() ) );
+					for( size_t idx = 0; idx < InterpFrame.Vertex.size(); ++idx )
+					{
+						InterpFrame.Vertex[ idx ].Pos
+						 += ( Animation->Frame[ CurrentFrame + 1 ].MyFrame.Vertex[ idx ].Pos -
+							Animation->Frame[ CurrentFrame ].MyFrame.Vertex[ idx ].Pos ) *
+							( Real( 1 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() ) );
+						
+					}
+				}
+				
+			}
+		}
+		
+		if( Time > Animation->Frame[ CurrentFrame ].GetTime() )
+		{
+			if( CurrentFrame < int( Animation->Frame.size() - 1 ) )
+			{
+				++CurrentFrame;
+				
+				CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
+				
+				if( Animation->Interpolate )
+				{
+					InterpFrame = Animation->Frame[ CurrentFrame ].MyFrame;
 					
+					CurDrawFrame = &InterpFrame;
 				}
 			}
-			
+			else
+			{
+				CurrentFrame = Animation->LoopPoint;
+				
+				CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
+			}
+			Time = 0;
 		}
-	}	
-	
-	if( Time > Animation->Frame[ CurrentFrame ].GetTime() )
-	{
-		if( CurrentFrame < int( Animation->Frame.size() - 1 ) )
+		if( Time == 0 )
 		{
-			++CurrentFrame;
-			
-			CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
-			
 			if( Animation->Interpolate )
 			{
 				InterpFrame = Animation->Frame[ CurrentFrame ].MyFrame;
 				
 				CurDrawFrame = &InterpFrame;
-			}
+			}	
 		}
-		else
-		{
-			CurrentFrame = Animation->LoopPoint;
-			
-			CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
-		}
-		Time = 0;
+		
+		++Time;
 	}
-	if( Time == 0 )
-	{
-		if( Animation->Interpolate )
-		{
-			InterpFrame = Animation->Frame[ CurrentFrame ].MyFrame;
-			
-			CurDrawFrame = &InterpFrame;
-		}	
-	}
-	
-	++Time;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::Draw( const Vector2D& Offset )
