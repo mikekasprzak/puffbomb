@@ -32,7 +32,7 @@ public:
 	void Populate( int Num );
 	
 	size_t ParticleSize;
-	
+
 	unsigned int TextureID;
 	
 	std::list< cParticle >::iterator iter;

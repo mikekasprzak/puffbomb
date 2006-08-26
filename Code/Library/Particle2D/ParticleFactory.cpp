@@ -3,8 +3,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "ParticleFactory.h"
 // - ------------------------------------------------------------------------------------------ - //
-//std::list< cParticle > ParticleFactory::Alive;
-//std::list< cParticle > ParticleFactory::Dead;
 ParticleFactory FlatParticle;
 ParticleFactory AdditiveParticle;
 // - ------------------------------------------------------------------------------------------ - //
