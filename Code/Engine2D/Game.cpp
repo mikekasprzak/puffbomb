@@ -18,6 +18,9 @@
 
 #include <Animation/AnimationPool.h>
 #include <Particle2D/FXLibrary.h>
+
+#include <Particle2D/ParticleFactory.h>
+#include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/String.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -210,6 +213,8 @@ void cGame::Step() {
 	FlatParticle.Step();
 	AdditiveParticle.Step();
 
+	NewParticle.Step();
+
 	// - -------------------------------------------------------------------------------------- - //
 	// Other //
 	Form.Step();
@@ -310,6 +315,8 @@ void cGame::Draw() {
 	glEnable(GL_BLEND);
 
 	FlatParticle.Draw();
+
+	NewParticle.Draw();
 	
 	// Enables additive blending //
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);

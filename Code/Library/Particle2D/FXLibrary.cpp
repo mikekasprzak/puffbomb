@@ -5,6 +5,7 @@
 #include <Animation/AnimationPool.h>
 #include <Animation/Animation.h>
 #include <Particle2D/ParticleFactory.h>
+#include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -309,11 +310,34 @@ void FXLibrary::Steam( const Vector2D& Pos, const Vector2D& Direction )
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::OutlineTest( const Vector2D& Pos )
 {
+	int FlatParticles = NewParticle.Allocate( 240, false );
+
+	if( FlatParticles == -1 )
+	{
+		return;
+	}
+	
+	int TempStart = NewParticle.Segment[ FlatParticles ].Start;
+	
+	int AdditiveParticles = NewParticle.Allocate( 240, true );
+	
+	for( size_t idx = 0; idx < NewParticle.Segment.size(); idx++ )
+	{
+		if( NewParticle.Segment[ idx ].Start == TempStart )
+		{
+			FlatParticles = idx;
+			break;
+		}
+	}
+	
+	if( AdditiveParticles == -1 )
+	{
+		NewParticle.Release( FlatParticles );
+		return;
+	}
+
 	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
 	cAnimation& OutlineTest = AnimationPool.Load( "OutlineTest.anim" );
-
-//	ParticleTest.Interpolate = false;
-//	OutlineTest.Interpolate = false;
 
 	int MaxSteps = 80;
 	for( int idx = 0; idx < MaxSteps; idx++ )
@@ -327,7 +351,8 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		
 		Real LifeTime = Real::Random() * Real(30) + Real(30);
 
-		AdditiveParticle.Add(
+		// Additive //
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -335,10 +360,12 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			int( LifeTime ), 	// Life //
 			ParticleTest,		// Animation //
 			127,						// Alpha //
-			10							// Fade // What time to start fading //
+			10,							// Fade // What time to start fading //
+			AdditiveParticles
 		);
 		
-		FlatParticle.Add(
+		// Flat //
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -346,7 +373,8 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			int( LifeTime ), 	// Life //
 			OutlineTest,		// Animation //
 			255,						// Alpha //
-			10							// Fade // What time to start fading //
+			10,							// Fade // What time to start fading //
+			FlatParticles
 		);
 
 		
@@ -354,7 +382,8 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		
 		LifeTime = Real::Random() * Real(30) + Real(50);
 		
-		AdditiveParticle.Add(
+		// Additive //
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -362,10 +391,12 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			int( LifeTime ), 	// Life //
 			ParticleTest,		// Animation //
 			127,						// Alpha //
-			10							// Fade // What time to start fading //
+			10,							// Fade // What time to start fading //
+			AdditiveParticles
 		);
 		
-		FlatParticle.Add(
+		// Flat //
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -373,7 +404,8 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			int( LifeTime ), 	// Life //
 			OutlineTest,		// Animation //
 			255,						// Alpha //
-			10							// Fade // What time to start fading //
+			10,							// Fade // What time to start fading //
+			FlatParticles
 		);
 		
 		Velocity = Point * Real::Random() * 3;
@@ -382,7 +414,8 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		
 		Vector2D MyDrift = Vector2D( 0.0, -0.001 * Real::Random() );
 		
-		AdditiveParticle.Add(
+		// Additive //
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -390,10 +423,12 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			int( LifeTime ), 	// Life //
 			ParticleTest,		// Animation //
 			127,						// Alpha //
-			10							// Fade // What time to start fading //
+			10,							// Fade // What time to start fading //
+			AdditiveParticles
 		);
 		
-		FlatParticle.Add(
+		// Flat //
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -401,9 +436,10 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			int( LifeTime ), 	// Life //
 			OutlineTest,		// Animation //
 			255,						// Alpha //
-			10							// Fade // What time to start fading //
+			10,							// Fade // What time to start fading //
+			FlatParticles
 		);
-	}	
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 

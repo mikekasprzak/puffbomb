@@ -23,6 +23,7 @@ using namespace std;
 #include <Engine2D.h>
 #include <Editor/Editor.h>
 #include <Particle2D/ParticleFactory.h>
+#include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -293,22 +294,24 @@ int main( int argc, char* argv[] ) {
 	
 
 	// Disable Vertical Sync //	
-//	{
-//		typedef void (APIENTRY * WGLSWAPINTERVALEXT) ( int ) ;
-//				
-//		WGLSWAPINTERVALEXT wglSwapIntervalEXT = (WGLSWAPINTERVALEXT) SDL_GL_GetProcAddress( "wglSwapIntervalEXT" ) ;
-//		if ( wglSwapIntervalEXT != 0 ) {
-//			// Disable vertical synchronisation :
-//			wglSwapIntervalEXT( 0 ) ;
-//		} 
-//	}
+	{
+		typedef void (APIENTRY * WGLSWAPINTERVALEXT) ( int ) ;
+				
+		WGLSWAPINTERVALEXT wglSwapIntervalEXT = (WGLSWAPINTERVALEXT) SDL_GL_GetProcAddress( "wglSwapIntervalEXT" ) ;
+		if ( wglSwapIntervalEXT != 0 ) {
+			// Disable vertical synchronisation :
+			wglSwapIntervalEXT( 0 ) ;
+		} 
+	}
 	
 	
 	cGlobal::Shutdown = false;
 
 	// Populates the particle factory with a number of particles //
-	FlatParticle.Populate( 5000 );
-	AdditiveParticle.Populate( 5000 );
+	FlatParticle.Populate( 500 );
+	AdditiveParticle.Populate( 500 );
+
+	NewParticle.Populate( 10000 );
 	
 	// Be sure creation didn't just fail //
     if ( !Surface ) {
@@ -474,7 +477,7 @@ int main( int argc, char* argv[] ) {
 				Platform::FPS = FramesPast;
 				FramesPast = 0;
 			}
-			if ( ThisTime - LastTime >= MS )  // !!!! //
+			//if ( ThisTime - LastTime >= MS )  // !!!! //
 			{
 				int Loops = (ThisTime - LastTime) / MS;
 				LastTime += Loops * MS;
