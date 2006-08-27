@@ -142,31 +142,25 @@ void NewParticleFactory::SetParticleData( const int SegIdx )
 
 	for( int idx = Segment[ SegIdx ].Start; idx < Segment[ SegIdx ].Size; idx++ )
 	{
-		//set to this later when you get diff working //
-		// Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos).ToVector3D();
 		Indices[ OffsetIdx ] = OffsetIdx;
-//		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
 		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.a;
 		VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-//		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
 		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.b;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-//		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
 		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.c;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-//		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
 		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].UV.c;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
@@ -195,69 +189,27 @@ void NewParticleFactory::Step()
 					
 					Particles[ idx ].Step();
 				}
-/*
-				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;*/
 			}
-	//		else
-			{
-/*				Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;
-				Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
-//				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;
-				Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
-//				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;
-				Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
-//				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;
-				Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
-//				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;
+/*	
+			Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;  // this made the particles twitch once and a while
+			Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
 */
-				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;
-				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
-				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
-			
-				++OffsetIdx;
-				
-			}
+			Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
 		}
 		if( Segment[ SegIdx ].SegIdx == Segment[ SegIdx ].Start )
 		{
@@ -274,7 +226,51 @@ void NewParticleFactory::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void NewParticleFactory::Draw()
 {
+	int AdditiveArray[ Segment.size() ];
+	size_t AdditiveSize = 0;
+	
 	for( size_t SegIdx = 0; SegIdx < Segment.size(); SegIdx++ )
+	{
+		if( Segment[ SegIdx ].IsAdditive )
+		{
+			AdditiveArray[ AdditiveSize ] = SegIdx;
+			
+			AdditiveSize++;
+		}
+		else
+		{
+			Gfx::DrawQuads(
+				&Vertex[ 0 ],
+				&TexCoord[ 0 ],
+				&VertColor[ 0 ],
+				&Indices[ Segment[ SegIdx ].IndicesIdx ],
+				Segment[ SegIdx ].IndicesSize - Segment[ SegIdx ].IndicesIdx,
+				Segment[ SegIdx ].TextureID
+			);
+		}
+	}
+	// Cheezy additive sort hack //
+	for( size_t SegIdx = 0; SegIdx < AdditiveSize; SegIdx++ )
+	{
+		// Enables additive blending //
+		Gfx::EnableAddBlend();
+
+		Gfx::DrawQuads(
+			&Vertex[ 0 ],
+			&TexCoord[ 0 ],
+			&VertColor[ 0 ],
+			&Indices[ Segment[ AdditiveArray[ SegIdx ] ].IndicesIdx ],
+			Segment[ AdditiveArray[ SegIdx ] ].IndicesSize - Segment[ AdditiveArray[ SegIdx ] ].IndicesIdx,
+			Segment[ AdditiveArray[ SegIdx ] ].TextureID
+		);
+		
+		// Disables additive blending //
+		Gfx::DisableAddBlend();
+	}
+	
+	/*
+	
+		for( size_t SegIdx = 0; SegIdx < Segment.size(); SegIdx++ )
 	{
 		if( Segment[ SegIdx ].IsAdditive )
 		{
@@ -304,6 +300,6 @@ void NewParticleFactory::Draw()
 				Segment[ SegIdx ].TextureID
 			);
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -220,8 +220,8 @@ void cGame::Step() {
 	Form.Step();
 
 	// Particle Explosion Hack //	
-//	if( Input::Button[ KEY_BACKSPACE ] )
-	if( Input::Button[ KEY_BACKSPACE ].Pressed() )
+	if( Input::Button[ KEY_BACKSPACE ] )
+//	if( Input::Button[ KEY_BACKSPACE ].Pressed() )
 	{
 		FXLibrary::OutlineTest( Vector2D( 0, 0 ) );	
 	}
