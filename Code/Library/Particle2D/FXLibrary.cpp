@@ -11,6 +11,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::Explosion1( const Vector2D& Pos )
 {
+//	int AdditiveParticles = NewParticle.Allocate( 480, true );
 	int AdditiveParticles = NewParticle.Allocate( 320, true );
 	
 	if( AdditiveParticles == -1 )

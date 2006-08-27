@@ -32,8 +32,6 @@ public:
 				SegIdx( _Start ),
 				Size( _Start + _Size ),
 				IsAdditive( _IsAdditive ),
-//				IndicesIdx( ( Start * 4 ) ),
-//				IndicesSize( ( Size * 4 ) )  // check this value //
 				IndicesIdx( ( Start << 2 ) ),
 				IndicesSize( ( Size << 2 ) )
 		{
@@ -43,10 +41,6 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	std::vector< cSegment > Segment;	
 public:
-//	bool operator()(int a, int b) const
-//	{
-//		return (Segment[a].Start) < (Segment[b].Start);
-//	}		
 	// - -------------------------------------------------------------------------------------- - //
 	NewParticleFactory() :
 		OffsetIdx( 0 )
@@ -61,8 +55,6 @@ public:
 	size_t OffsetIdx;
 
 	std::vector< cParticle > Particles;  // Particle Pointers may help performance when removing a particle?? //
-	
-//	unsigned int TextureID;
 
 	std::vector< Vector3D > Vertex;
 	std::vector< Vector2D > TexCoord;
