@@ -61,77 +61,33 @@ int NewParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive 
 //		if( ( ParticleIdx >= Segment[ idx ].Start ) && ( ( ParticleIdx ) < ( Segment[ idx ].Size ) ) )
 		if( ( ParticleIdx == Segment[ idx ].Start ) )
 		{
-//			Log( LOG_HIGHEST_LEVEL, "qqqSegment[ idx ].Start " << Segment[ idx ].Start );
-//			Log( LOG_HIGHEST_LEVEL, "qqqSegment[ idx ].Size " << Segment[ idx ].Size );
-//			Log( LOG_HIGHEST_LEVEL, "if( ( ParticleIdx == Segment[ idx ].Start ) )" );
+
 		}
 		else
 		{
-//			Log( LOG_HIGHEST_LEVEL, "else" );
 			if( idx < Segment.size() - 1 )
 			{
-				//Log( LOG_HIGHEST_LEVEL, "size_t( ParticleIdx + SegmentSize ) " << size_t( ParticleIdx + SegmentSize ) );
 				if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
 				{
-//					Log( LOG_HIGHEST_LEVEL, "if( size_t( ParticleIdx + SegmentSize ) < Particles.size() ) " );
 					if( ( ParticleIdx + SegmentSize ) < Segment[ idx + 1 ].Start )
 					{
-						
-	//					Log( LOG_HIGHEST_LEVEL, "Segment[ idx].Start " << Segment[ idx ].Start );
-	//					Log( LOG_HIGHEST_LEVEL, "Segment[ idx + 1 ].Start " << Segment[ idx + 1 ].Start );
-	//					Log( LOG_HIGHEST_LEVEL, "1111ParticleIdx " << ParticleIdx );
-	//					Log( LOG_HIGHEST_LEVEL, "SegmentSize " << SegmentSize );
 						Segment.push_back( cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );					
 						
 						return Segment.size() - 1;
-						
-				//		std::sort( Segment.begin(), Segment.end(), compare_segment );
-				//		for( size_t i = 0; i < Segment.size(); i++ )
-				//		{
-				//			if( Segment[ i ].Start == ParticleIdx );
-				//			{
-				//				return i;
-				//			}
-				//		}
 					}
 				}
 			}
 		}
 		ParticleIdx = ( Segment[ idx ].Size );
-//		Log( LOG_HIGHEST_LEVEL, "Segment[ idx ].Size " << Segment[ idx ].Size );
-
 	}
-//	Log( LOG_HIGHEST_LEVEL, "2222222size_t( ParticleIdx + SegmentSize ) " << size_t( ParticleIdx + SegmentSize ) );
-//	Log( LOG_HIGHEST_LEVEL, "Segment.size() " << Segment.size() );
 	
 	if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
 	{
-//		Log( LOG_HIGHEST_LEVEL, "2222ParticleIdx " << ParticleIdx );
-//		Log( LOG_HIGHEST_LEVEL, "_IsAdditive " << _IsAdditive );
-		
 		Segment.push_back( cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );
 		
 		return Segment.size() - 1;
-//		if( Segment.size() == 1 )
-//		{
-//		return Segment.size() - 1;
-//
-	//	}
-	///	else
-	//	{
-	//		std::sort( Segment.begin(), Segment.end(), compare_segment );
-	//		for( size_t i = 0; i < Segment.size(); i++ )
-	//		{
-	//			if( Segment[ i ].Start == ParticleIdx );
-	//			{
-	//				return i;
-	//			}
-	//		}
-	//	}
 	}
-	
-//	Log( LOG_HIGHEST_LEVEL, "" );
-	
+
 	return -1;
 }
 void NewParticleFactory::Release( const int SegIdx )
@@ -154,9 +110,6 @@ void NewParticleFactory::Add(
 	const int _Fade,
 	const int SegIdx )
 {
-//	Log( LOG_HIGHEST_LEVEL, "WOOOSegment[ SegIdx ].Start  " << Segment[ SegIdx ].Start  );
-//	Log( LOG_HIGHEST_LEVEL, "WOOOSegment[ SegIdx ].SegIdx  " << Segment[ SegIdx ].SegIdx  );
-//	Log( LOG_HIGHEST_LEVEL, "WOOOSegment[ SegIdx ].Size  " << Segment[ SegIdx ].Size  );
 	if( Segment[ SegIdx ].SegIdx < Segment[ SegIdx ].Size )
 	{
 		Particles[ Segment[ SegIdx ].SegIdx ].SetParticle( 
@@ -187,35 +140,34 @@ void NewParticleFactory::SetParticleData( const int SegIdx )
 {
 	OffsetIdx = Segment[ SegIdx ].IndicesIdx;
 
-//	Log( LOG_HIGHEST_LEVEL, "Particles.size() " << Particles.size() );
-//	Log( LOG_HIGHEST_LEVEL, "Segment[ SegIdx ].IndicesIdx " << Segment[ SegIdx ].IndicesIdx );
-//	Log( LOG_HIGHEST_LEVEL, "Segment[ SegIdx ].IndicesSize " << Segment[ SegIdx ].IndicesSize );
-///	Log( LOG_HIGHEST_LEVEL, "Segment[ SegIdx ].Start " << Segment[ SegIdx ].Start );
-//	Log( LOG_HIGHEST_LEVEL, "Segment[ SegIdx ].Size " << Segment[ SegIdx ].Size );
 	for( int idx = Segment[ SegIdx ].Start; idx < Segment[ SegIdx ].Size; idx++ )
 	{
 		//set to this later when you get diff working //
 		// Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos).ToVector3D();
 		Indices[ OffsetIdx ] = OffsetIdx;
-		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
+//		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
+		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.a;
 		VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
+//		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
+		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.b;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
+//		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
+		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.c;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
+//		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
+		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].UV.c;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 	
@@ -239,42 +191,49 @@ void NewParticleFactory::Step()
 				Segment[ SegIdx ].SegIdx--;
 
 				Particles[ idx ] = Particles[ Segment[ SegIdx ].SegIdx ];
-
-//				Indices[ OffsetIdx ] = Segment[ SegIdx ].IndicesSize;
-//				Indices[ OffsetIdx + 1 ] = Segment[ SegIdx ].IndicesSize + 1;
-//				Indices[ OffsetIdx + 2 ] = Segment[ SegIdx ].IndicesSize + 2;
-//				Indices[ OffsetIdx + 3 ] = Segment[ SegIdx ].IndicesSize + 3;
 				
-			}
-			//else  //?
-			{
-				
-				//Indices[ OffsetIdx ] = OffsetIdx;
-				//Vertex[ OffsetIdx ].x += Particles[ idx ].Pos.x;
-				//Vertex[ OffsetIdx ].y += Particles[ idx ].Pos.y;
-				
-				//Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x; // Should be the difference of the particle
-				//Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
 				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
-				//TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.a;
 				VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
 			
 				++OffsetIdx;
-				//Indices[ OffsetIdx ] = OffsetIdx;
 				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
-				//TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.b;
 				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 			
 				++OffsetIdx;
-				//Indices[ OffsetIdx ] = OffsetIdx;
 				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
-				//TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.c;
 				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 			
 				++OffsetIdx;
-				//Indices[ OffsetIdx ] = OffsetIdx;
 				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
-				//TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].UV.c;
+				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+			
+				++OffsetIdx;
+				
+			}
+			else  //?
+			{
+				
+				Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;
+				Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
+//				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
+				VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
+			
+				++OffsetIdx;
+				Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;
+				Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
+//				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
+				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+			
+				++OffsetIdx;
+				Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;
+				Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
+//				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
+				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+			
+				++OffsetIdx;
+				Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;
+				Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
+//				Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
 				VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 			
 				++OffsetIdx;
@@ -310,24 +269,6 @@ void NewParticleFactory::Draw()
 				Segment[ SegIdx ].IndicesSize - Segment[ SegIdx ].IndicesIdx,
 				Segment[ SegIdx ].TextureID
 			);
-/*
-			Gfx::DrawQuads(
-				&Vertex[ Segment[ SegIdx ].IndicesIdx ],
-				&TexCoord[ Segment[ SegIdx ].IndicesIdx ],
-				&VertColor[ Segment[ SegIdx ].IndicesIdx ],
-				&Indices[ Segment[ SegIdx ].IndicesIdx ],
-				Segment[ SegIdx ].IndicesSize - Segment[ SegIdx ].IndicesIdx,
-				Segment[ SegIdx ].TextureID
-			);
-			Gfx::DrawQuads(
-				&Vertex[ Segment[ SegIdx ].IndicesIdx ],
-				&TexCoord[ Segment[ SegIdx ].IndicesIdx ],
-				&VertColor[ Segment[ SegIdx ].IndicesIdx ],
-				&Indices[ Segment[ SegIdx ].IndicesIdx ],
-				Segment[ SegIdx ].IndicesSize,
-				Segment[ SegIdx ].TextureID
-			);
-*/
 			
 			// Disables additive blending //
 			Gfx::DisableAddBlend();
@@ -342,36 +283,7 @@ void NewParticleFactory::Draw()
 				Segment[ SegIdx ].IndicesSize - Segment[ SegIdx ].IndicesIdx,
 				Segment[ SegIdx ].TextureID
 			);
-
-			
-/*
-			Gfx::DrawQuads(
-				&Vertex[ Segment[ SegIdx ].IndicesIdx ],
-				&TexCoord[ Segment[ SegIdx ].IndicesIdx ],
-				&VertColor[ Segment[ SegIdx ].IndicesIdx ],
-				&Indices[ Segment[ SegIdx ].IndicesIdx ],
-				Segment[ SegIdx ].IndicesSize - Segment[ SegIdx ].IndicesIdx,
-				Segment[ SegIdx ].TextureID
-			);
-
-
-			Gfx::DrawQuads(
-				&Vertex[ 0 ],
-				&TexCoord[ 0 ],
-				&VertColor[ 0 ],
-				&Indices[ 240 ],
-				Segment[ SegIdx ].IndicesSize,
-				Segment[ SegIdx ].TextureID
-			);*/
 		}
 	}
-/*	Gfx::DrawQuads(
-		&Vertex[0],
-		&TexCoord[0],
-		&VertColor[0],
-		&Indices[0],
-		AliveSize,
-		TextureID
-	);*/
 }
 // - ------------------------------------------------------------------------------------------ - //
