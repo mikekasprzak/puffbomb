@@ -311,7 +311,7 @@ int main( int argc, char* argv[] ) {
 	FlatParticle.Populate( 500 );
 	AdditiveParticle.Populate( 500 );
 
-	NewParticle.Populate( 50000 );
+	NewParticle.Populate( 40000 );
 	
 	// Be sure creation didn't just fail //
     if ( !Surface ) {

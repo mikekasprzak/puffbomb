@@ -41,7 +41,7 @@ void NewParticleFactory::Populate( int Num )
 
 	Particles.resize( Num );
 	
-	Segment.reserve( 256 );
+	Segment.reserve( 1024 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 bool compare_segment(const NewParticleFactory::cSegment &a, const NewParticleFactory::cSegment &b) 
@@ -58,6 +58,8 @@ int NewParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive 
 	
 	for( size_t idx = 0; idx < Segment.size(); idx++ )
 	{
+//		Log( LOG_HIGHEST_LEVEL, "Segment[ idx ] = " << Segment[ idx ].Start << " - " << Segment[ idx ].Size << " Segment.size() = " << Segment.size() );
+		
 //		if( ( ParticleIdx >= Segment[ idx ].Start ) && ( ( ParticleIdx ) < ( Segment[ idx ].Size ) ) )
 		if( ( ParticleIdx == Segment[ idx ].Start ) )
 		{
@@ -65,12 +67,16 @@ int NewParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive 
 		}
 		else
 		{
-			if( idx < Segment.size() - 1 )
+//			if( idx < Segment.size() - 1 )
 			{
 				if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
 				{
-					if( ( ParticleIdx + SegmentSize ) < Segment[ idx + 1 ].Start )
+//					if( ( ParticleIdx + SegmentSize ) < Segment[ idx + 1 ].Start )
+					if( ( ParticleIdx + SegmentSize ) < Segment[ idx ].Start )
 					{
+						//Log( LOG_HIGHEST_LEVEL, "( ParticleIdx + SegmentSize ) = " << ( ParticleIdx + SegmentSize ) );
+						//Log( LOG_HIGHEST_LEVEL, "Segment[ idx + 1 ].Start = " << Segment[ idx + 1 ].Start );
+
 						Segment.push_back( cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );					
 						
 						return Segment.size() - 1;
@@ -143,25 +149,25 @@ void NewParticleFactory::SetParticleData( const int SegIdx )
 	for( int idx = Segment[ SegIdx ].Start; idx < Segment[ SegIdx ].Size; idx++ )
 	{
 		Indices[ OffsetIdx ] = OffsetIdx;
-		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos).ToVector3D();
+		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.a;
 		VertColor[ OffsetIdx ] = gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos).ToVector3D();
+		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Particles[ idx ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.b;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos).ToVector3D();
+		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.c;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 	
 		++OffsetIdx;
 		Indices[ OffsetIdx ] = OffsetIdx;
-		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos).ToVector3D();
+		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Particles[ idx ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 1 ].UV.c;
 		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 	
@@ -180,7 +186,7 @@ void NewParticleFactory::Step()
 			Particles[ idx ].Step();
 			if( Particles[ idx ].Life <= 0 )
 			{
-				while( Particles[ idx ].Life <= 0 && Segment[ SegIdx ].Start != Segment[ SegIdx ].SegIdx )
+				while( Particles[ idx ].Life <= 0 && Segment[ SegIdx ].Start < Segment[ SegIdx ].SegIdx )
 				{
 					Segment[ SegIdx ].IndicesSize -= 4;
 					Segment[ SegIdx ].SegIdx--;

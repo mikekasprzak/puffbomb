@@ -11,6 +11,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::Explosion1( const Vector2D& Pos )
 {
+	int AdditiveParticles = NewParticle.Allocate( 320, true );
+	
+	if( AdditiveParticles == -1 )
+	{
+		return;	
+	}
+	
 	cAnimation& Explosion1 = AnimationPool.Load( "Explosion1.anim" );
 	cAnimation& Explosion2 = AnimationPool.Load( "Explosion2.anim" );
 	cAnimation& Explosion3 = AnimationPool.Load( "Explosion3.anim" );
@@ -26,7 +33,7 @@ void FXLibrary::Explosion1( const Vector2D& Pos )
 		
 		Vector2D Velocity = Point * Real::Random();
 
-		AdditiveParticle.Add(
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -34,12 +41,13 @@ void FXLibrary::Explosion1( const Vector2D& Pos )
 			int( Real::Random() * Real(30) + Real(30) ), 	// Life //
 			Explosion1,		// Animation //
 			255,						// Alpha //
-			30							// Fade // What time to start fading //
+			30,							// Fade // What time to start fading //
+			AdditiveParticles
 		);
 		
 		Velocity = Point * Real::Random() * 1.5;
 		
-		AdditiveParticle.Add(
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -47,12 +55,13 @@ void FXLibrary::Explosion1( const Vector2D& Pos )
 			int( Real::Random() * Real(30) + Real(50) ), 	// Life //
 			Explosion2,		// Animation //
 			255,						// Alpha //
-			50							// Fade // What time to start fading //
+			50,							// Fade // What time to start fading //
+			AdditiveParticles
 		);
 		
 		Velocity = Point * Real::Random() * 3;
 		
-		AdditiveParticle.Add(
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -60,12 +69,13 @@ void FXLibrary::Explosion1( const Vector2D& Pos )
 			int( Real::Random() * Real(30) + Real(70) ), 	// Life //
 			Explosion3,		// Animation //
 			127,						// Alpha //
-			70							// Fade // What time to start fading //
+			70,							// Fade // What time to start fading //
+			AdditiveParticles
 		);
 
 		Velocity = Point * Real::Random() * 2;
 		
-		AdditiveParticle.Add(
+		NewParticle.Add(
 			Pos, 		// Pos //
 			Velocity * Real::Random() * 0.6,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -73,7 +83,8 @@ void FXLibrary::Explosion1( const Vector2D& Pos )
 			int( Real::Random() * Real(30) + Real(90) ), 	// Life //
 			Smoke2,		// Animation //
 			127,						// Alpha //
-			90							// Fade // What time to start fading //
+			90,							// Fade // What time to start fading //
+			AdditiveParticles
 		);
 		
 	}	

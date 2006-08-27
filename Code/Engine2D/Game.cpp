@@ -134,7 +134,7 @@ void cGame::Input() {
 		Camera->NewTarget( Focus1 );
 	}
 	
-	if ( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
+/*	if ( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
 		Impulse.push_back( 
 			cImpulse(
 				Vector2D( 0, 0 ),
@@ -142,7 +142,7 @@ void cGame::Input() {
 				Real( 90 ), Real( 0 )
 				)
 			);
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cGame::Step() {
@@ -223,7 +223,8 @@ void cGame::Step() {
 	if( Input::Button[ KEY_BACKSPACE ] )
 //	if( Input::Button[ KEY_BACKSPACE ].Pressed() )
 	{
-		FXLibrary::OutlineTest( Vector2D( 0, 0 ) );	
+		FXLibrary::OutlineTest( Vector2D( 100, 100 ) );	
+		FXLibrary::Explosion1( Vector2D( -100, 100 ) );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
