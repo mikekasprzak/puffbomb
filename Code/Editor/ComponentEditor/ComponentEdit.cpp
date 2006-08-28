@@ -227,7 +227,7 @@ void cComponentEdit::Draw()
 			);
 		}
 				
-		if( !CurSelected.empty() )
+		if( !CurSelected.empty() && DynObj[ CurObj ].Body.Nodes.Size() > 1 )
 		{
 			Vector2D TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
 				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].PivotIndex
