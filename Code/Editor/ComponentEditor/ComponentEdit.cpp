@@ -215,7 +215,7 @@ void cComponentEdit::Draw()
 			}
 		}
 	}
-	else if( CurMode == MESH_NODE_MODE )
+	else if( CurMode == MESH_NODE_MODE || CurMode == PIVOT_HANDLE_MODE )
 	{
 		// Draw selcted mesh nodes //
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
@@ -395,6 +395,11 @@ void cComponentEdit::Step()
 			MeshMoveNode();
 
 			MeshScaleNode();
+		}
+		else if( CurMode == PIVOT_HANDLE_MODE )
+		{
+			MeshSetPivot();
+			MeshSetHandle();
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )
@@ -595,6 +600,10 @@ void cComponentEdit::SwitchMode()
 	else if( Button[ KEY_4 ].Pressed() )
 	{
 		CurMode = MESH_NODE_MODE;
+	}
+	else if( Button[ KEY_5 ].Pressed() )
+	{
+		CurMode = PIVOT_HANDLE_MODE;
 	}
 	else if( Button[ KEY_0 ].Pressed() )
 	{

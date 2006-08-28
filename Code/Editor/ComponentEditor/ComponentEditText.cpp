@@ -25,7 +25,7 @@ void cComponentEdit::DisplayText()
 		{	
 			DisplaySpringInfo();
 		}
-		else if( CurMode == MESH_NODE_MODE )
+		else if( CurMode == MESH_NODE_MODE || CurMode == PIVOT_HANDLE_MODE )
 		{	
 			DisplayMeshNodeInfo();
 		}

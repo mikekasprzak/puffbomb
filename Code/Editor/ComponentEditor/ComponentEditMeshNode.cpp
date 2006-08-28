@@ -321,5 +321,46 @@ void cComponentEdit::MeshScaleNode()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::MeshSetPivot()
+{
+	if( Button[ MOUSE_1 ].Pressed() )
+	{
+		int temp = BodySingleSelectNode();
+		if( temp != -1 )
+		{
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			{
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[ idx ] ].PivotIndex = temp;
+			}
+			ActiveAction();
+		}
+		else
+		{
+			int TempMeshIdx = MeshSingleSelectNode();
+			if( TempMeshIdx != -1 )
+			{
+				CurSelected.clear();
+				CurSelected.push_back( MeshSingleSelectNode() );
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::MeshSetHandle()
+{
+	if( Button[ MOUSE_2 ].Pressed() )
+	{
+		int temp = BodySingleSelectNode();
+		if( temp != -1 )
+		{
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			{
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[ idx ] ].HandleIndex = temp;
+			}
+			ActiveAction();
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
