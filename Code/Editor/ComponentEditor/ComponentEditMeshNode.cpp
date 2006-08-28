@@ -212,6 +212,37 @@ void cComponentEdit::MeshAddNode()
 	{
 		CurSelected.clear();
 
+		int PivotIdx = 0;
+		int HandleIdx = 1;
+		Real Pivot = 100000.0;
+		Real Handle = 100000.0;
+		Real TestDistance = 100000.0;
+	
+		for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+		{
+			TestDistance = ( Pose->Node[ idx ].Pos - CurMousePos ).Magnitude();
+		
+			if( TestDistance < Pivot )
+			{
+				Pivot = TestDistance;
+				PivotIdx = idx;
+			}
+		}
+		
+		for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+		{
+			TestDistance = ( Pose->Node[ idx ].Pos - CurMousePos ).Magnitude();
+			
+			if( int( idx ) != PivotIdx )
+			{
+				if( TestDistance < Handle )
+				{
+					Handle = TestDistance;
+					HandleIdx = idx;
+				}
+			}
+		}
+
 		Vector2D TempPos = CurMousePos;
 
 		if( !Button[ KEY_LSHIFT ] )
@@ -221,7 +252,7 @@ void cComponentEdit::MeshAddNode()
 
 			CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
 		}
-		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.push_back( Engine2D::cMeshPoseNode( TempPos, 0, 1 ) );
+		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.push_back( Engine2D::cMeshPoseNode( TempPos, PivotIdx, HandleIdx ) );
 
 		CurSelected.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size() - 1 );
 
