@@ -84,6 +84,15 @@ public:
 	void BodyDeleteSpring();
 	
 public:
+	// ComponentEditMeshNode.cpp //
+	int MeshSingleSelectNode();
+	void MeshSelectNode();
+	void MeshMoveNode();
+	void MeshAddNode();
+	void MeshDeleteNode();
+	void MeshScaleNode();
+	
+public:
 	// ComponentEditText.cpp //
 	void DisplayText();
 	void DisplayNodeInfo();
