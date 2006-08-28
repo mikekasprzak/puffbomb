@@ -16,6 +16,19 @@ public:
 	// Orientation //
 	size_t PivotIndex;
 	size_t HandleIndex;
+	
+	cMeshPoseNode()
+	{
+		
+	}
+	
+	cMeshPoseNode( const Vector2D& _Pos, const size_t _PivotIndex, const size_t _HandleIndex ) :
+		Pos( _Pos ),
+		PivotIndex( _PivotIndex ),
+		HandleIndex( _HandleIndex )
+	{
+		
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

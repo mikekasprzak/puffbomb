@@ -217,24 +217,18 @@ void cComponentEdit::MeshAddNode()
 	{
 		CurSelected.clear();
 		
-		size_t TempIdx = DynObj[ CurObj ].Body.AddNode();
-
 		Vector2D TempPos = CurMousePos;
-		
-		SetGridDepth( Camera, CurrentGridDepth, 32.0 );
-		SetGridArray( CurrentGridDepth, UVGridDepth );
 
-		if( !Button[ KEY_LCTRL ].Pressed() )
+		if( !Button[ KEY_LSHIFT ] )
 		{
+			SetGridDepth( Camera, CurrentGridDepth, 32.0 );
+			SetGridArray( CurrentGridDepth, UVGridDepth );
+
 			CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
 		}
-		DynObj[ CurObj ].Body.SetPos( TempIdx, TempPos );
-		
-		CurSelected.push_back( TempIdx );
-		
-		DynObj[ CurObj ].Body.SetMass( TempIdx, Real( 1 ) );
-	
-		BodyCalcTotalMass();
+		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.push_back( Engine2D::cMeshPoseNode( TempPos, 0, 1 ) );
+
+		CurSelected.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size() - 1 );
 		
 		ActiveAction();
 	}

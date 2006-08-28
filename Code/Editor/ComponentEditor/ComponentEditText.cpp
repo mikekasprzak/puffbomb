@@ -396,8 +396,17 @@ void cComponentEdit::DisplayMode()
 		case SPRING_MODE:
 		{
 			cFonts::FlangeLight.Write(
-//				"Pivot Handle Mode",
 				"Spring Mode",
+				ModePos,
+				FontSize,
+				Color
+			);
+			break;
+		}
+		case MESH_NODE_MODE:
+		{
+			cFonts::FlangeLight.Write(
+				"MeshNode Mode",
 				ModePos,
 				FontSize,
 				Color

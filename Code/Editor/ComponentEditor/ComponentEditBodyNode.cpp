@@ -235,11 +235,11 @@ void cComponentEdit::BodyAddNode()
 
 		Vector2D TempPos = CurMousePos;
 		
-		SetGridDepth( Camera, CurrentGridDepth, 32.0 );
-		SetGridArray( CurrentGridDepth, UVGridDepth );
-
-		if( !Button[ KEY_LCTRL ].Pressed() )
+		if( !Button[ KEY_LSHIFT ] )
 		{
+			SetGridDepth( Camera, CurrentGridDepth, 32.0 );
+			SetGridArray( CurrentGridDepth, UVGridDepth );
+
 			CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
 		}
 		DynObj[ CurObj ].Body.SetPos( TempIdx, TempPos );

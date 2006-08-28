@@ -28,6 +28,7 @@ public:
 	
 	size_t CurObj;
 	size_t CurPose;
+	size_t CurMeshPose;
 
 	size_t CurTexPreview;
 	

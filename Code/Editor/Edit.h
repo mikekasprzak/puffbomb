@@ -20,6 +20,7 @@
 #define SPHERE_MODE 			1
 #define SPRING_MODE 			2
 #define DISPLAY_NODE_MODE		3
+#define MESH_NODE_MODE			10
 #define PIVOT_HANDLE_MODE 		4
 #define FACE_MODE	 			5
 #define TEXTURE_MODE 			6

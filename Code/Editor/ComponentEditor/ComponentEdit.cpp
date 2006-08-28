@@ -20,8 +20,9 @@ using namespace Input;
 cComponentEdit::cComponentEdit() :
 	CurObj( 0 ),
 	CurPose( 0 ),
+	CurMeshPose( 0 ),
 	CurTexPreview( 0 ),
-	NodeRadius( 3 )
+	NodeRadius( 6 )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -78,6 +79,10 @@ cComponentEdit::cComponentEdit() :
 		
 	DynObj[ 0 ].Body = DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
 	Pose = &DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
+	
+	DynObj[ 0 ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+
+	
 /*
 	DynObj[ 0 ].Body.AddNode();
 	DynObj[ 0 ].Body.AddNode();
@@ -140,7 +145,6 @@ void cComponentEdit::Draw()
 		}
 	}
 	
-//	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 	DrawGrid( Camera, CurrentGridDepth, 32.0, true, UVGridDepth );
 		
 	// Draw nodes //
@@ -148,57 +152,82 @@ void cComponentEdit::Draw()
 	{
 		DynObj[ CurObj ].Body.DrawNode( idx, false );
 	}
-	// Draw selected nodes //
-	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-	{
-		DynObj[ CurObj ].Body.DrawNode( CurSelected[ idx ], true );
-	}
 	// Draw spheres //
 	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.SphereSize(); ++idx )
 	{
 		DynObj[ CurObj ].Body.DrawSphere( idx, false );
-	}
-	// Draw selected spheres //
-	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-	{
-		for( size_t SphereIdx = 0; SphereIdx < DynObj[ CurObj ].Body.SphereSize(); ++SphereIdx )
-		{
-			if( CurSelected[idx] == DynObj[ CurObj ].Body.Sphere( SphereIdx ).Index )
-			{
-				DynObj[ CurObj ].Body.DrawSphere( SphereIdx, true );
-			}
-		}
 	}
 	// Draw springs //
 	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.SpringSize(); ++idx )
 	{
 		DynObj[ CurObj ].Body.DrawSpring( idx, false );
 	}
-	// Draw selected springs //
-	for( size_t SpringIdx = 0; SpringIdx < DynObj[ CurObj ].Body.SpringSize(); ++SpringIdx )
+	// Draw mesh nodes //
+	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
 	{
+		Gfx::Circle(
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ idx ].Pos,
+			Real( 3 ),
+			Gfx::RGBA(128, 128, 192, 192)
+		);
+	}
+	
+	if( CurMode <= SPRING_MODE )
+	{
+		// Draw selected nodes //
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t i = idx + 1; i < CurSelected.size(); ++i )
+			DynObj[ CurObj ].Body.DrawNode( CurSelected[ idx ], true );
+		}
+		// Draw selected spheres //
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			for( size_t SphereIdx = 0; SphereIdx < DynObj[ CurObj ].Body.SphereSize(); ++SphereIdx )
 			{
-				if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[idx] )
+				if( CurSelected[idx] == DynObj[ CurObj ].Body.Sphere( SphereIdx ).Index )
 				{
-					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[i] )
-					{
-						DynObj[ CurObj ].Body.DrawSpring( SpringIdx, true );
-					}
+					DynObj[ CurObj ].Body.DrawSphere( SphereIdx, true );
 				}
-				if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[idx] )
+			}
+		}
+		// Draw selected springs //
+		for( size_t SpringIdx = 0; SpringIdx < DynObj[ CurObj ].Body.SpringSize(); ++SpringIdx )
+		{
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			{
+				for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 				{
-					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[i] )
+					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[idx] )
 					{
-						DynObj[ CurObj ].Body.DrawSpring( SpringIdx, true );
+						if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[i] )
+						{
+							DynObj[ CurObj ].Body.DrawSpring( SpringIdx, true );
+						}
 					}
-				}
-			}	
+					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[idx] )
+					{
+						if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[i] )
+						{
+							DynObj[ CurObj ].Body.DrawSpring( SpringIdx, true );
+						}
+					}
+				}	
+			}
 		}
 	}
-
+	else if( CurMode == MESH_NODE_MODE )
+	{
+		// Draw selcted mesh nodes //
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Gfx::Circle(
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[idx] ].Pos,
+				Real( 3 ),
+				Gfx::RGBA(192, 192, 255, 192)
+			);
+		}
+	}
+	
 	Gfx::DisableBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -351,6 +380,10 @@ void cComponentEdit::Step()
 			BodyAddSpring();
 
 			BodyDeleteSpring();
+		}
+		else if( CurMode == MESH_NODE_MODE )
+		{
+			MeshAddNode();	
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )
@@ -548,17 +581,24 @@ void cComponentEdit::SwitchMode()
 	{
 		CurMode = SPRING_MODE;
 	}
+	else if( Button[ KEY_4 ].Pressed() )
+	{
+		CurMode = MESH_NODE_MODE;
+	}
 	else if( Button[ KEY_0 ].Pressed() )
 	{
 		CurMode = COMPONENT_MODE;	
 	} 
-	if( LastMode <= SPRING_MODE && CurMode <= SPRING_MODE )
+	if( LastMode != CurMode )
 	{
-		
-	}
-	else
-	{
-		CurSelected.clear();
+		if( LastMode <= SPRING_MODE && CurMode <= SPRING_MODE )
+		{
+			
+		}
+		else
+		{
+			CurSelected.clear();
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

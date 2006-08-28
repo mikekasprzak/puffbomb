@@ -9,7 +9,6 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DrawNode( const size_t Index, const bool Selected ) const {
 	const Vector2D& MyNode = Nodes.Pos( Index );
-//	const Vector2D& MyNode = Pose->Node[Index].Pos;
 
 	// Draw a circle for our node //
 	Gfx::Circle(
