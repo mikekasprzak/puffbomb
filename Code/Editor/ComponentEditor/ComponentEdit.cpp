@@ -226,6 +226,29 @@ void cComponentEdit::Draw()
 				Gfx::RGBA(192, 192, 255, 192)
 			);
 		}
+				
+		if( !CurSelected.empty() )
+		{
+			Vector2D TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].PivotIndex
+			);
+
+			Gfx::Circle(
+				TempPos,
+				Real( 3 ),
+				Gfx::RGBA(255, 128, 255, 192)
+			);
+			
+			TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].HandleIndex
+			);
+			
+			Gfx::Circle(
+				TempPos,
+				Real( 3 ),
+				Gfx::RGBA(128, 255, 255, 192)
+			);
+		}
 	}
 	
 	Gfx::DisableBlend();
