@@ -383,7 +383,18 @@ void cComponentEdit::Step()
 		}
 		else if( CurMode == MESH_NODE_MODE )
 		{
-			MeshAddNode();	
+			if( !isGroupMove )
+			{
+				MeshSelectNode();
+			
+				MeshAddNode();
+				
+				MeshDeleteNode();
+
+			}
+			MeshMoveNode();
+
+			MeshScaleNode();
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )

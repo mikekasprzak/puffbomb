@@ -14,10 +14,10 @@ int cComponentEdit::MeshSingleSelectNode()
 	int LastIdx = -1;
 	Real LastDistance = NodeRadius;
 	Real TestDistance = NodeRadius;
-	
-	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+
+	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
 	{
-		TestDistance = ( Pose->Node[ idx ].Pos - CurMousePos ).Magnitude();
+		TestDistance = ( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ idx ].Pos - CurMousePos ).Magnitude();
 		if( TestDistance < Real( NodeRadius ) )
 		{
 			if( TestDistance < LastDistance )
@@ -37,9 +37,9 @@ void cComponentEdit::MeshSelectNode()
 		// Group add-select //
 		if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
 		{
-			for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
 			{
-				if( WithinBox( Pose->Node[ idx ].Pos, CurMousePos, OldMousePos ) )
+				if( WithinBox( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					bool CurSelectedTest = false;
 					for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -56,7 +56,7 @@ void cComponentEdit::MeshSelectNode()
 				}
 			}
 			// Single add-select //
-			int temp = BodySingleSelectNode();
+			int temp = MeshSingleSelectNode();
 			if( temp != -1 )
 			{
 				bool CurSelectedTest = false;
@@ -76,9 +76,9 @@ void cComponentEdit::MeshSelectNode()
 		// Group de-select //
 		else if( Button[ KEY_LCTRL ] || Button[ KEY_RCTRL ] )
 		{
-			for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
 			{
-				if( WithinBox( Pose->Node[ idx ].Pos, CurMousePos, OldMousePos ) )
+				if( WithinBox( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					for( size_t i = 0; i < CurSelected.size(); ++i )
 					{
@@ -98,7 +98,7 @@ void cComponentEdit::MeshSelectNode()
 				}
 			}
 			// Single de-select //
-			int temp = BodySingleSelectNode();
+			int temp = MeshSingleSelectNode();
 			if( temp != -1 )
 			{
 				for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -123,9 +123,9 @@ void cComponentEdit::MeshSelectNode()
 		{
 			CurSelected.clear();
 			
-			for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
 			{
-				if( WithinBox( Pose->Node[ idx ].Pos, CurMousePos, OldMousePos ) )
+				if( WithinBox( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 				{
 					CurSelected.push_back( idx );
 				}
@@ -133,7 +133,7 @@ void cComponentEdit::MeshSelectNode()
 			// Single select //
 			if( CurSelected.empty() )
 			{
-				int temp = BodySingleSelectNode();
+				int temp = MeshSingleSelectNode();
 				if( temp != -1 )
 				{
 					CurSelected.push_back( temp );
@@ -149,7 +149,7 @@ void cComponentEdit::MeshMoveNode()
 	{
 		if( !Button[ KEY_LCTRL ] || !Button[ KEY_RCTRL ] )
 		{
-			int temp = BodySingleSelectNode();
+			int temp = MeshSingleSelectNode();
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				if( temp == int(CurSelected[idx]) )
@@ -179,18 +179,13 @@ void cComponentEdit::MeshMoveNode()
 
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
-				Vector2D TempPos = Pose->Node[ CurSelected[idx] ].Pos;
-				CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
-				DynObj[ CurObj ].Body.SetPos( CurSelected[idx], TempPos );
-				
+				CalcSnapToGrid( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[idx] ].Pos, CurrentGridDepth, UVGridDepth );
 			}
 			SnapToGrid = false;
-			DynObj[ CurObj ].Body.CalculateSpringLength();
 			ActiveAction();
 		}
 		else
 		{
-			DynObj[ CurObj ].Body.CalculateSpringLength();
 			ActiveAction();
 		}
 	}
@@ -199,13 +194,13 @@ void cComponentEdit::MeshMoveNode()
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
 			
-			Real TempX = Pose->Node[ CurSelected[idx] ].Pos.x;
+			Real TempX = DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[idx] ].Pos.x;
 			TempX -= OldMousePos.x - CurMousePos.x;
 			
-			Real TempY = Pose->Node[ CurSelected[idx] ].Pos.y;
+			Real TempY = DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[idx] ].Pos.y;
 			TempY -= OldMousePos.y - CurMousePos.y;
-					
-			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );
+			
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[idx] ].Pos = Vector2D( TempX, TempY );
 		}
 		OldMousePos = CurMousePos;
 	}
@@ -216,7 +211,7 @@ void cComponentEdit::MeshAddNode()
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() /* || isPaste == true */ )
 	{
 		CurSelected.clear();
-		
+
 		Vector2D TempPos = CurMousePos;
 
 		if( !Button[ KEY_LSHIFT ] )
@@ -229,7 +224,7 @@ void cComponentEdit::MeshAddNode()
 		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.push_back( Engine2D::cMeshPoseNode( TempPos, 0, 1 ) );
 
 		CurSelected.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size() - 1 );
-		
+
 		ActiveAction();
 	}
 }
@@ -240,12 +235,25 @@ void cComponentEdit::MeshDeleteNode()
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
-			sort( CurSelected.begin(), CurSelected.end() );
-			for( int idx = CurSelected.size() - 1; idx > -1; --idx )
+			std::vector< Engine2D::cMeshPoseNode > tempVec;
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
 			{
-				DynObj[ CurObj ].Body.DeleteNode( CurSelected[idx] );
+				bool isDelete = false;
+				for( size_t i = 0; i < CurSelected.size(); ++i )
+				{
+					if( CurSelected[i] == idx )
+					{
+						isDelete = true;
+					}
+				}
+				if( !isDelete )
+				{
+					tempVec.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ idx ] );
+				}
 
 			}
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.swap( tempVec );
+
 			CurSelected.clear();
 		}
 	}
@@ -262,7 +270,6 @@ void cComponentEdit::MeshScaleNode()
 		else if( ( EditEventFlags & flScale ) )
 		{
 			EditEventFlags &= ~flScale;
-			DynObj[ CurObj ].Body.CalculateSpringLength();
 		}
 	}
 	if( Button[ MOUSE_1 ].Pressed() && EditEventFlags & flScale )
@@ -270,17 +277,15 @@ void cComponentEdit::MeshScaleNode()
 		EditEventFlags &= ~flScale;
 		CurMousePos = CalcMousePos();
 		OldMousePos = CurMousePos;
-		
-		DynObj[ CurObj ].Body.CalculateSpringLength();		
 	}
 	if( EditEventFlags & flScale )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			Vector2D TempPos = Pose->Node[ CurSelected[idx] ].Pos;
+			Vector2D TempPos = DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[idx] ].Pos;
 			TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
 			
-			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], TempPos );
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[idx] ].Pos = TempPos;
 		}	
 	}
 }
