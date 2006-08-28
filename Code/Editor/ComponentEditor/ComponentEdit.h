@@ -99,6 +99,7 @@ public:
 	void DisplayNodeInfo();
 	void DisplaySphereInfo();
 	void DisplaySpringInfo();
+	void DisplayMeshNodeInfo();
 	void DisplayMode();
 	void DisplayComponentInfo();
 

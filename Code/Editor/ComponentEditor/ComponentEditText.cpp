@@ -25,6 +25,10 @@ void cComponentEdit::DisplayText()
 		{	
 			DisplaySpringInfo();
 		}
+		else if( CurMode == MESH_NODE_MODE )
+		{	
+			DisplayMeshNodeInfo();
+		}
 	}
 	
 	DisplayMode();
@@ -363,6 +367,119 @@ void cComponentEdit::DisplaySpringInfo()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::DisplayMeshNodeInfo()
+{
+	if( CurSelected.size() > 0 )
+	{
+		Real FontSize = 0.5;
+		Real XShift = 120;
+		Real YShift = 40;
+		Real XPos = 0;
+		Real YPos = 0;
+		
+		if( Platform::AspectRatio < Real( 0.79 ) )
+		{
+			YPos = cGlobal::HudH * 0.25;
+		}
+		int Color = gfx::RGBA( 255, 255, 255, 255 );
+		std::stringstream Temp;
+		
+		// Displays the current node number //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"Node #",
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << CurSelected[0];
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			FontSize,
+			Color
+		);
+		XPos += XShift;
+		Temp.str(std::string());
+		// Displays the X location of the node //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"Node X",
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].Pos.x;
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			FontSize,
+			Color
+		);
+		XPos += XShift;
+		Temp.str(std::string());
+		// Displays the Y location of the node //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"Node Y",
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].Pos.y;
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			FontSize,
+			Color
+		);
+		XPos += XShift;
+		Temp.str(std::string());
+		// Displays the Pivot of the node //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"Pivot",
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].PivotIndex;
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			FontSize,
+			Color
+		);
+		XPos += XShift;
+		Temp.str(std::string());
+		// Displays the Handle of the node //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"Handle",
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].HandleIndex;
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			FontSize,
+			Color
+		);
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplayMode()
 {
 	// Displays the current mesh edit mode //
@@ -407,6 +524,16 @@ void cComponentEdit::DisplayMode()
 		{
 			cFonts::FlangeLight.Write(
 				"MeshNode Mode",
+				ModePos,
+				FontSize,
+				Color
+			);
+			break;
+		}
+		case PIVOT_HANDLE_MODE:
+		{
+			cFonts::FlangeLight.Write(
+				"Pivot Handle Mode",
 				ModePos,
 				FontSize,
 				Color
