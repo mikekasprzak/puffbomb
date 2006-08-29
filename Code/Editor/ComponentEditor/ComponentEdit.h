@@ -94,6 +94,11 @@ public:
 	void MeshScaleNode();
 	void MeshSetPivot();
 	void MeshSetHandle();
+
+public:
+	// ComponentEditMeshFace.cpp //
+	void MeshAddFace();
+	void MeshDeleteFace();
 	
 public:
 	// ComponentEditText.cpp //

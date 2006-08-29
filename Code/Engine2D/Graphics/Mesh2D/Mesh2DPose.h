@@ -7,6 +7,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
+#include <Geometry/Set.h>
 #include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "MeshPoseNode.h"
@@ -17,7 +18,11 @@ class cMesh2DPose {
 public:
 	std::vector< cMeshPoseNode > Node;
 	
+	// Texture //
+	unsigned int TextureID;
+	
 	// Face //
+	std::vector< ABCSet< unsigned int > > Face;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -82,7 +82,7 @@ cComponentEdit::cComponentEdit() :
 	
 	DynObj[ 0 ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
 
-	
+	DynObj[ 0 ].AnimationSet->MeshPose[ 0 ].TextureID = TextureID[ CurTexPreview ];
 /*
 	DynObj[ 0 ].Body.AddNode();
 	DynObj[ 0 ].Body.AddNode();
@@ -101,7 +101,6 @@ cComponentEdit::cComponentEdit() :
 		GridDepthValue *= Real(2.0);
 	}
 
-
 	CurMode = NODE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -118,25 +117,26 @@ void cComponentEdit::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-	if( ( CurMode == NODE_MODE ) || ( CurMode == SPHERE_MODE ) || ( CurMode == SPRING_MODE ) )
-	{
-		// Draw preview texture //
-		Gfx::DrawQuads(
-			&PreviewTexVertex[0],
-			&TexUV[0],
-			TexIndices,
-			4,
-			TextureID[ CurTexPreview ],
-			Gfx::RGBA( 255, 255, 255, 64 )
-		);
-	}
-	// Draw Mesh2D stuff here //
-
+	// Draw preview texture //
+	Gfx::DrawQuads(
+		&PreviewTexVertex[0],
+		&TexUV[0],
+		TexIndices,
+		4,
+		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID,
+		Gfx::RGBA( 255, 255, 255, 64 )
+	);
 
 	Gfx::DisableTex2D();
 
 	glLineWidth( 1.0 );
-	
+
+	Gfx::Rect(
+			PreviewTexVertex[0],
+			PreviewTexVertex[2],
+			Gfx::RGBA( 64, 255, 64, 255 )
+	);
+
 	if( !isGroupMove )
 	{
 		if( CheckViewOne() )
@@ -146,7 +146,7 @@ void cComponentEdit::Draw()
 	}
 	
 	DrawGrid( Camera, CurrentGridDepth, 32.0, true, UVGridDepth );
-		
+	
 	// Draw nodes //
 	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 	{
@@ -169,6 +169,41 @@ void cComponentEdit::Draw()
 			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ idx ].Pos,
 			Real( 3 ),
 			Gfx::RGBA(128, 128, 192, 192)
+		);
+	}
+	// Draw faces //
+	int LineColor = Gfx::RGBA(192, 192, 255, 192);
+	
+	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face.size(); ++idx )
+	{
+		Gfx::Line(
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[ idx ].a
+			].Pos,
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[ idx ].b
+			].Pos,
+			LineColor
+		);
+
+		Gfx::Line(
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[ idx ].b
+			].Pos,
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[ idx ].c
+			].Pos,
+			LineColor
+		);
+
+		Gfx::Line(
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[ idx ].c
+			].Pos,
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[
+				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[ idx ].a
+			].Pos,
+			LineColor
 		);
 	}
 	
@@ -746,6 +781,8 @@ void cComponentEdit::SwitchTexture()
 		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
 		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
 		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
+		
+		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID = TextureID[ CurTexPreview ];
 	}
 	else if( Button[ KEY_M ].Pressed() )
 	{
@@ -765,6 +802,8 @@ void cComponentEdit::SwitchTexture()
 		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
 		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
 		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
+		
+		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID = TextureID[ CurTexPreview ];
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
