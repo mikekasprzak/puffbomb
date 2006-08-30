@@ -33,8 +33,12 @@ public:
 	// Texture Used //
 	cTexture Texture;
 public:
-	cMesh2D( const class cMesh2DPose& _Pose, const class cBody2D& Body );
+	cMesh2D()
+	{
+	}
 	
+	cMesh2D( const class cMesh2DPose& _Pose, const class cBody2D& Body );
+public:
 	void Draw( const class cBody2D& Body ) const;
 };
 // - ------------------------------------------------------------------------------------------ - //
