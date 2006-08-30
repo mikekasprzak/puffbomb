@@ -250,7 +250,7 @@ void cComponentEdit::Draw()
 			}
 		}
 	}
-	else if( CurMode == MESH_NODE_MODE || CurMode == PIVOT_HANDLE_MODE )
+	else if( CurMode == MESH_NODE_MODE || CurMode == PIVOT_HANDLE_MODE || CurMode == FACE_MODE )
 	{
 		// Draw selcted mesh nodes //
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
@@ -261,28 +261,31 @@ void cComponentEdit::Draw()
 				Gfx::RGBA(192, 192, 255, 192)
 			);
 		}
-				
-		if( !CurSelected.empty() && DynObj[ CurObj ].Body.Nodes.Size() > 1 )
+		
+		if( CurMode != FACE_MODE )
 		{
-			Vector2D TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
-				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].PivotIndex
-			);
-
-			Gfx::Circle(
-				TempPos,
-				Real( 3 ),
-				Gfx::RGBA(255, 128, 255, 192)
-			);
-			
-			TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
-				DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].HandleIndex
-			);
-			
-			Gfx::Circle(
-				TempPos,
-				Real( 3 ),
-				Gfx::RGBA(128, 255, 255, 192)
-			);
+			if( !CurSelected.empty() && DynObj[ CurObj ].Body.Nodes.Size() > 1 )
+			{
+				Vector2D TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
+					DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].PivotIndex
+				);
+	
+				Gfx::Circle(
+					TempPos,
+					Real( 3 ),
+					Gfx::RGBA(255, 128, 255, 192)
+				);
+				
+				TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
+					DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].HandleIndex
+				);
+				
+				Gfx::Circle(
+					TempPos,
+					Real( 3 ),
+					Gfx::RGBA(128, 255, 255, 192)
+				);
+			}
 		}
 	}
 	
@@ -458,6 +461,13 @@ void cComponentEdit::Step()
 		{
 			MeshSetPivot();
 			MeshSetHandle();
+		}
+		else if( CurMode == FACE_MODE )
+		{
+			MeshSelectNode();
+			
+			MeshAddFace();
+			MeshDeleteFace();
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )
@@ -662,6 +672,10 @@ void cComponentEdit::SwitchMode()
 	else if( Button[ KEY_5 ].Pressed() )
 	{
 		CurMode = PIVOT_HANDLE_MODE;
+	}
+	else if( Button[ KEY_6 ].Pressed() )
+	{
+		CurMode = FACE_MODE;
 	}
 	else if( Button[ KEY_0 ].Pressed() )
 	{

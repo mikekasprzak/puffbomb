@@ -13,53 +13,18 @@ void cComponentEdit::MeshAddFace()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() /* || isPaste == true */ )
 	{
-		/*CurSelected.clear();
-
-		int PivotIdx = 0;
-		int HandleIdx = 1;
-		Real Pivot = 100000.0;
-		Real Handle = 100000.0;
-		Real TestDistance = 100000.0;
-	
-		for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+		if( CurSelected.size() == 3 )
 		{
-			TestDistance = ( Pose->Node[ idx ].Pos - CurMousePos ).Magnitude();
-		
-			if( TestDistance < Pivot )
-			{
-				Pivot = TestDistance;
-				PivotIdx = idx;
-			}
-		}
-		
-		for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
-		{
-			TestDistance = ( Pose->Node[ idx ].Pos - CurMousePos ).Magnitude();
+			ABCSet< unsigned int > tempFace;
 			
-			if( int( idx ) != PivotIdx )
-			{
-				if( TestDistance < Handle )
-				{
-					Handle = TestDistance;
-					HandleIdx = idx;
-				}
-			}
+			MeshClockwise( tempFace );
+
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face.push_back( tempFace );
+			
+			CurSelected.clear();
+
+			ActiveAction();
 		}
-
-		Vector2D TempPos = CurMousePos;
-
-		if( !Button[ KEY_LSHIFT ] )
-		{
-			SetGridDepth( Camera, CurrentGridDepth, 32.0 );
-			SetGridArray( CurrentGridDepth, UVGridDepth );
-
-			CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
-		}
-		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.push_back( Engine2D::cMeshPoseNode( TempPos, PivotIdx, HandleIdx ) );
-
-		CurSelected.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size() - 1 );
-
-		ActiveAction();*/
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -90,6 +55,27 @@ void cComponentEdit::MeshDeleteFace()
 
 			CurSelected.clear();*/
 		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::MeshClockwise( ABCSet< unsigned int > &tempFace )
+{
+	Vector2D Ba = DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[ 1 ] ].Pos -
+		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[ 0 ] ].Pos;
+	Vector2D Pcb = ( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[ 2 ] ].Pos -
+		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[ 1 ] ].Pos ).Tangent();
+	
+	if( Ba * Pcb >= Real( 0 ) )
+	{
+		tempFace.a = CurSelected[0];
+		tempFace.b = CurSelected[2];
+		tempFace.c = CurSelected[1];
+	}
+	else
+	{
+		tempFace.a = CurSelected[0];
+		tempFace.b = CurSelected[1];
+		tempFace.c = CurSelected[2];
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

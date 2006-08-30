@@ -540,6 +540,16 @@ void cComponentEdit::DisplayMode()
 			);
 			break;
 		}
+		case FACE_MODE:
+		{
+			cFonts::FlangeLight.Write(
+				"Face Mode",
+				ModePos,
+				FontSize,
+				Color
+			);
+			break;
+		}
 		case COMPONENT_MODE:
 		{
 			cFonts::FlangeLight.Write(

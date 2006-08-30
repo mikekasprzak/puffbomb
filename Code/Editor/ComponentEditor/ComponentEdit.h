@@ -99,6 +99,7 @@ public:
 	// ComponentEditMeshFace.cpp //
 	void MeshAddFace();
 	void MeshDeleteFace();
+	void MeshClockwise( ABCSet< unsigned int > &tempFace );
 	
 public:
 	// ComponentEditText.cpp //
