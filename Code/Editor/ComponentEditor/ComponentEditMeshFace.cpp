@@ -30,30 +30,105 @@ void cComponentEdit::MeshAddFace()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::MeshDeleteFace()
 {
-	if( !CurSelected.empty() )
+	if( Button[ KEY_DELETE ].Pressed() || EditEventFlags & flDelete )
 	{
-		if( Button[ KEY_DELETE ].Pressed() )
+		if( !CurSelected.empty() )
 		{
-			/*std::vector< Engine2D::cMeshPoseNode > tempVec;
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
+			std::vector < ABCSet< unsigned int > > tempFace;
+		
+			for( size_t i = 0; i < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face.size(); ++i )
 			{
-				bool isDelete = false;
-				for( size_t i = 0; i < CurSelected.size(); ++i )
+				bool IndexA = false;
+				bool IndexB = false;
+				bool IndexC = false;
+			
+				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 				{
-					if( CurSelected[i] == idx )
+					if( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[i].a == CurSelected[idx] )
 					{
-						isDelete = true;
+						IndexA = true;
+					}
+					if( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[i].b == CurSelected[idx] )
+					{
+						IndexB = true;
+					}
+					if( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[i].c == CurSelected[idx] )
+					{
+						IndexC = true;
 					}
 				}
-				if( !isDelete )
+				
+				if( IndexA && IndexB && IndexC )
 				{
-					tempVec.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ idx ] );
+					
 				}
-
+				else if( EditEventFlags & flDelete )
+				{
+					if( IndexA || IndexB || IndexC )
+					{
+						
+					}
+					else
+					{
+						tempFace.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[i] );
+					}
+				}
+				else
+				{
+					tempFace.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[i] );
+				}
 			}
-			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.swap( tempVec );
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face.clear();
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face.swap( tempFace );
+			
+			if( !( EditEventFlags & flDelete ) )
+			{
+				CurSelected.clear();
+				ActiveAction();
+			}
+			else
+			{
+				std::vector< ABCSet<unsigned int> > subFace;
+				
+				ABCSet< unsigned int > tempABC;
 
-			CurSelected.clear();*/
+				tempABC.a = 0;
+				tempABC.b = 0;
+				tempABC.c = 0;
+				
+				for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face.size(); ++idx )
+				{
+					subFace.push_back( tempABC );
+				}
+								
+				for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face.size(); ++idx )
+				{
+					for( size_t ii = 0; ii < CurSelected.size(); ++ii )
+					{						
+						if( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[idx].a 
+							> CurSelected[ii] )
+						{
+							++subFace[ idx ].a;
+						}
+						if( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[idx].b 
+							> CurSelected[ii] )
+						{
+							++subFace[ idx ].b;
+						}
+						if( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[idx].c 
+							> CurSelected[ii] )
+						{
+							++subFace[ idx ].c;
+						}
+					}
+				}
+				for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face.size(); ++idx )
+				{
+					DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[idx].a -= subFace[ idx ].a;
+					DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[idx].b -= subFace[ idx ].b;
+					DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Face[idx].c -= subFace[ idx ].c;
+				}			
+			}
 		}
 	}
 }

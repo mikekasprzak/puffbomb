@@ -266,6 +266,11 @@ void cComponentEdit::MeshDeleteNode()
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
+			
+			EditEventFlags |= flDelete;
+			MeshDeleteFace();
+			EditEventFlags &= ~flDelete;
+			
 			std::vector< Engine2D::cMeshPoseNode > tempVec;
 			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
 			{
