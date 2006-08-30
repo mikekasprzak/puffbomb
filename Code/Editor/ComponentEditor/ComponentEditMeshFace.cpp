@@ -140,7 +140,7 @@ void cComponentEdit::MeshClockwise( ABCSet< unsigned int > &tempFace )
 	Vector2D Pcb = ( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[ 2 ] ].Pos -
 		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[ 1 ] ].Pos ).Tangent();
 	
-	if( Ba * Pcb >= Real( 0 ) )
+/*	if( Ba * Pcb >= Real( 0 ) )
 	{
 		tempFace.a = CurSelected[0];
 		tempFace.b = CurSelected[2];
@@ -151,6 +151,37 @@ void cComponentEdit::MeshClockwise( ABCSet< unsigned int > &tempFace )
 		tempFace.a = CurSelected[0];
 		tempFace.b = CurSelected[1];
 		tempFace.c = CurSelected[2];
+	}*/
+	
+	if( Ba * Pcb >= Real( 0 ) )
+	{
+		tempFace.a = CurSelected[0];
+		tempFace.b = CurSelected[1];
+		tempFace.c = CurSelected[2];
+	}
+	else
+	{
+		tempFace.a = CurSelected[0];
+		tempFace.b = CurSelected[2];
+		tempFace.c = CurSelected[1];
+	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::MeshGenerateUV()
+{
+	if( Button[ KEY_G ].Pressed() )
+	{
+		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame.push_back( Engine2D::cComponentFrame() );
+			
+		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].BodyPoseIndex = CurMeshPose;
+		
+		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].Time = 1000;
+		
+		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].Mesh =
+			Engine2D::cMesh2D( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ], DynObj[ CurObj ].Body );
+				
+		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].Mesh.Texture.Id = TextureID[CurTexPreview];
+
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

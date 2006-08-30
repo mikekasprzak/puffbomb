@@ -92,6 +92,11 @@ cComponentEdit::cComponentEdit() :
 	DynObj[ 0 ].Body.SetPos( 1, Vector2D( 20.0, 50.0 ) );
 */
 
+	DynObj[ 0 ].AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
+	
+	DynObj[ 0 ].AnimationSet->Animation[ 0 ].LoopPoint = 0;
+
+	
 	Real GridDepthValue = 0.5;
 	
 	for( int idx = 0; idx < 13; ++idx )
@@ -321,13 +326,18 @@ void cComponentEdit::PreviewDraw()
 	// Draw the Mesh2D //
 	
 
+	if( !DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame.empty() )
+	{
+		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].Mesh.Draw( DynObj[ CurObj ].Body );
+	}
+
 	Gfx::DisableTex2D();
 
 	// Draw the Body2D debug information //	
 	DynObj[ CurObj ].Body.DrawNodes();
 	DynObj[ CurObj ].Body.DrawSpheres();
 	DynObj[ CurObj ].Body.DrawSprings();
-	
+		
 	Gfx::DisableBlend();
 
 }
@@ -468,6 +478,8 @@ void cComponentEdit::Step()
 			
 			MeshAddFace();
 			MeshDeleteFace();
+			
+			MeshGenerateUV();
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )

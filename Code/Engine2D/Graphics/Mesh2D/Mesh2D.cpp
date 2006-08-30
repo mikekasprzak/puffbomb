@@ -4,6 +4,9 @@
 
 #include <Graphics/Gfx.h>
 
+
+#include <gl/gl.h>
+
 #include "Mesh2DPose.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -30,6 +33,8 @@ cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body ) {
 		
 		// If the orientation wasn't found, add a new one //
 		if ( Orient == -1 ) {
+			Orient = Orientation.size();
+			
 			Orientation.push_back(
 				cMeshOrientation( _Pose.Node[ idx ].PivotIndex, _Pose.Node[ idx ].HandleIndex )
 				);
@@ -45,6 +50,7 @@ cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body ) {
 		Vector2D Offset( -256, -256 );	// ** Hack, until magic numbers //
 		Real SizeScalar = Real::One / Real( 512 ); // ** Hack, until magic numbers //
 		UV[ idx ] = (_Pose.Node[ idx ].Pos - Offset) * SizeScalar;
+		UV[ idx ].y *=  Real( -1 );
 	}
 
 
@@ -86,23 +92,23 @@ void cMesh2D::Draw( const cBody2D& Body ) const {
 		Texture.Id
 		);
 	
-//	glEnable(GL_TEXTURE_2D);
-//	glEnable(GL_BLEND);
-//	
-//	glBindTexture( GL_TEXTURE_2D, TextureId );
-//	
-//	for( size_t idx = 0; idx < Face.size(); ++idx ) {
-//		gfx::Face( 
-//			Transformed[ Face[idx].Index.a ],
-//			Transformed[ Face[idx].Index.b ],
-//			Transformed[ Face[idx].Index.c ],
-//			Face[idx].UV.a,
-//			Face[idx].UV.b,
-//			Face[idx].UV.c
-//		);
-//	}
-//	glDisable(GL_BLEND);
-//	glDisable(GL_TEXTURE_2D);	
+/*	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	
+	glBindTexture( GL_TEXTURE_2D, Texture.Id );
+	
+	for( size_t idx = 0; idx < Face.size(); ++idx ) {
+		gfx::Face( 
+			MyVertex[ Face[idx].a ],
+			MyVertex[ Face[idx].b ],
+			MyVertex[ Face[idx].c ],
+			UV[ Face[idx].a ],
+			UV[ Face[idx].b ],
+			UV[ Face[idx].c ]
+		);
+	}
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);	*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -100,7 +100,8 @@ public:
 	void MeshAddFace();
 	void MeshDeleteFace();
 	void MeshClockwise( ABCSet< unsigned int > &tempFace );
-	
+	void MeshGenerateUV();
+		
 public:
 	// ComponentEditText.cpp //
 	void DisplayText();
