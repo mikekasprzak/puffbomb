@@ -17,12 +17,10 @@ namespace Engine2D {
 class cMesh2DPose {
 public:
 	std::vector< cMeshPoseNode > Node;
+	std::vector< ABCSet< unsigned int > > Face;
 	
 	// Texture //
-	unsigned int TextureID;
-	
-	// Face //
-	std::vector< ABCSet< unsigned int > > Face;
+	unsigned int TextureID;	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

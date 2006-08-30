@@ -12,7 +12,6 @@
 #include <Graphics/Texture.h>
 
 #include "Mesh2D/MeshVertex.h"
-//#include "Mesh2D/MeshFace.h"
 #include "Mesh2D/MeshOrientation.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -34,6 +33,8 @@ public:
 	// Texture Used //
 	cTexture Texture;
 public:
+	cMesh2D( const class cMesh2DPose& _Pose, const class cBody2D& Body );
+	
 	void Draw( const class cBody2D& Body ) const;
 };
 // - ------------------------------------------------------------------------------------------ - //

@@ -13,6 +13,11 @@ public:
 	size_t OrientationIndex;
 
 public:
+	cMeshVertex() :
+		OrientationIndex( 0 )
+	{
+	}
+		
 	cMeshVertex( const Vector2D& _Vector, const size_t _OrientationIndex ) :
 		Vector2D( _Vector ),
 		OrientationIndex( _OrientationIndex )
