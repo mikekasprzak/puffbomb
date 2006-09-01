@@ -22,7 +22,17 @@ cCollectionEdit::~cCollectionEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Draw()
 {
-	
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
+		
+
+	Gfx::DisableTex2D();
+
+	glLineWidth( 1.0 );
+
+	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+		
+	Gfx::DisableBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::HudDraw()

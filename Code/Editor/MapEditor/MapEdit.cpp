@@ -143,10 +143,10 @@ void cMapEdit::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Draw()
 {
-	glEnable( GL_DEPTH_TEST );
-
-	glEnable( GL_TEXTURE_2D );
-
+	Gfx::EnableTex2D();
+	Gfx::EnableDepth();
+	Gfx::EnableBlend();
+	
 	// Draw Scenery 3D Model //
 		// Draws 3d model //
 //	for( size_t ModelIdx = 0; ModelIdx < Model.size(); ++ModelIdx )
@@ -182,22 +182,21 @@ void cMapEdit::Draw()
 		}*/
 	}
 //	}
-	glDisable( GL_TEXTURE_2D );
-
-	glDisable( GL_DEPTH_TEST );
+	Gfx::DisableDepth();
+	Gfx::DisableTex2D();
 	
 	// Draws all the 2D information in the map
 	Draw2D();
-
+	
 	if( CurMode == OBJECT_MODE )
 	{
-		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
-		
 		DrawSelBox();
 		
 		// Draws the currently selected Object or Objects
 		DrawSelected();
 		// Displays any text in the map editor
+
+		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 	}	
 	else if( CurMode == ZONE_MODE && !Game->Zone.empty() )
 	{
@@ -205,11 +204,8 @@ void cMapEdit::Draw()
 	}
 	else if( CurMode == TILE_MODE )
 	{
-		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+		Gfx::EnableTex2D();
 
-		glEnable( GL_BLEND );
-		glEnable( GL_TEXTURE_2D );
-		
 		// Enables additive blending //
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		
@@ -217,12 +213,14 @@ void cMapEdit::Draw()
 		
 		// Disables additive blending //
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		Gfx::DisableTex2D();	
 		
-		glDisable( GL_TEXTURE_2D );
-		glDisable( GL_BLEND );
-		
+		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+
 		DrawSelBox();
 	}
+	Gfx::DisableBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::HudDraw()
@@ -323,10 +321,11 @@ void cMapEdit::Draw2D()
 void cMapEdit::DrawMesh( int idx, Vector2D MapPos )
 {
 	Mesh2DEdit->Object[idx].DebugDraw(
-		gfx::RGB( 0, 255, 0 ), gfx::RGB( 255, 0, 0 ), MapPos );
+		Gfx::RGBA( 0, 255, 0, 255 ), Gfx::RGBA( 255, 0, 0, 255 ), MapPos );
 
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
+//	glEnable(GL_TEXTURE_2D);
+//	glEnable(GL_BLEND);
+	Gfx::EnableTex2D();
 	
 	if( Mesh2DEdit->DisplayMesh[idx].TextureIdx != -1 )
 	{
@@ -359,8 +358,10 @@ void cMapEdit::DrawMesh( int idx, Vector2D MapPos )
 			}
 		}
 	}
-	glDisable(GL_BLEND);
-	glDisable(GL_TEXTURE_2D);
+	Gfx::DisableTex2D();
+
+//	glDisable(GL_BLEND);
+//	glDisable(GL_TEXTURE_2D);
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ToggleEdit()
@@ -421,14 +422,14 @@ void cMapEdit::DrawSelected()
 		glLineWidth( 4 );
 		
 		Mesh2DEdit->Object[MapObject[CurrentObject].MeshIdx].DebugDraw(
-			gfx::RGB( 0, 192, 0 ), gfx::RGB( 0, 128, 255 ), MapObject[CurrentObject].Pos );
+			Gfx::RGBA( 0, 192, 0, 255 ), Gfx::RGBA( 0, 128, 255, 255 ), MapObject[CurrentObject].Pos );
 
 		glLineWidth( 1.5 );
 
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
 			Mesh2DEdit->Object[MapObject[CurSelected[idx]].MeshIdx].DebugDraw(
-				gfx::RGB( 0, 192, 0 ), gfx::RGB( 0, 255, 128 ), MapObject[CurSelected[idx]].Pos );
+				Gfx::RGBA( 0, 192, 0, 255 ), Gfx::RGBA( 0, 255, 128, 255 ), MapObject[CurSelected[idx]].Pos );
 		}
 	}
 	
@@ -446,7 +447,7 @@ void cMapEdit::DrawSelBox()
 		if( !isGroupMove )
 		{
 			Vector2D CurMousePos = CalcMousePos();
-			gfx::Rect( OldMousePos, CurMousePos, gfx::RGB( 255, 255, 255 ) );
+			gfx::Rect( OldMousePos, CurMousePos, Gfx::RGBA( 255, 255, 255, 255 ) );
 		}
 		else if( SnapToGrid )
 		{
@@ -651,7 +652,7 @@ void cMapEdit::DrawSnapToGrid( size_t idx )
 	CalcSnapToGrid( SnapGhost, CurrentGridDepth, GridDepth );
 
 	Mesh2DEdit->Object[MapObject[CurSelected[idx]].MeshIdx].DebugDraw(
-		gfx::RGB( 0, 128, 0 ), gfx::RGB( 128, 0, 0 ), SnapGhost );
+		Gfx::RGBA( 0, 128, 0, 255 ), Gfx::RGBA( 128, 0, 0, 255 ), SnapGhost );
 
 }
 // - ------------------------------------------------------------------------------------------ - //
