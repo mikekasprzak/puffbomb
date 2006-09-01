@@ -149,6 +149,7 @@ namespace Gfx {
 	void EnableDepth();
 	void DisableDepth();
 	void BindTexture( unsigned int& TextureID );
+	void SetLineWidth( const Real Num );
 	// - -------------------------------------------------------------------------------------- - //
 	
 };

@@ -28,7 +28,7 @@ void cCollectionEdit::Draw()
 
 	Gfx::DisableTex2D();
 
-	glLineWidth( 1.0 );
+	Gfx::SetLineWidth( 1.0 );
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 		
