@@ -6,13 +6,18 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 #include <string>
+
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cAnimationGenerator {
 public:
 	std::string Directory;
-	//std::vector< Image > ImagePool;
+	std::vector< SDL_Surface* > ImagePool;
+		
+	std::vector< std::string > Folder;
 
 public:
 	cAnimationGenerator( std::string _Directory ) :
@@ -22,7 +27,7 @@ public:
 	}
 	
 public:
-	void Load( );
+	void Load();
 };
 // - ------------------------------------------------------------------------------------------ - //
 };
