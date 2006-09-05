@@ -16,6 +16,8 @@ class cAnimationGenerator {
 public:
 	std::string Directory;
 	std::vector< SDL_Surface* > ImagePool;
+	std::vector< unsigned int > ImageCRC;
+	std::vector< std::string > ImageFileName;
 	
 	class cAnimation {
 	public:	
@@ -51,6 +53,12 @@ public:
 		Directory( _Directory )
 	{
 		Load();
+	}
+	
+	~cAnimationGenerator() {
+		for ( size_t idx = 0; idx < ImagePool.size(); idx++ ) {
+			SDL_FreeSurface( ImagePool[ idx ] );
+		}
 	}
 	
 public:

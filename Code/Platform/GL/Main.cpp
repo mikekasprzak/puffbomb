@@ -321,11 +321,11 @@ int main( int argc, char* argv[] ) {
 	    QuitGame( 1 );
 	}
 
-	{
-		Log( LOG_HIGHEST_LEVEL, "----- Game Initialized ------------------------------------------------" );
-		Engine2D::cAnimationGenerator AnimationGenerator( "../../../../Content/PuffBOMB/2D/Hamster/Body/" );
-		Log( LOG_HIGHEST_LEVEL, "----- Game Initialized ------------------------------------------------" );
-	}
+//	{
+//		Log( LOG_HIGHEST_LEVEL, "----- Game Initialized ------------------------------------------------" );
+//		Engine2D::cAnimationGenerator AnimationGenerator( "../../../../Content/PuffBOMB/2D/Hamster/Body/" );
+//		Log( LOG_HIGHEST_LEVEL, "----- Game Initialized ------------------------------------------------" );
+//	}
 
 
 #ifdef NEWENGINE
