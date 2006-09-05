@@ -282,6 +282,41 @@ namespace String {
 		return 0;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Extract the number part from the base name (i.e. Idle05.png would return 5) //
+	inline int GetBaseNameNumber( const std::string& _FileName ) {
+		std::string Base = BaseName( _FileName );
+		
+		// Find the last number //
+		int End = -1;
+		for ( int idx = (int)Base.size() - 1; idx >= 0; idx-- ) {
+			if ( Base[ idx ] >= '0' ) {
+				if ( Base[ idx ] <= '9' ) {
+					// Last Number Found //
+					End = idx;
+					break;
+				}
+			}
+		}
+		
+		// If no number found, return -1 //
+		if ( End == -1 )
+			return -1;
+
+		// Find the starting digit //
+		int Start = End;
+		for ( int idx = End; idx >= 0; idx-- ) {
+			if ( Base[ idx ] <= '0' ) {
+				if ( Base[ idx ] >= '9' ) {
+					// This is not a number! //
+					Start = idx + 1;
+					break;
+				}
+			}
+		}
+		
+		return atoi( Base.substr( Start, End - Start ).c_str() );
+	}
+	// - -------------------------------------------------------------------------------------- - //
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Return's true if a directory is found in a string //

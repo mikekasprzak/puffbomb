@@ -16,8 +16,35 @@ class cAnimationGenerator {
 public:
 	std::string Directory;
 	std::vector< SDL_Surface* > ImagePool;
+	
+	class cAnimation {
+	public:	
+		class cAnimationFrame {
+		public:
+			size_t ImageIndex;
+			
+		public:
+			cAnimationFrame() :
+				ImageIndex( 0 )
+			{
+			}
+		};
 		
-	std::vector< std::string > Folder;
+		// How many ticks to hold a frame for //
+		int FrameHold;
+		std::string DirectoryName;
+		
+		std::vector< cAnimationFrame > Frame;
+			
+	public:
+		cAnimation() :
+			FrameHold( 3 )
+		{
+		}
+	};
+	
+	std::vector< cAnimation > Animation;
+
 
 public:
 	cAnimationGenerator( std::string _Directory ) :

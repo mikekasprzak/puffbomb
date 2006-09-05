@@ -27,6 +27,8 @@ using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 // - ------------------------------------------------------------------------------------------ - //
 
+#include <Graphics/AnimationGenerator.h>
+
 
 // ---------------------------------------------------------------------------------------------- //
 extern void QuitGame( int ReturnCode );
@@ -317,6 +319,12 @@ int main( int argc, char* argv[] ) {
     if ( !Surface ) {
 	    Log( LOG_HIGHEST_LEVEL, "Video mode set failed: " << SDL_GetError() );
 	    QuitGame( 1 );
+	}
+
+	{
+		Log( LOG_HIGHEST_LEVEL, "----- Game Initialized ------------------------------------------------" );
+		Engine2D::cAnimationGenerator AnimationGenerator( "../../../../Content/PuffBOMB/2D/Hamster/Body/" );
+		Log( LOG_HIGHEST_LEVEL, "----- Game Initialized ------------------------------------------------" );
 	}
 
 
