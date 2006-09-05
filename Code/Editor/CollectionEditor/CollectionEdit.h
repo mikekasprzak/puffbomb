@@ -21,11 +21,18 @@ public:
 	~cCollectionEdit();
 
 public:
+	// CollectionEdit.cpp //
 	void Draw();
 	void HudDraw();
 	void Step();
 	
 	Vector2D CalcMousePos();
+	
+public:
+	// CollectionEditText.cpp //
+	void DisplayText();
+	void DisplayMode();
+	void DisplayComponentInfo();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

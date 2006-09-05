@@ -37,7 +37,13 @@ void cCollectionEdit::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::HudDraw()
 {
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
 	
+	DisplayText();
+	
+	Gfx::DisableBlend();	
+	Gfx::DisableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Step()
