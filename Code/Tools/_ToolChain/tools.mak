@@ -5,6 +5,7 @@ BUILT_TOOLS		:=	Output/Tools
 # - -------------------------------------------------------------------------------------------- - #
 # Tools ---------------------------------------------------------------------------------------- - #
 TreeTool		:=	Tools/TreeTool
+PatternTool		:=	Tools/PatternTool
 Run				:=	sh Tools/run
 Compress		:=	Tools/lzma e
 

@@ -65,16 +65,25 @@ CODE_FLAGS		:=	$(CODE_FLAGS) $(DEFINES)
 
 # - -------------------------------------------------------------------------------------------- - #
 CONST_CONTENT	:=	$(wildcard Content/$(SYSTEM_TARGET)/*)
-CONST_CONTENT	:=	$(addprefix $(RELEASE_DIR),$(subst Content/$(SYSTEM_TARGET),,$(CONST_CONTENT)))
-
 PLATFORM_CONTENT:=	$(foreach DIR,$(CONTENT_DIRS),$(foreach EXT,$(CONTENT_EXT),$(shell $(TreeTool) $(DIR) $(EXT))))
-PLATFORM_CONTENT:=	$(addprefix $(RELEASE_DIR),$(foreach DIR,$(CONTENT_DIRS),$(subst $(DIR),,$(PLATFORM_CONTENT))))
+# - -------------------------------------------------------------------------------------------- - #
 
+# - -------------------------------------------------------------------------------------------- - #
+# *** PROCESSES TO RUN ON CONTENT NAMES *** #
+# - -------------------------------------------------------------------------------------------- - #
 # Target 3D files are .bin.mesh3d, not .blend.mesh3d ------------------------------------------- - #
 PLATFORM_CONTENT:=	$(subst .blend.mesh3d,.bin.pack.mesh3d,$(PLATFORM_CONTENT))
 
+# Remove any content that contains a ".Id" in it's path names ---------------------------------- - #
+PLATFORM_CONTENT:=	$(filter-out $(foreach DIR,$(CONTENT_DIRS),$(shell $(PatternTool) $(DIR) .Id)),$(PLATFORM_CONTENT))
+
 # Target Texture files from PNG to TX ---------------------------------------------------------- - #
 PLATFORM_CONTENT:=	$(subst .png,.pack.tx,$(PLATFORM_CONTENT))
+# - -------------------------------------------------------------------------------------------- - #
+
+# - -------------------------------------------------------------------------------------------- - #
+CONST_CONTENT	:=	$(addprefix $(RELEASE_DIR),$(subst Content/$(SYSTEM_TARGET),,$(CONST_CONTENT)))
+PLATFORM_CONTENT:=	$(addprefix $(RELEASE_DIR),$(foreach DIR,$(CONTENT_DIRS),$(subst $(DIR),,$(PLATFORM_CONTENT))))
 
 CONTENT			:=	$(CONST_CONTENT) $(PLATFORM_CONTENT)
 # - -------------------------------------------------------------------------------------------- - #
