@@ -244,6 +244,46 @@ namespace String {
 		return false;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Has an extension that contains an argument //
+	inline bool HasArgExtension( const std::string& _FileName, const std::string& _Pattern ) {
+		return String::Extension( _FileName ).find( _Pattern ) != std::string::npos;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Like above, but returns if any extension from filenames or directory names contains pattern
+	inline bool HasAnyArgExtension( const std::string& _FileName, const std::string& _Pattern ) {
+		return _FileName.find( _Pattern ) != std::string::npos;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
+	// Get the string following an extension (an extension argument) //
+	inline int GetIntArgExtension( const std::string& _FileName, const std::string& _Pattern ) {
+		// Find the Argument //
+		size_t Pos = 0;
+		if ( (Pos = _FileName.find( _Pattern )) != std::string::npos ) {
+			// Move position past the extension itself to the start of the number //
+			Pos += _Pattern.size();
+			
+			// Find the end (start at the end of the string) //
+			size_t End = _FileName.size();
+			
+			// If I have a dot or slash after me, use them as the end point //
+			size_t NewEnd = 0;
+			if ( (NewEnd = _FileName.find( Dot, Pos )) != std::string::npos ) {
+				End = NewEnd;
+			}
+			if ( (NewEnd = _FileName.find( Slash, Pos )) != std::string::npos ) {
+				if ( NewEnd < End )
+					End = NewEnd;
+			}
+			
+			return atoi( _FileName.substr( Pos, End - Pos ).c_str() );
+		}
+		return 0;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
 	// Return's true if a directory is found in a string //
 	inline bool HasDirectory( const std::string& _FileName, const std::string& _Pattern ) {
 		std::string Pattern = _Pattern;
