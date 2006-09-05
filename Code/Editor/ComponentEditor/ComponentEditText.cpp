@@ -592,6 +592,26 @@ void cComponentEdit::DisplayComponentInfo()
 		Real( 0.5 ),
 		gfx::RGBA( 100, 255, 100, 255 )
 	);
+
+
+	Temp.str(std::string());
+
+	cFonts::FlangeLight.Write(
+		"Current Frame",
+		Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 70 ), 0.0 ),
+		Real( 0.5 ),
+		gfx::RGBA( 100, 255, 100, 255 )
+	);
+	
+	Temp << CurMeshPose;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( cGlobal::Right - Real( 400 ), cGlobal::Top - Real( 70 ), 0.0 ),
+		Real( 0.5 ),
+		gfx::RGBA( 100, 255, 100, 255 )
+	);
+	
 	
 	int EqualNodeSizes = Pose->Node.size();
 	int EqualSphereSizes = Pose->Sphere.size();
@@ -617,7 +637,7 @@ void cComponentEdit::DisplayComponentInfo()
 	{
 		cFonts::FlangeLight.Write(
 			"Unequal node sizes",
-			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 70 ), 0.0 ),
+			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 110 ), 0.0 ),
 			Real( 0.5 ),
 			gfx::RGBA( 255, 0, 0, 255 )
 		);
@@ -626,7 +646,7 @@ void cComponentEdit::DisplayComponentInfo()
 	{
 		cFonts::FlangeLight.Write(
 			"Unequal sphere sizes",
-			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 110 ), 0.0 ),
+			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 150 ), 0.0 ),
 			Real( 0.5 ),
 			gfx::RGBA( 255, 0, 0, 255 )
 		);
@@ -635,7 +655,7 @@ void cComponentEdit::DisplayComponentInfo()
 	{
 		cFonts::FlangeLight.Write(
 			"Unequal spring sizes",
-			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 150 ), 0.0 ),
+			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 190 ), 0.0 ),
 			Real( 0.5 ),
 			gfx::RGBA( 255, 0, 0, 255 )
 		);
