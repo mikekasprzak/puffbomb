@@ -12,7 +12,10 @@
 //#include <Font/Fonts.h>
 //#include <sstream>
 // ------------ //
-
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <SDL/SDL.h>
 
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
@@ -21,8 +24,10 @@ cComponentEdit::cComponentEdit() :
 	CurObj( 0 ),
 	CurPose( 0 ),
 	CurMeshPose( 0 ),
+	CurMeshAnim( 0 ),
 	CurTexPreview( 0 ),
-	NodeRadius( 6 )
+	NodeRadius( 6 ),
+	AnimationGenerator( "../../../../Content/PuffBOMB/2D/Hamster/Body/" )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -65,15 +70,7 @@ cComponentEdit::cComponentEdit() :
 
 	GridSize = 2048.0;
 	
-	Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
-	Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
-
-	PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-	PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-	PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-	PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
-
-	DynObj.push_back( Engine2D::cDynamicComponent() );
+/*	DynObj.push_back( Engine2D::cDynamicComponent() );
 	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	DynObj[ 0 ].AnimationSet->BodyPose.push_back( Engine2D::cBody2DPose() );
 		
@@ -81,8 +78,29 @@ cComponentEdit::cComponentEdit() :
 	Pose = &DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
 	
 	DynObj[ 0 ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+*/
+	TextureID.clear();
+	TextureName.clear();
+	
+	LoadComp();
+	
+	LoadCompTextures();
+	
+	if( !TextureName.empty() )
+	{
+		//Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
+		//Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
+		
+		Real TempTexWidth = 256;
+		Real TempTexHeight = 256;
+	
+		PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 
-	DynObj[ 0 ].AnimationSet->MeshPose[ 0 ].TextureID = TextureID[ CurTexPreview ];
+//		DynObj[ 0 ].AnimationSet->MeshPose[ 0 ].TextureID = TextureID[ CurTexPreview ];
+	}
 /*
 	DynObj[ 0 ].Body.AddNode();
 	DynObj[ 0 ].Body.AddNode();
@@ -107,6 +125,7 @@ cComponentEdit::cComponentEdit() :
 	}
 
 	CurMode = NODE_MODE;
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::~cComponentEdit()
@@ -115,6 +134,8 @@ cComponentEdit::~cComponentEdit()
 	delete PreviewCamera;
 	
 	delete DynObj[ 0 ].AnimationSet;
+	
+//	delete AnimationGenerator;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Draw()
@@ -123,15 +144,25 @@ void cComponentEdit::Draw()
 	Gfx::EnableBlend();
 
 	// Draw preview texture //
-	Gfx::DrawQuads(
-		&PreviewTexVertex[0],
-		&TexUV[0],
-		TexIndices,
-		4,
-		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID,
-		Gfx::RGBA( 255, 255, 255, 64 )
-	);
-
+	if( !TextureName.empty() )
+	{
+		Gfx::DrawQuads(
+			&PreviewTexVertex[0],
+			&TexUV[0],
+			TexIndices,
+			4,
+			TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshPose ].ImageIndex ],
+			Gfx::RGBA( 255, 255, 255, 64 )
+		);
+/*		Gfx::DrawQuads(
+			&PreviewTexVertex[0],
+			&TexUV[0],
+			TexIndices,
+			4,
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID,
+			Gfx::RGBA( 255, 255, 255, 64 )
+		);*/
+	}
 	Gfx::DisableTex2D();
 
 	glLineWidth( 1.0 );
@@ -349,14 +380,17 @@ void cComponentEdit::UVDraw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-	Gfx::DrawQuads(
-		&TexVertex[0],
-		&TexUV[0],
-		TexIndices,
-		4,
-		TextureID[ CurTexPreview ],
-		Gfx::White()
-	);
+	if( !TextureName.empty() )
+	{
+		Gfx::DrawQuads(
+			&TexVertex[0],
+			&TexUV[0],
+			TexIndices,
+			4,
+			TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshPose ].ImageIndex ],
+			Gfx::White()
+		);
+	}
 	
 	Gfx::DisableTex2D();
 	
@@ -527,10 +561,10 @@ void cComponentEdit::Step()
 		Zoom( Real( 32.0 ), UVCamera );
 	}
 
-	if( ( CurMode == NODE_MODE ) || ( CurMode == SPHERE_MODE ) || ( CurMode == SPRING_MODE ) )
+/*	if( ( CurMode == NODE_MODE ) || ( CurMode == SPHERE_MODE ) || ( CurMode == SPRING_MODE ) )
 	{
 		SwitchTexture();	
-	}
+	}*/
 	else if( CurMode == COMPONENT_MODE )
 	{
 		BodyAddPose();
@@ -542,6 +576,7 @@ void cComponentEdit::Step()
 	
 	SwitchMode();
 	SwitchPose();
+	SwitchMeshPose();
 	
 	LastView = CurView;
 }
@@ -756,7 +791,8 @@ void cComponentEdit::BodyDeletePose()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::SwitchPose()
 {
-	if ( Button[ KEY_LEFT ].Pressed() )
+	//if ( Button[ KEY_LEFT ].Pressed() )
+	if( Button[ KEY_N ].Pressed() )
 	{
 		if( CurPose > 0 )
 		{
@@ -771,7 +807,8 @@ void cComponentEdit::SwitchPose()
 		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ CurPose ];
 		CurSelected.clear();
 	}
-	else if ( Button[ KEY_RIGHT ].Pressed() )
+	//else if ( Button[ KEY_RIGHT ].Pressed() )
+	else if( Button[ KEY_M ].Pressed() )
 	{
 		if( CurPose < DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1 )
 		{
@@ -788,49 +825,141 @@ void cComponentEdit::SwitchPose()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::SwitchMeshPose()
+{
+	if ( Button[ KEY_LEFT ].Pressed() )
+	{
+		if( CurMeshPose > 0 )
+		{
+			--CurMeshPose;
+		}
+		else
+		{
+			CurMeshPose = AnimationGenerator.Animation[ CurMeshAnim ].Frame.size() - 1;
+		}
+		
+		CurSelected.clear();
+	}
+	else if ( Button[ KEY_RIGHT ].Pressed() )
+	{
+		if( CurMeshPose < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size() - 1 )
+		{
+			++CurMeshPose;
+		}
+		else
+		{
+			CurMeshPose = 0;	
+		}
+		
+		CurSelected.clear();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::SwitchTexture()
 {
-	if( Button[ KEY_N ].Pressed() )
+/*	if( !TextureName.empty() )
 	{
-		if( CurTexPreview > 0 )
+		if( Button[ KEY_N ].Pressed() )
 		{
-			CurTexPreview--;
+			if( CurTexPreview > 0 )
+			{
+				CurTexPreview--;
+			}
+			else
+			{
+				CurTexPreview = TextureID.size() - 1;
+			}
+			//Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
+			//Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
+			Real TempTexWidth = 256;
+			Real TempTexHeight = 256;
+
+			PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+			PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+			PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+			PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
+			
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID = TextureID[ CurTexPreview ];
+		}
+		else if( Button[ KEY_M ].Pressed() )
+		{
+			if( CurTexPreview < TextureID.size() - 1 )
+			{
+				CurTexPreview++;
+			}
+			else
+			{
+				CurTexPreview = 0;
+			}
+			
+			//Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
+			//Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
+			Real TempTexWidth = 256;
+			Real TempTexHeight = 256;
+
+			PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+			PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+			PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+			PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
+			
+			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID = TextureID[ CurTexPreview ];
+		}
+	}*/
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::LoadComp()
+{
+	DynObj.push_back( Engine2D::cDynamicComponent() );
+	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
+	DynObj[ 0 ].AnimationSet->BodyPose.push_back( Engine2D::cBody2DPose() );
+	
+	DynObj[ 0 ].Body = DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
+	Pose = &DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
+	
+	for( size_t idx = 0; idx < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size(); ++idx )
+	{
+		DynObj[ 0 ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::LoadCompTextures()
+{
+	for( size_t idx = 0; idx < AnimationGenerator.ImagePool.size(); ++idx )
+	{
+		unsigned int TempID;
+		glGenTextures( 1, &TempID );
+		
+		glBindTexture( GL_TEXTURE_2D, TempID );
+		
+		if( AnimationGenerator.ImagePool[ idx ].Image->flags & SDL_SRCALPHA )
+		{
+			// Make it an Alpha Texture //
+		    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, AnimationGenerator.ImagePool[ idx ].Image->w,
+			  AnimationGenerator.ImagePool[ idx ].Image->h, 0, GL_RGBA,
+			  GL_UNSIGNED_BYTE, AnimationGenerator.ImagePool[ idx ].Image->pixels );
+
+			gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA8, AnimationGenerator.ImagePool[ idx ].Image->w,
+		      AnimationGenerator.ImagePool[ idx ].Image->h, GL_RGBA,
+		       GL_UNSIGNED_BYTE, AnimationGenerator.ImagePool[ idx ].Image->pixels );
 		}
 		else
 		{
-			CurTexPreview = TextureID.size() - 1;
-		}
-		Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
-		Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
+			// No Alpha in this Texture //
+		    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB8, AnimationGenerator.ImagePool[ idx ].Image->w,
+			  AnimationGenerator.ImagePool[ idx ].Image->h, 0, GL_RGB,
+			  GL_UNSIGNED_BYTE, AnimationGenerator.ImagePool[ idx ].Image->pixels );
 
-		PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
-		
-		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID = TextureID[ CurTexPreview ];
+			gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB8, AnimationGenerator.ImagePool[ idx ].Image->w,
+		      AnimationGenerator.ImagePool[ idx ].Image->h, GL_RGB,
+		       GL_UNSIGNED_BYTE, AnimationGenerator.ImagePool[ idx ].Image->pixels );
+		}
+	
+		TextureID.push_back( TempID );
+		TextureName.push_back( AnimationGenerator.ImagePool[ idx ].FileName );
 	}
-	else if( Button[ KEY_M ].Pressed() )
-	{
-		if( CurTexPreview < TextureID.size() - 1 )
-		{
-			CurTexPreview++;
-		}
-		else
-		{
-			CurTexPreview = 0;
-		}
-		
-		Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
-		Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
 
-		PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
-		
-		DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID = TextureID[ CurTexPreview ];
-	}
+// glDeleteTextures( 1, &(idx->second.TextureId) );
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

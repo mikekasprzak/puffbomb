@@ -16,6 +16,8 @@
 
 #include <Physics/Body2D.h>
 #include <Engine/DynamicComponent.h>
+
+#include <Engine2D/Graphics/AnimationGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentEdit : public cEdit {
 public:
@@ -29,6 +31,7 @@ public:
 	size_t CurObj;
 	size_t CurPose;
 	size_t CurMeshPose;
+	size_t CurMeshAnim;
 
 	size_t CurTexPreview;
 	
@@ -37,6 +40,8 @@ public:
 	Real UVGridDepth[ 13 ];
 
 	Vector3D PreviewTexVertex[4];
+	
+	Engine2D::cAnimationGenerator AnimationGenerator;
 
 public:
 	cComponentEdit();
@@ -60,7 +65,10 @@ public:
 	void BodyAddPose();
 	void BodyDeletePose();
 	void SwitchPose();
+	void SwitchMeshPose();
 	void SwitchTexture();
+	void LoadComp();
+	void LoadCompTextures();
 	
 public:
 	// ComponentEditBodyNode.cpp //
