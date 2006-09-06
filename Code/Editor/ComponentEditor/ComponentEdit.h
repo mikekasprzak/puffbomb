@@ -65,6 +65,7 @@ public:
 	void BodyAddPose();
 	void BodyDeletePose();
 	void SwitchPose();
+	void SwitchMeshAnim();
 	void SwitchMeshPose();
 	void SwitchTexture();
 	void LoadComp();

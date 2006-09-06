@@ -99,16 +99,7 @@ cComponentEdit::cComponentEdit() :
 		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
 		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 
-//		DynObj[ 0 ].AnimationSet->MeshPose[ 0 ].TextureID = TextureID[ CurTexPreview ];
 	}
-/*
-	DynObj[ 0 ].Body.AddNode();
-	DynObj[ 0 ].Body.AddNode();
-	DynObj[ 0 ].Body.AddNode();
-
-	DynObj[ 0 ].Body.SetPos( 0, Vector2D( 50.0, 20.0 ) );
-	DynObj[ 0 ].Body.SetPos( 1, Vector2D( 20.0, 50.0 ) );
-*/
 
 	DynObj[ 0 ].AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
 	
@@ -146,22 +137,17 @@ void cComponentEdit::Draw()
 	// Draw preview texture //
 	if( !TextureName.empty() )
 	{
-		Gfx::DrawQuads(
-			&PreviewTexVertex[0],
-			&TexUV[0],
-			TexIndices,
-			4,
-			TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshPose ].ImageIndex ],
-			Gfx::RGBA( 255, 255, 255, 64 )
-		);
-/*		Gfx::DrawQuads(
-			&PreviewTexVertex[0],
-			&TexUV[0],
-			TexIndices,
-			4,
-			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID,
-			Gfx::RGBA( 255, 255, 255, 64 )
-		);*/
+		if( !AnimationGenerator.Animation[ CurMeshAnim ].Frame.empty() )
+		{
+			Gfx::DrawQuads(
+				&PreviewTexVertex[0],
+				&TexUV[0],
+				TexIndices,
+				4,
+				TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshPose ].ImageIndex ],
+				Gfx::RGBA( 255, 255, 255, 64 )
+			);
+		}
 	}
 	Gfx::DisableTex2D();
 
@@ -382,14 +368,17 @@ void cComponentEdit::UVDraw()
 
 	if( !TextureName.empty() )
 	{
-		Gfx::DrawQuads(
-			&TexVertex[0],
-			&TexUV[0],
-			TexIndices,
-			4,
-			TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshPose ].ImageIndex ],
-			Gfx::White()
-		);
+		if( !AnimationGenerator.Animation[ CurMeshAnim ].Frame.empty() )
+		{
+			Gfx::DrawQuads(
+				&TexVertex[0],
+				&TexUV[0],
+				TexIndices,
+				4,
+				TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshPose ].ImageIndex ],
+				Gfx::White()
+			);
+		}
 	}
 	
 	Gfx::DisableTex2D();
@@ -576,6 +565,7 @@ void cComponentEdit::Step()
 	
 	SwitchMode();
 	SwitchPose();
+	SwitchMeshAnim();
 	SwitchMeshPose();
 	
 	LastView = CurView;
@@ -825,6 +815,48 @@ void cComponentEdit::SwitchPose()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::SwitchMeshAnim()
+{
+	if( Button[ KEY_O ].Pressed() )
+	{
+		if( CurMeshAnim > 0 )
+		{
+			--CurMeshAnim;
+		}
+		else
+		{
+			CurMeshAnim = AnimationGenerator.Animation.size() - 1;
+		}
+		CurMeshPose = 0;
+		CurSelected.clear();
+		
+		DynObj[ CurObj ].AnimationSet->MeshPose.clear();
+		for( size_t idx = 0; idx < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size(); ++idx )
+		{
+			DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+		}
+	}
+	else if( Button[ KEY_P ].Pressed() )
+	{
+		if( CurMeshAnim < AnimationGenerator.Animation.size() - 1 )
+		{
+			++CurMeshAnim;
+		}
+		else
+		{
+			CurMeshAnim = 0;	
+		}
+		CurMeshPose = 0;
+		CurSelected.clear();
+		
+		DynObj[ CurObj ].AnimationSet->MeshPose.clear();
+		for( size_t idx = 0; idx < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size(); ++idx )
+		{
+			DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::SwitchMeshPose()
 {
 	if ( Button[ KEY_LEFT ].Pressed() )
@@ -916,9 +948,10 @@ void cComponentEdit::LoadComp()
 	DynObj[ 0 ].Body = DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
 	Pose = &DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
 	
+	DynObj[ CurObj ].AnimationSet->MeshPose.clear();
 	for( size_t idx = 0; idx < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size(); ++idx )
 	{
-		DynObj[ 0 ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+		DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

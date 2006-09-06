@@ -572,14 +572,14 @@ void cComponentEdit::DisplayComponentInfo()
 		"Component Editor",
 		Vector3D( cGlobal::Left + Real( 20 ), cGlobal::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
-		gfx::RGBA( 100, 100, 255, 255 )
+		Gfx::RGBA( 100, 100, 255, 255 )
 	);
 
 	cFonts::FlangeLight.Write(
 		"Current Pose",
 		Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
-		gfx::RGBA( 100, 255, 100, 255 )
+		Gfx::RGBA( 100, 255, 100, 255 )
 	);
 	
 	std::stringstream Temp;
@@ -590,7 +590,7 @@ void cComponentEdit::DisplayComponentInfo()
 		Temp.str(),
 		Vector3D( cGlobal::Right - Real( 400 ), cGlobal::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
-		gfx::RGBA( 100, 255, 100, 255 )
+		Gfx::RGBA( 100, 255, 100, 255 )
 	);
 
 
@@ -600,7 +600,7 @@ void cComponentEdit::DisplayComponentInfo()
 		"Current Frame",
 		Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 70 ), 0.0 ),
 		Real( 0.5 ),
-		gfx::RGBA( 100, 255, 100, 255 )
+		Gfx::RGBA( 100, 255, 100, 255 )
 	);
 	
 	Temp << CurMeshPose;
@@ -609,14 +609,49 @@ void cComponentEdit::DisplayComponentInfo()
 		Temp.str(),
 		Vector3D( cGlobal::Right - Real( 400 ), cGlobal::Top - Real( 70 ), 0.0 ),
 		Real( 0.5 ),
-		gfx::RGBA( 100, 255, 100, 255 )
+		Gfx::RGBA( 100, 255, 100, 255 )
+	);
+	
+	Temp.str(std::string());
+
+	cFonts::FlangeLight.Write(
+		"Component Dir",
+		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 70 ), 0.0 ),
+		Real( 0.5 ),
+		Gfx::RGBA( 100, 100, 255, 255 )
+	);
+	
+	Temp << "LALA/LALA/";
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 70 ), 0.0 ),
+		Real( 0.5 ),
+		Gfx::RGBA( 100, 100, 255, 255 )
+	);
+
+	Temp.str(std::string());
+
+	cFonts::FlangeLight.Write(
+		"Current Animation",
+		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 110 ), 0.0 ),
+		Real( 0.5 ),
+		gfx::RGBA( 100, 100, 255, 255 )
+	);
+	
+	Temp << CurMeshAnim;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 110 ), 0.0 ),
+		Real( 0.5 ),
+		Gfx::RGBA( 100, 100, 255, 255 )
 	);
 	
 	
 	int EqualNodeSizes = Pose->Node.size();
 	int EqualSphereSizes = Pose->Sphere.size();
 	int EqualSpringSizes = Pose->Spring.size();
-	
 	
 	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->BodyPose.size(); ++idx )
 	{
