@@ -15,9 +15,35 @@ namespace Engine2D {
 class cAnimationGenerator {
 public:
 	std::string Directory;
-	std::vector< SDL_Surface* > ImagePool;
-	std::vector< unsigned int > ImageCRC;
-	std::vector< std::string > ImageFileName;
+	
+	class cImage {
+	public:
+		SDL_Surface* Image;
+		unsigned int CRC;
+		std::string FileName;
+	
+	public:
+		cImage() :
+			Image( 0 ),
+			CRC( 0 )
+		{
+		}
+		
+		cImage( SDL_Surface* _Image, unsigned int _CRC, std::string _FileName ) :
+			Image( _Image ),
+			CRC( _CRC ),
+			FileName( _FileName )
+		{
+		}
+		
+		~cImage() {
+			if ( Image )
+				SDL_FreeSurface( Image );
+		}
+	};
+
+	std::vector< cImage > ImagePool;
+	
 	
 	class cAnimation {
 	public:	
@@ -54,13 +80,7 @@ public:
 	{
 		Load();
 	}
-	
-	~cAnimationGenerator() {
-		for ( size_t idx = 0; idx < ImagePool.size(); idx++ ) {
-			SDL_FreeSurface( ImagePool[ idx ] );
-		}
-	}
-	
+		
 public:
 	void Load();
 };

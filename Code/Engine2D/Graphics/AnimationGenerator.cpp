@@ -108,17 +108,17 @@ void cAnimationGenerator::Load( ) {
 				// Check if current image is already loaded //
 				for ( size_t idx3 = 0; idx3 < ImagePool.size(); idx3++ ) {
 					// Test CRC //
-					if ( ImageCRC[ idx3 ] == CRC ) {
+					if ( ImagePool[ idx3 ].CRC == CRC ) {
 						// If CRC Passes, test image dimensions //
-						if ( ImagePool[ idx3 ]->w == Image->w ) {
-							if ( ImagePool[ idx3 ]->h == Image->h ) {
+						if ( ImagePool[ idx3 ].Image->w == Image->w ) {
+							if ( ImagePool[ idx3 ].Image->h == Image->h ) {
 								// If dimensions pass, test bit depth //
-								if ( ImagePool[ idx3 ]->format->BytesPerPixel == Image->format->BytesPerPixel ) {
+								if ( ImagePool[ idx3 ].Image->format->BytesPerPixel == Image->format->BytesPerPixel ) {
 									// Finally, test image //
 									int EqualPixels = 0;
 									int PixelsToTest = ((Image->w * Image->h * Image->format->BytesPerPixel) / 4);
 									for ( int idx4 = 0; idx4 < PixelsToTest; idx4++ ) {
-										if ( ((unsigned int*)ImagePool[ idx3 ]->pixels)[ idx4 ] == ((unsigned int*)Image->pixels)[ idx4 ] ) {
+										if ( ((unsigned int*)ImagePool[ idx3 ].Image->pixels)[ idx4 ] == ((unsigned int*)Image->pixels)[ idx4 ] ) {
 											EqualPixels++;
 										}
 										else {
@@ -149,9 +149,7 @@ void cAnimationGenerator::Load( ) {
 					Log( 0, "+ Added new unique frame" );
 					UniqueFrame++;
 					
-					ImagePool.push_back( Image );
-					ImageCRC.push_back( CRC );
-					ImageFileName.push_back( DirectoryCache.File[ CurrentFile ] );
+					ImagePool.push_back( cImage( Image, CRC, DirectoryCache.File[ CurrentFile ] ) );
 					
 					// Use new index //
 					Animation[ idx ].Frame[ idx2 ].ImageIndex = ImagePool.size() - 1;
