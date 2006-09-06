@@ -101,11 +101,7 @@ cComponentEdit::cComponentEdit() :
 
 	}
 
-	DynObj[ 0 ].AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
-	
-	DynObj[ 0 ].AnimationSet->Animation[ 0 ].LoopPoint = 0;
 
-	
 	Real GridDepthValue = 0.5;
 	
 	for( int idx = 0; idx < 13; ++idx )
@@ -343,9 +339,9 @@ void cComponentEdit::PreviewDraw()
 	// Draw the Mesh2D //
 	
 
-	if( !DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame.empty() )
+	if( !DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
-		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].Mesh.Draw( DynObj[ CurObj ].Body );
+		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshPose ].Mesh.Draw( DynObj[ CurObj ].Body );
 	}
 
 	Gfx::DisableTex2D();
@@ -501,8 +497,6 @@ void cComponentEdit::Step()
 			
 			MeshAddFace();
 			MeshDeleteFace();
-			
-			MeshGenerateUV();
 		}
 	}
 	else if( CheckViewTwo( UVHeight ) )
@@ -559,7 +553,6 @@ void cComponentEdit::Step()
 		BodyAddPose();
 		BodyDeletePose();
 	}
-		
 	
 	Undo();
 	
@@ -683,7 +676,10 @@ void cComponentEdit::Undo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::ActiveAction()
 {
-	
+	if( CurMode == MESH_NODE_MODE || CurMode == FACE_MODE )
+	{
+		MeshGenerateUV();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::SwitchMode()
@@ -870,6 +866,7 @@ void cComponentEdit::SwitchMeshPose()
 			CurMeshPose = AnimationGenerator.Animation[ CurMeshAnim ].Frame.size() - 1;
 		}
 		
+		MeshGenerateUV();
 		CurSelected.clear();
 	}
 	else if ( Button[ KEY_RIGHT ].Pressed() )
@@ -883,6 +880,7 @@ void cComponentEdit::SwitchMeshPose()
 			CurMeshPose = 0;	
 		}
 		
+		MeshGenerateUV();
 		CurSelected.clear();
 	}
 }
@@ -948,6 +946,17 @@ void cComponentEdit::LoadComp()
 	DynObj[ 0 ].Body = DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
 	Pose = &DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
 	
+	
+	for( size_t i = 0; i < AnimationGenerator.Animation.size(); ++i )
+	{
+		DynObj[ CurObj ].AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
+		DynObj[ CurObj ].AnimationSet->Animation[ i ].LoopPoint = 0;
+		
+		for( size_t idx = 0; idx < AnimationGenerator.Animation[ i ].Frame.size(); ++idx )
+		{
+			DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame.push_back( Engine2D::cComponentFrame() );
+		}
+	}
 	DynObj[ CurObj ].AnimationSet->MeshPose.clear();
 	for( size_t idx = 0; idx < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size(); ++idx )
 	{

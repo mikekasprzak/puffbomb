@@ -169,20 +169,16 @@ void cComponentEdit::MeshClockwise( ABCSet< unsigned int > &tempFace )
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::MeshGenerateUV()
 {
-	if( Button[ KEY_G ].Pressed() )
-	{
-		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame.push_back( Engine2D::cComponentFrame() );
+	//DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.push_back( Engine2D::cComponentFrame() );
+		
+	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshPose ].BodyPoseIndex = CurMeshPose;
+	
+	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshPose ].Time = 1000;
+	
+	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshPose ].Mesh =
+		Engine2D::cMesh2D( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ], DynObj[ CurObj ].Body );
 			
-		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].BodyPoseIndex = CurMeshPose;
-		
-		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].Time = 1000;
-		
-		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].Mesh =
-			Engine2D::cMesh2D( DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ], DynObj[ CurObj ].Body );
-				
-		DynObj[ CurObj ].AnimationSet->Animation[ 0 ].Frame[ 0 ].Mesh.Texture.Id = TextureID[CurTexPreview];
-
-	}
+	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshPose ].Mesh.Texture.Id = TextureID[CurTexPreview];
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
