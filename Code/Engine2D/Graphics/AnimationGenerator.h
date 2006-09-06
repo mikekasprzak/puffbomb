@@ -35,11 +35,6 @@ public:
 			FileName( _FileName )
 		{
 		}
-		
-		~cImage() {
-			if ( Image )
-				SDL_FreeSurface( Image );
-		}
 	};
 
 	std::vector< cImage > ImagePool;
@@ -79,6 +74,13 @@ public:
 		Directory( _Directory )
 	{
 		Load();
+	}
+	
+	~cAnimationGenerator() {
+		for ( size_t idx = 0; idx < ImagePool.size(); idx++ ) {
+			if ( ImagePool[ idx ].Image )
+				SDL_FreeSurface( ImagePool[ idx ].Image );
+		}
 	}
 		
 public:
