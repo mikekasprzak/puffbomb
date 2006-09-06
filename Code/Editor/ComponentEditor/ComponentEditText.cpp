@@ -412,7 +412,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 			Color
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].Pos.x;
+		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].Pos.x;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -431,7 +431,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 			Color
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].Pos.y;
+		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].Pos.y;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -450,7 +450,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 			Color
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].PivotIndex;
+		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].PivotIndex;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -469,7 +469,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 			Color
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node[ CurSelected[0] ].HandleIndex;
+		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].HandleIndex;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -603,7 +603,7 @@ void cComponentEdit::DisplayComponentInfo()
 		Gfx::RGBA( 100, 255, 100, 255 )
 	);
 	
-	Temp << CurMeshPose;
+	Temp << CurMeshFrame;
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),

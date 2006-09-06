@@ -30,7 +30,8 @@ public:
 	
 	size_t CurObj;
 	size_t CurPose;
-	size_t CurMeshPose;
+//	size_t CurMeshPose;
+	size_t CurMeshFrame;
 	size_t CurMeshAnim;
 
 	size_t CurTexPreview;
@@ -67,6 +68,7 @@ public:
 	void SwitchPose();
 	void SwitchMeshAnim();
 	void SwitchMeshPose();
+	void SwitchMeshFrame();
 	void SwitchTexture();
 	void LoadComp();
 	void LoadCompTextures();
