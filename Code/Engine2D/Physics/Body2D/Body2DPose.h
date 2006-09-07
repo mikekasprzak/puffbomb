@@ -9,7 +9,7 @@
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include "PoseNode.h"
+#include "BodyPoseNode.h"
 #include "Constraints/Spring.h"
 #include "Constraints/Sphere.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -17,7 +17,7 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cBody2DPose {
 public:
-	std::vector< cPoseNode > Node;
+	std::vector< cBodyPoseNode > Node;
 	std::vector< cSpring > Spring;
 	std::vector< cSphere > Sphere;
 		

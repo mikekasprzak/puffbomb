@@ -3,11 +3,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentAnimationSet::LoadBinary( std::string FileName ) {
+void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentAnimationSet::SaveBinary( std::string FileName ) {
+void cComponentAnimationSet::SaveBinary( const std::string& FileName ) {
 	
 }
 // - ------------------------------------------------------------------------------------------ - //

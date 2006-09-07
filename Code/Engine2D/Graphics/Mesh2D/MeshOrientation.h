@@ -8,7 +8,7 @@
 #include <Geometry/Matrix.h>
 
 #include <Physics/Body2d/DynamicNodes.h>
-#include <Physics/Body2d/PoseNode.h>
+#include <Physics/Body2d/BodyPoseNode.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -40,7 +40,7 @@ public:
 		InvHomeMatrix = InvHomeMatrix.Inverse();
 	}
 
-	void CalculateHomeMatrix( const std::vector< cPoseNode >& Node ) {
+	void CalculateHomeMatrix( const std::vector< cBodyPoseNode >& Node ) {
 		Vector2D Line = Node[ HandleIndex ].Pos - Node[ PivotIndex ].Pos;
 		Line.Normalize();
 		

@@ -24,13 +24,13 @@ public:
 
 public:
 	// Functions for saving/loading the Binary based Component format //
-	void LoadBinary( std::string FileName );
-	void SaveBinary( std::string FileName );
+	void LoadBinary( const std::string& FileName );
+	void SaveBinary( const std::string& FileName );
 
 #ifdef EDITOR	
 	// Functions for saving/loading the Text based Component format //
-	void LoadText( std::string FileName );
-	void SaveText( std::string FileName );
+	void LoadText( const std::string& FileName );
+	void SaveText( const std::string& FileName );
 #endif // EDITOR //
 };
 // - ------------------------------------------------------------------------------------------ - //
