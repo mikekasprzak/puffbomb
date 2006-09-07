@@ -546,20 +546,70 @@ void cComponentEdit::Step()
 	{
 		MeshAddPose();
 		MeshDeletePose();
+		
+		if( Button[ KEY_M ].Pressed() )
+		{
+			EditEventFlags |= flGlobalIncrease;
+			
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			{
+				MeshSwitchPose( idx );
+			}
+			
+			EditEventFlags &= ~flGlobalIncrease;
+		}
+		else if( Button[ KEY_N ].Pressed() )
+		{
+			EditEventFlags |= flGlobalDecrease;
+			
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			{
+				MeshSwitchPose( idx );
+			}
+			
+			EditEventFlags &= ~flGlobalDecrease;
+		}
 	}
 	else if( CurMode == COMP_BODY_MODE )
 	{
 		BodyAddPose();
 		BodyDeletePose();
+		
+		if( Button[ KEY_M ].Pressed() )
+		{
+			EditEventFlags |= flGlobalIncrease;
+			
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			{
+				BodySwitchPose( idx );
+			}
+			
+			EditEventFlags &= ~flGlobalIncrease;
+		}
+		else if( Button[ KEY_N ].Pressed() )
+		{
+			EditEventFlags |= flGlobalDecrease;
+			
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			{
+				BodySwitchPose( idx );
+			}
+			
+			EditEventFlags &= ~flGlobalDecrease;
+		}
 	}
 	
 	Undo();
 	
 	SwitchMode();
-	SwitchPose();
-	SwitchMeshAnim();
-	SwitchMeshPose();
-	SwitchMeshFrame();
+	
+	if( CurMode != COMP_MESH_MODE && CurMode != COMP_BODY_MODE )
+	{
+		BodySwitchPose( CurMeshFrame );
+		MeshSwitchPose( CurMeshFrame );
+	}
+	MeshSwitchAnim();
+	MeshSwitchFrame();
 	
 	LastView = CurView;
 }

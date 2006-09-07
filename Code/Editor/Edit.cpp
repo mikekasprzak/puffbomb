@@ -21,6 +21,8 @@ const fl cEdit::flMiddleClick	 	= bit8;
 const fl cEdit::flAutoGridDepth		= bit9;
 const fl cEdit::flSnapToGrid		= bit10;
 const fl cEdit::flisGroupMove		= bit11;
+const fl cEdit::flGlobalIncrease 	= bit12;
+const fl cEdit::flGlobalDecrease 	= bit13;
 // - ------------------------------------------------------------------------------------------ - //
 cEdit::cEdit() :
 	EditEventFlags( 0 ),

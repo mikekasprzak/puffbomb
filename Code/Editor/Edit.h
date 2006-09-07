@@ -34,7 +34,7 @@ typedef const unsigned int fl;
 // - ------------------------------------------------------------------------------------------ - //
 class cEdit {
 public:
-	// Construct, and require an associated object //
+	// Construct, and require an associated object // 
 	cEdit();
 	~cEdit();
 
@@ -52,7 +52,9 @@ public:
 	static const fl flAutoGridDepth;
 	static const fl flSnapToGrid;
 	static const fl flisGroupMove;
-	
+	static const fl flGlobalIncrease;
+	static const fl flGlobalDecrease;
+		
 	unsigned int EditEventFlags;
 	// - -------------------------------------------------------------------------------------- - //
 

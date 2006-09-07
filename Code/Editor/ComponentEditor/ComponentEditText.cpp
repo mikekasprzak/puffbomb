@@ -624,11 +624,13 @@ void cComponentEdit::DisplayComponentInfo()
 
 	Temp.str(std::string());
 
+	int MyColor = Gfx::RGBA( 255, 255, 255, 255 );
+
 	cFonts::FlangeLight.Write(
 		"Current Animation",
 		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 90 ), 0.0 ),
 		Real( 0.5 ),
-		Gfx::RGBA( 255, 255, 255, 255 )
+		MyColor
 	);
 	
 	Temp << CurMeshAnim;
@@ -637,16 +639,21 @@ void cComponentEdit::DisplayComponentInfo()
 		Temp.str(),
 		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 90 ), 0.0 ),
 		Real( 0.5 ),
-		Gfx::RGBA( 255, 255, 255, 255 )
+		MyColor
 	);
 	
 	Temp.str(std::string());
+	
+	if( CurMode == COMP_BODY_MODE )
+	{
+		MyColor = Gfx::RGBA( 255, 100, 100, 255 );
+	}
 
 	cFonts::FlangeLight.Write(
 		"BodyPoseIndex",
 		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 120 ), 0.0 ),
 		Real( 0.5 ),
-		Gfx::RGBA( 255, 255, 255, 255 )
+		MyColor
 	);
 	
 	Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
@@ -655,16 +662,22 @@ void cComponentEdit::DisplayComponentInfo()
 		Temp.str(),
 		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 120 ), 0.0 ),
 		Real( 0.5 ),
-		Gfx::RGBA( 255, 255, 255, 255 )
+		MyColor
 	);
 
 	Temp.str(std::string());
+	MyColor = Gfx::RGBA( 255, 255, 255, 255 );
+	
+	if( CurMode == COMP_MESH_MODE )
+	{
+		MyColor = Gfx::RGBA( 255, 100, 100, 255 );
+	}
 	
 	cFonts::FlangeLight.Write(
 		"MeshPoseIndex",
 		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 150 ), 0.0 ),
 		Real( 0.5 ),
-		Gfx::RGBA( 255, 255, 255, 255 )
+		MyColor
 	);
 	
 	Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
@@ -673,7 +686,7 @@ void cComponentEdit::DisplayComponentInfo()
 		Temp.str(),
 		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
 		Real( 0.5 ),
-		Gfx::RGBA( 255, 255, 255, 255 )
+		MyColor
 	);
 	
 	
@@ -702,7 +715,7 @@ void cComponentEdit::DisplayComponentInfo()
 			"Unequal node sizes",
 			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 110 ), 0.0 ),
 			Real( 0.5 ),
-			gfx::RGBA( 255, 0, 0, 255 )
+			Gfx::RGBA( 255, 0, 0, 255 )
 		);
 	}
 	if( EqualSphereSizes == -1 )
@@ -711,7 +724,7 @@ void cComponentEdit::DisplayComponentInfo()
 			"Unequal sphere sizes",
 			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 150 ), 0.0 ),
 			Real( 0.5 ),
-			gfx::RGBA( 255, 0, 0, 255 )
+			Gfx::RGBA( 255, 0, 0, 255 )
 		);
 	}
 	if( EqualSpringSizes == -1 )
@@ -720,7 +733,7 @@ void cComponentEdit::DisplayComponentInfo()
 			"Unequal spring sizes",
 			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 190 ), 0.0 ),
 			Real( 0.5 ),
-			gfx::RGBA( 255, 0, 0, 255 )
+			Gfx::RGBA( 255, 0, 0, 255 )
 		);
 	}
 

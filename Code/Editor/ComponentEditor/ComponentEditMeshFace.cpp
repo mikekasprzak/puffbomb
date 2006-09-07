@@ -146,19 +146,6 @@ void cComponentEdit::MeshClockwise( ABCSet< unsigned int > &tempFace )
 		Vector2D Pcb = ( DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 2 ] ].Pos -
 			DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 1 ] ].Pos ).Tangent();
 		
-	/*	if( Ba * Pcb >= Real( 0 ) )
-		{
-			tempFace.a = CurSelected[0];
-			tempFace.b = CurSelected[2];
-			tempFace.c = CurSelected[1];
-		}
-		else
-		{
-			tempFace.a = CurSelected[0];
-			tempFace.b = CurSelected[1];
-			tempFace.c = CurSelected[2];
-		}*/
-		
 		if( Ba * Pcb >= Real( 0 ) )
 		{
 			tempFace.a = CurSelected[0];

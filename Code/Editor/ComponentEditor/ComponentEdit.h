@@ -73,10 +73,10 @@ public:
 	void MeshAddPose();
 	void MeshDeletePose();	
 	
-	void SwitchPose();
-	void SwitchMeshAnim();
-	void SwitchMeshPose();
-	void SwitchMeshFrame();
+	void BodySwitchPose( size_t MyFrame );
+	void MeshSwitchPose( size_t MyFrame );
+	void MeshSwitchAnim();
+	void MeshSwitchFrame();
 	
 public:
 	// ComponentEditBodyNode.cpp //

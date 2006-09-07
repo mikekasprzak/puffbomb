@@ -312,45 +312,82 @@ void cComponentEdit::MeshDeletePose()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchPose()
+void cComponentEdit::BodySwitchPose( size_t MyFrame )
 {
-	//if ( Button[ KEY_LEFT ].Pressed() )
-	if( Button[ KEY_N ].Pressed() )
+	if( Button[ KEY_N ].Pressed() || EditEventFlags & flGlobalDecrease )
 	{
-		if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex > 0 )
+		if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex > 0 )
 		{
-			--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
+			--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex;
 		}
 		else
 		{
-			DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
+			DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
 		}
 		
-		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
+		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex ];
+		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex ];
 		MeshGenerateUV();
 		CurSelected.clear();
 	}
 	//else if ( Button[ KEY_RIGHT ].Pressed() )
-	else if( Button[ KEY_M ].Pressed() )
+	else if( Button[ KEY_M ].Pressed() || EditEventFlags & flGlobalIncrease )
 	{
-		if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex < DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1 )
+		if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex < DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1 )
 		{
-			++DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
+			++DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex;
 		}
 		else
 		{
-			DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = 0;	
+			DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex = 0;	
 		}
 		
-		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
+		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex ];
+		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].BodyPoseIndex ];
 		MeshGenerateUV();
 		CurSelected.clear();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchMeshAnim()
+void cComponentEdit::MeshSwitchPose( size_t MyFrame )
+{
+	if ( Button[ KEY_J ].Pressed() || EditEventFlags & flGlobalDecrease )
+	{
+		if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		{
+			if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].MeshPoseIndex > 0 )
+			{
+				--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].MeshPoseIndex;
+			}
+			else
+			{
+				DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].MeshPoseIndex = DynObj[ CurObj ].AnimationSet->MeshPose.size() - 1;
+			}
+		
+			MeshGenerateUV();
+			CurSelected.clear();
+		}
+	}
+	else if ( Button[ KEY_K ].Pressed() || EditEventFlags & flGlobalIncrease )
+	{
+		if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		{
+			if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].MeshPoseIndex < DynObj[ CurObj ].AnimationSet->MeshPose.size() - 1 )
+			{
+				++DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].MeshPoseIndex;
+			}
+			else
+			{
+				DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ MyFrame ].MeshPoseIndex = 0;	
+			}
+			
+			MeshGenerateUV();
+			CurSelected.clear();
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::MeshSwitchAnim()
 {
 	if( Button[ KEY_O ].Pressed() )
 	{
@@ -382,45 +419,7 @@ void cComponentEdit::SwitchMeshAnim()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchMeshPose()
-{
-	if ( Button[ KEY_J ].Pressed() )
-	{
-		if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
-		{
-			if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex > 0 )
-			{
-				--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
-			}
-			else
-			{
-				DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex = DynObj[ CurObj ].AnimationSet->MeshPose.size() - 1;
-			}
-		
-			MeshGenerateUV();
-			CurSelected.clear();
-		}
-	}
-	else if ( Button[ KEY_K ].Pressed() )
-	{
-		if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
-		{
-			if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex < DynObj[ CurObj ].AnimationSet->MeshPose.size() - 1 )
-			{
-				++DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
-			}
-			else
-			{
-				DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex = 0;	
-			}
-			
-			MeshGenerateUV();
-			CurSelected.clear();
-		}
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchMeshFrame()
+void cComponentEdit::MeshSwitchFrame()
 {
 	if ( Button[ KEY_LEFT ].Pressed() ) 
 	{
