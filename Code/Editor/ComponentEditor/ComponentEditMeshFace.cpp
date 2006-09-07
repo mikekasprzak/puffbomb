@@ -13,17 +13,20 @@ void cComponentEdit::MeshAddFace()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() /* || isPaste == true */ )
 	{
-		if( CurSelected.size() == 3 )
+		if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
-			ABCSet< unsigned int > tempFace;
-			
-			MeshClockwise( tempFace );
-
-			DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face.push_back( tempFace );
-			
-			CurSelected.clear();
-
-			ActiveAction();
+			if( CurSelected.size() == 3 )
+			{
+				ABCSet< unsigned int > tempFace;
+				
+				MeshClockwise( tempFace );
+	
+				DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face.push_back( tempFace );
+				
+				CurSelected.clear();
+	
+				ActiveAction();
+			}
 		}
 	}
 }
@@ -32,7 +35,7 @@ void cComponentEdit::MeshDeleteFace()
 {
 	if( Button[ KEY_DELETE ].Pressed() || EditEventFlags & flDelete )
 	{
-		if( !CurSelected.empty() )
+		if( !CurSelected.empty() && !DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			std::vector < ABCSet< unsigned int > > tempFace;
 		
@@ -135,51 +138,58 @@ void cComponentEdit::MeshDeleteFace()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::MeshClockwise( ABCSet< unsigned int > &tempFace )
 {
-	Vector2D Ba = DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 1 ] ].Pos -
-		DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 0 ] ].Pos;
-	Vector2D Pcb = ( DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 2 ] ].Pos -
-		DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 1 ] ].Pos ).Tangent();
-	
-/*	if( Ba * Pcb >= Real( 0 ) )
+	if( !DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
-		tempFace.a = CurSelected[0];
-		tempFace.b = CurSelected[2];
-		tempFace.c = CurSelected[1];
+
+		Vector2D Ba = DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 1 ] ].Pos -
+			DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 0 ] ].Pos;
+		Vector2D Pcb = ( DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 2 ] ].Pos -
+			DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ 1 ] ].Pos ).Tangent();
+		
+	/*	if( Ba * Pcb >= Real( 0 ) )
+		{
+			tempFace.a = CurSelected[0];
+			tempFace.b = CurSelected[2];
+			tempFace.c = CurSelected[1];
+		}
+		else
+		{
+			tempFace.a = CurSelected[0];
+			tempFace.b = CurSelected[1];
+			tempFace.c = CurSelected[2];
+		}*/
+		
+		if( Ba * Pcb >= Real( 0 ) )
+		{
+			tempFace.a = CurSelected[0];
+			tempFace.b = CurSelected[1];
+			tempFace.c = CurSelected[2];
+		}
+		else
+		{
+			tempFace.a = CurSelected[0];
+			tempFace.b = CurSelected[2];
+			tempFace.c = CurSelected[1];
+		}
 	}
-	else
-	{
-		tempFace.a = CurSelected[0];
-		tempFace.b = CurSelected[1];
-		tempFace.c = CurSelected[2];
-	}*/
-	
-	if( Ba * Pcb >= Real( 0 ) )
-	{
-		tempFace.a = CurSelected[0];
-		tempFace.b = CurSelected[1];
-		tempFace.c = CurSelected[2];
-	}
-	else
-	{
-		tempFace.a = CurSelected[0];
-		tempFace.b = CurSelected[2];
-		tempFace.c = CurSelected[1];
-	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::MeshGenerateUV()
 {
-	//DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.push_back( Engine2D::cComponentFrame() );
-		
-//	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = CurPose;
-	
-	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Time = 1000;
-	
-	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh =
-		Engine2D::cMesh2D( DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj[ CurObj ].Body );
+	if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+	{
+		//DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.push_back( Engine2D::cComponentFrame() );
 			
-//	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Texture.Id = TextureID[ CurTexPreview ];
-	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Texture.Id = TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
+	//	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = CurPose;
+		
+		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Time = 1000;
+		
+		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh =
+			Engine2D::cMesh2D( DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj[ CurObj ].Body );
+				
+	//	DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Texture.Id = TextureID[ CurTexPreview ];
+		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Texture.Id = TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

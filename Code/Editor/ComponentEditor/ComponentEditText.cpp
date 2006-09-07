@@ -369,7 +369,7 @@ void cComponentEdit::DisplaySpringInfo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplayMeshNodeInfo()
 {
-	if( CurSelected.size() > 0 )
+	if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() && CurSelected.size() > 0 )
 	{
 		Real FontSize = 0.5;
 		Real XShift = 120;
