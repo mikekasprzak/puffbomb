@@ -29,7 +29,7 @@ public:
 	Engine2D::cBody2DPose* Pose;
 	
 	size_t CurObj;
-	size_t CurPose;
+//	size_t CurPose;
 //	size_t CurMeshPose;
 	size_t CurMeshFrame;
 	size_t CurMeshAnim;

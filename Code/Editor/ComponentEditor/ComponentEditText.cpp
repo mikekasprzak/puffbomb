@@ -585,30 +585,11 @@ void cComponentEdit::DisplayComponentInfo()
 		Gfx::RGBA( 100, 100, 255, 255 )
 	);
 
-	cFonts::FlangeLight.Write(
-		"Current Pose",
-		Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 30 ), 0.0 ),
-		Real( 0.5 ),
-		Gfx::RGBA( 100, 255, 100, 255 )
-	);
-	
 	std::stringstream Temp;
-
-	Temp << CurPose;
-
-	cFonts::FlangeLight.Write(
-		Temp.str(),
-		Vector3D( cGlobal::Right - Real( 400 ), cGlobal::Top - Real( 30 ), 0.0 ),
-		Real( 0.5 ),
-		Gfx::RGBA( 100, 255, 100, 255 )
-	);
-
-
-	Temp.str(std::string());
 
 	cFonts::FlangeLight.Write(
 		"Current Frame",
-		Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 70 ), 0.0 ),
+		Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 255, 100, 255 )
 	);
@@ -617,7 +598,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
-		Vector3D( cGlobal::Right - Real( 400 ), cGlobal::Top - Real( 70 ), 0.0 ),
+		Vector3D( cGlobal::Right - Real( 400 ), cGlobal::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 255, 100, 255 )
 	);
@@ -661,8 +642,26 @@ void cComponentEdit::DisplayComponentInfo()
 	Temp.str(std::string());
 
 	cFonts::FlangeLight.Write(
-		"MeshPoseIndex",
+		"BodyPoseIndex",
 		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 150 ), 0.0 ),
+		Real( 0.5 ),
+		Gfx::RGBA( 255, 255, 255, 255 )
+	);
+	
+	Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
+		Real( 0.5 ),
+		Gfx::RGBA( 255, 255, 255, 255 )
+	);
+
+	Temp.str(std::string());
+	
+	cFonts::FlangeLight.Write(
+		"MeshPoseIndex",
+		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 190 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 255, 255, 255, 255 )
 	);
@@ -671,7 +670,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 190 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 255, 255, 255, 255 )
 	);
