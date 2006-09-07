@@ -12,6 +12,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 void cTexture::Load( const std::string& FileName )
 {
+	char* Buffer;
+
 	if( String::LastExtension( FileName ) == ".tx" )
 	{
 		Buffer = LZMA::UnPack( FileName );

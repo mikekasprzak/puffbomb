@@ -13,10 +13,9 @@ public:
 	unsigned int Width;
 	unsigned int Height;
 	unsigned int Id;  // Prob GL specific //
-	
+		
 	void* Pixels;
 	
-	char* Buffer;
 
 public:
 	void Load( const std::string& FileName );
