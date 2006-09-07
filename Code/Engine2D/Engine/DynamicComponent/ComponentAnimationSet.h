@@ -21,6 +21,17 @@ public:
 #ifdef EDITOR	
 	std::vector< cMesh2DPose > MeshPose;
 #endif // EDITOR //
+
+public:
+	// Functions for saving/loading the Binary based Component format //
+	void LoadBinary( std::string FileName );
+	void SaveBinary( std::string FileName );
+
+#ifdef EDITOR	
+	// Functions for saving/loading the Text based Component format //
+	void LoadText( std::string FileName );
+	void SaveText( std::string FileName );
+#endif // EDITOR //
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
