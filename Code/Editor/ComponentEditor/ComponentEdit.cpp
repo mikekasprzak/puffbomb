@@ -755,7 +755,7 @@ void cComponentEdit::BodyAddPose()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
-		std::vector< Engine2D::cBody2DPose > TempPose;
+/*		std::vector< Engine2D::cBody2DPose > TempPose;
 		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->BodyPose.size(); ++idx )
 		{
 			TempPose.push_back( DynObj[ CurObj ].AnimationSet->BodyPose[ idx ] );
@@ -770,10 +770,16 @@ void cComponentEdit::BodyAddPose()
 		
 		//DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex++;
 		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
+	*/
 	
+		DynObj[ CurObj ].AnimationSet->BodyPose.push_back( DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ] );
+			
+		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
+		
 		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
 		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
 
+		ActiveAction();
 		CurMode = NODE_MODE;
 	}
 }
@@ -783,6 +789,7 @@ void cComponentEdit::BodyDeletePose()
 	if( Button[ KEY_DELETE ].Pressed() && DynObj[ CurObj ].AnimationSet->BodyPose.size() > 1 )
 	{
 		std::vector< Engine2D::cBody2DPose > TempPose;
+		size_t DeleteIdx = DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
 		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->BodyPose.size(); ++idx )
 		{
 			if( idx != DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex )
@@ -793,7 +800,28 @@ void cComponentEdit::BodyDeletePose()
 		DynObj[ CurObj ].AnimationSet->BodyPose.clear();
 		DynObj[ CurObj ].AnimationSet->BodyPose.swap( TempPose );
 		
-		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
+		//DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
+		if( DeleteIdx >= DynObj[ CurObj ].AnimationSet->MeshPose.size() )
+		{
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			{
+				if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].BodyPoseIndex >= DeleteIdx )
+				{
+					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].BodyPoseIndex;
+				}
+			}
+		}
+		else
+		{
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			{
+				if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].BodyPoseIndex > DeleteIdx )
+				{
+					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].BodyPoseIndex;
+				}
+			}				
+		}
+		
 	
 		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
 		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
@@ -855,7 +883,7 @@ void cComponentEdit::MeshDeletePose()
 				{
 					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex;
 				}
-			}				
+			}
 		}
 		
 	/*	Log( 10, "After Delete" );
