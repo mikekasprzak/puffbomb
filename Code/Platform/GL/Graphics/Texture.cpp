@@ -10,13 +10,13 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 // - ------------------------------------------------------------------------------------------ - //
-void cTexture::Load( const std::string& FileName )
+void cTexture::Load( const std::string& _FileName )
 {
-	char* Buffer;
+	FileName = _FileName;
 
-	if( String::LastExtension( FileName ) == ".tx" )
+	if( String::LastExtension( _FileName ) == ".tx" )
 	{
-		Buffer = LZMA::UnPack( FileName );
+		char* Buffer = LZMA::UnPack( _FileName );
 		
 		unsigned int* tempPixelSize	= (unsigned int*)&Buffer[0];
 		PixelSize = *tempPixelSize;

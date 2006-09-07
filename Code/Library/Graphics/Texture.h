@@ -14,12 +14,14 @@ public:
 	unsigned int PixelSize;
 	unsigned int Width;
 	unsigned int Height;
+	std::string FileName;
+	
 	IdType Id;  // Prob GL specific //
 		
 	void* Pixels;
 
 public:
-	void Load( const std::string& FileName );
+	void Load( const std::string& _FileName );
 
 public:
 	cTexture()
@@ -27,13 +29,13 @@ public:
 		
 	}
 	
-	cTexture( const std::string& FileName ) :
+	cTexture( const std::string& _FileName ) :
 		PixelSize( 0 ),
 		Width( 0 ),
 		Height( 0 ),
 		Id( 0 )
 	{
-		Load( FileName );	
+		Load( _FileName );
 	}
 	
 
