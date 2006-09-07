@@ -21,6 +21,11 @@ public:
 	~cTexturePool();
 
 public:
+	inline unsigned int Load( const std::string _FileName ) {
+		return (cPool< cTexture >::Load( _FileName )).Id;
+	}
+
+public:
 	inline size_t GetWidth( const std::string& _FileName )
 	{
 		if( Pool.find( _FileName ) != Pool.end() )

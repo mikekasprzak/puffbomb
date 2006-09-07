@@ -19,8 +19,8 @@ cHamsterController::cHamsterController(
 	) :
 	cDisplayObjectController( _Object, File )
 {
-	ElementTextureId = TexturePool.Load( "PlacementElements.tx" ).Id;
-	AimerTextureId = TexturePool.Load( "PlacementCursor.tx" ).Id;
+	ElementTextureId = TexturePool.Load( "PlacementElements.tx" );
+	AimerTextureId = TexturePool.Load( "PlacementCursor.tx" );
 		
 	Cursor = Vector2D( 100, 100 );
 	

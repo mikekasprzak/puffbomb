@@ -9,13 +9,14 @@
 class cTexture
 {
 public:
+	typedef unsigned int IdType;
+	
 	unsigned int PixelSize;
 	unsigned int Width;
 	unsigned int Height;
-	unsigned int Id;  // Prob GL specific //
+	IdType Id;  // Prob GL specific //
 		
 	void* Pixels;
-	
 
 public:
 	void Load( const std::string& FileName );

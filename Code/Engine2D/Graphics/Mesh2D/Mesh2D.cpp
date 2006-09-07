@@ -4,7 +4,6 @@
 
 #include <Graphics/Gfx.h>
 
-
 #include <gl/gl.h>
 
 #include "Mesh2DPose.h"
@@ -89,7 +88,7 @@ void cMesh2D::Draw( const cBody2D& Body ) const {
 		&UV[0],
 		(unsigned int*)&Face[0],
 		Face.size() * 3,
-		Texture.Id
+		Texture
 		);
 	
 /*	glEnable(GL_TEXTURE_2D);

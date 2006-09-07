@@ -13,7 +13,7 @@ cDialogBox::cDialogBox() :
 	IsVisable( true ),
 	IsLabelsVisable( true )
 {
-	TextureID = TexturePool.Load( "DialogBox.tx" ).Id;
+	TextureID = TexturePool.Load( "DialogBox.tx" );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cDialogBox::cDialogBox(
@@ -24,7 +24,7 @@ cDialogBox::cDialogBox(
 	) :
 		Pos( _Pos ),
 		Size( _Size ),
-		TextureID( TexturePool.Load( TextureLoc ).Id ),
+		TextureID( TexturePool.Load( TextureLoc ) ),
 		Focus( _Focus ),
 		IsVisable( true ),
 		IsLabelsVisable( true )

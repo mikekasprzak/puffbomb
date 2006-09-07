@@ -116,7 +116,7 @@ bool cAnimation::Load( const std::string& FileName )
 			else if( Token == "Texture" )
 			{
 				Text >> Token;
-				TempFrame.TextureId = TexturePool.Load( Token ).Id;
+				TempFrame.TextureId = TexturePool.Load( Token );
 			}
 			else if( Token == "Time" )
 			{

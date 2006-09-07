@@ -29,9 +29,8 @@ public:
 	// Relative Orientations //
 	std::vector< cMeshOrientation >	Orientation;
 
-
 	// Texture Used //
-	cTexture Texture;
+	cTexture::IdType Texture;
 public:
 	cMesh2D()
 	{
