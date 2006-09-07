@@ -14,12 +14,14 @@ public:
 	unsigned int PixelSize;
 	unsigned int Width;
 	unsigned int Height;
-	std::string FileName;
 	
 	IdType Id;  // Prob GL specific //
 		
 	void* Pixels;
 
+#ifdef EDITOR
+	std::string FileName;
+#endif // EDITOR //
 public:
 	void Load( const std::string& _FileName );
 

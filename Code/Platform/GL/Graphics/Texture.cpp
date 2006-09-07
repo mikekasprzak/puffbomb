@@ -12,7 +12,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 void cTexture::Load( const std::string& _FileName )
 {
+#ifdef EDITOR
 	FileName = _FileName;
+#endif // EDITOR //
 
 	if( String::LastExtension( _FileName ) == ".tx" )
 	{
