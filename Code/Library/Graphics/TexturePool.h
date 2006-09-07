@@ -14,8 +14,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cTexturePool : public cPool< cTexture > {
 public:
-	cTexturePool()
-	{
+	cTexturePool() {
 		SearchPath.Add( "Textures" );
 	}
 	~cTexturePool();
@@ -26,8 +25,9 @@ public:
 	}
 
 public:
-	inline size_t GetWidth( const std::string& _FileName )
-	{
+	// - -------------------------------------------------------------------------------------- - //
+	// Acquire the width of an image, via it's filename //
+	inline size_t GetWidth( const std::string& _FileName ) {
 		if( Pool.find( _FileName ) != Pool.end() )
 		{
 			return Pool[ _FileName ].Width;
@@ -38,8 +38,8 @@ public:
 		}
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline size_t GetHeight( const std::string& _FileName )
-	{
+	// Acquire the height of an image, via it's filename //
+	inline size_t GetHeight( const std::string& _FileName ) {
 		if( Pool.find( _FileName ) != Pool.end() )
 		{
 			return Pool[ _FileName ].Height;
@@ -51,10 +51,8 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //	
 };
-
-extern cTexturePool TexturePool;
 // - ------------------------------------------------------------------------------------------ - //
-
+extern cTexturePool TexturePool;
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Graphics_TexturePool_H__ //
 // - ------------------------------------------------------------------------------------------ - //
