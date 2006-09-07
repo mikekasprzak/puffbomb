@@ -816,18 +816,55 @@ void cComponentEdit::MeshDeletePose()
 {
 	if( Button[ KEY_DELETE ].Pressed() && DynObj[ CurObj ].AnimationSet->MeshPose.size() > 1 )
 	{
-		// --DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
-		// Do the above for all that were past the one that was deleted.
 		std::vector< Engine2D::cMesh2DPose > TempPose;
+		size_t DeleteIdx = DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
 		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose.size(); ++idx )
 		{
-			if( idx != CurPose )
+			if( idx != DeleteIdx )
 			{
 				TempPose.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ idx ] );
 			}
 		}
 		DynObj[ CurObj ].AnimationSet->MeshPose.clear();
 		DynObj[ CurObj ].AnimationSet->MeshPose.swap( TempPose );
+		
+	//	--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
+	/*	Log( 10, "Before Delete" );
+		
+		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+		{
+			Log( 10, "DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ " << idx << " ].MeshPoseIndex = " << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex );
+		}*/
+		
+		if( DeleteIdx >= DynObj[ CurObj ].AnimationSet->MeshPose.size() )
+		{
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			{
+				if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex >= DeleteIdx )
+				{
+					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex;
+				}
+			}
+		}
+		else
+		{
+			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			{
+				if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex > DeleteIdx )
+				{
+					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex;
+				}
+			}				
+		}
+		
+	/*	Log( 10, "After Delete" );
+		
+		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+		{
+			Log( 10, "DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ " << idx << " ].MeshPoseIndex = " << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex );
+		}
+		
+	*/
 		
 		ActiveAction();
 	}
