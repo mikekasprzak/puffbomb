@@ -123,7 +123,10 @@ cComponentEdit::~cComponentEdit()
 	
 	delete DynObj[ 0 ].AnimationSet;
 	
-//	delete AnimationGenerator;
+	for( size_t idx = 0; idx < TextureID.size(); ++idx )
+	{
+		glDeleteTextures( 1, &TextureID[ idx ] );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Draw()
@@ -559,7 +562,12 @@ void cComponentEdit::Step()
 	{
 		SwitchTexture();	
 	}*/
-	else if( CurMode == COMPONENT_MODE )
+	if( CurMode == COMP_MESH_MODE )
+	{
+		MeshAddPose();
+		MeshDeletePose();
+	}
+	else if( CurMode == COMP_BODY_MODE )
 	{
 		BodyAddPose();
 		BodyDeletePose();
@@ -722,9 +730,13 @@ void cComponentEdit::SwitchMode()
 	{
 		CurMode = FACE_MODE;
 	}
+	else if( Button[ KEY_9 ].Pressed() )
+	{
+		CurMode = COMP_MESH_MODE;	
+	} 
 	else if( Button[ KEY_0 ].Pressed() )
 	{
-		CurMode = COMPONENT_MODE;	
+		CurMode = COMP_BODY_MODE;	
 	} 
 	if( LastMode != CurMode )
 	{
@@ -784,6 +796,41 @@ void cComponentEdit::BodyDeletePose()
 	
 		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ CurPose ];
 		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ CurPose ];
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::MeshAddPose()
+{
+	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
+	{
+
+		DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+			
+		++DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
+
+		CurMode = MESH_NODE_MODE;
+		ActiveAction();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::MeshDeletePose()
+{
+	if( Button[ KEY_DELETE ].Pressed() && DynObj[ CurObj ].AnimationSet->MeshPose.size() > 1 )
+	{
+		// --DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
+		// Do the above for all that were past the one that was deleted.
+		std::vector< Engine2D::cMesh2DPose > TempPose;
+		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose.size(); ++idx )
+		{
+			if( idx != CurPose )
+			{
+				TempPose.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ idx ] );
+			}
+		}
+		DynObj[ CurObj ].AnimationSet->MeshPose.clear();
+		DynObj[ CurObj ].AnimationSet->MeshPose.swap( TempPose );
+		
+		ActiveAction();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

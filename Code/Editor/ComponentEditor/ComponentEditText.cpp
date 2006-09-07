@@ -550,10 +550,20 @@ void cComponentEdit::DisplayMode()
 			);
 			break;
 		}
-		case COMPONENT_MODE:
+		case COMP_BODY_MODE:
 		{
 			cFonts::FlangeLight.Write(
-				"Component Mode",
+				"CompBody Mode",
+				ModePos,
+				FontSize,
+				Color
+			);
+			break;
+		}
+		case COMP_MESH_MODE:
+		{
+			cFonts::FlangeLight.Write(
+				"CompMesh Mode",
 				ModePos,
 				FontSize,
 				Color
@@ -636,7 +646,7 @@ void cComponentEdit::DisplayComponentInfo()
 		"Current Animation",
 		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 110 ), 0.0 ),
 		Real( 0.5 ),
-		gfx::RGBA( 100, 100, 255, 255 )
+		Gfx::RGBA( 255, 255, 255, 255 )
 	);
 	
 	Temp << CurMeshAnim;
@@ -645,7 +655,25 @@ void cComponentEdit::DisplayComponentInfo()
 		Temp.str(),
 		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 110 ), 0.0 ),
 		Real( 0.5 ),
-		Gfx::RGBA( 100, 100, 255, 255 )
+		Gfx::RGBA( 255, 255, 255, 255 )
+	);
+	
+	Temp.str(std::string());
+
+	cFonts::FlangeLight.Write(
+		"MeshPoseIndex",
+		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 150 ), 0.0 ),
+		Real( 0.5 ),
+		Gfx::RGBA( 255, 255, 255, 255 )
+	);
+	
+	Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
+		Real( 0.5 ),
+		Gfx::RGBA( 255, 255, 255, 255 )
 	);
 	
 	
