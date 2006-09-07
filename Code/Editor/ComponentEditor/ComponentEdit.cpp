@@ -803,10 +803,9 @@ void cComponentEdit::MeshAddPose()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
-
-		DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+		DynObj[ CurObj ].AnimationSet->MeshPose.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ] );
 			
-		++DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
+		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex = DynObj[ CurObj ].AnimationSet->MeshPose.size() - 1;
 
 		CurMode = MESH_NODE_MODE;
 		ActiveAction();
