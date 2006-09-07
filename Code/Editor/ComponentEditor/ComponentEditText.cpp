@@ -607,16 +607,17 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		"Component Dir",
-		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 70 ), 0.0 ),
+		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 60 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 100, 255, 255 )
 	);
 	
-	Temp << "LALA/LALA/";
+//	Temp << "LALA/LALA/";
+//	Temp << CurDir;
 
 	cFonts::FlangeLight.Write(
-		Temp.str(),
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 70 ), 0.0 ),
+		CurDir,
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 60 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 100, 255, 255 )
 	);
@@ -625,7 +626,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		"Current Animation",
-		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 110 ), 0.0 ),
+		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 90 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 255, 255, 255, 255 )
 	);
@@ -634,7 +635,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 110 ), 0.0 ),
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 90 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 255, 255, 255, 255 )
 	);
@@ -643,7 +644,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		"BodyPoseIndex",
-		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 150 ), 0.0 ),
+		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 120 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 255, 255, 255, 255 )
 	);
@@ -652,7 +653,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 120 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 255, 255, 255, 255 )
 	);
@@ -661,7 +662,7 @@ void cComponentEdit::DisplayComponentInfo()
 	
 	cFonts::FlangeLight.Write(
 		"MeshPoseIndex",
-		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 190 ), 0.0 ),
+		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 150 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 255, 255, 255, 255 )
 	);
@@ -670,7 +671,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 190 ), 0.0 ),
+		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 255, 255, 255, 255 )
 	);

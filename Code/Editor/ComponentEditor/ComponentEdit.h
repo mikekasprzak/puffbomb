@@ -29,8 +29,6 @@ public:
 	Engine2D::cBody2DPose* Pose;
 	
 	size_t CurObj;
-//	size_t CurPose;
-//	size_t CurMeshPose;
 	size_t CurMeshFrame;
 	size_t CurMeshAnim;
 
@@ -44,6 +42,8 @@ public:
 	
 	Engine2D::cAnimationGenerator AnimationGenerator;
 
+	std::string CurDir;
+
 public:
 	cComponentEdit();
 	~cComponentEdit();
@@ -55,7 +55,12 @@ public:
 	void PreviewDraw();
 	void UVDraw();
 	void Step();
+
+	void LoadComp();
+	void LoadCompTextures();
 	
+public:
+	// ComponentEditGlobal.cpp //
 	Vector2D CalcMousePos();
 	Vector2D CalcUVMousePos();
 	
@@ -72,9 +77,6 @@ public:
 	void SwitchMeshAnim();
 	void SwitchMeshPose();
 	void SwitchMeshFrame();
-	void SwitchTexture();
-	void LoadComp();
-	void LoadCompTextures();
 	
 public:
 	// ComponentEditBodyNode.cpp //

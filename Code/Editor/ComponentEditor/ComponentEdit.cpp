@@ -28,7 +28,8 @@ cComponentEdit::cComponentEdit() :
 	CurMeshAnim( 0 ),
 	CurTexPreview( 0 ),
 	NodeRadius( 6 ),
-	AnimationGenerator( "../../../../Content/PuffBOMB/2D/Hamster/Body/" )
+	AnimationGenerator( "../../../../Content/PuffBOMB/2D/Hamster/Body/" ),
+	CurDir( "../../../../Content/PuffBOMB/2D/Hamster/Body/" )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -71,15 +72,6 @@ cComponentEdit::cComponentEdit() :
 
 	GridSize = 2048.0;
 	
-/*	DynObj.push_back( Engine2D::cDynamicComponent() );
-	DynObj[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
-	DynObj[ 0 ].AnimationSet->BodyPose.push_back( Engine2D::cBody2DPose() );
-		
-	DynObj[ 0 ].Body = DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
-	Pose = &DynObj[ 0 ].AnimationSet->BodyPose[ 0 ];
-	
-	DynObj[ 0 ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
-*/
 	TextureID.clear();
 	TextureName.clear();
 	
@@ -89,9 +81,6 @@ cComponentEdit::cComponentEdit() :
 	
 	if( !TextureName.empty() )
 	{
-		//Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
-		//Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
-		
 		Real TempTexWidth = 256;
 		Real TempTexHeight = 256;
 	
@@ -99,9 +88,7 @@ cComponentEdit::cComponentEdit() :
 		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
 		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
 		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
-
 	}
-
 
 	Real GridDepthValue = 0.5;
 	
@@ -113,7 +100,6 @@ cComponentEdit::cComponentEdit() :
 	}
 
 	CurMode = NODE_MODE;
-	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::~cComponentEdit()
@@ -185,7 +171,6 @@ void cComponentEdit::Draw()
 		DynObj[ CurObj ].Body.DrawSpring( idx, false );
 	}
 	// Draw mesh nodes //
-//	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].Node.size(); ++idx )
 	if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
 		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[
@@ -557,11 +542,6 @@ void cComponentEdit::Step()
 		// Handles the zooming in and out of a map
 		Zoom( Real( 32.0 ), UVCamera );
 	}
-
-/*	if( ( CurMode == NODE_MODE ) || ( CurMode == SPHERE_MODE ) || ( CurMode == SPRING_MODE ) )
-	{
-		SwitchTexture();	
-	}*/
 	if( CurMode == COMP_MESH_MODE )
 	{
 		MeshAddPose();
@@ -582,531 +562,6 @@ void cComponentEdit::Step()
 	SwitchMeshFrame();
 	
 	LastView = CurView;
-}
-// - ------------------------------------------------------------------------------------------ - //
-Vector2D cComponentEdit::CalcMousePos()
-{
-	Vector2D tempMousPos;
-	if( Platform::AspectRatio < Real( 0.79 ) )
-	{
-		tempMousPos = Vector2D(
-				Real( ( int( Mouse.x * Real( cGlobal::HudW * Real( 1.33 ) ) ) )
-				- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-				- ( ( Real(cGlobal::HudW) * Real( 1.33 ) ) / Real(2) ) )
-				* Real( Camera->Pos.z / cGlobal::HudZoom ),
-				Real( ( int( -Mouse.y * Real( cGlobal::HudH * Real( 1.33 ) ) ) )
-				+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-				+ ( ( Real(cGlobal::HudH * Real( 0.75 ) ) * Real( 1.33 ) ) / Real(2) ) )
-				* Real( Camera->Pos.z / cGlobal::HudZoom )
-		);
-	}
-	else
-	{
-		tempMousPos = Vector2D(
-				Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
-				- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-				- ( ( Real(cGlobal::HudW) * Real( 0.75 ) ) / Real(2) ) )
-				* Real( Camera->Pos.z / cGlobal::HudZoom ),
-				Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
-				+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom  ) )
-				+ ( cGlobal::HudH >> 1 ) )
-				* Real( Camera->Pos.z / cGlobal::HudZoom )
-		);
-	}
-	
-	return tempMousPos;
-}
-// - ------------------------------------------------------------------------------------------ - //
-Vector2D cComponentEdit::CalcUVMousePos()
-{
-	Vector2D tempMousPos;
-	if( Platform::AspectRatio < Real( 0.79 ) )
-	{
-		tempMousPos = Vector2D(
-			Real( ( int( Mouse.x * Real( cGlobal::HudW * Real( 0.33 ) ) ) )
-			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
-			- ( ( Real(cGlobal::HudW) * Real( 0.33 ) ) ) )
-			* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
-			+ ( ( UVCamera->Pos.z - Real( 122 ) ) / Real( 122 ) ),
-			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * Real( 0.25 ) )
-			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
-			+ ( ( cGlobal::HudH * Real( 0.25 ) ) ) )
-			* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
-			- ( ( UVCamera->Pos.z - Real( 611 ) ) / Real( 611 ) )
-		);
-	}
-	else
-	{
-		tempMousPos =  Vector2D(
-			Real( ( int( Mouse.x * Real( cGlobal::HudW * UVWidth ) ) )
-			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
-			- ( ( Real(cGlobal::HudW) * UVWidth ) ) )
-			* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
-			+ ( ( UVCamera->Pos.z - Real( 611 ) ) / Real( 611 ) ),
-			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * UVHeight )
-			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
-			+ ( ( cGlobal::HudH * UVHeight ) ) )
-			* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
-			- ( ( UVCamera->Pos.z - Real( 618 ) ) / Real( 618 ) )
-		);
-	}
-
-	tempMousPos *= UVScale;
-
-	return tempMousPos;
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::Undo()
-{
-	// Resets the zoom
-	if ( Button[ KEY_TAB ].Pressed() )
-	{
-		Camera->Pos.x = 0.0;
-		Camera->Pos.y = 0.0;
-		Camera->Pos.z = Real( 800.0 );
-		
-		Camera->View.x = Camera->Pos.x;
-		Camera->View.y = Camera->Pos.y;
-		Camera->View.z = 0.0;
-
-		UVCamera->Pos.x = 128.0;
-		UVCamera->Pos.y = 128.0;
-		UVCamera->Pos.z = 400.0;
-		
-		UVCamera->View.x = UVCamera->Pos.x;
-		UVCamera->View.y = UVCamera->Pos.y;
-		UVCamera->View.z = 0.0;
-
-		PreviewCamera->Pos.x = 0.0;
-		PreviewCamera->Pos.y = 0.0;
-		if( Platform::AspectRatio < Real( 0.79 ) )
-		{
-			PreviewCamera->Pos.z = cGlobal::HudZoom * ( Real( 1 ) - Real( 0.75 ) );
-		}
-		else
-		{
-			PreviewCamera->Pos.z = cGlobal::HudZoom * ( Real( 1 ) - UVHeight );
-		}	
-		
-		PreviewCamera->View.x = PreviewCamera->Pos.x;
-		PreviewCamera->View.y = PreviewCamera->Pos.y;
-		PreviewCamera->View.z = 0.0;
-	}	
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::ActiveAction()
-{
-	if( CurMode == MESH_NODE_MODE || CurMode == FACE_MODE )
-	{
-		MeshGenerateUV();
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchMode()
-{	
-	unsigned int LastMode = CurMode;
-	
-	if( Button[ KEY_1 ].Pressed() )
-	{
-		CurMode = NODE_MODE;
-	}
-	else if( Button[ KEY_2 ].Pressed() )
-	{
-		CurMode = SPHERE_MODE;
-	}
-	else if( Button[ KEY_3 ].Pressed() )
-	{
-		CurMode = SPRING_MODE;
-	}
-	else if( Button[ KEY_4 ].Pressed() )
-	{
-		CurMode = MESH_NODE_MODE;
-	}
-	else if( Button[ KEY_5 ].Pressed() )
-	{
-		CurMode = PIVOT_HANDLE_MODE;
-	}
-	else if( Button[ KEY_6 ].Pressed() )
-	{
-		CurMode = FACE_MODE;
-	}
-	else if( Button[ KEY_9 ].Pressed() )
-	{
-		CurMode = COMP_MESH_MODE;	
-	} 
-	else if( Button[ KEY_0 ].Pressed() )
-	{
-		CurMode = COMP_BODY_MODE;	
-	} 
-	if( LastMode != CurMode )
-	{
-		if( LastMode <= SPRING_MODE && CurMode <= SPRING_MODE )
-		{
-			
-		}
-		else
-		{
-			CurSelected.clear();
-		}
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::BodyAddPose()
-{
-	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
-	{
-/*		std::vector< Engine2D::cBody2DPose > TempPose;
-		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->BodyPose.size(); ++idx )
-		{
-			TempPose.push_back( DynObj[ CurObj ].AnimationSet->BodyPose[ idx ] );
-			
-			if( idx == DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex )
-			{
-				TempPose.push_back( DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ] );
-			}
-		}
-		DynObj[ CurObj ].AnimationSet->BodyPose.clear();
-		DynObj[ CurObj ].AnimationSet->BodyPose.swap( TempPose );
-		
-		//DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex++;
-		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
-	*/
-	
-		DynObj[ CurObj ].AnimationSet->BodyPose.push_back( DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ] );
-			
-		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
-		
-		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-
-		ActiveAction();
-		CurMode = NODE_MODE;
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::BodyDeletePose()
-{
-	if( Button[ KEY_DELETE ].Pressed() && DynObj[ CurObj ].AnimationSet->BodyPose.size() > 1 )
-	{
-		std::vector< Engine2D::cBody2DPose > TempPose;
-		size_t DeleteIdx = DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
-		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->BodyPose.size(); ++idx )
-		{
-			if( idx != DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex )
-			{
-				TempPose.push_back( DynObj[ CurObj ].AnimationSet->BodyPose[ idx ] );
-			}
-		}
-		DynObj[ CurObj ].AnimationSet->BodyPose.clear();
-		DynObj[ CurObj ].AnimationSet->BodyPose.swap( TempPose );
-		
-		//DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
-		if( DeleteIdx >= DynObj[ CurObj ].AnimationSet->MeshPose.size() )
-		{
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
-			{
-				if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].BodyPoseIndex >= DeleteIdx )
-				{
-					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].BodyPoseIndex;
-				}
-			}
-		}
-		else
-		{
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
-			{
-				if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].BodyPoseIndex > DeleteIdx )
-				{
-					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].BodyPoseIndex;
-				}
-			}				
-		}
-		
-	
-		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::MeshAddPose()
-{
-	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
-	{
-		DynObj[ CurObj ].AnimationSet->MeshPose.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ] );
-			
-		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex = DynObj[ CurObj ].AnimationSet->MeshPose.size() - 1;
-
-		CurMode = MESH_NODE_MODE;
-		ActiveAction();
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::MeshDeletePose()
-{
-	if( Button[ KEY_DELETE ].Pressed() && DynObj[ CurObj ].AnimationSet->MeshPose.size() > 1 )
-	{
-		std::vector< Engine2D::cMesh2DPose > TempPose;
-		size_t DeleteIdx = DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
-		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose.size(); ++idx )
-		{
-			if( idx != DeleteIdx )
-			{
-				TempPose.push_back( DynObj[ CurObj ].AnimationSet->MeshPose[ idx ] );
-			}
-		}
-		DynObj[ CurObj ].AnimationSet->MeshPose.clear();
-		DynObj[ CurObj ].AnimationSet->MeshPose.swap( TempPose );
-		
-	//	--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
-	/*	Log( 10, "Before Delete" );
-		
-		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
-		{
-			Log( 10, "DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ " << idx << " ].MeshPoseIndex = " << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex );
-		}*/
-		
-		if( DeleteIdx >= DynObj[ CurObj ].AnimationSet->MeshPose.size() )
-		{
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
-			{
-				if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex >= DeleteIdx )
-				{
-					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex;
-				}
-			}
-		}
-		else
-		{
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
-			{
-				if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex > DeleteIdx )
-				{
-					--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex;
-				}
-			}
-		}
-		
-	/*	Log( 10, "After Delete" );
-		
-		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
-		{
-			Log( 10, "DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ " << idx << " ].MeshPoseIndex = " << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ idx ].MeshPoseIndex );
-		}
-		
-	*/
-		
-		ActiveAction();
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchPose()
-{
-	//if ( Button[ KEY_LEFT ].Pressed() )
-	if( Button[ KEY_N ].Pressed() )
-	{
-		if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex > 0 )
-		{
-			--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
-		}
-		else
-		{
-			DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1;
-		}
-		
-		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		MeshGenerateUV();
-		CurSelected.clear();
-	}
-	//else if ( Button[ KEY_RIGHT ].Pressed() )
-	else if( Button[ KEY_M ].Pressed() )
-	{
-		if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex < DynObj[ CurObj ].AnimationSet->BodyPose.size() - 1 )
-		{
-			++DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
-		}
-		else
-		{
-			DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = 0;	
-		}
-		
-		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		MeshGenerateUV();
-		CurSelected.clear();
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchMeshAnim()
-{
-	if( Button[ KEY_O ].Pressed() )
-	{
-		if( CurMeshAnim > 0 )
-		{
-			--CurMeshAnim;
-		}
-		else
-		{
-			CurMeshAnim = AnimationGenerator.Animation.size() - 1;
-		}
-		CurMeshFrame = 0;
-		CurSelected.clear();
-		MeshGenerateUV();
-		
-/*		DynObj[ CurObj ].AnimationSet->MeshPose.clear();
-		for( size_t idx = 0; idx < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size(); ++idx )
-		{
-			DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
-		}*/
-	}
-	else if( Button[ KEY_P ].Pressed() )
-	{
-		if( CurMeshAnim < AnimationGenerator.Animation.size() - 1 )
-		{
-			++CurMeshAnim;
-		}
-		else
-		{
-			CurMeshAnim = 0;	
-		}
-		CurMeshFrame = 0;
-		CurSelected.clear();
-		MeshGenerateUV();
-		
-/*		DynObj[ CurObj ].AnimationSet->MeshPose.clear();
-		for( size_t idx = 0; idx < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size(); ++idx )
-		{
-			DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
-		}*/
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchMeshPose()
-{
-	if ( Button[ KEY_J ].Pressed() )
-	{
-		if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
-		{
-			if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex > 0 )
-			{
-				--DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
-			}
-			else
-			{
-				DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex = DynObj[ CurObj ].AnimationSet->MeshPose.size() - 1;
-			}
-		
-			MeshGenerateUV();
-			CurSelected.clear();
-		}
-	}
-	else if ( Button[ KEY_K ].Pressed() )
-	{
-		if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
-		{
-			if( DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex < DynObj[ CurObj ].AnimationSet->MeshPose.size() - 1 )
-			{
-				++DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
-			}
-			else
-			{
-				DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex = 0;	
-			}
-			
-			MeshGenerateUV();
-			CurSelected.clear();
-		}
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchMeshFrame()
-{
-	if ( Button[ KEY_LEFT ].Pressed() ) 
-	{
-		if( CurMeshFrame > 0 )
-		{
-			--CurMeshFrame;
-		}
-		else
-		{
-			CurMeshFrame = AnimationGenerator.Animation[ CurMeshAnim ].Frame.size() - 1;
-		}
-		
-		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-
-		MeshGenerateUV();
-		CurSelected.clear();
-	}
-	else if ( Button[ KEY_RIGHT ].Pressed() )
-	{
-		if( CurMeshFrame < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size() - 1 )
-		{
-			++CurMeshFrame;
-		}
-		else
-		{
-			CurMeshFrame = 0;	
-		}
-		
-		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
-		
-		MeshGenerateUV();
-		CurSelected.clear();
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::SwitchTexture()
-{
-/*	if( !TextureName.empty() )
-	{
-		if( Button[ KEY_N ].Pressed() )
-		{
-			if( CurTexPreview > 0 )
-			{
-				CurTexPreview--;
-			}
-			else
-			{
-				CurTexPreview = TextureID.size() - 1;
-			}
-			//Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
-			//Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
-			Real TempTexWidth = 256;
-			Real TempTexHeight = 256;
-
-			PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-			PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-			PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-			PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
-			
-			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID = TextureID[ CurTexPreview ];
-		}
-		else if( Button[ KEY_M ].Pressed() )
-		{
-			if( CurTexPreview < TextureID.size() - 1 )
-			{
-				CurTexPreview++;
-			}
-			else
-			{
-				CurTexPreview = 0;
-			}
-			
-			//Real TempTexWidth = TexturePool.GetWidth( TextureName[ CurTexPreview ] ) / 2;
-			//Real TempTexHeight = TexturePool.GetHeight( TextureName[ CurTexPreview ] ) / 2;
-			Real TempTexWidth = 256;
-			Real TempTexHeight = 256;
-
-			PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-			PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-			PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-			PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
-			
-			DynObj[ CurObj ].AnimationSet->MeshPose[ CurMeshPose ].TextureID = TextureID[ CurTexPreview ];
-		}
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::LoadComp()
@@ -1131,11 +586,7 @@ void cComponentEdit::LoadComp()
 			DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame[ idx ].MeshPoseIndex = 0;
 		}
 	}
-//	DynObj[ CurObj ].AnimationSet->MeshPose.clear();
-//	for( size_t idx = 0; idx < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size(); ++idx )
-//	{
 	DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
-//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::LoadCompTextures()
@@ -1173,9 +624,6 @@ void cComponentEdit::LoadCompTextures()
 		TextureID.push_back( TempID );
 		TextureName.push_back( AnimationGenerator.ImagePool[ idx ].FileName );
 	}
-
-// glDeleteTextures( 1, &(idx->second.TextureId) );
-	
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
