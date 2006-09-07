@@ -5,7 +5,7 @@
 #define __Engine2D_Physics_Body2D_Constraints_Sphere_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
-#include "CollisionFlags.h"
+#include "SphereFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -19,13 +19,14 @@ public:
 	// Flags set with information about contacts //
 	//cCollisionFlags Flags;	
 	// True if I'm a sensor (I collect flags only, no solving) //
-	bool Sensor;
+	//bool Sensor;
+	cSphereFlags Flags;
 
 public:
-	inline cSphere( const size_t _Index = 0, const Real _Radius = Real::One, const bool _Sensor = false ) :
+	inline cSphere( const size_t _Index = 0, const Real _Radius = Real::One, const bool _Sensor = false, const bool _Actuator = false ) :
 		Index( _Index ),
 		Radius( _Radius ),
-		Sensor( _Sensor )
+		Flags( (_Sensor ? cSphereFlags::flSensor : 0) | (_Actuator ? cSphereFlags::flActuator : 0) )
 	{
 	}
 

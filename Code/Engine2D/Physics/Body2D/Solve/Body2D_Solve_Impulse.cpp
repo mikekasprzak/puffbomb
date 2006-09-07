@@ -20,7 +20,7 @@ void cBody2D::Solve( cImpulse& _Vs ) {
 		// If the force is worth caring about //
 		if ( !Force.IsZero() ) {
 			// If a sensor, note the touch of an impulse, but don't act on it //
-			if ( Sphere[ idx ].Sensor ) {
+			if ( Sphere[ idx ].Flags.Sensor() ) {
 				SphereFlags[ idx ].SetImpulse();
 				continue;
 			}

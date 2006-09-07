@@ -74,7 +74,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				// If touching the edge //
 				if ( ToPoint.MagnitudeSquared() < Sphere[ SphereIndex[idx] ].RadiusSquared() ) {
 					// If a sensor, note our contact, but don't solve //
-					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
+					if ( Sphere[ SphereIndex[idx] ].Flags.Sensor() ) {
 						SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetEdge();
 						continue;
 					}
@@ -214,7 +214,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				// If touching the edge //
 				if ( ToPoint.MagnitudeSquared() < Sphere[ SphereIndex[idx] ].RadiusSquared() ) {
 					// If a sensor, note our contact, but don't solve //
-					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
+					if ( Sphere[ SphereIndex[idx] ].Flags.Sensor() ) {
 						SphereFlags[ idx ].SetScenery().SetPolygon().SetCorner();
 						continue;
 					}
@@ -356,7 +356,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				// Solve for the found edge //
 				if ( FoundPoint ) {
 					// If a sensor, note our contact, but don't solve //
-					if ( Sphere[ SphereIndex[idx] ].Sensor ) {
+					if ( Sphere[ SphereIndex[idx] ].Flags.Sensor() ) {
 						SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetInside();
 						continue;
 					}

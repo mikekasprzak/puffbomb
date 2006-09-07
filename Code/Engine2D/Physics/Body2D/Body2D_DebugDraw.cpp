@@ -50,12 +50,17 @@ void cBody2D::DrawSphere( const size_t Index, const bool Selected ) const {
 	const cSphere& MySphere = Pose->Sphere[ Index ];
 	const Vector2D& Pos = Nodes.Pos( MySphere.Index );
 
-	if ( MySphere.Sensor ) {
+	if ( MySphere.Flags.Sensor() ) {
 		// A sphere acting as a sensor //
 		Gfx::Circle(
 			Pos,
 			MySphere.Radius,
-			Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192)
+			(MySphere.Flags.Actuator() ?
+				// An Actuator //
+				(Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192)) :
+				// Not an Actuator //
+				(Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192))
+				)
 			);
 	}
 	else {
@@ -63,7 +68,12 @@ void cBody2D::DrawSphere( const size_t Index, const bool Selected ) const {
 		Gfx::Circle(
 			Pos,
 			MySphere.Radius,
-			Selected ? Gfx::RGBA(192, 96, 64, 255) : Gfx::RGBA(128, 32, 0, 192)
+			(MySphere.Flags.Actuator() ?
+				// An Actuator //
+				(Selected ? Gfx::RGBA(192, 96, 64, 255) : Gfx::RGBA(128, 32, 0, 192)) :
+				// Not an Actuator //
+				(Selected ? Gfx::RGBA(192, 96, 64, 255) : Gfx::RGBA(128, 32, 0, 192))
+				)
 			);
 	}	
 }
