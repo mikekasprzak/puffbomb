@@ -135,7 +135,50 @@ void cComponentAnimationSet::SaveText( const std::string& FileName ) {
 	
 	// For all Mesh Poses //
 	for ( size_t idx = 0; idx < MeshPose.size(); idx++ ) {
+		// Write Body Pose Section header //
+		Obj.Append( "MeshPose_Start" );
+
+		// Node SubSection //
+		{
+			// Write Node SubSection header //
+			Obj.Append( "MeshPose_Node_Start", MeshPose[ idx ].Node.size() );
+
+			// For Every Node //
+			for ( size_t idx2 = 0; idx2 < MeshPose[ idx ].Node.size(); idx2++ ) {
+				Obj.Append(
+					"MeshNode",
+					MeshPose[ idx ].Node[ idx2 ].Pos.x,
+					MeshPose[ idx ].Node[ idx2 ].Pos.y,
+					MeshPose[ idx ].Node[ idx2 ].PivotIndex,
+					MeshPose[ idx ].Node[ idx2 ].HandleIndex
+					);
+			}
+
+			// Write Node SubSection footer //
+			Obj.Append( "MeshPose_Node_End" );
+		}
 		
+		// Face SubSection //
+		{
+			// Write Face SubSection header //
+			Obj.Append( "MeshPose_Face_Start", MeshPose[ idx ].Face.size() );
+
+			// For Every Face //
+			for ( size_t idx2 = 0; idx2 < MeshPose[ idx ].Face.size(); idx2++ ) {
+				Obj.Append(
+					"MeshFace",
+					MeshPose[ idx ].Face[ idx2 ].a,
+					MeshPose[ idx ].Face[ idx2 ].b,
+					MeshPose[ idx ].Face[ idx2 ].c
+					);
+			}
+
+			// Write Face SubSection footer //
+			Obj.Append( "MeshPose_Face_End" );
+		}
+
+		// Write Body Pose Section footer //
+		Obj.Append( "MeshPose_End" );		
 	}
 
 	// Save the File //	
