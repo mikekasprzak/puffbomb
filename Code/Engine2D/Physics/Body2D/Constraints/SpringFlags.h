@@ -13,6 +13,8 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Spring Flags ---------------- //
 	enum {
+		flManualLength = bit0,		// Don't calculate my length initially from my points //
+
 		flIgnoreMinimum = bit8,		// Don't solve if the distance is less than my length //
 		flIgnoreMaximum = bit9,		// Don't solve if the distance is greater than my length //
 	};
@@ -41,6 +43,7 @@ public:
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	__FLAG_FUNCTION( ManualLength );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -57,6 +60,7 @@ public:
 		return *this; \
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	__FLAG_FUNCTION( ManualLength );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -72,6 +76,7 @@ public:
 		return Flags & (fl ## _flag); \
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	__FLAG_FUNCTION( ManualLength );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
@@ -87,6 +92,7 @@ public:
 		return Flags == (fl ## _flag); \
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	__FLAG_FUNCTION( ManualLength );
 	__FLAG_FUNCTION( IgnoreMinimum );
 	__FLAG_FUNCTION( IgnoreMaximum );
 	// - -------------------------------------------------------------------------------------- - //
