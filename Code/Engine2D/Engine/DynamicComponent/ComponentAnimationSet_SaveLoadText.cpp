@@ -14,6 +14,7 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 	while ( idx < Obj.Instruction.size() ) {
 		Log( 0, "- " << Obj.Instruction[ idx ].Command );
 
+		// ------ Animation! ------------------------- //
 		// If an animation is found //
 		if ( Obj.Instruction[ idx ].Command == "Animation_Start" ) {
 			// Add this new animation //
@@ -47,6 +48,7 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 			}
 		}
 
+		// ------ Body Pose! ------------------------- //
 		// If a Body Pose is found //
 		if ( Obj.Instruction[ idx ].Command == "BodyPose_Start" ) {
 			// Add this new Pose //
@@ -60,11 +62,13 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 				// Output Command Name //
 				Log( 0, "- " << Obj.Instruction[ idx ].Command );
 
+				// ------ TotalMass ------------------------- //
 				// If TotalMass, set the object's TotalMass //
 				if ( Obj.Instruction[ idx ].Command == "TotalMass" ) {
 					BodyPose.back().TotalMass = atoi( Obj.Instruction[ idx ].Arg[ 0 ].c_str() );
 				}
 
+				// ------ Node ------------------------- //
 				// If a Node, add a node //
 				if ( Obj.Instruction[ idx ].Command == "BodyNode" ) {
 					BodyPose.back().Node.push_back(
@@ -127,6 +131,52 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 					BodyPose.back().Sphere.back().Flags.SetSensor();
 				}
 
+				// Next Instruction //
+				idx++;
+			}
+		}
+
+		// ------ Mesh Pose! ------------------------- //
+		// If a Mesh Pose is found //
+		if ( Obj.Instruction[ idx ].Command == "MeshPose_Start" ) {
+			// Add this new Pose //
+			MeshPose.push_back( cMesh2DPose() );
+
+			// Next Instruction //
+			idx++;
+			
+			// Loop until END found //
+			while ( (Obj.Instruction[ idx ].Command != "MeshPose_End") && (idx < Obj.Instruction.size()) ) {
+				// Output Command Name //
+				Log( 0, "- " << Obj.Instruction[ idx ].Command );
+
+				// ------ Node ------------------------- //
+				// If a Node, add a node //
+				if ( Obj.Instruction[ idx ].Command == "MeshNode" ) {
+					MeshPose.back().Node.push_back(
+						cMeshPoseNode(
+							Vector2D(
+								atof( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
+								atof( Obj.Instruction[ idx ].Arg[ 1 ].c_str() )
+								),
+							atoi( Obj.Instruction[ idx ].Arg[ 2 ].c_str() ),
+							atoi( Obj.Instruction[ idx ].Arg[ 3 ].c_str() )
+							)
+						);
+				}
+
+				// ------ Face ------------------------- //
+				// If a Face, add a Face //
+				if ( Obj.Instruction[ idx ].Command == "MeshFace" ) {
+					MeshPose.back().Face.push_back(
+						ABCSet< size_t >(
+							atoi( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
+							atoi( Obj.Instruction[ idx ].Arg[ 1 ].c_str() ),
+							atoi( Obj.Instruction[ idx ].Arg[ 2 ].c_str() )
+							)
+						);
+				}
+	
 				// Next Instruction //
 				idx++;
 			}
