@@ -13,6 +13,17 @@ class cBodyPoseNode {
 public:
 	Vector2D Pos;
 	Real Mass;
+
+public:
+	cBodyPoseNode()
+	{
+	}
+	
+	cBodyPoseNode( Vector2D _Pos, Real _Mass ) :
+		Pos( _Pos ),
+		Mass( _Mass )
+	{
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -21,6 +21,26 @@ public:
 #endif // EDITOR //
 
 	unsigned int Time;
+
+public:
+	cComponentFrame() :
+		BodyPoseIndex( 0 ),
+#ifdef EDITOR
+		MeshPoseIndex( 0 ),
+#endif // EDITOR //
+		Time( 1 )
+	{
+	}
+	
+#ifdef EDITOR
+	cComponentFrame( size_t _BodyPoseIndex, size_t _MeshPoseIndex ) :
+		BodyPoseIndex( _BodyPoseIndex ),
+		MeshPoseIndex( _MeshPoseIndex ),
+		Time( 1 )
+	{
+	}	
+#endif // EDITOR //
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
