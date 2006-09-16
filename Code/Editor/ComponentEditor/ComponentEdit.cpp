@@ -29,7 +29,8 @@ cComponentEdit::cComponentEdit() :
 	CurTexPreview( 0 ),
 	NodeRadius( 6 ),
 	AnimationGenerator( "../../../../Content/PuffBOMB/2D/Hamster/Body/" ),
-	CurDir( "../../../../Content/PuffBOMB/2D/Hamster/Body/" )
+	CurDir( "../../../../Content/PuffBOMB/2D/Hamster/Body/" ),
+	IsSaved( true )
 {
 	// Create Cameras //
 	UVCamera = new cCamera(
@@ -601,6 +602,8 @@ void cComponentEdit::Step()
 	
 	Undo();
 	
+	Save();
+	
 	SwitchMode();
 	
 	if( CurMode != COMP_MESH_MODE && CurMode != COMP_BODY_MODE )
@@ -618,25 +621,29 @@ void cComponentEdit::LoadComp()
 {
 	DynObj.push_back( Engine2D::cDynamicComponent() );
 	DynObj[ CurObj ].AnimationSet = new Engine2D::cComponentAnimationSet();
-	DynObj[ CurObj ].AnimationSet->BodyPose.push_back( Engine2D::cBody2DPose() );
 	
+	DynObj[ CurObj ].AnimationSet->LoadText( CurDir + "Component.comp" );
+
+	if( DynObj[ CurObj ].AnimationSet->BodyPose.empty() )
+	{
+		DynObj[ CurObj ].AnimationSet->BodyPose.push_back( Engine2D::cBody2DPose() );
+		
+		for( size_t i = 0; i < AnimationGenerator.Animation.size(); ++i )
+		{
+			DynObj[ CurObj ].AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
+			DynObj[ CurObj ].AnimationSet->Animation[ i ].LoopPoint = 0;
+			
+			for( size_t idx = 0; idx < AnimationGenerator.Animation[ i ].Frame.size(); ++idx )
+			{
+				DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame.push_back( Engine2D::cComponentFrame() );
+				DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame[ idx ].BodyPoseIndex = 0;
+				DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame[ idx ].MeshPoseIndex = 0;
+			}
+		}
+		DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+	}
 	DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ 0 ];
 	Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ 0 ];
-	
-	
-	for( size_t i = 0; i < AnimationGenerator.Animation.size(); ++i )
-	{
-		DynObj[ CurObj ].AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
-		DynObj[ CurObj ].AnimationSet->Animation[ i ].LoopPoint = 0;
-		
-		for( size_t idx = 0; idx < AnimationGenerator.Animation[ i ].Frame.size(); ++idx )
-		{
-			DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame.push_back( Engine2D::cComponentFrame() );
-			DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame[ idx ].BodyPoseIndex = 0;
-			DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame[ idx ].MeshPoseIndex = 0;
-		}
-	}
-	DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::LoadCompTextures()
@@ -673,6 +680,16 @@ void cComponentEdit::LoadCompTextures()
 	
 		TextureID.push_back( TempID );
 		TextureName.push_back( AnimationGenerator.ImagePool[ idx ].FileName );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::Save()
+{
+	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
+	{
+		DynObj[ CurObj ].AnimationSet->SaveText( CurDir + "Component.comp" );
+		
+		IsSaved = true;
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

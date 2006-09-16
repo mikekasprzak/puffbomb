@@ -166,7 +166,7 @@ void cComponentEdit::DisplaySphereInfo()
 		{
 			YPos = cGlobal::HudH * 0.25;
 		}
-		int Color = gfx::RGBA( 255, 255, 255, 255 );
+		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
 		
 		int SphereIdx = -1;
@@ -235,7 +235,7 @@ void cComponentEdit::DisplaySpringInfo()
 		{
 			YPos = cGlobal::HudH * 0.25;
 		}
-		int Color = gfx::RGBA( 255, 255, 255, 255 );
+		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
 			
 		int SpringNum = -1;
@@ -381,7 +381,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 		{
 			YPos = cGlobal::HudH * 0.25;
 		}
-		int Color = gfx::RGBA( 255, 255, 255, 255 );
+		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
 		
 		// Displays the current node number //
@@ -485,7 +485,7 @@ void cComponentEdit::DisplayMode()
 	// Displays the current mesh edit mode //
 	// - -------------------------------------------------------------------------------------- - //
 	Real FontSize = 0.5;
-	int Color = gfx::RGBA( 255, 100, 100, 255 );
+	int Color = Gfx::RGBA( 255, 100, 100, 255 );
 	Vector3D ModePos = Vector3D( cGlobal::Right - Real( 250 ), cGlobal::Top - Real( 30 ), 0.0 );
 		
 	switch( CurMode )
@@ -578,6 +578,17 @@ void cComponentEdit::DisplayMode()
 }
 void cComponentEdit::DisplayComponentInfo()
 {
+
+	if( !IsSaved )
+	{
+		cFonts::FlangeLight.Write(
+			"*",
+			Vector3D( cGlobal::Left + Real( 1 ), cGlobal::Top - Real( 56 ), 0.0 ),
+			Real( 1.0 ),
+			Gfx::RGBA( 255, 255, 255, 255 )
+		);
+	}
+	
 	cFonts::FlangeLight.Write(
 		"Component Editor",
 		Vector3D( cGlobal::Left + Real( 20 ), cGlobal::Top - Real( 30 ), 0.0 ),
@@ -611,9 +622,6 @@ void cComponentEdit::DisplayComponentInfo()
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 100, 255, 255 )
 	);
-	
-//	Temp << "LALA/LALA/";
-//	Temp << CurDir;
 
 	cFonts::FlangeLight.Write(
 		CurDir,
@@ -644,52 +652,66 @@ void cComponentEdit::DisplayComponentInfo()
 	
 	Temp.str(std::string());
 	
-	if( CurMode == COMP_BODY_MODE )
+	if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
-		MyColor = Gfx::RGBA( 255, 100, 100, 255 );
+
+		if( CurMode == COMP_BODY_MODE )
+		{
+			MyColor = Gfx::RGBA( 255, 100, 100, 255 );
+		}
+	
+		cFonts::FlangeLight.Write(
+			"BodyPoseIndex",
+			Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 120 ), 0.0 ),
+			Real( 0.5 ),
+			MyColor
+		);
+		
+		Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 120 ), 0.0 ),
+			Real( 0.5 ),
+			MyColor
+		);
+	
+		Temp.str(std::string());
+		MyColor = Gfx::RGBA( 255, 255, 255, 255 );
+		
+		if( CurMode == COMP_MESH_MODE )
+		{
+			MyColor = Gfx::RGBA( 255, 100, 100, 255 );
+		}
+		
+		cFonts::FlangeLight.Write(
+			"MeshPoseIndex",
+			Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 150 ), 0.0 ),
+			Real( 0.5 ),
+			MyColor
+		);
+		
+		Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
+			Real( 0.5 ),
+			MyColor
+		);
+		
+		Temp.str(std::string());
+	
+		Temp << TextureName[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 180 ), 0.0 ),
+			Real( 0.5 ),
+			MyColor
+		);
 	}
 
-	cFonts::FlangeLight.Write(
-		"BodyPoseIndex",
-		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 120 ), 0.0 ),
-		Real( 0.5 ),
-		MyColor
-	);
-	
-	Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
-
-	cFonts::FlangeLight.Write(
-		Temp.str(),
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 120 ), 0.0 ),
-		Real( 0.5 ),
-		MyColor
-	);
-
-	Temp.str(std::string());
-	MyColor = Gfx::RGBA( 255, 255, 255, 255 );
-	
-	if( CurMode == COMP_MESH_MODE )
-	{
-		MyColor = Gfx::RGBA( 255, 100, 100, 255 );
-	}
-	
-	cFonts::FlangeLight.Write(
-		"MeshPoseIndex",
-		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 150 ), 0.0 ),
-		Real( 0.5 ),
-		MyColor
-	);
-	
-	Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
-
-	cFonts::FlangeLight.Write(
-		Temp.str(),
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
-		Real( 0.5 ),
-		MyColor
-	);
-	
-	
 	int EqualNodeSizes = Pose->Node.size();
 	int EqualSphereSizes = Pose->Sphere.size();
 	int EqualSpringSizes = Pose->Spring.size();
@@ -736,7 +758,6 @@ void cComponentEdit::DisplayComponentInfo()
 			Gfx::RGBA( 255, 0, 0, 255 )
 		);
 	}
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

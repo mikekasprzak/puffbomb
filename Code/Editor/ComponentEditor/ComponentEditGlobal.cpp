@@ -131,6 +131,7 @@ void cComponentEdit::ActiveAction()
 	{
 		MeshGenerateUV();
 	}
+	IsSaved = false;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::SwitchMode()

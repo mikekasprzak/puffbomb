@@ -44,6 +44,8 @@ public:
 
 	std::string CurDir;
 
+	bool IsSaved;
+	
 public:
 	cComponentEdit();
 	~cComponentEdit();
@@ -58,6 +60,7 @@ public:
 
 	void LoadComp();
 	void LoadCompTextures();
+	void Save();
 	
 public:
 	// ComponentEditGlobal.cpp //
