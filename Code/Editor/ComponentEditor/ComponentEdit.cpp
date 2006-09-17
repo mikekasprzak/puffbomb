@@ -99,6 +99,8 @@ cComponentEdit::cComponentEdit() :
 		
 		GridDepthValue *= Real(2.0);
 	}
+	
+	MeshGenerateUV();
 
 	CurMode = NODE_MODE;
 }
@@ -622,7 +624,7 @@ void cComponentEdit::LoadComp()
 	DynObj.push_back( Engine2D::cDynamicComponent() );
 	DynObj[ CurObj ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	
-	DynObj[ CurObj ].AnimationSet->LoadText( CurDir + "Component.comp" );
+	DynObj[ CurObj ].AnimationSet->LoadText( CurDir + GetFileName() );
 
 	if( DynObj[ CurObj ].AnimationSet->BodyPose.empty() )
 	{
@@ -644,6 +646,7 @@ void cComponentEdit::LoadComp()
 	}
 	DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ 0 ];
 	Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ 0 ];
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::LoadCompTextures()
@@ -687,10 +690,39 @@ void cComponentEdit::Save()
 {
 	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
 	{
-		DynObj[ CurObj ].AnimationSet->SaveText( CurDir + "Component.comp" );
+		
+		DynObj[ CurObj ].AnimationSet->SaveText( CurDir + GetFileName() );
 		
 		IsSaved = true;
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+std::string cComponentEdit::GetFileName()
+{
+	std::string CompName = "Component.comp";
+	std::string LastDirName = CurDir.substr( 0, CurDir.size() - 1 );
+		
+	size_t SlashPos = LastDirName.rfind( '/' );
+
+	if( SlashPos != std::string::npos )
+	{
+		LastDirName = LastDirName.substr( SlashPos + 1 );
+	}
+
+	std::string SecLastDirName = CurDir.substr( 0, SlashPos );
+	
+	SlashPos = SecLastDirName.rfind( '/' );
+
+	if( SlashPos != std::string::npos )
+	{
+		CompName = SecLastDirName.substr( SlashPos + 1 ) + LastDirName + ".comp";
+	}
+	else
+	{
+		CompName = "Component.comp";
+	}
+	
+	return CompName;
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

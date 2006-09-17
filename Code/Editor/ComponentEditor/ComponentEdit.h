@@ -61,6 +61,8 @@ public:
 	void LoadComp();
 	void LoadCompTextures();
 	void Save();
+	std::string GetFileName();
+	
 	
 public:
 	// ComponentEditGlobal.cpp //

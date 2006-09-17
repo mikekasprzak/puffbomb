@@ -17,6 +17,9 @@ void cScriptParser::LoadFile( const std::string& File ) {
 	
 	ifstream InFile( File.c_str() );
 		
+	if( !InFile.good() )
+		return;
+		
 	int LineNumber = 1;
 	NodeCount = 0;
 	
