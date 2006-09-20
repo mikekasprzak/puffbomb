@@ -70,12 +70,12 @@ cComponentEdit::cComponentEdit() :
 	Camera->Pos.z = Real( 800.0 );
 
 	GridSize = 2048.0;
-	
-	FindCompDirs();
-		
+
 	TextureID.clear();
 	TextureName.clear();
 	
+	FindCompDirs();
+		
 	AnimationGenerator = new Engine2D::cAnimationGenerator( BaseDirName + CompDirs[ CurDirIdx ] );
 	
 	LoadComp();
@@ -119,6 +119,8 @@ cComponentEdit::~cComponentEdit()
 	{
 		glDeleteTextures( 1, &TextureID[ idx ] );
 	}
+	
+	delete AnimationGenerator;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Draw()
@@ -619,11 +621,21 @@ void cComponentEdit::Step()
 	MeshSwitchAnim();
 	MeshSwitchFrame();
 	
+	SwitchComp();
+	
 	LastView = CurView;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::LoadComp()
 {
+	// DELETE THIS CRAP //
+	if( DynObj.size() != 0 )
+	{
+		delete DynObj[ 0 ].AnimationSet;
+	}
+	
+	DynObj.clear();	
+	
 	DynObj.push_back( Engine2D::cDynamicComponent() );
 	DynObj[ CurObj ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	
@@ -654,7 +666,14 @@ void cComponentEdit::LoadComp()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::LoadCompTextures()
 {
+	for( size_t idx = 0; idx < TextureID.size(); ++idx )
+	{
+		glDeleteTextures( 1, &TextureID[ idx ] );
+	}
 	
+	TextureID.clear();
+	TextureName.clear();
+			
 	for( size_t idx = 0; idx < AnimationGenerator->ImagePool.size(); ++idx )
 	{
 		unsigned int TempID;
@@ -757,6 +776,51 @@ void cComponentEdit::FindCompDirs()
 			}
 		}
 	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::SwitchComp()
+{
+	if( IsSaved )
+	{
+		if( Button[ KEY_PLUS_PAD ].Pressed() )
+		{
+			if( CurDirIdx > 0 )
+			{
+				++CurDirIdx;
+			}
+			else
+			{
+				CurDirIdx = CompDirs.size() - 1;
+			}
+			delete AnimationGenerator;
+			AnimationGenerator = new Engine2D::cAnimationGenerator( BaseDirName + CompDirs[ CurDirIdx ] );
+
+			LoadComp();
+			LoadCompTextures();
+
+			CurSelected.clear();
+			MeshGenerateUV();
+		}
+		else if( Button[ KEY_MINUS_PAD ].Pressed() )
+		{
+			if( CurDirIdx < CompDirs.size() - 1 )
+			{
+				--CurDirIdx;
+			}
+			else
+			{
+				CurDirIdx = 0;	
+			}
+			delete AnimationGenerator;
+			AnimationGenerator = new Engine2D::cAnimationGenerator( BaseDirName + CompDirs[ CurDirIdx ] );
+
+			LoadComp();
+			LoadCompTextures();
+
+			CurSelected.clear();
+			MeshGenerateUV();
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

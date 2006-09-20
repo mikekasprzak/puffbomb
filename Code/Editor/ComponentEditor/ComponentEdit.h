@@ -38,7 +38,7 @@ public:
 	
 	Real UVGridDepth[ 13 ];
 
-	Vector3D PreviewTexVertex[4];
+	Vector3D PreviewTexVertex[ 4 ];
 	
 	Engine2D::cAnimationGenerator* AnimationGenerator;
 
@@ -66,6 +66,7 @@ public:
 	void Save();
 	std::string GetFileName();
 	void FindCompDirs();
+	void SwitchComp();
 	
 	
 public:

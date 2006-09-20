@@ -624,7 +624,7 @@ void cComponentEdit::DisplayComponentInfo()
 	);
 
 	cFonts::FlangeLight.Write(
-		BaseDirName + CompDirs[ CurDirIdx ],
+		CompDirs[ CurDirIdx ],
 		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 60 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 100, 255, 255 )
