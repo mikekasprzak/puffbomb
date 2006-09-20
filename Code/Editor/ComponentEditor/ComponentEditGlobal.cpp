@@ -398,7 +398,7 @@ void cComponentEdit::MeshSwitchAnim()
 		}
 		else
 		{
-			CurMeshAnim = AnimationGenerator.Animation.size() - 1;
+			CurMeshAnim = AnimationGenerator->Animation.size() - 1;
 		}
 		CurMeshFrame = 0;
 		CurSelected.clear();
@@ -406,7 +406,7 @@ void cComponentEdit::MeshSwitchAnim()
 	}
 	else if( Button[ KEY_P ].Pressed() )
 	{
-		if( CurMeshAnim < AnimationGenerator.Animation.size() - 1 )
+		if( CurMeshAnim < AnimationGenerator->Animation.size() - 1 )
 		{
 			++CurMeshAnim;
 		}
@@ -430,7 +430,7 @@ void cComponentEdit::MeshSwitchFrame()
 		}
 		else
 		{
-			CurMeshFrame = AnimationGenerator.Animation[ CurMeshAnim ].Frame.size() - 1;
+			CurMeshFrame = AnimationGenerator->Animation[ CurMeshAnim ].Frame.size() - 1;
 		}
 		
 		DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
@@ -441,7 +441,7 @@ void cComponentEdit::MeshSwitchFrame()
 	}
 	else if ( Button[ KEY_RIGHT ].Pressed() )
 	{
-		if( CurMeshFrame < AnimationGenerator.Animation[ CurMeshAnim ].Frame.size() - 1 )
+		if( CurMeshFrame < AnimationGenerator->Animation[ CurMeshAnim ].Frame.size() - 1 )
 		{
 			++CurMeshFrame;
 		}

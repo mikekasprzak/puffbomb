@@ -40,9 +40,12 @@ public:
 
 	Vector3D PreviewTexVertex[4];
 	
-	Engine2D::cAnimationGenerator AnimationGenerator;
+	Engine2D::cAnimationGenerator* AnimationGenerator;
 
-	std::string CurDir;
+	std::string BaseDirName;
+		
+	std::vector< std::string > CompDirs;
+	size_t CurDirIdx;
 
 	bool IsSaved;
 	
@@ -62,6 +65,7 @@ public:
 	void LoadCompTextures();
 	void Save();
 	std::string GetFileName();
+	void FindCompDirs();
 	
 	
 public:

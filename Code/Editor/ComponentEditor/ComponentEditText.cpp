@@ -624,7 +624,7 @@ void cComponentEdit::DisplayComponentInfo()
 	);
 
 	cFonts::FlangeLight.Write(
-		CurDir,
+		BaseDirName + CompDirs[ CurDirIdx ],
 		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 60 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 100, 255, 255 )
@@ -702,7 +702,7 @@ void cComponentEdit::DisplayComponentInfo()
 		
 		Temp.str(std::string());
 	
-		Temp << TextureName[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
+		Temp << TextureName[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),

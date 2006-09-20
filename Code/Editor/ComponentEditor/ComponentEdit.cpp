@@ -22,14 +22,12 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::cComponentEdit() :
 	CurObj( 0 ),
-	//DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex( 0 ),
-	//CurMeshPose( 0 ),
 	CurMeshFrame( 0 ),
 	CurMeshAnim( 0 ),
 	CurTexPreview( 0 ),
 	NodeRadius( 6 ),
-	AnimationGenerator( "../../../../Content/PuffBOMB/2D/Hamster/Body/" ),
-	CurDir( "../../../../Content/PuffBOMB/2D/Hamster/Body/" ),
+	BaseDirName( "../../../../Content/PuffBOMB/2D/" ),
+	CurDirIdx( 0 ),
 	IsSaved( true )
 {
 	// Create Cameras //
@@ -73,8 +71,12 @@ cComponentEdit::cComponentEdit() :
 
 	GridSize = 2048.0;
 	
+	FindCompDirs();
+		
 	TextureID.clear();
 	TextureName.clear();
+	
+	AnimationGenerator = new Engine2D::cAnimationGenerator( BaseDirName + CompDirs[ CurDirIdx ] );
 	
 	LoadComp();
 	
@@ -103,6 +105,7 @@ cComponentEdit::cComponentEdit() :
 	MeshGenerateUV();
 
 	CurMode = NODE_MODE;
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::~cComponentEdit()
@@ -126,14 +129,14 @@ void cComponentEdit::Draw()
 	// Draw preview texture //
 	if( !TextureName.empty() )
 	{
-		if( !AnimationGenerator.Animation[ CurMeshAnim ].Frame.empty() )
+		if( !AnimationGenerator->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			Gfx::DrawQuads(
 				&PreviewTexVertex[0],
 				&TexUV[0],
 				TexIndices,
 				4,
-				TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ],
+				TextureID[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ],
 				Gfx::RGBA( 255, 255, 255, 64 )
 			);
 		}
@@ -366,14 +369,14 @@ void cComponentEdit::UVDraw()
 
 	if( !TextureName.empty() )
 	{
-		if( !AnimationGenerator.Animation[ CurMeshAnim ].Frame.empty() )
+		if( !AnimationGenerator->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			Gfx::DrawQuads(
 				&TexVertex[0],
 				&TexUV[0],
 				TexIndices,
 				4,
-				TextureID[ AnimationGenerator.Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ],
+				TextureID[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ],
 				Gfx::White()
 			);
 		}
@@ -624,18 +627,18 @@ void cComponentEdit::LoadComp()
 	DynObj.push_back( Engine2D::cDynamicComponent() );
 	DynObj[ CurObj ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	
-	DynObj[ CurObj ].AnimationSet->LoadText( CurDir + GetFileName() );
+	DynObj[ CurObj ].AnimationSet->LoadText( BaseDirName + CompDirs[ CurDirIdx ] + GetFileName() );
 
 	if( DynObj[ CurObj ].AnimationSet->BodyPose.empty() )
 	{
 		DynObj[ CurObj ].AnimationSet->BodyPose.push_back( Engine2D::cBody2DPose() );
 		
-		for( size_t i = 0; i < AnimationGenerator.Animation.size(); ++i )
+		for( size_t i = 0; i < AnimationGenerator->Animation.size(); ++i )
 		{
 			DynObj[ CurObj ].AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
 			DynObj[ CurObj ].AnimationSet->Animation[ i ].LoopPoint = 0;
 			
-			for( size_t idx = 0; idx < AnimationGenerator.Animation[ i ].Frame.size(); ++idx )
+			for( size_t idx = 0; idx < AnimationGenerator->Animation[ i ].Frame.size(); ++idx )
 			{
 				DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame.push_back( Engine2D::cComponentFrame() );
 				DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame[ idx ].BodyPoseIndex = 0;
@@ -651,38 +654,39 @@ void cComponentEdit::LoadComp()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::LoadCompTextures()
 {
-	for( size_t idx = 0; idx < AnimationGenerator.ImagePool.size(); ++idx )
+	
+	for( size_t idx = 0; idx < AnimationGenerator->ImagePool.size(); ++idx )
 	{
 		unsigned int TempID;
 		glGenTextures( 1, &TempID );
 		
 		glBindTexture( GL_TEXTURE_2D, TempID );
 		
-		if( AnimationGenerator.ImagePool[ idx ].Image->flags & SDL_SRCALPHA )
+		if( AnimationGenerator->ImagePool[ idx ].Image->flags & SDL_SRCALPHA )
 		{
 			// Make it an Alpha Texture //
-		    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, AnimationGenerator.ImagePool[ idx ].Image->w,
-			  AnimationGenerator.ImagePool[ idx ].Image->h, 0, GL_RGBA,
-			  GL_UNSIGNED_BYTE, AnimationGenerator.ImagePool[ idx ].Image->pixels );
+		    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, AnimationGenerator->ImagePool[ idx ].Image->w,
+			  AnimationGenerator->ImagePool[ idx ].Image->h, 0, GL_RGBA,
+			  GL_UNSIGNED_BYTE, AnimationGenerator->ImagePool[ idx ].Image->pixels );
 
-			gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA8, AnimationGenerator.ImagePool[ idx ].Image->w,
-		      AnimationGenerator.ImagePool[ idx ].Image->h, GL_RGBA,
-		       GL_UNSIGNED_BYTE, AnimationGenerator.ImagePool[ idx ].Image->pixels );
+			gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA8, AnimationGenerator->ImagePool[ idx ].Image->w,
+		      AnimationGenerator->ImagePool[ idx ].Image->h, GL_RGBA,
+		       GL_UNSIGNED_BYTE, AnimationGenerator->ImagePool[ idx ].Image->pixels );
 		}
 		else
 		{
 			// No Alpha in this Texture //
-		    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB8, AnimationGenerator.ImagePool[ idx ].Image->w,
-			  AnimationGenerator.ImagePool[ idx ].Image->h, 0, GL_RGB,
-			  GL_UNSIGNED_BYTE, AnimationGenerator.ImagePool[ idx ].Image->pixels );
+		    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB8, AnimationGenerator->ImagePool[ idx ].Image->w,
+			  AnimationGenerator->ImagePool[ idx ].Image->h, 0, GL_RGB,
+			  GL_UNSIGNED_BYTE, AnimationGenerator->ImagePool[ idx ].Image->pixels );
 
-			gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB8, AnimationGenerator.ImagePool[ idx ].Image->w,
-		      AnimationGenerator.ImagePool[ idx ].Image->h, GL_RGB,
-		       GL_UNSIGNED_BYTE, AnimationGenerator.ImagePool[ idx ].Image->pixels );
+			gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB8, AnimationGenerator->ImagePool[ idx ].Image->w,
+		      AnimationGenerator->ImagePool[ idx ].Image->h, GL_RGB,
+		       GL_UNSIGNED_BYTE, AnimationGenerator->ImagePool[ idx ].Image->pixels );
 		}
 	
 		TextureID.push_back( TempID );
-		TextureName.push_back( AnimationGenerator.ImagePool[ idx ].FileName );
+		TextureName.push_back( AnimationGenerator->ImagePool[ idx ].FileName );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -691,7 +695,7 @@ void cComponentEdit::Save()
 	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
 	{
 		
-		DynObj[ CurObj ].AnimationSet->SaveText( CurDir + GetFileName() );
+		DynObj[ CurObj ].AnimationSet->SaveText( BaseDirName + CompDirs[ CurDirIdx ] + GetFileName() );
 		
 		IsSaved = true;
 	}
@@ -700,7 +704,7 @@ void cComponentEdit::Save()
 std::string cComponentEdit::GetFileName()
 {
 	std::string CompName = "Component.comp";
-	std::string LastDirName = CurDir.substr( 0, CurDir.size() - 1 );
+	std::string LastDirName = ( CompDirs[ CurDirIdx ] ).substr( 0, ( BaseDirName + CompDirs[ CurDirIdx ] ).size() - 1 );
 		
 	size_t SlashPos = LastDirName.rfind( '/' );
 
@@ -709,7 +713,7 @@ std::string cComponentEdit::GetFileName()
 		LastDirName = LastDirName.substr( SlashPos + 1 );
 	}
 
-	std::string SecLastDirName = CurDir.substr( 0, SlashPos );
+	std::string SecLastDirName = ( BaseDirName + CompDirs[ CurDirIdx ] ).substr( 0, SlashPos );
 	
 	SlashPos = SecLastDirName.rfind( '/' );
 
@@ -723,6 +727,36 @@ std::string cComponentEdit::GetFileName()
 	}
 	
 	return CompName;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::FindCompDirs()
+{
+	cDirectoryCache DirCache( BaseDirName );
+	
+	for( size_t idx = 0; idx < DirCache.File.size(); ++idx )
+	{
+		if( DirCache.File[idx].find( "Id" ) != std::string::npos &&
+			DirCache.File[idx].find( "Hold" ) != std::string::npos )
+		{
+			std::string TempDir = String::Directory( DirCache.File[idx] );
+			
+			TempDir = String::DirectorySlash( TempDir );
+			
+			bool IsNewComp = true;
+			for( size_t i = 0; i < CompDirs.size(); ++i )
+			{
+				if( CompDirs[ i ] == TempDir )
+				{
+					IsNewComp = false;
+					break;
+				}			
+			}
+			if( IsNewComp )
+			{
+				CompDirs.push_back( TempDir );
+			}
+		}
+	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
