@@ -723,7 +723,7 @@ void cComponentEdit::Save()
 std::string cComponentEdit::GetFileName()
 {
 	std::string CompName = "Component.comp";
-	std::string LastDirName = ( CompDirs[ CurDirIdx ] ).substr( 0, ( BaseDirName + CompDirs[ CurDirIdx ] ).size() - 1 );
+	std::string LastDirName = ( BaseDirName + CompDirs[ CurDirIdx ] ).substr( 0, ( BaseDirName + CompDirs[ CurDirIdx ] ).size() - 1 );
 		
 	size_t SlashPos = LastDirName.rfind( '/' );
 
@@ -782,11 +782,11 @@ void cComponentEdit::SwitchComp()
 {
 	if( IsSaved )
 	{
-		if( Button[ KEY_PLUS_PAD ].Pressed() )
+		if( Button[ KEY_MINUS_PAD ].Pressed() )
 		{
 			if( CurDirIdx > 0 )
 			{
-				++CurDirIdx;
+				--CurDirIdx;
 			}
 			else
 			{
@@ -801,11 +801,11 @@ void cComponentEdit::SwitchComp()
 			CurSelected.clear();
 			MeshGenerateUV();
 		}
-		else if( Button[ KEY_MINUS_PAD ].Pressed() )
+		else if( Button[ KEY_PLUS_PAD ].Pressed() )
 		{
 			if( CurDirIdx < CompDirs.size() - 1 )
 			{
-				--CurDirIdx;
+				++CurDirIdx;
 			}
 			else
 			{
