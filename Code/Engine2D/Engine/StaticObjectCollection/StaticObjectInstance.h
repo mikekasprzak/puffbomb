@@ -4,7 +4,7 @@
 #ifndef __Engine2D_Engine_StaticObjectCollection_StaticObjectInstance_H__
 #define __Engine2D_Engine_StaticObjectCollection_StaticObjectInstance_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Engine/StaticObjectCollection/StaticObject.h>
+#include <Engine/StaticObjectCollection/StaticObjectComponent.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -13,7 +13,8 @@ public:
 	// Position of this instance //
 	Vector2D Pos;
 	// Pointer to the contents of the instance inside the pool //
-	cStaticObject* Instance;
+	//cStaticObject* Instance;
+	size_t StaticObjectIndex;
 	
 	
 };

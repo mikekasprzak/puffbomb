@@ -2,11 +2,11 @@
 #include <Util/Debug.h>
 
 #include <Engine/DynamicComponent.h>
-#include <Engine/StaticObjectCollection/StaticObject.h>
+#include <Engine/StaticObjectCollection/StaticObjectComponent.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicComponent::Solve( cStaticObject& _Vs ) {
+void cDynamicComponent::Solve( cStaticObjectComponent& _Vs ) {
 	// If I'm more than simply active //
 	if ( !State.OnlyActive() ) {
 		// If I'm ignoring scenery, bail//

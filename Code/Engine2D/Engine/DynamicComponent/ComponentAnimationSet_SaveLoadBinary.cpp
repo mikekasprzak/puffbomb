@@ -35,8 +35,6 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 					cMesh2D( MeshPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].MeshPoseIndex ], TempBody );
 			}
 		}
-		
-			
 	}
 	
 	
