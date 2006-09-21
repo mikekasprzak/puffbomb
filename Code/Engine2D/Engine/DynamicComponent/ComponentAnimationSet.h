@@ -25,7 +25,7 @@ public:
 public:
 	// Functions for saving/loading the Binary based Component format //
 	void LoadBinary( const std::string& FileName );
-	void SaveBinary( const std::string& FileName );
+	void SaveBinary( const std::string& FileName, const std::string& ArtDirectory );
 
 #ifdef EDITOR	
 	// Functions for saving/loading the Text based Component format //
