@@ -537,7 +537,7 @@ int main( int argc, char* argv[] ) {
 					glDisable( GL_DEPTH_TEST );
 								
 					// -------------------------------------------------------------------------- //
-					if( cGlobal::CurEditor == MESH2D_EDITOR )	
+/*					if( cGlobal::CurEditor == MESH2D_EDITOR )	
 					{
 		
 						// Screen 1 (Left Side) //	
@@ -608,9 +608,10 @@ int main( int argc, char* argv[] ) {
 						);
 						Editor.Mesh2DEdit->HudDraw();
 						
-					} // MESH2D_EDITOR //
+					} // MESH2D_EDITOR //*/
 					// -------------------------------------------------------------------------- //
-					else if( cGlobal::CurEditor == COLLECTION_EDITOR )
+					//else if( cGlobal::CurEditor == COLLECTION_EDITOR )
+					if( cGlobal::CurEditor == COLLECTION_EDITOR )
 					{
 						// Draw Collection Editor // 
 						glLoadIdentity();

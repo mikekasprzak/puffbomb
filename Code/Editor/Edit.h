@@ -14,7 +14,7 @@
 #include <Util/ClassDesigner/Bits.h>
 #include <Graphics/Camera.h>
 
-#include "Mesh2DEditor/Mesh2DInfo.h"
+//#include "Mesh2DEditor/Mesh2DInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
 #define NODE_MODE 				0
 #define SPHERE_MODE 			1

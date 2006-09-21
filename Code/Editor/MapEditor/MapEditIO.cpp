@@ -63,16 +63,9 @@ void cMapEdit::LoadMap( string &Dir )
 			else if( Token == "Dynamic" )
 			{
 				Text >> Token;
-				
+/*			
 				std::string FullPathName = SearchPath.Find( Token );
 
-				
-				/*string tempName;
-					
-				if( Token.size() > 12 )
-				{
-					tempName = Token.substr( 3, Token.size() - 1 );
-				}*/
 				Log( LOG_EDITOR_INFO, "Dynamic Token (Editor)= " << Token );
 				Log( LOG_EDITOR_INFO, "Dynamic (Editor)= " << FullPathName );
 				
@@ -97,7 +90,7 @@ void cMapEdit::LoadMap( string &Dir )
 				Text >> Token;
 				tempMapObject.Pos.y = atof( Token.c_str() );
 				
-				MapObject.push_back( tempMapObject );
+				MapObject.push_back( tempMapObject );*/
 			}
 			else if( Token == "Focus1" )
 			{
@@ -179,10 +172,8 @@ void cMapEdit::SaveMap( const char* File )
 						
 			for( size_t idx = 0; idx < MapObject.size(); ++idx )
 			{
-//				std::string tempstr =
-//					"Dynamic Meshes/" + Mesh2DEdit->Mesh2DInfo[MapObject[idx].MeshIdx].MeshName;
-				std::string tempstr = "Dynamic " + String::FileName( Mesh2DEdit->Mesh2DInfo[MapObject[idx].MeshIdx].MeshName );
-				Script.Append( tempstr, MapObject[idx].Pos.x, MapObject[idx].Pos.y );
+//				std::string tempstr = "Dynamic " + String::FileName( Mesh2DEdit->Mesh2DInfo[MapObject[idx].MeshIdx].MeshName );
+//				Script.Append( tempstr, MapObject[idx].Pos.x, MapObject[idx].Pos.y );
 
 				if( Focus1 == int(idx) )
 				{

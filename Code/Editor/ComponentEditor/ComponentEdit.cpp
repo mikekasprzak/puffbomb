@@ -151,7 +151,7 @@ void cComponentEdit::Draw()
 	}
 	Gfx::DisableTex2D();
 
-	glLineWidth( 1.0 );
+	Gfx::SetLineWidth( 1.0 );
 
 	Gfx::Rect(
 			PreviewTexVertex[0],
@@ -345,7 +345,7 @@ void cComponentEdit::HudDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::PreviewDraw()
 {
-	glLineWidth( 1.0 );
+	Gfx::SetLineWidth( 1.0 );
 	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
@@ -370,7 +370,7 @@ void cComponentEdit::PreviewDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::UVDraw()
 {
-	glLineWidth( 1.0 );
+	Gfx::SetLineWidth( 1.0 );
 	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();

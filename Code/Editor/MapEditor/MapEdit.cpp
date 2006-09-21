@@ -19,18 +19,17 @@
 
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-cMapEdit::cMapEdit( cGame& _Game, cMesh2DEdit& _Mesh2DEdit ) :
+//cMapEdit::cMapEdit( cGame& _Game, cMesh2DEdit& _Mesh2DEdit ) :
+//	Game( &_Game ),
+//	Mesh2DEdit( &_Mesh2DEdit ),
+cMapEdit::cMapEdit( cGame& _Game ) :
 	Game( &_Game ),
-	Mesh2DEdit( &_Mesh2DEdit ),
 	GameZoom( 0.0 ),
 	CurMesh( 0 ),
 	SceneryIdx( -1 ),
 	CurrentObject( 0 ),
-//	OldMousePos( 0.0, 0.0 ),
 	Focus1( 0 ),
 	Focus2( 0 ),
-//	SnapToGrid( false ),
-//	isGroupMove( false ),
 	isPaste( false ),
 	CurZone( 0 ),
 	CurMode( 1 ),
@@ -148,40 +147,11 @@ void cMapEdit::Draw()
 	Gfx::EnableBlend();
 	
 	// Draw Scenery 3D Model //
-		// Draws 3d model //
-//	for( size_t ModelIdx = 0; ModelIdx < Model.size(); ++ModelIdx )
-//	{
-		//Model[ModelIdx].Draw();
-		
-//	void* ObjectTest = 0;
 	for( size_t idx = 0; idx < Model.size(); ++idx )
 	{
 		Gfx::DrawMesh3d( &Model[idx] );
 
-		/*for( size_t i = 0; i < Model[idx].Mesh3d->Data.size(); ++i )
-		{
-			cMesh3d& ThisMesh = *Model[idx].Mesh3d;
-			
-			if( ObjectTest != Model[idx].Mesh3d->Data[i].Vertex )
-			{			
-				ObjectTest = Model[idx].Mesh3d->Data[i].Vertex;
-				
-				glBindTexture( GL_TEXTURE_2D, ThisMesh.Data[i].TextureID );
-				
-				glVertexPointer(3, GL_FLOAT, 0, &(*ThisMesh.Data[i].Vertex)[0]);
-				glColorPointer(4, GL_UNSIGNED_BYTE, 0, &(*ThisMesh.Data[i].VertexColor)[0]);
-				glTexCoordPointer(2, GL_FLOAT, 0, &(*ThisMesh.Data[i].TextureCoord)[0]);
-			}
-			glPushMatrix();
-			glTranslatef( Model[idx].Offset.x, Model[idx].Offset.y, Model[idx].Offset.z );
-			glDrawElements(
-				GL_TRIANGLES, ThisMesh.Data[i].Indices->Size(),
-				GL_UNSIGNED_INT, &(*ThisMesh.Data[i].Indices)[0]
-			);
-			glPopMatrix();
-		}*/
 	}
-//	}
 	Gfx::DisableDepth();
 	Gfx::DisableTex2D();
 	
@@ -225,7 +195,7 @@ void cMapEdit::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::HudDraw()
 {
-	if( CurMode == OBJECT_MODE )
+/*	if( CurMode == OBJECT_MODE )
 	{
 		Mesh2DEdit->Object[CurMesh].CalcBoundingRect();
 		Vector2D Point1 = Mesh2DEdit->Object[CurMesh].BoundingRect.P1();
@@ -235,7 +205,7 @@ void cMapEdit::HudDraw()
 		Point1.y = ( -( cGlobal::HudH >> 1 ) - Point1.y );
 
 		DrawMesh( CurMesh, Point1 );
-	}
+	}*/
 	if( CurMode == TILE_MODE )
 	{
 		glEnable( GL_TEXTURE_2D );
@@ -295,32 +265,32 @@ void cMapEdit::HudDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Draw2D()
 {
-	// Draw scenery collision information //
-	for ( size_t idx = 0; idx < Game->StaticObject.size(); ++idx ) {
-		Game->StaticObject[ idx ]->DebugDraw( );
-	}
-
-	for ( size_t idx = 0; idx < MapObject.size(); ++idx )
-	{
-		DrawMesh( MapObject[idx].MeshIdx, MapObject[idx].Pos );
-	}
-
-/*	// Draw PolyObjects //
-	for ( size_t idx = 0; idx < Game->PolyObject.size(); ++idx ) {
-		Game->PolyObject[ idx ]->DebugDraw( );
-	}*/
-
-	// Draw Node Links //
-	for ( size_t idx = 0; idx < Game->NodeLink.size(); ++idx ) {
-		if ( Game->NodeLink[ idx ]->IsActive() ) { 
-			Game->NodeLink[ idx ]->DebugDraw( );
-		}
-	}
+//	// Draw scenery collision information //
+//	for ( size_t idx = 0; idx < Game->StaticObject.size(); ++idx ) {
+//		Game->StaticObject[ idx ]->DebugDraw( );
+//	}
+//
+//	for ( size_t idx = 0; idx < MapObject.size(); ++idx )
+//	{
+//		DrawMesh( MapObject[idx].MeshIdx, MapObject[idx].Pos );
+//	}
+//
+///*	// Draw PolyObjects //
+//	for ( size_t idx = 0; idx < Game->PolyObject.size(); ++idx ) {
+//		Game->PolyObject[ idx ]->DebugDraw( );
+//	}*/
+//
+//	// Draw Node Links //
+//	for ( size_t idx = 0; idx < Game->NodeLink.size(); ++idx ) {
+//		if ( Game->NodeLink[ idx ]->IsActive() ) { 
+//			Game->NodeLink[ idx ]->DebugDraw( );
+//		}
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawMesh( int idx, Vector2D MapPos )
 {
-	Mesh2DEdit->Object[idx].DebugDraw(
+/*	Mesh2DEdit->Object[idx].DebugDraw(
 		Gfx::RGBA( 0, 255, 0, 255 ), Gfx::RGBA( 255, 0, 0, 255 ), MapPos );
 
 //	glEnable(GL_TEXTURE_2D);
@@ -361,7 +331,7 @@ void cMapEdit::DrawMesh( int idx, Vector2D MapPos )
 	Gfx::DisableTex2D();
 
 //	glDisable(GL_BLEND);
-//	glDisable(GL_TEXTURE_2D);
+//	glDisable(GL_TEXTURE_2D);*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ToggleEdit()
@@ -417,7 +387,7 @@ void cMapEdit::Physics()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSelected()
 {
-	if( !MapObject.empty() )
+/*	if( !MapObject.empty() )
 	{
 		glLineWidth( 4 );
 		
@@ -432,7 +402,7 @@ void cMapEdit::DrawSelected()
 				Gfx::RGBA( 0, 192, 0, 255 ), Gfx::RGBA( 0, 255, 128, 255 ), MapObject[CurSelected[idx]].Pos );
 		}
 	}
-	
+	*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSelBox()
@@ -479,7 +449,7 @@ Vector2D cMapEdit::CalcMousePos()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SelectObject()
 {
-	if( Button[ MOUSE_1 ].Released() )
+/*	if( Button[ MOUSE_1 ].Released() )
 	{	
 		Vector2D CurMousePos = CalcMousePos();
 		if( Button[ KEY_LSHIFT ] )
@@ -565,12 +535,12 @@ void cMapEdit::SelectObject()
 				}
 			}
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 int cMapEdit::SingleSelect( Vector2D &CurMousePos )
 {
-	for ( size_t idx = 0; idx < MapObject.size(); ++idx )
+/*	for ( size_t idx = 0; idx < MapObject.size(); ++idx )
 	{
 		Vector2D PointA =
 			Mesh2DEdit->Object[MapObject[idx].MeshIdx].BoundingRect.P1() + MapObject[idx].Pos;
@@ -582,7 +552,7 @@ int cMapEdit::SingleSelect( Vector2D &CurMousePos )
 			return idx;
 		}
 	}
-	
+	*/
 	return -1;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -647,12 +617,12 @@ void cMapEdit::MoveObject()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSnapToGrid( size_t idx )
 {
-	Vector2D SnapGhost( MapObject[CurSelected[idx]].Pos.x, MapObject[CurSelected[idx]].Pos.y );
+/*	Vector2D SnapGhost( MapObject[CurSelected[idx]].Pos.x, MapObject[CurSelected[idx]].Pos.y );
 	
 	CalcSnapToGrid( SnapGhost, CurrentGridDepth, GridDepth );
 
 	Mesh2DEdit->Object[MapObject[CurSelected[idx]].MeshIdx].DebugDraw(
-		Gfx::RGBA( 0, 128, 0, 255 ), Gfx::RGBA( 128, 0, 0, 255 ), SnapGhost );
+		Gfx::RGBA( 0, 128, 0, 255 ), Gfx::RGBA( 128, 0, 0, 255 ), SnapGhost );*/
 
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -724,7 +694,7 @@ void cMapEdit::DeleteObject()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SwitchMesh()
 {	
-	if ( Button[ KEY_LEFT ].Pressed() )
+/*	if ( Button[ KEY_LEFT ].Pressed() )
 	{
 		if( CurMesh > 0 )
 		{
@@ -745,7 +715,7 @@ void cMapEdit::SwitchMesh()
 		{
 			CurMesh = 0;	
 		}
-	}	
+	}	*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::CopyObject()

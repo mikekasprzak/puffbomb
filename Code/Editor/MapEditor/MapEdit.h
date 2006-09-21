@@ -11,7 +11,7 @@
 #include "Game.h"
 
 #include "MapObject.h"
-#include <Editor/Mesh2DEditor/Mesh2DEdit.h>
+//#include <Editor/Mesh2DEditor/Mesh2DEdit.h>
 #include <Engine2D/DisplayMesh.h>
 #include <Graphics/LevelData.h>
 
@@ -26,11 +26,12 @@
 class cMapEdit : public cEdit {
 public:
 	// Construct, and require an associated SphereObject //
-	cMapEdit( cGame& _Game, cMesh2DEdit& _Mesh2DEdit );
+//	cMapEdit( cGame& _Game, cMesh2DEdit& _Mesh2DEdit );
+	cMapEdit( cGame& _Game );
 
 public:
 	cGame* Game;
-	cMesh2DEdit* Mesh2DEdit;
+//	cMesh2DEdit* Mesh2DEdit;
 	
 	std::string MapName;
 	std::string DirMapName;

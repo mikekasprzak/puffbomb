@@ -412,7 +412,7 @@ Vector2D cAnimationEdit::CalcUVMousePos()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawFrame()
 {
-	glLineWidth( 1.0 );
+	Gfx::SetLineWidth( 1.0 );
 	
 	unsigned int PolyIndicesSize = CurFrame->Face.size() * 3;
 	
@@ -499,7 +499,7 @@ void cAnimationEdit::DrawSelected()
 	}
 	if( CurSelected.size() > 0 )
 	{
-		glLineWidth( 4.0 );
+		Gfx::SetLineWidth( 4.0 );
 	
 		if( CurMode == NODE_MODE || CurMode == FACE_MODE )
 		{

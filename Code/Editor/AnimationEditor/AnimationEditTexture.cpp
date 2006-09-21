@@ -201,7 +201,7 @@ void cAnimationEdit::DeleteFaceFromFace()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawUV()
 {
-	glLineWidth( 1.0 );
+	Gfx::SetLineWidth( 1.0 );
 
 	ABSet< Vector3D > LineVertex[ CurSelected.size() * 3 ];
 	unsigned int LineIndicesSize = CurSelected.size() * 6;
@@ -244,7 +244,7 @@ void cAnimationEdit::DrawUV()
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimationEdit::DrawSelectedUV()
 {
-	glLineWidth( 4.0 );
+	Gfx::SetLineWidth( 4.0 );
 	
 	// Draws the currently selected UV //
 	for( size_t idx = 0; idx < CurSelUV.size(); ++idx )

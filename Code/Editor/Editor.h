@@ -14,7 +14,7 @@
 #include "CollectionEditor/CollectionEdit.h"
 #include "ComponentEditor/ComponentEdit.h"
 #include "AnimationEditor/AnimationEdit.h"
-#include "Mesh2DEditor/Mesh2DEdit.h"
+//#include "Mesh2DEditor/Mesh2DEdit.h"
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -31,7 +31,7 @@ public:
 	cCollectionEdit* CollectionEdit;
 	cComponentEdit* ComponentEdit;
 	cAnimationEdit* AnimationEdit;
-	cMesh2DEdit* Mesh2DEdit;
+//	cMesh2DEdit* Mesh2DEdit;
 
 public:	
 	void Step();

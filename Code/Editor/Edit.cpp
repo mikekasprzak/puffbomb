@@ -166,7 +166,7 @@ void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH,
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, bool DrawOrig, Real* MyGridDepth )
 {
-	glLineWidth( 1.0 );
+	Gfx::SetLineWidth( 1.0 );
 	
 	if( Button[ KEY_END ].Pressed() )
 	{
@@ -676,7 +676,7 @@ void cEdit::DrawSelBox()
 {
 	if( Button[ MOUSE_1 ] )
 	{	
-		glLineWidth( 1.0 );
+		Gfx::SetLineWidth( 1.0 );
 		
 			SelBoxVertex[ 0 ] = Vector3D( CurMousePos.x, CurMousePos.y, Real::Zero );
 			SelBoxVertex[ 1 ] = Vector3D( CurMousePos.x, OldMousePos.y, Real::Zero );

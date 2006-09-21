@@ -14,9 +14,10 @@ cEditor::cEditor( cGame& _Game ) :
 	CollectionEdit = new cCollectionEdit();
 	ComponentEdit = new cComponentEdit();
 	AnimationEdit = new cAnimationEdit();
-	Mesh2DEdit = new cMesh2DEdit();
+//	Mesh2DEdit = new cMesh2DEdit();
 
-	MapEdit = new cMapEdit( _Game, *Mesh2DEdit );
+//	MapEdit = new cMapEdit( _Game, *Mesh2DEdit );
+	MapEdit = new cMapEdit( _Game );
 }
 // - ------------------------------------------------------------------------------------------ - //	
 cEditor::~cEditor()
@@ -26,7 +27,7 @@ cEditor::~cEditor()
 	delete CollectionEdit;
 	delete ComponentEdit;
 	delete AnimationEdit;
-	delete Mesh2DEdit;
+//	delete Mesh2DEdit;
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Step()
@@ -59,7 +60,7 @@ void cEditor::Step()
 	{
 		AnimationEdit->Step();
 	}
-	else if( cGlobal::CurEditor == MESH2D_EDITOR )
+/*	else if( cGlobal::CurEditor == MESH2D_EDITOR )
 	{
 		if( Mesh2DEdit->IsHelp )
 		{
@@ -75,7 +76,7 @@ void cEditor::Step()
 			Mesh2DEdit->Step();
 		}
 	}
-
+*/
 	if( Button[ KEY_F1 ].Pressed() )
 	{
 
@@ -105,7 +106,7 @@ void cEditor::Step()
 		{
 			
 		}
-		else if( cGlobal::CurEditor == MESH2D_EDITOR )
+/*		else if( cGlobal::CurEditor == MESH2D_EDITOR )
 		{
 			Mesh2DEdit->IsHelp = !Mesh2DEdit->IsHelp;
 			// Resets the zoom
@@ -118,7 +119,7 @@ void cEditor::Step()
 			Mesh2DEdit->Camera->View.x = Mesh2DEdit->Camera->Pos.x;
 			Mesh2DEdit->Camera->View.y = Mesh2DEdit->Camera->Pos.y;
 			Mesh2DEdit->Camera->View.z = 0.0;		
-		}
+		}*/
 	}
 	
 /*	if ( Button[ KEY_F2 ].Pressed() )
@@ -191,7 +192,7 @@ void cEditor::Draw()
 	{
 		AnimationEdit->Draw();
 	}
-	else if( cGlobal::CurEditor == MESH2D_EDITOR )
+/*	else if( cGlobal::CurEditor == MESH2D_EDITOR )
 	{
 		if( Mesh2DEdit->IsHelp )
 		{
@@ -207,7 +208,7 @@ void cEditor::Draw()
 		{
 			Mesh2DEdit->Draw();
 		}
-	}
+	}*/
 
 }
 // - ------------------------------------------------------------------------------------------ - //
