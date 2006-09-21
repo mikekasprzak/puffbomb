@@ -797,7 +797,11 @@ void cComponentEdit::SwitchComp()
 
 			LoadComp();
 			LoadCompTextures();
-
+			
+			CurMeshFrame = 0;
+			CurMeshAnim = 0;
+			CurTexPreview = 0;
+			
 			CurSelected.clear();
 			MeshGenerateUV();
 		}
@@ -816,6 +820,10 @@ void cComponentEdit::SwitchComp()
 
 			LoadComp();
 			LoadCompTextures();
+
+			CurMeshFrame = 0;
+			CurMeshAnim = 0;
+			CurTexPreview = 0;
 
 			CurSelected.clear();
 			MeshGenerateUV();
