@@ -11,24 +11,21 @@
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplayText()
 {
-	if( !DynObj.empty() )
+	if( CurMode == NODE_MODE )
 	{
-		if( CurMode == NODE_MODE )
-		{
-			DisplayNodeInfo();
-		}
-		else if( CurMode == SPHERE_MODE )
-		{	
-			DisplaySphereInfo();
-		}
-		else if( CurMode == SPRING_MODE )
-		{	
-			DisplaySpringInfo();
-		}
-		else if( CurMode == MESH_NODE_MODE || CurMode == PIVOT_HANDLE_MODE )
-		{	
-			DisplayMeshNodeInfo();
-		}
+		DisplayNodeInfo();
+	}
+	else if( CurMode == SPHERE_MODE )
+	{	
+		DisplaySphereInfo();
+	}
+	else if( CurMode == SPRING_MODE )
+	{	
+		DisplaySpringInfo();
+	}
+	else if( CurMode == MESH_NODE_MODE || CurMode == PIVOT_HANDLE_MODE )
+	{	
+		DisplayMeshNodeInfo();
 	}
 	
 	DisplayMode();
@@ -139,7 +136,7 @@ void cComponentEdit::DisplayNodeInfo()
 		);
 		
 		//Temp << Body2D[ CurBody ].Nodes.TotalMass;
-		Temp << DynObj[ CurObj ].Body.Nodes.TotalMass;
+		Temp << DynObj->Body.Nodes.TotalMass;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -154,7 +151,7 @@ void cComponentEdit::DisplayNodeInfo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplaySphereInfo()
 {
-	if( CurSelected.size() > 0 && DynObj[ CurObj ].Body.SphereSize() > 0 )
+	if( CurSelected.size() > 0 && DynObj->Body.SphereSize() > 0 )
 	{
 		Real FontSize = 0.5;
 		Real XShift = 120;
@@ -170,9 +167,9 @@ void cComponentEdit::DisplaySphereInfo()
 		std::stringstream Temp;
 		
 		int SphereIdx = -1;
-		for( size_t idx = 0; idx < DynObj[ CurObj ].Body.SphereSize(); ++idx )
+		for( size_t idx = 0; idx < DynObj->Body.SphereSize(); ++idx )
 		{
-			if( CurSelected[0] == DynObj[ CurObj ].Body.Sphere( idx ).Index )
+			if( CurSelected[0] == DynObj->Body.Sphere( idx ).Index )
 			{
 				SphereIdx = idx;
 				break;
@@ -209,7 +206,7 @@ void cComponentEdit::DisplaySphereInfo()
 				Color
 			);
 			
-			Temp << DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius;
+			Temp << DynObj->Body.Sphere( SphereIdx ).Radius;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -223,7 +220,7 @@ void cComponentEdit::DisplaySphereInfo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplaySpringInfo()
 {
-	if( CurSelected.size() > 0 && DynObj[ CurObj ].Body.SpringSize() > 0 )
+	if( CurSelected.size() > 0 && DynObj->Body.SpringSize() > 0 )
 	{
 		Real FontSize = 0.5;
 		Real XShift = 120;
@@ -239,23 +236,23 @@ void cComponentEdit::DisplaySpringInfo()
 		std::stringstream Temp;
 			
 		int SpringNum = -1;
-		for( size_t SpringIdx = 0; SpringIdx < DynObj[ CurObj ].Body.SpringSize(); ++SpringIdx )
+		for( size_t SpringIdx = 0; SpringIdx < DynObj->Body.SpringSize(); ++SpringIdx )
 		{
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 				{
-					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[idx] )
+					if( DynObj->Body.Spring( SpringIdx ).IndexA == CurSelected[idx] )
 					{
-						if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[i] )
+						if( DynObj->Body.Spring( SpringIdx ).IndexB == CurSelected[i] )
 						{
 							SpringNum = SpringIdx;
 							break;
 						}
 					}
-					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[idx] )
+					if( DynObj->Body.Spring( SpringIdx ).IndexB == CurSelected[idx] )
 					{
-						if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[i] )
+						if( DynObj->Body.Spring( SpringIdx ).IndexA == CurSelected[i] )
 						{
 							SpringNum = SpringIdx;
 							break;
@@ -298,7 +295,7 @@ void cComponentEdit::DisplaySpringInfo()
 				Color
 			);
 			
-			Temp << DynObj[ CurObj ].Body.Spring(SpringNum).IndexA;
+			Temp << DynObj->Body.Spring(SpringNum).IndexA;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -317,7 +314,7 @@ void cComponentEdit::DisplaySpringInfo()
 				Color
 			);
 			
-			Temp << DynObj[ CurObj ].Body.Spring(SpringNum).IndexB;
+			Temp << DynObj->Body.Spring(SpringNum).IndexB;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -336,7 +333,7 @@ void cComponentEdit::DisplaySpringInfo()
 				Color
 			);
 			
-			Temp << DynObj[ CurObj ].Body.Spring(SpringNum).Strength;
+			Temp << DynObj->Body.Spring(SpringNum).Strength;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -355,7 +352,7 @@ void cComponentEdit::DisplaySpringInfo()
 				Color
 			);
 			
-			Temp << DynObj[ CurObj ].Body.Spring(SpringNum).Length;
+			Temp << DynObj->Body.Spring(SpringNum).Length;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -369,7 +366,7 @@ void cComponentEdit::DisplaySpringInfo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplayMeshNodeInfo()
 {
-	if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() && CurSelected.size() > 0 )
+	if(	!DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() && CurSelected.size() > 0 )
 	{
 		Real FontSize = 0.5;
 		Real XShift = 120;
@@ -412,7 +409,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 			Color
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].Pos.x;
+		Temp << DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].Pos.x;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -431,7 +428,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 			Color
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].Pos.y;
+		Temp << DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].Pos.y;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -450,7 +447,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 			Color
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].PivotIndex;
+		Temp << DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].PivotIndex;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -469,7 +466,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 			Color
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].HandleIndex;
+		Temp << DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].HandleIndex;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -652,7 +649,7 @@ void cComponentEdit::DisplayComponentInfo()
 	
 	Temp.str(std::string());
 	
-	if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+	if(	!DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
 
 		if( CurMode == COMP_BODY_MODE )
@@ -667,7 +664,7 @@ void cComponentEdit::DisplayComponentInfo()
 			MyColor
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
+		Temp << DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -691,7 +688,7 @@ void cComponentEdit::DisplayComponentInfo()
 			MyColor
 		);
 		
-		Temp << DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
+		Temp << DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex;
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
@@ -716,17 +713,17 @@ void cComponentEdit::DisplayComponentInfo()
 	int EqualSphereSizes = Pose->Sphere.size();
 	int EqualSpringSizes = Pose->Spring.size();
 	
-	for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->BodyPose.size(); ++idx )
+	for( size_t idx = 0; idx < DynObj->AnimationSet->BodyPose.size(); ++idx )
 	{
-		if( EqualNodeSizes != int( DynObj[ CurObj ].AnimationSet->BodyPose[idx].Node.size() ) )
+		if( EqualNodeSizes != int( DynObj->AnimationSet->BodyPose[idx].Node.size() ) )
 		{
 			EqualNodeSizes = -1;
 		}
-		if( EqualSphereSizes != int( DynObj[ CurObj ].AnimationSet->BodyPose[idx].Sphere.size() ) )
+		if( EqualSphereSizes != int( DynObj->AnimationSet->BodyPose[idx].Sphere.size() ) )
 		{
 			EqualSphereSizes = -1;
 		}
-		if( EqualSpringSizes != int( DynObj[ CurObj ].AnimationSet->BodyPose[idx].Spring.size() ) )
+		if( EqualSpringSizes != int( DynObj->AnimationSet->BodyPose[idx].Spring.size() ) )
 		{
 			EqualSpringSizes = -1;
 		}

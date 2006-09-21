@@ -13,7 +13,7 @@ void cComponentEdit::BodyAddSphere()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			DynObj[ CurObj ].Body.AddSphere( CurSelected[idx] );
+			DynObj->Body.AddSphere( CurSelected[idx] );
 		}
 
 		//if( !isPaste )
@@ -29,16 +29,16 @@ void cComponentEdit::BodyDeleteSphere()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t SphereIdx = 0; SphereIdx < DynObj[ CurObj ].Body.SphereSize(); ++SphereIdx )
+			for( size_t SphereIdx = 0; SphereIdx < DynObj->Body.SphereSize(); ++SphereIdx )
 			{
-				if( CurSelected[idx] == DynObj[ CurObj ].Body.Sphere( SphereIdx ).Index )
+				if( CurSelected[idx] == DynObj->Body.Sphere( SphereIdx ).Index )
 				{
-					DynObj[ CurObj ].Body.DeleteSphere( SphereIdx );
+					DynObj->Body.DeleteSphere( SphereIdx );
 				}
 			}
 		}
 	}
-}
+} 
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::BodyRadius( const Real RadiusDiff )
 {
@@ -46,30 +46,30 @@ void cComponentEdit::BodyRadius( const Real RadiusDiff )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t SphereIdx = 0; SphereIdx < DynObj[ CurObj ].Body.SphereSize(); ++SphereIdx )
+			for( size_t SphereIdx = 0; SphereIdx < DynObj->Body.SphereSize(); ++SphereIdx )
 			{
-				if( CurSelected[idx] == DynObj[ CurObj ].Body.Sphere( SphereIdx ).Index )
+				if( CurSelected[idx] == DynObj->Body.Sphere( SphereIdx ).Index )
 				{
-					if( DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius > Real( 1.0 ) )
+					if( DynObj->Body.Sphere( SphereIdx ).Radius > Real( 1.0 ) )
 					{
 						if ( Button[ KEY_MINUS ] )
 						{
-							DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius -= RadiusDiff;
+							DynObj->Body.Sphere( SphereIdx ).Radius -= RadiusDiff;
 						}
 						
 						if( Mouse.Wheel.Diff() < 0 )
 						{
-							DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius -= RadiusDiff;
+							DynObj->Body.Sphere( SphereIdx ).Radius -= RadiusDiff;
 						}		
 					}
 					// - ---------------------------------------------------------------------- - //
 					if( Button[ KEY_EQUALS ] )
 					{
-						DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius += RadiusDiff;
+						DynObj->Body.Sphere( SphereIdx ).Radius += RadiusDiff;
 					}
 					if( Mouse.Wheel.Diff() > 0 )
 					{
-						DynObj[ CurObj ].Body.Sphere( SphereIdx ).Radius += RadiusDiff;
+						DynObj->Body.Sphere( SphereIdx ).Radius += RadiusDiff;
 					}
 					
 					break;

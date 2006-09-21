@@ -184,16 +184,16 @@ void cComponentEdit::BodyMoveNode()
 			{
 				Vector2D TempPos = Pose->Node[ CurSelected[idx] ].Pos;
 				CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
-				DynObj[ CurObj ].Body.SetPos( CurSelected[idx], TempPos );
+				DynObj->Body.SetPos( CurSelected[idx], TempPos );
 				
 			}
 			SnapToGrid = false;
-			DynObj[ CurObj ].Body.CalculateSpringLength();
+			DynObj->Body.CalculateSpringLength();
 			ActiveAction();
 		}
 		else
 		{
-			DynObj[ CurObj ].Body.CalculateSpringLength();
+			DynObj->Body.CalculateSpringLength();
 			ActiveAction();
 		}
 	}
@@ -211,7 +211,7 @@ void cComponentEdit::BodyMoveNode()
 				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
 				Real( Camera->Pos.z / cGlobal::HudZoom );
 					
-			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );*/
+			DynObj->Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );*/
 			
 			Real TempX = Pose->Node[ CurSelected[idx] ].Pos.x;
 			TempX -= OldMousePos.x - CurMousePos.x;
@@ -219,7 +219,7 @@ void cComponentEdit::BodyMoveNode()
 			Real TempY = Pose->Node[ CurSelected[idx] ].Pos.y;
 			TempY -= OldMousePos.y - CurMousePos.y;
 					
-			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );
+			DynObj->Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );
 		}
 		OldMousePos = CurMousePos;
 	}
@@ -231,7 +231,7 @@ void cComponentEdit::BodyAddNode()
 	{
 		CurSelected.clear();
 		
-		size_t TempIdx = DynObj[ CurObj ].Body.AddNode();
+		size_t TempIdx = DynObj->Body.AddNode();
 
 		Vector2D TempPos = CurMousePos;
 		
@@ -242,11 +242,11 @@ void cComponentEdit::BodyAddNode()
 
 			CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
 		}
-		DynObj[ CurObj ].Body.SetPos( TempIdx, TempPos );
+		DynObj->Body.SetPos( TempIdx, TempPos );
 		
 		CurSelected.push_back( TempIdx );
 		
-		DynObj[ CurObj ].Body.SetMass( TempIdx, Real( 1 ) );
+		DynObj->Body.SetMass( TempIdx, Real( 1 ) );
 	
 		BodyCalcTotalMass();
 		
@@ -263,7 +263,7 @@ void cComponentEdit::BodyDeleteNode()
 			sort( CurSelected.begin(), CurSelected.end() );
 			for( int idx = CurSelected.size() - 1; idx > -1; --idx )
 			{
-				DynObj[ CurObj ].Body.DeleteNode( CurSelected[idx] );
+				DynObj->Body.DeleteNode( CurSelected[idx] );
 
 			}
 			CurSelected.clear();
@@ -282,7 +282,7 @@ void cComponentEdit::BodyScaleNode()
 		else if( ( EditEventFlags & flScale ) )
 		{
 			EditEventFlags &= ~flScale;
-			DynObj[ CurObj ].Body.CalculateSpringLength();
+			DynObj->Body.CalculateSpringLength();
 		}
 	}
 	if( Button[ MOUSE_1 ].Pressed() && EditEventFlags & flScale )
@@ -291,7 +291,7 @@ void cComponentEdit::BodyScaleNode()
 		CurMousePos = CalcMousePos();
 		OldMousePos = CurMousePos;
 		
-		DynObj[ CurObj ].Body.CalculateSpringLength();		
+		DynObj->Body.CalculateSpringLength();		
 	}
 	if( EditEventFlags & flScale )
 	{
@@ -300,7 +300,7 @@ void cComponentEdit::BodyScaleNode()
 			Vector2D TempPos = Pose->Node[ CurSelected[idx] ].Pos;
 			TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
 			
-			DynObj[ CurObj ].Body.SetPos( CurSelected[idx], TempPos );
+			DynObj->Body.SetPos( CurSelected[idx], TempPos );
 		}	
 	}
 }
@@ -315,13 +315,13 @@ void cComponentEdit::BodyMass( const Real MassDiff )
 			{
 				if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
 				{
-					DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass - MassDiff );
+					DynObj->Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass - MassDiff );
 					BodyCalcTotalMass();
 				}
 			}
 			if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
 			{
-				DynObj[ CurObj ].Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass + MassDiff );
+				DynObj->Body.SetMass( CurSelected[idx], Pose->Node[ CurSelected[idx] ].Mass + MassDiff );
 				BodyCalcTotalMass();
 			}
 		}
@@ -337,7 +337,7 @@ void cComponentEdit::BodyCalcTotalMass()
 		TempMass += Pose->Node[ idx ].Mass;
 	}
 	
-	DynObj[ CurObj ].Body.SetTotalMass( TempMass );
+	DynObj->Body.SetTotalMass( TempMass );
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

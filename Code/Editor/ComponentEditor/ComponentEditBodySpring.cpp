@@ -17,11 +17,11 @@ void cComponentEdit::BodyAddSpring()
 			{
 				for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 				{
-					DynObj[ CurObj ].Body.AddSpring( CurSelected[idx], CurSelected[i] );
+					DynObj->Body.AddSpring( CurSelected[idx], CurSelected[i] );
 				}
 			}
 			ActiveAction();
-			DynObj[ CurObj ].Body.CalculateSpringLength();
+			DynObj->Body.CalculateSpringLength();
 		}
 	}
 }
@@ -32,18 +32,18 @@ void cComponentEdit::BodyDeleteSpring()
 	{
 		if( !CurSelected.empty() )
 		{
-			for( int spring = DynObj[ CurObj ].Body.SpringSize() - 1; spring >= 0; --spring )
+			for( int spring = DynObj->Body.SpringSize() - 1; spring >= 0; --spring )
 			{
 				bool IndexA = false;
 				bool IndexB = false;
 				
 				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 				{
-					if( DynObj[ CurObj ].Body.Spring(spring).IndexA == CurSelected[idx] )
+					if( DynObj->Body.Spring(spring).IndexA == CurSelected[idx] )
 					{
 						IndexA = true;
 					}
-					if( DynObj[ CurObj ].Body.Spring(spring).IndexB == CurSelected[idx] )
+					if( DynObj->Body.Spring(spring).IndexB == CurSelected[idx] )
 					{
 						IndexB = true;
 					}
@@ -51,7 +51,7 @@ void cComponentEdit::BodyDeleteSpring()
 				
 				if( IndexA && IndexB )
 				{
-					 DynObj[ CurObj ].Body.DeleteSpring( spring );
+					 DynObj->Body.DeleteSpring( spring );
 				}
 			}
 			ActiveAction();

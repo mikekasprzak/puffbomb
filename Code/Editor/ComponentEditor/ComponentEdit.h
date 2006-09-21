@@ -25,10 +25,11 @@ public:
 	cCamera* PreviewCamera;
 
 public:
-	std::vector< Engine2D::cDynamicComponent > DynObj;
+//	std::vector< Engine2D::cDynamicComponent > DynObj;
+	Engine2D::cDynamicComponent* DynObj;
 	Engine2D::cBody2DPose* Pose;
 	
-	size_t CurObj;
+//	size_t CurObj;
 	size_t CurMeshFrame;
 	size_t CurMeshAnim;
 

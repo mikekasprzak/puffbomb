@@ -21,7 +21,7 @@
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cComponentEdit::cComponentEdit() :
-	CurObj( 0 ),
+//	CurObj( 0 ),
 	CurMeshFrame( 0 ),
 	CurMeshAnim( 0 ),
 	CurTexPreview( 0 ),
@@ -75,6 +75,11 @@ cComponentEdit::cComponentEdit() :
 	TextureName.clear();
 	
 	FindCompDirs();
+	
+	// This inits the DynObj and AnimationSet so that they can use the same function that changes
+	// between different components.
+	DynObj = new Engine2D::cDynamicComponent();
+	DynObj->AnimationSet = new Engine2D::cComponentAnimationSet();
 		
 	AnimationGenerator = new Engine2D::cAnimationGenerator( BaseDirName + CompDirs[ CurDirIdx ] );
 	
@@ -113,7 +118,8 @@ cComponentEdit::~cComponentEdit()
 	delete UVCamera;
 	delete PreviewCamera;
 	
-	delete DynObj[ 0 ].AnimationSet;
+	delete DynObj->AnimationSet;
+	delete DynObj;
 	
 	for( size_t idx = 0; idx < TextureID.size(); ++idx )
 	{
@@ -166,27 +172,27 @@ void cComponentEdit::Draw()
 	// Draw nodes //
 	for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 	{
-		DynObj[ CurObj ].Body.DrawNode( idx, false );
+		DynObj->Body.DrawNode( idx, false );
 	}
 	// Draw spheres //
-	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.SphereSize(); ++idx )
+	for( size_t idx = 0; idx < DynObj->Body.SphereSize(); ++idx )
 	{
-		DynObj[ CurObj ].Body.DrawSphere( idx, false );
+		DynObj->Body.DrawSphere( idx, false );
 	}
 	// Draw springs //
-	for( size_t idx = 0; idx < DynObj[ CurObj ].Body.SpringSize(); ++idx )
+	for( size_t idx = 0; idx < DynObj->Body.SpringSize(); ++idx )
 	{
-		DynObj[ CurObj ].Body.DrawSpring( idx, false );
+		DynObj->Body.DrawSpring( idx, false );
 	}
 	// Draw mesh nodes //
-	if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+	if(	!DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
-		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[
-									DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex 
+		for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[
+									DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex 
 									].Node.size(); ++idx )
 		{
 			Gfx::Circle(
-				DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos,
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos,
 				Real( 3 ),
 				Gfx::RGBA(128, 128, 192, 192)
 			);
@@ -194,34 +200,34 @@ void cComponentEdit::Draw()
 		// Draw faces //
 		int LineColor = Gfx::RGBA(192, 192, 255, 192);
 		
-		for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face.size(); ++idx )
+		for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face.size(); ++idx )
 		{
 			Gfx::Line(
-				DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
-					DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].a
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
+					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].a
 				].Pos,
-				DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
-					DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].b
-				].Pos,
-				LineColor
-			);
-	
-			Gfx::Line(
-				DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
-					DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].b
-				].Pos,
-				DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
-					DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].c
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
+					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].b
 				].Pos,
 				LineColor
 			);
 	
 			Gfx::Line(
-				DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
-					DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].c
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
+					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].b
 				].Pos,
-				DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
-					DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].a
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
+					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].c
+				].Pos,
+				LineColor
+			);
+	
+			Gfx::Line(
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
+					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].c
+				].Pos,
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[
+					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Face[ idx ].a
 				].Pos,
 				LineColor
 			);
@@ -233,38 +239,38 @@ void cComponentEdit::Draw()
 		// Draw selected nodes //
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			DynObj[ CurObj ].Body.DrawNode( CurSelected[ idx ], true );
+			DynObj->Body.DrawNode( CurSelected[ idx ], true );
 		}
 		// Draw selected spheres //
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t SphereIdx = 0; SphereIdx < DynObj[ CurObj ].Body.SphereSize(); ++SphereIdx )
+			for( size_t SphereIdx = 0; SphereIdx < DynObj->Body.SphereSize(); ++SphereIdx )
 			{
-				if( CurSelected[idx] == DynObj[ CurObj ].Body.Sphere( SphereIdx ).Index )
+				if( CurSelected[idx] == DynObj->Body.Sphere( SphereIdx ).Index )
 				{
-					DynObj[ CurObj ].Body.DrawSphere( SphereIdx, true );
+					DynObj->Body.DrawSphere( SphereIdx, true );
 				}
 			}
 		}
 		// Draw selected springs //
-		for( size_t SpringIdx = 0; SpringIdx < DynObj[ CurObj ].Body.SpringSize(); ++SpringIdx )
+		for( size_t SpringIdx = 0; SpringIdx < DynObj->Body.SpringSize(); ++SpringIdx )
 		{
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				for( size_t i = idx + 1; i < CurSelected.size(); ++i )
 				{
-					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[idx] )
+					if( DynObj->Body.Spring( SpringIdx ).IndexA == CurSelected[idx] )
 					{
-						if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[i] )
+						if( DynObj->Body.Spring( SpringIdx ).IndexB == CurSelected[i] )
 						{
-							DynObj[ CurObj ].Body.DrawSpring( SpringIdx, true );
+							DynObj->Body.DrawSpring( SpringIdx, true );
 						}
 					}
-					if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexB == CurSelected[idx] )
+					if( DynObj->Body.Spring( SpringIdx ).IndexB == CurSelected[idx] )
 					{
-						if( DynObj[ CurObj ].Body.Spring( SpringIdx ).IndexA == CurSelected[i] )
+						if( DynObj->Body.Spring( SpringIdx ).IndexA == CurSelected[i] )
 						{
-							DynObj[ CurObj ].Body.DrawSpring( SpringIdx, true );
+							DynObj->Body.DrawSpring( SpringIdx, true );
 						}
 					}
 				}	
@@ -273,14 +279,14 @@ void cComponentEdit::Draw()
 	}
 	else if( CurMode == MESH_NODE_MODE || CurMode == PIVOT_HANDLE_MODE || CurMode == FACE_MODE )
 	{
-		if(	!DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if(	!DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			
 			// Draw selcted mesh nodes //
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				Gfx::Circle(
-					DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos,
+					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos,
 					Real( 3 ),
 					Gfx::RGBA(192, 192, 255, 192)
 				);
@@ -288,10 +294,10 @@ void cComponentEdit::Draw()
 			
 			if( CurMode != FACE_MODE )
 			{
-				if( !CurSelected.empty() && DynObj[ CurObj ].Body.Nodes.Size() > 1 )
+				if( !CurSelected.empty() && DynObj->Body.Nodes.Size() > 1 )
 				{
-					Vector2D TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
-						DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].PivotIndex
+					Vector2D TempPos = DynObj->Body.Nodes.Pos( 
+						DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].PivotIndex
 					);
 		
 					Gfx::Circle(
@@ -300,8 +306,8 @@ void cComponentEdit::Draw()
 						Gfx::RGBA(255, 128, 255, 192)
 					);
 					
-					TempPos = DynObj[ CurObj ].Body.Nodes.Pos( 
-						DynObj[ CurObj ].AnimationSet->MeshPose[ DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].HandleIndex
+					TempPos = DynObj->Body.Nodes.Pos( 
+						DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[0] ].HandleIndex
 					);
 					
 					Gfx::Circle(
@@ -346,17 +352,17 @@ void cComponentEdit::PreviewDraw()
 	// Draw the Mesh2D //
 	
 
-	if( !DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+	if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
-		DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Draw( DynObj[ CurObj ].Body );
+		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Draw( DynObj->Body );
 	}
 
 	Gfx::DisableTex2D();
 
 	// Draw the Body2D debug information //	
-	DynObj[ CurObj ].Body.DrawNodes();
-	DynObj[ CurObj ].Body.DrawSpheres();
-	DynObj[ CurObj ].Body.DrawSprings();
+	DynObj->Body.DrawNodes();
+	DynObj->Body.DrawSpheres();
+	DynObj->Body.DrawSprings();
 		
 	Gfx::DisableBlend();
 
@@ -559,7 +565,7 @@ void cComponentEdit::Step()
 		{
 			EditEventFlags |= flGlobalIncrease;
 			
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			for( size_t idx = 0; idx < DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
 			{
 				MeshSwitchPose( idx );
 			}
@@ -570,7 +576,7 @@ void cComponentEdit::Step()
 		{
 			EditEventFlags |= flGlobalDecrease;
 			
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			for( size_t idx = 0; idx < DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
 			{
 				MeshSwitchPose( idx );
 			}
@@ -587,7 +593,7 @@ void cComponentEdit::Step()
 		{
 			EditEventFlags |= flGlobalIncrease;
 			
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			for( size_t idx = 0; idx < DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
 			{
 				BodySwitchPose( idx );
 			}
@@ -598,7 +604,7 @@ void cComponentEdit::Step()
 		{
 			EditEventFlags |= flGlobalDecrease;
 			
-			for( size_t idx = 0; idx < DynObj[ CurObj ].AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
+			for( size_t idx = 0; idx < DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.size(); ++idx )
 			{
 				BodySwitchPose( idx );
 			}
@@ -628,39 +634,34 @@ void cComponentEdit::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::LoadComp()
 {
-	// DELETE THIS CRAP //
-	if( DynObj.size() != 0 )
-	{
-		delete DynObj[ 0 ].AnimationSet;
-	}
-	
-	DynObj.clear();	
-	
-	DynObj.push_back( Engine2D::cDynamicComponent() );
-	DynObj[ CurObj ].AnimationSet = new Engine2D::cComponentAnimationSet();
-	
-	DynObj[ CurObj ].AnimationSet->LoadText( BaseDirName + CompDirs[ CurDirIdx ] + GetFileName() );
+	delete DynObj->AnimationSet;
+	delete DynObj;
 
-	if( DynObj[ CurObj ].AnimationSet->BodyPose.empty() )
+	DynObj = new Engine2D::cDynamicComponent();
+	DynObj->AnimationSet = new Engine2D::cComponentAnimationSet();
+	
+	DynObj->AnimationSet->LoadText( BaseDirName + CompDirs[ CurDirIdx ] + GetFileName() );
+
+	if( DynObj->AnimationSet->BodyPose.empty() )
 	{
-		DynObj[ CurObj ].AnimationSet->BodyPose.push_back( Engine2D::cBody2DPose() );
+		DynObj->AnimationSet->BodyPose.push_back( Engine2D::cBody2DPose() );
 		
 		for( size_t i = 0; i < AnimationGenerator->Animation.size(); ++i )
 		{
-			DynObj[ CurObj ].AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
-			DynObj[ CurObj ].AnimationSet->Animation[ i ].LoopPoint = 0;
+			DynObj->AnimationSet->Animation.push_back( Engine2D::cComponentAnimation() );
+			DynObj->AnimationSet->Animation[ i ].LoopPoint = 0;
 			
 			for( size_t idx = 0; idx < AnimationGenerator->Animation[ i ].Frame.size(); ++idx )
 			{
-				DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame.push_back( Engine2D::cComponentFrame() );
-				DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame[ idx ].BodyPoseIndex = 0;
-				DynObj[ CurObj ].AnimationSet->Animation[ i ].Frame[ idx ].MeshPoseIndex = 0;
+				DynObj->AnimationSet->Animation[ i ].Frame.push_back( Engine2D::cComponentFrame() );
+				DynObj->AnimationSet->Animation[ i ].Frame[ idx ].BodyPoseIndex = 0;
+				DynObj->AnimationSet->Animation[ i ].Frame[ idx ].MeshPoseIndex = 0;
 			}
 		}
-		DynObj[ CurObj ].AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
+		DynObj->AnimationSet->MeshPose.push_back( Engine2D::cMesh2DPose() );
 	}
-	DynObj[ CurObj ].Body = DynObj[ CurObj ].AnimationSet->BodyPose[ 0 ];
-	Pose = &DynObj[ CurObj ].AnimationSet->BodyPose[ 0 ];
+	DynObj->Body = DynObj->AnimationSet->BodyPose[ 0 ];
+	Pose = &DynObj->AnimationSet->BodyPose[ 0 ];
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -714,7 +715,7 @@ void cComponentEdit::Save()
 	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
 	{
 		
-		DynObj[ CurObj ].AnimationSet->SaveText( BaseDirName + CompDirs[ CurDirIdx ] + GetFileName() );
+		DynObj->AnimationSet->SaveText( BaseDirName + CompDirs[ CurDirIdx ] + GetFileName() );
 		
 		IsSaved = true;
 	}
