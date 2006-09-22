@@ -8,6 +8,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 cSuperFlow::cSuperFlow()
 {
+	SetHudData();
+	
 	// Populate the particle factorys with their max number of particles //
 	FlatParticle.Populate( 500 );
 	AdditiveParticle.Populate( 500 );
