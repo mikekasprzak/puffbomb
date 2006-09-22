@@ -222,11 +222,11 @@ SDL_Surface* SetVideoMode() {
 
 #ifdef SCREEN_W
 	Platform::ScreenW = SCREEN_W;
-#endif // SCREEN_X //
+#endif // SCREEN_W //
 
 #ifdef SCREEN_H
 	Platform::ScreenH = SCREEN_H;
-#endif // SCREEN_X //
+#endif // SCREEN_H //
 
 	int ColorDepth = 32;
 	Platform::AspectRatio = Real( Platform::ScreenW ) / Real( Platform::ScreenH );
