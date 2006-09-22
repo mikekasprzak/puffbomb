@@ -1,16 +1,16 @@
 // - ------------------------------------------------------------------------------------------ - //
-// SykhronicsSplash //
+// SplashScreen //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __SykhronicsSplash_H__
-#define __SykhronicsSplash_H__
+#ifndef __FlowElements_SplashScreen_SplashScreen_H__
+#define __FlowElements_SplashScreen_SplashScreen_H__
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-class cSykhronicsSplash { 
+class cSplashScreen { 
 public:
-	cSykhronicsSplash();
+	cSplashScreen();
 		
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __SykhronicsSplash_H__ // 
+#endif // __FlowElements_SplashScreen_SplashScreen_H__ // 
 // - ------------------------------------------------------------------------------------------ - //

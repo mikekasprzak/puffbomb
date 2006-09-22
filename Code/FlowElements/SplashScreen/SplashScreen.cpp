@@ -5,7 +5,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <SDL/SDL.h> // dont want to make this SDL dependent.  find out how to get time..
 // - ------------------------------------------------------------------------------------------ - //
-cSykhronicsSplash::cSykhronicsSplash()
+cSplashScreen::cSplashScreen()
 {
 	//GetTime();
 	

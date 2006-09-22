@@ -16,7 +16,7 @@ cSuperFlow::cSuperFlow()
 
 	// Display the Sykhronics spash screen //
 	{
-		cSykhronicsSplash SykhronicsSplash;
+		cSplashScreen SplashScreen;
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
