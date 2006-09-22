@@ -10,8 +10,8 @@ namespace DynamicComponent {
 // - ------------------------------------------------------------------------------------------ - //
 class cPackedOrientation {
 public:
-	unsigned short PivotIndex;
-	unsigned short HandleIndex;
+	unsigned int PivotIndex:16;
+	unsigned int HandleIndex:16;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace DynamicComponent //

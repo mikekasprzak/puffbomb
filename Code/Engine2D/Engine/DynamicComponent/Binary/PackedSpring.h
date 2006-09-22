@@ -12,8 +12,8 @@ namespace DynamicComponent {
 // - ------------------------------------------------------------------------------------------ - //
 class cPackedSpring {
 public:
-	unsigned short IndexA;
-	unsigned short IndexB;
+	unsigned int IndexA:16;
+	unsigned int IndexB:16;
 	
 	// Flags //
 	bool MinConstraint:1;

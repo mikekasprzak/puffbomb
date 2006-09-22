@@ -27,11 +27,11 @@ using namespace DynamicComponent;
 void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 	// Read Data //
 	ifstream InFile( FileName.c_str(), ios::binary | ios::out );
-		
+	
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std::string& ArtDirectory ) {
+void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std::string& ArtDirectory, bool LittleEndian ) {
 	// Generate Data //
 	{
 		// Acquire art assets, and description of animation timings //
