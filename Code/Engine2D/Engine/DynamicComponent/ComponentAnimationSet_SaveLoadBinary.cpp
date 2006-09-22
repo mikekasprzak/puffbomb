@@ -7,9 +7,16 @@
 #include <Physics/Body2D.h>
 #include "ComponentAnimationSet.h"
 // - ------------------------------------------------------------------------------------------ - //
+#include "Binary/PackedVertex.h"
+#include "Binary/PackedUV.h"
+#include "Binary/PackedFace.h"
+#include "Binary/PackedOrientation.h"
+// - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
+// - ------------------------------------------------------------------------------------------ - //
+using namespace DynamicComponent;
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 	// Read Data //
