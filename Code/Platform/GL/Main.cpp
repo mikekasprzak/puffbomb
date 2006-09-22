@@ -25,6 +25,7 @@ using namespace std;
 #include <Particle2D/ParticleFactory.h>
 #include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
+//#include <Editor/SuperFlow.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 #include <Graphics/AnimationGenerator.h>
@@ -314,6 +315,8 @@ int main( int argc, char* argv[] ) {
 	AdditiveParticle.Populate( 500 );
 
 	NewParticle.Populate( 40000 );
+	
+//	cSuperFlow SuperFlow;
 	
 	// Be sure creation didn't just fail //
     if ( !Surface ) {

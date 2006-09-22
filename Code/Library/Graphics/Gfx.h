@@ -151,6 +151,15 @@ namespace Gfx {
 	void BindTexture( unsigned int& TextureID );
 	void SetLineWidth( const Real Num );
 	// - -------------------------------------------------------------------------------------- - //
+	void Viewport( int x, int y, unsigned int Width, unsigned int Height );
+	void ProjMatrixMode();
+	void ModelMatrixMode();
+	void LoadIdentity();
+	void Perspective( double Fovy, double Aspect, double zNear, double zFar );
+	void Translate( Real x, Real y, Real z );
+	void ClearColorDepth();
+	void SwapBuffers();
+	// - -------------------------------------------------------------------------------------- - //
 	
 };
 // - ------------------------------------------------------------------------------------------ - //
