@@ -7,6 +7,8 @@
 #include <Physics/Body2D.h>
 #include "ComponentAnimationSet.h"
 // - ------------------------------------------------------------------------------------------ - //
+#include "Binary/PackedFrame.h"
+
 #include "Binary/PackedVertex.h"
 #include "Binary/PackedUV.h"
 #include "Binary/PackedFace.h"
