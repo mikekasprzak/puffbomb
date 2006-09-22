@@ -25,7 +25,7 @@ using namespace std;
 #include <Particle2D/ParticleFactory.h>
 #include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
-//#include <Editor/SuperFlow.h>
+#include <SuperFlow.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 #include <Graphics/AnimationGenerator.h>
@@ -311,11 +311,11 @@ int main( int argc, char* argv[] ) {
 	cGlobal::Shutdown = false;
 
 	// Populates the particle factory with a number of particles //
-	FlatParticle.Populate( 500 );
+/*	FlatParticle.Populate( 500 );
 	AdditiveParticle.Populate( 500 );
 
 	NewParticle.Populate( 40000 );
-	
+	*/
 //	cSuperFlow SuperFlow;
 	
 	// Be sure creation didn't just fail //
@@ -471,6 +471,9 @@ int main( int argc, char* argv[] ) {
 		Platform::FPS = 0;
 		int FramesPast = 0;
 		
+		// Superflow test //
+		cSuperFlow SuperFlow;		
+
 		// Standard Rendering Loop //
 		while( !cGlobal::Shutdown ) {
 			// The SDL Message Loop, correctly setting input flags and shutdown stuff //
