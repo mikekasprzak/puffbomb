@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// PackedUV //
+// PackedNode //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__
-#define __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__
+#ifndef __Engine2D_Engine_DynamicComponent_Binary_PackedNode_H__
+#define __Engine2D_Engine_DynamicComponent_Binary_PackedNode_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -10,30 +10,39 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 namespace DynamicComponent {
 // - ------------------------------------------------------------------------------------------ - //
-class cPackedUV {
-	int _u:16;
-	int _v:16;
+class cPackedNode {
+	int _x:32;
+	int _y:32;
+	int _Mass:32;
 
-	// If fraction is 12, then the integer part is 4 // 
+	// If fraction is 16, then the integer part is 16 // 
 	enum {
-		Fraction = 12
+		Fraction = 16
 	};
 
 public:
-	// U part //
-	inline const Real u() const {
-		return Real( _u ) / Real( 1 << Fraction );
+	// X part //
+	inline const Real x() const {
+		return Real( _x ) / Real( 1 << Fraction );
 	}
-	inline void u( const Real _Value ) {
-		_u = (int)( _Value * Real( 1 << Fraction ) );
+	inline void x( const Real _Value ) {
+		_x = (int)( _Value * Real( 1 << Fraction ) );
 	}
 
-	// V part //
-	inline const Real v() const {
-		return Real( _v ) / Real( 1 << Fraction );
+	// Y part //
+	inline const Real y() const {
+		return Real( _y ) / Real( 1 << Fraction );
 	}
-	inline void v( const Real _Value ) {
-		_v = (int)( _Value * Real( 1 << Fraction ) );
+	inline void y( const Real _Value ) {
+		_y = (int)( _Value * Real( 1 << Fraction ) );
+	}
+
+	// Mass part //
+	inline const Real Mass() const {
+		return Real( _Mass ) / Real( 1 << Fraction );
+	}
+	inline void Mass( const Real _Value ) {
+		_Mass = (int)( _Value * Real( 1 << Fraction ) );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
@@ -41,5 +50,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__ //
+#endif // __Engine2D_Engine_DynamicComponent_Binary_PackedNode_H__ //
 // - ------------------------------------------------------------------------------------------ - //

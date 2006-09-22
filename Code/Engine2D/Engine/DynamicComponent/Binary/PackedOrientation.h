@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // PackedOrientation //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicComponent_PackedOrientation_H__
-#define __Engine2D_Engine_DynamicComponent_PackedOrientation_H__
+#ifndef __Engine2D_Engine_DynamicComponent_Binary_PackedOrientation_H__
+#define __Engine2D_Engine_DynamicComponent_Binary_PackedOrientation_H__
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -18,5 +18,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicComponent_PackedOrientation_H__ //
+#endif // __Engine2D_Engine_DynamicComponent_Binary_PackedOrientation_H__ //
 // - ------------------------------------------------------------------------------------------ - //

@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// PackedUV //
+// PackedSpring //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__
-#define __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__
+#ifndef __Engine2D_Engine_DynamicComponent_Binary_PackedSpring_H__
+#define __Engine2D_Engine_DynamicComponent_Binary_PackedSpring_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -10,30 +10,41 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 namespace DynamicComponent {
 // - ------------------------------------------------------------------------------------------ - //
-class cPackedUV {
-	int _u:16;
-	int _v:16;
+class cPackedSpring {
+public:
+	unsigned short IndexA;
+	unsigned short IndexB;
+	
+	// Flags //
+	bool MinConstraint:1;
+	bool MaxConstraint:1;
+private:
+	int FlagPad:14;
+	unsigned int _Strength:16;
 
-	// If fraction is 12, then the integer part is 4 // 
+	int _Length:32;
+
+	// If fraction is 16, then the integer part is 16 // 
 	enum {
-		Fraction = 12
+		Fraction = 16,
+		StrengthRange = (1 << 16) - 1
 	};
 
 public:
-	// U part //
-	inline const Real u() const {
-		return Real( _u ) / Real( 1 << Fraction );
+	// Length part //
+	inline const Real Length() const {
+		return Real( _Length ) / Real( 1 << Fraction );
 	}
-	inline void u( const Real _Value ) {
-		_u = (int)( _Value * Real( 1 << Fraction ) );
+	inline void Length( const Real _Value ) {
+		_Length = (int)( _Value * Real( 1 << Fraction ) );
 	}
 
-	// V part //
-	inline const Real v() const {
-		return Real( _v ) / Real( 1 << Fraction );
+	// Strength part //
+	inline const Real Strength() const {
+		return Real( _Strength ) / Real( StrengthRange );
 	}
-	inline void v( const Real _Value ) {
-		_v = (int)( _Value * Real( 1 << Fraction ) );
+	inline void Strength( const Real _Value ) {
+		_Strength = (int)( _Value * Real( StrengthRange ) );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
@@ -41,5 +52,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__ //
+#endif // __Engine2D_Engine_DynamicComponent_Binary_PackedSpring_H__ //
 // - ------------------------------------------------------------------------------------------ - //

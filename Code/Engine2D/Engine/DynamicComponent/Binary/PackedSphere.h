@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// PackedUV //
+// PackedSphere //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__
-#define __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__
+#ifndef __Engine2D_Engine_DynamicComponent_Binary_PackedSphere_H__
+#define __Engine2D_Engine_DynamicComponent_Binary_PackedSphere_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -10,30 +10,29 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 namespace DynamicComponent {
 // - ------------------------------------------------------------------------------------------ - //
-class cPackedUV {
-	int _u:16;
-	int _v:16;
+class cPackedSphere {
+public:
+	unsigned int Index:16;
+	// Flags //
+	bool Actuator:1;
+	bool Sensor:1;
+private:
+	int FlagPad:14;
 
-	// If fraction is 12, then the integer part is 4 // 
+	int _Radius:32;
+
+	// If fraction is 16, then the integer part is 16 // 
 	enum {
-		Fraction = 12
+		Fraction = 16
 	};
 
 public:
-	// U part //
-	inline const Real u() const {
-		return Real( _u ) / Real( 1 << Fraction );
+	// Radius part //
+	inline const Real Radius() const {
+		return Real( _Radius ) / Real( 1 << Fraction );
 	}
-	inline void u( const Real _Value ) {
-		_u = (int)( _Value * Real( 1 << Fraction ) );
-	}
-
-	// V part //
-	inline const Real v() const {
-		return Real( _v ) / Real( 1 << Fraction );
-	}
-	inline void v( const Real _Value ) {
-		_v = (int)( _Value * Real( 1 << Fraction ) );
+	inline void Radius( const Real _Value ) {
+		_Radius = (int)( _Value * Real( 1 << Fraction ) );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
@@ -41,5 +40,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__ //
+#endif // __Engine2D_Engine_DynamicComponent_Binary_PackedSphere_H__ //
 // - ------------------------------------------------------------------------------------------ - //

@@ -11,6 +11,10 @@
 #include "Binary/PackedUV.h"
 #include "Binary/PackedFace.h"
 #include "Binary/PackedOrientation.h"
+
+#include "Binary/PackedNode.h"
+#include "Binary/PackedSpring.h"
+#include "Binary/PackedSphere.h"
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
