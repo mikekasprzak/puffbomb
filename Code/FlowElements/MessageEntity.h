@@ -1,16 +1,15 @@
 // - ------------------------------------------------------------------------------------------ - //
-// SplashScreen //
+// MessageEntity //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __FlowElements_SplashScreen_SplashScreen_H__
-#define __FlowElements_SplashScreen_SplashScreen_H__
+#ifndef __FlowElements_MessageEntity_H__
+#define __FlowElements_MessageEntity_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <MessageEntity.h>
-// - ------------------------------------------------------------------------------------------ - //
-class cSplashScreen : public cMessageEntity { 
+class cMessageEntity { 
 public:
-	cSplashScreen();
+	cMessageEntity();
+	void MessageLoop();
 		
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __FlowElements_SplashScreen_SplashScreen_H__ // 
+#endif // __FlowElements_MessageEntity_H__ // 
 // - ------------------------------------------------------------------------------------------ - //

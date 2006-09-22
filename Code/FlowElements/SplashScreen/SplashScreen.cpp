@@ -10,10 +10,12 @@ extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
 cSplashScreen::cSplashScreen()
 {
-	unsigned int EndTime = GetTime() + ( 3600 );
+	int EndTime = GetTime() + ( 3600 );
 	
 	while( GetTime() < EndTime )
 	{
+		MessageLoop();
+		
 		Gfx::ClearColorDepth();
 			
 		Gfx::LoadIdentity();
