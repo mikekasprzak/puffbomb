@@ -148,7 +148,8 @@ namespace Gfx {
 	void DisableAddBlend();
 	void EnableDepth();
 	void DisableDepth();
-	void BindTexture( unsigned int& TextureID );
+	void BindTexture( unsigned int& TextureId );
+	void DeleteTexture( unsigned int& TextureId );
 	void SetLineWidth( const Real Num );
 	// - -------------------------------------------------------------------------------------- - //
 	void Viewport( int x, int y, unsigned int Width, unsigned int Height );

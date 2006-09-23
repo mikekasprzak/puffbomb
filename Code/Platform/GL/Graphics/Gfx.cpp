@@ -696,9 +696,14 @@ namespace Gfx
 		glDisable( GL_DEPTH_TEST );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void BindTexture( unsigned int& TextureID )
+	void BindTexture( unsigned int& TextureId )
 	{
-		glBindTexture( GL_TEXTURE_2D, TextureID );
+		glBindTexture( GL_TEXTURE_2D, TextureId );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void DeleteTexture( unsigned int& TextureId )
+	{
+		glDeleteTextures( 1, &TextureId );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	void SetLineWidth( const Real Num )
