@@ -42,7 +42,7 @@ cSplashScreen::cSplashScreen()
 
 	int Color = 0;
 
-	while( GetTime() < EndTime )
+	while( GetTime() < EndTime && !cGlobal::Shutdown )
 	{
 		MessageLoop();
 		

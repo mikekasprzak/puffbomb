@@ -44,6 +44,13 @@ void cMessageEntity::MessageLoop() {
 		default:
 		    break;
 		}
-	}	
+	}
+	
+	Input::Update();
+	
+	if( Input::Button[ KEY_F10 ].Pressed() ) {
+	    cGlobal::Shutdown = true;
+	}
+
 }
 // ---------------------------------------------------------------------------------------------- //
