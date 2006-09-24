@@ -31,6 +31,34 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
+class cEndianWriter {
+public:
+	ofstream File;
+	bool LittleEndian;
+
+public:
+	cEndianWriter() :
+		LittleEndian( true )
+	{
+	}
+	
+	cEndianWriter( const std::string& _FileName, bool _LittleEndian ) :
+		File( _FileName.c_str(), ios::binary | ios::out ),
+		LittleEndian( _LittleEndian )	
+	{
+	}
+
+public:
+	template< class T >
+	void Write( const T& Data ) {
+		if ( LittleEndian )
+			File.write( (char*)&Data, sizeof(Data) );
+		else {
+			
+		}
+	}
+};
+// - ------------------------------------------------------------------------------------------ - //
 void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std::string& ArtDirectory, bool LittleEndian ) {
 	// Generate Data //
 	{
@@ -53,8 +81,28 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 	
 	// Write Data //
 	{
-		ofstream OutFile( FileName.c_str(), ios::binary | ios::out );
+		cEndianWriter Out( FileName, LittleEndian );
+				
+		// 8 byte File Header //
+		{
+			char MagicNumber[4] = { 'C', 'O', 'M', 'P' };
+			unsigned int FileVersion = 0;
+			
+			// Write File Header //
+			Out.File.write( &MagicNumber[0], 4 );
+			Out.Write( FileVersion );
+		}
 		
+		// Animations part //
+		{
+			// Write Animation Section Header //
+			Out.Write( Animation.size() );
+			
+			// For every animation //
+			for ( int idx = 0; idx < Animation.size(); idx++ ) {
+				
+			}
+		}
 		
 	}
 }
