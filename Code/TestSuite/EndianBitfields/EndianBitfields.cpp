@@ -6,6 +6,9 @@
 #include <iostream>
 using namespace std;
 
+typedef long long int s64;
+//typedef __int64 s64;
+
 class cNormal {
 public:
 	int a;
@@ -14,16 +17,16 @@ public:
 
 class cOverlap {
 public:
-	int a:28;
-	int b:28;
-	int c:8;
+	s64 a:28;
+	s64 b:28;
+	s64 c:8;
 };
 
 
 class cExplicit {
 public:
-	int a:32;
-	int b:32;
+	s64 a:32;
+	s64 b:32;
 };
 
 
@@ -32,14 +35,18 @@ int main( int argc, char* argv[] ) {
 	cNormal Normal;
 	Normal.a = 0x76543210;
 	Normal.b = 0xFEDCBA98;
-	char* pNormal = (char*)&Normal;
-	cout << "Normal.a (int) = " << Normal.a << std::hex << " (0x" << Normal.a << ")" << endl;
-	cout << "Normal.b (int) = " << Normal.b << std::hex << " (0x" << Normal.b << ")" << endl;
-	cout << "Normal[0..3] = \"" <<
-		pNormal[0] << "\" \"" <<
-		pNormal[1] << "\" \"" <<
-		pNormal[2] << "\" \"" <<
-		pNormal[3] << "\"" <<
+	unsigned char* pNormal = (unsigned char*)&Normal;
+	cout << "Normal.a (int) = " << std::dec << Normal.a << std::hex << " (0x" << Normal.a << ")" << endl;
+	cout << "Normal.b (int) = " << std::dec << Normal.b << std::hex << " (0x" << Normal.b << ")" << endl;
+	cout << "Normal[0..7] = 0x" << std::hex <<
+		(unsigned int)pNormal[0] << " " <<
+		(unsigned int)pNormal[1] << " " <<
+		(unsigned int)pNormal[2] << " " <<
+		(unsigned int)pNormal[3] << "-" <<
+		(unsigned int)pNormal[4] << " " <<
+		(unsigned int)pNormal[5] << " " <<
+		(unsigned int)pNormal[6] << " " <<
+		(unsigned int)pNormal[7] << "" <<
 		endl;
 	cout << endl;
 
@@ -47,31 +54,70 @@ int main( int argc, char* argv[] ) {
 	Overlap.a = 0x6543210;
 	Overlap.b = 0xDCBA987;
 	Overlap.c = 0xFE;
-	char* pOverlap = (char*)&Overlap;
-	cout << "Overlap.a (int:24) = " << Overlap.a << std::hex << " (0x" << Overlap.a << ")" << endl;
-	cout << "Overlap.b (int:24) = " << Overlap.b << std::hex << " (0x" << Overlap.b << ")" << endl;
-	cout << "Overlap.c (int:8)  = " << Overlap.c << std::hex << " (0x" << Overlap.c << ")" << endl;
-	cout << "Overlap[0..3] = \"" <<
-		pOverlap[0] << "\" \"" <<
-		pOverlap[1] << "\" \"" <<
-		pOverlap[2] << "\" \"" <<
-		pOverlap[3] << "\"" <<
+	unsigned char* pOverlap = (unsigned char*)&Overlap;
+	cout << "Overlap.a (int:24) = " << std::dec << Overlap.a << std::hex << " (0x" << Overlap.a << ")" << endl;
+	cout << "Overlap.b (int:24) = " << std::dec << Overlap.b << std::hex << " (0x" << Overlap.b << ")" << endl;
+	cout << "Overlap.c (int:8)  = " << std::dec << Overlap.c << std::hex << " (0x" << Overlap.c << ")" << endl;
+	cout << "Overlap[0..7] = 0x" << std::hex <<
+		(unsigned int)pOverlap[0] << " " <<
+		(unsigned int)pOverlap[1] << " " <<
+		(unsigned int)pOverlap[2] << " " <<
+		(unsigned int)pOverlap[3] << "-" <<
+		(unsigned int)pOverlap[4] << " " <<
+		(unsigned int)pOverlap[5] << " " <<
+		(unsigned int)pOverlap[6] << " " <<
+		(unsigned int)pOverlap[7] << "" <<
 		endl;
 	cout << endl;
 
 	cExplicit Exp;
 	Exp.a = 0x76543210;
 	Exp.b = 0xFEDCBA98;
-	char* pExp = (char*)&Exp;
-	cout << "Exp.a (int:32) = " << Exp.a << std::hex << " (0x" << Exp.a << ")" << endl;
-	cout << "Exp.b (int:32) = " << Exp.b << std::hex << " (0x" << Exp.b << ")" << endl;
-	cout << "Exp[0..3] = \"" <<
-		pExp[0] << "\" \"" <<
-		pExp[1] << "\" \"" <<
-		pExp[2] << "\" \"" <<
-		pExp[3] << "\"" <<
+	unsigned char* pExp = (unsigned char*)&Exp;
+	cout << "Exp.a (int:32) = " << std::dec << Exp.a << std::hex << " (0x" << Exp.a << ")" << endl;
+	cout << "Exp.b (int:32) = " << std::dec << Exp.b << std::hex << " (0x" << Exp.b << ")" << endl;
+	cout << "Exp[0..7] = 0x" << std::hex <<
+		(unsigned int)pExp[0] << " " <<
+		(unsigned int)pExp[1] << " " <<
+		(unsigned int)pExp[2] << " " <<
+		(unsigned int)pExp[3] << "-" <<
+		(unsigned int)pExp[4] << " " <<
+		(unsigned int)pExp[5] << " " <<
+		(unsigned int)pExp[6] << " " <<
+		(unsigned int)pExp[7] << "" <<
 		endl;
 	cout << endl;
-	
+
+	cout << std::hex <<
+		(unsigned int)pNormal[0] << " " <<
+		(unsigned int)pNormal[1] << " " <<
+		(unsigned int)pNormal[2] << " " <<
+		(unsigned int)pNormal[3] << "-" <<
+		(unsigned int)pNormal[4] << " " <<
+		(unsigned int)pNormal[5] << " " <<
+		(unsigned int)pNormal[6] << " " <<
+		(unsigned int)pNormal[7] << "" <<
+		endl;
+	cout << std::hex <<
+		(unsigned int)pOverlap[0] << " " <<
+		(unsigned int)pOverlap[1] << " " <<
+		(unsigned int)pOverlap[2] << " " <<
+		(unsigned int)pOverlap[3] << "-" <<
+		(unsigned int)pOverlap[4] << " " <<
+		(unsigned int)pOverlap[5] << " " <<
+		(unsigned int)pOverlap[6] << " " <<
+		(unsigned int)pOverlap[7] << "" <<
+		endl;
+	cout << std::hex <<
+		(unsigned int)pExp[0] << " " <<
+		(unsigned int)pExp[1] << " " <<
+		(unsigned int)pExp[2] << " " <<
+		(unsigned int)pExp[3] << "-" <<
+		(unsigned int)pExp[4] << " " <<
+		(unsigned int)pExp[5] << " " <<
+		(unsigned int)pExp[6] << " " <<
+		(unsigned int)pExp[7] << "" <<
+		endl;
+			
 	return 0;
 }
