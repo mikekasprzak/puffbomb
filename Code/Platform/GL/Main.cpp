@@ -228,7 +228,10 @@ SDL_Surface* SetVideoMode() {
 #ifdef SCREEN_H
 	Platform::ScreenH = SCREEN_H;
 #endif // SCREEN_H //
-
+	
+	cGlobal::ScreenW = Platform::ScreenW;
+	cGlobal::ScreenH = Platform::ScreenH;
+	
 	int ColorDepth = 32;
 	Platform::AspectRatio = Real( Platform::ScreenW ) / Real( Platform::ScreenH );
 	
@@ -349,6 +352,14 @@ int main( int argc, char* argv[] ) {
 		glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 		
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+		// -------------------------Superflow test------------------------- //
+		cSuperFlow SuperFlow;
+		
+		if( cGlobal::Shutdown )
+		{
+			break;	
+		}
+		// -------------------------Superflow test------------------------- //
 		
 		Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
 		Engine2D::cEngine2D Engine;//( /*Platform::ScreenW, Platform::ScreenH*/ );
@@ -403,15 +414,15 @@ int main( int argc, char* argv[] ) {
 					glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
 					// Translate Camera //
-					glLoadIdentity();
-					glTranslatef ( -Engine.Camera.Pos.x, -Engine.Camera.Pos.y, -Engine.Camera.Pos.z );
+					//glLoadIdentity();
+					//glTranslatef ( -Engine.Camera.Pos.x, -Engine.Camera.Pos.y, -Engine.Camera.Pos.z );
 
 					// Temp circle for verification //
-					Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
-
 
 					// Draw Game //
 					Engine.Draw();
+
+					Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
 					
 					// Draw Hud //
 //					glLoadIdentity();
@@ -424,7 +435,7 @@ int main( int argc, char* argv[] ) {
 		}				
 	}
 
-#else // NEWENGINE //
+#else // NEWENGINE // 
 
 	// Master Loop //	
 	while( !cGlobal::Shutdown ) {
@@ -443,13 +454,13 @@ int main( int argc, char* argv[] ) {
 		glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 		
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-		
+
 		Log( LOG_HIGHEST_LEVEL, "Creating Objects..." );
 		
 		Log( LOG_HIGHEST_LEVEL, "Creating Game..." );
 		cGame Game( Platform::ScreenW, Platform::ScreenH );
 //		cGlobal::Zoom = Real( -32.0 );
-		
+
 		#ifdef EDITOR		
 		Log( LOG_HIGHEST_LEVEL, "Creating Editor..." );
 		cEditor Editor( Game );
@@ -471,9 +482,6 @@ int main( int argc, char* argv[] ) {
 		Platform::FPS = 0;
 		int FramesPast = 0;
 		
-		// Superflow test //
-		cSuperFlow SuperFlow;		
-
 		// Standard Rendering Loop //
 		while( !cGlobal::Shutdown ) {
 			// The SDL Message Loop, correctly setting input flags and shutdown stuff //
@@ -908,7 +916,12 @@ int main( int argc, char* argv[] ) {
 				}
 				else
 				{
-					// Draw Game //
+					Gfx::ClearColorDepth();	
+
+					Game.Draw();
+					
+					Game.HudDraw();
+				/*	// Draw Game //
 					Game.Camera->GetPos();
 
 					glLoadIdentity();
@@ -918,7 +931,7 @@ int main( int argc, char* argv[] ) {
 					// Draw Hud //
 					glLoadIdentity();
 					glTranslatef ( -Game.HudCamera->Pos.x, -Game.HudCamera->Pos.y, -Game.HudCamera->Pos.z );
-					Game.HudDraw();
+					Game.HudDraw();*/
 				}
 				
 			    SDL_GL_SwapBuffers();

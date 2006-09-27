@@ -6,11 +6,26 @@
 #include <Global.h>
 #include <Platform/Global.h>
 #include <Graphics/Texture.h>
+#include <Graphics/Camera.h>
 // - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
 cSplashScreen::cSplashScreen()
 {
+	// Create Camera //
+	cCamera Camera(
+		Vector3D( 0.0, 0.0, cGlobal::HudZoom ),			// Pos
+		Vector3D( 0.0, 0.0, 0.0 ),						// View
+		Vector3D( 0.0, 1.0, 0.0 ),						// Up
+		45.0,											// Field of View
+		Platform::AspectRatio,							// Aspect Ratio
+		1.0,											// NearClip
+		100000.0,										// FarClip
+		cGlobal::HudZoom,								// MinZoom
+		cGlobal::HudZoom,								// MaxZoom
+		cGlobal::HudZoom								// HudZoom
+	 );
+
 	int EndTime = GetTime() + ( 3600 );
 	
 	cTexture Tex( "Textures/Menu/Sykhronics.pack.tx" );
@@ -45,11 +60,8 @@ cSplashScreen::cSplashScreen()
 	while( GetTime() < EndTime && !cGlobal::Shutdown )
 	{
 		MessageLoop();
-		
-		Gfx::ClearColorDepth();
-			
-		Gfx::LoadIdentity();
-		Gfx::Translate( 0 , 0, -600 );
+
+		Camera.Update();
 
 		Gfx::DrawQuads(
 			&TexVertex[0],
@@ -60,8 +72,6 @@ cSplashScreen::cSplashScreen()
 			Gfx::RGBA( Color, Color, Color, 255 )
 		); 
 		
-		Gfx::SwapBuffers();
-		
 		if( Color < 255 )
 		{
 			Color += 3;
@@ -70,6 +80,8 @@ cSplashScreen::cSplashScreen()
 		{
 			Color = 255;
 		}
+
+		Gfx::SwapBuffers();
 	}
 
 	Gfx::DisableTex2D();

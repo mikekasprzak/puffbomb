@@ -77,7 +77,7 @@ void cTankController::Step() {
 //				);
 
 			
-			cGame::Current->Camera->RemoveTarget( Shot, 80 );
+//			cGame::Current->Camera->RemoveTarget( Shot, 80 );
 			
 			Shot->Flags.SetInactive();
 		}
@@ -122,7 +122,7 @@ void cTankController::Step() {
 				
 				Shot->CalcBoundingRect();
 				
-				cGame::Current->Camera->NewTarget( Shot );
+//				cGame::Current->Camera->NewTarget( Shot );
 			}
 		}
 

@@ -8,7 +8,7 @@ cFlow::cFlow()
 
 }
 // - ------------------------------------------------------------------------------------------ - //
-Real cFlow::SetHudData()
+void cFlow::SetHudData()
 {
 	// Default is 16:9 Aspect Ratio
 	Real HudZoom = 1302.5;
@@ -73,7 +73,5 @@ Real cFlow::SetHudData()
 	cGlobal::HudW = Real( cGlobal::Right * Real( 2.0 ) );
 	
 	cGlobal::HudZoom = HudZoom;
-
-	return HudZoom;
 }
 // - ------------------------------------------------------------------------------------------ - //

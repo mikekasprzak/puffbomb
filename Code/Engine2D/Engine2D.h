@@ -13,7 +13,8 @@
 
 #include <Physics/Impulse.h>
 
-#include <Engine2D/Graphics/NewCamera.h>
+//#include <Engine2D/Graphics/NewCamera.h>
+#include <Graphics/Camera.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -37,7 +38,8 @@ public:
 
 public:
 	cEngine2D();
-	Engine2D::cCamera Camera;
+	~cEngine2D();
+	cCamera *Camera;
 
 public:
 	// Move and Display Everything //

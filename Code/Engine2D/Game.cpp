@@ -79,7 +79,7 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 	GenerateCollision();
 	Log( LOG_HIGHEST_LEVEL, "****** Finished Generating Collision ******" );
 		 
-	Camera->NewTarget( Focus1 );
+//	Camera->NewTarget( Focus1 );
 
 	// Create a Dialog box and populate it //
 	//Form.Load( "Content/PuffBOMB/2D/Menu/Test.form" );
@@ -125,7 +125,7 @@ void cGame::Input() {
 		cGlobal::ToggleCollisionDisplay();
 	}
 	
-	if( Input::Button[ KEY_T ].Pressed() )
+/*	if( Input::Button[ KEY_T ].Pressed() )
 	{
 		Camera->NewTarget( Focus2 );
 	}
@@ -133,7 +133,7 @@ void cGame::Input() {
 	{
 		Camera->NewTarget( Focus1 );
 	}
-	
+	*/
 /*	if ( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
 		Impulse.push_back( 
 			cImpulse(
@@ -146,6 +146,8 @@ void cGame::Input() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cGame::Step() {
+
+	Camera->UpdateTarget( Focus1->BoundingRect.P1() );
 	// Physics Stage 1 -------------------------------------- //
 	// Step all the physics for all objects //
 	for ( size_t idx = 0; idx < SphereObject.size(); ++idx ) {
@@ -229,7 +231,7 @@ void cGame::Step() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cGame::Draw() {
-
+	Camera->Update();
 
 	// Draw Scenery 3D Model //
 	glEnable(GL_TEXTURE_2D);
@@ -338,6 +340,8 @@ void cGame::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cGame::HudDraw()
 {
+	HudCamera->Update();
+
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 

@@ -1,8 +1,10 @@
 // - ------------------------------------------------------------------------------------------ - //
-#include <gl/gl.h>
-#include <gl/glu.h>
+//#include <gl/gl.h>
+//#include <gl/glu.h>
 
 #include "Camera.h"
+
+#include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
 cCamera::cCamera(
 	const Vector3D _Pos,
@@ -26,19 +28,111 @@ cCamera::cCamera(
 		MinZoom( _MinZoom ),
 		MaxZoom( _MaxZoom ),
 		HudZoom( _HudZoom ),
+		Focus( Vector2D( 0, 0 ) ),
 		Delay( 0 ),
 		Low( Vector2D( 0, 0 ) ),
 		High( Vector2D( 0, 0 ) ),
 		CameraBounds( Vector2D( -1792, -1792 ), Vector2D( 6656, 1280 ) )
 {
-	glViewport( 0, 0, cGlobal::ScreenW, cGlobal::ScreenH );
+/*	glViewport( 0, 0, cGlobal::ScreenW, cGlobal::ScreenH );
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective( FovY, Aspect, NearClip, FarClip ); 
 	glMatrixMode(GL_MODELVIEW);
+	*/
+	Gfx::Viewport( 0, 0, cGlobal::ScreenW, cGlobal::ScreenH );
+	Gfx::ProjMatrixMode();
+	Gfx::LoadIdentity();
+	Gfx::Perspective( FovY, Aspect, NearClip, FarClip );
+	Gfx::ModelMatrixMode();
 
 }
 // - ------------------------------------------------------------------------------------------ - //
+Vector2D cCamera::GetPos()
+{
+	// Gets the position of the tracker //
+	Low = Focus;
+	High = Focus;
+
+	Vector2D TempPos = Vector2D::Zero;
+
+	TempPos = Focus;
+	TempPos -= Tracker;
+	
+	TempPos *= Real( 0.05 );
+	Tracker += TempPos;
+
+	Real TempZoom = ( Low - High ).Manhattan();
+	
+	// Checks against the Zoom Bounds //
+	if( TempZoom < MinZoom )
+	{
+		TempZoom = MinZoom;
+	}
+	if( TempZoom > MaxZoom )
+	{
+		TempZoom = MaxZoom;
+	}
+
+	TempZoom -= Pos.z;
+	
+	TempZoom *= Real( 0.1 );
+	 
+	Pos.z += TempZoom;
+
+	// Bounds the Camera //
+	Real ZoomOffset = Real( Pos.z / HudZoom );
+	
+	Real CheckValue = ( cGlobal::Left * ZoomOffset );
+	
+	Vector2D P2Value = CameraBounds.P2();// - CameraBounds.P1();
+	
+	if( Tracker.x < ( CameraBounds.P1().x - CheckValue ) )
+	{
+		Tracker.x = ( CameraBounds.P1().x - CheckValue );
+	}
+	CheckValue = ( cGlobal::Right * ZoomOffset );
+	if( Tracker.x > ( P2Value.x - CheckValue ) )
+	{
+		Tracker.x = ( P2Value.x - CheckValue );
+	}
+	CheckValue = ( cGlobal::Bottom * ZoomOffset );
+	if( Tracker.y < ( CameraBounds.P1().y - CheckValue ) )
+	{
+		Tracker.y = ( CameraBounds.P1().y - CheckValue );
+	}
+	CheckValue = ( cGlobal::Top * ZoomOffset );
+	if( Tracker.y > ( P2Value.y - CheckValue ) )
+	{
+		Tracker.y = ( P2Value.y - CheckValue );
+	}
+
+	// Sets the position of the camera to the tracker //
+	Pos.x = Tracker.x;
+	Pos.y = Tracker.y;
+	
+	View.x = Tracker.x;
+	View.y = Tracker.y;
+
+	return Tracker;
+
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCamera::UpdateTarget( const Vector2D& _Focus )
+{
+	Focus = _Focus;
+
+	GetPos();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCamera::Update()
+{
+
+	Gfx::LoadIdentity();
+	Gfx::Translate( -Pos.x, -Pos.y, -Pos.z );
+		
+}
+/*
 Vector2D cCamera::GetPos()
 {
 	if( Delay > 0 )
@@ -101,14 +195,14 @@ Vector2D cCamera::GetPos()
 	}
 	
 	// Bad Attempt to zoom the camera while moving fast
-/*	Real TestValue = 5;
-	
-	if( TempPos.x > TestValue || TempPos.x < -TestValue
-	||  TempPos.y > TestValue || TempPos.y < -TestValue )
-	{
-		TempZoom *= Real( 2.0 );
-	}
-*/
+//	Real TestValue = 5;
+//	
+//	if( TempPos.x > TestValue || TempPos.x < -TestValue
+//	||  TempPos.y > TestValue || TempPos.y < -TestValue )
+//	{
+//		TempZoom *= Real( 2.0 );
+//	}
+
 	TempZoom -= Pos.z;
 	
 	TempZoom *= Real( 0.1 );
@@ -211,3 +305,4 @@ void cCamera::RemoveTarget( cSphereObject* _Focus, const int _Delay )
 	Delay = _Delay;
 }
 // - ------------------------------------------------------------------------------------------ - //
+*/

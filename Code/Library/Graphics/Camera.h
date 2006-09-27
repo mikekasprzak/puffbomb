@@ -29,9 +29,10 @@ public:
 	// A pixel perfect zoom for the highest resolution of each aspect ratio
 	Real HudZoom;
 public:
-	std::list< cSphereObject* > Focus;
+//	std::list< cSphereObject* > Focus;
+	Vector2D Focus;
 		
-	cSphereObject* RemoveFocus;
+//	cSphereObject* RemoveFocus;
 	int Delay;
 	Vector2D Tracker;
 
@@ -55,10 +56,18 @@ public:
 	 );
 	 
 	Vector2D GetPos();
+	void UpdateTarget( const Vector2D& _Focus );
+	void Update();
+//	void RemoveTarget( cSphereObject* _NewFocus );
+//	void RemoveTarget( cSphereObject* _NewFocus, const int _Delay );
+
+/*
+
+	Vector2D GetPos();
 	void NewTarget( cSphereObject* _NewFocus );
 	void RemoveTarget( cSphereObject* _NewFocus );
 	void RemoveTarget( cSphereObject* _NewFocus, const int _Delay );
-		 
+*/		 
 };
 
 // - ------------------------------------------------------------------------------------------ - //
