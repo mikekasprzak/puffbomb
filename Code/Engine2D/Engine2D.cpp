@@ -25,17 +25,33 @@ cEngine2D::cEngine2D() {
 		cGlobal::HudZoom								// HudZoom
 	 );
 
+	// Create Camera //
+	HudCamera = new cCamera(
+		Vector3D( 0.0, 0.0, cGlobal::HudZoom ),			// Pos
+		Vector3D( 0.0, 0.0, 0.0 ),						// View
+		Vector3D( 0.0, 1.0, 0.0 ),						// Up
+		45.0,											// Field of View
+		Platform::AspectRatio,							// Aspect Ratio
+		1.0,											// NearClip
+		100000.0,										// FarClip
+		cGlobal::HudZoom,								// MinZoom
+		cGlobal::HudZoom,								// MaxZoom
+		cGlobal::HudZoom								// HudZoom
+	 );
+	 
+	 
+	 Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::~cEngine2D() {
 	delete Camera;
+	delete HudCamera;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Step() {
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
 	Physics.SetActive();
-//	Camera->UpdateTarget(  );
 
 /*
 	// Physics Stage 1 -------------------------------------- //
@@ -129,6 +145,17 @@ void cEngine2D::Draw() {
 		DynamicComponent[ idx ].Draw();
 	}
 */
+	
+	Gfx::ClearColorDepth();
+
+	Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
+	
+	HudDraw();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::HudDraw() {
+	HudCamera->Update();
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

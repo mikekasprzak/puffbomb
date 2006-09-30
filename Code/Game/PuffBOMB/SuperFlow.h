@@ -9,7 +9,8 @@
 class cSuperFlow : public cFlow { 
 public:
 	cSuperFlow();
-		
+	void EngineFlow();
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __SuperFlow_H__ // 

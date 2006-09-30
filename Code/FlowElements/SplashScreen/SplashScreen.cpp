@@ -5,15 +5,16 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
 #include <Platform/Global.h>
-#include <Graphics/Texture.h>
-#include <Graphics/Camera.h>
+#include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-extern int GetTime();
+//extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
-cSplashScreen::cSplashScreen()
+cSplashScreen::cSplashScreen() :
+	Color( 0 ),
+	Tex( "Textures/Menu/Sykhronics.pack.tx" )
 {
 	// Create Camera //
-	cCamera Camera(
+	Camera = new cCamera(
 		Vector3D( 0.0, 0.0, cGlobal::HudZoom ),			// Pos
 		Vector3D( 0.0, 0.0, 0.0 ),						// View
 		Vector3D( 0.0, 1.0, 0.0 ),						// Up
@@ -26,14 +27,8 @@ cSplashScreen::cSplashScreen()
 		cGlobal::HudZoom								// HudZoom
 	 );
 
-	int EndTime = GetTime() + ( 3600 );
+	int EndTime = 3600;
 	
-	cTexture Tex( "Textures/Menu/Sykhronics.pack.tx" );
-
-	Vector3D TexVertex[ 4 ];
-	Vector2D TexUV[ 4 ];
-	unsigned int TexIndices[ 4 ];
-
 	Real HalfWidth = Tex.Width / 2;
 	Real HalfHeight = Tex.Height / 2;
 
@@ -55,39 +50,44 @@ cSplashScreen::cSplashScreen()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-	int Color = 0;
-
-	while( GetTime() < EndTime && !cGlobal::Shutdown )
-	{
-		MessageLoop();
-
-		Camera.Update();
-
-		Gfx::DrawQuads(
-			&TexVertex[0],
-			&TexUV[0],
-			TexIndices,
-			4,
-			Tex.Id,
-			Gfx::RGBA( Color, Color, Color, 255 )
-		); 
-		
-		if( Color < 255 )
-		{
-			Color += 3;
-		}
-		if( Color > 255 )
-		{
-			Color = 255;
-		}
-
-		Gfx::SwapBuffers();
-	}
-
+	Work( EndTime );
+	
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();
 	
 	Gfx::DeleteTexture( Tex.Id );
 	
+}
+cSplashScreen::~cSplashScreen()
+{
+	delete Camera;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cSplashScreen::Draw()
+{
+	Gfx::ClearColorDepth();
+
+	Camera->Update();
+
+	Gfx::DrawQuads(
+		&TexVertex[0],
+		&TexUV[0],
+		TexIndices,
+		4,
+		Tex.Id,
+		Gfx::RGBA( Color, Color, Color, 255 )
+	); 
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cSplashScreen::Step()
+{
+	if( Color < 255 )
+	{
+		Color += 3;
+	}
+	if( Color > 255 )
+	{
+		Color = 255;
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //

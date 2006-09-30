@@ -336,7 +336,8 @@ int main( int argc, char* argv[] ) {
 
 #ifdef NEWENGINE
 	// New Loop //
-	while( !Input::Button[ KEY_ESC ].Pressed() /*!cGlobal::Shutdown*/ ) {
+//	while( !Input::Button[ KEY_ESC ].Pressed() /*!cGlobal::Shutdown*/ ) {
+	{
 		glCullFace( GL_BACK );
 		glFrontFace( GL_CCW );
 		// This enables backface culling //
@@ -344,7 +345,7 @@ int main( int argc, char* argv[] ) {
 	
 		glEnable( GL_LINE_SMOOTH );
 		glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
-		glLineWidth( 1.5 );
+		glLineWidth( 1.0 );
 		
 		glShadeModel( GL_SMOOTH );
 		glEnable( GL_DEPTH_TEST );
@@ -355,14 +356,14 @@ int main( int argc, char* argv[] ) {
 		// -------------------------Superflow test------------------------- //
 		cSuperFlow SuperFlow;
 		
-		if( cGlobal::Shutdown )
-		{
-			break;	
-		}
+//		if( cGlobal::Shutdown )
+//		{
+//			break;	
+//		}
 		// -------------------------Superflow test------------------------- //
-		
+/*		
 		Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-		Engine2D::cEngine2D Engine;//( /*Platform::ScreenW, Platform::ScreenH*/ );
+		Engine2D::cEngine2D Engine;//( Platform::ScreenW, Platform::ScreenH);
 
 		int LastTime = SDL_GetTicks();
 		
@@ -371,7 +372,7 @@ int main( int argc, char* argv[] ) {
 		int FramesPast = 0;
 
 		// Standard Rendering Loop //
-		while( !Input::Button[ KEY_ESC ].Pressed()  /*!cGlobal::Shutdown*/ ) {
+		while( !Input::Button[ KEY_ESC ].Pressed() ) {
 			// The SDL Message Loop, correctly setting input flags and shutdown stuff //
 			MessageLoop();
 	
@@ -432,7 +433,8 @@ int main( int argc, char* argv[] ) {
 				
 			    SDL_GL_SwapBuffers();
 			}
-		}				
+		}	*/
+//	}
 	}
 
 #else // NEWENGINE // 
@@ -921,7 +923,7 @@ int main( int argc, char* argv[] ) {
 					Game.Draw();
 					
 					Game.HudDraw();
-				/*	// Draw Game //
+				/*	// Draw Game // 
 					Game.Camera->GetPos();
 
 					glLoadIdentity();

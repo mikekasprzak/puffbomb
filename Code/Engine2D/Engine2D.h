@@ -13,12 +13,13 @@
 
 #include <Physics/Impulse.h>
 
+#include <MessageEntity.h>
 //#include <Engine2D/Graphics/NewCamera.h>
 #include <Graphics/Camera.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cEngine2D { 
+class cEngine2D : public cMessageEntity { 
 public:
 	// Current instance of the Engine. Step and Draw update this, so to support multiple engines. //
 	static cEngine2D* Current;
@@ -40,11 +41,13 @@ public:
 	cEngine2D();
 	~cEngine2D();
 	cCamera *Camera;
+	cCamera *HudCamera;
 
 public:
 	// Move and Display Everything //
 	void Step();
 	void Draw();
+	void HudDraw();
 
 	// Reset game back to a neutral state //
 	void Reset();
