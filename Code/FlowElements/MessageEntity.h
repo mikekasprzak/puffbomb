@@ -12,6 +12,7 @@ public:
 public:
 	cMessageEntity();
 	void MessageLoop();
+	void GlobalInput();
 	
 public:
 	void Work();

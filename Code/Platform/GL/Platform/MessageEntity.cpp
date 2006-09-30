@@ -52,9 +52,28 @@ void cMessageEntity::MessageLoop() {
 		}
 	}
 	
+	GlobalInput();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMessageEntity::GlobalInput()
+{
 	if( Input::Button[ KEY_F10 ].Pressed() ) {
 	    cGlobal::Shutdown = true;
 	}
+	
+	#ifdef EDITOR
+
+	if ( Input::Button[ KEY_ESC ].Pressed()  )
+	{
+		cGlobal::IsEditMode = false;
+	}
+	if( Input::Button[ KEY_F4 ] || Input::Button[ KEY_F5 ] || Input::Button[ KEY_F6 ]
+	 || Input::Button[ KEY_F7 ] || Input::Button[ KEY_F8 ] )
+	{
+		cGlobal::IsEditMode = true;
+	}
+
+	#endif // EDITOR //
 }
 // ---------------------------------------------------------------------------------------------- //
 void cMessageEntity::Work()
