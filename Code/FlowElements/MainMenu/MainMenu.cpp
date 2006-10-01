@@ -60,7 +60,7 @@ void cMainMenu::Step()
 {
 	Form.Step();
 	
-	if( Form.DialogBox[ 0 ].SuperFlowState > 1 )
+	if( Form.DialogBox[ 0 ].SuperFlowState != 1 )
 	{
 		BreakLoop = true;	
 	}

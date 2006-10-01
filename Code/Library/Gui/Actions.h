@@ -17,6 +17,7 @@ public:
 #ifdef EDITOR
 	static int StartEditor();
 #endif // EDITOR //
+	static int SplashScreen();
 	static int ExecuteAction( int _ActionID );
 	
 };

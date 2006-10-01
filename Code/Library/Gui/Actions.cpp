@@ -22,6 +22,11 @@ int cActions::StartEditor()
 }
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
+int cActions::SplashScreen()
+{
+	return 0;
+}
+// - ------------------------------------------------------------------------------------------ - //
 int cActions::ExecuteAction( int _ActionID )
 {
 	int SuperFlowState = 0;
@@ -49,7 +54,11 @@ int cActions::ExecuteAction( int _ActionID )
 		break;
 		}
 #endif // EDITOR //
-
+		case 4:
+		{
+			SuperFlowState = SplashScreen();
+		break;
+		}
 	}
 	
 	return SuperFlowState;
