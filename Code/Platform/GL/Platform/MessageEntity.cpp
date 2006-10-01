@@ -63,7 +63,7 @@ void cMessageEntity::GlobalInput()
 	
 	#ifdef EDITOR
 
-	if ( Input::Button[ KEY_ESC ].Pressed()  )
+/*	if ( Input::Button[ KEY_ESC ].Pressed()  )
 	{
 		cGlobal::IsEditMode = false;
 	}
@@ -72,7 +72,7 @@ void cMessageEntity::GlobalInput()
 	{
 		cGlobal::IsEditMode = true;
 	}
-
+*/
 	#endif // EDITOR //
 }
 // ---------------------------------------------------------------------------------------------- //
@@ -87,8 +87,6 @@ void cMessageEntity::Work()
 
 	// Standard Rendering Loop //
 	while( !cGlobal::Shutdown && !BreakLoop ) {
-
-		Gfx::ClearColorDepth();
 
 		MessageLoop();
 
@@ -122,6 +120,8 @@ void cMessageEntity::Work()
 				
 				Step();
 			}
+			
+			Gfx::ClearColorDepth();
 
 			Draw();
 
