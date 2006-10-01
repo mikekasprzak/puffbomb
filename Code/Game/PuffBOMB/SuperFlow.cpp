@@ -27,6 +27,9 @@ cSuperFlow::cSuperFlow()
 
 	NewParticle.Populate( 40000 );
 
+	Log( LOG_HIGHEST_LEVEL, "****** Loading Fonts ******" );
+	cFonts::LoadFonts();
+
 	// Display the Sykhronics spash screen //
 	{
 		cSplashScreen SplashScreen;

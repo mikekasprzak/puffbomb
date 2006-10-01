@@ -12,8 +12,6 @@
 void cCollectionEdit::DisplayText()
 {
 	
-	
-	
 	DisplayMode();
 	
 	DisplayComponentInfo();

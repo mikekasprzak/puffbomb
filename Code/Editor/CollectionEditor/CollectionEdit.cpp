@@ -22,6 +22,8 @@ cCollectionEdit::~cCollectionEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Draw()
 {
+	Camera->Update();
+	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 		
@@ -33,10 +35,14 @@ void cCollectionEdit::Draw()
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 		
 	Gfx::DisableBlend();
+		
+	HudDraw();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::HudDraw()
 {
+	HudCamera->Update();
+	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	
