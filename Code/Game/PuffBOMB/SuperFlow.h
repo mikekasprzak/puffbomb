@@ -8,8 +8,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cSuperFlow { 
 public:
-	cMainMenu MainMenu;
-	
 	int State;
 	
 public:

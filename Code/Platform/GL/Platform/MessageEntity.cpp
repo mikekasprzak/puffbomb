@@ -89,11 +89,16 @@ void cMessageEntity::Work()
 	Platform::FrameClock = LastTime;
 	Platform::FPS = 0;
 	int FramesPast = 0;
+	
+//	MessageLoop();
+//	Input::Update();
+
+	Log( LOG_HIGHEST_LEVEL, "Work Loop " );
 
 	// Standard Rendering Loop //
 	while( !cGlobal::Shutdown && !BreakLoop ) {
-
 		MessageLoop();
+	Log( LOG_HIGHEST_LEVEL, "BreakLoop " << BreakLoop );
 
 		// A whole bunch of complicated crap to give us a flexible framerate //			
 		int FPS = 60;
@@ -133,7 +138,6 @@ void cMessageEntity::Work()
 		    Gfx::SwapBuffers();
 		}
 	}
-	BreakLoop = false;
 }
 // ---------------------------------------------------------------------------------------------- //
 void cMessageEntity::Work( const int _EndTime )

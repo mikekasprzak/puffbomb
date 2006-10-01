@@ -60,7 +60,9 @@ void cSuperFlow::StateFlow()
 {
 	while( !cGlobal::Shutdown )
 	{
-	//	Log( LOG_HIGHEST_LEVEL, "State " << State );
+		Input::Update();
+
+		Log( LOG_HIGHEST_LEVEL, "State " << State );
 		switch( State )
 		{
 			case 0:
@@ -76,7 +78,7 @@ void cSuperFlow::StateFlow()
 			{
 				// Display the MainMenu screen //
 				{
-					MainMenu.ResetMenu();
+					cMainMenu MainMenu;
 					State = MainMenu.Form.DialogBox[ 0 ].SuperFlowState;
 				}
 				break;

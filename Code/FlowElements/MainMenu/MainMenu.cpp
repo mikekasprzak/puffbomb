@@ -29,7 +29,7 @@ cMainMenu::cMainMenu()
 	
 	Form.Load( "2D/Menu/MainMenu.form" );
 
-//	Work();
+	Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMainMenu::~cMainMenu()
@@ -39,19 +39,21 @@ cMainMenu::~cMainMenu()
 // - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::ResetMenu()
 {
-	Form.DialogBox[ 0 ].SuperFlowState = 1;
-	Work();
+	//Form.DialogBox[ 0 ].SuperFlowState = 1;
+	//Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::Draw()
 {
 	Camera->Update();
 
+	Gfx::DisableDepth();
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
 	Form.Draw();	
 	
+	Gfx::EnableDepth();
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();	
 }
