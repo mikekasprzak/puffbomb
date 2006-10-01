@@ -44,6 +44,8 @@ public:
 	
 	int Focus;
 	
+	int SuperFlowState;
+	
 	// A variable to determine if the Dialog Box its self can be seen //
 	bool IsVisable;
 	

@@ -10,6 +10,7 @@ cDialogBox::cDialogBox() :
 	Pos( Vector2D( 0, 0 ) ),
 	Size( Vector2D( 0, 0 ) ),
 	Focus( 0 ),
+	SuperFlowState( 1 ),
 	IsVisable( true ),
 	IsLabelsVisable( true )
 {
@@ -26,6 +27,7 @@ cDialogBox::cDialogBox(
 		Size( _Size ),
 		TextureID( TexturePool.Load( TextureLoc ) ),
 		Focus( _Focus ),
+		SuperFlowState( 1 ),
 		IsVisable( true ),
 		IsLabelsVisable( true )
 {
@@ -263,12 +265,11 @@ void cDialogBox::Execute()
 	{
 		if( ActiveLabels[ Focus ] < 10000 )
 		{
-			cActions::ExecuteAction( TextLabel[ ActiveLabels[ Focus ] ].ActionID );
+			SuperFlowState = cActions::ExecuteAction( TextLabel[ ActiveLabels[ Focus ] ].ActionID );
 		}
 		else if( ActiveLabels[ Focus ] < 20000 )
 		{
-			cActions::ExecuteAction( AniLabel[ ActiveLabels[ Focus ] - 10000 ].ActionID );
-			
+			SuperFlowState = cActions::ExecuteAction( AniLabel[ ActiveLabels[ Focus ] - 10000 ].ActionID );
 		}
 	}
 }

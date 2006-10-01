@@ -16,9 +16,9 @@
 #include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SplashScreen/SplashScreen.h>
-#include <MainMenu/MainMenu.h>
 // - ------------------------------------------------------------------------------------------ - //
-cSuperFlow::cSuperFlow()
+cSuperFlow::cSuperFlow() :
+	State( 0 )
 {
 	SetHudData();
 	
@@ -30,8 +30,10 @@ cSuperFlow::cSuperFlow()
 
 	Log( LOG_HIGHEST_LEVEL, "****** Loading Fonts ******" );
 	cFonts::LoadFonts();
-
-	// Display the Sykhronics spash screen //
+	
+	StateFlow();
+	
+/*	// Display the Sykhronics spash screen //
 	{
 		cSplashScreen SplashScreen;
 	}
@@ -51,75 +53,127 @@ cSuperFlow::cSuperFlow()
 	{
 		Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
 		Engine2D::cEngine2D Engine;
+	}*/
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cSuperFlow::StateFlow()
+{
+	while( !cGlobal::Shutdown )
+	{
+	//	Log( LOG_HIGHEST_LEVEL, "State " << State );
+		switch( State )
+		{
+			case 0:
+			{
+				// Display the Sykhronics spash screen //
+				{
+					cSplashScreen SplashScreen;
+				}
+				State = 1;
+				break;
+			}
+			case 1:
+			{
+				// Display the MainMenu screen //
+				{
+					MainMenu.ResetMenu();
+					State = MainMenu.Form.DialogBox[ 0 ].SuperFlowState;
+				}
+				break;
+			}
+			case 2:
+			{
+				// Creating Engine //
+				{
+					Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
+					Engine2D::cEngine2D Engine;
+				}
+				State = 1;
+				break;
+			}
+			case 3:
+			{
+				// Creating Editor //
+				{
+					Log( LOG_HIGHEST_LEVEL, "Creating Editor..." );
+					cEditor Editor;
+				}
+				State = 1;
+				break;
+			}
+			default:
+			{
+				cGlobal::Shutdown = true;
+				break;
+			}
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-//void cSuperFlow::EngineFlow()
-//{
-/*	// Engine //
-	Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-	Engine2D::cEngine2D Engine;
-
-	int LastTime = GetTime();
+void cSuperFlow::SetHudData()
+{
+	// Default is 16:9 Aspect Ratio
+	Real HudZoom = 1302.5;
 	
-	Platform::FrameClock = LastTime;
-	Platform::FPS = 0;
-	int FramesPast = 0;
+	// 16:9
+	if( Platform::AspectRatio > Real( 1.75 ) && Platform::AspectRatio < Real( 1.81 ) )
+	{
+		HudZoom = 1302.5;
 
-	// Standard Rendering Loop //
-	while( !cGlobal::Shutdown ) {
-
-		MessageLoop();
-
-		// A whole bunch of complicated crap to give us a flexible framerate //			
-		int FPS = 60;
-		int MS = 1000 / FPS;
+		cGlobal::Top = Real( 540.0 );
+		cGlobal::Bottom = Real( -540.0 );
+		cGlobal::Left = Real( -960.0 );
+		cGlobal::Right = Real( 960.0 );
+	}
+	// 16:10
+	else if( Platform::AspectRatio > Real( 1.57 ) && Platform::AspectRatio < Real( 1.63 ) )
+	{
+		HudZoom = 1447.0;
 		
-		int ThisTime = GetTime();
+		cGlobal::Top = Real( 600.0 );
+		cGlobal::Bottom = Real( -600.0 );
+		cGlobal::Left = Real( -960.0 );
+		cGlobal::Right = Real( 960.0 );
+
+	}
+	// 4:3
+	else if( Platform::AspectRatio > Real( 1.30 ) && Platform::AspectRatio < Real( 1.36 ) )
+	{
+		HudZoom = 1266.0;
 		
-		if ( Platform::FrameClock + 1000 < ThisTime ) {
-			Platform::FrameClock = ThisTime;
-			Platform::FPS = FramesPast;
-			FramesPast = 0;
-		}
+		cGlobal::Top = Real( 525.0 );
+		cGlobal::Bottom = Real( -525.0 );
+		cGlobal::Left = Real( -700.0 );
+		cGlobal::Right = Real( 700.0 );
+
+	}
+	
+	// 5:4
+	else if( Platform::AspectRatio > Real( 1.22 ) && Platform::AspectRatio < Real( 1.28 ) )
+	{
+		HudZoom = 1234.0;
 		
-		if ( ThisTime - LastTime >= MS ) {
-			int Loops = (ThisTime - LastTime) / MS;
-			LastTime += Loops * MS;
-			FramesPast++;
-			// Step the engine //
-			for ( int idx = 0; idx < Loops; idx ++ ) {
-				// Update controls //
-				Input::Update();
-				
-				// Reset Hack //					
-				if ( Input::Button[ KEY_TAB ] ) {
-					if ( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
-						break;
-					}
-				}
-				
-				if ( !Input::Button[ KEY_SPACE ] ) {
-					// Normal Game Loopage //
-					Engine.Step();
-				}
-			}
+		cGlobal::Top = Real( 512.0 );
+		cGlobal::Bottom = Real( -512.0 );
+		cGlobal::Left = Real( -640.0 );
+		cGlobal::Right = Real( 640.0 );
 
-			// Draw the Game //
-			{
-				Gfx::ClearColorDepth();
-
-				// Draw Game //
-				Engine.Draw();
-
-				Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
-				
-				// Draw Hud //
-				Engine.HudDraw();
-			}
-			
-		    Gfx::SwapBuffers();
-		}
-	}*/
-//}
+	}
+	// 3:4 // Tablet pc res //
+	else if( Platform::AspectRatio > Real( 0.70 ) && Platform::AspectRatio < Real( 0.79 ) )
+	{
+		HudZoom = 1690.5;
+		
+		cGlobal::Top = Real( 700.0 );
+		cGlobal::Bottom = Real( -700.0 );
+		cGlobal::Left = Real( -525.0 );
+		cGlobal::Right = Real( 525.0 );
+	}
+	
+	
+	cGlobal::HudH = Real( cGlobal::Top * Real( 2.0 ) );
+	cGlobal::HudW = Real( cGlobal::Right * Real( 2.0 ) );
+	
+	cGlobal::HudZoom = HudZoom;
+}
 // - ------------------------------------------------------------------------------------------ - //

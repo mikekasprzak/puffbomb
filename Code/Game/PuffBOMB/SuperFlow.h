@@ -4,12 +4,18 @@
 #ifndef __SuperFlow_H__
 #define __SuperFlow_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Flow.h>
+#include <MainMenu/MainMenu.h>
 // - ------------------------------------------------------------------------------------------ - //
-class cSuperFlow : public cFlow { 
+class cSuperFlow { 
+public:
+	cMainMenu MainMenu;
+	
+	int State;
+	
 public:
 	cSuperFlow();
-	void EngineFlow();
+	void StateFlow();
+	void SetHudData();
 	
 };
 // - ------------------------------------------------------------------------------------------ - //

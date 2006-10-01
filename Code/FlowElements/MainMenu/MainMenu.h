@@ -12,12 +12,13 @@
 class cMainMenu : public cMessageEntity { 
 private:
 	cCamera* Camera;
-	cForm Form;
-	
 public:
+	cForm Form;
+
 	cMainMenu();
 	~cMainMenu();
 	
+	void ResetMenu();
 	void Draw();
 	void Step();
 };

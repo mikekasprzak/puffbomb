@@ -10,8 +10,21 @@ void cActions::Quit()
 	cGlobal::Shutdown = true;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cActions::ExecuteAction( int _ActionID )
+int cActions::NewGame()
 {
+	return 2;
+}
+// - ------------------------------------------------------------------------------------------ - //
+#ifdef EDITOR
+int cActions::StartEditor()
+{
+	return 3;
+}
+#endif // EDITOR //
+// - ------------------------------------------------------------------------------------------ - //
+int cActions::ExecuteAction( int _ActionID )
+{
+	int SuperFlowState = 0;
 	switch( _ActionID )
 	{
 		case 0:
@@ -24,6 +37,21 @@ void cActions::ExecuteAction( int _ActionID )
 			Quit();
 		break;
 		}
+		case 2:
+		{
+			SuperFlowState = NewGame();
+		break;
+		}
+#ifdef EDITOR
+		case 3:
+		{
+			SuperFlowState = StartEditor();
+		break;
+		}
+#endif // EDITOR //
+
 	}
+	
+	return SuperFlowState;
 }
 // - ------------------------------------------------------------------------------------------ - //

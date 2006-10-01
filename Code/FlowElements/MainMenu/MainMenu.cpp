@@ -28,14 +28,8 @@ cMainMenu::cMainMenu()
 	 );
 	
 	Form.Load( "2D/Menu/MainMenu.form" );
-	
-	Gfx::EnableTex2D();
-	Gfx::EnableBlend();
 
-	Work();
-	
-	Gfx::DisableTex2D();
-	Gfx::DisableBlend();
+//	Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMainMenu::~cMainMenu()
@@ -43,15 +37,32 @@ cMainMenu::~cMainMenu()
 	delete Camera;
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cMainMenu::ResetMenu()
+{
+	Form.DialogBox[ 0 ].SuperFlowState = 1;
+	Work();
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::Draw()
 {
 	Camera->Update();
 
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
+
 	Form.Draw();	
+	
+	Gfx::DisableTex2D();
+	Gfx::DisableBlend();	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::Step()
 {
 	Form.Step();
+	
+	if( Form.DialogBox[ 0 ].SuperFlowState > 1 )
+	{
+		BreakLoop = true;	
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //

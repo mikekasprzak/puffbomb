@@ -13,7 +13,11 @@ public:
 
 public:
 	static void Quit();
-	static void ExecuteAction( int ActionID );
+	static int NewGame();
+#ifdef EDITOR
+	static int StartEditor();
+#endif // EDITOR //
+	static int ExecuteAction( int _ActionID );
 	
 };
 // - ------------------------------------------------------------------------------------------ - //

@@ -10,7 +10,7 @@ CreateDialog
 
 TextLabel		0	-25
 IsPassive		0
-ActionID		0
+ActionID		2
 Text			New Game
 Scale			0.5
 Color			255	255	255
@@ -19,7 +19,7 @@ EndText
 
 TextLabel		0	-65
 IsPassive		0
-ActionID		0
+ActionID		3
 Text			Editor
 Scale			0.5
 Color			255	255	255

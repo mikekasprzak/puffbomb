@@ -60,6 +60,9 @@ void cMessageEntity::GlobalInput()
 	if( Input::Button[ KEY_F10 ].Pressed() ) {
 	    cGlobal::Shutdown = true;
 	}
+	if ( Input::Button[ KEY_ESC ].Pressed()  ) {
+	    BreakLoop = true;
+	}
 	
 	#ifdef EDITOR
 
@@ -130,6 +133,7 @@ void cMessageEntity::Work()
 		    Gfx::SwapBuffers();
 		}
 	}
+	BreakLoop = false;
 }
 // ---------------------------------------------------------------------------------------------- //
 void cMessageEntity::Work( const int _EndTime )
