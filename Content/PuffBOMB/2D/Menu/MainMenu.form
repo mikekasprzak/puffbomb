@@ -1,8 +1,8 @@
-DialogPos		0	-	120
-DialogPos		0	+	75
+DialogPos		0	-	122
+DialogPos		0	+	70
 
-DialogPos		0	+	120
-DialogPos		0	-	75
+DialogPos		0	+	122
+DialogPos		0	-	70
 
 Focus			0
 Texture			DialogBox.tx
