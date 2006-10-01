@@ -8,6 +8,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
+#ifdef EDITOR
+#include <Editor/Editor.h>
+#endif // EDITOR //
+// - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/ParticleFactory.h>
 #include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -27,9 +31,18 @@ cSuperFlow::cSuperFlow()
 	{
 		cSplashScreen SplashScreen;
 	}
-	
-	Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-	Engine2D::cEngine2D Engine;
+
+#ifdef EDITOR
+	{
+		Log( LOG_HIGHEST_LEVEL, "Creating Editor..." );
+		cEditor Editor;
+	}
+#endif // EDITOR //
+
+	{
+		Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
+		Engine2D::cEngine2D Engine;
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 //void cSuperFlow::EngineFlow()

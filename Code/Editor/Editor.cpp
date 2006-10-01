@@ -8,6 +8,26 @@
 
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
+cEditor::cEditor()
+{
+	CollectionEdit = new cCollectionEdit();
+	ComponentEdit = new cComponentEdit();
+//	AnimationEdit = new cAnimationEdit();
+
+	cGlobal::CurEditor = COMPONENT_EDITOR;
+	
+	Work();
+}
+// - ------------------------------------------------------------------------------------------ - //	
+cEditor::~cEditor()
+{
+	Log( LOG_HIGHEST_LEVEL, "~cEditor() Delete Map and Mesh Editor" );
+	delete CollectionEdit;
+	delete ComponentEdit;
+//	delete AnimationEdit;
+}
+// - ------------------------------------------------------------------------------------------ - //	
+/*
 cEditor::cEditor( cGame& _Game ) :
 	Game( &_Game )
 {
@@ -29,10 +49,11 @@ cEditor::~cEditor()
 	delete AnimationEdit;
 //	delete Mesh2DEdit;
 }
+*/
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Step()
 {
-	if( cGlobal::CurEditor == MAP_EDITOR )
+/*	if( cGlobal::CurEditor == MAP_EDITOR )
 	{
 		if( MapEdit->IsHelp )
 		{
@@ -48,7 +69,8 @@ void cEditor::Step()
 			MapEdit->Step();
 		}
 	}
-	else if( cGlobal::CurEditor == COLLECTION_EDITOR )
+	else */
+	if( cGlobal::CurEditor == COLLECTION_EDITOR )
 	{
 		CollectionEdit->Step();
 	}
@@ -58,7 +80,7 @@ void cEditor::Step()
 	}
 	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 	{
-		AnimationEdit->Step();
+//		AnimationEdit->Step();
 	}
 /*	else if( cGlobal::CurEditor == MESH2D_EDITOR )
 	{
@@ -80,7 +102,7 @@ void cEditor::Step()
 	if( Button[ KEY_F1 ].Pressed() )
 	{
 
-		if( cGlobal::CurEditor == MAP_EDITOR )
+/*		if( cGlobal::CurEditor == MAP_EDITOR )
 		{
 			MapEdit->IsHelp = !MapEdit->IsHelp;
 			// Resets the zoom
@@ -94,7 +116,8 @@ void cEditor::Step()
 			MapEdit->Camera->View.y = MapEdit->Camera->Pos.y;
 			MapEdit->Camera->View.z = 0.0;
 		}
-		else if( cGlobal::CurEditor == COLLECTION_EDITOR )
+		else*/
+		if( cGlobal::CurEditor == COLLECTION_EDITOR )
 		{
 	
 		}
@@ -164,7 +187,7 @@ void cEditor::Draw()
 {
 	if( cGlobal::CurEditor == MAP_EDITOR )
 	{
-		if( MapEdit->IsHelp )
+/*		if( MapEdit->IsHelp )
 		{
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_BLEND);
@@ -178,7 +201,7 @@ void cEditor::Draw()
 		else
 		{
 			MapEdit->Draw();
-		}
+		}*/
 	}
 	else if( cGlobal::CurEditor == COLLECTION_EDITOR )
 	{
@@ -190,7 +213,7 @@ void cEditor::Draw()
 	}
 	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
 	{
-		AnimationEdit->Draw();
+//		AnimationEdit->Draw();
 	}
 /*	else if( cGlobal::CurEditor == MESH2D_EDITOR )
 	{

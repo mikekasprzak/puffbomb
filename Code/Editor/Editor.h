@@ -7,7 +7,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-#include "Game.h"
+//#include "Game.h"
 #include <Geometry/Vector.h>
 
 #include "MapEditor/MapEdit.h"
@@ -16,22 +16,22 @@
 #include "AnimationEditor/AnimationEdit.h"
 //#include "Mesh2DEditor/Mesh2DEdit.h"
 // - ------------------------------------------------------------------------------------------ - //
-
+#include <MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
-class cEditor {
+class cEditor : public cMessageEntity {
 public:
 	// Construct, and require an associated object //
-	cEditor( cGame& _Game );
+	cEditor();
+//	cEditor( cGame& _Game );
 	~cEditor();
 
 public:
-	cGame* Game;
+//	cGame* Game;
 
-	cMapEdit* MapEdit;
+//	cMapEdit* MapEdit;
 	cCollectionEdit* CollectionEdit;
 	cComponentEdit* ComponentEdit;
-	cAnimationEdit* AnimationEdit;
-//	cMesh2DEdit* Mesh2DEdit;
+//	cAnimationEdit* AnimationEdit;
 
 public:	
 	void Step();

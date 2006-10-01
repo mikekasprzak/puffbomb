@@ -19,9 +19,7 @@ using namespace std;
 #include <Util/Debug.h>
 
 #include <Global.h>
-#include <Game.h>
 #include <Engine2D.h>
-#include <Editor/Editor.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SuperFlow.h>
 // - ------------------------------------------------------------------------------------------ - //

@@ -34,12 +34,7 @@ cCamera::cCamera(
 		High( Vector2D( 0, 0 ) ),
 		CameraBounds( Vector2D( -1792, -1792 ), Vector2D( 6656, 1280 ) )
 {
-/*	glViewport( 0, 0, cGlobal::ScreenW, cGlobal::ScreenH );
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective( FovY, Aspect, NearClip, FarClip ); 
-	glMatrixMode(GL_MODELVIEW);
-	*/
+
 	Gfx::Viewport( 0, 0, cGlobal::ScreenW, cGlobal::ScreenH );
 	Gfx::ProjMatrixMode();
 	Gfx::LoadIdentity();

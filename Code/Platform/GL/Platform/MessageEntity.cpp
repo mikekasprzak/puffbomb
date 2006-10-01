@@ -121,7 +121,6 @@ void cMessageEntity::Work()
 				Step();
 			}
 
-			// Draw //
 			Draw();
 
 		    Gfx::SwapBuffers();
