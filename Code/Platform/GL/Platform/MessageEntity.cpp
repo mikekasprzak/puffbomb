@@ -93,12 +93,9 @@ void cMessageEntity::Work()
 //	MessageLoop();
 //	Input::Update();
 
-	Log( LOG_HIGHEST_LEVEL, "Work Loop " );
-
 	// Standard Rendering Loop //
 	while( !cGlobal::Shutdown && !BreakLoop ) {
 		MessageLoop();
-	Log( LOG_HIGHEST_LEVEL, "BreakLoop " << BreakLoop );
 
 		// A whole bunch of complicated crap to give us a flexible framerate //			
 		int FPS = 60;

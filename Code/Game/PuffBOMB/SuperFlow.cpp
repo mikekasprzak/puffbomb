@@ -62,7 +62,6 @@ void cSuperFlow::StateFlow()
 	{
 		Input::Update();
 
-		Log( LOG_HIGHEST_LEVEL, "State " << State );
 		switch( State )
 		{
 			case 0:
