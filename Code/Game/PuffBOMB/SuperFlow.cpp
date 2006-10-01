@@ -16,6 +16,7 @@
 #include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SplashScreen/SplashScreen.h>
+#include <MainMenu/MainMenu.h>
 // - ------------------------------------------------------------------------------------------ - //
 cSuperFlow::cSuperFlow()
 {
@@ -33,6 +34,11 @@ cSuperFlow::cSuperFlow()
 	// Display the Sykhronics spash screen //
 	{
 		cSplashScreen SplashScreen;
+	}
+	
+	// Display the MainMenu screen //
+	{
+		cMainMenu MainMenu;
 	}
 
 #ifdef EDITOR
