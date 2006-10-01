@@ -72,9 +72,9 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 				// Generate an active body from the pose //
 				cBody2D TempBody( BodyPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].BodyPoseIndex ] );
 				
-//				// Calculate the Mesh from the mesh pose and a body //
-//				Animation[ AnimIndex ].Frame[ FrameIndex ].Mesh = 
-//					cMesh2D( MeshPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].MeshPoseIndex ], TempBody );
+				// Calculate the Mesh from the mesh pose and a body //
+				Animation[ AnimIndex ].Frame[ FrameIndex ].Mesh = 
+					cMesh2D( MeshPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].MeshPoseIndex ], TempBody );
 			}
 		}
 	}

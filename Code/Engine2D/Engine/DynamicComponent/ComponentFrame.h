@@ -24,8 +24,6 @@ public:
 	size_t MeshPoseIndex;
 #endif // EDITOR //
 
-
-
 public:
 	cComponentFrame() :
 		Time( 1 ),
@@ -34,8 +32,7 @@ public:
 		MeshPoseIndex( 0 )
 #else // EDITOR //
 		BodyPoseIndex( 0 )
-#endif // EDITOR //
-		
+#endif // EDITOR //	
 	{
 	}
 	
