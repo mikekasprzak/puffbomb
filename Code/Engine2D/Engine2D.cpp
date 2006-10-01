@@ -22,7 +22,11 @@ cEngine2D::cEngine2D() {
 		100000.0,										// FarClip
 		cGlobal::HudZoom,								// MinZoom
 		cGlobal::HudZoom + Real( 8000 ),				// MaxZoom
-		cGlobal::HudZoom								// HudZoom
+		cGlobal::HudZoom,								// HudZoom
+		Real( 0 ),										// X
+		Real( 0 ),										// Y
+		Real( Platform::ScreenW ),						// Width
+		Real( Platform::ScreenH )						// Height
 	 );
 
 	// Create Camera //
@@ -36,7 +40,11 @@ cEngine2D::cEngine2D() {
 		100000.0,										// FarClip
 		cGlobal::HudZoom,								// MinZoom
 		cGlobal::HudZoom,								// MaxZoom
-		cGlobal::HudZoom								// HudZoom
+		cGlobal::HudZoom,								// HudZoom
+		Real( 0 ),										// X
+		Real( 0 ),										// Y
+		Real( Platform::ScreenW ),						// Width
+		Real( Platform::ScreenH )						// Height
 	 );
 	 
 	 
@@ -134,7 +142,7 @@ void cEngine2D::Step() {
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Draw() {
 	Camera->Update();
-	
+
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
 	Physics.SetActive();
@@ -145,8 +153,6 @@ void cEngine2D::Draw() {
 		DynamicComponent[ idx ].Draw();
 	}
 */
-	
-	Gfx::ClearColorDepth();
 
 	Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
 	

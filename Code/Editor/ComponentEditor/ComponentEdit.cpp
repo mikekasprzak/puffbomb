@@ -30,18 +30,26 @@ cComponentEdit::cComponentEdit() :
 	CurDirIdx( 0 ),
 	IsSaved( true )
 {
+	
+	Camera->Aspect *= Real(0.75);
+	Camera->Width *= Real(0.75);
+	
 	// Create Cameras //
 	UVCamera = new cCamera(
 		Vector3D( 128.0, 128.0, 400.0 ),				// Pos
 		Vector3D( 0.0, 0.0, 0.0 ),						// View
 		Vector3D( 0.0, 1.0, 0.0 ),						// Up
 		45.0,											// Field of View
-		Platform::AspectRatio,							// Aspect Ratio
+		Real( 1.0 ),									// Aspect Ratio
 		1.0,											// NearClip
 		100000.0,										// FarClip
 		cGlobal::HudZoom,								// MinZoom
 		cGlobal::HudZoom,								// MaxZoom
-		cGlobal::HudZoom								// HudZoom
+		cGlobal::HudZoom,								// HudZoom
+		Real( Platform::ScreenW * 0.75 ),				// X
+		Real( 0 ),										// Y
+		Real( Platform::ScreenW * UVWidth ),			// Width
+		Real( Platform::ScreenH * UVHeight )			// Height
 	);
 	
 	Real PreviewHeight = UVHeight;
@@ -59,12 +67,16 @@ cComponentEdit::cComponentEdit() :
 		Vector3D( 0.0, 0.0, 0.0 ),					// View
 		Vector3D( 0.0, 1.0, 0.0 ),					// Up
 		45.0,										// Field of View
-		Platform::AspectRatio,						// Aspect Ratio
+		Platform::AspectRatio * UVHeight,			// Aspect Ratio
 		1.0,										// NearClip
 		100000.0,									// FarClip
 		cGlobal::HudZoom,							// MinZoom
 		cGlobal::HudZoom,							// MaxZoom
-		cGlobal::HudZoom							// HudZoom
+		cGlobal::HudZoom,							// HudZoom
+		Real( Platform::ScreenW * 0.75 ),			// X
+		Real( Platform::ScreenH * UVHeight ), 		// Y
+		Real( Platform::ScreenW * UVWidth ), 		// Width
+		Real( Platform::ScreenH * ( 1 - UVHeight ) ) // Height
 	);
 	
 	Camera->Pos.z = Real( 800.0 );
@@ -131,6 +143,9 @@ cComponentEdit::~cComponentEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Draw()
 {
+	Camera->Update();
+
+	Gfx::EnableDepth();
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
@@ -321,10 +336,15 @@ void cComponentEdit::Draw()
 	}
 	
 	Gfx::DisableBlend();
+	
+	PreviewDraw();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::HudDraw()
 {
+	HudCamera->Update();
+
+	Gfx::DisableDepth();
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	
@@ -339,12 +359,15 @@ void cComponentEdit::HudDraw()
 //
 //	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 184, 0, 0, 255 ) );
 //	// -------------- //
+	Gfx::EnableDepth();
 	Gfx::DisableBlend();
 	Gfx::DisableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::PreviewDraw()
 {
+	PreviewCamera->Update();
+	
 	Gfx::SetLineWidth( 1.0 );
 	
 	Gfx::EnableTex2D();
@@ -366,10 +389,13 @@ void cComponentEdit::PreviewDraw()
 		
 	Gfx::DisableBlend();
 
+	UVDraw();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::UVDraw()
 {
+	UVCamera->Update();
+
 	Gfx::SetLineWidth( 1.0 );
 	
 	Gfx::EnableTex2D();
@@ -403,6 +429,8 @@ void cComponentEdit::UVDraw()
 	DrawGrid( UVCamera, CurrentGridDepth, 32.0, true, UVGridDepth );
 
 	Gfx::DisableBlend();
+		
+	HudDraw();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::Step()

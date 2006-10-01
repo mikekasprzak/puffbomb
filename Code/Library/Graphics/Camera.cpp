@@ -7,16 +7,20 @@
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
 cCamera::cCamera(
-	const Vector3D _Pos,
-	const Vector3D _View,
-	const Vector3D _Up,
-	const Real _FovY,
-	const Real _Aspect,
-	const Real _NearClip,
-	const Real _FarClip,
-	const Real _MinZoom,
-	const Real _MaxZoom,
-	const Real _HudZoom
+		const Vector3D _Pos,
+		const Vector3D _View,
+		const Vector3D _Up,
+		const Real _FovY,
+		const Real _Aspect,
+		const Real _NearClip,
+		const Real _FarClip,
+		const Real _MinZoom,
+		const Real _MaxZoom,
+		const Real _HudZoom,
+		const Real _XPos,
+		const Real _YPos,
+		const Real _Width,
+		const Real _Height
  ) :
 		Pos( _Pos ),
 		View( _View ),
@@ -28,6 +32,10 @@ cCamera::cCamera(
 		MinZoom( _MinZoom ),
 		MaxZoom( _MaxZoom ),
 		HudZoom( _HudZoom ),
+		XPos( _XPos ),
+		YPos( _YPos ),
+		Width( _Width ),
+		Height( _Height ),
 		Focus( Vector2D( 0, 0 ) ),
 		Delay( 0 ),
 		Low( Vector2D( 0, 0 ) ),
@@ -35,7 +43,7 @@ cCamera::cCamera(
 		CameraBounds( Vector2D( -1792, -1792 ), Vector2D( 6656, 1280 ) )
 {
 
-	Gfx::Viewport( 0, 0, cGlobal::ScreenW, cGlobal::ScreenH );
+	Gfx::Viewport( XPos, YPos, Width, Height );
 	Gfx::ProjMatrixMode();
 	Gfx::LoadIdentity();
 	Gfx::Perspective( FovY, Aspect, NearClip, FarClip );
@@ -122,11 +130,17 @@ void cCamera::UpdateTarget( const Vector2D& _Focus )
 // - ------------------------------------------------------------------------------------------ - //
 void cCamera::Update()
 {
+	Gfx::Viewport( XPos, YPos, Width, Height );
+	Gfx::ProjMatrixMode();
+	Gfx::LoadIdentity();
+	Gfx::Perspective( FovY, Aspect, NearClip, FarClip );
+	Gfx::ModelMatrixMode();
 
 	Gfx::LoadIdentity();
 	Gfx::Translate( -Pos.x, -Pos.y, -Pos.z );
 		
 }
+// - ------------------------------------------------------------------------------------------ - //
 /*
 Vector2D cCamera::GetPos()
 {

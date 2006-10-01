@@ -28,6 +28,14 @@ public:
 	
 	// A pixel perfect zoom for the highest resolution of each aspect ratio
 	Real HudZoom;
+	
+	// break up the screen into a segment //
+	
+	Real XPos;
+	Real YPos;
+	
+	Real Width;
+	Real Height;
 public:
 //	std::list< cSphereObject* > Focus;
 	Vector2D Focus;
@@ -52,7 +60,11 @@ public:
 		const Real _FarClip,
 		const Real _MinZoom,
 		const Real _MaxZoom,
-		const Real _HudZoom
+		const Real _HudZoom,
+		const Real _XPos,
+		const Real _YPos,
+		const Real _Width,
+		const Real _Height
 	 );
 	 
 	Vector2D GetPos();

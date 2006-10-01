@@ -49,7 +49,11 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 		100000.0,										// FarClip
 		HudZoom,										// MinZoom
 		HudZoom + Real( 8000 ),							// MaxZoom
-		HudZoom											// HudZoom
+		HudZoom,										// HudZoom
+		Real( 0 ),										// X
+		Real( 0 ),										// Y
+		Real( Platform::ScreenW ),						// Width
+		Real( Platform::ScreenH )						// Height
 	 );
 
 	HudCamera = new cCamera(
@@ -62,7 +66,11 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 		100000.0,										// FarClip
 		HudZoom,										// MinZoom
 		HudZoom,										// MaxZoom
-		HudZoom											// HudZoom
+		HudZoom,											// HudZoom
+		Real( 0 ),										// X
+		Real( 0 ),										// Y
+		Real( Platform::ScreenW ),						// Width
+		Real( Platform::ScreenH )						// Height
 	 );
 	
 	

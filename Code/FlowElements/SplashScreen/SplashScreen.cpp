@@ -24,7 +24,11 @@ cSplashScreen::cSplashScreen() :
 		100000.0,										// FarClip
 		cGlobal::HudZoom,								// MinZoom
 		cGlobal::HudZoom,								// MaxZoom
-		cGlobal::HudZoom								// HudZoom
+		cGlobal::HudZoom,								// HudZoom
+		Real( 0 ),										// X
+		Real( 0 ),										// Y
+		Real( Platform::ScreenW ),						// Width
+		Real( Platform::ScreenH )						// Height
 	 );
 
 	int EndTime = 3600;
@@ -65,8 +69,6 @@ cSplashScreen::~cSplashScreen()
 // - ------------------------------------------------------------------------------------------ - //
 void cSplashScreen::Draw()
 {
-	Gfx::ClearColorDepth();
-
 	Camera->Update();
 
 	Gfx::DrawQuads(

@@ -88,6 +88,8 @@ void cMessageEntity::Work()
 	// Standard Rendering Loop //
 	while( !cGlobal::Shutdown && !BreakLoop ) {
 
+		Gfx::ClearColorDepth();
+
 		MessageLoop();
 
 		// A whole bunch of complicated crap to give us a flexible framerate //			

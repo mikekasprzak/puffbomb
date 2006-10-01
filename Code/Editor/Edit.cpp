@@ -61,7 +61,11 @@ cEdit::cEdit() :
 		100000.0,
 		cGlobal::HudZoom,
 		cGlobal::HudZoom,
-		cGlobal::HudZoom
+		cGlobal::HudZoom,
+		Real( 0 ),										// X
+		Real( 0 ),										// Y
+		Real( Platform::ScreenW ),						// Width
+		Real( Platform::ScreenH )						// Height
 	 );
 
 	HudCamera = new cCamera(
@@ -74,7 +78,11 @@ cEdit::cEdit() :
 		100000.0,
 		cGlobal::HudZoom,
 		cGlobal::HudZoom,
-		cGlobal::HudZoom
+		cGlobal::HudZoom,
+		Real( 0 ),										// X
+		Real( 0 ),										// Y
+		Real( Platform::ScreenW ),						// Width
+		Real( Platform::ScreenH )						// Height
 	 );
 	
 	// Sets grid density values //
