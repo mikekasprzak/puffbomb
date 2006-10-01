@@ -169,13 +169,13 @@ void cComponentEdit::MeshGenerateUV()
 			
 	//	DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = CurPose;
 		
-		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Time = 1000;
+		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Time = 1;
 		
 		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh =
 			Engine2D::cMesh2D( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj->Body );
 				
 	//	DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Texture = TextureID[ CurTexPreview ];
-		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Texture = TextureID[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
+		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].TextureIndex = TextureID[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

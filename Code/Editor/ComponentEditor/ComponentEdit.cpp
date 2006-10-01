@@ -377,7 +377,7 @@ void cComponentEdit::PreviewDraw()
 
 	if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
-		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Draw( DynObj->Body );
+		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Draw( DynObj->Body );
 	}
 
 	Gfx::DisableTex2D();

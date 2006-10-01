@@ -17,6 +17,7 @@ class cComponentAnimationSet {
 public:
 	std::vector< cComponentAnimation > Animation;
 	std::vector< cBody2DPose > BodyPose;
+	std::vector< cTexture::IdType > Texture;
 
 #ifdef EDITOR	
 	std::vector< cMesh2DPose > MeshPose;

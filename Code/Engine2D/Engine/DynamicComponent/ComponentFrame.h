@@ -13,34 +13,45 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentFrame {
 public:
+	unsigned int Time;
+	unsigned int Flags;
+
 	size_t BodyPoseIndex;
 	cMesh2D Mesh;
+	size_t TextureIndex;
 
 #ifdef EDITOR
 	size_t MeshPoseIndex;
 #endif // EDITOR //
 
-	unsigned int Time;
+
 
 public:
 	cComponentFrame() :
-		BodyPoseIndex( 0 ),
+		Time( 1 ),
 #ifdef EDITOR
-		MeshPoseIndex( 0 ),
+		BodyPoseIndex( 0 ),
+		MeshPoseIndex( 0 )
+#else // EDITOR //
+		BodyPoseIndex( 0 )
 #endif // EDITOR //
-		Time( 1 )
+		
 	{
 	}
 	
 #ifdef EDITOR
 	cComponentFrame( size_t _BodyPoseIndex, size_t _MeshPoseIndex ) :
+		Time( 1 ),
 		BodyPoseIndex( _BodyPoseIndex ),
-		MeshPoseIndex( _MeshPoseIndex ),
-		Time( 1 )
+		MeshPoseIndex( _MeshPoseIndex )
 	{
 	}	
 #endif // EDITOR //
-	
+
+public:
+	void Draw( const cBody2D& Body ) {
+		Mesh.Draw( Body, TextureIndex );
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

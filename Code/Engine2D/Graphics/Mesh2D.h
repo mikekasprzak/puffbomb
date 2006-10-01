@@ -29,8 +29,6 @@ public:
 	// Relative Orientations //
 	std::vector< cMeshOrientation >	Orientation;
 
-	// Texture Used //
-	cTexture::IdType Texture;
 public:
 	cMesh2D()
 	{
@@ -38,7 +36,7 @@ public:
 	
 	cMesh2D( const class cMesh2DPose& _Pose, const class cBody2D& Body );
 public:
-	void Draw( const class cBody2D& Body ) const;
+	void Draw( const class cBody2D& Body, const cTexture::IdType& Texture ) const;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

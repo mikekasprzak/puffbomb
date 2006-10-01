@@ -63,7 +63,7 @@ cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body ) {
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMesh2D::Draw( const cBody2D& Body ) const {
+void cMesh2D::Draw( const cBody2D& Body, const cTexture::IdType& Texture ) const {
 	// Calculate Matricies //
 	std::vector< Matrix2x2 > MyOrientation( Orientation.size() );
 	for ( size_t idx = 0; idx < Orientation.size(); idx++ ) {
