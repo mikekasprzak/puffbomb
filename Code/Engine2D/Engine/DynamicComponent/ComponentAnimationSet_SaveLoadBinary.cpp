@@ -96,12 +96,20 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 		
 		// Animations part //
 		{
-			// Write Animation Section Header //
+			// Number of Animations //
 			Out.Write( Animation.size() );
 			
 			// For every animation //
 			for ( int idx = 0; idx < Animation.size(); idx++ ) {
+				// Frame count //
+				Out.Write( Animation[ idx ].Frame.size() );
+				// Loop point //
+				Out.Write( Animation[ idx ].LoopPoint );
 				
+				// Frames //
+				for ( int idx2 = 0; idx2 < Animation[ idx ].Frame.size(); idx2++ ) {
+					
+				}
 			}
 		}
 		
