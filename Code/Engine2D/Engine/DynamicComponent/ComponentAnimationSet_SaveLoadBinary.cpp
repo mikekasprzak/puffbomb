@@ -100,19 +100,100 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 			Out.Write( Animation.size() );
 			
 			// For every animation //
-			for ( int idx = 0; idx < Animation.size(); idx++ ) {
+			for ( size_t idx = 0; idx < Animation.size(); idx++ ) {
 				// Frame count //
 				Out.Write( Animation[ idx ].Frame.size() );
 				// Loop point //
 				Out.Write( Animation[ idx ].LoopPoint );
 				
 				// Frames //
-				for ( int idx2 = 0; idx2 < Animation[ idx ].Frame.size(); idx2++ ) {
+				for ( size_t idx2 = 0; idx2 < Animation[ idx ].Frame.size(); idx2++ ) {
+					// Data //
+					Out.Write( Animation[ idx ].Frame[ idx2 ].Time );
+					Out.Write( Animation[ idx ].Frame[ idx2 ].Flags );
+					Out.Write( Animation[ idx ].Frame[ idx2 ].BodyPoseIndex );
+					Out.Write( Animation[ idx ].Frame[ idx2 ].TextureIndex );
 					
+					// Mesh //
+					{
+						// Vertices //
+						Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Vertex.size() );
+						for ( size_t idx3 = 0; idx3 < Animation[ idx ].Frame[ idx2 ].Mesh.Vertex.size(); idx3++ ) {
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Vertex[ idx3 ].x );
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Vertex[ idx3 ].y );
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Vertex[ idx3 ].OrientationIndex );
+						}
+						
+						// UV //
+						Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.UV.size() );
+						for ( size_t idx3 = 0; idx3 < Animation[ idx ].Frame[ idx2 ].Mesh.UV.size(); idx3++ ) {
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.UV[ idx3 ].x );
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.UV[ idx3 ].y );
+						}
+
+						// Faces //
+						Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Face.size() );
+						for ( size_t idx3 = 0; idx3 < Animation[ idx ].Frame[ idx2 ].Mesh.Face.size(); idx3++ ) {
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Face[ idx3 ].a );
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Face[ idx3 ].b );
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Face[ idx3 ].c );
+						}
+
+						// Orientation //
+						Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Orientation.size() );
+						for ( size_t idx3 = 0; idx3 < Animation[ idx ].Frame[ idx2 ].Mesh.Orientation.size(); idx3++ ) {
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Orientation[ idx3 ].PivotIndex );
+							Out.Write( Animation[ idx ].Frame[ idx2 ].Mesh.Orientation[ idx3 ].HandleIndex );
+						}
+						
+					}
 				}
 			}
-		}
+						
+			// Body Poses //
+			Out.Write( BodyPose.size() );
+			// For every body //
+			for ( size_t idx = 0; idx < BodyPose.size(); idx++ ) {
+				// Calculate Mass Distribution //
+				Real MassDistribution = 0;
+				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Node.size(); idx2++ ) {
+					MassDistribution += BodyPose[ idx ].Node[ idx2 ].Mass;
+				}
+				
+				// Write nodes //
+				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Node.size(); idx2++ ) {
+					Out.Write( BodyPose[ idx ].Node[ idx2 ].Pos.x );
+					Out.Write( BodyPose[ idx ].Node[ idx2 ].Pos.y );
+					Out.Write( (BodyPose[ idx ].Node[ idx2 ].Mass / MassDistribution) * BodyPose[ idx ].TotalMass );
+				}
+
+				// Write Springs //
+				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Spring.size(); idx2++ ) {
+					// If ManualLength flag not set, calculate the length //
+					if ( !BodyPose[ idx ].Spring[ idx2 ].Flags.ManualLength() ) {
+						BodyPose[ idx ].Spring[ idx2 ].Length =
+							(BodyPose[ idx ].Node[ BodyPose[ idx ].Spring[ idx2 ].IndexB ].Pos -
+							BodyPose[ idx ].Node[ BodyPose[ idx ].Spring[ idx2 ].IndexA ].Pos).Magnitude();
+					}
+					
+					// Write //
+					Out.Write( BodyPose[ idx ].Spring[ idx2 ].IndexA );
+					Out.Write( BodyPose[ idx ].Spring[ idx2 ].IndexB );
+					Out.Write( BodyPose[ idx ].Spring[ idx2 ].Length );
+					Out.Write( BodyPose[ idx ].Spring[ idx2 ].Strength );
+					Out.Write( BodyPose[ idx ].Spring[ idx2 ].Flags );
+				}
+
+				// Write Spheres //
+				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Sphere.size(); idx2++ ) {
+					Out.Write( BodyPose[ idx ].Sphere[ idx2 ].Index );
+					Out.Write( BodyPose[ idx ].Sphere[ idx2 ].Radius );
+					Out.Write( BodyPose[ idx ].Sphere[ idx2 ].Flags );
+				}
+			}
 		
+			// Texture References //
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

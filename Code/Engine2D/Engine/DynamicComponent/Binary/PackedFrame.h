@@ -10,14 +10,13 @@ namespace DynamicComponent {
 // - ------------------------------------------------------------------------------------------ - //
 class cPackedFrame {
 public:
-	unsigned int Time:12;
+	unsigned int Time:16;
 	// Flags //
 	bool Interpolate:1;
 private:
-	int FlagPad:3;
+	int FlagPad:15;
+		
 	unsigned int BodyPoseIndex:16;
-	
-	unsigned int MeshPoseIndex:16;
 	unsigned int TextureIndex:16;
 };
 // - ------------------------------------------------------------------------------------------ - //

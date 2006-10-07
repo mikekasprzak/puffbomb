@@ -17,8 +17,8 @@ public:
 	unsigned int Flags;
 
 	size_t BodyPoseIndex;
-	cMesh2D Mesh;
 	size_t TextureIndex;
+	cMesh2D Mesh;
 
 #ifdef EDITOR
 	size_t MeshPoseIndex;
