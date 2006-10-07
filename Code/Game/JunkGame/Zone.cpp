@@ -4,7 +4,7 @@
 #include "Zone.h"
 #include <Phiz/SphereObject.h>
 
-#include <Game.h>
+//#include <Game.h>
 #include <Util/Debug.h>
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -34,13 +34,13 @@ bool cZone::InitZone( ) {
 	switch ( Id ) {
 		// Camera Boundary //
 		case 1: {
-			cGame::Current->Camera->CameraBounds = BoundingRect.ToPairRect();
+/*			cGame::Current->Camera->CameraBounds = BoundingRect.ToPairRect();
 
 			Log( 10, "New Camera Bounds: (" <<
 				cGame::Current->Camera->CameraBounds.P1().x << ", " <<
 				cGame::Current->Camera->CameraBounds.P1().y << ") -> (" <<
 				cGame::Current->Camera->CameraBounds.P2().x << ", " <<
-				cGame::Current->Camera->CameraBounds.P2().y << ")" );
+				cGame::Current->Camera->CameraBounds.P2().y << ")" );*/  // Removed because of game dependency //
 		}
 
 		// Level Boundary //

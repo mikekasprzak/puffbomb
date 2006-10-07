@@ -33,27 +33,6 @@ cSuperFlow::cSuperFlow() :
 	
 	StateFlow();
 	
-/*	// Display the Sykhronics spash screen //
-	{
-		cSplashScreen SplashScreen;
-	}
-	
-	// Display the MainMenu screen //
-	{
-		cMainMenu MainMenu;
-	}
-
-#ifdef EDITOR
-	{
-		Log( LOG_HIGHEST_LEVEL, "Creating Editor..." );
-		cEditor Editor;
-	}
-#endif // EDITOR //
-
-	{
-		Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-		Engine2D::cEngine2D Engine;
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cSuperFlow::StateFlow()

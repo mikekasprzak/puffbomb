@@ -9,7 +9,7 @@ void cMapEdit::DisplayText()
 {
 	if( CurMode == ZONE_MODE )
 	{
-		if( Game->Zone.size() > 0 )
+//		if( Game->Zone.size() > 0 ) // Removed because of game dependency //
 		{
 			DisplayZoneInfo();
 		}
@@ -409,7 +409,7 @@ void cMapEdit::DisplayZoneInfo()
 		Color
 	);
 	
-	Temp << Game->Zone[ CurZone ].Id;
+//	Temp << Game->Zone[ CurZone ].Id;
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
@@ -428,7 +428,7 @@ void cMapEdit::DisplayZoneInfo()
 		Color
 	);
 	
-	Temp << Game->Zone[ CurZone ].Argument;
+//	Temp << Game->Zone[ CurZone ].Argument;
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
@@ -448,7 +448,7 @@ void cMapEdit::DisplayZoneInfo()
 		Color
 	);
 	
-	Temp << ZoneDesc[ Game->Zone[ CurZone ].Id ];
+//	Temp << ZoneDesc[ Game->Zone[ CurZone ].Id ];
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),

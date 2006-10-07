@@ -6,7 +6,7 @@
 
 #include <Input/Input.h>
 
-#include <Game.h>
+//#include <Game.h>
 
 #include <Graphics/TexturePool.h>
 #include <Particle2D/FXLibrary.h>
@@ -57,13 +57,13 @@ void cHamsterController::Step() {
 
 	// Fire //
 	if ( Input::Pad[MyPad].Button[ PAD_FACE_A ].Pressed() )	{
-		cGame::Current->Impulse.push_back( 
+	/*	cGame::Current->Impulse.push_back( 
 			cImpulse(
 				SphereObject->Pos( 0 ) + Cursor,
 				Real( 0 ), Real( 64 ),
 				Real( 256 ), Real( 0 )
 				)
-			);
+			);*/
 	}
 	
 	return;
@@ -199,7 +199,7 @@ void cHamsterController::Step() {
 // - ------------------------------------------------------------------------------------------ - //	
 void cHamsterController::Draw() {
 
-	Vector2D Position = SphereObject->Pos( 0 );
+/*	Vector2D Position = SphereObject->Pos( 0 );
 
 	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -295,7 +295,7 @@ void cHamsterController::Draw() {
 	glDisable(GL_TEXTURE_2D);		
 	
 	
-	return;
+	return;*/ // Removed because of game dependency //
 //	
 //	
 //	// Draw Turret //

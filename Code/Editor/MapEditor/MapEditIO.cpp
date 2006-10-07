@@ -184,7 +184,7 @@ void cMapEdit::SaveMap( const char* File )
 					Script.Append( "Focus2" );
 				}
 			}
-			for( size_t idx = 0; idx < Game->Zone.size(); ++idx )
+/*			for( size_t idx = 0; idx < Game->Zone.size(); ++idx )
 			{
 				Script.Append( "Zone",
 					Game->Zone[ idx ].BoundingRect.P1().x,
@@ -198,7 +198,7 @@ void cMapEdit::SaveMap( const char* File )
 				Script.Append( "ZoneArg",
 					Game->Zone[ idx ].Argument
 				);
-			}
+			} */ // Removed because of game dependency //
 			isSaved = true;
 			
 			Script.SaveFile( SavePath.c_str() );

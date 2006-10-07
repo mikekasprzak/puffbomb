@@ -8,7 +8,7 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Editor/Edit.h>
-#include "Game.h"
+//#include "Game.h"
 
 #include "MapObject.h"
 //#include <Editor/Mesh2DEditor/Mesh2DEdit.h>
@@ -27,10 +27,11 @@ class cMapEdit : public cEdit {
 public:
 	// Construct, and require an associated SphereObject //
 //	cMapEdit( cGame& _Game, cMesh2DEdit& _Mesh2DEdit );
-	cMapEdit( cGame& _Game );
+//	cMapEdit( cGame& _Game );
+	cMapEdit();
 
 public:
-	cGame* Game;
+//	cGame* Game;
 //	cMesh2DEdit* Mesh2DEdit;
 	
 	std::string MapName;

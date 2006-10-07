@@ -6,7 +6,7 @@
 
 #include <Input/Input.h>
 
-#include <Game.h>
+// #include <Game.h> // Removed because of game dependency //
 
 #include <Graphics/TexturePool.h>
 #include <Particle2D/FXLibrary.h>
@@ -61,13 +61,13 @@ void cTankController::Step() {
 		// If you hit something //
 		if ( Shot->Sphere[ 0 ].Flags.Collision() ) {
 			// Explode Here //
-			cGame::Current->Impulse.push_back( 
+	/*		cGame::Current->Impulse.push_back( 
 				cImpulse(
 					Shot->Pos( 0 ),
 					Real( 0 ), Real( 32 ),
 					Real( 300 ), Real( 0 )
 					)
-				);
+				);*/
 				
 			// Place Explosion and Use: Shot->Pos( 0 )
 			FXLibrary::Explosion1( Shot->Pos( 0 ) );
@@ -180,7 +180,7 @@ void cTankController::Step() {
 }	
 // - ------------------------------------------------------------------------------------------ - //	
 void cTankController::Draw() {
-	// Draw Turret //
+/*	// Draw Turret //
 	Vector2D Line = SphereObject->Pos( 4 ) - SphereObject->Pos( 3 );
 	Line.Normalize();
 	Line = Line.Tangent();
@@ -297,5 +297,6 @@ void cTankController::Draw() {
 	cDisplayObjectController::Draw();
 	// Draw Cursor //
 	//gfx::Circle( SphereObject->Pos( 0 ) + (Input::Pad[MyPad].Stick1.Normal() * Real(64) ), Real( 10 ), gfx::RGB( 255, 255, 255 ) );
+	*/ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //

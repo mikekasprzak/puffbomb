@@ -22,8 +22,9 @@ using namespace Input;
 //cMapEdit::cMapEdit( cGame& _Game, cMesh2DEdit& _Mesh2DEdit ) :
 //	Game( &_Game ),
 //	Mesh2DEdit( &_Mesh2DEdit ),
-cMapEdit::cMapEdit( cGame& _Game ) :
-	Game( &_Game ),
+//cMapEdit::cMapEdit( cGame& _Game ) : // Removed because of game dependency //
+//	Game( &_Game ),
+cMapEdit::cMapEdit() :
 	GameZoom( 0.0 ),
 	CurMesh( 0 ),
 	SceneryIdx( -1 ),
@@ -168,7 +169,8 @@ void cMapEdit::Draw()
 
 		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 	}	
-	else if( CurMode == ZONE_MODE && !Game->Zone.empty() )
+//	else if( CurMode == ZONE_MODE && !Game->Zone.empty() )
+	else if( CurMode == ZONE_MODE )
 	{
 		DrawZones();
 	}
@@ -359,9 +361,9 @@ void cMapEdit::ToggleGame()
 void cMapEdit::Physics()
 {
 	if ( Button[ KEY_TAB ].Pressed() ) {
-		for ( size_t idx = 0; idx < Game->SphereObject.size(); ++idx ) {
-			Game->SphereObject[ idx ]->Reset();
-		}
+//		for ( size_t idx = 0; idx < Game->SphereObject.size(); ++idx ) {
+//			Game->SphereObject[ idx ]->Reset();
+//		}
 /*		for ( size_t idx = 0; idx < Game->PolyObject.size(); ++idx ) {
 			Game->PolyObject[ idx ]->Reset();
 		}*/

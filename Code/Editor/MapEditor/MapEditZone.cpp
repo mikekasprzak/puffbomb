@@ -11,7 +11,7 @@ void cMapEdit::DrawZones()
 	glEnable(GL_BLEND);
 	
 	// Draws all non selected zones //
-	for( size_t idx = 0; idx < Game->Zone.size(); ++idx )
+/*	for( size_t idx = 0; idx < Game->Zone.size(); ++idx )
 	{
 		if( idx != CurZone )
 		{
@@ -48,12 +48,12 @@ void cMapEdit::DrawZones()
 	// Draws the select zone //
 	DrawSelZone();
 	
-	glDisable(GL_BLEND);
+	glDisable(GL_BLEND); */ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSelZone()
 {
-	gfx::FilledRect(
+/*	gfx::FilledRect(
 		Game->Zone[ CurZone ].BoundingRect.P1(),
 		Game->Zone[ CurZone ].BoundingRect.P2(),
 		gfx::RGBA( 0, 0, 255, 32 )
@@ -125,12 +125,12 @@ void cMapEdit::DrawSelZone()
 		) + Vector2D( CornerSize, CornerSize ),
 		CornerColor
 	);
-
+*/ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SwitchZone()
 {
-	if ( Button[ KEY_LEFT ].Pressed() )
+/*	if ( Button[ KEY_LEFT ].Pressed() )
 	{
 		if( CurZone > 0 )
 		{
@@ -151,12 +151,12 @@ void cMapEdit::SwitchZone()
 		{
 			CurZone = 0;
 		}
-	}	
+	}	*/ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SelectZone()
 {
-	if( Button[ MOUSE_1 ].Pressed() )
+/*	if( Button[ MOUSE_1 ].Pressed() )
 	{
 		OldMousePos = CalcMousePos();
 		
@@ -174,12 +174,12 @@ void cMapEdit::SelectZone()
 				CurZone	= idx;
 			}
 		}
-	}
+	} */ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::MoveZone()
 {
-	if( Button[ MOUSE_1 ] )
+/*	if( Button[ MOUSE_1 ] )
 	{		
 		RadiusRect2D TempRect =
 			RadiusRect2D::Pair(
@@ -237,12 +237,12 @@ void cMapEdit::MoveZone()
 	{
 		isGroupMove = false;
 		isSaved = false;
-	}
+	} */ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ResizeZone()
 {
-	if( Button[ MOUSE_1 ].Pressed() )
+/*	if( Button[ MOUSE_1 ].Pressed() )
 	{
 		OldMousePos = CalcMousePos();
 	}
@@ -371,11 +371,13 @@ void cMapEdit::ResizeZone()
 	{
 		ResizeCorner = 0;
 	}
+	*/ // Removed because of game dependency //
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::AddZone()
 {
-	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
+/*	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
 		Real CreationSize = CornerSize * Real( 2 );
 		Vector2D CurMousePos = CalcMousePos();
@@ -389,12 +391,12 @@ void cMapEdit::AddZone()
 		CurZone = Game->Zone.size() - 1;
 		
 		isSaved = false;
-	}
+	}*/ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DeleteZone()
 {
-	if( !Game->Zone.empty() )
+/*	if( !Game->Zone.empty() )
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
@@ -413,12 +415,12 @@ void cMapEdit::DeleteZone()
 			
 			isSaved = false;
 		}
-	}
+	} */ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ChangeID()
 {
-	if( Button[ KEY_Q ].Pressed() )
+/*	if( Button[ KEY_Q ].Pressed() )
 	{
 		if( Game->Zone[ CurZone ].Id > 0 )
 		{
@@ -436,12 +438,12 @@ void cMapEdit::ChangeID()
 			isSaved = false;
 		}
 	}
-	
+	*/ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ChangeArg()
 {
-	if( Button[ KEY_Z ].Pressed() )
+/*	if( Button[ KEY_Z ].Pressed() )
 	{
 		if( Game->Zone[ CurZone ].Argument > 0 )
 		{
@@ -455,7 +457,7 @@ void cMapEdit::ChangeArg()
 		Game->Zone[ CurZone ].Argument++;
 		
 		isSaved = false;
-	}
+	} */ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

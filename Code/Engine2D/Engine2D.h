@@ -19,7 +19,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cEngine2D : public cMessageEntity { 
+class cEngine2D { 
 public:
 	// Current instance of the Engine. Step and Draw update this, so to support multiple engines. //
 	static cEngine2D* Current;

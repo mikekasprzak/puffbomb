@@ -47,8 +47,6 @@ cEngine2D::cEngine2D() {
 		Real( Platform::ScreenH )						// Height
 	 );
 	 
-	 
-	 Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::~cEngine2D() {
@@ -156,7 +154,6 @@ void cEngine2D::Draw() {
 
 	Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
 	
-	HudDraw();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::HudDraw() {
