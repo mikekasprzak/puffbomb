@@ -141,6 +141,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 		// For every body //
 		for ( size_t idx = 0; idx < BodyPose.size(); idx++ ) {
 			// Write nodes //
+			BodyPose[ idx ].Node.resize( In.Read() );
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Node.size(); idx2++ ) {
 				In.Read( BodyPose[ idx ].Node[ idx2 ].Pos.x );
 				In.Read( BodyPose[ idx ].Node[ idx2 ].Pos.y );
@@ -148,6 +149,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 			}
 
 			// Write Springs //
+			BodyPose[ idx ].Spring.resize( In.Read() );
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Spring.size(); idx2++ ) {
 				// Write //
 				In.Read( BodyPose[ idx ].Spring[ idx2 ].IndexA );
@@ -158,6 +160,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 			}
 
 			// Write Spheres //
+			BodyPose[ idx ].Sphere.resize( In.Read() );
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Sphere.size(); idx2++ ) {
 				In.Read( BodyPose[ idx ].Sphere[ idx2 ].Index );
 				In.Read( BodyPose[ idx ].Sphere[ idx2 ].Radius );
@@ -166,6 +169,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 		}
 	
 		// Texture References //		
+		
 		
 		// Calculate Mesh Orientation Home Matrix //
 		for ( size_t idx = 0; idx < Animation.size(); idx++ ) {
@@ -307,8 +311,9 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Node.size(); idx2++ ) {
 					MassDistribution += BodyPose[ idx ].Node[ idx2 ].Mass;
 				}
-				
+			
 				// Write nodes //
+				Out.Write( BodyPose[ idx ].Node.size() );
 				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Node.size(); idx2++ ) {
 					Out.Write( BodyPose[ idx ].Node[ idx2 ].Pos.x );
 					Out.Write( BodyPose[ idx ].Node[ idx2 ].Pos.y );
@@ -316,6 +321,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 				}
 
 				// Write Springs //
+				Out.Write( BodyPose[ idx ].Spring.size() );
 				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Spring.size(); idx2++ ) {
 					// If ManualLength flag not set, calculate the length //
 					if ( !BodyPose[ idx ].Spring[ idx2 ].Flags.ManualLength() ) {
@@ -333,6 +339,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 				}
 
 				// Write Spheres //
+				Out.Write( BodyPose[ idx ].Sphere.size() );
 				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Sphere.size(); idx2++ ) {
 					Out.Write( BodyPose[ idx ].Sphere[ idx2 ].Index );
 					Out.Write( BodyPose[ idx ].Sphere[ idx2 ].Radius );
