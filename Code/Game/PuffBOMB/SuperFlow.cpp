@@ -6,8 +6,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Engine2D.h>
-// - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 #include <Editor/Editor.h>
 #endif // EDITOR //
@@ -16,6 +14,9 @@
 #include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SplashScreen/SplashScreen.h>
+// - ------------------------------------------------------------------------------------------ - //
+#include <Game.h>
+#include <MainMenu/MainMenu.h>
 // - ------------------------------------------------------------------------------------------ - //
 cSuperFlow::cSuperFlow() :
 	State( 0 )
@@ -63,10 +64,9 @@ void cSuperFlow::StateFlow()
 			}
 			case 2:
 			{
-				// Creating Engine //
+				// Start the game //
 				{
-					Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-					Engine2D::cEngine2D Engine;
+					cGame Game;
 				}
 				State = 1;
 				break;

@@ -13,8 +13,6 @@
 
 #include <Physics/Impulse.h>
 
-#include <MessageEntity.h>
-//#include <Engine2D/Graphics/NewCamera.h>
 #include <Graphics/Camera.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
