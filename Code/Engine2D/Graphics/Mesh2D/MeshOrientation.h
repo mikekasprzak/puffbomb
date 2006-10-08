@@ -21,6 +21,12 @@ public:
 	Matrix2x2 InvHomeMatrix;
 
 public:
+	cMeshOrientation( ) :
+		PivotIndex( 0 ),
+		HandleIndex( 0 )
+	{
+	}
+
 	cMeshOrientation( const size_t& _PivotIndex, const size_t& _HandleIndex ) :
 		PivotIndex( _PivotIndex ),
 		HandleIndex( _HandleIndex )
