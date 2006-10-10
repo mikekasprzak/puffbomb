@@ -82,7 +82,187 @@ void cDialogBox::DrawBoxFrame()
 {
 	if( IsVisable )
 	{
+		unsigned int IndicesSize = 9 * 4;
+		
+		Vector3D Vertex[ IndicesSize ];
+		Vector2D TexCoord[ IndicesSize ];
+	
+		unsigned int Indices[ IndicesSize ];
+		
+		int VertexIdx = 0;
+		
 		// Draw the Box //
+		Vertex[	VertexIdx ] = Pos.ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.001, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector3D( Pos.x, Size.y, Real( 0.0 ) );
+		TexCoord[ VertexIdx ] = Vector2D( 0.001, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Size.ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.124, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector3D( Size.x, Pos.y, Real( 0.0 ) );
+		TexCoord[ VertexIdx ] = Vector2D( 0.124, 0.001 );
+		VertexIdx++;
+		
+		// Box Border //
+		// Left //
+		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Pos.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Size.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Pos.ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.001 );
+		VertexIdx++;
+		
+		// Right //
+		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Size.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Pos.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Size.ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.001 );
+		VertexIdx++;
+		
+		// Top //
+		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y + Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x, Pos.y + Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Pos.ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.001 );
+		VertexIdx++;
+
+		// Bottom //
+		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y - Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x, Size.y - Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Size.ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.001 );
+		VertexIdx++;
+
+		// Top Right //
+		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Pos.y + Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y + Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Pos.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.001 );
+		VertexIdx++;
+
+		// Bottom Right //
+		Vertex[	VertexIdx ] = Vector2D( Size.x, Size.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x, Size.y - Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Size.y - Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Size.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.124 );
+		VertexIdx++;
+		
+	
+		// Top Left //
+		Vertex[	VertexIdx ] = Vector2D( Pos.x, Pos.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x, Pos.y + Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Pos.y + Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Pos.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.124 );
+		VertexIdx++;
+
+		// Bottom Left //
+		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Size.y - Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.001 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y - Real( 64 ) ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.124 );
+		VertexIdx++;
+		
+		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Size.y ).ToVector3D();
+		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.001 );
+		VertexIdx++;
+		
+		for( size_t idx = 0; idx < IndicesSize; ++idx )
+		{
+			Indices[ idx ] = idx;
+		}
+		
+		Gfx::DrawQuads(
+			Vertex,
+			TexCoord,
+			Indices,
+			IndicesSize,
+			TextureID,
+			Gfx::RGBA( 255, 255, 255, 192 )
+		);	
+		
+		/*
+		
+				// Draw the Box //
 		glColor4ub( 255, 255, 255, 192 );
 
 		glBindTexture( GL_TEXTURE_2D, TextureID );
@@ -189,7 +369,8 @@ void cDialogBox::DrawBoxFrame()
 			Vector2D( 0.376, 0.124 ),
 			Vector2D( 0.499, 0.124 ),
 			Vector2D( 0.499, 0.001 )
-		);
+		);*/
+		
 	}
 }	
 // - ------------------------------------------------------------------------------------------ - //
