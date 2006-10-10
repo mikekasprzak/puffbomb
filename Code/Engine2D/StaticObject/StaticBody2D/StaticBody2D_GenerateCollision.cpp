@@ -6,7 +6,7 @@
 #include <External/Triangulate3/Triangulate.h>
 
 #include "StaticBody2D.h"
-#include "Mesh3D.h"
+#include "../Mesh3D/Mesh3D.h"
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
