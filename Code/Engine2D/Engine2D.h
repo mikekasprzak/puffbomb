@@ -7,7 +7,7 @@
 #include <vector>
 
 #include <Engine/DynamicCollection.h>
-#include <Engine/StaticObjectCollection.h>
+#include <Engine/StaticObjectInstance.h>
 #include <Engine/PassiveObject.h>
 #include <Engine/Zone.h>
 
@@ -27,8 +27,8 @@ public:
 
 public:
 	// Our in game entities //
-	std::vector< cDynamicCollection > DynamicObject;
-	std::vector< cStaticObjectCollection > StaticObject;
+	std::vector< cDynamicCollection > DynamicCollection;
+	std::vector< cStaticObjectInstance > StaticObjectInstance;
 	std::vector< cPassiveObject > PassiveObject;
 	std::vector< cZone > Zone;
 
