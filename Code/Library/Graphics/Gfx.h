@@ -45,14 +45,14 @@ public:
 	static int RGB( int r, int g, int b );
 	static int RGBA( int r, int g, int b, int a );
 */	
-	static void Quad( const Vector3D& a, const Vector3D& b, const Vector3D& c, const Vector3D& d,
+/*	static void Quad( const Vector3D& a, const Vector3D& b, const Vector3D& c, const Vector3D& d,
 				const Vector2D& UVa, const Vector2D& UVb, const Vector2D& UVc, const Vector2D& UVd );
 	static void Quad( const Vector2D& a, const Vector2D& b, const Vector2D& c, const Vector2D& d,
 				const Vector2D& UVa, const Vector2D& UVb, const Vector2D& UVc, const Vector2D& UVd );
 
 	static void Quad( const Vector3D& a, const Vector3D& b, const Vector3D& c, const Vector3D& d,
 				Vector2D UVa, Vector2D UVb);
-
+*/
 /*	static void FilledRect( const Vector2D& a, const Vector2D& b, int Color );
 	static void FlipFilledRect( const Vector2D& a, const Vector2D& b, int Color );*/
 };

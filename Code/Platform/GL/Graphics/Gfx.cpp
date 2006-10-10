@@ -205,7 +205,7 @@ int gfx::RGBA( int r, int g, int b, int a ) {
 	//return makecol( r, g, b );
 }*/
 // - ------------------------------------------------------------------------------------------ - //
-void gfx::Quad( const Vector3D& a, const Vector3D& b, const Vector3D& c, const Vector3D& d,
+/*void gfx::Quad( const Vector3D& a, const Vector3D& b, const Vector3D& c, const Vector3D& d,
 				const Vector2D& UVa, const Vector2D& UVb, const Vector2D& UVc, const Vector2D& UVd  )
 {
 //	Vector3D Offset = Vector3D( 0.0, 0.0, 0.0 );
@@ -261,7 +261,7 @@ void gfx::Quad( const Vector2D& a, const Vector2D& b, const Vector2D& c, const V
 	
 	Quad( TempA, TempB, TempC, TempD, UVa, UVb, UVc, UVd );
 
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 /*void gfx::FilledRect( const Vector2D& a, const Vector2D& b, int Color )
 {
