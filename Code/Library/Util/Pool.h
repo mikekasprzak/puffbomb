@@ -40,7 +40,7 @@ public:
 			if ( FileName == "" ) {
 				Log( LOG_HIGHEST_LEVEL, "** Pool can't find " << _FileName );
 				
-				//cGlobal::Shutdown = true;
+				//Global::Shutdown = true;
 				return Dummy;
 			}
 			else {

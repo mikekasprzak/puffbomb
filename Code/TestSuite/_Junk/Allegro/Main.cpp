@@ -22,7 +22,7 @@ extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 #include <Platform/Mouse.h>
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -69,47 +69,47 @@ int main( /*int argc, char* argv[]*/ ) {
 	// 1.33 Aspect Ratio // 
 	// Regular Mode //
 	// (Doesn't crash) //
-//	Platform::ScreenW = 800;
-//	Platform::ScreenH = 600;
+//	Global::ScreenW = 800;
+//	Global::ScreenH = 600;
 	// 720P PC Friendly Mode //
 	// (Doesn't crash) //
-//	Platform::ScreenW = 1024;
-//	Platform::ScreenH = 768;
+//	Global::ScreenW = 1024;
+//	Global::ScreenH = 768;
 	// Max resolution of monitor //
 	// (Crashes) //
-//	Platform::ScreenW = 1280;
-//	Platform::ScreenH = 1024;
+//	Global::ScreenW = 1280;
+//	Global::ScreenH = 1024;
 
 	// (Aparently Does crash) //
-//	Platform::ScreenW = 1200;
-//	Platform::ScreenH = 900;
+//	Global::ScreenW = 1200;
+//	Global::ScreenH = 900;
 
 	// 480P Mode //
 	// (Crashes) //
-//	Platform::ScreenW = 720;
-//	Platform::ScreenH = 480;
+//	Global::ScreenW = 720;
+//	Global::ScreenH = 480;
 	// 720P Mode //
 	// (Doesn't crash) //
-//	Platform::ScreenW = 1280;
-//	Platform::ScreenH = 720;
+//	Global::ScreenW = 1280;
+//	Global::ScreenH = 720;
 	// 1080P Mode //
 	// (Doesn't crash) //
-//	Platform::ScreenW = 1920;
-//	Platform::ScreenH = 1080;
+//	Global::ScreenW = 1920;
+//	Global::ScreenH = 1080;
 
-	Platform::ScreenW = 1920;
-	Platform::ScreenH = 1200;
+	Global::ScreenW = 1920;
+	Global::ScreenH = 1200;
 
 
 	// (Doesn't crash) //
-//	Platform::ScreenW = 1220;
-//	Platform::ScreenH = 686;
+//	Global::ScreenW = 1220;
+//	Global::ScreenH = 686;
 
-	cGlobal::ScreenW = Platform::ScreenW;
-	cGlobal::ScreenH = Platform::ScreenH;
+	Global::ScreenW = Global::ScreenW;
+	Global::ScreenH = Global::ScreenH;
 
-	Real AspectRatio = Real( Platform::ScreenW ) / Real( Platform::ScreenH );
-	//Real ScreenSize = Real( Platform::ScreenW / 40 ); // 40 being a scale ratio that makes 1280 equal to 32 //
+	Real AspectRatio = Real( Global::ScreenW ) / Real( Global::ScreenH );
+	//Real ScreenSize = Real( Global::ScreenW / 40 ); // 40 being a scale ratio that makes 1280 equal to 32 //
 	Real ScreenSize = Real( 32 );
 	Vector2D Dimension( ScreenSize, ScreenSize * (Real::One / AspectRatio) );
 	
@@ -128,7 +128,7 @@ int main( /*int argc, char* argv[]*/ ) {
 
 	//int ColorDepth = 16;
 	int ColorDepth = 32;
-	Log( LOG_HIGHEST_LEVEL, "Setting Video Mode " << Platform::ScreenW << "x" << Platform::ScreenH << "x" << ColorDepth << " ..." );	
+	Log( LOG_HIGHEST_LEVEL, "Setting Video Mode " << Global::ScreenW << "x" << Global::ScreenH << "x" << ColorDepth << " ..." );	
 	
 		
     allegro_gl_set(AGL_DOUBLEBUFFER, true);
@@ -139,8 +139,8 @@ int main( /*int argc, char* argv[]*/ ) {
     allegro_gl_set(AGL_SUGGEST, AGL_DOUBLEBUFFER | AGL_Z_DEPTH | AGL_RENDERMETHOD | AGL_SAMPLE_BUFFERS | AGL_SAMPLES );
 
     allegro_gl_set( AGL_COLOR_DEPTH, ColorDepth );
-	//set_gfx_mode(GFX_OPENGL_WINDOWED, Platform::ScreenW, Platform::ScreenH, 0, 0);
-	set_gfx_mode(GFX_OPENGL_FULLSCREEN, Platform::ScreenW, Platform::ScreenH, 0, 0);
+	//set_gfx_mode(GFX_OPENGL_WINDOWED, Global::ScreenW, Global::ScreenH, 0, 0);
+	set_gfx_mode(GFX_OPENGL_FULLSCREEN, Global::ScreenW, Global::ScreenH, 0, 0);
 
 	glEnable( GL_LINE_SMOOTH );
 	glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
@@ -161,7 +161,7 @@ int main( /*int argc, char* argv[]*/ ) {
 //	glFrustum( -Dimension.x, Dimension.x, -Dimension.y, Dimension.y, 1.0, 800.0 );
 //	glMatrixMode(GL_MODELVIEW);
 	
-//	glViewport(0, 0, Platform::ScreenW, Platform::ScreenH);		/* Reset The Current Viewport And Perspective Transformation */
+//	glViewport(0, 0, Global::ScreenW, Global::ScreenH);		/* Reset The Current Viewport And Perspective Transformation */
 
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -173,8 +173,8 @@ int main( /*int argc, char* argv[]*/ ) {
 		
 		{
 			Log( LOG_HIGHEST_LEVEL, "Creating Game..." );
-			cGame Game( Platform::ScreenW, Platform::ScreenH );
-			cGlobal::Zoom = Real( -32.0 );
+			cGame Game( Global::ScreenW, Global::ScreenH );
+			Global::Zoom = Real( -32.0 );
 
 			Log( LOG_HIGHEST_LEVEL, "Creating Editor..." );
 			cEditor Editor( Game );
@@ -204,7 +204,7 @@ int main( /*int argc, char* argv[]*/ ) {
 					LastTime += Loops * 10;
 					for ( int idx = 0; idx < Loops; idx ++ ) {
 						input::Poll();
-						Platform::Mouse.Update();
+						Global::Mouse.Update();
 
 						if( key[ KEY_F1 ] )
 						{
@@ -214,7 +214,7 @@ int main( /*int argc, char* argv[]*/ ) {
 						if( key[ KEY_F12 ] )
 						{
 							while( key[ KEY_F12 ] );
-							if( cGlobal::IsEditMode )
+							if( Global::IsEditMode )
 							{
 								Editor.MapEdit->ToggleGame();
 								
@@ -223,11 +223,11 @@ int main( /*int argc, char* argv[]*/ ) {
 							{
 								Editor.MapEdit->ToggleEdit();
 							}
-							cGlobal::IsEditMode = !cGlobal::IsEditMode;
+							Global::IsEditMode = !Global::IsEditMode;
 							
 						}
 						
-						if( cGlobal::IsEditMode )
+						if( Global::IsEditMode )
 						{
 							Editor.Step();
 						}
@@ -236,33 +236,33 @@ int main( /*int argc, char* argv[]*/ ) {
 							Game.Step();					
 						}
 					}
-					if( cGlobal::IsEditMode )
+					if( Global::IsEditMode )
 					{
 						glDisable( GL_DEPTH_TEST );
 						
-						if( cGlobal::IsMeshEditor )	
+						if( Global::IsMeshEditor )	
 						{
 							// Screen 1 (Left Side) //	
-							glViewport( 0, 0, Real( Platform::ScreenW * 0.75), Platform::ScreenH );
+							glViewport( 0, 0, Real( Global::ScreenW * 0.75), Global::ScreenH );
 							glMatrixMode (GL_PROJECTION);
 							glLoadIdentity();
 							gluPerspective( 45.0, AspectRatio * Real(0.75), 1.0, 100000.0 ); 
 							glMatrixMode(GL_MODELVIEW);
 							
 							glLoadIdentity();
-							glTranslatef ( 0, 0, cGlobal::EditorZoom );
+							glTranslatef ( 0, 0, Global::EditorZoom );
 							
 							Editor.Draw();
-							if( mouse_x < (Platform::ScreenW * 0.75) )
+							if( mouse_x < (Global::ScreenW * 0.75) )
 							{
 								Editor.MeshEdit->DrawLeftMouse();
 							}
 							// Screen 2 (Right Screen) //
 							glViewport(
-								Real(Platform::ScreenW * 0.75),
+								Real(Global::ScreenW * 0.75),
 								0,
-								Real( Platform::ScreenW * 0.25 ),
-								Platform::ScreenH);
+								Real( Global::ScreenW * 0.25 ),
+								Global::ScreenH);
 							glMatrixMode (GL_PROJECTION);
 							glLoadIdentity();
 							gluPerspective( 45.0, AspectRatio / Real( 4.0 ), 1.0, 100000.0 );
@@ -272,21 +272,21 @@ int main( /*int argc, char* argv[]*/ ) {
 							glTranslatef ( 0, 0, -900 );
 							
 							Editor.MeshEdit->DrawPreview();
-							if( mouse_x > (Platform::ScreenW * 0.73) )
+							if( mouse_x > (Global::ScreenW * 0.73) )
 							{
 								Editor.MeshEdit->DrawRightMouse();
 							}
 						}
 						else
 						{
-							glViewport( 0, 0, Platform::ScreenW, Platform::ScreenH );
+							glViewport( 0, 0, Global::ScreenW, Global::ScreenH );
 							glMatrixMode (GL_PROJECTION);
 							glLoadIdentity();
 							gluPerspective( 45.0, AspectRatio, 1.0, 100000.0 ); 
 							glMatrixMode(GL_MODELVIEW);
 							
 							glLoadIdentity();
-							glTranslatef ( 0, 0, cGlobal::EditorZoom );
+							glTranslatef ( 0, 0, Global::EditorZoom );
 							
 							Editor.Draw();
 						}
@@ -296,44 +296,44 @@ int main( /*int argc, char* argv[]*/ ) {
 					else if( IsSplitScreen )
 					{	
 						// Screen 1 (Left Side) //	
-						glViewport( 0, 0, Platform::ScreenW / 2, Platform::ScreenH );
+						glViewport( 0, 0, Global::ScreenW / 2, Global::ScreenH );
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
 						gluPerspective( 45.0, AspectRatio / Real( 2.0 ), 1.0, 10000.0 ); 
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
-						glTranslatef ( 0, 0, cGlobal::Zoom );
+						glTranslatef ( 0, 0, Global::Zoom );
 						
-						cGlobal::Origin = -Game.Focus1->BoundingRect.Center();
+						Global::Origin = -Game.Focus1->BoundingRect.Center();
 						Game.Draw();
 						
 						// Screen 2 (Right Screen) //
-						glViewport (Platform::ScreenW / 2, 0, Platform::ScreenW / 2, Platform::ScreenH);
+						glViewport (Global::ScreenW / 2, 0, Global::ScreenW / 2, Global::ScreenH);
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
 						gluPerspective( 45.0, AspectRatio / Real( 2.0 ), 1.0, 10000.0 );
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
-						glTranslatef ( 0, 0, cGlobal::Zoom );
+						glTranslatef ( 0, 0, Global::Zoom );
 						
-						cGlobal::Origin = -Game.Focus2->BoundingRect.Center();
+						Global::Origin = -Game.Focus2->BoundingRect.Center();
 						Game.Draw();
 					}
 					else
 					{
 						// One Screen Only //
-						glViewport( 0, 0, Platform::ScreenW, Platform::ScreenH );
+						glViewport( 0, 0, Global::ScreenW, Global::ScreenH );
 						glMatrixMode (GL_PROJECTION);
 						glLoadIdentity();
 						gluPerspective( 45.0, AspectRatio, 1.0, 10000.0 ); 
 						glMatrixMode(GL_MODELVIEW);
 						
 						glLoadIdentity();
-						glTranslatef ( 0, 0, cGlobal::Zoom );
+						glTranslatef ( 0, 0, Global::Zoom );
 						
-						cGlobal::Origin = -Game.Focus1->BoundingRect.Center();
+						Global::Origin = -Game.Focus1->BoundingRect.Center();
 						Game.Draw();
 					}
 				}

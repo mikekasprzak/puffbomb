@@ -5,7 +5,7 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 
 #include <SDL/SDL_image.h>
 #include <GL/gl.h>
@@ -18,30 +18,30 @@ using namespace Input;
 Vector2D cComponentEdit::CalcMousePos()
 {
 	Vector2D tempMousPos;
-	if( Platform::AspectRatio < Real( 0.79 ) )
+	if( Global::AspectRatio < Real( 0.79 ) )
 	{
 		tempMousPos = Vector2D(
-				Real( ( int( Mouse.x * Real( cGlobal::HudW * Real( 1.33 ) ) ) )
-				- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-				- ( ( Real(cGlobal::HudW) * Real( 1.33 ) ) / Real(2) ) )
-				* Real( Camera->Pos.z / cGlobal::HudZoom ),
-				Real( ( int( -Mouse.y * Real( cGlobal::HudH * Real( 1.33 ) ) ) )
-				+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-				+ ( ( Real(cGlobal::HudH * Real( 0.75 ) ) * Real( 1.33 ) ) / Real(2) ) )
-				* Real( Camera->Pos.z / cGlobal::HudZoom )
+				Real( ( int( Mouse.x * Real( Global::HudW * Real( 1.33 ) ) ) )
+				- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
+				- ( ( Real(Global::HudW) * Real( 1.33 ) ) / Real(2) ) )
+				* Real( Camera->Pos.z / Global::HudZoom ),
+				Real( ( int( -Mouse.y * Real( Global::HudH * Real( 1.33 ) ) ) )
+				+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom ) )
+				+ ( ( Real(Global::HudH * Real( 0.75 ) ) * Real( 1.33 ) ) / Real(2) ) )
+				* Real( Camera->Pos.z / Global::HudZoom )
 		);
 	}
 	else
 	{
 		tempMousPos = Vector2D(
-				Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
-				- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-				- ( ( Real(cGlobal::HudW) * Real( 0.75 ) ) / Real(2) ) )
-				* Real( Camera->Pos.z / cGlobal::HudZoom ),
-				Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
-				+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom  ) )
-				+ ( cGlobal::HudH >> 1 ) )
-				* Real( Camera->Pos.z / cGlobal::HudZoom )
+				Real( ( int( Mouse.x * Real( Global::HudW ) ) )
+				- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
+				- ( ( Real(Global::HudW) * Real( 0.75 ) ) / Real(2) ) )
+				* Real( Camera->Pos.z / Global::HudZoom ),
+				Real( ( int( -Mouse.y * Real( Global::HudH ) ) )
+				+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom  ) )
+				+ ( Global::HudH >> 1 ) )
+				* Real( Camera->Pos.z / Global::HudZoom )
 		);
 	}
 	
@@ -51,17 +51,17 @@ Vector2D cComponentEdit::CalcMousePos()
 Vector2D cComponentEdit::CalcUVMousePos()
 {
 	Vector2D tempMousPos;
-	if( Platform::AspectRatio < Real( 0.79 ) )
+	if( Global::AspectRatio < Real( 0.79 ) )
 	{
 		tempMousPos = Vector2D(
-			Real( ( int( Mouse.x * Real( cGlobal::HudW * Real( 0.33 ) ) ) )
+			Real( ( int( Mouse.x * Real( Global::HudW * Real( 0.33 ) ) ) )
 			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
-			- ( ( Real(cGlobal::HudW) * Real( 0.33 ) ) ) )
+			- ( ( Real(Global::HudW) * Real( 0.33 ) ) ) )
 			* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
 			+ ( ( UVCamera->Pos.z - Real( 122 ) ) / Real( 122 ) ),
-			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * Real( 0.25 ) )
+			Real( ( int( -Mouse.y * Real( Global::HudH ) * Real( 0.25 ) )
 			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
-			+ ( ( cGlobal::HudH * Real( 0.25 ) ) ) )
+			+ ( ( Global::HudH * Real( 0.25 ) ) ) )
 			* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
 			- ( ( UVCamera->Pos.z - Real( 611 ) ) / Real( 611 ) )
 		);
@@ -69,14 +69,14 @@ Vector2D cComponentEdit::CalcUVMousePos()
 	else
 	{
 		tempMousPos =  Vector2D(
-			Real( ( int( Mouse.x * Real( cGlobal::HudW * UVWidth ) ) )
+			Real( ( int( Mouse.x * Real( Global::HudW * UVWidth ) ) )
 			- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
-			- ( ( Real(cGlobal::HudW) * UVWidth ) ) )
+			- ( ( Real(Global::HudW) * UVWidth ) ) )
 			* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
 			+ ( ( UVCamera->Pos.z - Real( 611 ) ) / Real( 611 ) ),
-			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * UVHeight )
+			Real( ( int( -Mouse.y * Real( Global::HudH ) * UVHeight )
 			+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
-			+ ( ( cGlobal::HudH * UVHeight ) ) )
+			+ ( ( Global::HudH * UVHeight ) ) )
 			* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
 			- ( ( UVCamera->Pos.z - Real( 618 ) ) / Real( 618 ) )
 		);
@@ -110,13 +110,13 @@ void cComponentEdit::Undo()
 
 		PreviewCamera->Pos.x = 0.0;
 		PreviewCamera->Pos.y = 0.0;
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( Global::AspectRatio < Real( 0.79 ) )
 		{
-			PreviewCamera->Pos.z = cGlobal::HudZoom * ( Real( 1 ) - Real( 0.75 ) );
+			PreviewCamera->Pos.z = Global::HudZoom * ( Real( 1 ) - Real( 0.75 ) );
 		}
 		else
 		{
-			PreviewCamera->Pos.z = cGlobal::HudZoom * ( Real( 1 ) - UVHeight );
+			PreviewCamera->Pos.z = Global::HudZoom * ( Real( 1 ) - UVHeight );
 		}	
 		
 		PreviewCamera->View.x = PreviewCamera->Pos.x;

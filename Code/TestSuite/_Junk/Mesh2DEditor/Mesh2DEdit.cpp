@@ -4,12 +4,11 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SDL/SDL.h>
 
 // For FPS test //
-#include <Platform/Global.h>
 #include <Font/Fonts.h>
 #include <sstream>
 // ------------ //
@@ -51,12 +50,12 @@ cMesh2DEdit::cMesh2DEdit() :
 		Vector3D( 0.0, 0.0, 0.0 ),
 		Vector3D( 0.0, 1.0, 0.0 ),
 		45.0,
-		Platform::AspectRatio,
+		Global::AspectRatio,
 		1.0,
 		100000.0,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom
+		Global::HudZoom,
+		Global::HudZoom,
+		Global::HudZoom
 	 );
 
 	PreviewCamera = new cCamera(
@@ -64,12 +63,12 @@ cMesh2DEdit::cMesh2DEdit() :
 		Vector3D( 0.0, 0.0, 0.0 ),
 		Vector3D( 0.0, 1.0, 0.0 ),
 		45.0,
-		Platform::AspectRatio,
+		Global::AspectRatio,
 		1.0,
 		100000.0,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom
+		Global::HudZoom,
+		Global::HudZoom,
+		Global::HudZoom
 	 );
 	
 	Camera->Pos.z = Real( 800.0 );
@@ -243,10 +242,10 @@ void cMesh2DEdit::HudDraw()
 		
 //  DISPLAYS FPS  //
 //	std::stringstream Temp;
-//	Temp << Platform::FPS;
+//	Temp << Global::FPS;
 //	std::string TempString = Temp.str();
 //	
-//	Vector3D TempPos = Vector3D( cGlobal::Left, cGlobal::Top - Real( 45 ), 0.0 );
+//	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
 //
 //	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), gfx::RGBA( 184, 0, 0, 255 ) );
 // -------------- //
@@ -476,12 +475,12 @@ void cMesh2DEdit::Step()
 void cMesh2DEdit::DrawPreviewBox()
 {
 	gfx::Line(
-		Real( ( cGlobal::ScreenW * Real( 0.3745 ) ) ),
-		Real( -cGlobal::ScreenH ),
-		Real( Camera->Pos.z / cGlobal::HudZoom ),
-		Real( ( cGlobal::ScreenW * Real( 0.3745 ) ) ),
-		Real( cGlobal::ScreenH ),
-		Real( Camera->Pos.z / cGlobal::HudZoom ),
+		Real( ( Global::ScreenW * Real( 0.3745 ) ) ),
+		Real( -Global::ScreenH ),
+		Real( Camera->Pos.z / Global::HudZoom ),
+		Real( ( Global::ScreenW * Real( 0.3745 ) ) ),
+		Real( Global::ScreenH ),
+		Real( Camera->Pos.z / Global::HudZoom ),
 		gfx::RGB( 0, 127, 127 )
 	);
 }	
@@ -825,14 +824,14 @@ void cMesh2DEdit::DrawSelected()
 Vector2D cMesh2DEdit::CalcMousePos()
 {
 	Vector2D tempMousPos = Vector2D(
-			Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
-			- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-			- ( ( Real(cGlobal::HudW) * Real( 0.75 ) ) / Real(2) ) )
-			* Real( Camera->Pos.z / cGlobal::HudZoom ),
-			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
-			+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom  ) )
-			+ ( cGlobal::HudH >> 1 ) )
-			* Real( Camera->Pos.z / cGlobal::HudZoom )
+			Real( ( int( Mouse.x * Real( Global::HudW ) ) )
+			- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
+			- ( ( Real(Global::HudW) * Real( 0.75 ) ) / Real(2) ) )
+			* Real( Camera->Pos.z / Global::HudZoom ),
+			Real( ( int( -Mouse.y * Real( Global::HudH ) ) )
+			+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom  ) )
+			+ ( Global::HudH >> 1 ) )
+			* Real( Camera->Pos.z / Global::HudZoom )
 	);
 
 	return tempMousPos;

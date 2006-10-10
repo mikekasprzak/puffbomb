@@ -5,7 +5,6 @@
 #include "NewCamera.h"
 
 #include <Global.h>
-#include <Platform/Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -36,7 +35,7 @@ cCamera::cCamera(
 //		High( Vector2D( 0, 0 ) ),
 		CameraBounds( Vector2D( -1792, -1792 ), Vector2D( 6656, 1280 ) )
 {
-	glViewport( 0, 0, cGlobal::ScreenW, cGlobal::ScreenH );
+	glViewport( 0, 0, Global::ScreenW, Global::ScreenH );
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective( FovY, Aspect, NearClip, FarClip ); 
@@ -123,7 +122,7 @@ cCamera::cCamera(
 //	// Bounds the Camera //
 //	Real ZoomOffset = Real( Pos.z / HudZoom );
 //	
-//	Real CheckValue = ( cGlobal::Left * ZoomOffset );
+//	Real CheckValue = ( Global::Left * ZoomOffset );
 //	
 //	Vector2D P2Value = CameraBounds.P2();// - CameraBounds.P1();
 //	
@@ -131,17 +130,17 @@ cCamera::cCamera(
 //	{
 //		Tracker.x = ( CameraBounds.P1().x - CheckValue );
 //	}
-//	CheckValue = ( cGlobal::Right * ZoomOffset );
+//	CheckValue = ( Global::Right * ZoomOffset );
 //	if( Tracker.x > ( P2Value.x - CheckValue ) )
 //	{
 //		Tracker.x = ( P2Value.x - CheckValue );
 //	}
-//	CheckValue = ( cGlobal::Bottom * ZoomOffset );
+//	CheckValue = ( Global::Bottom * ZoomOffset );
 //	if( Tracker.y < ( CameraBounds.P1().y - CheckValue ) )
 //	{
 //		Tracker.y = ( CameraBounds.P1().y - CheckValue );
 //	}
-//	CheckValue = ( cGlobal::Top * ZoomOffset );
+//	CheckValue = ( Global::Top * ZoomOffset );
 //	if( Tracker.y > ( P2Value.y - CheckValue ) )
 //	{
 //		Tracker.y = ( P2Value.y - CheckValue );

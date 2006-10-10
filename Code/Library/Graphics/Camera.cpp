@@ -86,7 +86,7 @@ Vector2D cCamera::GetPos()
 	// Bounds the Camera //
 	Real ZoomOffset = Real( Pos.z / HudZoom );
 	
-	Real CheckValue = ( cGlobal::Left * ZoomOffset );
+	Real CheckValue = ( Global::Left * ZoomOffset );
 	
 	Vector2D P2Value = CameraBounds.P2();// - CameraBounds.P1();
 	
@@ -94,17 +94,17 @@ Vector2D cCamera::GetPos()
 	{
 		Tracker.x = ( CameraBounds.P1().x - CheckValue );
 	}
-	CheckValue = ( cGlobal::Right * ZoomOffset );
+	CheckValue = ( Global::Right * ZoomOffset );
 	if( Tracker.x > ( P2Value.x - CheckValue ) )
 	{
 		Tracker.x = ( P2Value.x - CheckValue );
 	}
-	CheckValue = ( cGlobal::Bottom * ZoomOffset );
+	CheckValue = ( Global::Bottom * ZoomOffset );
 	if( Tracker.y < ( CameraBounds.P1().y - CheckValue ) )
 	{
 		Tracker.y = ( CameraBounds.P1().y - CheckValue );
 	}
-	CheckValue = ( cGlobal::Top * ZoomOffset );
+	CheckValue = ( Global::Top * ZoomOffset );
 	if( Tracker.y > ( P2Value.y - CheckValue ) )
 	{
 		Tracker.y = ( P2Value.y - CheckValue );
@@ -221,7 +221,7 @@ Vector2D cCamera::GetPos()
 	// Bounds the Camera //
 	Real ZoomOffset = Real( Pos.z / HudZoom );
 	
-	Real CheckValue = ( cGlobal::Left * ZoomOffset );
+	Real CheckValue = ( Global::Left * ZoomOffset );
 	
 	Vector2D P2Value = CameraBounds.P2();// - CameraBounds.P1();
 	
@@ -229,17 +229,17 @@ Vector2D cCamera::GetPos()
 	{
 		Tracker.x = ( CameraBounds.P1().x - CheckValue );
 	}
-	CheckValue = ( cGlobal::Right * ZoomOffset );
+	CheckValue = ( Global::Right * ZoomOffset );
 	if( Tracker.x > ( P2Value.x - CheckValue ) )
 	{
 		Tracker.x = ( P2Value.x - CheckValue );
 	}
-	CheckValue = ( cGlobal::Bottom * ZoomOffset );
+	CheckValue = ( Global::Bottom * ZoomOffset );
 	if( Tracker.y < ( CameraBounds.P1().y - CheckValue ) )
 	{
 		Tracker.y = ( CameraBounds.P1().y - CheckValue );
 	}
-	CheckValue = ( cGlobal::Top * ZoomOffset );
+	CheckValue = ( Global::Top * ZoomOffset );
 	if( Tracker.y > ( P2Value.y - CheckValue ) )
 	{
 		Tracker.y = ( P2Value.y - CheckValue );

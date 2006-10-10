@@ -351,12 +351,12 @@ void cMesh2DEdit::ColMoveNode()
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
 			Object[ CurrentObject ].HomePos( CurSelected[idx] ).x -=
-				( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+				( Mouse.Diff().x * Real( Global::HudW ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 			
 			Object[ CurrentObject ].HomePos( CurSelected[idx] ).y +=
-				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+				( Mouse.Diff().y * Real( Global::HudH ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 						
 			Object[ CurrentObject ].Pos( CurSelected[idx] ) =
 				Object[ CurrentObject ].HomePos( CurSelected[idx] );

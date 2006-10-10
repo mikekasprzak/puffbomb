@@ -12,7 +12,7 @@
 #include <iostream>
 
 // For FPS test //
-#include <Platform/Global.h>
+#include <Global.h>
 #include <Font/Fonts.h>
 #include <sstream>
 // ------------ //
@@ -203,8 +203,8 @@ void cMapEdit::HudDraw()
 		Vector2D Point1 = Mesh2DEdit->Object[CurMesh].BoundingRect.P1();
 		Vector2D Point2 = Mesh2DEdit->Object[CurMesh].BoundingRect.P2();
 	
-		Point1.x = ( ( cGlobal::HudW >> 1 ) - Point2.x );
-		Point1.y = ( -( cGlobal::HudH >> 1 ) - Point1.y );
+		Point1.x = ( ( Global::HudW >> 1 ) - Point2.x );
+		Point1.y = ( -( Global::HudH >> 1 ) - Point1.y );
 
 		DrawMesh( CurMesh, Point1 );
 	}*/
@@ -250,10 +250,10 @@ void cMapEdit::HudDraw()
 	
 //  DISPLAYS FPS  //
 //	std::stringstream Temp;
-//	Temp << Platform::FPS;
+//	Temp << Global::FPS;
 //	std::string TempString = Temp.str();
 //	
-//	Vector3D TempPos = Vector3D( cGlobal::Left, cGlobal::Top - Real( 45 ), 0.0 );
+//	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
 //
 //	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), gfx::RGBA( 184, 0, 0, 255 ) );
 // -------------- //
@@ -338,23 +338,23 @@ void cMapEdit::DrawMesh( int idx, Vector2D MapPos )
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ToggleEdit()
 {
-//	cGlobal::Origin = Focus;
+//	Global::Origin = Focus;
 	
-	if( cGlobal::DebugDraw & cGlobal::flExtraInfo )
+	if( Global::DebugDraw & Global::flExtraInfo )
 	{
-		cGlobal::DebugDraw ^= cGlobal::flExtraInfo;
+		Global::DebugDraw ^= Global::flExtraInfo;
 	}
-	if( cGlobal::DebugDraw & cGlobal::flCollision )
+	if( Global::DebugDraw & Global::flCollision )
 	{
-		cGlobal::DebugDraw ^= cGlobal::flCollision;
+		Global::DebugDraw ^= Global::flCollision;
 	}
-	//cGlobal::DebugDraw |= cGlobal::flExtraInfo;
-	//cGlobal::DebugDraw |= cGlobal::flCollision;
+	//Global::DebugDraw |= Global::flExtraInfo;
+	//Global::DebugDraw |= Global::flCollision;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ToggleGame()
 {
-//	Focus = cGlobal::Origin;
+//	Focus = Global::Origin;
  	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -369,12 +369,12 @@ void cMapEdit::Physics()
 		}*/
 		// Resets the zoom
 		Scale = Real::One;
-//		cGlobal::Origin.x = 0;
-//		cGlobal::Origin.y = 0;
+//		Global::Origin.x = 0;
+//		Global::Origin.y = 0;
 			
 		Camera->Pos.x = 0.0;
 		Camera->Pos.y = 0.0;
-		Camera->Pos.z = cGlobal::HudZoom;
+		Camera->Pos.z = Global::HudZoom;
 		
 		Camera->View.x = Camera->Pos.x;
 		Camera->View.y = Camera->Pos.y;
@@ -437,14 +437,14 @@ void cMapEdit::DrawSelBox()
 Vector2D cMapEdit::CalcMousePos()
 {
 	Vector2D tempMousPos = Vector2D(
-			Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
-			- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-			- ( Real(cGlobal::HudW >> 1) ) )
-			* Real( Camera->Pos.z / cGlobal::HudZoom ),
-			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
-			+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-			+ ( cGlobal::HudH >> 1 ) )
-			* Real( Camera->Pos.z / cGlobal::HudZoom )
+			Real( ( int( Mouse.x * Real( Global::HudW ) ) )
+			- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
+			- ( Real(Global::HudW >> 1) ) )
+			* Real( Camera->Pos.z / Global::HudZoom ),
+			Real( ( int( -Mouse.y * Real( Global::HudH ) ) )
+			+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom ) )
+			+ ( Global::HudH >> 1 ) )
+			* Real( Camera->Pos.z / Global::HudZoom )
 	);
 	return tempMousPos;
 }
@@ -608,11 +608,11 @@ void cMapEdit::MoveObject()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			MapObject[CurSelected[idx]].Pos.x -= ( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+			MapObject[CurSelected[idx]].Pos.x -= ( Mouse.Diff().x * Real( Global::HudW ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 
-			MapObject[CurSelected[idx]].Pos.y += ( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+			MapObject[CurSelected[idx]].Pos.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 		}
 	}
 }

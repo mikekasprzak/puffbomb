@@ -51,8 +51,8 @@ void cTankController::Step() {
 	}
 
 	// Adjust Camera Zoom based on my size //
-	//cGlobal::Zoom = Real( -800.0 ) - (Scale * Real(100) );
-	//cGlobal::Zoom = Real( -800.0 ) - (Real::One * Real(100) );
+	//Global::Zoom = Real( -800.0 ) - (Scale * Real(100) );
+	//Global::Zoom = Real( -800.0 ) - (Real::One * Real(100) );
 
 	// When you've shot your show, test to see if it's collided with anything //
 	if ( Shot->Flags.IsActive() ) {

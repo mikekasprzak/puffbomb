@@ -20,6 +20,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cEditor : public cMessageEntity {
 public:
+	int CurEditor;
+
+public:
 	// Construct, and require an associated object //
 	cEditor();
 //	cEditor( cGame& _Game );

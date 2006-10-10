@@ -12,7 +12,7 @@
 
 #include <Input/Input.h>
 
-#include <Platform/Global.h>
+#include <Global.h>
 
 #include <Graphics/TexturePool.h>
 
@@ -44,7 +44,7 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 		Vector3D( 0.0, 0.0, 0.0 ),						// View
 		Vector3D( 0.0, 1.0, 0.0 ),						// Up
 		45.0,											// Field of View
-		Platform::AspectRatio,							// Aspect Ratio
+		Global::AspectRatio,							// Aspect Ratio
 		1.0,											// NearClip
 		100000.0,										// FarClip
 		HudZoom,										// MinZoom
@@ -52,8 +52,8 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 		HudZoom,										// HudZoom
 		Real( 0 ),										// X
 		Real( 0 ),										// Y
-		Real( Platform::ScreenW ),						// Width
-		Real( Platform::ScreenH )						// Height
+		Real( Global::ScreenW ),						// Width
+		Real( Global::ScreenH )						// Height
 	 );
 
 	HudCamera = new cCamera(
@@ -61,7 +61,7 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 		Vector3D( 0.0, 0.0, 0.0 ),						// View
 		Vector3D( 0.0, 1.0, 0.0 ),						// Up
 		45.0,											// Field of View
-		Platform::AspectRatio,							// Aspect Ratio
+		Global::AspectRatio,							// Aspect Ratio
 		1.0,											// NearClip
 		100000.0,										// FarClip
 		HudZoom,										// MinZoom
@@ -69,8 +69,8 @@ cGame::cGame( int _ScreenW, int _ScreenH ) :
 		HudZoom,											// HudZoom
 		Real( 0 ),										// X
 		Real( 0 ),										// Y
-		Real( Platform::ScreenW ),						// Width
-		Real( Platform::ScreenH )						// Height
+		Real( Global::ScreenW ),						// Width
+		Real( Global::ScreenH )						// Height
 	 );
 	
 	
@@ -125,12 +125,12 @@ void cGame::Input() {
 
 	// Cheesy hack to toggle more info display (normals, springs, bounding boxes, etc) //
 	if( Input::Button[ KEY_0 ].Pressed() ) {
-		cGlobal::ToggleExtraDisplayInfo();
+		Global::ToggleExtraDisplayInfo();
 	}
 
 	// Cheesy hack to toggle more info display (normals, springs, bounding boxes, etc) //
 	if( Input::Button[ KEY_9 ].Pressed() ) {
-		cGlobal::ToggleCollisionDisplay();
+		Global::ToggleCollisionDisplay();
 	}
 	
 /*	if( Input::Button[ KEY_T ].Pressed() )
@@ -356,10 +356,10 @@ void cGame::HudDraw()
 	glDisable( GL_DEPTH_TEST );
 
 	std::stringstream Temp;
-	Temp << Platform::FPS;
+	Temp << Global::FPS;
 	std::string TempString = Temp.str();
 	
-	Vector3D TempPos = Vector3D( cGlobal::Left, cGlobal::Top - Real( 45 ), 0.0 );
+	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
 
 	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), gfx::RGBA( 184, 0, 0, 255 ) );
 
@@ -381,65 +381,65 @@ Real cGame::SetHudData()
 	Real HudZoom = 1302.5;
 	
 	// 16:9
-	if( Platform::AspectRatio > Real( 1.75 ) && Platform::AspectRatio < Real( 1.81 ) )
+	if( Global::AspectRatio > Real( 1.75 ) && Global::AspectRatio < Real( 1.81 ) )
 	{
 		HudZoom = 1302.5;
 
-		cGlobal::Top = Real( 540.0 );
-		cGlobal::Bottom = Real( -540.0 );
-		cGlobal::Left = Real( -960.0 );
-		cGlobal::Right = Real( 960.0 );
+		Global::Top = Real( 540.0 );
+		Global::Bottom = Real( -540.0 );
+		Global::Left = Real( -960.0 );
+		Global::Right = Real( 960.0 );
 	}
 	// 16:10
-	else if( Platform::AspectRatio > Real( 1.57 ) && Platform::AspectRatio < Real( 1.63 ) )
+	else if( Global::AspectRatio > Real( 1.57 ) && Global::AspectRatio < Real( 1.63 ) )
 	{
 		HudZoom = 1447.0;
 		
-		cGlobal::Top = Real( 600.0 );
-		cGlobal::Bottom = Real( -600.0 );
-		cGlobal::Left = Real( -960.0 );
-		cGlobal::Right = Real( 960.0 );
+		Global::Top = Real( 600.0 );
+		Global::Bottom = Real( -600.0 );
+		Global::Left = Real( -960.0 );
+		Global::Right = Real( 960.0 );
 
 	}
 	// 4:3
-	else if( Platform::AspectRatio > Real( 1.30 ) && Platform::AspectRatio < Real( 1.36 ) )
+	else if( Global::AspectRatio > Real( 1.30 ) && Global::AspectRatio < Real( 1.36 ) )
 	{
 		HudZoom = 1266.0;
 		
-		cGlobal::Top = Real( 525.0 );
-		cGlobal::Bottom = Real( -525.0 );
-		cGlobal::Left = Real( -700.0 );
-		cGlobal::Right = Real( 700.0 );
+		Global::Top = Real( 525.0 );
+		Global::Bottom = Real( -525.0 );
+		Global::Left = Real( -700.0 );
+		Global::Right = Real( 700.0 );
 
 	}
 	
 	// 5:4
-	else if( Platform::AspectRatio > Real( 1.22 ) && Platform::AspectRatio < Real( 1.28 ) )
+	else if( Global::AspectRatio > Real( 1.22 ) && Global::AspectRatio < Real( 1.28 ) )
 	{
 		HudZoom = 1234.0;
 		
-		cGlobal::Top = Real( 512.0 );
-		cGlobal::Bottom = Real( -512.0 );
-		cGlobal::Left = Real( -640.0 );
-		cGlobal::Right = Real( 640.0 );
+		Global::Top = Real( 512.0 );
+		Global::Bottom = Real( -512.0 );
+		Global::Left = Real( -640.0 );
+		Global::Right = Real( 640.0 );
 
 	}
 	// 3:4 // Tablet pc res //
-	else if( Platform::AspectRatio > Real( 0.70 ) && Platform::AspectRatio < Real( 0.79 ) )
+	else if( Global::AspectRatio > Real( 0.70 ) && Global::AspectRatio < Real( 0.79 ) )
 	{
 		HudZoom = 1690.5;
 		
-		cGlobal::Top = Real( 700.0 );
-		cGlobal::Bottom = Real( -700.0 );
-		cGlobal::Left = Real( -525.0 );
-		cGlobal::Right = Real( 525.0 );
+		Global::Top = Real( 700.0 );
+		Global::Bottom = Real( -700.0 );
+		Global::Left = Real( -525.0 );
+		Global::Right = Real( 525.0 );
 	}
 	
 	
-	cGlobal::HudH = Real( cGlobal::Top * Real( 2.0 ) );
-	cGlobal::HudW = Real( cGlobal::Right * Real( 2.0 ) );
+	Global::HudH = Real( Global::Top * Real( 2.0 ) );
+	Global::HudW = Real( Global::Right * Real( 2.0 ) );
 	
-	cGlobal::HudZoom = HudZoom;
+	Global::HudZoom = HudZoom;
 
 	return HudZoom;
 }

@@ -181,7 +181,7 @@ void cSphereObject::Step() {
 // Should probably take a camera or camera matrix as an argument //
 void cSphereObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 
-	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+	if ( Global::DebugDraw & Global::flExtraInfo ) {
 		// Draw the bounding Rectangle //
 		Gfx::Rect( BoundingRect.ToRect(), Gfx::RGB( 128, 128, 128 ) );
 		
@@ -198,7 +198,7 @@ void cSphereObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 		}
 	}
 	
-	if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+	if ( Global::DebugDraw & Global::flCollision ) {
 		// Draw Sphere's //
 		{
 			int SphereCount = Sphere.size();
@@ -209,7 +209,7 @@ void cSphereObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 		}
 	}
 
-	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+	if ( Global::DebugDraw & Global::flExtraInfo ) {
 		// Draw nodes last, as their the lowest level of the heiarchy //
 		{
 			for ( size_t idx = 0; idx < size(); idx++ ) {

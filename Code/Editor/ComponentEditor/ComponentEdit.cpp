@@ -5,10 +5,9 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 
 // For FPS test //
-//#include <Platform/Global.h>
 //#include <Font/Fonts.h>
 //#include <sstream>
 // ------------ //
@@ -43,18 +42,18 @@ cComponentEdit::cComponentEdit() :
 		Real( 1.0 ),									// Aspect Ratio
 		1.0,											// NearClip
 		100000.0,										// FarClip
-		cGlobal::HudZoom,								// MinZoom
-		cGlobal::HudZoom,								// MaxZoom
-		cGlobal::HudZoom,								// HudZoom
-		Real( Platform::ScreenW * 0.75 ),				// X
+		Global::HudZoom,								// MinZoom
+		Global::HudZoom,								// MaxZoom
+		Global::HudZoom,								// HudZoom
+		Real( Global::ScreenW * 0.75 ),				// X
 		Real( 0 ),										// Y
-		Real( Platform::ScreenW * UVWidth ),			// Width
-		Real( Platform::ScreenH * UVHeight )			// Height
+		Real( Global::ScreenW * UVWidth ),			// Width
+		Real( Global::ScreenH * UVHeight )			// Height
 	);
 	
 	Real PreviewHeight = UVHeight;
 
-	if( Platform::AspectRatio < Real( 0.79 ) )
+	if( Global::AspectRatio < Real( 0.79 ) )
 	{
 		PreviewHeight = 0.75;
 		
@@ -63,20 +62,20 @@ cComponentEdit::cComponentEdit() :
 	}
 	
 	PreviewCamera = new cCamera(
-		Vector3D( 0.0, 0.0, cGlobal::HudZoom * ( Real( 1 ) - PreviewHeight ) ),		// Pos
+		Vector3D( 0.0, 0.0, Global::HudZoom * ( Real( 1 ) - PreviewHeight ) ),		// Pos
 		Vector3D( 0.0, 0.0, 0.0 ),					// View
 		Vector3D( 0.0, 1.0, 0.0 ),					// Up
 		45.0,										// Field of View
-		Platform::AspectRatio * UVHeight,			// Aspect Ratio
+		Global::AspectRatio * UVHeight,			// Aspect Ratio
 		1.0,										// NearClip
 		100000.0,									// FarClip
-		cGlobal::HudZoom,							// MinZoom
-		cGlobal::HudZoom,							// MaxZoom
-		cGlobal::HudZoom,							// HudZoom
-		Real( Platform::ScreenW * 0.75 ),			// X
-		Real( Platform::ScreenH * UVHeight ), 		// Y
-		Real( Platform::ScreenW * UVWidth ), 		// Width
-		Real( Platform::ScreenH * ( 1 - UVHeight ) ) // Height
+		Global::HudZoom,							// MinZoom
+		Global::HudZoom,							// MaxZoom
+		Global::HudZoom,							// HudZoom
+		Real( Global::ScreenW * 0.75 ),			// X
+		Real( Global::ScreenH * UVHeight ), 		// Y
+		Real( Global::ScreenW * UVWidth ), 		// Width
+		Real( Global::ScreenH * ( 1 - UVHeight ) ) // Height
 	);
 	
 	Camera->Pos.z = Real( 800.0 );
@@ -352,10 +351,10 @@ void cComponentEdit::HudDraw()
 	
 //	//  DISPLAYS FPS  //
 //	std::stringstream Temp;
-//	Temp << Platform::FPS;
+//	Temp << Global::FPS;
 //	std::string TempString = Temp.str();
 //	
-//	Vector3D TempPos = Vector3D( cGlobal::Left, cGlobal::Top - Real( 45 ), 0.0 );
+//	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
 //
 //	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 184, 0, 0, 255 ) );
 //	// -------------- //
@@ -446,9 +445,9 @@ void cComponentEdit::Step()
 		}
 
 		// Handles scrolling around the map
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( Global::AspectRatio < Real( 0.79 ) )
 		{
-			Scroll( Camera, Real( 1.33 ), Real( 1.33 ), Vector2D( cGlobal::HudZoom, cGlobal::HudZoom ) );
+			Scroll( Camera, Real( 1.33 ), Real( 1.33 ), Vector2D( Global::HudZoom, Global::HudZoom ) );
 		}
 		else
 		{
@@ -545,7 +544,7 @@ void cComponentEdit::Step()
 		CurView = 2;
 		CurMousePos = CalcMousePos();
 
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( Global::AspectRatio < Real( 0.79 ) )
 		{
 			Scroll( PreviewCamera, Real( 0.325 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
 		}
@@ -572,7 +571,7 @@ void cComponentEdit::Step()
 		}
 
 		// Handles scrolling around the map
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( Global::AspectRatio < Real( 0.79 ) )
 		{
 			Scroll( UVCamera, Real( 0.33 ), Real( 0.25 ), Vector2D( UVZoomOffsetX, UVZoomOffsetY ) );
 		}

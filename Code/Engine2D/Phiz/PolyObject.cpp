@@ -205,7 +205,7 @@ void cPolyObject::Step() {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cPolyObject::DebugDraw( /*const Vector2D& Offset*/ ) {
-	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+	if ( Global::DebugDraw & Global::flExtraInfo ) {
 		// Draw the bounding Rectangle //
 		Gfx::Rect( BoundingRect.ToRect(), Gfx::RGB( 128, 128, 128 ) );
 		
@@ -223,7 +223,7 @@ void cPolyObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 	}
 
 	// Draw Triangles //
-	if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+	if ( Global::DebugDraw & Global::flCollision ) {
 		Vector2D DrawMeA, DrawMeB, DrawMeC;
 		for ( size_t idx = 0; idx < Triangle.size(); idx++ ) {
 			// Positions of Normals //
@@ -261,7 +261,7 @@ void cPolyObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 	
 
 	// Draw Quads //
-	if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+	if ( Global::DebugDraw & Global::flCollision ) {
 		Vector2D DrawMeA, DrawMeB, DrawMeC, DrawMeD;
 		for ( size_t idx = 0; idx < Quad.size(); idx++ ) {
 			// Positions of Normals //
@@ -306,7 +306,7 @@ void cPolyObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 	}
 
 	// Draw nodes last, as their the lowest level of the heiarchy //
-	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+	if ( Global::DebugDraw & Global::flExtraInfo ) {
 		Vector2D DrawMe;
 		for ( size_t idx = 0; idx < size(); idx++ ) {
 			Gfx::Circle( Pos( idx ), 1, Gfx::RGBA( 255, 255, 255, 255 ) );

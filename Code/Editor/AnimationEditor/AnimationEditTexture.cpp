@@ -6,7 +6,7 @@
 #include <Input/Input.h>
 
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
@@ -603,32 +603,32 @@ void cAnimationEdit::MoveUV()
 			if( VertexNum == 0 )
 			{
 				CurFrame->Face[ i ].UV.a.x -=
-				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				( Mouse.Diff().x * ( Real( Global::HudW ) * ( UVWidth ) ) ) *
 				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale );
 				
 				CurFrame->Face[ i ].UV.a.y +=
-				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				( -Mouse.Diff().y * Real( Global::HudH ) * ( UVHeight ) ) *
 				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale ) * Real(-1.0);
 			}
 			else if( VertexNum == 1 )
 			{
 				CurFrame->Face[ i ].UV.b.x -=
-				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				( Mouse.Diff().x * ( Real( Global::HudW ) * ( UVWidth ) ) ) *
 				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale );
 				
 				CurFrame->Face[ i ].UV.b.y +=
-				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				( -Mouse.Diff().y * Real( Global::HudH ) * ( UVHeight ) ) *
 				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale ) * Real(-1.0);
 
 			}
 			else if( VertexNum == 2 )
 			{
 				CurFrame->Face[ i ].UV.c.x -=
-				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				( Mouse.Diff().x * ( Real( Global::HudW ) * ( UVWidth ) ) ) *
 				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale );
 				
 				CurFrame->Face[ i ].UV.c.y +=
-				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				( -Mouse.Diff().y * Real( Global::HudH ) * ( UVHeight ) ) *
 				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale ) * Real(-1.0);
 			}
 		}

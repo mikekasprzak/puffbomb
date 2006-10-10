@@ -5,7 +5,7 @@
 #include <Input/Input.h>
 #include <Util/Debug.h>
 
-#include <Platform/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SDL/SDL.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -176,8 +176,8 @@ namespace Input {
 			
 			Mouse.Update(
 				Vector2D(
-					Real( x ) / Real( Platform::ScreenW ),
-					Real( y ) / Real( Platform::ScreenH )
+					Real( x ) / Real( Global::ScreenW ),
+					Real( y ) / Real( Global::ScreenH )
 					)
 				);
 				

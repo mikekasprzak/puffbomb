@@ -5,7 +5,7 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/String.h>
 #include <Util/DirectoryCache.h>
@@ -52,37 +52,37 @@ cEdit::cEdit() :
 	
 	// Create Camera //
 	Camera = new cCamera(
-		Vector3D( 0.0, 0.0, cGlobal::HudZoom ),
+		Vector3D( 0.0, 0.0, Global::HudZoom ),
 		Vector3D( 0.0, 0.0, 0.0 ),
 		Vector3D( 0.0, 1.0, 0.0 ),
 		45.0,
-		Platform::AspectRatio,
+		Global::AspectRatio,
 		1.0,
 		100000.0,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom,
+		Global::HudZoom,
+		Global::HudZoom,
+		Global::HudZoom,
 		Real( 0 ),										// X
 		Real( 0 ),										// Y
-		Real( Platform::ScreenW ),						// Width
-		Real( Platform::ScreenH )						// Height
+		Real( Global::ScreenW ),						// Width
+		Real( Global::ScreenH )						// Height
 	 );
 
 	HudCamera = new cCamera(
-		Vector3D( 0.0, 0.0, cGlobal::HudZoom ),
+		Vector3D( 0.0, 0.0, Global::HudZoom ),
 		Vector3D( 0.0, 0.0, 0.0 ),
 		Vector3D( 0.0, 1.0, 0.0 ),
 		45.0,
-		Platform::AspectRatio,
+		Global::AspectRatio,
 		1.0,
 		100000.0,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom,
-		cGlobal::HudZoom,
+		Global::HudZoom,
+		Global::HudZoom,
+		Global::HudZoom,
 		Real( 0 ),										// X
 		Real( 0 ),										// Y
-		Real( Platform::ScreenW ),						// Width
-		Real( Platform::ScreenH )						// Height
+		Real( Global::ScreenW ),						// Width
+		Real( Global::ScreenH )						// Height
 	 );
 	
 	// Sets grid density values //
@@ -141,7 +141,7 @@ cEdit::~cEdit()
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::Scroll( cCamera* MyCamera )
 {
-	Scroll( MyCamera, Real( 1.0 ), Real( 1.0 ), Vector2D( cGlobal::HudZoom, cGlobal::HudZoom ) );
+	Scroll( MyCamera, Real( 1.0 ), Real( 1.0 ), Vector2D( Global::HudZoom, Global::HudZoom ) );
 }
 void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH, const Vector2D ZoomInfo )
 {
@@ -150,8 +150,8 @@ void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH,
 	{
 		EditEventFlags |= flMiddleClick;
 		//MiddleClick = true;
-		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
-		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
+		ScrollMouseX = int( Mouse.x * Real( Global::HudW ) * PercentW );
+		ScrollMouseY = int( -Mouse.y * Real( Global::HudH ) * PercentH );
 	}
 	else if( ( !( Button[ MOUSE_3 ] ) ) && ( EditEventFlags & flMiddleClick ) )
 	{
@@ -160,12 +160,12 @@ void cEdit::Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH,
 	}
 	else if( EditEventFlags & flMiddleClick )
 	{
-		MyCamera->Pos.x += ( int( Mouse.x * Real( cGlobal::HudW ) * PercentW ) - ScrollMouseX )
+		MyCamera->Pos.x += ( int( Mouse.x * Real( Global::HudW ) * PercentW ) - ScrollMouseX )
 			* Real( -MyCamera->Pos.z / ZoomInfo.x );
-		MyCamera->Pos.y += ( int( -Mouse.y * Real( cGlobal::HudH ) * PercentH ) - ScrollMouseY )
+		MyCamera->Pos.y += ( int( -Mouse.y * Real( Global::HudH ) * PercentH ) - ScrollMouseY )
 			* Real( -MyCamera->Pos.z / ZoomInfo.y );
-		ScrollMouseX = int( Mouse.x * Real( cGlobal::HudW ) * PercentW );
-		ScrollMouseY = int( -Mouse.y * Real( cGlobal::HudH ) * PercentH );
+		ScrollMouseX = int( Mouse.x * Real( Global::HudW ) * PercentW );
+		ScrollMouseY = int( -Mouse.y * Real( Global::HudH ) * PercentH );
 	
 		MyCamera->View.x = MyCamera->Pos.x;
 		MyCamera->View.y = MyCamera->Pos.y;
@@ -578,16 +578,16 @@ int cEdit::ArraySize( char * array )
 // - ------------------------------------------------------------------------------------------ - //
 bool cEdit::CheckViewOne()
 {
- 	if( Platform::AspectRatio < Real( 0.79 ) )
+ 	if( Global::AspectRatio < Real( 0.79 ) )
 	{
-		if( Mouse.y * Real( cGlobal::HudH ) < Real(cGlobal::HudH * 0.75) )
+		if( Mouse.y * Real( Global::HudH ) < Real(Global::HudH * 0.75) )
 		{
 			return true;	
 		}
 	}
 	else
 	{
-		if( Mouse.x * Real( cGlobal::HudW ) < Real(cGlobal::HudW * 0.75) )
+		if( Mouse.x * Real( Global::HudW ) < Real(Global::HudW * 0.75) )
 		{
 			return true;	
 		}
@@ -597,11 +597,11 @@ bool cEdit::CheckViewOne()
 // - ------------------------------------------------------------------------------------------ - //
 bool cEdit::CheckViewTwo( const Real ViewHeight )
 {
- 	if( Platform::AspectRatio < Real( 0.79 ) )
+ 	if( Global::AspectRatio < Real( 0.79 ) )
 	{
-		if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * 0.75) )
+		if( Mouse.y * Real( Global::HudH ) > Real(Global::HudH * 0.75) )
 		{
-			if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * ( 0.33 ) ) )
+			if( Mouse.x * Real( Global::HudW ) > Real(Global::HudW * ( 0.33 ) ) )
 			{
 				return true;
 			}
@@ -609,9 +609,9 @@ bool cEdit::CheckViewTwo( const Real ViewHeight )
 	}
 	else
 	{
-		if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
+		if( Mouse.x * Real( Global::HudW ) > Real(Global::HudW * 0.75) )
 		{
-			if( Mouse.y * Real( cGlobal::HudH ) < Real(cGlobal::HudH * ( 1 - ViewHeight ) ) )
+			if( Mouse.y * Real( Global::HudH ) < Real(Global::HudH * ( 1 - ViewHeight ) ) )
 			{
 				return true;
 			}
@@ -622,11 +622,11 @@ bool cEdit::CheckViewTwo( const Real ViewHeight )
 // - ------------------------------------------------------------------------------------------ - //
 bool cEdit::CheckViewThree( const Real ViewHeight )
 {
- 	if( Platform::AspectRatio < Real( 0.79 ) )
+ 	if( Global::AspectRatio < Real( 0.79 ) )
 	{
-		if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * 0.75) )
+		if( Mouse.y * Real( Global::HudH ) > Real(Global::HudH * 0.75) )
 		{
-			if( Mouse.x * Real( cGlobal::HudW ) < Real(cGlobal::HudW * ( 0.33 ) ) )
+			if( Mouse.x * Real( Global::HudW ) < Real(Global::HudW * ( 0.33 ) ) )
 			{
 				return true;
 			}
@@ -634,9 +634,9 @@ bool cEdit::CheckViewThree( const Real ViewHeight )
 	}
 	else
 	{
-		if( Mouse.x * Real( cGlobal::HudW ) > Real(cGlobal::HudW * 0.75) )
+		if( Mouse.x * Real( Global::HudW ) > Real(Global::HudW * 0.75) )
 		{
-			if( Mouse.y * Real( cGlobal::HudH ) > Real(cGlobal::HudH * ( 1 - ViewHeight ) ) )
+			if( Mouse.y * Real( Global::HudH ) > Real(Global::HudH * ( 1 - ViewHeight ) ) )
 			{
 				return true;
 			}
@@ -703,15 +703,15 @@ void cEdit::DrawSelBox()
 // - ------------------------------------------------------------------------------------------ - //
 void cEdit::CalcUVZoomOffset()
 {
-	if( Platform::AspectRatio < Real( 0.79 ) )
+	if( Global::AspectRatio < Real( 0.79 ) )
 	{
 		UVZoomOffsetX = Real( 138.0 );
 		UVZoomOffsetY = Real( 105.5 );
 	}
 	else
 	{
-		UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
-		UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
+		UVZoomOffsetX = ( Real( Global::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
+		UVZoomOffsetY = ( Real( Global::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

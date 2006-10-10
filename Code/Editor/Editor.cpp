@@ -1,7 +1,7 @@
 #ifdef EDITOR
 // - ------------------------------------------------------------------------------------------ - //
 #include "Editor.h"
-#include <Platform/Global.h>
+#include <Global.h>
 #include <Input/Input.h>
 
 #include <SDL/SDL.h>
@@ -14,7 +14,7 @@ cEditor::cEditor()
 	ComponentEdit = new cComponentEdit();
 //	AnimationEdit = new cAnimationEdit();
 
-	cGlobal::CurEditor = COMPONENT_EDITOR;
+	CurEditor = COMPONENT_EDITOR;
 	
 	Work();
 }
@@ -53,7 +53,7 @@ cEditor::~cEditor()
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Step()
 {
-/*	if( cGlobal::CurEditor == MAP_EDITOR )
+/*	if( CurEditor == MAP_EDITOR )
 	{
 		if( MapEdit->IsHelp )
 		{
@@ -70,19 +70,19 @@ void cEditor::Step()
 		}
 	}
 	else */
-	if( cGlobal::CurEditor == COLLECTION_EDITOR )
+	if( CurEditor == COLLECTION_EDITOR )
 	{
 		CollectionEdit->Step();
 	}
-	else if( cGlobal::CurEditor == COMPONENT_EDITOR )
+	else if( CurEditor == COMPONENT_EDITOR )
 	{
 		ComponentEdit->Step();
 	}
-	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
+	else if( CurEditor == ANIMATION_EDITOR )
 	{
 //		AnimationEdit->Step();
 	}
-/*	else if( cGlobal::CurEditor == MESH2D_EDITOR )
+/*	else if( CurEditor == MESH2D_EDITOR )
 	{
 		if( Mesh2DEdit->IsHelp )
 		{
@@ -102,7 +102,7 @@ void cEditor::Step()
 	if( Button[ KEY_F1 ].Pressed() )
 	{
 
-/*		if( cGlobal::CurEditor == MAP_EDITOR )
+/*		if( CurEditor == MAP_EDITOR )
 		{
 			MapEdit->IsHelp = !MapEdit->IsHelp;
 			// Resets the zoom
@@ -110,26 +110,26 @@ void cEditor::Step()
 
 			MapEdit->Camera->Pos.x = 0.0;
 			MapEdit->Camera->Pos.y = 0.0;
-			MapEdit->Camera->Pos.z = cGlobal::HudZoom;
+			MapEdit->Camera->Pos.z = Global::HudZoom;
 			
 			MapEdit->Camera->View.x = MapEdit->Camera->Pos.x;
 			MapEdit->Camera->View.y = MapEdit->Camera->Pos.y;
 			MapEdit->Camera->View.z = 0.0;
 		}
 		else*/
-		if( cGlobal::CurEditor == COLLECTION_EDITOR )
+		if( CurEditor == COLLECTION_EDITOR )
 		{
 	
 		}
-		else if( cGlobal::CurEditor == COMPONENT_EDITOR )
+		else if( CurEditor == COMPONENT_EDITOR )
 		{
 	
 		}
-		else if( cGlobal::CurEditor == ANIMATION_EDITOR )
+		else if( CurEditor == ANIMATION_EDITOR )
 		{
 			
 		}
-/*		else if( cGlobal::CurEditor == MESH2D_EDITOR )
+/*		else if( CurEditor == MESH2D_EDITOR )
 		{
 			Mesh2DEdit->IsHelp = !Mesh2DEdit->IsHelp;
 			// Resets the zoom
@@ -137,7 +137,7 @@ void cEditor::Step()
 	
 			Mesh2DEdit->Camera->Pos.x = 0.0;
 			Mesh2DEdit->Camera->Pos.y = 0.0;
-			Mesh2DEdit->Camera->Pos.z = cGlobal::HudZoom;
+			Mesh2DEdit->Camera->Pos.z = Global::HudZoom;
 			
 			Mesh2DEdit->Camera->View.x = Mesh2DEdit->Camera->Pos.x;
 			Mesh2DEdit->Camera->View.y = Mesh2DEdit->Camera->Pos.y;
@@ -147,45 +147,45 @@ void cEditor::Step()
 	
 /*	if ( Button[ KEY_F2 ].Pressed() )
 	{
-		cGlobal::IsMesh2DEditor = !cGlobal::IsMesh2DEditor;
+		Global::IsMesh2DEditor = !Global::IsMesh2DEditor;
 		
 		// Swaps the active zoom with the non active one
 		Real tempZoom = NonActiveZoom;
-		NonActiveZoom = cGlobal::EditorZoom;
-		cGlobal::EditorZoom = tempZoom;
+		NonActiveZoom = Global::EditorZoom;
+		Global::EditorZoom = tempZoom;
 			
 		// Swaps the active Origin with the non active one
 		Vector2D tempOrigin = NonActiveOrigin;
-		NonActiveOrigin = cGlobal::Origin;
-		cGlobal::Origin = tempOrigin;
+		NonActiveOrigin = Global::Origin;
+		Global::Origin = tempOrigin;
 		
 	}*/
 	if( Button[ KEY_F4 ].Pressed() )
 	{
-		cGlobal::CurEditor = MAP_EDITOR;
+		CurEditor = MAP_EDITOR;
 	}
 	else if( Button[ KEY_F5 ].Pressed() )
 	{
-		cGlobal::CurEditor = COLLECTION_EDITOR;
+		CurEditor = COLLECTION_EDITOR;
 	}
 	else if( Button[ KEY_F6 ].Pressed() )
 	{
-		cGlobal::CurEditor = ANIMATION_EDITOR;
+		CurEditor = ANIMATION_EDITOR;
 	}
 	else if( Button[ KEY_F7 ].Pressed() )
 	{
-		cGlobal::CurEditor = COMPONENT_EDITOR;
+		CurEditor = COMPONENT_EDITOR;
 	}
 	else if( Button[ KEY_F8 ].Pressed() )
 	{
-		cGlobal::CurEditor = MESH2D_EDITOR;
+		CurEditor = MESH2D_EDITOR;
 	}
 	
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Draw()
 {
-	if( cGlobal::CurEditor == MAP_EDITOR )
+	if( CurEditor == MAP_EDITOR )
 	{
 /*		if( MapEdit->IsHelp )
 		{
@@ -203,19 +203,19 @@ void cEditor::Draw()
 			MapEdit->Draw();
 		}*/
 	}
-	else if( cGlobal::CurEditor == COLLECTION_EDITOR )
+	else if( CurEditor == COLLECTION_EDITOR )
 	{
 		CollectionEdit->Draw();
 	}
-	else if( cGlobal::CurEditor == COMPONENT_EDITOR )
+	else if( CurEditor == COMPONENT_EDITOR )
 	{
 		ComponentEdit->Draw();
 	}
-	else if( cGlobal::CurEditor == ANIMATION_EDITOR )
+	else if( CurEditor == ANIMATION_EDITOR )
 	{
 //		AnimationEdit->Draw();
 	}
-/*	else if( cGlobal::CurEditor == MESH2D_EDITOR )
+/*	else if( CurEditor == MESH2D_EDITOR )
 	{
 		if( Mesh2DEdit->IsHelp )
 		{

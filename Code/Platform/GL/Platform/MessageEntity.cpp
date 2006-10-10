@@ -5,7 +5,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Input/Input.h>
 #include <Global.h>
-#include <Platform/Global.h>
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
 cMessageEntity::cMessageEntity() :
@@ -43,7 +42,7 @@ void cMessageEntity::MessageLoop() {
 	    	}
 
 		case SDL_QUIT:
-			cGlobal::Shutdown = true;
+			Global::Shutdown = true;
 		    //QuitGame( 0 );
 		    break;
 
@@ -58,7 +57,7 @@ void cMessageEntity::MessageLoop() {
 void cMessageEntity::GlobalInput()
 {
 	if( Input::Button[ KEY_F10 ].Pressed() ) {
-	    cGlobal::Shutdown = true;
+	    Global::Shutdown = true;
 	}
 	if ( Input::Button[ KEY_ESC ].Pressed()  ) {
 	    BreakLoop = true;
@@ -68,12 +67,12 @@ void cMessageEntity::GlobalInput()
 
 /*	if ( Input::Button[ KEY_ESC ].Pressed()  )
 	{
-		cGlobal::IsEditMode = false;
+		Global::IsEditMode = false;
 	}
 	if( Input::Button[ KEY_F4 ] || Input::Button[ KEY_F5 ] || Input::Button[ KEY_F6 ]
 	 || Input::Button[ KEY_F7 ] || Input::Button[ KEY_F8 ] )
 	{
-		cGlobal::IsEditMode = true;
+		Global::IsEditMode = true;
 	}
 */
 	#endif // EDITOR //
@@ -86,15 +85,15 @@ void cMessageEntity::Work()
 	int LastTime = GetTime();
 	int BeginTime = LastTime;
 	
-	Platform::FrameClock = LastTime;
-	Platform::FPS = 0;
+	Global::FrameClock = LastTime;
+	Global::FPS = 0;
 	int FramesPast = 0;
 	
 //	MessageLoop();
 //	Input::Update();
 
 	// Standard Rendering Loop //
-	while( !cGlobal::Shutdown && !BreakLoop ) {
+	while( !Global::Shutdown && !BreakLoop ) {
 		MessageLoop();
 
 		// A whole bunch of complicated crap to give us a flexible framerate //			
@@ -110,9 +109,9 @@ void cMessageEntity::Work()
 				BreakLoop = true;
 			}
 		}
-		if ( Platform::FrameClock + 1000 < ThisTime ) {
-			Platform::FrameClock = ThisTime;
-			Platform::FPS = FramesPast;
+		if ( Global::FrameClock + 1000 < ThisTime ) {
+			Global::FrameClock = ThisTime;
+			Global::FPS = FramesPast;
 			FramesPast = 0;
 		}
 		

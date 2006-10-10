@@ -230,7 +230,7 @@ void cMapEdit::ListModels()
 				
 				ModelList.push_back(
 					cLevelData(
-						Vector3D( cGlobal::Left, cGlobal::Bottom, 0.0 ),
+						Vector3D( Global::Left, Global::Bottom, 0.0 ),
 						&Mesh3dPool.Load( TempFileName )
 					)
 				);

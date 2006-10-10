@@ -138,14 +138,14 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Should probably take a camera or camera matrix as an argument //
 void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
-	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+	if ( Global::DebugDraw & Global::flExtraInfo ) {
 		// Draw the bounding Rectangle (First, so blank boxes show up first) //
 		Gfx::Rect( BoundingRect.ToRect(), Gfx::RGB( 128, 128, 255 ) );
 	}
 
 /*
 	
-	if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+	if ( Global::DebugDraw & Global::flCollision ) {
 		// Draw Boxes //
 		{
 			for ( size_t idx = 0; idx < Box.size(); idx++ ) {
@@ -163,14 +163,14 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 			DrawMeB = Pos( Triangle[ idx ].IndexB );	
 			DrawMeC = Pos( Triangle[ idx ].IndexC );
 
-			if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+			if ( Global::DebugDraw & Global::flCollision ) {
 				// Draw the root lines //
 				gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 0, 128, 128 ) );
 				gfx::Line( DrawMeB, DrawMeC, gfx::RGB( 0, 160, 160 ) );
 				gfx::Line( DrawMeC, DrawMeA, gfx::RGB( 0, 192, 192 ) );
 			}
 
-			if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+			if ( Global::DebugDraw & Global::flExtraInfo ) {
 				// Calculate the offset to the center of each line //
 				DrawMeA += (Pos( Triangle[ idx ].IndexB ) - Pos( Triangle[ idx ].IndexA )) * Real( 0.5 );
 				DrawMeB += (Pos( Triangle[ idx ].IndexC ) - Pos( Triangle[ idx ].IndexB )) * Real( 0.5 );
@@ -206,7 +206,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 			DrawMeC = Pos( Quad[ idx ].IndexC );
 			DrawMeD = Pos( Quad[ idx ].IndexD );
 			
-			if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+			if ( Global::DebugDraw & Global::flCollision ) {
 				// Draw the root lines //
 				gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 128, 0, 128 ) );
 				gfx::Line( DrawMeB, DrawMeC, gfx::RGB( 160, 0, 160 ) );
@@ -214,7 +214,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				gfx::Line( DrawMeD, DrawMeA, gfx::RGB( 224, 0, 224 ) );
 			}
 
-			if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+			if ( Global::DebugDraw & Global::flExtraInfo ) {
 				// Calculate the offset to the center of each line //
 				DrawMeA += (Pos( Quad[ idx ].IndexB ) - Pos( Quad[ idx ].IndexA )) * Real( 0.5 );
 				DrawMeB += (Pos( Quad[ idx ].IndexC ) - Pos( Quad[ idx ].IndexB )) * Real( 0.5 );
@@ -250,7 +250,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 	{
 		Vector2D DrawMeA, DrawMeB, DrawMeC;
 		for ( size_t idx = 0; idx < Polygon.size(); idx++ ) {
-			if ( cGlobal::DebugDraw & cGlobal::flExtraInfo )
+			if ( Global::DebugDraw & Global::flExtraInfo )
 				Gfx::Rect( Polygon[idx].BoundingRect.ToRect(), Gfx::RGB( 0, 0, 128 ) );
 			
 			int NodesLeft = Polygon[ idx ].Index.size();
@@ -263,7 +263,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				DrawMeB = Pos( Polygon[ idx ].Index[ CurrentIndex + 1 ] );	
 				DrawMeC = Pos( Polygon[ idx ].Index[ CurrentIndex + 2 ] );
 
-				if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+				if ( Global::DebugDraw & Global::flCollision ) {
 					// Draw the root lines. Use different color when collision should be ignored //
 //					if ( Polygon[ idx ].Flag[ CurrentIndex + 0 ] )
 						Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 255, 128, 0 ) );
@@ -276,7 +276,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 //						gfx::Line( DrawMeB, DrawMeC, gfx::RGB( 128, 0, 0 ) );
 				}
 
-//				if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+//				if ( Global::DebugDraw & Global::flExtraInfo ) {
 //					// Calculate the offset to the center of each line (note, A is destroyed here) //
 //					DrawMeA += (DrawMeB - DrawMeA) * Real( 0.5 );
 //					DrawMeB += (DrawMeC - DrawMeB) * Real( 0.5 );
@@ -304,7 +304,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				DrawMeB = Pos( Polygon[ idx ].Index[ CurrentIndex + 1 ] );	
 				DrawMeC = Pos( Polygon[ idx ].Index[ 0 ] );
 
-				if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+				if ( Global::DebugDraw & Global::flCollision ) {
 					// Draw the root lines //
 //					if ( Polygon[ idx ].Flag[ CurrentIndex + 0 ] )
 						Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 255, 128, 0 ) );
@@ -317,7 +317,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 //						gfx::Line( DrawMeB, DrawMeC, gfx::RGB( 128, 0, 0 ) );
 				}
 
-//				if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+//				if ( Global::DebugDraw & Global::flExtraInfo ) {
 //					// Calculate the offset to the center of each line (note, A is destroyed here) //
 //					DrawMeA += (DrawMeB - DrawMeA) * Real( 0.5 );
 //					DrawMeB += (DrawMeC - DrawMeB) * Real( 0.5 );
@@ -340,7 +340,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				DrawMeA = Pos( Polygon[ idx ].Index[ CurrentIndex + 0 ] );
 				DrawMeB = Pos( Polygon[ idx ].Index[ 0 ] );	
 
-				if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+				if ( Global::DebugDraw & Global::flCollision ) {
 					// Draw the root lines //
 //					if ( Polygon[ idx ].Flag[ CurrentIndex + 0 ] )
 						Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 255, 128, 0 ) );
@@ -348,7 +348,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 //						gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 128, 0, 0 ) );
 				}
 
-//				if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+//				if ( Global::DebugDraw & Global::flExtraInfo ) {
 //					// Calculate the offset to the center of each line (note, A is destroyed here) //
 //					DrawMeA += (DrawMeB - DrawMeA) * Real( 0.5 );
 //						
@@ -364,7 +364,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 
 	// Draw Edges //
 	for ( size_t idx = 0; idx < Edge.size(); idx++ ) {
-		if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
+		if ( Global::DebugDraw & Global::flCollision ) {
 //			Gfx::Line( 
 //				Pos( Edge[idx].a ),
 //				Pos( Edge[idx].b ),
@@ -378,8 +378,8 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				);
 		}
 
-		if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
-			if ( cGlobal::DebugDraw & cGlobal::flExtraInfo )
+		if ( Global::DebugDraw & Global::flExtraInfo ) {
+			if ( Global::DebugDraw & Global::flExtraInfo )
 				Gfx::Rect( Edge[idx].BoundingRect.ToRect(), Gfx::RGB( 0, 0, 255 ) );
 
 			Vector2D Center =
@@ -390,7 +390,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 		}
 	}
 
-	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
+	if ( Global::DebugDraw & Global::flExtraInfo ) {
 		// Draw nodes last, so they should draw on top //
 		{
 			Vector2D DrawMe;

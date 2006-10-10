@@ -6,7 +6,7 @@
 #include <Input/Input.h>
 
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
@@ -202,12 +202,12 @@ void cAnimationEdit::MoveNode()
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
 			CurFrame->Vertex[ CurSelected[idx] ].Pos.x -=
-				( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+				( Mouse.Diff().x * Real( Global::HudW ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 			
 			CurFrame->Vertex[ CurSelected[idx] ].Pos.y +=
-				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+				( Mouse.Diff().y * Real( Global::HudH ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 		
 		}
 	}

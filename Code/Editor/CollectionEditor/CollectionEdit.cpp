@@ -5,7 +5,7 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
@@ -71,14 +71,14 @@ void cCollectionEdit::Step()
 Vector2D cCollectionEdit::CalcMousePos()
 {
 	Vector2D tempMousPos = Vector2D(
-			Real( ( int( Mouse.x * Real( cGlobal::HudW ) ) )
-			- ( -Camera->Pos.x / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-			- ( Real(cGlobal::HudW >> 1) ) )
-			* Real( Camera->Pos.z / cGlobal::HudZoom ),
-			Real( ( int( -Mouse.y * Real( cGlobal::HudH ) ) )
-			+ ( Camera->Pos.y / Real( Camera->Pos.z / cGlobal::HudZoom ) )
-			+ ( cGlobal::HudH >> 1 ) )
-			* Real( Camera->Pos.z / cGlobal::HudZoom )
+			Real( ( int( Mouse.x * Real( Global::HudW ) ) )
+			- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
+			- ( Real(Global::HudW >> 1) ) )
+			* Real( Camera->Pos.z / Global::HudZoom ),
+			Real( ( int( -Mouse.y * Real( Global::HudH ) ) )
+			+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom ) )
+			+ ( Global::HudH >> 1 ) )
+			* Real( Camera->Pos.z / Global::HudZoom )
 	);
 	return tempMousPos;
 }

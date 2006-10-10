@@ -216,19 +216,19 @@ void cMapEdit::MoveZone()
 				RadiusRect2D::Pair(
 					Vector2D(
 						Game->Zone[ CurZone ].BoundingRect.P1().x - 
-							( ( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) ),
+							( ( Mouse.Diff().x * Real( Global::HudW ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) ),
 						Game->Zone[ CurZone ].BoundingRect.P1().y +	
-							( ( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) )
+							( ( Mouse.Diff().y * Real( Global::HudH ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) )
 					),
 					Vector2D(
 						Game->Zone[ CurZone ].BoundingRect.P2().x - 
-							( ( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) ),
+							( ( Mouse.Diff().x * Real( Global::HudW ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) ),
 						Game->Zone[ CurZone ].BoundingRect.P2().y +	
-							( ( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) )
+							( ( Mouse.Diff().y * Real( Global::HudH ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) )
 					)
 				);
 		}
@@ -307,11 +307,11 @@ void cMapEdit::ResizeZone()
 				Game->Zone[ CurZone ].BoundingRect = RadiusRect2D::Pair(
 					Vector2D(
 						Game->Zone[ CurZone ].BoundingRect.P1().x - 
-							( ( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) ),
+							( ( Mouse.Diff().x * Real( Global::HudW ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) ),
 						Game->Zone[ CurZone ].BoundingRect.P1().y +	
-							( ( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) )
+							( ( Mouse.Diff().y * Real( Global::HudH ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) )
 					),
 					Game->Zone[ CurZone ].BoundingRect.P2()
 				);
@@ -322,11 +322,11 @@ void cMapEdit::ResizeZone()
 					Game->Zone[ CurZone ].BoundingRect.P1(),
 					Vector2D(
 						Game->Zone[ CurZone ].BoundingRect.P2().x - 
-							( ( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) ),
+							( ( Mouse.Diff().x * Real( Global::HudW ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) ),
 						Game->Zone[ CurZone ].BoundingRect.P2().y +	
-							( ( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) )
+							( ( Mouse.Diff().y * Real( Global::HudH ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) )
 					)
 				);
 			}
@@ -335,15 +335,15 @@ void cMapEdit::ResizeZone()
 				Game->Zone[ CurZone ].BoundingRect = RadiusRect2D::Pair(
 					Vector2D(
 						Game->Zone[ CurZone ].BoundingRect.P1().x - 
-							( ( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) ),
+							( ( Mouse.Diff().x * Real( Global::HudW ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) ),
 						Game->Zone[ CurZone ].BoundingRect.P1().y
 					),
 					Vector2D(
 						Game->Zone[ CurZone ].BoundingRect.P2().x,
 						Game->Zone[ CurZone ].BoundingRect.P2().y +	
-							( ( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) )
+							( ( Mouse.Diff().y * Real( Global::HudH ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) )
 					)
 				);
 			}
@@ -353,13 +353,13 @@ void cMapEdit::ResizeZone()
 					Vector2D(
 						Game->Zone[ CurZone ].BoundingRect.P1().x,
 						Game->Zone[ CurZone ].BoundingRect.P1().y +
-							( ( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) )
+							( ( Mouse.Diff().y * Real( Global::HudH ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) )
 					),
 					Vector2D(
 						Game->Zone[ CurZone ].BoundingRect.P2().x - 
-							( ( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-							Real( Camera->Pos.z / cGlobal::HudZoom ) ),
+							( ( Mouse.Diff().x * Real( Global::HudW ) ) *
+							Real( Camera->Pos.z / Global::HudZoom ) ),
 						Game->Zone[ CurZone ].BoundingRect.P2().y
 					)
 				);

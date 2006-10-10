@@ -280,19 +280,19 @@ Real cForm::Anchor( const std::string &AnchorName )
 {
 	if( AnchorName == "Left" )
 	{
-		return cGlobal::Left;
+		return Global::Left;
 	}
 	else if( AnchorName == "Right" )
 	{
-		return cGlobal::Right;
+		return Global::Right;
 	}
 	else if( AnchorName == "Top" )
 	{
-		return cGlobal::Top;
+		return Global::Top;
 	}
 	else if( AnchorName == "Bottom" )
 	{
-		return cGlobal::Bottom;
+		return Global::Bottom;
 	}
 	else
 	{

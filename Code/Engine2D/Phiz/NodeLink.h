@@ -100,7 +100,7 @@ public:
 	}
 	
 	void DebugDraw() {
-		if ( cGlobal::DebugDraw & (cGlobal::flExtraInfo | cGlobal::flCollision) ) {
+		if ( Global::DebugDraw & (Global::flExtraInfo | Global::flCollision) ) {
 			// Draw springs //
 			{
 				Vector2D DrawMeA, DrawMeB;

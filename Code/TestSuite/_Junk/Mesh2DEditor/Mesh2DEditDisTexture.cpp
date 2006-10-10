@@ -403,8 +403,8 @@ void cMesh2DEdit::ScrollUV()
 	if( Button[ MOUSE_3 ] && UVMiddleClick == false )
 	{
 		UVMiddleClick = true;
-		UVScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
-		UVScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
+		UVScrollMouseX = int( Mouse.x * ( Real( Global::HudW ) * UVWidth ) );
+		UVScrollMouseY = int( -Mouse.y * ( Real( Global::HudH ) * UVHeight ) );
 	}
 	else if( !( Button[ MOUSE_3 ] ) && UVMiddleClick )
 	{
@@ -413,12 +413,12 @@ void cMesh2DEdit::ScrollUV()
 	}
 	else if( UVMiddleClick )
 	{
-		UVCamera->Pos.x += ( int( Mouse.x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) - UVScrollMouseX )
+		UVCamera->Pos.x += ( int( Mouse.x * ( Real( Global::HudW ) * ( UVWidth ) ) ) - UVScrollMouseX )
 			* Real( -UVCamera->Pos.z / UVZoomOffsetX );
-		UVCamera->Pos.y += ( int( -Mouse.y * ( Real( cGlobal::HudH ) ) * UVHeight ) - UVScrollMouseY )
+		UVCamera->Pos.y += ( int( -Mouse.y * ( Real( Global::HudH ) ) * UVHeight ) - UVScrollMouseY )
 			* Real( -UVCamera->Pos.z / UVZoomOffsetY );
-		UVScrollMouseX = int( Mouse.x * ( Real( cGlobal::HudW ) * UVWidth ) );
-		UVScrollMouseY = int( -Mouse.y * ( Real( cGlobal::HudH ) * UVHeight ) );
+		UVScrollMouseX = int( Mouse.x * ( Real( Global::HudW ) * UVWidth ) );
+		UVScrollMouseY = int( -Mouse.y * ( Real( Global::HudH ) * UVHeight ) );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -432,14 +432,14 @@ Vector2D cMesh2DEdit::CalcUVMousePos()
 	//UVZoomOffsetY( 232 ),
 
 	return Vector2D(
-		Real( ( int( Mouse.x * Real( cGlobal::HudW * UVWidth ) ) )
+		Real( ( int( Mouse.x * Real( Global::HudW * UVWidth ) ) )
 		- ( -UVCamera->Pos.x / Real( UVCamera->Pos.z / UVZoomOffsetX ) )
-		- ( ( Real(cGlobal::HudW) * UVWidth ) ) )
+		- ( ( Real(Global::HudW) * UVWidth ) ) )
 		* Real( UVCamera->Pos.z / UVZoomOffsetX ) / UVScale + Real( 1 )
 		+ ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) ),
-		Real( ( int( -Mouse.y * Real( cGlobal::HudH ) * UVHeight )
+		Real( ( int( -Mouse.y * Real( Global::HudH ) * UVHeight )
 		+ ( UVCamera->Pos.y / Real( UVCamera->Pos.z / UVZoomOffsetY ) )
-		+ ( ( cGlobal::HudH * UVHeight ) ) )
+		+ ( ( Global::HudH * UVHeight ) ) )
 		* Real( UVCamera->Pos.z / UVZoomOffsetY ) ) / UVScale - Real( 1 )
 		- ( ( UVCamera->Pos.z - Real( 612 ) ) / Real( 612 ) )
 	);
@@ -580,31 +580,31 @@ void cMesh2DEdit::DisMoveUV()
 			if( VertexNum == 0 )
 			{
 				DisplayMesh[ CurrentObject ].Face[ i ].UV.a.x -=
-				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				( Mouse.Diff().x * ( Real( Global::HudW ) * ( UVWidth ) ) ) *
 				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale * Real( 2 ) );
 				
 				DisplayMesh[ CurrentObject ].Face[ i ].UV.a.y +=
-				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				( -Mouse.Diff().y * Real( Global::HudH ) * ( UVHeight ) ) *
 				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale * Real( 2 ) ) * Real(-1.0);
 			}
 			else if( VertexNum == 1 )
 			{
 				DisplayMesh[ CurrentObject ].Face[ i ].UV.b.x -=
-				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				( Mouse.Diff().x * ( Real( Global::HudW ) * ( UVWidth ) ) ) *
 				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale * Real( 2 ) );
 				
 				DisplayMesh[ CurrentObject ].Face[ i ].UV.b.y +=
-				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				( -Mouse.Diff().y * Real( Global::HudH ) * ( UVHeight ) ) *
 				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale * Real( 2 ) ) * Real(-1.0);
 			}
 			else if( VertexNum == 2 )
 			{
 				DisplayMesh[ CurrentObject ].Face[ i ].UV.c.x -=
-				( Mouse.Diff().x * ( Real( cGlobal::HudW ) * ( UVWidth ) ) ) *
+				( Mouse.Diff().x * ( Real( Global::HudW ) * ( UVWidth ) ) ) *
 				Real( UVCamera->Pos.z / UVZoomOffsetX ) / ( UVScale * Real( 2 ) );
 				
 				DisplayMesh[ CurrentObject ].Face[ i ].UV.c.y +=
-				( -Mouse.Diff().y * Real( cGlobal::HudH ) * ( UVHeight ) ) *
+				( -Mouse.Diff().y * Real( Global::HudH ) * ( UVHeight ) ) *
 				Real( -UVCamera->Pos.z / UVZoomOffsetY ) / ( UVScale * Real( 2 ) ) * Real(-1.0);
 			}
 		}
@@ -768,8 +768,8 @@ int cMesh2DEdit::CheckHigh( int ObjectIdx )
 // - ------------------------------------------------------------------------------------------ - //
 void cMesh2DEdit::CalcUVZoomOffset()
 {
-	UVZoomOffsetX = ( Real( cGlobal::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
-	UVZoomOffsetY = ( Real( cGlobal::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
+	UVZoomOffsetX = ( Real( Global::HudW ) * UVZoomOffsetX ) / Real( 1920.0 );
+	UVZoomOffsetY = ( Real( Global::HudH ) * UVZoomOffsetY ) / Real( 1200.0 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

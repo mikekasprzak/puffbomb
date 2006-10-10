@@ -5,7 +5,7 @@
 #include <Graphics/Gfx.h>
 #include <Font/Fonts.h>
 #include <Util/String.h>
-#include <Platform/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <sstream>
 // - ------------------------------------------------------------------------------------------ - //
@@ -43,9 +43,9 @@ void cComponentEdit::DisplayNodeInfo()
 		Real XPos = 0;
 		Real YPos = 0;
 		
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( Global::AspectRatio < Real( 0.79 ) )
 		{
-			YPos = cGlobal::HudH * 0.25;
+			YPos = Global::HudH * 0.25;
 		}
 		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
@@ -54,7 +54,7 @@ void cComponentEdit::DisplayNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node #",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -63,7 +63,7 @@ void cComponentEdit::DisplayNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -73,7 +73,7 @@ void cComponentEdit::DisplayNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node X",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -82,7 +82,7 @@ void cComponentEdit::DisplayNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -92,7 +92,7 @@ void cComponentEdit::DisplayNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node Y",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -101,7 +101,7 @@ void cComponentEdit::DisplayNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -111,7 +111,7 @@ void cComponentEdit::DisplayNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Mass",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -120,7 +120,7 @@ void cComponentEdit::DisplayNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -130,7 +130,7 @@ void cComponentEdit::DisplayNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Total Mass",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -140,7 +140,7 @@ void cComponentEdit::DisplayNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -159,9 +159,9 @@ void cComponentEdit::DisplaySphereInfo()
 		Real XPos = 0;
 		Real YPos = 0;
 		
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( Global::AspectRatio < Real( 0.79 ) )
 		{
-			YPos = cGlobal::HudH * 0.25;
+			YPos = Global::HudH * 0.25;
 		}
 		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
@@ -182,7 +182,7 @@ void cComponentEdit::DisplaySphereInfo()
 			// - ---------------------------------------------------------------------------------- - //
 			cFonts::FlangeLight.Write(
 				"Sphere#",
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 				FontSize,
 				Color
 			);
@@ -191,7 +191,7 @@ void cComponentEdit::DisplaySphereInfo()
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 				FontSize,
 				Color
 			);
@@ -201,7 +201,7 @@ void cComponentEdit::DisplaySphereInfo()
 			// - ---------------------------------------------------------------------------------- - //
 			cFonts::FlangeLight.Write(
 				"Radius",
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 				FontSize,
 				Color
 			);
@@ -210,7 +210,7 @@ void cComponentEdit::DisplaySphereInfo()
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 				FontSize,
 				Color
 			);
@@ -228,9 +228,9 @@ void cComponentEdit::DisplaySpringInfo()
 		Real XPos = 0;
 		Real YPos = 0;
 		
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( Global::AspectRatio < Real( 0.79 ) )
 		{
-			YPos = cGlobal::HudH * 0.25;
+			YPos = Global::HudH * 0.25;
 		}
 		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
@@ -271,7 +271,7 @@ void cComponentEdit::DisplaySpringInfo()
 			// - ---------------------------------------------------------------------------------- - //
 			cFonts::FlangeLight.Write(
 				"Spring#",
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YShift, 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
 				FontSize,
 				Color
 			);
@@ -280,7 +280,7 @@ void cComponentEdit::DisplaySpringInfo()
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + Real( 6 ), 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
 				FontSize,
 				Color
 			);
@@ -290,7 +290,7 @@ void cComponentEdit::DisplaySpringInfo()
 			// - ---------------------------------------------------------------------------------- - //
 			cFonts::FlangeLight.Write(
 				"Node A",
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YShift, 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
 				FontSize,
 				Color
 			);
@@ -299,7 +299,7 @@ void cComponentEdit::DisplaySpringInfo()
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + Real( 6 ), 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
 				FontSize,
 				Color
 			);
@@ -309,7 +309,7 @@ void cComponentEdit::DisplaySpringInfo()
 			// - ---------------------------------------------------------------------------------- - //
 			cFonts::FlangeLight.Write(
 				"Node B",
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YShift, 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
 				FontSize,
 				Color
 			);
@@ -318,7 +318,7 @@ void cComponentEdit::DisplaySpringInfo()
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + Real( 6 ), 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
 				FontSize,
 				Color
 			);
@@ -328,7 +328,7 @@ void cComponentEdit::DisplaySpringInfo()
 			// - ---------------------------------------------------------------------------------- - //
 			cFonts::FlangeLight.Write(
 				"Strength",
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YShift, 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
 				FontSize,
 				Color
 			);
@@ -337,7 +337,7 @@ void cComponentEdit::DisplaySpringInfo()
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + Real( 6 ), 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
 				FontSize,
 				Color
 			);
@@ -347,7 +347,7 @@ void cComponentEdit::DisplaySpringInfo()
 			// - ---------------------------------------------------------------------------------- - //
 			cFonts::FlangeLight.Write(
 				"Length",
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YShift, 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
 				FontSize,
 				Color
 			);
@@ -356,7 +356,7 @@ void cComponentEdit::DisplaySpringInfo()
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
-				Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + Real( 6 ), 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
 				FontSize,
 				Color
 			);
@@ -374,9 +374,9 @@ void cComponentEdit::DisplayMeshNodeInfo()
 		Real XPos = 0;
 		Real YPos = 0;
 		
-		if( Platform::AspectRatio < Real( 0.79 ) )
+		if( Global::AspectRatio < Real( 0.79 ) )
 		{
-			YPos = cGlobal::HudH * 0.25;
+			YPos = Global::HudH * 0.25;
 		}
 		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
@@ -385,7 +385,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node #",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -394,7 +394,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -404,7 +404,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node X",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -413,7 +413,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -423,7 +423,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Node Y",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -432,7 +432,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -442,7 +442,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Pivot",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -451,7 +451,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -461,7 +461,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
 			"Handle",
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + YShift, 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
 			FontSize,
 			Color
 		);
@@ -470,7 +470,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + XPos, cGlobal::Bottom + YPos + Real( 6 ), 0.0 ),
+			Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -483,7 +483,7 @@ void cComponentEdit::DisplayMode()
 	// - -------------------------------------------------------------------------------------- - //
 	Real FontSize = 0.5;
 	int Color = Gfx::RGBA( 255, 100, 100, 255 );
-	Vector3D ModePos = Vector3D( cGlobal::Right - Real( 250 ), cGlobal::Top - Real( 30 ), 0.0 );
+	Vector3D ModePos = Vector3D( Global::Right - Real( 250 ), Global::Top - Real( 30 ), 0.0 );
 		
 	switch( CurMode )
 	{ 
@@ -580,7 +580,7 @@ void cComponentEdit::DisplayComponentInfo()
 	{
 		cFonts::FlangeLight.Write(
 			"*",
-			Vector3D( cGlobal::Left + Real( 1 ), cGlobal::Top - Real( 56 ), 0.0 ),
+			Vector3D( Global::Left + Real( 1 ), Global::Top - Real( 56 ), 0.0 ),
 			Real( 1.0 ),
 			Gfx::RGBA( 255, 255, 255, 255 )
 		);
@@ -588,7 +588,7 @@ void cComponentEdit::DisplayComponentInfo()
 	
 	cFonts::FlangeLight.Write(
 		"Component Editor",
-		Vector3D( cGlobal::Left + Real( 20 ), cGlobal::Top - Real( 30 ), 0.0 ),
+		Vector3D( Global::Left + Real( 20 ), Global::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 100, 255, 255 )
 	);
@@ -597,7 +597,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		"Current Frame",
-		Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 30 ), 0.0 ),
+		Vector3D( Global::Right - Real( 600 ), Global::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 255, 100, 255 )
 	);
@@ -606,7 +606,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
-		Vector3D( cGlobal::Right - Real( 400 ), cGlobal::Top - Real( 30 ), 0.0 ),
+		Vector3D( Global::Right - Real( 400 ), Global::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 255, 100, 255 )
 	);
@@ -615,14 +615,14 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		"Component Dir",
-		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 60 ), 0.0 ),
+		Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 60 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 100, 255, 255 )
 	);
 
 	cFonts::FlangeLight.Write(
 		CompDirs[ CurDirIdx ],
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 60 ), 0.0 ),
+		Vector3D( Global::Left + Real( 270 ), Global::Top - Real( 60 ), 0.0 ),
 		Real( 0.5 ),
 		Gfx::RGBA( 100, 100, 255, 255 )
 	);
@@ -633,7 +633,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		"Current Animation",
-		Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 90 ), 0.0 ),
+		Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 90 ), 0.0 ),
 		Real( 0.5 ),
 		MyColor
 	);
@@ -642,7 +642,7 @@ void cComponentEdit::DisplayComponentInfo()
 
 	cFonts::FlangeLight.Write(
 		Temp.str(),
-		Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 90 ), 0.0 ),
+		Vector3D( Global::Left + Real( 270 ), Global::Top - Real( 90 ), 0.0 ),
 		Real( 0.5 ),
 		MyColor
 	);
@@ -659,7 +659,7 @@ void cComponentEdit::DisplayComponentInfo()
 	
 		cFonts::FlangeLight.Write(
 			"BodyPoseIndex",
-			Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 120 ), 0.0 ),
+			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 120 ), 0.0 ),
 			Real( 0.5 ),
 			MyColor
 		);
@@ -668,7 +668,7 @@ void cComponentEdit::DisplayComponentInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 120 ), 0.0 ),
+			Vector3D( Global::Left + Real( 270 ), Global::Top - Real( 120 ), 0.0 ),
 			Real( 0.5 ),
 			MyColor
 		);
@@ -683,7 +683,7 @@ void cComponentEdit::DisplayComponentInfo()
 		
 		cFonts::FlangeLight.Write(
 			"MeshPoseIndex",
-			Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 150 ), 0.0 ),
+			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 150 ), 0.0 ),
 			Real( 0.5 ),
 			MyColor
 		);
@@ -692,7 +692,7 @@ void cComponentEdit::DisplayComponentInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + Real( 270 ), cGlobal::Top - Real( 150 ), 0.0 ),
+			Vector3D( Global::Left + Real( 270 ), Global::Top - Real( 150 ), 0.0 ),
 			Real( 0.5 ),
 			MyColor
 		);
@@ -703,7 +703,7 @@ void cComponentEdit::DisplayComponentInfo()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( cGlobal::Left + Real( 6 ), cGlobal::Top - Real( 180 ), 0.0 ),
+			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 180 ), 0.0 ),
 			Real( 0.5 ),
 			MyColor
 		);
@@ -732,7 +732,7 @@ void cComponentEdit::DisplayComponentInfo()
 	{
 		cFonts::FlangeLight.Write(
 			"Unequal node sizes",
-			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 110 ), 0.0 ),
+			Vector3D( Global::Right - Real( 600 ), Global::Top - Real( 110 ), 0.0 ),
 			Real( 0.5 ),
 			Gfx::RGBA( 255, 0, 0, 255 )
 		);
@@ -741,7 +741,7 @@ void cComponentEdit::DisplayComponentInfo()
 	{
 		cFonts::FlangeLight.Write(
 			"Unequal sphere sizes",
-			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 150 ), 0.0 ),
+			Vector3D( Global::Right - Real( 600 ), Global::Top - Real( 150 ), 0.0 ),
 			Real( 0.5 ),
 			Gfx::RGBA( 255, 0, 0, 255 )
 		);
@@ -750,7 +750,7 @@ void cComponentEdit::DisplayComponentInfo()
 	{
 		cFonts::FlangeLight.Write(
 			"Unequal spring sizes",
-			Vector3D( cGlobal::Right - Real( 600 ), cGlobal::Top - Real( 190 ), 0.0 ),
+			Vector3D( Global::Right - Real( 600 ), Global::Top - Real( 190 ), 0.0 ),
 			Real( 0.5 ),
 			Gfx::RGBA( 255, 0, 0, 255 )
 		);

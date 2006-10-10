@@ -261,11 +261,11 @@ void cMapEdit::MoveModel()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			Model[CurSelected[idx]].Offset.x -= ( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+			Model[CurSelected[idx]].Offset.x -= ( Mouse.Diff().x * Real( Global::HudW ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 
-			Model[CurSelected[idx]].Offset.y += ( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+			Model[CurSelected[idx]].Offset.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 		}
 	}
 }

@@ -12,13 +12,12 @@ using namespace std;
 // ---------------------------------------------------------------------------------------------- //
 
 // ---------------------------------------------------------------------------------------------- //
-#include <Platform/Global.h>
+#include <Global.h>
 // ---------------------------------------------------------------------------------------------- //
 #include <Input/Input.h>
 // ---------------------------------------------------------------------------------------------- //
 #include <Util/Debug.h>
 
-#include <Global.h>
 //#include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SuperFlow.h>
@@ -62,22 +61,19 @@ SDL_Surface* SetVideoMode() {
     if ( VideoInfo->blit_hw )
 		VideoFlags |= SDL_HWACCEL;
 
-	Platform::ScreenW = 1920;
-	Platform::ScreenH = 1200;
+	Global::ScreenW = 1920;
+	Global::ScreenH = 1200;
 
 #ifdef SCREEN_W
-	Platform::ScreenW = SCREEN_W;
+	Global::ScreenW = SCREEN_W;
 #endif // SCREEN_W //
 
 #ifdef SCREEN_H
-	Platform::ScreenH = SCREEN_H;
+	Global::ScreenH = SCREEN_H;
 #endif // SCREEN_H //
 	
-	cGlobal::ScreenW = Platform::ScreenW;
-	cGlobal::ScreenH = Platform::ScreenH;
-	
 	int ColorDepth = 32;
-	Platform::AspectRatio = Real( Platform::ScreenW ) / Real( Platform::ScreenH );
+	Global::AspectRatio = Real( Global::ScreenW ) / Real( Global::ScreenH );
 	
 	// Pre window creation GL Attributes //
 	SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 8 );
@@ -104,8 +100,8 @@ SDL_Surface* SetVideoMode() {
 	SDL_WM_SetCaption( "PuffBOMB", NULL );
 
 	// Create our Screen //
-	Log( LOG_HIGHEST_LEVEL, "Setting Video Mode: " << Platform::ScreenW << "x" << Platform::ScreenH );
-	return SDL_SetVideoMode( Platform::ScreenW, Platform::ScreenH, ColorDepth, VideoFlags );	
+	Log( LOG_HIGHEST_LEVEL, "Setting Video Mode: " << Global::ScreenW << "x" << Global::ScreenH );
+	return SDL_SetVideoMode( Global::ScreenW, Global::ScreenH, ColorDepth, VideoFlags );	
 }
 // ---------------------------------------------------------------------------------------------- //
 
@@ -153,7 +149,7 @@ int main( int argc, char* argv[] ) {
 		} 
 	}*/
 	
-	cGlobal::Shutdown = false;
+	Global::Shutdown = false;
 
 	// Be sure creation didn't just fail //
     if ( !Surface ) {

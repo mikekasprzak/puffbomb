@@ -8,7 +8,7 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Platform/Global.h>
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
@@ -203,13 +203,13 @@ void cComponentEdit::BodyMoveNode()
 		{
 /*			Real TempX = Pose->Node[ CurSelected[idx] ].Pos.x;
 			TempX -=
-				( Mouse.Diff().x * Real( cGlobal::HudW ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+				( Mouse.Diff().x * Real( Global::HudW ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 			
 			Real TempY = Pose->Node[ CurSelected[idx] ].Pos.y;
 			TempY +=
-				( Mouse.Diff().y * Real( cGlobal::HudH ) ) *
-				Real( Camera->Pos.z / cGlobal::HudZoom );
+				( Mouse.Diff().y * Real( Global::HudH ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 					
 			DynObj->Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );*/
 			
