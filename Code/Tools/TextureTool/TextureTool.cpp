@@ -8,8 +8,8 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL.h>
 
-#include "../../Library/Util/ClassDesigner/Bits.h"
-#include "../../Library/Util/String.h"
+#include <Util/ClassDesigner/Bits.h>
+#include <Util/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
