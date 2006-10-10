@@ -7,8 +7,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include "ComponentAnimation.h"
-
-#include <Graphics/Mesh2D/Mesh2DPose.h>
+#include <DynamicComponent/Mesh2D/Mesh2DPose.h>
 #include <DynamicComponent/Body2D/Body2DPose.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {

@@ -4,7 +4,7 @@
 #include <Graphics/AnimationGenerator.h>
 #include <Util/String.h>
 
-#include <Graphics/Mesh2D/Mesh2DPose.h>
+#include <DynamicComponent/Mesh2D/Mesh2DPose.h>
 #include <DynamicComponent/Body2D/Body2D.h>
 #include "ComponentAnimationSet.h"
 // - ------------------------------------------------------------------------------------------ - //

@@ -11,8 +11,8 @@
 
 #include <Graphics/Texture.h>
 
-#include "Mesh2D/MeshVertex.h"
-#include "Mesh2D/MeshOrientation.h"
+#include "MeshVertex.h"
+#include "MeshOrientation.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
