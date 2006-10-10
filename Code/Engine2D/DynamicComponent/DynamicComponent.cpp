@@ -3,7 +3,7 @@
 
 #include <Physics/Physics.h>
 
-#include <Engine/DynamicCollection.h>
+#include <DynamicCollection/DynamicCollection.h>
 #include "DynamicComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {

@@ -3,7 +3,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Engine/PassiveObject.h>
+#include <PassiveObject/PassiveObject.h>
 #include <DynamicComponent/DynamicComponent.h>
 
 #include <Graphics/Gfx.h>

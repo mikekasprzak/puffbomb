@@ -6,9 +6,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 
-#include <Engine/DynamicCollection.h>
+#include <DynamicCollection/DynamicCollection.h>
 #include <StaticObject/StaticObjectInstance.h>
-#include <Engine/PassiveObject.h>
+#include <PassiveObject/PassiveObject.h>
 #include <Zone/Zone.h>
 
 #include <Physics/Impulse.h>
