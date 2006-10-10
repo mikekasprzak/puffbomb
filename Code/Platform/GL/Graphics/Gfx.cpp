@@ -6,7 +6,7 @@
 #include <Graphics/Gfx.h>
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
-void gfx::Circle( const Real& x, const Real& y, const Real& Radius, int Color ) {
+/*void gfx::Circle( const Real& x, const Real& y, const Real& Radius, int Color ) {
 	glBegin(GL_LINE_STRIP);
 		// How to draw a circle.  This generates points. //
 		int MaxSteps = 20;
@@ -28,7 +28,7 @@ void gfx::Circle( const Real& x, const Real& y, const Real& Radius, int Color ) 
 // - ------------------------------------------------------------------------------------------ - //
 void gfx::Circle( const Vector2D& v, const Real& Radius, int Color ) {
 	Circle( v.x, v.y, Radius, Color );
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 void gfx::Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color ) {
 	glBegin(GL_LINES);

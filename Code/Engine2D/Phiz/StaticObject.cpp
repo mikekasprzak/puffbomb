@@ -390,7 +390,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 		{
 			Vector2D DrawMe;
 			for ( size_t idx = 0; idx < size(); idx++ ) {
-				gfx::Circle( Pos( idx ), 1, gfx::RGB( 255, 255, 255 ) );
+				Gfx::Circle( Pos( idx ), 1, Gfx::RGBA( 255, 255, 255, 255 ) );
 			}
 		}
 	}

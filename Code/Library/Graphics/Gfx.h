@@ -15,8 +15,8 @@
 // Old Structure //
 class gfx {
 public:
-	static void Circle( const Real& x, const Real& y, const Real& Radius, int Color );
-	static void Circle( const Vector2D& v, const Real& Radius, int Color );
+//	static void Circle( const Real& x, const Real& y, const Real& Radius, int Color );
+//	static void Circle( const Vector2D& v, const Real& Radius, int Color );
 
 //	static void Draw3DModel( const size_t& obj, const size_t& lookup, const size_t& idx, const cLevelData* Model );
 	static void Face( const Vector3D& a, const Vector3D& b, const Vector3D& c,

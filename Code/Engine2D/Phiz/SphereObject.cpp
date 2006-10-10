@@ -204,7 +204,7 @@ void cSphereObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 			int SphereCount = Sphere.size();
 			for ( int idx = 0; idx < SphereCount; idx++ ) {
 				// The radius should be appropriately scaled based on Z... later //
-				gfx::Circle( Pos( Sphere[ idx ].Index ), Sphere[ idx ].Radius, gfx::RGB( 255, 0, 0 ) );
+				Gfx::Circle( Pos( Sphere[ idx ].Index ), Sphere[ idx ].Radius, Gfx::RGBA( 255, 0, 0, 255 ) );
 			};
 		}
 	}
@@ -213,7 +213,7 @@ void cSphereObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 		// Draw nodes last, as their the lowest level of the heiarchy //
 		{
 			for ( size_t idx = 0; idx < size(); idx++ ) {
-				gfx::Circle( Pos( idx ), 1, gfx::RGB( 255, 255, 255 ) );
+				Gfx::Circle( Pos( idx ), 1, Gfx::RGBA( 255, 255, 255, 255 ) );
 			};
 		}
 	}
@@ -227,7 +227,7 @@ void cSphereObject::DebugDraw( int SpringColour, int SphereColour, Vector2D MapP
 	Vector2D Point1 = BoundingRect.P1() + MapPos;
 	Vector2D Point2 = BoundingRect.P2() + MapPos;
 	
-	gfx::Rect( Point1, Point2, gfx::RGB( 128, 128, 128 ) );
+	gfx::Rect( Point1, Point2, Gfx::RGBA( 128, 128, 128, 255 ) );
 	
 	// Draw springs //
 	{
@@ -246,7 +246,7 @@ void cSphereObject::DebugDraw( int SpringColour, int SphereColour, Vector2D MapP
 		int SphereCount = Sphere.size();
 		for ( int idx = 0; idx < SphereCount; idx++ ) {
 			// The radius should be appropriately scaled based on Z... later //
-			gfx::Circle( MapPos + Pos( Sphere[ idx ].Index ), Sphere[ idx ].Radius, SphereColour );
+			Gfx::Circle( MapPos + Pos( Sphere[ idx ].Index ), Sphere[ idx ].Radius, SphereColour );
 		};
 	}
 

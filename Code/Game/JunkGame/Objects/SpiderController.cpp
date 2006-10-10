@@ -439,7 +439,7 @@ void cSpiderController::Step() {
 void cSpiderController::Draw() {
 	
 	// Draw Cursor //
-	gfx::Circle( SphereObject->Pos( 0 ) + (Input::Pad[MyPad].Stick1.Normal() * Real(64) ), Real( 10 ), gfx::RGB( 255, 255, 255 ) );
+	Gfx::Circle( SphereObject->Pos( 0 ) + (Input::Pad[MyPad].Stick1.Normal() * Real(64) ), Real( 10 ), Gfx::RGBA( 255, 255, 255, 255 ) );
 	
 	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
