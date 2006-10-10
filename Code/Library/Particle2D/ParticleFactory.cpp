@@ -44,7 +44,7 @@ void ParticleFactory::Step()
 			Indices[ ParticleSize ] = ParticleSize;
 			Vertex[ ParticleSize ] = (iter->Animator.CurDrawFrame->Vertex[ iter->Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + iter->Pos).ToVector3D();
 			TexCoord[ ParticleSize ] = iter->Animator.CurDrawFrame->Face[ 0 ].UV.a;
-			VertColor[ ParticleSize ] = gfx::RGBA( 255, 255, 255, iter->Alpha );
+			VertColor[ ParticleSize ] = Gfx::RGBA( 255, 255, 255, iter->Alpha );
 
 			++ParticleSize;
 			Indices[ ParticleSize ] = ParticleSize;

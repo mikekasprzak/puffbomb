@@ -107,7 +107,7 @@ public:
 				DrawMeA = ObjectA->Pos( IndexA );
 				DrawMeB = ObjectB->Pos( IndexB );
 					
-				gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 255, 255, 0 ) );
+				Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 255, 255, 0 ) );
 			}
 		}
 	}

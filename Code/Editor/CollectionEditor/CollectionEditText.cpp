@@ -22,7 +22,7 @@ void cCollectionEdit::DisplayMode()
 /*	// Displays the current mesh edit mode //
 	// - -------------------------------------------------------------------------------------- - //
 	Real FontSize = 0.5;
-	int Color = gfx::RGBA( 255, 100, 100, 255 );
+	int Color = Gfx::RGBA( 255, 100, 100, 255 );
 	Vector3D ModePos = Vector3D( cGlobal::Right - Real( 250 ), cGlobal::Top - Real( 30 ), 0.0 );
 		
 	switch( CurMode )
@@ -109,7 +109,7 @@ void cCollectionEdit::DisplayComponentInfo()
 		"Collection Editor",
 		Vector3D( cGlobal::Left + Real( 20 ), cGlobal::Top - Real( 30 ), 0.0 ),
 		Real( 0.5 ),
-		gfx::RGBA( 100, 100, 255, 255 )
+		Gfx::RGBA( 100, 100, 255, 255 )
 	);
 
 /*	cFonts::FlangeLight.Write(

@@ -140,7 +140,7 @@
 void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
 		// Draw the bounding Rectangle (First, so blank boxes show up first) //
-		gfx::Rect( BoundingRect.ToRect(), gfx::RGB( 128, 128, 255 ) );
+		Gfx::Rect( BoundingRect.ToRect(), Gfx::RGB( 128, 128, 255 ) );
 	}
 
 /*
@@ -251,7 +251,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 		Vector2D DrawMeA, DrawMeB, DrawMeC;
 		for ( size_t idx = 0; idx < Polygon.size(); idx++ ) {
 			if ( cGlobal::DebugDraw & cGlobal::flExtraInfo )
-				gfx::Rect( Polygon[idx].BoundingRect.ToRect(), gfx::RGB( 0, 0, 128 ) );
+				Gfx::Rect( Polygon[idx].BoundingRect.ToRect(), Gfx::RGB( 0, 0, 128 ) );
 			
 			int NodesLeft = Polygon[ idx ].Index.size();
 			int CurrentIndex = 0;
@@ -266,12 +266,12 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
 					// Draw the root lines. Use different color when collision should be ignored //
 //					if ( Polygon[ idx ].Flag[ CurrentIndex + 0 ] )
-						gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 255, 128, 0 ) );
+						Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 255, 128, 0 ) );
 //					else
-//						gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 128, 0, 0 ) );
+//						Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 128, 0, 0 ) );
 					
 //					if ( Polygon[ idx ].Flag[ CurrentIndex + 1 ] )	
-						gfx::Line( DrawMeB, DrawMeC, gfx::RGB( 255, 128, 0 ) );
+						Gfx::Line( DrawMeB, DrawMeC, Gfx::RGB( 255, 128, 0 ) );
 //					else
 //						gfx::Line( DrawMeB, DrawMeC, gfx::RGB( 128, 0, 0 ) );
 				}
@@ -285,7 +285,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 //					gfx::Line(
 //						DrawMeA,
 //						(DrawMeA + (Polygon[ idx ].Normal[ CurrentIndex + 0 ] * Real( 16 ))),
-//						gfx::RGB( 255, 255, 0 ) );
+//						Gfx::RGB( 255, 255, 0 ) );
 //	
 //					gfx::Line(
 //						DrawMeB,
@@ -307,12 +307,12 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
 					// Draw the root lines //
 //					if ( Polygon[ idx ].Flag[ CurrentIndex + 0 ] )
-						gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 255, 128, 0 ) );
+						Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 255, 128, 0 ) );
 //					else
 //						gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 128, 0, 0 ) );
 	
 //					if ( Polygon[ idx ].Flag[ CurrentIndex + 1 ] )
-						gfx::Line( DrawMeB, DrawMeC, gfx::RGB( 255, 128, 0 ) );
+						Gfx::Line( DrawMeB, DrawMeC, Gfx::RGB( 255, 128, 0 ) );
 //					else
 //						gfx::Line( DrawMeB, DrawMeC, gfx::RGB( 128, 0, 0 ) );
 				}
@@ -343,7 +343,7 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
 					// Draw the root lines //
 //					if ( Polygon[ idx ].Flag[ CurrentIndex + 0 ] )
-						gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 255, 128, 0 ) );
+						Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 255, 128, 0 ) );
 //					else
 //						gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 128, 0, 0 ) );
 				}
@@ -365,23 +365,28 @@ void cStaticObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 	// Draw Edges //
 	for ( size_t idx = 0; idx < Edge.size(); idx++ ) {
 		if ( cGlobal::DebugDraw & cGlobal::flCollision ) {
-			gfx::Line( 
+//			Gfx::Line( 
+//				Pos( Edge[idx].a ),
+//				Pos( Edge[idx].b ),
+//				Gfx::RGB( 255, 255, 0 ),
+//				Gfx::RGB( 255, 255, 0 )
+//				);
+			Gfx::Line( 
 				Pos( Edge[idx].a ),
 				Pos( Edge[idx].b ),
-				gfx::RGB( 255, 255, 0 ),
-				gfx::RGB( 255, 255, 0 )
+				Gfx::RGB( 255, 255, 0 )
 				);
 		}
 
 		if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
 			if ( cGlobal::DebugDraw & cGlobal::flExtraInfo )
-				gfx::Rect( Edge[idx].BoundingRect.ToRect(), gfx::RGB( 0, 0, 255 ) );
+				Gfx::Rect( Edge[idx].BoundingRect.ToRect(), Gfx::RGB( 0, 0, 255 ) );
 
 			Vector2D Center =
 				Pos( Edge[idx].a ) + 
 				( Edge[idx].DirectionalNormal() * Edge[idx].Length * Real::Half );
 
-			gfx::Line( Center, Center + (Edge[idx].Normal * Real( 10 )), gfx::RGB( 255, 255, 255 ) );
+			Gfx::Line( Center, Center + (Edge[idx].Normal * Real( 10 )), Gfx::RGB( 255, 255, 255 ) );
 		}
 	}
 

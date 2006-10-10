@@ -30,7 +30,7 @@ void gfx::Circle( const Vector2D& v, const Real& Radius, int Color ) {
 	Circle( v.x, v.y, Radius, Color );
 }*/
 // - ------------------------------------------------------------------------------------------ - //
-void gfx::Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color ) {
+/*void gfx::Line( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color ) {
 	glBegin(GL_LINES);
 		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
 		glVertex3f(x1, y1, 0.0);
@@ -57,7 +57,7 @@ void gfx::Line( const Real& x1, const Real& y1, const Real& z1, const Real& x2, 
 		glVertex3f(x2, y2, z2);
 	glEnd();
 
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 /*void gfx::Draw3DModel( const size_t& obj, const size_t& lookup, const size_t& idx, const cLevelData* Model )
 {
@@ -146,7 +146,7 @@ void gfx::Polygon( const Vector3D& a, const Vector3D& b, const Vector3D& c, int 
 
 }
 // - ------------------------------------------------------------------------------------------ - //
-void gfx::Line( const Vector2D& v1, const Vector2D& v2, int Color ) {
+/*void gfx::Line( const Vector2D& v1, const Vector2D& v2, int Color ) {
 	Line( v1.x, v1.y, v2.x, v2.y, Color );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -156,9 +156,9 @@ void gfx::Line( const Vector2D& v1, const Vector2D& v2, int Color, int Color2 ) 
 // - ------------------------------------------------------------------------------------------ - //
 void gfx::Line( const Vector2D& v1, const Vector2D& v2, const Real& z, int Color ) {
 	Line( v1.x, v1.y, z, v2.x, v2.y, z, Color );
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
-void gfx::Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color ) {
+/*void gfx::Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, int Color ) {
 //	Vector2D Offset1 = cGlobal::Origin + Vector2D( x1, y1 );
 	//Offset1.y = -Offset1.y;
 //	Vector2D Offset2 = cGlobal::Origin + Vector2D( x2, y2 );
@@ -167,22 +167,6 @@ void gfx::Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, 
 //	Vector2D Offset1 = Vector2D( x1, y1 );
 //	Vector2D Offset2 = Vector2D( x2, y2 );
 
-/*	glBegin(GL_LINES);
-		//glColor3f(1.0, 1.0, 0.0);
-		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
-		glVertex3f(Offset1.x , Offset1.y, 0.0 );
-		glVertex3f(Offset2.x , Offset1.y, 0.0 );
-
-		glVertex3f(Offset2.x , Offset1.y, 0.0 );
-		glVertex3f(Offset2.x , Offset2.y, 0.0 );
-
-		glVertex3f(Offset2.x , Offset2.y, 0.0 );
-		glVertex3f(Offset1.x , Offset2.y, 0.0 );
-
-		glVertex3f(Offset1.x , Offset2.y, 0.0 );
-		glVertex3f(Offset1.x , Offset1.y, 0.0 );
-	glEnd();
-*/
 	glBegin(GL_LINES);
 		//glColor3f(1.0, 1.0, 0.0);
 		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
@@ -199,14 +183,6 @@ void gfx::Rect( const Real& x1, const Real& y1, const Real& x2, const Real& y2, 
 		glVertex3f(x1, y1, 0.0 );
 	glEnd();
 
-/*	rect( Buffer, 
-		((int)Offset1.x) + (cGlobal::ScreenW),
-		((int)Offset1.y) + (cGlobal::ScreenH),
-		((int)Offset2.x) + (cGlobal::ScreenW),
-		((int)Offset2.y) + (cGlobal::ScreenH),
-		Color
-		);
-	*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void gfx::Rect( const Vector2D& v1, const Vector2D& v2, int Color ) {
@@ -227,7 +203,7 @@ int gfx::RGB( int r, int g, int b ) {
 int gfx::RGBA( int r, int g, int b, int a ) {
 	return r|(g << 8)|(b << 16)|(a << 24);
 	//return makecol( r, g, b );
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 void gfx::Quad( const Vector3D& a, const Vector3D& b, const Vector3D& c, const Vector3D& d,
 				const Vector2D& UVa, const Vector2D& UVb, const Vector2D& UVc, const Vector2D& UVd  )

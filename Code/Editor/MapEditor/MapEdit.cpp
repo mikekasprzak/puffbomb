@@ -419,7 +419,7 @@ void cMapEdit::DrawSelBox()
 		if( !isGroupMove )
 		{
 			Vector2D CurMousePos = CalcMousePos();
-			gfx::Rect( OldMousePos, CurMousePos, Gfx::RGBA( 255, 255, 255, 255 ) );
+			Gfx::Rect( OldMousePos, CurMousePos, Gfx::RGBA( 255, 255, 255, 255 ) );
 		}
 		else if( SnapToGrid )
 		{

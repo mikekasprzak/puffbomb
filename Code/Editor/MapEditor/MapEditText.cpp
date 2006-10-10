@@ -33,7 +33,7 @@ void cMapEdit::DisplayText()
 	Real YShift = 55;
 	Real XPos = 0;
 	
-	int Color = gfx::RGBA( 255, 255, 255, 255 );
+	int Color = Gfx::RGBA( 255, 255, 255, 255 );
 	XPos += XShift;
 	
 	// Displays the current working directory //
@@ -58,7 +58,7 @@ void cMapEdit::DisplaySavedStatus()
 			"*",
 			Vector3D( cGlobal::Left, cGlobal::Top - Real( 50 ), 0.0 ),
 			Real( 1.0 ),
-			gfx::RGBA( 255, 255, 255, 255 )
+			Gfx::RGBA( 255, 255, 255, 255 )
 		);
 	}
 }
@@ -75,7 +75,7 @@ void cMapEdit::DisplayHelp()
 	
 	Real NewLine = 30;
 	
-	int Color = gfx::RGBA( 255, 255, 255, 255 );
+	int Color = Gfx::RGBA( 255, 255, 255, 255 );
 	
 	cFonts::FlangeLight.Write(
 		"--------------------------------------Keys--------------------------------------",
@@ -277,7 +277,7 @@ void cMapEdit::DisplayMesh2DInfo()
 	Real YShift = 40;
 	Real XPos = 0;
 	
-	int Color = gfx::RGBA( 255, 255, 255, 255 );
+	int Color = Gfx::RGBA( 255, 255, 255, 255 );
 	
 	// Displays the current object number //
 	// - -------------------------------------------------------------------------------------- - //
@@ -378,7 +378,7 @@ void cMapEdit::DisplayZoneInfo()
 	Real YShift = 40;
 	Real XPos = 0;
 	
-	int Color = gfx::RGBA( 255, 255, 255, 255 );
+	int Color = Gfx::RGBA( 255, 255, 255, 255 );
 	std::stringstream Temp;
 	
 	// Displays the current zone number //
@@ -467,7 +467,7 @@ void cMapEdit::DisplayMapName()
 	Real YShift = 25;
 	Real XPos = 0;
 	
-	int Color = gfx::RGBA( 255, 255, 255, 255 );
+	int Color = Gfx::RGBA( 255, 255, 255, 255 );
 	XPos += XShift;
 	
 	// Displays the current map name //
@@ -489,7 +489,7 @@ void cMapEdit::DisplayMesh3dName()
 		Real YShift = 55;
 		Real XPos = 0;
 		
-		int Color = gfx::RGBA( 255, 255, 255, 255 );
+		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		XPos += XShift;
 		
 		// Displays the current mesh3d name //

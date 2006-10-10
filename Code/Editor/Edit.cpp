@@ -200,7 +200,7 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 		&GridVertex[0],
 		&GridIndices[0],
 		GridIndicesSize,
-		gfx::RGBA( colour, colour, colour, 128 )
+		Gfx::RGBA( colour, colour, colour, 128 )
 	);
 	
 	colour = 65;
@@ -209,7 +209,7 @@ void cEdit::DrawGrid( cCamera* MyCamera, size_t &CurGridDepth, Real GridChange, 
 		&GridVertex2[0],
 		&GridIndices2[0],
 		GridIndicesSize2,
-		gfx::RGBA( colour, colour, colour, 128 )
+		Gfx::RGBA( colour, colour, colour, 128 )
 	);
 		
 	if( DrawOrig )
@@ -459,7 +459,7 @@ void cEdit::DrawOrigin()
 		OriginVertex,
 		OriginIndices,
 		4,
-		gfx::RGBA( 192, 192, 192, 128 )
+		Gfx::RGBA( 192, 192, 192, 128 )
 	);
 }
 // - ------------------------------------------------------------------------------------------ - //

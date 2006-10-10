@@ -207,7 +207,7 @@ void cPolyObject::Step() {
 void cPolyObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
 		// Draw the bounding Rectangle //
-		gfx::Rect( BoundingRect.ToRect(), gfx::RGB( 128, 128, 128 ) );
+		Gfx::Rect( BoundingRect.ToRect(), Gfx::RGB( 128, 128, 128 ) );
 		
 		// Draw springs //
 		{
@@ -217,7 +217,7 @@ void cPolyObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				DrawMeA = Pos( Spring[ idx ].IndexA );
 				DrawMeB = Pos( Spring[ idx ].IndexB );
 				
-				gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 0, 255, 0 ) );
+				Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 0, 255, 0 ) );
 			};
 		}
 	}
@@ -242,20 +242,20 @@ void cPolyObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 			DrawMeC += (Pos( Triangle[ idx ].IndexA ) - Pos( Triangle[ idx ].IndexC )) * Real::Half;
 				
 			// Draw Triangle Normals //
-			gfx::Line(
+			Gfx::Line(
 				DrawMeA,
 				DrawMeA + (Triangle[ idx ].NormalA * Real( 16 )),
-				gfx::RGB( 255, 128, 255 ) );
+				Gfx::RGB( 255, 128, 255 ) );
 
-			gfx::Line(
+			Gfx::Line(
 				DrawMeB,
 				DrawMeB + (Triangle[ idx ].NormalB * Real( 16 )),
-				gfx::RGB( 255, 128, 255 ) );
+				Gfx::RGB( 255, 128, 255 ) );
 
-			gfx::Line(
+			Gfx::Line(
 				DrawMeC,
 				DrawMeC + (Triangle[ idx ].NormalC * Real( 16 )),
-				gfx::RGB( 255, 128, 255 ) );
+				Gfx::RGB( 255, 128, 255 ) );
 		};
 	}
 	
@@ -283,25 +283,25 @@ void cPolyObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 			DrawMeD += (Pos( Quad[ idx ].IndexA ) - Pos( Quad[ idx ].IndexD )) * Real::Half;
 
 			// Draw Quad Normals //
-			gfx::Line(
+			Gfx::Line(
 				DrawMeA,
 				DrawMeA + (Quad[ idx ].NormalA * Real( 16 )),
-				gfx::RGB( 255, 128, 255 ) );
+				Gfx::RGB( 255, 128, 255 ) );
 
-			gfx::Line(
+			Gfx::Line(
 				DrawMeB,
 				DrawMeB + (Quad[ idx ].NormalB * Real( 16 )),
-				gfx::RGB( 255, 128, 255 ) );
+				Gfx::RGB( 255, 128, 255 ) );
 
-			gfx::Line(
+			Gfx::Line(
 				DrawMeC,
 				DrawMeC + (Quad[ idx ].NormalC * Real( 16 )),
-				gfx::RGB( 255, 128, 255 ) );
+				Gfx::RGB( 255, 128, 255 ) );
 
-			gfx::Line(
+			Gfx::Line(
 				DrawMeD,
 				DrawMeD + (Quad[ idx ].NormalD * Real( 16 )),
-				gfx::RGB( 255, 128, 255 ) );
+				Gfx::RGB( 255, 128, 255 ) );
 		};
 	}
 

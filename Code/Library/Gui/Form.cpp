@@ -185,7 +185,7 @@ void cForm::Load( const std::string &File )
 						int( TempReals[ 3 ] ),
 						TempString,
 						TempReals[ 4 ],
-						gfx::RGBA( TempReals[ 5 ], TempReals[ 6 ], TempReals[ 7 ], TempReals[ 8 ] ) 
+						Gfx::RGBA( TempReals[ 5 ], TempReals[ 6 ], TempReals[ 7 ], TempReals[ 8 ] ) 
 					)
 				);
 				

@@ -33,7 +33,7 @@ public:
 		Scale( _Scale ),
 		Color( _Color )
 	{
-		SelColor = gfx::RGBA( 0, 192, 0, 255 );
+		SelColor = Gfx::RGBA( 0, 192, 0, 255 );
 	}
 
 	void Draw()

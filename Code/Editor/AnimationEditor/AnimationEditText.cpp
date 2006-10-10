@@ -46,7 +46,7 @@ void cAnimationEdit::DisplayNodeInfo()
 		{
 			YPos = cGlobal::HudH * 0.25;
 		}
-		int Color = gfx::RGBA( 255, 255, 255, 255 );
+		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
 		
 		// Displays the current node number //
@@ -124,7 +124,7 @@ void cAnimationEdit::DisplayTextureInfo()
 	{
 		YPos = cGlobal::HudH * 0.25;
 	}
-	int Color = gfx::RGBA( 255, 255, 255, 255 );
+	int Color = Gfx::RGBA( 255, 255, 255, 255 );
 	std::stringstream Temp;
 	
 	// Displays the current texture name //
@@ -171,7 +171,7 @@ void cAnimationEdit::DisplayMode()
 		// Displays the current mesh edit mode //
 	// - -------------------------------------------------------------------------------------- - //
 	Real FontSize = 0.5;
-	int Color = gfx::RGBA( 100, 255, 100, 255 );
+	int Color = Gfx::RGBA( 100, 255, 100, 255 );
 	Vector3D ModePos = Vector3D( cGlobal::Right - Real( 750 ), cGlobal::Top - Real( 40 ), 0.0 );
 		
 	switch( CurMode )

@@ -47,7 +47,7 @@ void cComponentEdit::DisplayNodeInfo()
 		{
 			YPos = cGlobal::HudH * 0.25;
 		}
-		int Color = gfx::RGBA( 255, 255, 255, 255 );
+		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		std::stringstream Temp;
 		
 		// Displays the current node number //

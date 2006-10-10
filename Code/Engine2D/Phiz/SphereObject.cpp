@@ -183,7 +183,7 @@ void cSphereObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 
 	if ( cGlobal::DebugDraw & cGlobal::flExtraInfo ) {
 		// Draw the bounding Rectangle //
-		gfx::Rect( BoundingRect.ToRect(), gfx::RGB( 128, 128, 128 ) );
+		Gfx::Rect( BoundingRect.ToRect(), Gfx::RGB( 128, 128, 128 ) );
 		
 		// Draw springs //
 		{
@@ -193,7 +193,7 @@ void cSphereObject::DebugDraw( /*const Vector2D& Offset*/ ) {
 				DrawMeA = Pos( Spring[ idx ].IndexA );
 				DrawMeB = Pos( Spring[ idx ].IndexB );
 				
-				gfx::Line( DrawMeA, DrawMeB, gfx::RGB( 0, 255, 0 ) );
+				Gfx::Line( DrawMeA, DrawMeB, Gfx::RGB( 0, 255, 0 ) );
 			};
 		}
 	}
@@ -227,7 +227,7 @@ void cSphereObject::DebugDraw( int SpringColour, int SphereColour, Vector2D MapP
 	Vector2D Point1 = BoundingRect.P1() + MapPos;
 	Vector2D Point2 = BoundingRect.P2() + MapPos;
 	
-	gfx::Rect( Point1, Point2, Gfx::RGBA( 128, 128, 128, 255 ) );
+	Gfx::Rect( Point1, Point2, Gfx::RGBA( 128, 128, 128, 255 ) );
 	
 	// Draw springs //
 	{
@@ -237,7 +237,7 @@ void cSphereObject::DebugDraw( int SpringColour, int SphereColour, Vector2D MapP
 			DrawMeA = MapPos + Pos( Spring[ idx ].IndexA );
 			DrawMeB = MapPos + Pos( Spring[ idx ].IndexB );
 			
-			gfx::Line( DrawMeA, DrawMeB, SpringColour );
+			Gfx::Line( DrawMeA, DrawMeB, SpringColour );
 		};
 	}
 	
