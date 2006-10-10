@@ -5,7 +5,7 @@
 
 #include <External/Triangulate3/Triangulate.h>
 
-#include <Physics/StaticBody2D.h>
+#include "StaticBody2D.h"
 // Fix this eventually //
 #include <Engine2D/Graphics/Mesh3D.h>
 // - ------------------------------------------------------------------------------------------ - //

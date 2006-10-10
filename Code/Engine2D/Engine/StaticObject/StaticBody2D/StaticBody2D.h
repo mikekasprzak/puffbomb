@@ -8,9 +8,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Physics/Physics.h>
 
-#include "StaticBody2D/StaticNodes.h"
-#include "StaticBody2D/Constraints/StaticEdge.h"
-#include "StaticBody2D/Constraints/StaticPolygon.h"
+#include "StaticNodes.h"
+#include "Constraints/StaticEdge.h"
+#include "Constraints/StaticPolygon.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
