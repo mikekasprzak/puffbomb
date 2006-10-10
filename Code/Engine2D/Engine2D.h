@@ -9,7 +9,7 @@
 #include <Engine/DynamicCollection.h>
 #include <Engine/StaticObjectInstance.h>
 #include <Engine/PassiveObject.h>
-#include <Engine/Zone.h>
+#include <Zone/Zone.h>
 
 #include <Physics/Impulse.h>
 

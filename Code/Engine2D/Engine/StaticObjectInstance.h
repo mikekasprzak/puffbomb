@@ -4,8 +4,6 @@
 #ifndef __Engine2D_Engine_StaticObjectInstance_H__
 #define __Engine2D_Engine_StaticObjectInstance_H__
 // - ------------------------------------------------------------------------------------------ - //
-//#include <Engine/StaticObject.h>
-// - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cStaticObjectInstance {

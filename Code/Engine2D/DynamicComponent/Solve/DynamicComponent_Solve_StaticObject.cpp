@@ -2,7 +2,7 @@
 #include <Util/Debug.h>
 
 #include <DynamicComponent/DynamicComponent.h>
-#include <Engine/StaticObject.h>
+#include <StaticObject/StaticObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
