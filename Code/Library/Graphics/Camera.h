@@ -8,7 +8,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
 #include <Geometry/Rect.h>
-#include <Phiz/SphereObject.h>
+//#include <Phiz/SphereObject.h>
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cCamera

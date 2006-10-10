@@ -12,7 +12,7 @@
 
 #include "MapObject.h"
 //#include <Editor/Mesh2DEditor/Mesh2DEdit.h>
-#include <Engine2D/DisplayMesh.h>
+//#include <Engine2D/DisplayMesh.h>
 #include <Graphics/LevelData.h>
 
 #include <vector>

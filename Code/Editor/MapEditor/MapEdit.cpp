@@ -6,10 +6,15 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Rect.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <iomanip>
-#include <SDL/SDL.h>
 #include <string>
 #include <iostream>
+#include <iomanip>
+
+// !!!! OPENGL !!!! //
+#include <SDL/SDL.h>
+#include <gl/gl.h>
+#include <gl/glu.h>
+// !!!! OPENGL !!!! //
 
 // For FPS test //
 #include <Global.h>

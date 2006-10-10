@@ -2,11 +2,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "MapEdit.h"
 #include "Input/Input.h"
-#include "Phiz/SphereObject.h"
 #include <Graphics/Mesh3dPool.h>
 #include <Util/String.h>
 #include <Global.h>
 #include <Util/DirectoryCache.h>
+#include <Util/ScriptParser.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <sys/types.h>
 #include <SDL/SDL.h>

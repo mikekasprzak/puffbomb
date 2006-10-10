@@ -5,13 +5,15 @@
 #define __Editor_Edit_H__
 #ifdef EDITOR
 // - ------------------------------------------------------------------------------------------ - //
+#include <vector>
 #include <string>
 #include <sstream>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
+#include <Geometry/Set.h>
 #include <Global.h>
 
-#include <Util/ClassDesigner/Bits.h>
+#include <Util/ClassDesigner.h>
 #include <Graphics/Camera.h>
 // - ------------------------------------------------------------------------------------------ - //
 #define MAP_EDITOR 			4

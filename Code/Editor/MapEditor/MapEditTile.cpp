@@ -5,6 +5,12 @@
 #include <Input/Input.h>
 #include <Graphics/Mesh3dPool.h>
 #include <Util/String.h>
+
+// !!!! OPENGL !!!! //
+#include <gl/gl.h>
+#include <gl/glu.h>
+// !!!! OPENGL !!!! //
+
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //

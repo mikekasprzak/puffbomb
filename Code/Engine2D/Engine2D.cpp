@@ -1,6 +1,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Engine2D.h"
 
+#include <Graphics/Gfx.h>
 #include <Global.h>
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -43,7 +44,7 @@ cEngine2D::cEngine2D() {
 		Real( 0 ),										// X
 		Real( 0 ),										// Y
 		Real( Global::ScreenW ),						// Width
-		Real( Global::ScreenH )							// Height
+		Real( Global::ScreenH )						// Height
 	 );
 	 
 }
