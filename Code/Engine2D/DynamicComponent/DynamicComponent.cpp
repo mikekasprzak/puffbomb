@@ -4,7 +4,7 @@
 #include <Physics/Physics.h>
 
 #include <Engine/DynamicCollection.h>
-#include "../DynamicComponent.h"
+#include "DynamicComponent.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

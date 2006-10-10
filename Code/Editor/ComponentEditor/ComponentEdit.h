@@ -15,7 +15,7 @@
 #include "Editor/Edit.h"
 
 #include <Physics/Body2D.h>
-#include <Engine/DynamicComponent.h>
+#include <DynamicComponent/DynamicComponent.h>
 
 #include <Engine2D/Graphics/AnimationGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //

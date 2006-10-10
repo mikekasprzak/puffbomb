@@ -6,7 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
 
-#include <Engine/DynamicComponent.h>
+#include <DynamicComponent/DynamicComponent.h>
 
 #include "LinkageFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
