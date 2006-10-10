@@ -5,7 +5,7 @@
 #include <Util/String.h>
 
 #include <Graphics/Mesh2D/Mesh2DPose.h>
-#include <Physics/Body2D.h>
+#include <DynamicComponent/Body2D/Body2D.h>
 #include "ComponentAnimationSet.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include "Binary/PackedFrame.h"

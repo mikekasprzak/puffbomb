@@ -1,6 +1,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/Mesh2D.h>
-#include <Physics/Body2D.h>
+#include <DynamicComponent/Body2D/Body2D.h>
 
 #include <Graphics/Gfx.h>
 

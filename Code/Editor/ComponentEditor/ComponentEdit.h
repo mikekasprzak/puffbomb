@@ -14,7 +14,7 @@
 #include <Graphics/Camera.h>
 #include "Editor/Edit.h"
 
-#include <Physics/Body2D.h>
+#include <DynamicComponent/Body2D/Body2D.h>
 #include <DynamicComponent/DynamicComponent.h>
 
 #include <Engine2D/Graphics/AnimationGenerator.h>

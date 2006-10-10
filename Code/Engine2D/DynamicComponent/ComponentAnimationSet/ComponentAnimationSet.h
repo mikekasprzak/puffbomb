@@ -9,7 +9,7 @@
 #include "ComponentAnimation.h"
 
 #include <Graphics/Mesh2D/Mesh2DPose.h>
-#include <Physics/Body2D/Body2DPose.h>
+#include <DynamicComponent/Body2D/Body2DPose.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
