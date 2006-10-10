@@ -91,7 +91,7 @@ void gfx::Line( const Real& x1, const Real& y1, const Real& z1, const Real& x2, 
 
 }*/
 // - ------------------------------------------------------------------------------------------ - //
-void gfx::Face( const Vector3D& a, const Vector3D& b, const Vector3D& c,
+/*void gfx::Face( const Vector3D& a, const Vector3D& b, const Vector3D& c,
 				const Vector2D& UVa, const Vector2D& UVb, const Vector2D& UVc )
 {
 	glBegin(GL_POLYGON);
@@ -144,7 +144,7 @@ void gfx::Polygon( const Vector3D& a, const Vector3D& b, const Vector3D& c, int 
 		glTexCoord2f(0.0, 1.0);
 	glEnd();
 
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 /*void gfx::Line( const Vector2D& v1, const Vector2D& v2, int Color ) {
 	Line( v1.x, v1.y, v2.x, v2.y, Color );

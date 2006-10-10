@@ -483,28 +483,28 @@ void cSpiderController::Draw() {
 		VertC += RayB * SphereObject->Sphere[ idx + 2 ].Radius;
 
 		// Green //
-		gfx::Face( 
+/*		gfx::Face( 
 			VertA,
 			VertB,
 			VertC,
 			GreenBits,
 			GreenBits,
 			GreenBits
-			);
+			); */ // removed cause old gfx is being deleted.  not sure if this is still needed. //
 
 		VertA.z = -Real::One;
 		VertB2.z = -Real::One;
 		VertC2.z = -Real::One;
 
 		// Outline //
-		gfx::Face( 
+/*		gfx::Face( 
 			VertA,
 			VertB2,
 			VertC2,
 			BlackBits,
 			BlackBits,
 			BlackBits
-			);
+			); */ // removed cause old gfx is being deleted.  not sure if this is still needed. //
 
 	}
 
@@ -537,28 +537,28 @@ void cSpiderController::Draw() {
 			
 
 	// Green //
-	gfx::Face( 
+/*	gfx::Face( 
 		VertA,
 		VertB,
 		VertC,
 		GreenBits,
 		GreenBits,
 		GreenBits
-		);
+		);*/ // removed cause old gfx is being deleted.  not sure if this is still needed. //
 
 	VertA.z = -Real::One;
 	VertB2.z = -Real::One;
 	VertC2.z = -Real::One;
 
 	// Outline //
-	gfx::Face( 
+/*	gfx::Face( 
 		VertA,
 		VertB2,
 		VertC2,
 		BlackBits,
 		BlackBits,
 		BlackBits
-		);
+		); */ // removed cause old gfx is being deleted.  not sure if this is still needed. //
 
 /*
 	// Eyes //

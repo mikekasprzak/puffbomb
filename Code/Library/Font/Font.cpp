@@ -125,12 +125,8 @@ cCharacter& cFont::FindCharacter( int CharacterIdx )
 // - ------------------------------------------------------------------------------------------ - //
 void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const int Color )
 {
-//	glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
-	
 	unsigned int IndicesSize = Text.size() * 4;
 	
-/*	ABCDSet< Vector3D > Vertex[ Text.size() ];
-	ABCDSet< Vector2D > TexCoord[ Text.size() ];*/
 	Vector3D Vertex[ IndicesSize ];
 	Vector2D TexCoord[ IndicesSize ];
 

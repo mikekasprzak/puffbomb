@@ -144,7 +144,7 @@ void cDisplayObjectController::Draw() {
 	
 	glBindTexture( GL_TEXTURE_2D, TextureId );
 	
-	for( size_t idx = 0; idx < Face.size(); ++idx ) {
+/*	for( size_t idx = 0; idx < Face.size(); ++idx ) {
 		gfx::Face( 
 			Transformed[ Face[idx].Index.a ],
 			Transformed[ Face[idx].Index.b ],
@@ -153,7 +153,7 @@ void cDisplayObjectController::Draw() {
 			Face[idx].UV.b,
 			Face[idx].UV.c
 		);
-	}
+	}*/  // removed cause old gfx is being deleted.  not sure if this is still needed. //
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
 }

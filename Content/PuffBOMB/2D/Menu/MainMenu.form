@@ -44,4 +44,16 @@ Color			255	255	255
 Alpha			255
 EndText
 
+
+AniLabel		50	-185
+IsPassive		0
+ActionID		0
+Animation		TestAnimation.anim
+SelectAni		InterpTest.anim
+CurrentFrame	0
+EndAni
+
+
+
+
 EndDialog
