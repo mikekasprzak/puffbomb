@@ -263,7 +263,7 @@ void gfx::Quad( const Vector2D& a, const Vector2D& b, const Vector2D& c, const V
 
 }
 // - ------------------------------------------------------------------------------------------ - //
-void gfx::FilledRect( const Vector2D& a, const Vector2D& b, int Color )
+/*void gfx::FilledRect( const Vector2D& a, const Vector2D& b, int Color )
 {
 	//Vector3D Offset = Vector3D( cGlobal::Origin.x, cGlobal::Origin.y, 0.0 );
 		
@@ -271,16 +271,16 @@ void gfx::FilledRect( const Vector2D& a, const Vector2D& b, int Color )
 		glNormal3f( 1.0f, 0.0f, 0.0f );
 		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
 		glTexCoord2f(0.0, 0.0);
-		glVertex3f( a.x /*+ Offset.x*/, a.y /*+ Offset.y*/, 0.0 );
+		glVertex3f( a.x , a.y , 0.0 );
 
 		glTexCoord2f(1.0, 0.0);
-		glVertex3f( b.x /*+ Offset.x*/, a.y /*+ Offset.y*/, 0.0 );
+		glVertex3f( b.x , a.y , 0.0 );
 
 		glTexCoord2f(1.0, 1.0);
-		glVertex3f( b.x /*+ Offset.x*/, b.y /*+ Offset.y*/, 0.0 );
+		glVertex3f( b.x , b.y , 0.0 );
 
 		glTexCoord2f(0.0, 1.0);
-		glVertex3f( a.x /*+ Offset.x*/, b.y /*+ Offset.y*/, 0.0 );
+		glVertex3f( a.x , b.y , 0.0 );
 	glEnd();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -301,7 +301,7 @@ void gfx::FlipFilledRect( const Vector2D& a, const Vector2D& b, int Color )
 		glTexCoord2f(0.99, 0.01);
 		glVertex3f( a.x, b.y, 0.0 );
 	glEnd();
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 namespace Gfx
 {

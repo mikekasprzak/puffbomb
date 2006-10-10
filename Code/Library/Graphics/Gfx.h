@@ -53,8 +53,8 @@ public:
 	static void Quad( const Vector3D& a, const Vector3D& b, const Vector3D& c, const Vector3D& d,
 				Vector2D UVa, Vector2D UVb);
 
-	static void FilledRect( const Vector2D& a, const Vector2D& b, int Color );
-	static void FlipFilledRect( const Vector2D& a, const Vector2D& b, int Color );
+/*	static void FilledRect( const Vector2D& a, const Vector2D& b, int Color );
+	static void FlipFilledRect( const Vector2D& a, const Vector2D& b, int Color );*/
 };
 // - ------------------------------------------------------------------------------------------ - //
 
