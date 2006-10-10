@@ -7,9 +7,8 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Physics/Body2D.h>
-#include "DynamicComponent/ComponentAnimationSet/ComponentAnimationSet.h"
-
-#include "DynamicComponent/StateFlags.h"
+#include "ComponentAnimationSet/ComponentAnimationSet.h"
+#include "StateFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
