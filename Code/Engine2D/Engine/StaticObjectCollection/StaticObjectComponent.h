@@ -12,7 +12,11 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cStaticObjectComponent {
 public:
+	// Collision //
 	cStaticBody2D Body;
+	
+	// Display //
+	// *Note* make display a vector, therefor supporting multiple textures (since each is only 1) //
 	cMesh3D Mesh;
 	
 	
