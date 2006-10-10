@@ -7,7 +7,7 @@
 #include <vector>
 
 #include <Engine/DynamicCollection.h>
-#include <Engine/StaticObjectInstance.h>
+#include <StaticObject/StaticObjectInstance.h>
 #include <Engine/PassiveObject.h>
 #include <Zone/Zone.h>
 
