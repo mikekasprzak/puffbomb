@@ -1,6 +1,6 @@
 # - -------------------------------------------------------------------------------------------- - #
 -include config.mak
--include Code/Game/$(GAME_TARGET)/game.mak
+-include Code/Game/$(GAME_TARGET)/Makefiles/game.mak
 # - -------------------------------------------------------------------------------------------- - #
 ifeq "$(PLATFORM)" "Tools"
 ARGS		:=	-j$(THREADS) -f Code/$(PLATFORM)/makefile.mak -k --no-print-directory
@@ -62,7 +62,7 @@ ifndef GAME_TARGET
 	@1 
 else
 	@echo ---- Copying default game configuration from GAME_TARGET ----------------
-	cp Code/Game/$(GAME_TARGET)/config.mak .
+	cp Code/Game/$(GAME_TARGET)/Makefiles/config.mak .
 	@echo ---- Configuration copied.  You can use "make", "make run", "make clean"
 	@echo --
 	@echo -- Dying... -------------------------------------------------------------
