@@ -29,30 +29,10 @@ cEngine2D::cEngine2D() {
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )						// Height
 	 );
-
-	// Create Camera //
-	HudCamera = new cCamera(
-		Vector3D( 0.0, 0.0, Global::HudZoom ),			// Pos
-		Vector3D( 0.0, 0.0, 0.0 ),						// View
-		Vector3D( 0.0, 1.0, 0.0 ),						// Up
-		45.0,											// Field of View
-		Global::AspectRatio,							// Aspect Ratio
-		1.0,											// NearClip
-		100000.0,										// FarClip
-		Global::HudZoom,								// MinZoom
-		Global::HudZoom,								// MaxZoom
-		Global::HudZoom,								// HudZoom
-		Real( 0 ),										// X
-		Real( 0 ),										// Y
-		Real( Global::ScreenW ),						// Width
-		Real( Global::ScreenH )						// Height
-	 );
-	 
 }
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::~cEngine2D() {
 	delete Camera;
-	delete HudCamera;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Step() {
@@ -156,11 +136,6 @@ void cEngine2D::Draw() {
 
 	Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
 	
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cEngine2D::HudDraw() {
-	HudCamera->Update();
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

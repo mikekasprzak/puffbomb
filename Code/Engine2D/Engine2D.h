@@ -36,16 +36,16 @@ public:
 	std::vector< cImpulse > Impulse;
 
 public:
+	cCamera *Camera;
+
+public:
 	cEngine2D();
 	~cEngine2D();
-	cCamera *Camera;
-	cCamera *HudCamera;
 
 public:
 	// Move and Display Everything //
 	void Step();
 	void Draw();
-	void HudDraw();
 
 	// Reset game back to a neutral state //
 	void Reset();

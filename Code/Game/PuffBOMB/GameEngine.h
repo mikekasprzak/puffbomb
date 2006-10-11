@@ -1,20 +1,19 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Game //
+// GameEngine //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Game_PuffBOMB_Game_H__
-#define __Game_PuffBOMB_Game_H__
+#ifndef __Game_PuffBOMB_GameEngine_H__
+#define __Game_PuffBOMB_GameEngine_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <MessageEntity.h>
-#include <GameEngine.h>
+#include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-class cGame : public cMessageEntity { 
+class cGameEngine : public Engine2D::cEngine2D { 
 public:
-	cGameEngine* Engine;
+	cCamera *HudCamera;
 
 public:
-	cGame();
-	~cGame();
-
+	cGameEngine();
+	~cGameEngine();
+	
 public:
 	void Step();
 	void Draw();
