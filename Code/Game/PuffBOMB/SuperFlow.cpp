@@ -17,8 +17,27 @@
 #include <Game.h>
 #include <MainMenu/MainMenu.h>
 // - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+// Use an ENUM to generate unique numbers for each SuperFlow State //
+enum {
+	// Dummy state, so you can bounds check the generated state numbers //
+	stFirstState = 0,
+	
+	// Super-Flow States (of the U-S-A) //
+	stSykhronicsSplash,
+	stMainMenu,
+	stStartGame,
+	stEditor,
+	
+	// Dummy state, so you can bounds check the generated state numbers //
+	stLastState
+};
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 cSuperFlow::cSuperFlow() :
-	State( 0 )
+	State( stSykhronicsSplash )
 {
 	SetHudData();
 	
@@ -37,22 +56,27 @@ cSuperFlow::cSuperFlow() :
 // - ------------------------------------------------------------------------------------------ - //
 void cSuperFlow::StateFlow()
 {
+	// While our means of global shutdown hasn't been triggered //
 	while( !Global::Shutdown )
 	{
+		// Get up-to-date controller input (to not endlessly loop an exit) //
 		Input::Update();
 
+		// Switch/Branch between super flow states //
 		switch( State )
 		{
-			case 0:
+			// - ------------------------------------------------------------------------------ - //
+			case stSykhronicsSplash:
 			{
 				// Display the Sykhronics spash screen //
 				{
 					cSplashScreen SplashScreen;
 				}
-				State = 1;
+				State = stMainMenu;
 				break;
 			}
-			case 1:
+			// - ------------------------------------------------------------------------------ - //
+			case stMainMenu:
 			{
 				// Display the MainMenu screen //
 				{
@@ -61,30 +85,34 @@ void cSuperFlow::StateFlow()
 				}
 				break;
 			}
-			case 2:
+			// - ------------------------------------------------------------------------------ - //
+			case stStartGame:
 			{
 				// Start the game //
 				{
 					cGame Game;
 				}
-				State = 1;
+				State = stMainMenu;
 				break;
 			}
-			case 3:
+			// - ------------------------------------------------------------------------------ - //
+			case stEditor:
 			{
 				// Creating Editor //
 				{
 					Log( LOG_HIGHEST_LEVEL, "Creating Editor..." );
 					cEditor Editor;
 				}
-				State = 1;
+				State = stMainMenu;
 				break;
 			}
+			// - ------------------------------------------------------------------------------ - //
 			default:
 			{
 				Global::Shutdown = true;
 				break;
 			}
+			// - ------------------------------------------------------------------------------ - //
 		}
 	}
 }
