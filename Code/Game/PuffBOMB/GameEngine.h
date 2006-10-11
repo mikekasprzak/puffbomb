@@ -8,6 +8,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cGameEngine : public Engine2D::cEngine2D { 
 public:
+	// Custom Camera used to create a HUD //
 	cCamera *HudCamera;
 
 public:
