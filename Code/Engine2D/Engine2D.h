@@ -5,7 +5,7 @@
 #define __Engine2D_Engine2D_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
-
+// - ------------------------------------------------------------------------------------------ - //
 #include <DynamicCollection/DynamicCollection.h>
 #include <StaticObject/StaticObjectInstance.h>
 #include <PassiveObject/PassiveObject.h>
@@ -54,7 +54,7 @@ public:
 	// Claim the engine in control status //
 	inline void SetActive() {
 		Current = this;
-	}	
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
