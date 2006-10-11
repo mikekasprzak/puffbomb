@@ -8,7 +8,7 @@
 #include <Geometry/Matrix.h>
 
 #include <DynamicComponent/Body2D/DynamicNodes/DynamicNodes.h>
-#include <DynamicComponent/Body2D/Body2DPose/BodyPoseNode.h>
+#include <DynamicComponent/Body2D/Pose/BodyPoseNode.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

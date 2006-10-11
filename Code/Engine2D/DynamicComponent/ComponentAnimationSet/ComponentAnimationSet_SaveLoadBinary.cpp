@@ -5,7 +5,7 @@
 
 #include "ComponentAnimationSet.h"
 
-#include <DynamicComponent/Mesh2D/Mesh2DPose.h>
+#include <DynamicComponent/Mesh2D/Pose/Mesh2DPose.h>
 #include <DynamicComponent/Body2D/Body2D.h>
 #include <DynamicComponent/AnimationGenerator/AnimationGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
