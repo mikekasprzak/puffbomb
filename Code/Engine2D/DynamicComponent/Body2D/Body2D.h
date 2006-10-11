@@ -10,7 +10,7 @@
 
 #include "DynamicNodes.h"
 #include "Body2DPose.h"
-#include "Constraints/CollisionFlags.h"
+#include "CollisionFlags.h"
 
 #include "Constraints/Spring.h"
 #include "Constraints/Sphere.h"
