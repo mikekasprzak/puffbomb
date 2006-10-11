@@ -10,8 +10,8 @@
 #include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "BodyPoseNode.h"
-#include "Constraints/Spring.h"
-#include "Constraints/Sphere.h"
+#include <DynamicComponent/Body2D/Constraints/Spring.h>
+#include <DynamicComponent/Body2D/Constraints/Sphere.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

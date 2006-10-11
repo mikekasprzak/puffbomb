@@ -8,7 +8,7 @@
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
 
-#include <DynamicComponent/Body2D/DynamicNodes.h>
+#include <DynamicComponent/Body2D/DynamicNodes/DynamicNodes.h>
 
 #include "SpringFlags.h"
 // - ------------------------------------------------------------------------------------------ - //

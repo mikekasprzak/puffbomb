@@ -8,8 +8,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Physics/Physics.h>
 
-#include "DynamicNodes.h"
-#include "Body2DPose.h"
+#include "DynamicNodes/DynamicNodes.h"
+#include "Body2DPose/Body2DPose.h"
 #include "CollisionFlags.h"
 
 #include "Constraints/Spring.h"

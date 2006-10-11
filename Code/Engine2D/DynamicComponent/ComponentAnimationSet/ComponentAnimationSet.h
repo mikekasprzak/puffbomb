@@ -8,7 +8,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "ComponentAnimation.h"
 #include <DynamicComponent/Mesh2D/Mesh2DPose.h>
-#include <DynamicComponent/Body2D/Body2DPose.h>
+#include <DynamicComponent/Body2D/Body2DPose/Body2DPose.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
