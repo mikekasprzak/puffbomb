@@ -81,7 +81,21 @@ void cSuperFlow::StateFlow()
 				// Display the MainMenu screen //
 				{
 					cMainMenu MainMenu;
-					State = MainMenu.Form.DialogBox[ 0 ].SuperFlowState;
+
+					// A local table for converting menu states to local states //
+					const int MenuStateTable[] =
+					{
+						stStartGame,
+						stEditor,
+						stSykhronicsSplash,
+						
+						stLastState,
+					};
+
+					// Pull and convert next state from the menu //
+					State = MenuStateTable[ MainMenu.Form.DialogBox[ 0 ].Focus ];
+					
+					//State = MainMenu.Form.DialogBox[ 0 ].SuperFlowState;
 				}
 				break;
 			}
