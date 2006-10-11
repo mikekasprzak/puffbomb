@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // SplashScreen //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __FlowElements_SplashScreen_SplashScreen_H__
-#define __FlowElements_SplashScreen_SplashScreen_H__
+#ifndef __Framework_SplashScreen_SplashScreen_H__
+#define __Framework_SplashScreen_SplashScreen_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -28,5 +28,5 @@ public:
 	void Step();
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __FlowElements_SplashScreen_SplashScreen_H__ // 
+#endif // __Framework_SplashScreen_SplashScreen_H__ // 
 // - ------------------------------------------------------------------------------------------ - //
