@@ -2,7 +2,7 @@
 #include <Util/Debug.h>
 
 #include <DynamicComponent/DynamicComponent.h>
-#include <Physics/Impulse.h>
+#include <Impulse/Impulse.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

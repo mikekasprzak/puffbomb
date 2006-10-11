@@ -17,7 +17,7 @@
 #include <DynamicComponent/Body2D/Body2D.h>
 #include <DynamicComponent/DynamicComponent.h>
 
-#include <Engine2D/Graphics/AnimationGenerator.h>
+#include <DynamicComponent/AnimationGenerator/AnimationGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentEdit : public cEdit {
 public:

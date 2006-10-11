@@ -1,29 +1,17 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <fstream>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Graphics/AnimationGenerator.h>
 #include <Util/String.h>
+
+#include "ComponentAnimationSet.h"
 
 #include <DynamicComponent/Mesh2D/Mesh2DPose.h>
 #include <DynamicComponent/Body2D/Body2D.h>
-#include "ComponentAnimationSet.h"
-// - ------------------------------------------------------------------------------------------ - //
-#include "Binary/PackedFrame.h"
-
-#include "Binary/PackedVertex.h"
-#include "Binary/PackedUV.h"
-#include "Binary/PackedFace.h"
-#include "Binary/PackedOrientation.h"
-
-#include "Binary/PackedNode.h"
-#include "Binary/PackedSpring.h"
-#include "Binary/PackedSphere.h"
+#include <DynamicComponent/AnimationGenerator/AnimationGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
-// - ------------------------------------------------------------------------------------------ - //
-using namespace DynamicComponent;
 // - ------------------------------------------------------------------------------------------ - //
 class cEndianReader {
 public:

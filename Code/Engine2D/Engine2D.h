@@ -11,7 +11,7 @@
 #include <PassiveObject/PassiveObject.h>
 #include <Zone/Zone.h>
 
-#include <Physics/Impulse.h>
+#include <Impulse/Impulse.h>
 
 #include <Graphics/Camera.h>
 // - ------------------------------------------------------------------------------------------ - //
