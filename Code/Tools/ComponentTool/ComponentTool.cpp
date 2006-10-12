@@ -12,13 +12,14 @@
 #include <Util/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <DynamicComponent/ComponentAnimationSet/ComponentAnimationSet.h>
-
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 int main( int argc, char* argv[] ) {
-	// Must have 2 or more arguments //
-	if( argc < 3 )
+	// - -------------------------------------------------------------------------------------- - //
+
+	// Must have 3 or more arguments //
+	if( argc < 4 )
 		return -1;
 
 	// - -------------------------------------------------------------------------------------- - //
@@ -27,22 +28,24 @@ int main( int argc, char* argv[] ) {
 	string ArtFolder = String::Directory( ComponentFile );
 	
 	string TargetComp( argv[ 2 ] );
-	string OutputBaseName = String::DirectorySlash( TargetComp ) + String::BaseName( TargetComp );
+	string FinalFileName( argv[ 3 ] );
 
 	// - -------------------------------------------------------------------------------------- - //
 
 	// Verify command line arguments are ok //
 	cout << ComponentFile << endl;	
-	cout << ArtFolder << endl;
-	cout << TargetComp << endl;
-	cout << OutputBaseName << endl;
+//	cout << ArtFolder << endl;
+//	cout << TargetComp << endl;
+	cout << getenv("HOME") << endl;
 
 	// - -------------------------------------------------------------------------------------- - //
 
+	// Load text based component file //
 	Engine2D::cComponentAnimationSet Animation;
 	Animation.LoadText( ComponentFile );
 	
-	
+	// Save Binary File (uhh, yeah... that easy) //
+	Animation.SaveBinary( TargetComp, FinalFileName, ArtFolder );
 
 	return 0;
 }

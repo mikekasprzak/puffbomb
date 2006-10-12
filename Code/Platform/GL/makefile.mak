@@ -16,12 +16,17 @@ include $(ToolChain)/$(PLATFORM)/platform.mak
 include $(ToolChain)/tools.mak
 # - -------------------------------------------------------------------------------------------- - #
 
+# - -------------------------------------------------------------------------------------------- - #
+TextureToolArgs	:=	-fatten
+export TextureToolArgs
+# - -------------------------------------------------------------------------------------------- - #
+
 
 # - -------------------------------------------------------------------------------------------- - #
 CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Framework Game/JunkGame Game/$(GAME_TARGET)
 # - -------------------------------------------------------------------------------------------- - #
 CONTENT_DIRS	:=	$(GAME_TARGET)
-CONTENT_EXT		:=	.png .ogg .anim .font .form .map .body2d .mesh2d .body3d .mesh3d .comp .coll
+CONTENT_EXT		:=	.png .ogg .anim .font .form .comp .coll
 # - -------------------------------------------------------------------------------------------- - #
 
 
@@ -79,6 +84,10 @@ PLATFORM_CONTENT:=	$(filter-out $(foreach DIR,$(CONTENT_DIRS),$(shell $(PatternT
 
 # Target Texture files from PNG to TX ---------------------------------------------------------- - #
 PLATFORM_CONTENT:=	$(subst .png,.pack.tx,$(PLATFORM_CONTENT))
+
+# Target Component and Collection files -------------------------------------------------------- - #
+PLATFORM_CONTENT:=	$(subst .comp,.bin.pack.comp,$(PLATFORM_CONTENT))
+PLATFORM_CONTENT:=	$(subst .coll,.bin.pack.coll,$(PLATFORM_CONTENT))
 # - -------------------------------------------------------------------------------------------- - #
 
 # - -------------------------------------------------------------------------------------------- - #
@@ -158,14 +167,16 @@ $(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3D
 # - -------------------------------------------------------------------------------------------- - #
 # Textures ------------------------------------------------------------------------------------- - #
 $(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
-	$(TextureTool) $< $(DATA_DIR)/$*.tx -fatten
+	$(TextureTool) $< $(DATA_DIR)/$*.tx $(TextureToolArgs)
 	$(Compress) $(DATA_DIR)/$*.tx $@
 # - -------------------------------------------------------------------------------------------- - #
 # Components ----------------------------------------------------------------------------------- - #
 $(RELEASE_DIR)/%.bin.pack.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_DEPEND)
-	$(ComponentTool) $< $(DATA_DIR)/$*.bin.comp $(DATA_DIR)/$*.sh
-	-$(DATA_DIR)/$*.sh
-	$(Compress) $(DATA_DIR)/$*.bin.comp $@
+	$(ComponentTool) $< $(DATA_DIR)/$*.bin.comp $@
+	$(DATA_DIR)/$*.sh
+#	$(Compress) $(DATA_DIR)/$*.bin.comp $@
+	
+#	chmod +x $(DATA_DIR)/$*.sh
 # - -------------------------------------------------------------------------------------------- - #
 # Specific unprocessed content ----------------------------------------------------------------- - #
 $(RELEASE_DIR)/%: Content/$(GAME_TARGET)/% $(ALL_DEPEND)

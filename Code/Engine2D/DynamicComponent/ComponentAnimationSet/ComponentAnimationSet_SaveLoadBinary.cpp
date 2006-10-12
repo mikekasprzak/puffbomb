@@ -200,27 +200,53 @@ public:
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const std::string& ScriptFileName, const std::string& ArtDirectory, bool LittleEndian ) {
-	// Generate Data //
+void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const std::string& FinalFileName, const std::string& ArtDirectory, bool LittleEndian ) {
+	// Extract the base name from the output file, to know what we're going to call what we write to //
+	string WorkingBaseName = String::DirectorySlash( CompFileName ) + String::BaseName( CompFileName );
+	string FinalBaseName = String::DirectorySlash( FinalFileName ) + String::BaseName( FinalFileName );
+	
+	// Acquire art assets, and description of animation timings //
+	cAnimationGenerator Art( ArtDirectory );
+	
+	// Write Image Conversion Shell Script //
 	{
-		// Acquire art assets, and description of animation timings //
-		cAnimationGenerator Art( ArtDirectory );
+		ofstream OutScript( (WorkingBaseName + ".sh").c_str() );
 		
-		// Look up, and convert all mesh poses in to meshes //
-		for ( size_t AnimIndex = 0; AnimIndex < Animation.size(); AnimIndex++ ) {
-			for ( size_t FrameIndex = 0; FrameIndex < Animation[ AnimIndex ].Frame.size(); FrameIndex++ ) {
-				// Generate an active body from the pose //
-				cBody2D TempBody( BodyPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].BodyPoseIndex ] );
-				
-				// Calculate the Mesh from the mesh pose and a body //
-				Animation[ AnimIndex ].Frame[ FrameIndex ].Mesh = 
-					cMesh2D( MeshPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].MeshPoseIndex ], TempBody );
-			}
+		OutScript << "# Generated Shell Script for Image conversion" << endl;
+		
+		for ( size_t idx = 0; idx < Art.ImagePool.size(); idx++ ) {
+			// PNG to TX //
+			OutScript << getenv("TextureTool") << " " <<
+				Art.Directory << "/" << Art.ImagePool[ idx ].FileName << " " << 
+				WorkingBaseName << idx << ".tx " <<
+				getenv("TextureToolArgs") << endl;
+			
+			// Compress //
+			OutScript << getenv("Compress") << " " <<
+				WorkingBaseName << idx << ".tx " <<
+				FinalBaseName << idx << ".pack.tx" <<
+				endl;
+		}
+		
+		OutScript.close();
+	}
+
+	return;
+
+	// Look up, and convert all mesh poses in to meshes //
+	for ( size_t AnimIndex = 0; AnimIndex < Animation.size(); AnimIndex++ ) {
+		for ( size_t FrameIndex = 0; FrameIndex < Animation[ AnimIndex ].Frame.size(); FrameIndex++ ) {
+			// Generate an active body from the pose //
+			cBody2D TempBody( BodyPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].BodyPoseIndex ] );
+			
+			// Calculate the Mesh from the mesh pose and a body //
+			Animation[ AnimIndex ].Frame[ FrameIndex ].Mesh = 
+				cMesh2D( MeshPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].MeshPoseIndex ], TempBody );
 		}
 	}
 	
 	
-	// Write Data //
+	// Write Data (Comp File) //
 	{
 		cEndianWriter Out( CompFileName, LittleEndian );
 				
