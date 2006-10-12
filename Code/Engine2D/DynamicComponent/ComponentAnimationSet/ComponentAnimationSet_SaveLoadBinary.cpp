@@ -200,7 +200,7 @@ public:
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std::string& ArtDirectory, bool LittleEndian ) {
+void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const std::string& ScriptFileName, const std::string& ArtDirectory, bool LittleEndian ) {
 	// Generate Data //
 	{
 		// Acquire art assets, and description of animation timings //
@@ -222,7 +222,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& FileName, const std:
 	
 	// Write Data //
 	{
-		cEndianWriter Out( FileName, LittleEndian );
+		cEndianWriter Out( CompFileName, LittleEndian );
 				
 		// 8 byte File Header //
 		{

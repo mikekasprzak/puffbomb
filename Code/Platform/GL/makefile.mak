@@ -21,7 +21,7 @@ include $(ToolChain)/tools.mak
 CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Framework Game/JunkGame Game/$(GAME_TARGET)
 # - -------------------------------------------------------------------------------------------- - #
 CONTENT_DIRS	:=	$(GAME_TARGET)
-CONTENT_EXT		:=	.png .ogg .anim .font .form .map .body2d .mesh2d .body3d .mesh3d
+CONTENT_EXT		:=	.png .ogg .anim .font .form .map .body2d .mesh2d .body3d .mesh3d .comp .coll
 # - -------------------------------------------------------------------------------------------- - #
 
 
@@ -160,6 +160,12 @@ $(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3D
 $(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
 	$(TextureTool) $< $(DATA_DIR)/$*.tx -fatten
 	$(Compress) $(DATA_DIR)/$*.tx $@
+# - -------------------------------------------------------------------------------------------- - #
+# Components ----------------------------------------------------------------------------------- - #
+$(RELEASE_DIR)/%.bin.pack.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_DEPEND)
+	$(ComponentTool) $< $(DATA_DIR)/$*.bin.comp $(DATA_DIR)/$*.sh
+	-$(DATA_DIR)/$*.sh
+	$(Compress) $(DATA_DIR)/$*.bin.comp $@
 # - -------------------------------------------------------------------------------------------- - #
 # Specific unprocessed content ----------------------------------------------------------------- - #
 $(RELEASE_DIR)/%: Content/$(GAME_TARGET)/% $(ALL_DEPEND)

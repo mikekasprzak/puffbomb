@@ -11,7 +11,7 @@
 #include <Util/ClassDesigner.h>
 #include <Util/String.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Engine/DynamicComponent/ComponentAnimationSet.h>
+#include <DynamicComponent/ComponentAnimationSet/ComponentAnimationSet.h>
 
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
@@ -22,7 +22,27 @@ int main( int argc, char* argv[] ) {
 		return -1;
 
 	// - -------------------------------------------------------------------------------------- - //
+	
+	string ComponentFile( argv[ 1 ] );
+	string ArtFolder = String::Directory( ComponentFile );
+	
+	string TargetComp( argv[ 2 ] );
+	string OutputBaseName = String::DirectorySlash( TargetComp ) + String::BaseName( TargetComp );
 
+	// - -------------------------------------------------------------------------------------- - //
+
+	// Verify command line arguments are ok //
+	cout << ComponentFile << endl;	
+	cout << ArtFolder << endl;
+	cout << TargetComp << endl;
+	cout << OutputBaseName << endl;
+
+	// - -------------------------------------------------------------------------------------- - //
+
+	Engine2D::cComponentAnimationSet Animation;
+	Animation.LoadText( ComponentFile );
+	
+	
 
 	return 0;
 }

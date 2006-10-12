@@ -25,7 +25,7 @@ public:
 public:
 	// Functions for saving/loading the Binary based Component format //
 	void LoadBinary( const std::string& FileName );
-	void SaveBinary( const std::string& FileName, const std::string& ArtDirectory, bool LittleEndian = true );
+	void SaveBinary( const std::string& CompFileName, const std::string& ScriptFileName, const std::string& ArtDirectory, bool LittleEndian = true );
 
 #ifdef EDITOR	
 	// Functions for saving/loading the Text based Component format //
