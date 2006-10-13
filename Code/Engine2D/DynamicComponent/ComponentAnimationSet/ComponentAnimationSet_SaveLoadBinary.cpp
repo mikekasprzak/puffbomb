@@ -231,7 +231,6 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 		OutScript.close();
 	}
 
-	return;
 
 	// Look up, and convert all mesh poses in to meshes //
 	for ( size_t AnimIndex = 0; AnimIndex < Animation.size(); AnimIndex++ ) {

@@ -26,7 +26,7 @@ export TextureToolArgs
 CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Framework Game/JunkGame Game/$(GAME_TARGET)
 # - -------------------------------------------------------------------------------------------- - #
 CONTENT_DIRS	:=	$(GAME_TARGET)
-CONTENT_EXT		:=	.png .ogg .anim .font .form .comp .coll
+CONTENT_EXT		:=	.png .ogg .anim .font .form .mesh3d .comp .coll
 # - -------------------------------------------------------------------------------------------- - #
 
 
@@ -173,7 +173,7 @@ $(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPE
 # Components ----------------------------------------------------------------------------------- - #
 $(RELEASE_DIR)/%.bin.pack.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_DEPEND)
 	$(ComponentTool) $< $(DATA_DIR)/$*.bin.comp $@
-	$(DATA_DIR)/$*.sh
+#	$(DATA_DIR)/$*.sh
 #	$(Compress) $(DATA_DIR)/$*.bin.comp $@
 	
 #	chmod +x $(DATA_DIR)/$*.sh
