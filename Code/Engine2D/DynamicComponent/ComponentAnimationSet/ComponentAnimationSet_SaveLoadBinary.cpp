@@ -1,9 +1,12 @@
 // - ------------------------------------------------------------------------------------------ - //
+#include <sstream>
 #include <fstream>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/String.h>
 
 #include "ComponentAnimationSet.h"
+
+#include <Graphics/TexturePool.h>
 
 #include <DynamicComponent/Mesh2D/Pose/Mesh2DPose.h>
 #include <DynamicComponent/Body2D/Body2D.h>
@@ -117,7 +120,6 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 					for ( size_t idx3 = 0; idx3 < Animation[ idx ].Frame[ idx2 ].Mesh.Orientation.size(); idx3++ ) {
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.Orientation[ idx3 ].PivotIndex );
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.Orientation[ idx3 ].HandleIndex );
-						//Animation[ idx ].Frame[ idx2 ].Mesh.Orientation[ idx3 ].CalculateHomeMatrix(  );
 					}
 					
 				}
@@ -156,8 +158,22 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 			}
 		}
 	
-		// Texture References //		
-		
+		// Texture References //
+		{
+			Texture.resize( In.Read() );
+			for ( size_t idx = 0; idx < Texture.size(); idx++ ) {
+				// Read the File Name //
+				int StrLen = In.Read();
+				char MyString[ StrLen + 1 ];
+				
+				In.File.get( MyString, StrLen );
+				
+				MyString[ StrLen ] = 0;
+				
+				// Load the texture //
+				Texture[ idx ] = TexturePool.Load( string( MyString ) );
+			}
+		}
 		
 		// Calculate Mesh Orientation Home Matrix //
 		for ( size_t idx = 0; idx < Animation.size(); idx++ ) {
@@ -277,7 +293,8 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 					Out.Write( Animation[ idx ].Frame[ idx2 ].Time );
 					Out.Write( Animation[ idx ].Frame[ idx2 ].Flags );
 					Out.Write( Animation[ idx ].Frame[ idx2 ].BodyPoseIndex );
-					Out.Write( Animation[ idx ].Frame[ idx2 ].TextureIndex );
+					//Out.Write( Animation[ idx ].Frame[ idx2 ].TextureIndex );
+					Out.Write( Art.Animation[ idx ].Frame[ idx2 ].ImageIndex );
 					
 					// Mesh //
 					{
@@ -314,8 +331,11 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 					}
 				}
 			}
+		}
+		
 						
-			// Body Poses //
+		// Body Poses //
+		{
 			Out.Write( BodyPose.size() );
 			// For every body //
 			for ( size_t idx = 0; idx < BodyPose.size(); idx++ ) {
@@ -359,8 +379,29 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 					Out.Write( BodyPose[ idx ].Sphere[ idx2 ].Flags );
 				}
 			}
+		}
 		
-			// Texture References //
+		// Texture Names //
+		{
+			string PreFolder = String::BaseName( Art.Directory );
+			string PrePreFolder = String::BaseName( String::Directory( Art.Directory ) ); 
+			
+			Out.Write( Art.ImagePool.size() );
+			for ( size_t idx = 0; idx < Art.ImagePool.size(); idx++ ) {
+				// Write original filename //
+				//Out.File.write( Art.ImagePool[ idx ].FileName.c_str(), Art.ImagePool[ idx ].FileName.size() + 1 );
+				
+				// Write new filename //
+				string FileString = PrePreFolder + "/" + PreFolder + "/" + String::BaseName( CompFileName );
+				
+				stringstream ImageIndex;
+				ImageIndex << idx;
+				
+				FileString += ImageIndex.str() + ".pack.tx";
+				
+				Out.Write( FileString.size() );
+				Out.File.write( FileString.c_str(), FileString.size() );
+			}
 		}
 	}
 }

@@ -86,8 +86,8 @@ PLATFORM_CONTENT:=	$(filter-out $(foreach DIR,$(CONTENT_DIRS),$(shell $(PatternT
 PLATFORM_CONTENT:=	$(subst .png,.pack.tx,$(PLATFORM_CONTENT))
 
 # Target Component and Collection files -------------------------------------------------------- - #
-PLATFORM_CONTENT:=	$(subst .comp,.bin.pack.comp,$(PLATFORM_CONTENT))
-PLATFORM_CONTENT:=	$(subst .coll,.bin.pack.coll,$(PLATFORM_CONTENT))
+PLATFORM_CONTENT:=	$(subst .comp,.bin.comp,$(PLATFORM_CONTENT))
+PLATFORM_CONTENT:=	$(subst .coll,.bin.coll,$(PLATFORM_CONTENT))
 # - -------------------------------------------------------------------------------------------- - #
 
 # - -------------------------------------------------------------------------------------------- - #
@@ -171,11 +171,12 @@ $(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPE
 	$(Compress) $(DATA_DIR)/$*.tx $@
 # - -------------------------------------------------------------------------------------------- - #
 # Components ----------------------------------------------------------------------------------- - #
-$(RELEASE_DIR)/%.bin.pack.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_DEPEND)
+$(RELEASE_DIR)/%.bin.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_DEPEND)
 	$(ComponentTool) $< $(DATA_DIR)/$*.bin.comp $@
-#	$(DATA_DIR)/$*.sh
-#	$(Compress) $(DATA_DIR)/$*.bin.comp $@
-	
+	$(DATA_DIR)/$*.sh
+	cp $(DATA_DIR)/$*.bin.comp $@
+
+#	$(Compress) $(DATA_DIR)/$*.bin.comp $@	
 #	chmod +x $(DATA_DIR)/$*.sh
 # - -------------------------------------------------------------------------------------------- - #
 # Specific unprocessed content ----------------------------------------------------------------- - #

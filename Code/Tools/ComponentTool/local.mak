@@ -22,11 +22,12 @@ CODE_DIRS		:=	Engine2D/DynamicComponent \
 					Engine2D/Impulse \
 					Engine2D/StaticObject \
 					Engine2D/Zone \
-					External/Triangulate3 \
-					Library/Geometry
+					External \
+					Platform/GL/Graphics \
+					Library/Geometry \
+					Library/Util
 # - -------------------------------------------------------------------------------------------- - #
 # Explicit files from the source tree to grab (if directory masks aren't good enough) ---------- - #
 # Example: External/Lzma/LzmaDecode.cpp
-CODE_FILES		:=	Library/Util/ScriptParser.cpp \
-					Platform/GL/Graphics/Gfx.cpp
+CODE_FILES		:=	
 # - -------------------------------------------------------------------------------------------- - #
