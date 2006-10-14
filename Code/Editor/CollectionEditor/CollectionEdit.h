@@ -10,11 +10,16 @@
 #include <Geometry/Vector.h>
 #include <Global.h>
 
+#include <Physics/Physics.h>
+#include <DynamicCollection/DynamicCollection.h>
+
 #include <Graphics/Camera.h>
 #include "Editor/Edit.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cCollectionEdit : public cEdit {
 public:
+	Engine2D::cPhysics Physics;
+	Engine2D::cDynamicCollection Collection;
 	
 public:
 	cCollectionEdit();

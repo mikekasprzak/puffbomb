@@ -11,7 +11,7 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::cCollectionEdit()
 {
-
+	Physics.ZeroGravity();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::~cCollectionEdit()
@@ -26,9 +26,11 @@ void cCollectionEdit::Draw()
 	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
-		
 
 	Gfx::DisableTex2D();
+
+	// Draw our collection //
+	Collection.DebugDraw();	
 
 	Gfx::SetLineWidth( 1.0 );
 
@@ -54,6 +56,11 @@ void cCollectionEdit::HudDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Step()
 {
+	// Makes my physics active //
+	Physics.SetActive();
+	// Step our collection (intenal physics system, based on physics above) //
+	Collection.Step();
+	
 	CurMousePos = CalcMousePos();
 
 	if( Button[ MOUSE_1 ].Pressed() )
