@@ -21,12 +21,16 @@ class cCollectionEdit : public cEdit {
 public:
 	Engine2D::cPhysics Physics;
 	Engine2D::cDynamicCollection Collection;
+	Engine2D::cDynamicComponent Component;
 	
 	std::string CollBaseDirName;
 	std::string CompBaseDirName;
 	
 	std::vector< std::string > CollectionPath;
 	std::vector< std::string > ComponentPath;
+		
+	size_t CurColl;
+	size_t CurComp;
 	
 public:
 	cCollectionEdit();
@@ -41,6 +45,9 @@ public:
 	Vector2D CalcMousePos();
 	void Undo();
 	void FindCollCompPaths();
+	void UpdatePreviewComp();
+	void SwitchComp();
+	//void UpdateCollection();
 	
 public:
 	// CollectionEditText.cpp //

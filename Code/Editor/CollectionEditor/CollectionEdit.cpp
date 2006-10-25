@@ -11,7 +11,9 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::cCollectionEdit() :
 	CollBaseDirName( "../../../../Content/PuffBOMB/2D/" ),
-	CompBaseDirName( "2D/" )
+	CompBaseDirName( "2D/" ),
+	CurColl( 0 ),
+	CurComp( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
 	
@@ -20,19 +22,21 @@ cCollectionEdit::cCollectionEdit() :
 	Log( LOG_HIGHEST_LEVEL, "Collection editor physics created" );
 
 	FindCollCompPaths();
-
-	Collection.Component.push_back( Engine2D::cDynamicComponent() );
 	
+	UpdatePreviewComp();
+	
+/*	Collection.Component.push_back( Engine2D::cDynamicComponent() );
 	Collection.Component[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
-	
 	Collection.Component[ 0 ].AnimationSet->LoadBinary( "2D/Hamster/Body/HamsterBody.bin.comp" );
-
-	Collection.Component[ 0 ].Body = Collection.Component[ 0 ].AnimationSet->BodyPose[ 0 ];
+	Collection.Component[ 0 ].Body = Collection.Component[ 0 ].AnimationSet->BodyPose[ 0 ];*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::~cCollectionEdit()
 {
-	delete Collection.Component[ 0 ].AnimationSet;
+	for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+	{
+		delete Collection.Component[ idx ].AnimationSet;
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Draw()
@@ -70,10 +74,16 @@ void cCollectionEdit::HudDraw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	
+	//Component.Draw();
+	
 	DisplayText();
 	
-	Gfx::DisableBlend();	
 	Gfx::DisableTex2D();
+		
+	Component.DrawBody();
+	
+	Gfx::DisableBlend();	
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Step()
@@ -129,6 +139,7 @@ void cCollectionEdit::Undo()
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
+// Goes through all the dirs finding the .coll .comp files then stores them and there locations   //
 void cCollectionEdit::FindCollCompPaths()
 {
 	cDirectoryCache CollDirCache( CollBaseDirName );
@@ -150,11 +161,51 @@ void cCollectionEdit::FindCollCompPaths()
 			ComponentPath.push_back( CompDirCache.File[idx] );
 		}
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::UpdatePreviewComp()
+{
+	delete Component.AnimationSet;	
 	
-/*	for( size_t idx = 0; idx < CollectionPath.size(); ++idx )
+	Component.AnimationSet = new Engine2D::cComponentAnimationSet();
+	Component.AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
+	Component.Body = Component.AnimationSet->BodyPose[ 0 ];
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::SwitchComp()
+{
+	if ( Button[ KEY_LEFT ].Pressed() ) 
 	{
-		Log( LOG_HIGHEST_LEVEL, "CollectionPath[ " << idx << " ] = " << CollectionPath[ idx ] );
-	}	*/
+		if( !ComponentPath.empty() )
+		{
+			if( CurComp > 0 )
+			{
+				--CurComp;
+			}
+			else
+			{
+				CurComp = ComponentPath.size() - 1;
+			}
+			
+			UpdatePreviewComp();
+		}
+	}
+	else if ( Button[ KEY_RIGHT ].Pressed() )
+	{
+		if( !ComponentPath.empty() )
+		{
+			if( CurComp < ComponentPath.size() - 1 )
+			{
+				++CurComp;
+			}
+			else
+			{
+				CurComp = 0;	
+			}
+				
+			UpdatePreviewComp();
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

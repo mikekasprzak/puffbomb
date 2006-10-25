@@ -110,6 +110,8 @@ namespace Gfx {
 	void ModelMatrixMode();
 	void LoadIdentity();
 	void Perspective( double Fovy, double Aspect, double zNear, double zFar );
+	void PushMatrix();
+	void PopMatrix();
 	void Translate( Real x, Real y, Real z );
 	void ClearColorDepth();
 	void SwapBuffers();
