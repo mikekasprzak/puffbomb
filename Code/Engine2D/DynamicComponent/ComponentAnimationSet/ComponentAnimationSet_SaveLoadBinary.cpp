@@ -71,12 +71,16 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 		In.Read( FileVersion );
 	}
 
+	Log( LOG_HIGHEST_LEVEL, "a" );
+	
 	// Animations part //
 	{
 		Animation.resize( In.Read() );
+	Log( LOG_HIGHEST_LEVEL, "b" );
 
 		// For every animation //
 		for ( size_t idx = 0; idx < Animation.size(); idx++ ) {
+
 			// Frame count //
 			Animation[ idx ].Frame.resize( In.Read() );
 			// Loop point //
@@ -84,6 +88,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 			
 			// Frames //
 			for ( size_t idx2 = 0; idx2 < Animation[ idx ].Frame.size(); idx2++ ) {
+
 				// Data //
 				In.Read( Animation[ idx ].Frame[ idx2 ].Time );
 				In.Read( Animation[ idx ].Frame[ idx2 ].Flags );
@@ -92,6 +97,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				
 				// Mesh //
 				{
+	Log( LOG_HIGHEST_LEVEL, "vert" );
 					// Vertices //
 					Animation[ idx ].Frame[ idx2 ].Mesh.Vertex.resize( In.Read() );
 					for ( size_t idx3 = 0; idx3 < Animation[ idx ].Frame[ idx2 ].Mesh.Vertex.size(); idx3++ ) {
@@ -99,13 +105,15 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.Vertex[ idx3 ].y );
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.Vertex[ idx3 ].OrientationIndex );
 					}
-					
+		Log( LOG_HIGHEST_LEVEL, "uv" );
+				
 					// UV //
 					Animation[ idx ].Frame[ idx2 ].Mesh.UV.resize( In.Read() );
 					for ( size_t idx3 = 0; idx3 < Animation[ idx ].Frame[ idx2 ].Mesh.UV.size(); idx3++ ) {
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.UV[ idx3 ].x );
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.UV[ idx3 ].y );
 					}
+	Log( LOG_HIGHEST_LEVEL, "face" );
 
 					// Faces //
 					Animation[ idx ].Frame[ idx2 ].Mesh.Face.resize( In.Read() );
@@ -115,16 +123,19 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.Face[ idx3 ].c );
 					}
 
+	Log( LOG_HIGHEST_LEVEL, "orient" );
 					// Orientation //
 					Animation[ idx ].Frame[ idx2 ].Mesh.Orientation.resize( In.Read() );
 					for ( size_t idx3 = 0; idx3 < Animation[ idx ].Frame[ idx2 ].Mesh.Orientation.size(); idx3++ ) {
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.Orientation[ idx3 ].PivotIndex );
 						In.Read( Animation[ idx ].Frame[ idx2 ].Mesh.Orientation[ idx3 ].HandleIndex );
 					}
-					
+		Log( LOG_HIGHEST_LEVEL, "done" );
+				
 				}
 			}
 		}
+	Log( LOG_HIGHEST_LEVEL, "c" );
 
 		// Body Poses //
 		BodyPose.resize( In.Read() );
@@ -157,6 +168,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				In.Read( BodyPose[ idx ].Sphere[ idx2 ].Flags );
 			}
 		}
+	Log( LOG_HIGHEST_LEVEL, "d" );
 	
 		// Texture References //
 		{
@@ -174,6 +186,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				Texture[ idx ] = TexturePool.Load( string( MyString ) );
 			}
 		}
+	Log( LOG_HIGHEST_LEVEL, "e" );
 		
 		// Calculate Mesh Orientation Home Matrix //
 		for ( size_t idx = 0; idx < Animation.size(); idx++ ) {
@@ -185,6 +198,8 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				}
 			}
 		}
+	Log( LOG_HIGHEST_LEVEL, "f" );
+
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -12,6 +12,18 @@ using namespace Input;
 cCollectionEdit::cCollectionEdit()
 {
 	Physics.ZeroGravity();
+	
+	Log( LOG_HIGHEST_LEVEL, "Collection editor physics created" );
+
+/*	Collection.Component.push_back( Engine2D::cDynamicComponent() );
+	
+	Collection.Component[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
+	
+	Collection.Component[ 0 ].AnimationSet->LoadBinary( "2D/Hamster/Body/HamsterBody.bin.comp" );
+
+	Collection.Component[ 0 ].Body = Collection.Component[ 0 ].AnimationSet->BodyPose[ 0 ];
+*/
+		
 }
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::~cCollectionEdit()
