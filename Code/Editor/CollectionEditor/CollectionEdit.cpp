@@ -58,7 +58,7 @@ void cCollectionEdit::Draw()
 	Gfx::DisableTex2D();
 
 	// Draw our collection //
-	//Collection.Draw();
+	Collection.Draw();
 	Collection.DebugDraw();
 
 	Gfx::SetLineWidth( 1.0 );
@@ -84,8 +84,7 @@ void cCollectionEdit::HudDraw()
 	
 	Gfx::PushMatrix();
 	{
-//		Gfx::Translate( Global::Left, Global::Bottom, 0 );
-		Gfx::Translate( Global::Left + Real( 256 ), Global::Bottom + Real( 256 ), 0 );
+		Gfx::Translate( Global::Right - Real( 256 ), Global::Bottom + Real( 256 ), 0 );
 		
 		Component.Draw();
 		
@@ -121,6 +120,8 @@ void cCollectionEdit::Step()
 	Zoom( Real( 64.0 ), Camera );
 	
 	SwitchComp();
+	
+	AddComp();
 	
 	Undo();
 }
@@ -221,6 +222,20 @@ void cCollectionEdit::SwitchComp()
 				
 			UpdatePreviewComp();
 		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::AddComp()
+{
+	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
+	{		
+		Collection.Component.push_back( Engine2D::cDynamicComponent() );
+		
+		int CSize = Collection.Component.size() - 1;
+				
+		Collection.Component[ CSize ].AnimationSet = new Engine2D::cComponentAnimationSet();
+		Collection.Component[ CSize ].AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
+		Collection.Component[ CSize ].Body = Collection.Component[ CSize ].AnimationSet->BodyPose[ 0 ];
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

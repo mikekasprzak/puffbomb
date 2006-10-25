@@ -47,14 +47,16 @@ public:
 	void FindCollCompPaths();
 	void UpdatePreviewComp();
 	void SwitchComp();
+	void AddComp();
 	//void UpdateCollection();
 	
 public:
 	// CollectionEditText.cpp //
 	void DisplayText();
 	void DisplayMode();
-	void DisplayComponentInfo();
-
+	void DisplayInfo();
+	void DisplayCompInfo();
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
