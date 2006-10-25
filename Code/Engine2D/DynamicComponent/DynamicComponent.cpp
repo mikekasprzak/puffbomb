@@ -31,8 +31,10 @@ void cDynamicComponent::Step() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::Draw() {
-	// Should be animator //
-	//Mesh.Draw( Body );
+	// Make sure we actually have an associated animation set //
+	if ( AnimationSet ) {
+		AnimationSet->Animation[ 0 ].Frame[ 0 ].Draw( Body );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::DrawBody( const bool Selected ) const {

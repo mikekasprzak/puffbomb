@@ -46,6 +46,10 @@ void cDynamicCollection::StepLinkage() {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicCollection::Draw() {
+	// For all components, draw them //
+	for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+		Component[ idx ].Draw();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 

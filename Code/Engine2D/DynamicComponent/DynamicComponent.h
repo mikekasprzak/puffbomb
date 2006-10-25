@@ -16,13 +16,22 @@ class cDynamicComponent {
 public:
 	// Parts of a component //
 	cBody2D Body;
-	cComponentAnimationSet* AnimationSet;
+	cComponentAnimationSet* AnimationSet;	// Should *NOT* be a pointer //
 	
 	// Who our parent is //
 	const class cDynamicCollection* Parent;
 	
 	// Activity State Flags //
 	cStateFlags State;
+
+
+public:
+	int CurrentAnimation;
+	int CurrentFrame;
+	Real FrameTime; // ?
+
+	// The rate at which to play back the animation //
+	Real PlaybackRate;
 
 public:
 	cDynamicComponent();
