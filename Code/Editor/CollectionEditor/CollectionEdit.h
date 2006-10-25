@@ -32,6 +32,7 @@ public:
 	void Step();
 	
 	Vector2D CalcMousePos();
+	void Undo();
 	
 public:
 	// CollectionEditText.cpp //

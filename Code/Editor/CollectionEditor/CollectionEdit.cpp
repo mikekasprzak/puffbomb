@@ -11,6 +11,8 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::cCollectionEdit()
 {
+	Camera->Pos.z = Global::HudZoom;
+	
 	Physics.ZeroGravity();
 	
 	Log( LOG_HIGHEST_LEVEL, "Collection editor physics created" );
@@ -28,7 +30,6 @@ cCollectionEdit::cCollectionEdit()
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::~cCollectionEdit()
 {
-
 
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -48,8 +49,10 @@ void cCollectionEdit::Draw()
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 		
+	DrawSelBox();
+
 	Gfx::DisableBlend();
-		
+	
 	HudDraw();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -85,6 +88,8 @@ void cCollectionEdit::Step()
 	
 	// Handles the zooming in and out of a map
 	Zoom( Real( 64.0 ), Camera );
+	
+	Undo();
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cCollectionEdit::CalcMousePos()
@@ -100,6 +105,21 @@ Vector2D cCollectionEdit::CalcMousePos()
 			* Real( Camera->Pos.z / Global::HudZoom )
 	);
 	return tempMousPos;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::Undo()
+{
+	// Resets the zoom
+	if ( Button[ KEY_TAB ].Pressed() )
+	{
+		Camera->Pos.x = 0.0;
+		Camera->Pos.y = 0.0;
+		Camera->Pos.z = Global::HudZoom;
+		
+		Camera->View.x = Camera->Pos.x;
+		Camera->View.y = Camera->Pos.y;
+		Camera->View.z = 0.0;
+	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
