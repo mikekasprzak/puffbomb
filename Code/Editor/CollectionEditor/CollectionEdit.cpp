@@ -17,14 +17,14 @@ cCollectionEdit::cCollectionEdit()
 	
 	Log( LOG_HIGHEST_LEVEL, "Collection editor physics created" );
 
-/*	Collection.Component.push_back( Engine2D::cDynamicComponent() );
+	Collection.Component.push_back( Engine2D::cDynamicComponent() );
 	
 	Collection.Component[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	
 	Collection.Component[ 0 ].AnimationSet->LoadBinary( "2D/Hamster/Body/HamsterBody.bin.comp" );
 
 	Collection.Component[ 0 ].Body = Collection.Component[ 0 ].AnimationSet->BodyPose[ 0 ];
-*/
+
 		
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -38,16 +38,19 @@ void cCollectionEdit::Draw()
 	Camera->Update();
 	
 	Gfx::EnableTex2D();
+	Gfx::DisableDepth();
 	Gfx::EnableBlend();
 
 	Gfx::DisableTex2D();
 
 	// Draw our collection //
-	Collection.DebugDraw();	
+	Collection.Draw();
+	Collection.DebugDraw();
 
 	Gfx::SetLineWidth( 1.0 );
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+	
 		
 	DrawSelBox();
 
