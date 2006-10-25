@@ -6,6 +6,7 @@
 #ifdef EDITOR
 // - ------------------------------------------------------------------------------------------ - //
 #include <string>
+#include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
 #include <Global.h>
@@ -21,6 +22,12 @@ public:
 	Engine2D::cPhysics Physics;
 	Engine2D::cDynamicCollection Collection;
 	
+	std::string CollBaseDirName;
+	std::string CompBaseDirName;
+	
+	std::vector< std::string > CollectionPath;
+	std::vector< std::string > ComponentPath;
+	
 public:
 	cCollectionEdit();
 	~cCollectionEdit();
@@ -33,6 +40,7 @@ public:
 	
 	Vector2D CalcMousePos();
 	void Undo();
+	void FindCollCompPaths();
 	
 public:
 	// CollectionEditText.cpp //

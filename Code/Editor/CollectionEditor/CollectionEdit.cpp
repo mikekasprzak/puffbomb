@@ -9,13 +9,17 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-cCollectionEdit::cCollectionEdit()
+cCollectionEdit::cCollectionEdit() :
+	CollBaseDirName( "../../../../Content/PuffBOMB/2D/" ),
+	CompBaseDirName( "2D/" )
 {
 	Camera->Pos.z = Global::HudZoom;
 	
 	Physics.ZeroGravity();
 	
 	Log( LOG_HIGHEST_LEVEL, "Collection editor physics created" );
+
+	FindCollCompPaths();
 
 	Collection.Component.push_back( Engine2D::cDynamicComponent() );
 	
@@ -24,13 +28,11 @@ cCollectionEdit::cCollectionEdit()
 	Collection.Component[ 0 ].AnimationSet->LoadBinary( "2D/Hamster/Body/HamsterBody.bin.comp" );
 
 	Collection.Component[ 0 ].Body = Collection.Component[ 0 ].AnimationSet->BodyPose[ 0 ];
-
-		
 }
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::~cCollectionEdit()
 {
-
+	delete Collection.Component[ 0 ].AnimationSet;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Draw()
@@ -38,13 +40,15 @@ void cCollectionEdit::Draw()
 	Camera->Update();
 	
 	Gfx::EnableTex2D();
-	Gfx::DisableDepth();
 	Gfx::EnableBlend();
+	Gfx::EnableDepth();
 
+
+	Gfx::DisableDepth();
 	Gfx::DisableTex2D();
 
 	// Draw our collection //
-	Collection.Draw();
+	//Collection.Draw();
 	Collection.DebugDraw();
 
 	Gfx::SetLineWidth( 1.0 );
@@ -123,6 +127,34 @@ void cCollectionEdit::Undo()
 		Camera->View.y = Camera->Pos.y;
 		Camera->View.z = 0.0;
 	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::FindCollCompPaths()
+{
+	cDirectoryCache CollDirCache( CollBaseDirName );
+	
+	for( size_t idx = 0; idx < CollDirCache.File.size(); ++idx )
+	{
+		if( String::LastExtension( CollDirCache.File[idx] ) == ".coll" )
+		{
+			CollectionPath.push_back( CollDirCache.File[idx] );
+		}
+	}
+	
+	cDirectoryCache CompDirCache( CompBaseDirName );
+	
+	for( size_t idx = 0; idx < CompDirCache.File.size(); ++idx )
+	{
+		if( String::LastExtension( CompDirCache.File[idx] ) == ".comp" )
+		{
+			ComponentPath.push_back( CompDirCache.File[idx] );
+		}
+	}
+	
+/*	for( size_t idx = 0; idx < CollectionPath.size(); ++idx )
+	{
+		Log( LOG_HIGHEST_LEVEL, "CollectionPath[ " << idx << " ] = " << CollectionPath[ idx ] );
+	}	*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
