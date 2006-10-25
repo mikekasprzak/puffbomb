@@ -91,7 +91,6 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 			
 			// Frames //
 			for ( size_t idx2 = 0; idx2 < Animation[ idx ].Frame.size(); idx2++ ) {
-
 				// Data //
 				In.Read( Animation[ idx ].Frame[ idx2 ].Time );
 				In.Read( Animation[ idx ].Frame[ idx2 ].Flags );
@@ -173,12 +172,21 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				int StrLen = In.Read();
 				char MyString[ StrLen + 1 ];
 				
-				In.File.get( MyString, StrLen );
+				In.File.read( MyString, StrLen );
 				
 				MyString[ StrLen ] = 0;
 				
 				// Load the texture //
 				Texture[ idx ] = TexturePool.Load( string( MyString ) );
+				Log( 10, "Looda " << Texture[ idx ] );
+			}
+			
+			// Convert local Id's to texture Id's //
+			for ( size_t idx = 0; idx < Animation.size(); idx++ ) {
+				for ( size_t idx2 = 0; idx2 < Animation[ idx ].Frame.size(); idx2++ ) {
+					Animation[ idx ].Frame[ idx2 ].TextureIndex =
+						Texture[ Animation[ idx ].Frame[ idx2 ].TextureIndex ];
+				}
 			}
 		}
 		
@@ -301,8 +309,10 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 					Out.Write( Animation[ idx ].Frame[ idx2 ].Time );
 					Out.Write( Animation[ idx ].Frame[ idx2 ].Flags );
 					Out.Write( Animation[ idx ].Frame[ idx2 ].BodyPoseIndex );
-					//Out.Write( Animation[ idx ].Frame[ idx2 ].TextureIndex );
+					
+					// Write the index from the AnimationGenerator instead //
 					Out.Write( Art.Animation[ idx ].Frame[ idx2 ].ImageIndex );
+					//Out.Write( Animation[ idx ].Frame[ idx2 ].TextureIndex );
 					
 					// Mesh //
 					{

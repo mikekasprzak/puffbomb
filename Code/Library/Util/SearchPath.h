@@ -28,9 +28,13 @@ public:
 
 				// If the input file has a prerequisite directory //
 				if ( String::Directory( _FileName ) != String::Empty ) {
-					// Test if the file doesn't inclide the requested directory //
-					if ( !String::HasDirectory( VsFileName, String::Directory( _FileName ) ) )
-						break;
+					// Test if the file doesn't include the requested directory //
+					if ( !String::HasDirectory( 
+							DirectoryCache[ idx ].Name + String::Slash + VsFileName,
+							String::Directory( _FileName )
+							)
+						)
+						continue;
 				}
 
 				// Test if base names are the same //

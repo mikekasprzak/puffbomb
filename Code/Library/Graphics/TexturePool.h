@@ -16,6 +16,7 @@ class cTexturePool : public cPool< cTexture > {
 public:
 	cTexturePool() {
 		SearchPath.Add( "Textures" );
+		SearchPath.Add( "2D" );
 	}
 	~cTexturePool();
 

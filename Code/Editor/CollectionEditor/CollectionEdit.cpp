@@ -55,11 +55,14 @@ void cCollectionEdit::Draw()
 
 
 	Gfx::DisableDepth();
-	Gfx::DisableTex2D();
 
 	// Draw our collection //
 	Collection.Draw();
+
+	Gfx::DisableTex2D();
+
 	Collection.DebugDraw();
+
 
 	Gfx::SetLineWidth( 1.0 );
 

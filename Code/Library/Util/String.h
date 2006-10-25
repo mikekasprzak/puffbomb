@@ -329,7 +329,7 @@ namespace String {
 			Pattern += Slash;
 		
 		// Find the directory name pattern //
-		size_t DirPos = String::Directory( _FileName ).find( Pattern );
+		size_t DirPos = _FileName.find( Pattern );
 		
 		// If pattern not found //
 		if ( DirPos == std::string::npos )

@@ -11,7 +11,7 @@ int main( int argc, char* argv[] ) {
 	{
 		Log( 10, "String Function Tests" );
 		
-		string Chud = "src/Content.rome.paper/Experimental.mutant/SpiderPlayground.dig.me.a.life.map";
+		string Chud = "src/Content.rome.paper/Experimental/Mutant/SpiderPlayground.dig.me.a.life.map";
 		
 		Log( 10, "Input: " << Chud );
 
@@ -40,21 +40,21 @@ int main( int argc, char* argv[] ) {
 			Log( 10, ".me found in string" );
 		}
 		else {
-			Log( 10, ".me not found in string" );
+			Log( 10, ".me NOT found in string" );
 		}
 
 		if ( String::HasExtension( Chud, ".m" ) ) {
 			Log( 10, ".m found in string" );
 		}
 		else {
-			Log( 10, ".m not found in string" );
+			Log( 10, ".m NOT found in string" );
 		}
 	
 		if ( String::HasExtension( Chud, ".you" ) ) {
 			Log( 10, ".you found in string" );
 		}
 		else {
-			Log( 10, ".you not found in string" );
+			Log( 10, ".you NOT found in string" );
 		}
 	
 		// -------------------------------------------------------------------------------------- //
@@ -64,21 +64,21 @@ int main( int argc, char* argv[] ) {
 			Log( 10, ".mutant found in string" );
 		}
 		else {
-			Log( 10, ".mutant not found in string" );
+			Log( 10, ".mutant NOT found in string" );
 		}
 
 		if ( String::HasAnyExtension( Chud, ".mutan" ) ) {
 			Log( 10, ".mutan found in string" );
 		}
 		else {
-			Log( 10, ".mutan not found in string" );
+			Log( 10, ".mutan NOT found in string" );
 		}
 
 		if ( String::HasAnyExtension( Chud, ".rome" ) ) {
 			Log( 10, ".rome found in string" );
 		}
 		else {
-			Log( 10, ".rome not found in string" );
+			Log( 10, ".rome NOT found in string" );
 		}
 		
 		// -------------------------------------------------------------------------------------- //
@@ -88,49 +88,77 @@ int main( int argc, char* argv[] ) {
 			Log( 10, "src directory found in string" );
 		}
 		else {
-			Log( 10, "src directory not found in string" );
+			Log( 10, "src directory NOT found in string" );
 		}
 
 		if ( String::HasDirectory( Chud, "src/" ) ) {
 			Log( 10, "src/ directory found in string" );
 		}
 		else {
-			Log( 10, "src/ directory not found in string" );
+			Log( 10, "src/ directory NOT found in string" );
 		}
 
 		if ( String::HasDirectory( Chud, "rc" ) ) {
 			Log( 10, "rc directory found in string" );
 		}
 		else {
-			Log( 10, "rc directory not found in string" );
+			Log( 10, "rc directory NOT found in string" );
 		}
 
 		if ( String::HasDirectory( Chud, "rc/" ) ) {
 			Log( 10, "rc/ directory found in string" );
 		}
 		else {
-			Log( 10, "rc/ directory not found in string" );
+			Log( 10, "rc/ directory NOT found in string" );
 		}
 
 		if ( String::HasDirectory( Chud, "Content" ) ) {
 			Log( 10, "Content directory found in string" );
 		}
 		else {
-			Log( 10, "Content directory not found in string" );
+			Log( 10, "Content directory NOT found in string" );
 		}
 
 		if ( String::HasDirectory( Chud, "Content/" ) ) {
 			Log( 10, "Content/ directory found in string" );
 		}
 		else {
-			Log( 10, "Content/ directory not found in string" );
+			Log( 10, "Content/ directory NOT found in string" );
+		}
+
+		if ( String::HasDirectory( Chud, "src/Content.rome.paper" ) ) {
+			Log( 10, "src/Content.rome.paper directory found in string" );
+		}
+		else {
+			Log( 10, "src/Content.rome.paper directory NOT found in string" );
+		}
+
+		if ( String::HasDirectory( Chud, "src/Content.rome.paper/" ) ) {
+			Log( 10, "src/Content.rome.paper/ directory found in string" );
+		}
+		else {
+			Log( 10, "src/Content.rome.paper/ directory NOT found in string" );
+		}
+
+		if ( String::HasDirectory( Chud, "Experimental/Mutant" ) ) {
+			Log( 10, "Experimental/Mutant directory found in string" );
+		}
+		else {
+			Log( 10, "Experimental/Mutant directory NOT found in string" );
+		}
+
+		if ( String::HasDirectory( Chud, "Experimental/Mutant/" ) ) {
+			Log( 10, "Experimental/Mutant/ directory found in string" );
+		}
+		else {
+			Log( 10, "Experimental/Mutant/ directory NOT found in string" );
 		}
 
 		if ( String::HasDirectory( Chud, "Playground" ) ) {
 			Log( 10, "Playground directory found in string" );
 		}
 		else {
-			Log( 10, "Playground directory not found in string" );
+			Log( 10, "Playground directory NOT found in string" );
 		}
 		
 	}
