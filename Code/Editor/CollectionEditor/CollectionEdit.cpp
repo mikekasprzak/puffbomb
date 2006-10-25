@@ -23,7 +23,11 @@ cCollectionEdit::cCollectionEdit() :
 
 	FindCollCompPaths();
 	
-	UpdatePreviewComp();
+	Component.AnimationSet = new Engine2D::cComponentAnimationSet();
+	Component.AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
+	Component.Body = Component.AnimationSet->BodyPose[ 0 ];
+	
+//	UpdatePreviewComp();
 	
 /*	Collection.Component.push_back( Engine2D::cDynamicComponent() );
 	Collection.Component[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
@@ -37,6 +41,8 @@ cCollectionEdit::~cCollectionEdit()
 	{
 		delete Collection.Component[ idx ].AnimationSet;
 	}
+
+	delete Component.AnimationSet;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Draw()
@@ -73,14 +79,22 @@ void cCollectionEdit::HudDraw()
 	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
-	
-	//Component.Draw();
-	
+
 	DisplayText();
 	
-	Gfx::DisableTex2D();
+	Gfx::PushMatrix();
+	{
+//		Gfx::Translate( Global::Left, Global::Bottom, 0 );
+		Gfx::Translate( Global::Left + Real( 256 ), Global::Bottom + Real( 256 ), 0 );
 		
-	Component.DrawBody();
+		Component.Draw();
+		
+		Gfx::DisableTex2D();
+			
+		Component.DrawBody();
+
+	}
+	Gfx::PushMatrix();
 	
 	Gfx::DisableBlend();	
 
@@ -105,6 +119,8 @@ void cCollectionEdit::Step()
 	
 	// Handles the zooming in and out of a map
 	Zoom( Real( 64.0 ), Camera );
+	
+	SwitchComp();
 	
 	Undo();
 }
