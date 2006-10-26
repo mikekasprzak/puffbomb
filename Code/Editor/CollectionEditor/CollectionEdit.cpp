@@ -132,11 +132,14 @@ void cCollectionEdit::Step()
 	// Handles the zooming in and out of a map
 	Zoom( Real( 64.0 ), Camera );
 	
+	
 	SwitchComp();
 	
 	SwitchMode();
 	
-	AddComp();
+
+	StaticSelect();
+	StaticAddComp();
 	
 	Undo();
 }
@@ -237,45 +240,6 @@ void cCollectionEdit::SwitchComp()
 				
 			UpdatePreviewComp();
 		}
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cCollectionEdit::AddComp()
-{
-	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
-	{	
-		CurSelected.clear();
-		
-		Collection.Component.push_back( Engine2D::cDynamicComponent() );
-		
-		int CSize = Collection.Component.size() - 1;
-				
-		Collection.Component[ CSize ].AnimationSet = new Engine2D::cComponentAnimationSet();
-		Collection.Component[ CSize ].AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
-		
-		Vector2D AddPos = CurMousePos;
-		
-		if( !Button[ KEY_LSHIFT ] )
-		{
-			SetGridDepth( Camera, CurrentGridDepth, 40.0 );
-			SetGridArray( CurrentGridDepth, GridDepth );
-
-			CalcSnapToGrid( AddPos, CurrentGridDepth, GridDepth );
-		}
-		
-		for( size_t idx = 0; idx < Collection.Component[ CSize ].AnimationSet->BodyPose.size(); ++idx )
-		{
-			for( size_t idx2 = 0; idx2 < Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node.size(); ++idx2 )
-			{
-				Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node[ idx2 ].Pos += AddPos;
-			}
-		}
-		
-		Collection.Component[ CSize ].Body = Collection.Component[ CSize ].AnimationSet->BodyPose[ 0 ];
-		
-		//Collection.Component[ CSize ].Body.CalcBoundingRect();
-		
-		CurSelected.push_back( CSize );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

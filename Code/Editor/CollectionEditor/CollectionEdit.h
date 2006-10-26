@@ -47,7 +47,6 @@ public:
 	void FindCollCompPaths();
 	void UpdatePreviewComp();
 	void SwitchComp();
-	void AddComp();
 	void SwitchMode();
 		
 public:
@@ -56,6 +55,21 @@ public:
 	void DisplayMode();
 	void DisplayInfo();
 	void DisplayCompInfo();
+
+public:
+	// CollectionEditStatic.cpp //
+	void StaticAddComp();
+	int StaticSingleSelect();
+	void StaticSelect();
+
+public:
+	// CollectionEditDyn.cpp //
+
+public:
+	// CollectionEditNode.cpp //
+
+public:
+	// CollectionEditHard.cpp //
 	
 };
 // - ------------------------------------------------------------------------------------------ - //
