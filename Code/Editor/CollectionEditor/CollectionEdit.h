@@ -61,6 +61,7 @@ public:
 	void StaticAddComp();
 	int StaticSingleSelect();
 	void StaticSelect();
+	void StaticMove();
 
 public:
 	// CollectionEditDyn.cpp //
