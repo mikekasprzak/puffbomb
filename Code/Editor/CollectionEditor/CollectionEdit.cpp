@@ -238,6 +238,15 @@ void cCollectionEdit::AddComp()
 				
 		Collection.Component[ CSize ].AnimationSet = new Engine2D::cComponentAnimationSet();
 		Collection.Component[ CSize ].AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
+		
+		for( size_t idx = 0; idx < Collection.Component[ CSize ].AnimationSet->BodyPose.size(); ++idx )
+		{
+			for( size_t idx2 = 0; idx2 < Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node.size(); ++idx2 )
+			{
+				Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node[ idx2 ].Pos += CurMousePos;
+			}
+		}
+		
 		Collection.Component[ CSize ].Body = Collection.Component[ CSize ].AnimationSet->BodyPose[ 0 ];
 	}
 }
