@@ -141,6 +141,7 @@ void cCollectionEdit::Step()
 	{
 		StaticSelect();
 		StaticAddComp();
+		StaticDelete();
 	}
 	StaticMove();
 	

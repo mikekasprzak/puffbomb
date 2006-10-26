@@ -282,5 +282,38 @@ void cCollectionEdit::StaticMove()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::StaticDelete()
+{
+	if( !CurSelected.empty() )
+	{
+		if( Button[ KEY_DELETE ].Pressed() )
+		{
+			std::vector< Engine2D::cDynamicComponent > tempVec;
+			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+			{
+				bool isDelete = false;
+				for( size_t i = 0; i < CurSelected.size(); ++i )
+				{
+					if( CurSelected[i] == idx )
+					{
+						isDelete = true;
+					}
+				}
+				if( !isDelete )
+				{
+					tempVec.push_back( Collection.Component[ idx ] );
+				}
+				else
+				{
+					delete Collection.Component[ idx ].AnimationSet;	
+				}
+			}
+			Collection.Component.swap( tempVec );
+
+			CurSelected.clear();
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
