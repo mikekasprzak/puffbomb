@@ -136,10 +136,13 @@ void cCollectionEdit::Step()
 	SwitchComp();
 	
 	SwitchMode();
-	
 
-	StaticSelect();
-	StaticAddComp();
+	if( !isGroupMove )
+	{
+		StaticSelect();
+		StaticAddComp();
+	}
+	StaticMove();
 	
 	Undo();
 }

@@ -224,7 +224,7 @@ void cCollectionEdit::StaticMove()
 				}
 			}
 		}
-		// Snaps to grid
+/*		// Snaps to grid
 		if( !Button[ KEY_LSHIFT ] && isGroupMove )
 		{
 			SnapToGrid = true;
@@ -232,56 +232,54 @@ void cCollectionEdit::StaticMove()
 		else
 		{
 			SnapToGrid = false;
-		}
+		}*/
 	}
-/*	if( Button[ MOUSE_1 ].Released() )
+	if( Button[ MOUSE_1 ].Released() )
 	{
 		isGroupMove = false;
-		
+/*		
 		if( SnapToGrid )
 		{
 			SetGridDepth( Camera, CurrentGridDepth, 40.0 );
 			SetGridArray( CurrentGridDepth, GridDepth );
-
-			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
-			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
-				{
-					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
-					{
-
+			
+			Vector2D TempPos = CurMousePos;
+			CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
 
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
-				Vector2D TempPos = Pose->Node[ CurSelected[idx] ].Pos;
-				CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
-				DynObj->Body.SetPos( CurSelected[idx], TempPos );
-				
+				for( size_t idx2 = 0; idx2 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose.size(); ++idx2 )
+				{
+					for( size_t idx3 = 0; idx3 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node.size(); ++idx3 )
+					{
+						Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node[ idx3 ].Pos -= CurMousePos - TempPos;
+					}
+				}
+				Collection.Component[ CurSelected[idx] ].Body = Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ 0 ];
 			}
 			SnapToGrid = false;
-			DynObj->Body.CalculateSpringLength();
-			ActiveAction();
+		//	ActiveAction();
 		}
 		else
 		{
-			DynObj->Body.CalculateSpringLength();
-			ActiveAction();
-		}
+		//	ActiveAction();
+		}*/
 	}
 	if( isGroupMove )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			Real TempX = Pose->Node[ CurSelected[idx] ].Pos.x;
-			TempX -= OldMousePos.x - CurMousePos.x;
-			
-			Real TempY = Pose->Node[ CurSelected[idx] ].Pos.y;
-			TempY -= OldMousePos.y - CurMousePos.y;
-					
-			DynObj->Body.SetPos( CurSelected[idx], Vector2D( TempX, TempY ) );
+			for( size_t idx2 = 0; idx2 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose.size(); ++idx2 )
+			{
+				for( size_t idx3 = 0; idx3 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node.size(); ++idx3 )
+				{
+					Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node[ idx3 ].Pos -= OldMousePos - CurMousePos;
+				}	
+			}
+			Collection.Component[ CurSelected[idx] ].Body = Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ 0 ];
 		}
 		OldMousePos = CurMousePos;
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
