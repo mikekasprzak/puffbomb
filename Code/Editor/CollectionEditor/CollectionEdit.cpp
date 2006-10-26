@@ -239,11 +239,21 @@ void cCollectionEdit::AddComp()
 		Collection.Component[ CSize ].AnimationSet = new Engine2D::cComponentAnimationSet();
 		Collection.Component[ CSize ].AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
 		
+		Vector2D AddPos = CurMousePos;
+		
+		if( !Button[ KEY_LSHIFT ] )
+		{
+			SetGridDepth( Camera, CurrentGridDepth, 40.0 );
+			SetGridArray( CurrentGridDepth, GridDepth );
+
+			CalcSnapToGrid( AddPos, CurrentGridDepth, GridDepth );
+		}
+		
 		for( size_t idx = 0; idx < Collection.Component[ CSize ].AnimationSet->BodyPose.size(); ++idx )
 		{
 			for( size_t idx2 = 0; idx2 < Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node.size(); ++idx2 )
 			{
-				Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node[ idx2 ].Pos += CurMousePos;
+				Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node[ idx2 ].Pos += AddPos;
 			}
 		}
 		
