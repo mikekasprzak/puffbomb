@@ -48,8 +48,8 @@ public:
 	void UpdatePreviewComp();
 	void SwitchComp();
 	void AddComp();
-	//void UpdateCollection();
-	
+	void SwitchMode();
+		
 public:
 	// CollectionEditText.cpp //
 	void DisplayText();

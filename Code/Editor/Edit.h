@@ -28,15 +28,18 @@
 #define SPHERE_MODE 			1
 #define SPRING_MODE 			2
 #define DISPLAY_NODE_MODE		3
-#define MESH_NODE_MODE			10
-#define PIVOT_HANDLE_MODE 		4
-#define FACE_MODE	 			5
-#define TEXTURE_MODE 			6
-#define DRAWING_ORDER_MODE		7
-#define SUPER_MODE 				8
-//#define COMPONENT_MODE			9
-#define COMP_BODY_MODE			11
-#define COMP_MESH_MODE			12
+#define MESH_NODE_MODE			4
+#define PIVOT_HANDLE_MODE 		5
+#define FACE_MODE	 			6
+#define TEXTURE_MODE 			7
+#define DRAWING_ORDER_MODE		8
+#define SUPER_MODE 				9
+#define COMP_BODY_MODE			10
+#define COMP_MESH_MODE			11
+#define COLL_STATIC_COMP		12
+#define COLL_DYNAMIC_COMP		13
+#define COLL_NODE_LINK			14
+#define COLL_HARD_NODE			15
 // - ------------------------------------------------------------------------------------------ - //
 typedef const unsigned int fl;
 // - ------------------------------------------------------------------------------------------ - //

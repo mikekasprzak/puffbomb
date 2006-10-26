@@ -479,7 +479,7 @@ void cComponentEdit::DisplayMeshNodeInfo()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplayMode()
 {
-	// Displays the current mesh edit mode //
+	// Displays the current edit mode //
 	// - -------------------------------------------------------------------------------------- - //
 	Real FontSize = 0.5;
 	int Color = Gfx::RGBA( 255, 100, 100, 255 );
@@ -573,6 +573,7 @@ void cComponentEdit::DisplayMode()
 		}
 	}
 }
+// - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::DisplayComponentInfo()
 {
 

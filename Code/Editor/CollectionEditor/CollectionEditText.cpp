@@ -20,7 +20,7 @@ void cCollectionEdit::DisplayText()
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::DisplayMode()
 {
-/*	// Displays the current mesh edit mode //
+	// Displays the current edit mode //
 	// - -------------------------------------------------------------------------------------- - //
 	Real FontSize = 0.5;
 	int Color = Gfx::RGBA( 255, 100, 100, 255 );
@@ -28,70 +28,40 @@ void cCollectionEdit::DisplayMode()
 		
 	switch( CurMode )
 	{ 
-		case NODE_MODE:
+		case COLL_STATIC_COMP:
 		{
 			cFonts::FlangeLight.Write(
-				"BodyNode Mode",
+				"Static Comp Mode",
 				ModePos,
 				FontSize,
 				Color
 			);
 			break;
 		}
-		case SPHERE_MODE:
+		case COLL_DYNAMIC_COMP:
 		{
 			cFonts::FlangeLight.Write(
-				"Sphere Mode",
+				"Dyn Comp Mode",
 				ModePos,
 				FontSize,
 				Color
 			);
 			break;
 		}
-		case SPRING_MODE:
+		case COLL_NODE_LINK:
 		{
 			cFonts::FlangeLight.Write(
-				"Spring Mode",
+				"Node Link Mode",
 				ModePos,
 				FontSize,
 				Color
 			);
 			break;
 		}
-		case MESH_NODE_MODE:
+		case COLL_HARD_NODE:
 		{
 			cFonts::FlangeLight.Write(
-				"MeshNode Mode",
-				ModePos,
-				FontSize,
-				Color
-			);
-			break;
-		}
-		case PIVOT_HANDLE_MODE:
-		{
-			cFonts::FlangeLight.Write(
-				"Pivot Handle Mode",
-				ModePos,
-				FontSize,
-				Color
-			);
-			break;
-		}
-		case FACE_MODE:
-		{
-			cFonts::FlangeLight.Write(
-				"Face Mode",
-				ModePos,
-				FontSize,
-				Color
-			);
-			break;
-		}
-		case COMPONENT_MODE:
-		{
-			cFonts::FlangeLight.Write(
-				"Component Mode",
+				"Hard Node Mode",
 				ModePos,
 				FontSize,
 				Color
@@ -102,7 +72,7 @@ void cCollectionEdit::DisplayMode()
 		{
 			break;	
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::DisplayInfo()

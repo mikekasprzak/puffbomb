@@ -26,13 +26,14 @@ cCollectionEdit::cCollectionEdit() :
 	Component.AnimationSet = new Engine2D::cComponentAnimationSet();
 	Component.AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
 	Component.Body = Component.AnimationSet->BodyPose[ 0 ];
-	
-//	UpdatePreviewComp();
-	
+
 /*	Collection.Component.push_back( Engine2D::cDynamicComponent() );
 	Collection.Component[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	Collection.Component[ 0 ].AnimationSet->LoadBinary( "2D/Hamster/Body/HamsterBody.bin.comp" );
 	Collection.Component[ 0 ].Body = Collection.Component[ 0 ].AnimationSet->BodyPose[ 0 ];*/
+	
+	CurMode = COLL_STATIC_COMP;
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::~cCollectionEdit()
@@ -59,6 +60,15 @@ void cCollectionEdit::Draw()
 	// Draw our collection //
 	Collection.Draw();
 
+	Gfx::EnableAddBlend();
+
+	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+	{
+		Collection.Component[ CurSelected[ idx ] ].Draw();
+	}
+
+	Gfx::DisableAddBlend();
+	
 	Gfx::DisableTex2D();
 
 	Collection.DebugDraw();
@@ -123,6 +133,8 @@ void cCollectionEdit::Step()
 	Zoom( Real( 64.0 ), Camera );
 	
 	SwitchComp();
+	
+	SwitchMode();
 	
 	AddComp();
 	
@@ -231,7 +243,9 @@ void cCollectionEdit::SwitchComp()
 void cCollectionEdit::AddComp()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
-	{		
+	{	
+		CurSelected.clear();
+		
 		Collection.Component.push_back( Engine2D::cDynamicComponent() );
 		
 		int CSize = Collection.Component.size() - 1;
@@ -258,6 +272,37 @@ void cCollectionEdit::AddComp()
 		}
 		
 		Collection.Component[ CSize ].Body = Collection.Component[ CSize ].AnimationSet->BodyPose[ 0 ];
+		
+		//Collection.Component[ CSize ].Body.CalcBoundingRect();
+		
+		CurSelected.push_back( CSize );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::SwitchMode()
+{	
+	unsigned int LastMode = CurMode;
+
+	if( Button[ KEY_1 ].Pressed() )
+	{
+		CurMode = COLL_STATIC_COMP;
+	}
+	else if( Button[ KEY_2 ].Pressed() )
+	{
+		CurMode = COLL_DYNAMIC_COMP;
+	}
+	else if( Button[ KEY_3 ].Pressed() )
+	{
+		CurMode = COLL_NODE_LINK;
+	}
+	else if( Button[ KEY_4 ].Pressed() )
+	{
+		CurMode = COLL_HARD_NODE;
+	}
+	
+	if( LastMode != CurMode )
+	{
+		CurSelected.clear();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
