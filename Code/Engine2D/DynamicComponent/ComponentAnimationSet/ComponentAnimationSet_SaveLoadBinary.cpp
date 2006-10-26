@@ -178,7 +178,6 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				
 				// Load the texture //
 				Texture[ idx ] = TexturePool.Load( string( MyString ) );
-				Log( 10, "Looda " << Texture[ idx ] );
 			}
 			
 			// Convert local Id's to texture Id's //
