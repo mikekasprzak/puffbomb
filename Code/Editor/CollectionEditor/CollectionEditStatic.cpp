@@ -259,7 +259,12 @@ void cCollectionEdit::StaticMove()
 		{
 			for( size_t idx2 = 0; idx2 < Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Size(); ++idx2 )
 			{
+				//Vector2D TmpPos = Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 );
+				//TmpPos -= OldMousePos - CurMousePos;
+				
+				//Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 ) = TmpPos; 
 				Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 ) -= OldMousePos - CurMousePos; 
+				Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Old( idx2 ) = Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 ); 
 				/*		
 				for( size_t idx3 = 0; idx3 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node.size(); ++idx3 )
 				{
