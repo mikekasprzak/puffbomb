@@ -74,13 +74,13 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 				Vector2D RayNormal = Ray;
 				Real RayLength = RayNormal.NormalizeRet();
 				
-				Real Divisor = RayLength;// * (Nodes.InvMass( Index ) + _Vs.Nodes.InvMass( VsIndex ));
+				Real Divisor = RayLength * (Nodes.InvMass( Index ) + _Vs.Nodes.InvMass( VsIndex ));
 				if ( Divisor.IsZero() )
 					continue;
 				Real Diff = (RayLength - RadiusSum) / Divisor;
 				
-				Vector2D MyPush = /*Nodes.InvMass( Index ) **/ Ray * Diff;
-				Vector2D HisPush = /*_Vs.Nodes.InvMass( VsIndex ) **/ Ray * Diff;
+				Vector2D MyPush = Nodes.InvMass( Index ) * Ray * Diff;
+				Vector2D HisPush = _Vs.Nodes.InvMass( VsIndex ) * Ray * Diff;
 				
 				Vector2D MyFriction = (RayNormal.Tangent() * Nodes.Velocity( Index )) * RayNormal.Tangent();
 				Vector2D HisFriction = (RayNormal.Tangent() * _Vs.Nodes.Velocity( VsIndex )) * RayNormal.Tangent();

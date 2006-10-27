@@ -70,6 +70,8 @@ public:
 			Nodes.Old( idx ) = Pose->Node[ idx ].Pos;
 			Nodes.Force[ idx ] = Vector2D::Zero;
 			Nodes.Friction[ idx ] = Real::Zero;
+			Nodes.InvMass( idx ) = Pose->Node[ idx ].Mass;
+			// Not needed when not in editor mode //
 			Nodes.Mass[ idx ] = Pose->Node[ idx ].Mass;
 		}
 		SphereFlags.resize( Pose->Sphere.size() );

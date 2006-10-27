@@ -145,6 +145,8 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				In.Read( BodyPose[ idx ].Node[ idx2 ].Pos.x );
 				In.Read( BodyPose[ idx ].Node[ idx2 ].Pos.y );
 				In.Read( BodyPose[ idx ].Node[ idx2 ].Mass );
+				
+				//Log( 10, "Mo " << BodyPose[ idx ].Node[ idx2 ].Mass );
 			}
 
 			// Write Springs //
