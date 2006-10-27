@@ -11,12 +11,15 @@
 #include <DynamicComponent/Mesh2D/Pose/Mesh2DPose.h>
 #include <DynamicComponent/Body2D/Body2D.h>
 #include <DynamicComponent/AnimationGenerator/AnimationGenerator.h>
+
+// - ------------------------------------------------------------------------------------------ - //
+#include <Util/InputOutput.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cEndianReader {
+/*class cEndianReader {
 public:
 	ifstream File;
 	bool LittleEndian;
@@ -56,7 +59,7 @@ public:
 		return 0;
 	}
 
-};
+};*/
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 	// Read Data //
@@ -203,7 +206,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-class cEndianWriter {
+/*class cEndianWriter {
 public:
 	ofstream File;
 	bool LittleEndian;
@@ -229,7 +232,7 @@ public:
 			
 		}
 	}
-};
+};*/
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const std::string& FinalFileName, const std::string& ArtDirectory, bool LittleEndian ) {
 	// Extract the base name from the output file, to know what we're going to call what we write to //

@@ -151,6 +151,8 @@ void cCollectionEdit::Step()
 	Physics.SetActive();
 	// Step our collection (intenal physics system, based on physics above) //
 	Collection.Step();
+
+//	Collection.StepLinkage();
 	
 	CurMousePos = CalcMousePos();
 

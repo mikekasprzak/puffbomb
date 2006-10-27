@@ -43,6 +43,8 @@ void cCollectionEdit::StaticAddComp()
 		Collection.Component[ CSize ].Body = Collection.Component[ CSize ].AnimationSet->BodyPose[ 0 ];
 		
 		//Collection.Component[ CSize ].Body.CalcBoundingRect();
+
+		//Collection.Component[ CSize ].State.Active();
 		
 		CurSelected.push_back( CSize );
 	}
