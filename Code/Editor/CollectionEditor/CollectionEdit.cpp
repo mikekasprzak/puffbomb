@@ -13,7 +13,8 @@ cCollectionEdit::cCollectionEdit() :
 	CollBaseDirName( "../../../../Content/PuffBOMB/2D/" ),
 	CompBaseDirName( "2D/" ),
 	CurColl( 0 ),
-	CurComp( 0 )
+	CurComp( 0 ),
+	CurSelComp( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
 	
@@ -54,7 +55,6 @@ void cCollectionEdit::Draw()
 	Gfx::EnableBlend();
 	Gfx::EnableDepth();
 
-
 	Gfx::DisableDepth();
 
 	// Draw our collection //
@@ -62,18 +62,51 @@ void cCollectionEdit::Draw()
 
 	Gfx::EnableAddBlend();
 
-	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+	if( CurMode == COLL_STATIC_COMP )
 	{
-		Collection.Component[ CurSelected[ idx ] ].Draw();
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Collection.Component[ CurSelected[ idx ] ].Draw();
+		}
 	}
+	else if( CurMode == COLL_DYNAMIC_COMP )
+	{
+		Collection.Component[ CurSelComp ].Draw();
+	}
+	else if( CurMode == COLL_NODE_LINK )
+	{
+		
+	}
+	else if( CurMode == COLL_HARD_NODE )
+	{
+		
+	}
+	
 
 	Gfx::DisableAddBlend();
 	
 	Gfx::DisableTex2D();
 
+	Gfx::SetLineWidth( 1.0 );
+
 	Collection.DebugDraw();
 
-
+	if( CurMode == COLL_DYNAMIC_COMP )
+	{
+		Gfx::SetLineWidth( 4.0 );
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Collection.Component[ CurSelComp ].Body.DrawNode( CurSelected[ idx ], true );
+			
+			for( size_t SphereIdx = 0; SphereIdx < Collection.Component[ CurSelComp ].Body.SphereSize(); ++SphereIdx )
+			{
+				if( CurSelected[idx] == Collection.Component[ CurSelComp ].Body.Sphere( SphereIdx ).Index )
+				{
+					Collection.Component[ CurSelComp ].Body.DrawSphere( SphereIdx, true );
+				}
+			}
+		}
+	}
 	Gfx::SetLineWidth( 1.0 );
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
@@ -125,6 +158,33 @@ void cCollectionEdit::Step()
 	{
 		OldMousePos = CurMousePos;
 	}
+	
+	if( CurMode == COLL_STATIC_COMP )
+	{
+		if( !isGroupMove )
+		{
+			StaticSelect();
+			StaticAddComp();
+			StaticDelete();
+		}
+		StaticMove();
+	}
+	else if( CurMode == COLL_DYNAMIC_COMP )
+	{
+		if( !isGroupMove )
+		{
+			DynSelect();
+		}
+		DynMove();		
+	}
+	else if( CurMode == COLL_NODE_LINK )
+	{
+		
+	}
+	else if( CurMode == COLL_HARD_NODE )
+	{
+		
+	}
 
 	// Handles scrolling around the map
 	Scroll( Camera );
@@ -132,18 +192,9 @@ void cCollectionEdit::Step()
 	// Handles the zooming in and out of a map
 	Zoom( Real( 64.0 ), Camera );
 	
-	
 	SwitchComp();
 	
 	SwitchMode();
-
-	if( !isGroupMove )
-	{
-		StaticSelect();
-		StaticAddComp();
-		StaticDelete();
-	}
-	StaticMove();
 	
 	Undo();
 }

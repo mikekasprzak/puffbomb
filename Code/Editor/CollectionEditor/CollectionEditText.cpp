@@ -11,7 +11,23 @@
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::DisplayText()
 {
-	
+/*	if( CurMode == COLL_STATIC_COMP )
+	{
+
+	}
+	else if( CurMode == COLL_DYNAMIC_COMP )
+	{
+		
+	}
+	else if( CurMode == COLL_NODE_LINK )
+	{
+		
+	}
+	else if( CurMode == COLL_HARD_NODE )
+	{
+		
+	}*/
+
 	DisplayMode();
 	
 	DisplayInfo();

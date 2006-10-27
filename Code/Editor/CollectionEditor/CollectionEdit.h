@@ -31,6 +31,7 @@ public:
 		
 	size_t CurColl;
 	size_t CurComp;
+	size_t CurSelComp;
 	
 public:
 	cCollectionEdit();
@@ -66,6 +67,9 @@ public:
 
 public:
 	// CollectionEditDyn.cpp //
+	int DynSingleSelect();
+	void DynSelect();
+	void DynMove();
 
 public:
 	// CollectionEditNode.cpp //
