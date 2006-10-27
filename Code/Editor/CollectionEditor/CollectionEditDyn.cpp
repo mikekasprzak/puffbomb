@@ -13,14 +13,13 @@ int cCollectionEdit::DynSingleSelect()
 {
 	int LastIdx = -1;
 	Real LastDistance = Real( 100 );
-	Real TestDistance = Real( 100 );
 
 	// LastIdx is idx because we want the component not the particular node in this mode //		
 	for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 	{
-		for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+		for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 		{
-			TestDistance = ( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos - CurMousePos ).Magnitude();
+			Real TestDistance = ( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ) - CurMousePos ).Magnitude();
 			
 			if( TestDistance < Real( 100 ) )
 			{
@@ -51,9 +50,9 @@ void cCollectionEdit::DynSelect()
 		{
 			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 				{
-					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 					{
 						bool CurSelectedTest = false;
 						for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -94,9 +93,9 @@ void cCollectionEdit::DynSelect()
 		{
 			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 				{
-					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 					{
 						for( size_t i = 0; i < CurSelected.size(); ++i )
 						{
@@ -145,9 +144,9 @@ void cCollectionEdit::DynSelect()
 			CurSelected.clear();
 			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 				{
-					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 					{
 						bool CurSelectedTest = false;
 						for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -185,8 +184,12 @@ void cCollectionEdit::DynMove()
 		if( !Button[ KEY_LCTRL ] && !Button[ KEY_RCTRL ] && !Button[ KEY_LSHIFT ]  )
 		{
 			int temp = DynSingleSelect();
+			MouseOffset.resize( CurSelected.size() );
+			
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
+				MouseOffset[ idx ] = Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx ] ) - OldMousePos;
+				
 				if( temp == int( CurSelected[idx] ) )
 				{
 					isGroupMove = true;
@@ -204,8 +207,9 @@ void cCollectionEdit::DynMove()
 		{
 			for( size_t idx2 = 0; idx2 < CurSelected.size(); ++idx2 )
 			{
-				//Collection.Component[ CurSelComp ].AnimationSet->BodyPose[ idx ].Node[ CurSelected[ idx2 ] ].Pos -= OldMousePos - CurMousePos;	
-				Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx2 ] ) -= OldMousePos - CurMousePos;	
+				////Collection.Component[ CurSelComp ].AnimationSet->BodyPose[ idx ].Node[ CurSelected[ idx2 ] ].Pos -= OldMousePos - CurMousePos;	
+				//Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx2 ] ) -= OldMousePos - CurMousePos;
+				Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx2 ] ) = MouseOffset[ idx2 ] + CurMousePos;
 			}
 		}
 			

@@ -60,45 +60,45 @@ public:
 public:	
 	inline void Step( cDynamicNodes& Node ) {
 		// Standard Verlet with masses //
-		Vector2D Ray = Node.Pos( IndexB ) - Node.Pos( IndexA );
-		Real RayLength = Ray.Magnitude();
-		
-		Real Dividend = (RayLength - Length);
-
-		// Disabling of Minimum and Maximum constraining //
-		if ( Flags.IgnoreMinimum() ) {
-			if ( Dividend <= Real::Zero ) {
-				return;
-			}
-		}	
-		if ( Flags.IgnoreMaximum() ) {
-			if ( Dividend > Real::Zero ) {
-				return;
-			}
-		}
-		
-		// Calculate the weighted push based on masses //
-		Real Divisor = (RayLength * (Node.InvMass( IndexA ) + Node.InvMass( IndexB )));
-		if ( Divisor.IsZero() )
-			return;
-		Real Diff = Dividend / Divisor;
-		
-		// Solve the Spring //
-		Node.Pos( IndexA ) += Node.InvMass( IndexA ) * Ray * Diff * Strength;
-		Node.Pos( IndexB ) -= Node.InvMass( IndexB ) * Ray * Diff * Strength;		
-
-
-//		// Optimized Verlet with Square Root Approximation //
 //		Vector2D Ray = Node.Pos( IndexB ) - Node.Pos( IndexA );
-//		Real RadiusSumSquared = Length * Length;
+//		Real RayLength = Ray.Magnitude();
 //		
-//		// That .5 is part of the square root approximation, not a scalar! //
-//		Real Divisor = ( (Ray * Ray) + (RadiusSumSquared) );
-//		Ray *= (RadiusSumSquared) / Divisor - Real( 0.5f );
+//		Real Dividend = (RayLength - Length);
+//
+//		// Disabling of Minimum and Maximum constraining //
+//		if ( Flags.IgnoreMinimum() ) {
+//			if ( Dividend <= Real::Zero ) {
+//				return;
+//			}
+//		}	
+//		if ( Flags.IgnoreMaximum() ) {
+//			if ( Dividend > Real::Zero ) {
+//				return;
+//			}
+//		}
 //		
-//		// A scalar here (or the line above) causes the segments to stretch more //
-//		Node.Pos( IndexA ) -= Ray;// * Real( .16 );
-//		Node.Pos( IndexB ) += Ray;// * Real( .16 );
+//		// Calculate the weighted push based on masses //
+//		Real Divisor = (RayLength * (Node.InvMass( IndexA ) + Node.InvMass( IndexB )));
+//		if ( Divisor.IsZero() )
+//			return;
+//		Real Diff = Dividend / Divisor;
+//		
+//		// Solve the Spring //
+//		Node.Pos( IndexA ) += Node.InvMass( IndexA ) * Ray * Diff * Strength;
+//		Node.Pos( IndexB ) -= Node.InvMass( IndexB ) * Ray * Diff * Strength;		
+
+
+		// Optimized Verlet with Square Root Approximation //
+		Vector2D Ray = Node.Pos( IndexB ) - Node.Pos( IndexA );
+		Real RadiusSumSquared = Length * Length;
+		
+		// That .5 is part of the square root approximation, not a scalar! //
+		Real Divisor = ( (Ray * Ray) + (RadiusSumSquared) );
+		Ray *= (RadiusSumSquared) / Divisor - Real( 0.5f );
+		
+		// A scalar here (or the line above) causes the segments to stretch more //
+		Node.Pos( IndexA ) -= Ray;// * Real( .16 );
+		Node.Pos( IndexB ) += Ray;// * Real( .16 );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //

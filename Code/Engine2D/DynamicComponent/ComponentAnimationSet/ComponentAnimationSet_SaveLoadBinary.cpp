@@ -370,7 +370,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Node.size(); idx2++ ) {
 					Out.Write( BodyPose[ idx ].Node[ idx2 ].Pos.x );
 					Out.Write( BodyPose[ idx ].Node[ idx2 ].Pos.y );
-					Out.Write( (BodyPose[ idx ].Node[ idx2 ].Mass / MassDistribution) * BodyPose[ idx ].TotalMass );
+					Out.Write( Real::One / ((BodyPose[ idx ].Node[ idx2 ].Mass / MassDistribution) * BodyPose[ idx ].TotalMass) );
 				}
 
 				// Write Springs //

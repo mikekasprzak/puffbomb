@@ -33,6 +33,8 @@ public:
 	size_t CurComp;
 	size_t CurSelComp;
 	
+	std::vector< Vector2D > MouseOffset;
+	
 public:
 	cCollectionEdit();
 	~cCollectionEdit();

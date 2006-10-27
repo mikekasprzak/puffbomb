@@ -49,22 +49,22 @@ void cBody2D::CalcBoundingRect() {
 	int SphereCount = Sphere.size();
 	for ( int idx = 1; idx < SphereCount; idx++ ) {
 		// Should work! //
-		MinPoint.MinClamp( (Nodes.Pos( Sphere[ idx ].Index ) - Sphere[ idx ].Radius) );
-		MaxPoint.MaxClamp( (Nodes.Pos( Sphere[ idx ].Index ) + Sphere[ idx ].Radius) );
+//		MinPoint.MinClamp( (Nodes.Pos( Sphere[ idx ].Index ) - Sphere[ idx ].Radius) );
+//		MaxPoint.MaxClamp( (Nodes.Pos( Sphere[ idx ].Index ) + Sphere[ idx ].Radius) );
 		
-//		if ( MinPoint.x > (Pos( Sphere[ idx ].Index ).x - Sphere[ idx ].Radius) ) {
-//			MinPoint.x = Pos( Sphere[ idx ].Index ).x - Sphere[ idx ].Radius;
-//		}
-//		if ( MinPoint.y > (Pos( Sphere[ idx ].Index ).y - Sphere[ idx ].Radius) ) {
-//			MinPoint.y = Pos( Sphere[ idx ].Index ).y - Sphere[ idx ].Radius;
-//		}
-//
-//		if ( MaxPoint.x < (Pos( Sphere[ idx ].Index ).x + Sphere[ idx ].Radius) ) {
-//			MaxPoint.x = Pos( Sphere[ idx ].Index ).x + Sphere[ idx ].Radius;
-//		}
-//		if ( MaxPoint.y < (Pos( Sphere[ idx ].Index ).y + Sphere[ idx ].Radius) ) {
-//			MaxPoint.y = Pos( Sphere[ idx ].Index ).y + Sphere[ idx ].Radius;
-//		}
+		if ( MinPoint.x > (Nodes.Pos( Sphere[ idx ].Index ).x - Sphere[ idx ].Radius) ) {
+			MinPoint.x = Nodes.Pos( Sphere[ idx ].Index ).x - Sphere[ idx ].Radius;
+		}
+		if ( MinPoint.y > (Nodes.Pos( Sphere[ idx ].Index ).y - Sphere[ idx ].Radius) ) {
+			MinPoint.y = Nodes.Pos( Sphere[ idx ].Index ).y - Sphere[ idx ].Radius;
+		}
+
+		if ( MaxPoint.x < (Nodes.Pos( Sphere[ idx ].Index ).x + Sphere[ idx ].Radius) ) {
+			MaxPoint.x = Nodes.Pos( Sphere[ idx ].Index ).x + Sphere[ idx ].Radius;
+		}
+		if ( MaxPoint.y < (Nodes.Pos( Sphere[ idx ].Index ).y + Sphere[ idx ].Radius) ) {
+			MaxPoint.y = Nodes.Pos( Sphere[ idx ].Index ).y + Sphere[ idx ].Radius;
+		}
 	};
 	
 	// Set the Rectangle //

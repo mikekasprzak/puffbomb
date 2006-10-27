@@ -15,7 +15,8 @@ public:
 	Real Mass;
 
 public:
-	cBodyPoseNode()
+	cBodyPoseNode() :
+		Mass( Real::One )
 	{
 	}
 	

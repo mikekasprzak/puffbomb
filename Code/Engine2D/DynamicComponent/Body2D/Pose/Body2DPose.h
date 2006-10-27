@@ -22,6 +22,11 @@ public:
 	std::vector< cSphere > Sphere;
 		
 	Real TotalMass;
+	
+	cBody2DPose() :
+		TotalMass( Real::One )
+	{
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

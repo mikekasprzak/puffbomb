@@ -45,6 +45,8 @@ void cCollectionEdit::StaticAddComp()
 		//Collection.Component[ CSize ].Body.CalcBoundingRect();
 
 		//Collection.Component[ CSize ].State.Active();
+		Collection.Component[ CSize ].State.ResetIgnoreFamily();
+		Collection.Component[ CSize ].State.ResetIgnoreObjects();
 		
 		CurSelected.push_back( CSize );
 	}
