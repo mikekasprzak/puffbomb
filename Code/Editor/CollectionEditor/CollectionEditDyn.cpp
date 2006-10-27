@@ -203,18 +203,10 @@ void cCollectionEdit::DynMove()
 	}
 	if( isGroupMove )
 	{
-		//for( size_t idx = 0; idx < Collection.Component[ CurSelComp ].AnimationSet->BodyPose.size(); ++idx )
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t idx2 = 0; idx2 < CurSelected.size(); ++idx2 )
-			{
-				////Collection.Component[ CurSelComp ].AnimationSet->BodyPose[ idx ].Node[ CurSelected[ idx2 ] ].Pos -= OldMousePos - CurMousePos;	
-				//Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx2 ] ) -= OldMousePos - CurMousePos;
-				Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx2 ] ) = MouseOffset[ idx2 ] + CurMousePos;
-			}
+			Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx ] ) = MouseOffset[ idx ] + CurMousePos;
 		}
-			
-		//Collection.Component[ CurSelComp ].Body = Collection.Component[ CurSelComp ].AnimationSet->BodyPose[ 0 ];
-			
 		
 		OldMousePos = CurMousePos;
 	}

@@ -59,10 +59,11 @@ int cCollectionEdit::StaticSingleSelect()
 	// LastIdx is idx because we want the component not the particular node in this mode //		
 	for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 	{
-		for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+//		for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+		for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 		{
-			TestDistance = ( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos - CurMousePos ).Magnitude();
-			
+//			TestDistance = ( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos - CurMousePos ).Magnitude();
+			TestDistance = ( Collection.Component[ idx ].Body.Nodes.Pos( idx2 )	- CurMousePos ).Magnitude();
 			if( TestDistance < Real( 100 ) )
 			{
 				if( TestDistance < LastDistance )
@@ -87,9 +88,9 @@ void cCollectionEdit::StaticSelect()
 		{
 			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 				{
-					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 					{
 						bool CurSelectedTest = false;
 						for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -129,9 +130,9 @@ void cCollectionEdit::StaticSelect()
 		{
 			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 				{
-					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 					{
 						for( size_t i = 0; i < CurSelected.size(); ++i )
 						{
@@ -179,9 +180,11 @@ void cCollectionEdit::StaticSelect()
 			// push back idx because we want the component not the particular node in this mode //
 			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+//				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
+				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 				{
-					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
+//					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 					{
 						bool CurSelectedTest = false;
 						for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -271,14 +274,16 @@ void cCollectionEdit::StaticMove()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t idx2 = 0; idx2 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose.size(); ++idx2 )
+			for( size_t idx2 = 0; idx2 < Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Size(); ++idx2 )
 			{
+				Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 ) -= OldMousePos - CurMousePos; 
+				/*		
 				for( size_t idx3 = 0; idx3 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node.size(); ++idx3 )
 				{
 					Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node[ idx3 ].Pos -= OldMousePos - CurMousePos;
-				}	
+				}	*/
 			}
-			Collection.Component[ CurSelected[idx] ].Body = Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ 0 ];
+			//Collection.Component[ CurSelected[idx] ].Body = Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ 0 ];
 		}
 		OldMousePos = CurMousePos;
 	}
