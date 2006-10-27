@@ -72,6 +72,7 @@ public:
 			Nodes.Friction[ idx ] = Real::Zero;
 			Nodes.Mass[ idx ] = Pose->Node[ idx ].Mass;
 		}
+		SphereFlags.resize( Pose->Sphere.size() );
 
 		Nodes.TotalMass = Pose->TotalMass;
 	}
