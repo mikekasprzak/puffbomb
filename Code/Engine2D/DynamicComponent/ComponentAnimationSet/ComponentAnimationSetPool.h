@@ -1,36 +1,24 @@
 // - ------------------------------------------------------------------------------------------ - //
-// StaticObject //
+// ComponentAnimationSetPool //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Engine2D_Engine_StaticObject_H__
-#define __Engine2D_Engine_StaticObject_H__
+#ifndef __Engine2D_ComponentAnimationSet_ComponentAnimationSetPool_H__
+#define __Engine2D_ComponentAnimationSet_ComponentAnimationSetPool_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <string>
-// - ------------------------------------------------------------------------------------------ - //
-#include "StaticBody2D/StaticBody2D.h"
-// Update this one day.  This should replace the general purpose "Mesh3D" under library/graphics //
-#include "Mesh3D/Mesh3D.h"
+#include <Util/Pool.h>
+#include "ComponentAnimationSet.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-class cStaticObject {
+class cComponentAnimationSetPool : public cPool< cComponentAnimationSet > {
 public:
-	// Collision //
-	cStaticBody2D Body;
-	
-	// Display //
-	// *Note* make display a vector, therefor supporting multiple textures (since each is only 1) //
-	cMesh3D Mesh;
-
-public:
-	cStaticObject() {
+	cComponentAnimationSetPool() {
+		SearchPath.Add( "2D" );
 	}
-
-	cStaticObject( const std::string& File ) {
-	}
-	
 };
 // - ------------------------------------------------------------------------------------------ - //
-}; // namespace Engine2D //
+extern cComponentAnimationSetPool ComponentAnimationSetPool;
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Engine2D_Engine_StaticObject_H__ //
+};
+// - ------------------------------------------------------------------------------------------ - //
+#endif // __Rendo_ComponentAnimationSetPool_H__ //
 // - ------------------------------------------------------------------------------------------ - //

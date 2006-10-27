@@ -31,6 +31,10 @@ public:
 	
 public:
 	// - -------------------------------------------------------------------------------------- - //
+	cStaticBody2D() {
+	}
+
+	// - -------------------------------------------------------------------------------------- - //
 	// Generate some 2D collision from a 3D mesh //
 	void GenerateCollision( const class cMesh3D& _Mesh );
 	

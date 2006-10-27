@@ -13,6 +13,9 @@ namespace Engine2D {
 class cStaticNodes {
 	std::vector< Vector2D > Node;
 public:
+	cStaticNodes( ) {
+	}
+
 	// Constructor //
 	cStaticNodes( int _Count ) :
 		Node( _Count )
