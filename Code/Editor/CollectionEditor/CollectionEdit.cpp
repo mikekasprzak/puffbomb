@@ -19,6 +19,7 @@ cCollectionEdit::cCollectionEdit() :
 	Camera->Pos.z = Global::HudZoom;
 	
 	Physics.ZeroGravity();
+	Physics.Friction = Real( 0.8 );
 	
 	Log( LOG_HIGHEST_LEVEL, "Collection editor physics created" );
 
