@@ -17,10 +17,11 @@ void cCollectionEdit::StaticAddComp()
 		
 		Collection.Component.push_back( Engine2D::cDynamicComponent() );
 		
-		int CSize = Collection.Component.size() - 1;
+		//int CSize = Collection.Component.back();
 				
-		Collection.Component[ CSize ].AnimationSet = new Engine2D::cComponentAnimationSet();
-		Collection.Component[ CSize ].AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
+		Collection.Component.back().AnimationSet = new Engine2D::cComponentAnimationSet();
+		Collection.Component.back().AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
+		Collection.Component.back().Body = Collection.Component.back().AnimationSet->BodyPose[ 0 ];
 		
 		Vector2D AddPos = CurMousePos;
 		
@@ -31,22 +32,30 @@ void cCollectionEdit::StaticAddComp()
 
 			CalcSnapToGrid( AddPos, CurrentGridDepth, GridDepth );
 		}
-		
-		for( size_t idx = 0; idx < Collection.Component[ CSize ].AnimationSet->BodyPose.size(); ++idx )
+/*		
+		for( size_t idx = 0; idx < Collection.Component.back().AnimationSet->BodyPose.size(); ++idx )
 		{
-			for( size_t idx2 = 0; idx2 < Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node.size(); ++idx2 )
+			for( size_t idx2 = 0; idx2 < Collection.Component.back().AnimationSet->BodyPose[ idx ].Node.size(); ++idx2 )
 			{
-				Collection.Component[ CSize ].AnimationSet->BodyPose[ idx ].Node[ idx2 ].Pos += AddPos;
+				Collection.Component.back().AnimationSet->BodyPose[ idx ].Node[ idx2 ].Pos += AddPos;
 			}
 		}
 		
-		Collection.Component[ CSize ].Body = Collection.Component[ CSize ].AnimationSet->BodyPose[ 0 ];
+		Collection.Component.back().Body = Collection.Component.back().AnimationSet->BodyPose[ 0 ];
+*/
+
+		for( size_t idx = 0; idx < Collection.Component.back().Body.Nodes.Size(); ++idx )
+		{
+			Collection.Component.back().Body.Nodes.Pos( idx ) += AddPos;
+			//Collection.Component.back().Body.Nodes.Old( idx ) = Collection.Component.back().Body.Nodes.Pos( idx );
+		}
+		
 		
 		//Collection.Component[ CSize ].Body.CalcBoundingRect();
 
 		//Collection.Component[ CSize ].State.Active();
 		
-		CurSelected.push_back( CSize );
+		CurSelected.push_back( Collection.Component.size() - 1 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -242,33 +251,7 @@ void cCollectionEdit::StaticMove()
 	if( Button[ MOUSE_1 ].Released() )
 	{
 		isGroupMove = false;
-/*		
-		if( SnapToGrid )
-		{
-			SetGridDepth( Camera, CurrentGridDepth, 40.0 );
-			SetGridArray( CurrentGridDepth, GridDepth );
-			
-			Vector2D TempPos = CurMousePos;
-			CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
 
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose.size(); ++idx2 )
-				{
-					for( size_t idx3 = 0; idx3 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node.size(); ++idx3 )
-					{
-						Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node[ idx3 ].Pos -= CurMousePos - TempPos;
-					}
-				}
-				Collection.Component[ CurSelected[idx] ].Body = Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ 0 ];
-			}
-			SnapToGrid = false;
-		//	ActiveAction();
-		}
-		else
-		{
-		//	ActiveAction();
-		}*/
 	}
 	if( isGroupMove )
 	{

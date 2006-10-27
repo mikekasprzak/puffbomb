@@ -9,6 +9,7 @@ namespace Engine2D {
 void cDynamicCollection::Step() {
 	// Step all the nodes //
 	for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+		Component[ idx ].Body.Nodes.WakeUp();
 		Component[ idx ].Body.Step();
 	}
 
