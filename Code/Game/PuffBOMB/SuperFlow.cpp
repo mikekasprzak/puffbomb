@@ -20,19 +20,24 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 // Use an ENUM to generate unique numbers for each SuperFlow State //
-enum {
+/*enum {
 	// Dummy state, so you can bounds check the generated state numbers //
 	stFirstState = 0,
 	
 	// Super-Flow States (of the U-S-A) //
-	stSykhronicsSplash,
 	stMainMenu,
+	stSykhronicsSplash,
 	stStartGame,
 	stEditor,
 	
 	// Dummy state, so you can bounds check the generated state numbers //
 	stLastState
-};
+};*/
+#define stSykhronicsSplash 0
+#define stMainMenu 1
+#define stStartGame 2
+#define stEditor 3
+
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -83,7 +88,7 @@ void cSuperFlow::StateFlow()
 					cMainMenu MainMenu;
 
 					// A local table for converting menu states to local states //
-					const int MenuStateTable[] =
+					/*const int MenuStateTable[] =
 					{
 						stStartGame,
 						stEditor,
@@ -93,9 +98,9 @@ void cSuperFlow::StateFlow()
 					};
 
 					// Pull and convert next state from the menu //
-					State = MenuStateTable[ MainMenu.Form.DialogBox[ 0 ].Focus ];
+					State = MenuStateTable[ MainMenu.Form.DialogBox[ 0 ].Focus ];*/
 					
-					//State = MainMenu.Form.DialogBox[ 0 ].SuperFlowState;
+					State = MainMenu.Form.DialogBox[ 0 ].SuperFlowState;
 				}
 				break;
 			}

@@ -17,8 +17,6 @@ void cCollectionEdit::StaticAddComp()
 		
 		Collection.Component.push_back( Engine2D::cDynamicComponent() );
 		
-		//int CSize = Collection.Component.back();
-				
 		Collection.Component.back().AnimationSet = new Engine2D::cComponentAnimationSet();
 		Collection.Component.back().AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
 		Collection.Component.back().Body = Collection.Component.back().AnimationSet->BodyPose[ 0 ];
@@ -32,27 +30,12 @@ void cCollectionEdit::StaticAddComp()
 
 			CalcSnapToGrid( AddPos, CurrentGridDepth, GridDepth );
 		}
-/*		
-		for( size_t idx = 0; idx < Collection.Component.back().AnimationSet->BodyPose.size(); ++idx )
-		{
-			for( size_t idx2 = 0; idx2 < Collection.Component.back().AnimationSet->BodyPose[ idx ].Node.size(); ++idx2 )
-			{
-				Collection.Component.back().AnimationSet->BodyPose[ idx ].Node[ idx2 ].Pos += AddPos;
-			}
-		}
-		
-		Collection.Component.back().Body = Collection.Component.back().AnimationSet->BodyPose[ 0 ];
-*/
 
 		for( size_t idx = 0; idx < Collection.Component.back().Body.Nodes.Size(); ++idx )
 		{
 			Collection.Component.back().Body.Nodes.Pos( idx ) += AddPos;
-			//Collection.Component.back().Body.Nodes.Old( idx ) = Collection.Component.back().Body.Nodes.Pos( idx );
 		}
 		
-		
-		//Collection.Component[ CSize ].Body.CalcBoundingRect();
-
 		//Collection.Component[ CSize ].State.Active();
 		
 		CurSelected.push_back( Collection.Component.size() - 1 );
@@ -68,10 +51,8 @@ int cCollectionEdit::StaticSingleSelect()
 	// LastIdx is idx because we want the component not the particular node in this mode //		
 	for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 	{
-//		for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
 		for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 		{
-//			TestDistance = ( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos - CurMousePos ).Magnitude();
 			TestDistance = ( Collection.Component[ idx ].Body.Nodes.Pos( idx2 )	- CurMousePos ).Magnitude();
 			if( TestDistance < Real( 100 ) )
 			{
@@ -189,10 +170,8 @@ void cCollectionEdit::StaticSelect()
 			// push back idx because we want the component not the particular node in this mode //
 			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 			{
-//				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node.size(); ++idx2 )
 				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
 				{
-//					if( WithinBox( Collection.Component[ idx ].AnimationSet->BodyPose[ 0 ].Node[ idx2 ].Pos, CurMousePos, OldMousePos ) )
 					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 					{
 						bool CurSelectedTest = false;
@@ -238,15 +217,6 @@ void cCollectionEdit::StaticMove()
 				}
 			}
 		}
-/*		// Snaps to grid
-		if( !Button[ KEY_LSHIFT ] && isGroupMove )
-		{
-			SnapToGrid = true;
-		}
-		else
-		{
-			SnapToGrid = false;
-		}*/
 	}
 	if( Button[ MOUSE_1 ].Released() )
 	{
@@ -259,19 +229,9 @@ void cCollectionEdit::StaticMove()
 		{
 			for( size_t idx2 = 0; idx2 < Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Size(); ++idx2 )
 			{
-				//Vector2D TmpPos = Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 );
-				//TmpPos -= OldMousePos - CurMousePos;
-				
-				//Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 ) = TmpPos; 
 				Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 ) -= OldMousePos - CurMousePos; 
 				Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Old( idx2 ) = Collection.Component[ CurSelected[ idx ] ].Body.Nodes.Pos( idx2 ); 
-				/*		
-				for( size_t idx3 = 0; idx3 < Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node.size(); ++idx3 )
-				{
-					Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ idx2 ].Node[ idx3 ].Pos -= OldMousePos - CurMousePos;
-				}	*/
 			}
-			//Collection.Component[ CurSelected[idx] ].Body = Collection.Component[ CurSelected[idx] ].AnimationSet->BodyPose[ 0 ];
 		}
 		OldMousePos = CurMousePos;
 	}
