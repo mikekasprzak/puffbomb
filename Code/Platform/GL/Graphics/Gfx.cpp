@@ -322,12 +322,12 @@ namespace Gfx
 	// - -------------------------------------------------------------------------------------- - //
 	void Rect( const Rect2D& _Rect, Gfx::Color Color )
 	{
-		Rect( _Rect._P1.ToVector3D(), _Rect._Shape.ToVector3D(), Color );
+		Rect( _Rect.P1(), _Rect.P2(), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	void Rect( const Rect3D& _Rect, Gfx::Color Color )
 	{
-		Rect( _Rect._P1, _Rect._Shape, Color );
+		Rect( _Rect.P1(), _Rect.P2(), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// This section is to add a wrapper to the gl functions we can't do without.
