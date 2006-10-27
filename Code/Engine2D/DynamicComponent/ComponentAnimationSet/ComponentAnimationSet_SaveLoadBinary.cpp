@@ -19,48 +19,6 @@ using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-/*class cEndianReader {
-public:
-	ifstream File;
-	bool LittleEndian;
-
-public:
-	cEndianReader() :
-		LittleEndian( true )
-	{
-	}
-	
-	cEndianReader( const std::string& _FileName, bool _LittleEndian = true ) :
-		File( _FileName.c_str(), ios::binary | ios::in ),
-		LittleEndian( _LittleEndian )	
-	{
-	}
-
-public:
-	template< class T >
-	void Read( const T& Data ) {
-		if ( LittleEndian )
-			File.read( (char*)&Data, sizeof(Data) );
-		else {
-			
-		}
-	}
-
-	int Read() {
-		if ( LittleEndian ) {
-			int Data;
-			File.read( (char*)&Data, sizeof(Data) );
-			
-			return Data;
-		}
-		else {
-			
-		}
-		return 0;
-	}
-
-};*/
-// - ------------------------------------------------------------------------------------------ - //
 void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 	// Read Data //
 	cEndianReader In( FileName );
@@ -177,7 +135,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				int StrLen = In.Read();
 				char MyString[ StrLen + 1 ];
 				
-				In.File.read( MyString, StrLen );
+				In.Read( &MyString[0], StrLen );
 				
 				MyString[ StrLen ] = 0;
 				
@@ -207,34 +165,6 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 
 	}
 }
-// - ------------------------------------------------------------------------------------------ - //
-/*class cEndianWriter {
-public:
-	ofstream File;
-	bool LittleEndian;
-
-public:
-	cEndianWriter() :
-		LittleEndian( true )
-	{
-	}
-	
-	cEndianWriter( const std::string& _FileName, bool _LittleEndian ) :
-		File( _FileName.c_str(), ios::binary | ios::out ),
-		LittleEndian( _LittleEndian )	
-	{
-	}
-
-public:
-	template< class T >
-	void Write( const T& Data ) {
-		if ( LittleEndian )
-			File.write( (char*)&Data, sizeof(Data) );
-		else {
-			
-		}
-	}
-};*/
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const std::string& FinalFileName, const std::string& ArtDirectory, bool LittleEndian ) {
 	// Extract the base name from the output file, to know what we're going to call what we write to //
@@ -291,7 +221,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 			unsigned int FileVersion = 0;
 			
 			// Write File Header //
-			Out.File.write( &MagicNumber[0], 4 );
+			Out.Write( &MagicNumber[0], 4 );
 			Out.Write( FileVersion );
 		}
 		
@@ -411,7 +341,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 			Out.Write( Art.ImagePool.size() );
 			for ( size_t idx = 0; idx < Art.ImagePool.size(); idx++ ) {
 				// Write original filename //
-				//Out.File.write( Art.ImagePool[ idx ].FileName.c_str(), Art.ImagePool[ idx ].FileName.size() + 1 );
+				//Out.Write( Art.ImagePool[ idx ].FileName.c_str(), Art.ImagePool[ idx ].FileName.size() + 1 );
 				
 				// Write new filename //
 				string FileString = PrePreFolder + "/" + PreFolder + "/" + String::BaseName( CompFileName );
@@ -422,7 +352,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 				FileString += ImageIndex.str() + ".pack.tx";
 				
 				Out.Write( FileString.size() );
-				Out.File.write( FileString.c_str(), FileString.size() );
+				Out.Write( FileString.c_str(), FileString.size() );
 			}
 		}
 	}

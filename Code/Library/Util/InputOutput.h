@@ -33,6 +33,15 @@ public:
 		}
 	}
 
+	template< class T >
+	void Read( const T* Data, size_t Size ) {
+		if ( LittleEndian )
+			File.read( (char*)Data, Size );
+		else {
+			
+		}
+	}
+
 	int Read() {
 		if ( LittleEndian ) {
 			int Data;
@@ -70,6 +79,15 @@ public:
 	void Write( const T& Data ) {
 		if ( LittleEndian )
 			File.write( (char*)&Data, sizeof(Data) );
+		else {
+			
+		}
+	}
+
+	template< class T >
+	void Write( const T* Data, size_t Size ) {
+		if ( LittleEndian )
+			File.write( (char*)Data, Size );
 		else {
 			
 		}
