@@ -27,6 +27,11 @@ int cCollectionEdit::DynSingleSelect()
 				if( TestDistance < LastDistance )
 				{
 					LastDistance = TestDistance;
+					if( CurSelComp != idx )
+					{
+						CurSelected.clear();
+					}
+					
 					CurSelComp = idx;
 					LastIdx = idx2;
 				}
