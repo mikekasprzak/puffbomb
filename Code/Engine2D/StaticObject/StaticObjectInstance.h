@@ -4,6 +4,11 @@
 #ifndef __Engine2D_Engine_StaticObjectInstance_H__
 #define __Engine2D_Engine_StaticObjectInstance_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <map>
+#include <string>
+
+#include "StaticObject.h"
+// - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cStaticObjectInstance {
@@ -13,6 +18,7 @@ public:
 
 	// Index of the contents of the instance inside the StaticObject pool //
 	size_t StaticObjectIndex;
+	std::map< std::string, cStaticObject >::iterator StaticObjectIterator;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -4,6 +4,8 @@
 #ifndef __Engine2D_Engine_DynamicComponent_H__
 #define __Engine2D_Engine_DynamicComponent_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <map>
+#include <string>
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include "Body2D/Body2D.h"
@@ -17,6 +19,7 @@ public:
 	// Parts of a component //
 	cBody2D Body;
 	cComponentAnimationSet* AnimationSet;	// Should *NOT* be a pointer //
+	std::map< std::string, cComponentAnimationSet >::iterator AnimationSetIterator;
 	
 	// Who our parent is //
 	const class cDynamicCollection* Parent;
