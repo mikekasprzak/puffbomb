@@ -34,6 +34,8 @@ cCollectionEdit::cCollectionEdit() :
 	Collection.Component[ 0 ].AnimationSet->LoadBinary( "2D/Hamster/Body/HamsterBody.bin.comp" );
 	Collection.Component[ 0 ].Body = Collection.Component[ 0 ].AnimationSet->BodyPose[ 0 ];*/
 	
+	Collection.LoadBinary( "Bob.coll" );
+	
 	CurMode = COLL_STATIC_COMP;
 	
 }
@@ -199,6 +201,8 @@ void cCollectionEdit::Step()
 	
 	SwitchMode();
 	
+	Save();
+	
 	Undo();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -325,6 +329,17 @@ void cCollectionEdit::SwitchMode()
 	if( LastMode != CurMode )
 	{
 		CurSelected.clear();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::Save()
+{
+//	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
+	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() )
+	{
+		Collection.SaveBinary( "Bob.coll" );
+
+		IsSaved = true;
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -16,6 +16,10 @@ public:
 	// Components of this object //
 	std::vector< cDynamicComponent > Component;
 	
+	#ifdef EDITOR
+	std::vector< std::string > ComponentName;
+	#endif // Editor //
+		
 	// Node Linkage in this object //
 	std::vector< cNodeLink > NodeLink;
 	// Anchoring (locking) points in this object //
@@ -68,7 +72,11 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
-	
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
+	void LoadBinary( const std::string& FileName );
+	void SaveBinary( const std::string& FileName, bool LittleEndian = true );	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

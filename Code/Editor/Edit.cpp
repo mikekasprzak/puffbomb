@@ -46,7 +46,8 @@ cEdit::cEdit() :
 	SnapToGrid( false ),
 	isGroupMove( false ),
 	OldMousePos( Real(0.0), Real(0.0) ),
-	CurMousePos( Real(0.0), Real(0.0) )
+	CurMousePos( Real(0.0), Real(0.0) ),
+	IsSaved( true )
 {
 	EditEventFlags |= flAutoGridDepth;
 	

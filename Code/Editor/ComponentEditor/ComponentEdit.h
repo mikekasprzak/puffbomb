@@ -48,8 +48,6 @@ public:
 	std::vector< std::string > CompDirs;
 	size_t CurDirIdx;
 
-	bool IsSaved;
-	
 public:
 	cComponentEdit();
 	~cComponentEdit();

@@ -54,6 +54,16 @@ public:
 		}
 		return 0;
 	}
+	bool Empty() {
+		File.get();
+		if( !File.good() )
+		{
+			return true;
+		}
+		File.unget();
+		
+		return false;
+	}
 
 };
 // - ------------------------------------------------------------------------------------------ - //

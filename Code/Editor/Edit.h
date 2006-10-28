@@ -129,6 +129,8 @@ public:
 	std::string TempString;
 	Vector3D TempLocation;
 
+	bool IsSaved;
+
 public:	
 	void Scroll( cCamera* MyCamera );
 	void Scroll( cCamera* MyCamera, const Real PercentW, const Real PercentH, const Vector2D ZoomInfo );

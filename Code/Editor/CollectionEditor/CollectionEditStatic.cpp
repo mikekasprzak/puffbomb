@@ -20,6 +20,8 @@ void cCollectionEdit::StaticAddComp()
 		Collection.Component.back().AnimationSet = new Engine2D::cComponentAnimationSet();
 		Collection.Component.back().AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
 		Collection.Component.back().Body = Collection.Component.back().AnimationSet->BodyPose[ 0 ];
+
+		Collection.ComponentName.push_back( ComponentPath[ CurComp ] );
 		
 		Vector2D AddPos = CurMousePos;
 		
@@ -244,6 +246,7 @@ void cCollectionEdit::StaticDelete()
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
 			std::vector< Engine2D::cDynamicComponent > tempVec;
+			std::vector< std::string > tempNameVec;
 			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 			{
 				bool isDelete = false;
@@ -257,6 +260,7 @@ void cCollectionEdit::StaticDelete()
 				if( !isDelete )
 				{
 					tempVec.push_back( Collection.Component[ idx ] );
+					tempNameVec.push_back( Collection.ComponentName[ idx ] );
 				}
 				else
 				{
@@ -264,6 +268,7 @@ void cCollectionEdit::StaticDelete()
 				}
 			}
 			Collection.Component.swap( tempVec );
+			Collection.ComponentName.swap( tempNameVec );
 
 			CurSelected.clear();
 		}

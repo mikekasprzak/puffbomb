@@ -51,6 +51,7 @@ public:
 	void UpdatePreviewComp();
 	void SwitchComp();
 	void SwitchMode();
+	void Save();
 		
 public:
 	// CollectionEditText.cpp //

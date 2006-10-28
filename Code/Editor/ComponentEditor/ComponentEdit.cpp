@@ -26,8 +26,7 @@ cComponentEdit::cComponentEdit() :
 	CurTexPreview( 0 ),
 	NodeRadius( 6 ),
 	BaseDirName( "../../../../Content/PuffBOMB/2D/" ),
-	CurDirIdx( 0 ),
-	IsSaved( true )
+	CurDirIdx( 0 )
 {
 	
 	Camera->Aspect *= Real(0.75);
