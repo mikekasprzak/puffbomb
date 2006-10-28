@@ -29,6 +29,11 @@ cCollectionEdit::cCollectionEdit() :
 	Component.AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
 	Component.Body = Component.AnimationSet->BodyPose[ 0 ];
 
+	if( !CollectionPath.empty() )
+	{
+		Collection.LoadBinary( CollBaseDirName + CollectionPath[ CurColl ] );
+	}
+	
 /*	Collection.Component.push_back( Engine2D::cDynamicComponent() );
 	Collection.Component[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
 	Collection.Component[ 0 ].AnimationSet->LoadBinary( "2D/Hamster/Body/HamsterBody.bin.comp" );
@@ -259,6 +264,19 @@ void cCollectionEdit::FindCollCompPaths()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::UpdateColl()
+{
+	for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+	{
+		delete Collection.Component[ idx ].AnimationSet;
+	}
+	
+	if( !CollectionPath.empty() )
+	{
+		Collection.LoadBinary( CollBaseDirName + CollectionPath[ CurColl ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::UpdatePreviewComp()
 {
 	delete Component.AnimationSet;	
@@ -266,6 +284,45 @@ void cCollectionEdit::UpdatePreviewComp()
 	Component.AnimationSet = new Engine2D::cComponentAnimationSet();
 	Component.AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
 	Component.Body = Component.AnimationSet->BodyPose[ 0 ];
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::SwitchColl()
+{
+	if( IsSaved )
+	{
+		if( Button[ KEY_MINUS_PAD ].Pressed() )
+		{
+			if( !CollectionPath.empty() )
+			{
+				if( CurColl > 0 )
+				{
+					--CurColl;
+				}
+				else
+				{
+					CurColl = CollectionPath.size() - 1;
+				}
+				
+				UpdateColl();
+			}
+		}
+		else if( Button[ KEY_PLUS_PAD ].Pressed() )
+		{
+			if( !CollectionPath.empty() )
+			{
+				if( CurColl < CollectionPath.size() - 1 )
+				{
+					++CurColl;
+				}
+				else
+				{
+					CurColl = 0;	
+				}
+					
+				UpdateColl();		
+			}
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::SwitchComp()
@@ -340,7 +397,10 @@ void cCollectionEdit::Save()
 {
 	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
 	{
-		//Collection.SaveBinary( "Bob.coll" );
+		if( !CollectionPath.empty() )
+		{
+			Collection.SaveBinary( CollBaseDirName + CollectionPath[ CurColl ] );
+		}
 
 		IsSaved = true;
 	}

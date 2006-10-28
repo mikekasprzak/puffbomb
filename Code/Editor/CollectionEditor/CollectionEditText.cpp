@@ -114,27 +114,15 @@ void cCollectionEdit::DisplayInfo()
 		);
 	}
 
-/*	cFonts::FlangeLight.Write(
-		"Current Pose",
-		Vector3D( Global::Right - Real( 600 ), Global::Top - Real( 30 ), 0.0 ),
-		Real( 0.5 ),
-		gfx::RGBA( 100, 255, 100, 255 )
-	);
-	
-	std::stringstream Temp;
-
-	Temp << CurPose;
-
-	cFonts::FlangeLight.Write(
-		Temp.str(),
-		Vector3D( Global::Right - Real( 400 ), Global::Top - Real( 30 ), 0.0 ),
-		Real( 0.5 ),
-		gfx::RGBA( 100, 255, 100, 255 )
-	);
-
-
-	Temp.str(std::string());
-*/
+	if( !CollectionPath.empty() )
+	{
+		cFonts::FlangeLight.Write(
+			CollectionPath[ CurColl ],
+			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 60 ), 0.0 ),
+			Real( 0.5 ),
+			Gfx::RGBA( 100, 255, 100, 255 )
+		);
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::DisplayCompInfo()

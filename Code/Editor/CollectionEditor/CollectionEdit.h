@@ -48,7 +48,9 @@ public:
 	Vector2D CalcMousePos();
 	void Undo();
 	void FindCollCompPaths();
+	void UpdateColl();
 	void UpdatePreviewComp();
+	void SwitchColl();
 	void SwitchComp();
 	void SwitchMode();
 	void ActiveAction();
