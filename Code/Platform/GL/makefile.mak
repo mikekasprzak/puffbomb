@@ -87,7 +87,7 @@ PLATFORM_CONTENT:=	$(subst .png,.pack.tx,$(PLATFORM_CONTENT))
 
 # Target Component and Collection files -------------------------------------------------------- - #
 PLATFORM_CONTENT:=	$(subst .comp,.bin.comp,$(PLATFORM_CONTENT))
-PLATFORM_CONTENT:=	$(subst .coll,.bin.coll,$(PLATFORM_CONTENT))
+PLATFORM_CONTENT:=	$(subst .coll,.coll,$(PLATFORM_CONTENT))
 # - -------------------------------------------------------------------------------------------- - #
 
 # - -------------------------------------------------------------------------------------------- - #
@@ -178,6 +178,10 @@ $(RELEASE_DIR)/%.bin.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_
 
 #	$(Compress) $(DATA_DIR)/$*.bin.comp $@	
 #	chmod +x $(DATA_DIR)/$*.sh
+# - -------------------------------------------------------------------------------------------- - #
+# Collections ---------------------------------------------------------------------------------- - #
+$(RELEASE_DIR)/%.coll: Content/$(GAME_TARGET)/%.coll $(CollectionTool) $(ALL_DEPEND)
+	cp $< $@
 # - -------------------------------------------------------------------------------------------- - #
 # Specific unprocessed content ----------------------------------------------------------------- - #
 $(RELEASE_DIR)/%: Content/$(GAME_TARGET)/% $(ALL_DEPEND)

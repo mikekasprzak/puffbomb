@@ -32,7 +32,7 @@ cEngine2D::cEngine2D() {
 	
 	// Add a dummy object for testing //
 	cDynamicCollection* Dummy = new cDynamicCollection();
-	Vector2D MyOffset( 300, 0 );
+	Vector2D MyOffset( 200, 0 );
 	DynamicCollection.push_back( Dummy );
 	Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", MyOffset ) );
 
