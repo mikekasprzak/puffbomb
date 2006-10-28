@@ -21,7 +21,7 @@ public:
 	
 public:
 	inline void Draw() {
-		Object->Draw( );
+		Object->Draw( Pos );
 	}	
 	
 //	size_t StaticObjectIndex;

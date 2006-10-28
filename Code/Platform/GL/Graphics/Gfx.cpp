@@ -8,34 +8,26 @@
 namespace Gfx
 {
 	// - -------------------------------------------------------------------------------------- - //
-	void DrawMesh3d( const cLevelData* LevelData )
+	void DrawMesh3D( const std::vector< Engine2D::cMesh3D >& Mesh, const Vector3D& Offset )
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
-		for( size_t i = 0; i < LevelData->Mesh3d->Data.size(); ++i )
+		for( size_t i = 0; i < Mesh.size(); ++i )
 		{
-			cMesh3d& ThisMesh = *LevelData->Mesh3d;
+			glBindTexture( GL_TEXTURE_2D, Mesh[i].TextureID );
 			
-			// Tests to see if the VertexPointer is to new data or the same. // not needed in this version of GL //
-			//void* ObjectTest = 0;
-			//if( ObjectTest != LevelData->Mesh3d->Data[i].Vertex )
-			//{			
-			//	ObjectTest = LevelData->Mesh3d->Data[i].Vertex;
-				
-			glBindTexture( GL_TEXTURE_2D, ThisMesh.Data[i].TextureID );
-			
-			glVertexPointer(3, GL_FLOAT, 0, &(*ThisMesh.Data[i].Vertex)[0]);
-			glColorPointer(4, GL_UNSIGNED_BYTE, 0, &(*ThisMesh.Data[i].VertexColor)[0]);
-			glTexCoordPointer(2, GL_FLOAT, 0, &(*ThisMesh.Data[i].TextureCoord)[0]);
-			//}
+			glVertexPointer(3, GL_FLOAT, 0, &(*Mesh[i].Vertex)[0]);
+			glColorPointer(4, GL_UNSIGNED_BYTE, 0, &(*Mesh[i].VertexColor)[0]);
+			glTexCoordPointer(2, GL_FLOAT, 0, &(*Mesh[i].TextureCoord)[0]);
+
 			glPushMatrix();
-			glTranslatef( LevelData->Offset.x, LevelData->Offset.y, LevelData->Offset.z );
-			glDrawElements(
-				GL_TRIANGLES, ThisMesh.Data[i].Indices->Size(),
-				GL_UNSIGNED_INT, &(*ThisMesh.Data[i].Indices)[0]
-			);
+				glTranslatef( Offset.x, Offset.y, Offset.z );
+				glDrawElements(
+					GL_TRIANGLES, Mesh[i].Indices->Size(),
+					GL_UNSIGNED_INT, &(*Mesh[i].Indices)[0]
+				);
 			glPopMatrix();
 		}
 		
@@ -43,7 +35,44 @@ namespace Gfx
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	
-	}
+	}	
+	// - -------------------------------------------------------------------------------------- - //
+//	void DrawMesh3d( const cLevelData* LevelData )
+//	{
+//		glEnableClientState(GL_VERTEX_ARRAY);
+//		glEnableClientState(GL_COLOR_ARRAY);
+//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	
+//		for( size_t i = 0; i < LevelData->Mesh3d->Data.size(); ++i )
+//		{
+//			cMesh3d& ThisMesh = *LevelData->Mesh3d;
+//			
+//			// Tests to see if the VertexPointer is to new data or the same. // not needed in this version of GL //
+//			//void* ObjectTest = 0;
+//			//if( ObjectTest != LevelData->Mesh3d->Data[i].Vertex )
+//			//{			
+//			//	ObjectTest = LevelData->Mesh3d->Data[i].Vertex;
+//				
+//			glBindTexture( GL_TEXTURE_2D, ThisMesh.Data[i].TextureID );
+//			
+//			glVertexPointer(3, GL_FLOAT, 0, &(*ThisMesh.Data[i].Vertex)[0]);
+//			glColorPointer(4, GL_UNSIGNED_BYTE, 0, &(*ThisMesh.Data[i].VertexColor)[0]);
+//			glTexCoordPointer(2, GL_FLOAT, 0, &(*ThisMesh.Data[i].TextureCoord)[0]);
+//			//}
+//			glPushMatrix();
+//			glTranslatef( LevelData->Offset.x, LevelData->Offset.y, LevelData->Offset.z );
+//			glDrawElements(
+//				GL_TRIANGLES, ThisMesh.Data[i].Indices->Size(),
+//				GL_UNSIGNED_INT, &(*ThisMesh.Data[i].Indices)[0]
+//			);
+//			glPopMatrix();
+//		}
+//		
+//		glDisableClientState(GL_VERTEX_ARRAY);
+//		glDisableClientState(GL_COLOR_ARRAY);
+//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	
+//	}
 	// - -------------------------------------------------------------------------------------- - //
 	void DrawQuads(
 		const Vector3D* Vertex,

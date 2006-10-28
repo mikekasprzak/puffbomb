@@ -9,14 +9,15 @@
 #include <Util/String.h>
 #include <Util/LZMA.h>
 
+#include <Graphics/Gfx.h>
 #include <Graphics/TexturePool.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "StaticObject.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cStaticObject::Draw() {
-//	Mesh.Draw( Body );
+void cStaticObject::Draw( const Vector2D& Offset ) {
+	Gfx::DrawMesh3D( Mesh, Offset.ToVector3D() );
 }	
 // - ------------------------------------------------------------------------------------------ - //
 void cStaticObject::Load( const std::string& FileName )

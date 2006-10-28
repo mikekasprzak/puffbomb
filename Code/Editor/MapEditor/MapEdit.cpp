@@ -155,7 +155,8 @@ void cMapEdit::Draw()
 	// Draw Scenery 3D Model //
 	for( size_t idx = 0; idx < Model.size(); ++idx )
 	{
-		Gfx::DrawMesh3d( &Model[idx] );
+		// REMOVED TEMORARILY AS MICHAEL CHANGED DRAWMESH3D //
+//		Gfx::DrawMesh3d( &Model[idx] );
 
 	}
 	Gfx::DisableDepth();

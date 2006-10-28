@@ -33,9 +33,9 @@ public:
 	}
 
 public:
-	void Draw();
+	void Draw( const Vector2D& Offset = Vector2D::Zero );
+	
 	void Load( const std::string& FileName );
-
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -4,12 +4,15 @@
 #ifndef __Graphics_Gfx_H__
 #define __Graphics_Gfx_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <vector>
+// - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
 #include <Geometry/Vector.h>
 #include <Geometry/Rect.h>
 #include <Geometry/Set.h>
 
-#include <Graphics/LevelData.h>
+//#include <Graphics/LevelData.h>
+#include <Engine2D/StaticObject/Mesh3D/Mesh3D.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -23,8 +26,8 @@ namespace Gfx {
 	Gfx::Color RGB( int r, int g, int b );
 	Gfx::Color RGBA( int r, int g, int b, int a );
 
-	
-	void DrawMesh3d( const cLevelData* LevelData );
+	void DrawMesh3D( const std::vector< Engine2D::cMesh3D >& Mesh, const Vector3D& Offset );
+	//void DrawMesh3d( const cLevelData* LevelData );
 	// Draw Quads with Vertex, TexCoord and one Color //
 	void DrawQuads(
 		const Vector3D* Vertex,
