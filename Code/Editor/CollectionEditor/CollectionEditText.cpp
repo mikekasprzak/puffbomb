@@ -104,6 +104,16 @@ void cCollectionEdit::DisplayInfo()
 		Color
 	);
 
+	if( !IsSaved )
+	{
+		cFonts::FlangeLight.Write(
+			"*",
+			Vector3D( Global::Left + Real( 1 ), Global::Top - Real( 56 ), 0.0 ),
+			Real( 1.0 ),
+			Gfx::RGBA( 255, 255, 255, 255 )
+		);
+	}
+
 /*	cFonts::FlangeLight.Write(
 		"Current Pose",
 		Vector3D( Global::Right - Real( 600 ), Global::Top - Real( 30 ), 0.0 ),

@@ -41,6 +41,8 @@ void cCollectionEdit::StaticAddComp()
 		//Collection.Component[ CSize ].State.Active();
 		
 		CurSelected.push_back( Collection.Component.size() - 1 );
+		
+		ActiveAction();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -223,7 +225,8 @@ void cCollectionEdit::StaticMove()
 	if( Button[ MOUSE_1 ].Released() )
 	{
 		isGroupMove = false;
-
+		
+		ActiveAction();
 	}
 	if( isGroupMove )
 	{

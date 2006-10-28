@@ -200,6 +200,8 @@ void cCollectionEdit::DynMove()
 	if( Button[ MOUSE_1 ].Released() )
 	{
 		isGroupMove = false;
+		
+		ActiveAction();
 	}
 	if( isGroupMove )
 	{
