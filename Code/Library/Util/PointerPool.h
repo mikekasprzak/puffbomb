@@ -16,7 +16,7 @@ class cPointerPool {
 protected:
 	// STL MAP structure to reference and access the elements //
 	typedef std::map< std::string, Type* > MapType;
-	MapType PointerPool;
+	MapType Pool;
 	// What directories to search.  Populate this in your constructor. //
 	cSearchPath SearchPath;
 	
@@ -30,7 +30,7 @@ public:
 	}
 	
 	virtual ~cPointerPool() {
-		for ( typename MapType::iterator idx = PointerPool.begin(); idx != PointerPool.end(); idx++ ) {
+		for ( typename MapType::iterator idx = Pool.begin(); idx != Pool.end(); idx++ ) {
 			delete (*idx).second;
 		}	
 	}
@@ -45,7 +45,7 @@ public:
 	//   still have to do the string work, but would take up space.  Maybe necessary.  TBD. //
 	inline Type* Load( const std::string _FileName ) {
 		// If not in the PointerPool //
-		if ( PointerPool.find( _FileName ) == PointerPool.end() ) {
+		if ( Pool.find( _FileName ) == Pool.end() ) {
 			// Find the file //
 			std::string FileName = SearchPath.Find( _FileName );
 	
@@ -61,20 +61,20 @@ public:
 			}
 
 			// If we're here, then an entry was found.  Load it, and add it to the map //
-			PointerPool[ _FileName ] = new Type( FileName );
+			Pool[ _FileName ] = new Type( FileName );
 		}
 
 		// Get a reference //
-		return PointerPool[ _FileName ];
+		return Pool[ _FileName ];
 	}
 	
 	inline void Clear() {
 		// Erase all elements //
-		for ( typename MapType::iterator idx = PointerPool.begin(); idx != PointerPool.end(); idx++ ) {
+		for ( typename MapType::iterator idx = Pool.begin(); idx != Pool.end(); idx++ ) {
 			delete (*idx).second;
 		}
 		
-		PointerPool.clear();
+		Pool.clear();
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //

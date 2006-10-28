@@ -27,14 +27,17 @@ public:
 		StaticArray< Vector3D >* VertexNormal;
 		StaticArray< unsigned int >* VertexColor;
 		StaticArray< Vector2D >* TextureCoord;
+		
 		StaticArray< unsigned int >* Indices;
 		
 		StaticArray< char >* TextureName; 
+		
 		unsigned int TextureID;
 	};
 	std::vector< cData > Data;
-		
-	char * Buffer;
+	
+	// The block of binary data, as read from the file //
+	char* Buffer;
 	
 	// - -------------------------------------------------------------------------------------- - //
 	typedef Rect3D RectType;

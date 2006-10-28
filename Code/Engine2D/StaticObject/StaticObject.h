@@ -5,6 +5,7 @@
 #define __Engine2D_Engine_StaticObject_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <string>
+#include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include "StaticBody2D/StaticBody2D.h"
 // Update this one day.  This should replace the general purpose "Mesh3D" under library/graphics //
@@ -18,8 +19,11 @@ public:
 	cStaticBody2D Body;
 	
 	// Display //
-	// *Note* make display a vector, therefor supporting multiple textures (since each is only 1) //
-	cMesh3D Mesh;
+	std::vector< cMesh3D > Mesh;
+	
+	// The block of binary data, as read from the file //
+	char* Buffer;
+
 
 public:
 	cStaticObject() {
@@ -27,7 +31,12 @@ public:
 
 	cStaticObject( const std::string& File ) {
 	}
-	
+
+public:
+	inline void Draw() {
+	//	Mesh.Draw( Body );
+	}
+
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

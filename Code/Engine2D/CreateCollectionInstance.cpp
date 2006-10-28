@@ -10,6 +10,7 @@ cDynamicCollection* CreateCollectionInstance( unsigned int Id, Vector2D Pos, int
 	switch ( Id ) {
 		case 1: {
 			//return new cDynamicCollection( "Hamster.obj", Pos );
+			
 			break;
 		}
 		

@@ -17,8 +17,15 @@ public:
 	Vector2D Pos;
 
 	// Index of the contents of the instance inside the StaticObject pool //
-	size_t StaticObjectIndex;
-	std::map< std::string, cStaticObject >::iterator StaticObjectIterator;
+	cStaticObject* Object;
+	
+public:
+	inline void Draw() {
+		Object->Draw( );
+	}	
+	
+//	size_t StaticObjectIndex;
+//	std::map< std::string, cStaticObject >::iterator StaticObjectIterator;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
