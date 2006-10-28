@@ -21,7 +21,7 @@ public:
 	// Display //
 	std::vector< cMesh3D > Mesh;
 	
-	// The block of binary data, as read from the file //
+	// The block of binary Mesh, as read from the file //
 	char* Buffer;
 
 
@@ -33,9 +33,8 @@ public:
 	}
 
 public:
-	inline void Draw() {
-	//	Mesh.Draw( Body );
-	}
+	void Draw();
+	void Load( const std::string& FileName );
 
 };
 // - ------------------------------------------------------------------------------------------ - //
