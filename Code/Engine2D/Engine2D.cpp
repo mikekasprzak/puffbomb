@@ -42,6 +42,11 @@ cEngine2D::cEngine2D() {
 			DynamicComponent.push_back( &DynamicCollection[ idx ]->Component[ idx2 ] );
 		}
 	}
+	
+	// Wake up all components //
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		DynamicComponent[ idx ]->Body.Nodes.WakeUp();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::~cEngine2D() {
@@ -59,27 +64,21 @@ void cEngine2D::Step() {
 	SetActive();
 	Physics.SetActive();
 
-
-	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
-		DynamicCollection[ idx ]->Step();
-	}
-
-
 	// Physics Stage 1 -------------------------------------- //
 	// Step all the physics for all objects //
-//	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-//		if ( DynamicComponent[ idx ]->IsActive() ) { 
-//			DynamicComponent[ idx ]->Step();
-//			
-//			// Apply Impulses //
-//			for ( size_t idx2 = 0; idx2 < Impulse.size(); idx2++ ) {
-//				DynamicComponent[ idx ]->Solve( Impulse[ idx2 ] );
-//			}
-//		}
-//	}
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		if ( DynamicComponent[ idx ]->IsActive() ) {
+			DynamicComponent[ idx ]->Body.Step();
+			
+			// Apply Impulses //
+			for ( size_t idx2 = 0; idx2 < Impulse.size(); idx2++ ) {
+				DynamicComponent[ idx ]->Solve( Impulse[ idx2 ] );
+			}
+		}
+	}
 
 	// Clear Impulses //
-//	Impulse.clear();	
+	Impulse.clear();
 
 //	// Physics Stage 2 -------------------------------------- //
 //	// Run all contacts and springs twice, for cleaner results //
@@ -156,9 +155,11 @@ void cEngine2D::Draw() {
 
 	// Draw Objects //
 	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-		DynamicComponent[ idx ]->Draw();
+		if ( DynamicComponent[ idx ]->IsActive() ) { 
+			DynamicComponent[ idx ]->Draw();
+		}
 	}
-
+	
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();
 
