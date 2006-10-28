@@ -38,7 +38,7 @@ public:
 
 public:
 	cDynamicComponent();
-	cDynamicComponent( const class cDynamicCollection* const _Parent, const std::string& ComponentFile );
+	cDynamicComponent( const class cDynamicCollection* const _Parent, const std::string& ComponentFile, const Vector2D& Offset = Vector2D::Zero );
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

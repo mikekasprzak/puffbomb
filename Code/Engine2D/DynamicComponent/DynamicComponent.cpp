@@ -18,10 +18,10 @@ cDynamicComponent::cDynamicComponent( ) :
 //	AnimationSetIterator = Nurb.find("Newtar.tx");
 }
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicComponent::cDynamicComponent( const cDynamicCollection* const _Parent, const std::string& ComponentFile ) :
+cDynamicComponent::cDynamicComponent( const cDynamicCollection* const _Parent, const std::string& ComponentFile, const Vector2D& Offset ) :
 	Parent( _Parent ),
 	AnimationSet( ComponentAnimationSetPool.Load( ComponentFile ) ),
-	Body( AnimationSet->BodyPose[ 0 ] )
+	Body( AnimationSet->BodyPose[ 0 ], Offset )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -61,13 +61,13 @@ public:
 //		Pose = new cBody2DPose();
 	}
 	
-	cBody2D( cBody2DPose& _Pose ) :
+	cBody2D( cBody2DPose& _Pose, const Vector2D& Offset = Vector2D::Zero ) :
 		Pose( &_Pose )
 	{
 		Nodes.Resize( Pose->Node.size() );
 		for ( size_t idx = 0; idx < Pose->Node.size(); idx++ ) {
-			Nodes.Pos( idx ) = Pose->Node[ idx ].Pos;
-			Nodes.Old( idx ) = Pose->Node[ idx ].Pos;
+			Nodes.Pos( idx ) = Pose->Node[ idx ].Pos + Offset;
+			Nodes.Old( idx ) = Pose->Node[ idx ].Pos + Offset;
 			Nodes.Force[ idx ] = Vector2D::Zero;
 			Nodes.Friction[ idx ] = Real::Zero;
 			Nodes.InvMass( idx ) = Pose->Node[ idx ].Mass;

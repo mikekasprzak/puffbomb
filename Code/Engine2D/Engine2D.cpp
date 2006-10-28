@@ -32,8 +32,14 @@ cEngine2D::cEngine2D() {
 	
 	// Add a dummy object for testing //
 	cDynamicCollection* Dummy = new cDynamicCollection();
+	Vector2D MyOffset( 300, 0 );
 	DynamicCollection.push_back( Dummy );
-	Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp" ) );
+	Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", MyOffset ) );
+
+
+	Dummy = new cDynamicCollection();
+	DynamicCollection.push_back( Dummy );
+	Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
 	
 	
 	// Populate component list with all components //
@@ -67,7 +73,9 @@ void cEngine2D::Step() {
 	// Physics Stage 1 -------------------------------------- //
 	// Step all the physics for all objects //
 	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		// If object is active //
 		if ( DynamicComponent[ idx ]->IsActive() ) {
+			// Step Object //
 			DynamicComponent[ idx ]->Body.Step();
 			
 			// Apply Impulses //
@@ -80,9 +88,50 @@ void cEngine2D::Step() {
 	// Clear Impulses //
 	Impulse.clear();
 
-//	// Physics Stage 2 -------------------------------------- //
-//	// Run all contacts and springs twice, for cleaner results //
-//	for ( int ContactsAndSprings = 0; ContactsAndSprings < 2; ContactsAndSprings++ ) {
+	// Physics Stage 2 -------------------------------------- //
+	// Run all contacts and springs twice, for cleaner results //
+	for ( int ContactsAndSprings = 0; ContactsAndSprings < 2; ContactsAndSprings++ ) {
+		// Physics Stage 2 A -------------------------------- //
+		// For every collection //
+		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
+			// Update nodes via NodeLink springs and Anchors //
+			DynamicCollection[ idx ]->StepLinkage();
+			
+			// Update all Springs //
+			for ( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); idx2++ ) {
+				DynamicCollection[ idx ]->Component[ idx2 ].Body.StepSprings();
+			}
+		}
+
+		// Physics Stage 2 B -------------------------------- //
+		// For every component //
+		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+			// If object is active //
+			if ( DynamicComponent[ idx ]->IsActive() ) {
+				// If "IgnoreObjects" is set, move on to the next component //
+				if ( DynamicComponent[ idx ]->State.IgnoreObjects() )
+					continue;
+					
+				// For every after object //
+				for ( size_t idx2 = idx + 1; idx2 < DynamicComponent.size(); ++idx2 ) {
+					// If either object has IgnoreFamily enabled //
+					if ( DynamicComponent[ idx ]->State.IgnoreFamily() ||
+						DynamicComponent[ idx2 ]->State.IgnoreFamily() )
+					{
+						// Bail if they do share a common parent //
+						if ( DynamicComponent[ idx ]->Parent == DynamicComponent[ idx2 ]->Parent )
+							continue;
+					}
+					
+					// If the other object is active //
+					if ( DynamicComponent[ idx2 ]->IsActive() ) {
+						// Solve the collision between them //
+						DynamicComponent[ idx ]->Solve( *DynamicComponent[ idx2 ] );
+					}
+				}
+			}
+		}
+	}
 //		// Step Physics for all Springs inside each component inside this object //
 //
 //
