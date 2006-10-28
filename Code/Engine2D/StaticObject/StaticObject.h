@@ -30,6 +30,8 @@ public:
 	}
 
 	cStaticObject( const std::string& File ) {
+		Load( File );
+		//Body.GenerateCollision( Mesh[ 0 ] );
 	}
 
 public:

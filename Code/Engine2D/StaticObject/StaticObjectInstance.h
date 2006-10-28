@@ -22,10 +22,8 @@ public:
 public:
 	inline void Draw() {
 		Object->Draw( Pos );
-	}	
+	}
 	
-//	size_t StaticObjectIndex;
-//	std::map< std::string, cStaticObject >::iterator StaticObjectIterator;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
