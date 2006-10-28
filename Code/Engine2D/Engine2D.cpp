@@ -39,7 +39,8 @@ cEngine2D::cEngine2D() {
 
 	Dummy = new cDynamicCollection();
 	DynamicCollection.push_back( Dummy );
-	Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
+	//Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
+	Dummy->LoadBinary( "2D/HighFive/HighFive.coll" );
 	
 	
 	// Populate component list with all components //
