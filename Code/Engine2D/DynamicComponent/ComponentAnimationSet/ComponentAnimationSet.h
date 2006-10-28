@@ -5,6 +5,7 @@
 #define __Engine2D_Engine_DynamicComponent_ComponentAnimationSet_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
+#include <string>
 // - ------------------------------------------------------------------------------------------ - //
 #include "ComponentAnimation.h"
 #include <DynamicComponent/Mesh2D/Pose/Mesh2DPose.h>
@@ -21,6 +22,14 @@ public:
 #ifdef EDITOR	
 	std::vector< cMesh2DPose > MeshPose;
 #endif // EDITOR //
+
+public:
+	cComponentAnimationSet() {
+	}
+	
+	cComponentAnimationSet( const std::string& FileName ) {
+		LoadBinary( FileName );
+	}
 
 public:
 	// Functions for saving/loading the Binary based Component format //

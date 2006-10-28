@@ -16,13 +16,13 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cDynamicComponent {
 public:
-	// Parts of a component //
-	cBody2D Body;
-	cComponentAnimationSet* AnimationSet;	// Should *NOT* be a pointer //
-	std::map< std::string, cComponentAnimationSet >::iterator AnimationSetIterator;
-	
 	// Who our parent is //
 	const class cDynamicCollection* Parent;
+
+public:
+	// Parts of a component //
+	cComponentAnimationSet* AnimationSet;
+	cBody2D Body;
 	
 	// Activity State Flags //
 	cStateFlags State;
@@ -38,7 +38,7 @@ public:
 
 public:
 	cDynamicComponent();
-	cDynamicComponent( const class cDynamicCollection* const _Parent );
+	cDynamicComponent( const class cDynamicCollection* const _Parent, const std::string& ComponentFile );
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

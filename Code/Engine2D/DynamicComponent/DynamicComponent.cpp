@@ -5,17 +5,23 @@
 
 #include <DynamicCollection/DynamicCollection.h>
 #include "DynamicComponent.h"
+
+#include "ComponentAnimationSet/ComponentAnimationSetPool.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 // In the case of a component without a parent, if checks should be placed to stop messanging //
 cDynamicComponent::cDynamicComponent( ) :
 	Parent( 0 )
-{	
+{
+//	std::map< std::string, cComponentAnimationSet > Nurb;
+//	AnimationSetIterator = Nurb.find("Newtar.tx");
 }
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicComponent::cDynamicComponent( const cDynamicCollection* const _Parent ) :
-	Parent( _Parent )
+cDynamicComponent::cDynamicComponent( const cDynamicCollection* const _Parent, const std::string& ComponentFile ) :
+	Parent( _Parent ),
+	AnimationSet( ComponentAnimationSetPool.Load( ComponentFile ) ),
+	Body( AnimationSet->BodyPose[ 0 ] )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //

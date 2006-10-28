@@ -29,9 +29,28 @@ cEngine2D::cEngine2D() {
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )						// Height
 	 );
+	
+	// Add a dummy object for testing //
+	cDynamicCollection* Dummy = new cDynamicCollection();
+	DynamicCollection.push_back( Dummy );
+	Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp" ) );
+	
+	
+	// Populate component list with all components //
+	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
+		for ( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); idx2++ ) {
+			DynamicComponent.push_back( &DynamicCollection[ idx ]->Component[ idx2 ] );
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::~cEngine2D() {
+	// Delete the collections //
+	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
+		delete DynamicCollection[ idx ];
+	}
+	
+	// Toast our Camera //
 	delete Camera;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -40,72 +59,77 @@ void cEngine2D::Step() {
 	SetActive();
 	Physics.SetActive();
 
-/*
+
+	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
+		DynamicCollection[ idx ]->Step();
+	}
+
+
 	// Physics Stage 1 -------------------------------------- //
 	// Step all the physics for all objects //
-	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-		if ( DynamicComponent[ idx ].IsActive() ) { 
-			DynamicComponent[ idx ].Step();
-			
-			// Apply Impulses //
-			for ( size_t idx2 = 0; idx2 < Impulse.size(); idx2++ ) {
-				DynamicComponent[ idx ].Solve( Impulse[ idx2 ] );
-			}
-		}
-	}
-	
+//	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+//		if ( DynamicComponent[ idx ]->IsActive() ) { 
+//			DynamicComponent[ idx ]->Step();
+//			
+//			// Apply Impulses //
+//			for ( size_t idx2 = 0; idx2 < Impulse.size(); idx2++ ) {
+//				DynamicComponent[ idx ]->Solve( Impulse[ idx2 ] );
+//			}
+//		}
+//	}
+
 	// Clear Impulses //
-	Impulse.clear();	
+//	Impulse.clear();	
 
-	// Physics Stage 2 -------------------------------------- //
-	// Run all contacts and springs twice, for cleaner results //
-	for ( int ContactsAndSprings = 0; ContactsAndSprings < 2; ContactsAndSprings++ ) {
-		// Step Physics for all Springs inside each component inside this object //
+//	// Physics Stage 2 -------------------------------------- //
+//	// Run all contacts and springs twice, for cleaner results //
+//	for ( int ContactsAndSprings = 0; ContactsAndSprings < 2; ContactsAndSprings++ ) {
+//		// Step Physics for all Springs inside each component inside this object //
+//
+//
+//		// Step Physics for NodeLink's (i.e. global springs that connect several components) //
+////		for ( size_t idx = 0; idx < NodeLink.size(); ++idx ) {
+////			if ( NodeLink[ idx ]->IsActive() ) { 
+////				NodeLink[ idx ]->Step();
+////			}
+////		}		
+//	
+//		// ** this solving step shold solve for all components, not all objects ** //
+//	
+//		// Solve collisions for all objects //
+//		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+//			if ( DynamicComponent[ idx ]->IsActive() ) { 
+//				// Test and act versus zones //
+//				for ( size_t idx2 = 0; idx2 < Zone.size(); ++idx2 ) {
+//					DynamicComponent[ idx ].Solve( Zone[ idx2 ] );
+//				}
+//
+//				// No reason to repeat any //
+//				for ( size_t idx2 = idx + 1; idx2 < DynamicComponent.size(); ++idx2 ) {
+//					if ( DynamicComponent[ idx2 ].IsActive() ) { 
+//						// (Test and) Solve collisions between these 2 objects //
+//						DynamicComponent[ idx ].Solve( SphereObject[ idx2 ] );
+//					}
+//				}
+//				
+//				// Test versus static collision only if you're awake //
+//				if ( DynamicComponent[ idx ].IsAwake() ) {
+//					// Their statics, not part of our family.  So we sadly needs to do them all every time //
+//					for ( size_t idx2 = 0; idx2 < StaticObject.size(); ++idx2 ) {
+//						DynamicComponent[ idx ].Solve( StaticObject[ idx2 ] );
+//					}
+//				}
+//			}
+//		}
+//	}
 
-
-		// Step Physics for NodeLink's (i.e. global springs that connect several components) //
-		for ( size_t idx = 0; idx < NodeLink.size(); ++idx ) {
-			if ( NodeLink[ idx ]->IsActive() ) { 
-				NodeLink[ idx ]->Step();
-			}
-		}		
-	
-		// ** this solving step shold solve for all components, not all objects ** //
-	
-		// Solve collisions for all objects //
-		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-			if ( DynamicComponent[ idx ].IsActive() ) { 
-				// Test and act versus zones //
-				for ( size_t idx2 = 0; idx2 < Zone.size(); ++idx2 ) {
-					DynamicComponent[ idx ].Solve( Zone[ idx2 ] );
-				}
-
-				// No reason to repeat any //
-				for ( size_t idx2 = idx + 1; idx2 < DynamicComponent.size(); ++idx2 ) {
-					if ( DynamicComponent[ idx2 ].IsActive() ) { 
-						// (Test and) Solve collisions between these 2 objects //
-						DynamicComponent[ idx ].Solve( SphereObject[ idx2 ] );
-					}
-				}
-				
-				// Test versus static collision only if you're awake //
-				if ( DynamicComponent[ idx ].IsAwake() ) {
-					// Their statics, not part of our family.  So we sadly needs to do them all every time //
-					for ( size_t idx2 = 0; idx2 < StaticObject.size(); ++idx2 ) {
-						DynamicComponent[ idx ].Solve( StaticObject[ idx2 ] );
-					}
-				}
-			}
-		}
-	}
-
-	// Physics Stage 3 -------------------------------------- //	
-	// All objects have now moved.  Now to have them do and interpret what they've learned //
-	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-		if ( DynamicComponent[ idx ].IsActive() ) {
-			DynamicComponent[ idx ].Work();
-		}
-	}
+//	// Physics Stage 3 -------------------------------------- //	
+//	// All objects have now moved.  Now to have them do and interpret what they've learned //
+//	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+//		if ( DynamicComponent[ idx ].IsActive() ) {
+//			DynamicComponent[ idx ].Work();
+//		}
+//	}
 	
 	// - -------------------------------------------------------------------------------------- - //
 	// Particle Systems //
@@ -116,7 +140,7 @@ void cEngine2D::Step() {
 	// Other //
 //	Form.Step();
 
-*/
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Draw() {
@@ -127,12 +151,16 @@ void cEngine2D::Draw() {
 	SetActive();
 	Physics.SetActive();
 
-/*
+	Gfx::EnableTex2D();
+	Gfx::EnableBlend();
+
 	// Draw Objects //
 	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-		DynamicComponent[ idx ].Draw();
+		DynamicComponent[ idx ]->Draw();
 	}
-*/
+
+	Gfx::DisableTex2D();
+	Gfx::DisableBlend();
 
 	Gfx::Circle( Vector2D::Zero, Real( 25 ), Gfx::RGB( 255, 255, 255 ) );
 	
