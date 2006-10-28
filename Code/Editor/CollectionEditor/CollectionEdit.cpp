@@ -11,6 +11,7 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::cCollectionEdit() :
 	CollBaseDirName( "../../../../Content/PuffBOMB/2D/" ),
+//	CollBaseDirName( "2D/" ),
 	CompBaseDirName( "2D/" ),
 	CurColl( 0 ),
 	CurComp( 0 ),
@@ -33,13 +34,6 @@ cCollectionEdit::cCollectionEdit() :
 	{
 		Collection.LoadBinary( CollBaseDirName + CollectionPath[ CurColl ] );
 	}
-	
-/*	Collection.Component.push_back( Engine2D::cDynamicComponent() );
-	Collection.Component[ 0 ].AnimationSet = new Engine2D::cComponentAnimationSet();
-	Collection.Component[ 0 ].AnimationSet->LoadBinary( "2D/Hamster/Body/HamsterBody.bin.comp" );
-	Collection.Component[ 0 ].Body = Collection.Component[ 0 ].AnimationSet->BodyPose[ 0 ];*/
-	
-	//Collection.LoadBinary( "Bob.coll" );
 	
 	CurMode = COLL_STATIC_COMP;
 }
@@ -201,6 +195,7 @@ void cCollectionEdit::Step()
 	// Handles the zooming in and out of a map
 	Zoom( Real( 64.0 ), Camera );
 	
+	SwitchColl();
 	SwitchComp();
 	
 	SwitchMode();
@@ -266,15 +261,21 @@ void cCollectionEdit::FindCollCompPaths()
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::UpdateColl()
 {
-	for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+	if( !Collection.Component.empty() )
 	{
-		delete Collection.Component[ idx ].AnimationSet;
+		for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+		{
+			delete Collection.Component[ idx ].AnimationSet;
+		}
+		Collection.Component.clear();
+		Collection.ComponentName.clear();
 	}
-	
 	if( !CollectionPath.empty() )
 	{
 		Collection.LoadBinary( CollBaseDirName + CollectionPath[ CurColl ] );
 	}
+	
+	CurSelected.clear();	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::UpdatePreviewComp()
@@ -290,9 +291,9 @@ void cCollectionEdit::SwitchColl()
 {
 	if( IsSaved )
 	{
-		if( Button[ KEY_MINUS_PAD ].Pressed() )
+		if( !CollectionPath.empty() )
 		{
-			if( !CollectionPath.empty() )
+			if( Button[ KEY_MINUS_PAD ].Pressed() )
 			{
 				if( CurColl > 0 )
 				{
@@ -305,10 +306,7 @@ void cCollectionEdit::SwitchColl()
 				
 				UpdateColl();
 			}
-		}
-		else if( Button[ KEY_PLUS_PAD ].Pressed() )
-		{
-			if( !CollectionPath.empty() )
+			else if( Button[ KEY_PLUS_PAD ].Pressed() )
 			{
 				if( CurColl < CollectionPath.size() - 1 )
 				{
@@ -319,7 +317,7 @@ void cCollectionEdit::SwitchColl()
 					CurColl = 0;	
 				}
 					
-				UpdateColl();		
+				UpdateColl();
 			}
 		}
 	}
