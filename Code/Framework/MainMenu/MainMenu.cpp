@@ -70,9 +70,9 @@ void cMainMenu::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-	Form.Draw();
-	
 	NewParticle.Draw();
+
+	Form.Draw();
 	
 #ifdef EDITOR
 	//	//  DISPLAYS FPS  //
