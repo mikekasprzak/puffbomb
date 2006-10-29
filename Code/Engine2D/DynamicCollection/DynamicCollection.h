@@ -29,6 +29,10 @@ public:
 	cDynamicCollection() {
 	}
 	
+	cDynamicCollection( const std::string& FileName, const Vector2D& Offset = Vector2D::Zero ) {
+		LoadBinary( FileName, Offset );
+	}
+	
 	virtual ~cDynamicCollection() {
 	}
 	
@@ -75,7 +79,7 @@ public:
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	void LoadBinary( const std::string& FileName );
+	void LoadBinary( const std::string& FileName, const Vector2D& Offset = Vector2D::Zero );
 	void SaveBinary( const std::string& FileName, bool LittleEndian = true );	
 };
 // - ------------------------------------------------------------------------------------------ - //

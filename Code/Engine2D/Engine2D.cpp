@@ -4,7 +4,7 @@
 #include <Graphics/Gfx.h>
 #include <Global.h>
 
-#include "DynamicComponent/ComponentAnimationSet/ComponentAnimationSetPool.h"
+#include "CreateCollectionInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -33,16 +33,14 @@ cEngine2D::cEngine2D() {
 	 );
 	
 	// Add a dummy object for testing //
-	cDynamicCollection* Dummy = new cDynamicCollection();
-	Vector2D MyOffset( 200, 0 );
-	DynamicCollection.push_back( Dummy );
-	Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", MyOffset ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 200, 0 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 200, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( -200, 0 ) ) );
 
-
-	Dummy = new cDynamicCollection();
-	DynamicCollection.push_back( Dummy );
-	//Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
-	Dummy->LoadBinary( "2D/HighFive/HighFive.coll" );
+//	Dummy = new cDynamicCollection();
+//	DynamicCollection.push_back( Dummy );
+//	//Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
+//	Dummy->LoadBinary( "2D/HighFive/HighFive.coll" );
 	
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_Brickter.blend.mesh3d" ) );
 

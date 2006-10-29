@@ -6,7 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::LoadBinary( const std::string& FileName )
+void cDynamicCollection::LoadBinary( const std::string& FileName, const Vector2D& Offset )
 {
 	// Read Data //
 	cEndianReader In( FileName );
@@ -37,23 +37,24 @@ void cDynamicCollection::LoadBinary( const std::string& FileName )
 			
 			Log( LOG_HIGHEST_LEVEL, "ComponentName " << TmpString1 << TmpString2 );
 
-			Component[ idx ].AnimationSet = new Engine2D::cComponentAnimationSet();
-			Component[ idx ].AnimationSet->LoadBinary( TmpString1 + TmpString2 );
+			Component[ idx ] = Engine2D::cDynamicComponent( this, TmpString1 + TmpString2, Offset );
+			//Component[ idx ].AnimationSet->LoadBinary( TmpString1 + TmpString2 );
 
 			#ifdef EDITOR
 			ComponentName.push_back( TmpString2 );
 			#endif // Editor //
 			
-			Component[ idx ].Body = Component[ idx ].AnimationSet->BodyPose[ 0 ];
+			//Component[ idx ].Body = Component[ idx ].AnimationSet->BodyPose[ 0 ];
 			
 			size_t NodeSize = In.Read();
 			for( size_t idx2 = 0; idx2 < NodeSize; ++idx2 )
 			{
 				In.Read( Component[ idx ].Body.Nodes.Pos( idx2 ).x );
-				Component[ idx ].Body.Nodes.Old( idx2 ).x = Component[ idx ].Body.Nodes.Pos( idx2 ).x;
-				
 				In.Read( Component[ idx ].Body.Nodes.Pos( idx2 ).y );
-				Component[ idx ].Body.Nodes.Old( idx2 ).y = Component[ idx ].Body.Nodes.Pos( idx2 ).y;
+
+				Component[ idx ].Body.Nodes.Pos( idx2 ) += Offset;
+				
+				Component[ idx ].Body.Nodes.Old( idx2 ) = Component[ idx ].Body.Nodes.Pos( idx2 );
 			}
 		}
 	}

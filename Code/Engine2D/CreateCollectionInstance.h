@@ -12,9 +12,9 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 // Create an instance of the requested object //
 extern cDynamicCollection* CreateCollectionInstance(
-	unsigned int Id,
-	Vector2D Pos = Vector2D::Zero,
-	int Argument = 0
+	const unsigned int Id,
+	const Vector2D& Pos = Vector2D::Zero,
+	const int Argument = 0
 	);
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

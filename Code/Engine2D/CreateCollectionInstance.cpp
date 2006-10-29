@@ -2,15 +2,20 @@
 // CreateCollectionInstance //
 // - ------------------------------------------------------------------------------------------ - //
 #include "CreateCollectionInstance.h"
+
+#include "DynamicComponent/ComponentAnimationSet/ComponentAnimationSetPool.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicCollection* CreateCollectionInstance( unsigned int Id, Vector2D Pos, int Argument ) {
+cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
 		case 1: {
-			//return new cDynamicCollection( "Hamster.obj", Pos );
-			
+			return new cDynamicCollection( "2D/Hamster/Hamster.coll", Pos );
+			break;
+		}
+		case 2: {
+			return new cDynamicCollection( "2D/HighFive/HighFive.coll", Pos );
 			break;
 		}
 		
