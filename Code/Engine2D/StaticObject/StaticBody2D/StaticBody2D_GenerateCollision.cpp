@@ -32,10 +32,10 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 	
 	// Lines calculated from the collision //
 	vector< cCollisionLine > CollisionLine;
-	vector< std::vector< cCollisionLine > > Polygon;
+	vector< std::vector< cCollisionLine > > WorkingPolygon;
 	
 	//CollisionLine.clear();
-	//Polygon.clear();
+	//WorkingPolygon.clear();
 	
 	// For all polygons, get the line segments //
 	for( size_t ObjectIndex = 0; ObjectIndex < Mesh.size(); ++ObjectIndex ) {
@@ -197,11 +197,11 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 	for( size_t idx = 0; idx < CollisionLine.size(); idx++ ) {		
 		// If found an unused line, create a new polygon //
 		if ( !CollisionLine[ idx ].Used ) {
-			//Log( 10, "Object " << StaticObject.size() << " (Polygon " << idx << ")..." );
+			//Log( 10, "Object " << StaticObject.size() << " (WorkingPolygon " << idx << ")..." );
 
 			CollisionLine[ idx ].Used = true;
-			Polygon.push_back( vector< cCollisionLine >() );
-			Polygon.back().push_back( CollisionLine[ idx ] );
+			WorkingPolygon.push_back( vector< cCollisionLine >() );
+			WorkingPolygon.back().push_back( CollisionLine[ idx ] );
 				
 			// Search for my neighbours //
 			int NextLine = -1;
@@ -244,7 +244,7 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 
 			if ( NextLine != -1 ) {
 				CollisionLine[ NextLine ].Used = true;
-				Polygon.back().push_back( CollisionLine[ NextLine ] );
+				WorkingPolygon.back().push_back( CollisionLine[ NextLine ] );
 			}
 			else {
 				Log( 10, "Error!! Polygon \"NEXT\" never found!!!" );
@@ -253,7 +253,7 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 			if ( PrevLine == -1 ) {
 				Log( 10, "Error!! Polygon \"END\" never found!!!" );
 //				CollisionLine[ PrevLine ].Used = true;
-//				Polygon.front().push_back( CollisionLine[ PrevLine ] );
+//				WorkingPolygon.front().push_back( CollisionLine[ PrevLine ] );
 			}
 			
 			
@@ -287,7 +287,7 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 	
 				if ( MyNextLine != -1 ) {
 					CollisionLine[ MyNextLine ].Used = true;
-					Polygon.back().push_back( CollisionLine[ MyNextLine ] );
+					WorkingPolygon.back().push_back( CollisionLine[ MyNextLine ] );
 					NextLine = MyNextLine;
 				}
 				else {
@@ -296,19 +296,19 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 				}
 			}
 			
-			Log( 10, Polygon.back().size() << " Elements found" );
+			Log( 10, WorkingPolygon.back().size() << " Elements found" );
 		}
 	}
-	Log( 10, Polygon.size() << " Polygons found in this object" );
+	Log( 10, WorkingPolygon.size() << " Polygons found in this object" );
 
 
 	// Add Edges //
-	for( size_t idx = 0; idx < Polygon.size(); idx++ ) {
+	for( size_t idx = 0; idx < WorkingPolygon.size(); idx++ ) {
 //		// Add a new static object to the end //
-//		StaticObject.push_back( new cStaticObject( Polygon[idx].size() ) );
+//		StaticObject.push_back( new cStaticObject( WorkingPolygon[idx].size() ) );
 //
-//		for( size_t idx2 = 0; idx2 < Polygon[idx].size(); idx2++ ) {
-//			StaticObject.back()->Pos( idx2 ) = Polygon[idx][ idx2 ].a;
+//		for( size_t idx2 = 0; idx2 < WorkingPolygon[idx].size(); idx2++ ) {
+//			StaticObject.back()->Pos( idx2 ) = WorkingPolygon[idx][ idx2 ].a;
 //			StaticObject.back()->Edge[ idx2 ] = cStaticEdge( idx2, idx2 + 1 );
 //		}
 //
@@ -316,12 +316,12 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 //		StaticObject.back()->Edge.back().b = 0;
 
 		// Make room for the used nodes and edges //
-		Nodes.Resize( Nodes.Size() + Polygon[ idx ].size() );
-		this->Edge.resize( this->Edge.size() + Polygon[ idx ].size() );
+		Nodes.Resize( Nodes.Size() + WorkingPolygon[ idx ].size() );
+		this->Edge.resize( this->Edge.size() + WorkingPolygon[ idx ].size() );
 
 		// Loop through every polygon, and extract the edges //
-		for( size_t idx2 = 0; idx2 < Polygon[idx].size(); idx2++ ) {
-			Nodes.Pos( idx2 ) = Polygon[ idx ][ idx2 ].a;
+		for( size_t idx2 = 0; idx2 < WorkingPolygon[idx].size(); idx2++ ) {
+			Nodes.Pos( idx2 ) = WorkingPolygon[ idx ][ idx2 ].a;
 			this->Edge[ idx2 ] = cStaticEdge( idx2, idx2 + 1 );
 		}
 		
@@ -330,8 +330,8 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 		
 // ??		Edge.push_back( 
 
-//		this->Edge.resize( Polygon[ idx ].size() );
-//		Nodes.Resize( Polygon[ idx ].size() );
+//		this->Edge.resize( WorkingPolygon[ idx ].size() );
+//		Nodes.Resize( WorkingPolygon[ idx ].size() );
 //
 //		for ( size_t idx2 = 0; idx2 < this->Edge.size(); idx2++ ) {
 //			this->Edge[ idx2 ].CalcNormal( Nodes );
@@ -358,14 +358,14 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 	Log( 10, "" );
 
 	// Subdivide polygons in to convex polygons (not my code) //
-	for ( size_t idx = 0; idx < Polygon.size(); idx++ ) {
-		int n = Polygon[idx].size();
-		__vertex v[Polygon[idx].size()];
+	for ( size_t idx = 0; idx < WorkingPolygon.size(); idx++ ) {
+		int n = WorkingPolygon[idx].size();
+		__vertex v[WorkingPolygon[idx].size()];
 		
-		for ( size_t idx2 = 0; idx2 < Polygon[idx].size(); idx2++ ) {
-			v[idx2].x = Polygon[idx][idx2].a.x;
-			v[idx2].y = Polygon[idx][idx2].a.y;
-			v[idx2].z = 0;//Polygon[idx][idx2].a.z;
+		for ( size_t idx2 = 0; idx2 < WorkingPolygon[idx].size(); idx2++ ) {
+			v[idx2].x = WorkingPolygon[idx][idx2].a.x;
+			v[idx2].y = WorkingPolygon[idx][idx2].a.y;
+			v[idx2].z = 0;//WorkingPolygon[idx][idx2].a.z;
 		}
 		
 		{
