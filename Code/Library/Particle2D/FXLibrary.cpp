@@ -9,7 +9,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void FXLibrary::Explosion1( const Vector2D& Pos )
+/*void FXLibrary::Explosion1( const Vector2D& Pos )
 {
 //	int AdditiveParticles = NewParticle.Allocate( 480, true );
 	int AdditiveParticles = NewParticle.Allocate( 320, true );
@@ -318,7 +318,7 @@ void FXLibrary::Steam( const Vector2D& Pos, const Vector2D& Direction )
 		255,						// Alpha //
 		60							// Fade // What time to start fading //
 	);
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::OutlineTest( const Vector2D& Pos )
 {

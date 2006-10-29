@@ -14,6 +14,8 @@ private:
 	cCamera* Camera;
 public:
 	cForm Form;
+	
+	int LastTime;
 
 	cMainMenu();
 	~cMainMenu();

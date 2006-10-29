@@ -6,6 +6,15 @@
 #include <Global.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
+// DELETE THIS WHEN YOU GET SICK OF THE RANDOM PARTICLE SHIT //
+#include <Particle2D/FXLibrary.h>
+#include <Particle2D/NewParticleFactory.h>
+
+#include <stdlib.h>
+#include <time.h>
+
+extern int GetTime();
+// - ------------------------------------------------------------------------------------------ - //
 cMainMenu::cMainMenu()
 {
 	// Create Camera //
@@ -27,7 +36,11 @@ cMainMenu::cMainMenu()
 	 );
 	
 	Form.Load( "2D/Menu/MainMenu.form" );
-
+	
+	LastTime = GetTime();
+	
+	srand ( time(NULL) );
+	
 	Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -50,7 +63,9 @@ void cMainMenu::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-	Form.Draw();	
+	Form.Draw();
+	
+	NewParticle.Draw();
 	
 	Gfx::EnableDepth();
 	Gfx::DisableTex2D();
@@ -65,5 +80,17 @@ void cMainMenu::Step()
 	{
 		BreakLoop = true;	
 	}
+	
+	if( LastTime < GetTime() )
+	{
+		int XPos = rand() % int( Global::ScreenW ) - int( Global::Right );
+		int YPos = rand() % int( Global::ScreenH ) - int( Global::Top );
+		
+		FXLibrary::OutlineTest( Vector2D( XPos, YPos ) );
+		
+		LastTime = GetTime() + 50;
+	}
+	
+	NewParticle.Step();
 }
 // - ------------------------------------------------------------------------------------------ - //

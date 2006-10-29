@@ -18,12 +18,12 @@ public:
 		
 	}
 	
-	static void Explosion1( const Vector2D& Pos );
+/*	static void Explosion1( const Vector2D& Pos );
 	static void Explosion2( const Vector2D& Pos );
 	static void Shot1( const Vector2D& Pos );
 	static void MuzzleFlash( const Vector2D& Pos, const Vector2D& Direction );
 	static void Smoke1( const Vector2D& Pos );
-	static void Steam( const Vector2D& Pos, const Vector2D& Direction );
+	static void Steam( const Vector2D& Pos, const Vector2D& Direction );*/
 	static void OutlineTest( const Vector2D& Pos );
 };
 // - ------------------------------------------------------------------------------------------ - //
