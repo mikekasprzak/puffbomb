@@ -86,9 +86,9 @@ void cMainMenu::Step()
 		int XPos = rand() % int( Global::ScreenW ) - int( Global::Right );
 		int YPos = rand() % int( Global::ScreenH ) - int( Global::Top );
 		
-		FXLibrary::OutlineTest( Vector2D( XPos, YPos ) );
+		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
 		
-		LastTime = GetTime() + 50;
+		LastTime = GetTime() + 30;
 	}
 	
 	NewParticle.Step();

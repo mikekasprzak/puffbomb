@@ -24,6 +24,8 @@ public:
 	static void MuzzleFlash( const Vector2D& Pos, const Vector2D& Direction );
 	static void Smoke1( const Vector2D& Pos );
 	static void Steam( const Vector2D& Pos, const Vector2D& Direction );*/
+	
+	static void CrazyTest( const Vector2D& Pos );
 	static void OutlineTest( const Vector2D& Pos );
 };
 // - ------------------------------------------------------------------------------------------ - //
