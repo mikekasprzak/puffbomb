@@ -6,11 +6,12 @@
 
 #include "CreateCollectionInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
+#ifdef EDITOR
 // For FPS test //
 #include <Font/Fonts.h>
 #include <sstream>
 // ------------ //
-
+#endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -225,6 +226,7 @@ void cEngine2D::Draw() {
 		StaticObjectInstance[ idx ].Draw();
 	}
 	
+#ifdef EDITOR
 	//	//  DISPLAYS FPS  //
 	std::stringstream Temp;
 	Temp << Global::FPS;
@@ -232,9 +234,9 @@ void cEngine2D::Draw() {
 	
 	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
 
-	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 184, 0, 0, 255 ) );
+	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
 	// -------------- //
-
+#endif // EDITOR //
 
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();
