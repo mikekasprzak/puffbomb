@@ -42,11 +42,11 @@ cCollectionEdit::cCollectionEdit() :
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::~cCollectionEdit()
 {
-	for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+	/*for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 	{
 		delete Collection.Component[ idx ].AnimationSet;
-	}
-
+	}*/
+	
 	delete Component.AnimationSet;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -265,10 +265,10 @@ void cCollectionEdit::UpdateColl()
 {
 	if( !Collection.Component.empty() )
 	{
-		for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+		/*for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 		{
 			delete Collection.Component[ idx ].AnimationSet;
-		}
+		}*/
 		Collection.Component.clear();
 		Collection.ComponentName.clear();
 	}
