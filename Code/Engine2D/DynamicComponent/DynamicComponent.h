@@ -66,7 +66,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Solve Collisions/Actions //
 	void Solve( cDynamicComponent& _Vs );
-	void Solve( class cStaticObject& _Vs );
+	void Solve( class cStaticObjectInstance& _Vs );
 	void Solve( class cPassiveObject& _Vs );
 	void Solve( class cZone& _Vs );
 	void Solve( class cImpulse& _Vs );

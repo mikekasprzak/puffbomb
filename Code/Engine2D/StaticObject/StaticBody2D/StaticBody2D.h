@@ -11,6 +11,8 @@
 #include "StaticNodes.h"
 #include "Constraints/StaticEdge.h"
 #include "Constraints/StaticPolygon.h"
+
+#include "../Mesh3D/Mesh3D.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -36,7 +38,7 @@ public:
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Generate some 2D collision from a 3D mesh //
-	void GenerateCollision( const class cMesh3D& _Mesh );
+	void GenerateCollision( const std::vector< cMesh3D >& Mesh );
 	
 public:
 	// - -------------------------------------------------------------------------------------- - //

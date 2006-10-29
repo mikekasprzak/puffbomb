@@ -2,11 +2,11 @@
 #include <Util/Debug.h>
 
 #include <DynamicComponent/DynamicComponent.h>
-#include <StaticObject/StaticObject.h>
+#include <StaticObject/StaticObjectInstance.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicComponent::Solve( cStaticObject& _Vs ) {
+void cDynamicComponent::Solve( cStaticObjectInstance& _Vs ) {
 	// If I'm more than simply active //
 	if ( !State.OnlyActive() ) {
 		// If I'm ignoring scenery, bail//
@@ -21,7 +21,7 @@ void cDynamicComponent::Solve( cStaticObject& _Vs ) {
 	}
 	
 	// Solve the collision //
-	Body.Solve( _Vs.Body ); 
+	Body.Solve( _Vs.Object->Body, _Vs.Pos ); 
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

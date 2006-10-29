@@ -120,27 +120,35 @@ void cEngine2D::Step() {
 		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
 			// If object is active //
 			if ( DynamicComponent[ idx ]->IsActive() ) {
-				// If "IgnoreObjects" is set, move on to the next component //
-				if ( DynamicComponent[ idx ]->State.IgnoreObjects() )
-					continue;
-					
-				// For every after object //
-				for ( size_t idx2 = idx + 1; idx2 < DynamicComponent.size(); ++idx2 ) {
-					// If either object has IgnoreFamily enabled //
-					if ( DynamicComponent[ idx ]->State.IgnoreFamily() ||
-						DynamicComponent[ idx2 ]->State.IgnoreFamily() )
-					{
-						// Bail if they do share a common parent //
-						if ( DynamicComponent[ idx ]->Parent == DynamicComponent[ idx2 ]->Parent )
-							continue;
-					}
-					
-					// If the other object is active //
-					if ( DynamicComponent[ idx2 ]->IsActive() ) {
-						// Solve the collision between them //
-						DynamicComponent[ idx ]->Solve( *DynamicComponent[ idx2 ] );
+				// If "IgnoreObjects" is set, don't test versus components //
+				if ( !DynamicComponent[ idx ]->State.IgnoreObjects() ) {
+					// For every after object //
+					for ( size_t idx2 = idx + 1; idx2 < DynamicComponent.size(); ++idx2 ) {
+						// If either object has IgnoreFamily enabled //
+						if ( DynamicComponent[ idx ]->State.IgnoreFamily() ||
+							DynamicComponent[ idx2 ]->State.IgnoreFamily() )
+						{
+							// Bail if they do share a common parent //
+							if ( DynamicComponent[ idx ]->Parent == DynamicComponent[ idx2 ]->Parent )
+								continue;
+						}
+						
+						// If the other object is active //
+						if ( DynamicComponent[ idx2 ]->IsActive() ) {
+							// Solve the collision between them //
+							DynamicComponent[ idx ]->Solve( *DynamicComponent[ idx2 ] );
+						}
 					}
 				}
+				
+				// if "IgnoreScenery" is set, don't test versus static objects //
+				if ( !DynamicComponent[ idx ]->State.IgnoreScenery() ) {
+					// For every piece of static collision //
+					for ( size_t idx2 = 0; idx2 < StaticObjectInstance.size(); ++idx2 ) {
+						DynamicComponent[ idx ]->Solve( StaticObjectInstance[ idx2 ] );
+					}
+				}
+				
 			}
 		}
 	}
