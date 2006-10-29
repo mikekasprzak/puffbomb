@@ -11,7 +11,7 @@ class cFonts
 public:
 	cFonts();
 	
-	static cFont ComicSansMS;
+//	static cFont ComicSansMS;
 	static cFont FlangeLight;
 	static void LoadFonts();
 	
