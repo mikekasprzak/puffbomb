@@ -5,7 +5,6 @@
 #include <Global.h>
 
 #include "DynamicComponent/ComponentAnimationSet/ComponentAnimationSetPool.h"
-#include "StaticObject/StaticObjectPool.h"
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -45,16 +44,11 @@ cEngine2D::cEngine2D() {
 	//Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
 	Dummy->LoadBinary( "2D/HighFive/HighFive.coll" );
 	
-	StaticObjectInstance.push_back( cStaticObjectInstance() );
-	StaticObjectInstance.back().Object = StaticObjectPool.Load( "Tile_Brickter.blend.mesh3d" );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_Brickter.blend.mesh3d" ) );
 
-	StaticObjectInstance.push_back( cStaticObjectInstance() );
-	StaticObjectInstance.back().Object = StaticObjectPool.Load( "Tile_BrickterPaste.blend.mesh3d" );
-	StaticObjectInstance.back().Pos = Vector2D( 200, 0 );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 200, 0 )) );
 
-	StaticObjectInstance.push_back( cStaticObjectInstance() );
-	StaticObjectInstance.back().Object = StaticObjectPool.Load( "Tile_BrickterPaste.blend.mesh3d" );
-	StaticObjectInstance.back().Pos = Vector2D( 400, 0 );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 400, 0 )) );
 	
 	
 	// Populate component list with all components //
