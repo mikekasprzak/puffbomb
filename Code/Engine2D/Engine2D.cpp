@@ -47,11 +47,11 @@ cEngine2D::cEngine2D() {
 //	//Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
 //	Dummy->LoadBinary( "2D/HighFive/HighFive.coll" );
 	
-	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.blend.mesh3d", Vector2D( 0, 0 ) ) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.blend.mesh3d", Vector2D( 0, -400 ) ) );
 
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_Brickter.blend.mesh3d", Vector2D( 200, 0 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 200, -400 )) );
 
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 400, 0 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 400, -420 )) );
 	
 	
 	// Populate component list with all components //
@@ -249,6 +249,11 @@ void cEngine2D::Draw() {
 	Gfx::DisableTex2D();
 	Gfx::DisableDepth();
 	Gfx::DisableBlend();
+
+	// Draw Objects //
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		DynamicComponent[ idx ]->DrawBody();
+	}
 
 	// Draw Tiles //
 	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
