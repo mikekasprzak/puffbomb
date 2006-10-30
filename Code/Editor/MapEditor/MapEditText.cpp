@@ -11,19 +11,23 @@
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayText()
 {
-/*	if( CurMode == COLL_STATIC_COMP )
+/*	if( CurMode == TILE_MODE )
 	{
 
 	}
-	else if( CurMode == COLL_DYNAMIC_COMP )
+	else if( CurMode == ZONE_MODE )
 	{
 		
 	}
-	else if( CurMode == COLL_NODE_LINK )
+	else if( CurMode == OBJECT_MODE )
 	{
 		
 	}
-	else if( CurMode == COLL_HARD_NODE )
+	else if( CurMode == FREE_OBJECT_MODE )
+	{
+		
+	}	
+	else if( CurMode == PASSIVE_OBJECT_MODE )
 	{
 		
 	}*/
