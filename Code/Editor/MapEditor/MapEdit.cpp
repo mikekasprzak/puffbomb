@@ -36,7 +36,7 @@ cMapEdit::cMapEdit()/* :
 		Collection.LoadBinary( CollBaseDirName + CollectionPath[ CurColl ] );
 	}
 	*/
-	CurMode = ZONE_MODE;
+	CurMode = TILE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::~cMapEdit()
@@ -56,8 +56,6 @@ void cMapEdit::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	Gfx::EnableDepth();
-
-	Gfx::DisableDepth();
 
 /*	// Draw our collection //
 	Collection.Draw();
@@ -109,11 +107,14 @@ void cMapEdit::Draw()
 			}
 		}
 	}*/
+
+	Gfx::DisableTex2D();
+	Gfx::DisableDepth();
+		
 	Gfx::SetLineWidth( 1.0 );
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 	
-		
 	DrawSelBox();
 
 	Gfx::DisableBlend();
@@ -128,8 +129,8 @@ void cMapEdit::HudDraw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
-/*	DisplayText();
-	
+	DisplayText();
+/*	
 	Gfx::PushMatrix();
 	{
 		Gfx::Translate( Global::Right - Real( 256 ), Global::Bottom + Real( 256 ), 0 );
@@ -189,11 +190,11 @@ void cMapEdit::Step()
 	}
 	SwitchColl();
 	SwitchComp();
-	
+*/	
 	SwitchMode();
 	
 	Save();
-*/
+
 	// Handles scrolling around the map
 	Scroll( Camera );
 	
@@ -290,29 +291,33 @@ void cMapEdit::SwitchComp()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SwitchMode()
 {	
-/*	unsigned int LastMode = CurMode;
+	unsigned int LastMode = CurMode;
 
 	if( Button[ KEY_1 ].Pressed() )
 	{
-		CurMode = COLL_STATIC_COMP;
+		CurMode = TILE_MODE;
 	}
 	else if( Button[ KEY_2 ].Pressed() )
 	{
-		CurMode = COLL_DYNAMIC_COMP;
+		CurMode = ZONE_MODE;
 	}
 	else if( Button[ KEY_3 ].Pressed() )
 	{
-		CurMode = COLL_NODE_LINK;
+		CurMode = OBJECT_MODE;
 	}
 	else if( Button[ KEY_4 ].Pressed() )
 	{
-		CurMode = COLL_HARD_NODE;
+		CurMode = FREE_OBJECT_MODE;
+	}
+	else if( Button[ KEY_5 ].Pressed() )
+	{
+		CurMode = PASSIVE_OBJECT_MODE;
 	}
 	
 	if( LastMode != CurMode )
 	{
 		CurSelected.clear();
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ActiveAction()
@@ -322,15 +327,15 @@ void cMapEdit::ActiveAction()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Save()
 {
-/*	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
+	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
 	{
-		if( !CollectionPath.empty() )
+		/*if( !CollectionPath.empty() )
 		{
 			Collection.SaveBinary( CollBaseDirName + CollectionPath[ CurColl ] );
-		}
+		}*/
 
 		IsSaved = true;
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

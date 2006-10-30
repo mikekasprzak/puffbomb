@@ -17,11 +17,11 @@
 #include <Graphics/Camera.h>
 #include "Editor/Edit.h"
 // - ------------------------------------------------------------------------------------------ - //
-#define OBJECT_MODE 1
-#define FREE_OBJECT_MODE 2
-#define PASSIVE_OBJECT_MODE 3
-#define ZONE_MODE 4
-#define TILE_MODE 5
+#define TILE_MODE 1
+#define ZONE_MODE 2
+#define OBJECT_MODE 3
+#define FREE_OBJECT_MODE 4
+#define PASSIVE_OBJECT_MODE 5
 // - ------------------------------------------------------------------------------------------ - //
 class cMapEdit : public cEdit {
 public:
@@ -57,10 +57,10 @@ public:
 		
 public:
 	// MapEditText.cpp //
-//	void DisplayText();
-//	void DisplayMode();
-//	void DisplayInfo();
-//	void DisplayMapInfo();
+	void DisplayText();
+	void DisplayMode();
+	void DisplayInfo();
+	void DisplayMapInfo();
 
 };
 // - ------------------------------------------------------------------------------------------ - //
