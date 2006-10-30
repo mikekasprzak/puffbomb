@@ -39,20 +39,12 @@ cEngine2D::cEngine2D() {
 	
 	// Add a dummy object for testing //
 	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 200, 0 ) ) );
-	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 200, 200 ) ) );
-	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( -200, 0 ) ) );
-
-//	Dummy = new cDynamicCollection();
-//	DynamicCollection.push_back( Dummy );
-//	//Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
-//	Dummy->LoadBinary( "2D/HighFive/HighFive.coll" );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 200, 120 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 50, 0 ) ) );
 	
-	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.blend.mesh3d", Vector2D( 0, -400 ) ) );
-
+	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.blend.mesh3d", Vector2D( 0, 0 ) ) );
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 200, -400 )) );
-
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 400, -420 )) );
-	
 	
 	// Populate component list with all components //
 	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
@@ -152,52 +144,22 @@ void cEngine2D::Step() {
 			}
 		}
 	}
-//		// Step Physics for all Springs inside each component inside this object //
-//
-//
-//		// Step Physics for NodeLink's (i.e. global springs that connect several components) //
-////		for ( size_t idx = 0; idx < NodeLink.size(); ++idx ) {
-////			if ( NodeLink[ idx ]->IsActive() ) { 
-////				NodeLink[ idx ]->Step();
-////			}
-////		}		
-//	
-//		// ** this solving step shold solve for all components, not all objects ** //
-//	
-//		// Solve collisions for all objects //
-//		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-//			if ( DynamicComponent[ idx ]->IsActive() ) { 
-//				// Test and act versus zones //
-//				for ( size_t idx2 = 0; idx2 < Zone.size(); ++idx2 ) {
-//					DynamicComponent[ idx ].Solve( Zone[ idx2 ] );
-//				}
-//
-//				// No reason to repeat any //
-//				for ( size_t idx2 = idx + 1; idx2 < DynamicComponent.size(); ++idx2 ) {
-//					if ( DynamicComponent[ idx2 ].IsActive() ) { 
-//						// (Test and) Solve collisions between these 2 objects //
-//						DynamicComponent[ idx ].Solve( SphereObject[ idx2 ] );
-//					}
-//				}
-//				
-//				// Test versus static collision only if you're awake //
-//				if ( DynamicComponent[ idx ].IsAwake() ) {
-//					// Their statics, not part of our family.  So we sadly needs to do them all every time //
-//					for ( size_t idx2 = 0; idx2 < StaticObject.size(); ++idx2 ) {
-//						DynamicComponent[ idx ].Solve( StaticObject[ idx2 ] );
-//					}
-//				}
-//			}
-//		}
-//	}
 
-//	// Physics Stage 3 -------------------------------------- //	
-//	// All objects have now moved.  Now to have them do and interpret what they've learned //
+	// Physics Stage 3 -------------------------------------- //	
+	// Components Interact with Zones and Passives once, since previous is a relaxation loop //
 //	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-//		if ( DynamicComponent[ idx ].IsActive() ) {
-//			DynamicComponent[ idx ].Work();
+//		// If object is active //
+//		if ( DynamicComponent[ idx ]->IsActive() ) {
 //		}
 //	}
+	
+	// Physics Stage 4 -------------------------------------- //	
+	// All objects have now moved.  Now to have them do and interpret what they've learned //
+	for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
+		//if ( DynamicCollection[ idx ].IsActive() ) {
+			DynamicCollection[ idx ]->Work();
+		//}
+	}
 	
 	// - -------------------------------------------------------------------------------------- - //
 	// Particle Systems //
