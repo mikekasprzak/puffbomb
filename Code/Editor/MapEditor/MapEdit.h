@@ -26,14 +26,9 @@
 class cMapEdit : public cEdit {
 public:
 	// Construct, and require an associated SphereObject //
-//	cMapEdit( cGame& _Game, cMesh2DEdit& _Mesh2DEdit );
-//	cMapEdit( cGame& _Game );
 	cMapEdit();
 
 public:
-//	cGame* Game;
-//	cMesh2DEdit* Mesh2DEdit;
-	
 	std::string MapName;
 	std::string DirMapName;
 	//std::string MapModel;
@@ -44,8 +39,8 @@ public:
 	std::vector< cLevelData > Model;
 	std::vector< std::string > ModelName;
 	
-	Real GameZoom;
-	Vector2D Focus;
+//	Real GameZoom;
+//	Vector2D Focus;
 	
 	int CurMesh;
 	
@@ -63,12 +58,12 @@ public:
 		
 //	Vector2D OldMousePos;
 	
-	int Focus1;
-	int Focus2;
+//	int Focus1;
+//	int Focus2;
 	
 //	bool SnapToGrid;
 //	bool isGroupMove;
-	bool isPaste;
+//	bool isPaste;
 //	bool isSaved;
 
 	unsigned int CurZone;
@@ -94,7 +89,7 @@ public:
 	
 	Vector2D CalcMousePos();
 	void DrawSelected();
-	void DrawSelBox();
+//	void DrawSelBox();
 	
 	void SelectObject();
 	int SingleSelect( Vector2D &CurMousePos );

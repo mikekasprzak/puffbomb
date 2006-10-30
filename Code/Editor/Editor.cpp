@@ -10,6 +10,7 @@ cEditor::cEditor()
 {
 	CollectionEdit = new cCollectionEdit();
 	ComponentEdit = new cComponentEdit();
+	MapEdit = new cMapEdit();
 //	AnimationEdit = new cAnimationEdit();
 
 	CurEditor = COMPONENT_EDITOR;
@@ -24,13 +25,15 @@ cEditor::~cEditor()
 	delete CollectionEdit;
 	Log( LOG_HIGHEST_LEVEL, "Delete Component Editor" );
 	delete ComponentEdit;
+	Log( LOG_HIGHEST_LEVEL, "Delete Map Editor" );
+	delete MapEdit;
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Step()
 {
-/*	if( CurEditor == MAP_EDITOR )
+	if( CurEditor == MAP_EDITOR )
 	{
-		if( MapEdit->IsHelp )
+/*		if( MapEdit->IsHelp )
 		{
 			// Handles scrolling around the map
 			MapEdit->Scroll( MapEdit->Camera );
@@ -39,12 +42,12 @@ void cEditor::Step()
 			MapEdit->Zoom( Real( 256.0 ), MapEdit->Camera );
 
 		}
-		else
+		else*/
 		{
 			MapEdit->Step();
 		}
 	}
-	else */
+	else 
 	if( CurEditor == COLLECTION_EDITOR )
 	{
 		CollectionEdit->Step();
@@ -121,10 +124,10 @@ void cEditor::Draw()
 			glDisable(GL_TEXTURE_2D);
 
 		}
-		else
+		else*/
 		{
 			MapEdit->Draw();
-		}*/
+		}
 	}
 	else if( CurEditor == COLLECTION_EDITOR )
 	{

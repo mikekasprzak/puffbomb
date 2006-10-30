@@ -30,13 +30,13 @@ using namespace Input;
 //cMapEdit::cMapEdit( cGame& _Game ) : // Removed because of game dependency //
 //	Game( &_Game ),
 cMapEdit::cMapEdit() :
-	GameZoom( 0.0 ),
+//	GameZoom( 0.0 ),
 	CurMesh( 0 ),
 	SceneryIdx( -1 ),
 	CurrentObject( 0 ),
-	Focus1( 0 ),
-	Focus2( 0 ),
-	isPaste( false ),
+//	Focus1( 0 ),
+//	Focus2( 0 ),
+//	isPaste( false ),
 	CurZone( 0 ),
 	CornerSize( 128 ),
 	ResizeCorner( 0 )
@@ -58,7 +58,7 @@ cMapEdit::cMapEdit() :
 
 //	LoadZoneDesc();
 	
-	CurMode = ZONE_MODE;
+	CurMode = TILE_MODE;
 
 }	
 // - ------------------------------------------------------------------------------------------ - //	
@@ -68,90 +68,11 @@ cMapEdit::~cMapEdit()
 
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMapEdit::Step()
-{
-	// Handles scrolling around the map
-	Scroll( Camera );
-	
-	// Handles the zooming in and out of a map
-	Zoom( Real( 256.0 ), Camera );
-	
-	// Toggles the physics 
-	Physics();
-
-	if( CurMode == OBJECT_MODE )
-	{
-		
-		AddObject();
-		PasteObject();
-		
-		SwitchMesh();
-	
-		Undo();
-
-		if( !MapObject.empty() )
-		{
-			if( !isGroupMove )
-			{
-				SelectObject();
-			}
-			CopyObject();
-			
-			MoveObject();
-			
-			DeleteObject();
-		}
-
-	}
-	else if( CurMode == ZONE_MODE )
-	{
-		SwitchZone();
-		
-		if( !isGroupMove )
-		{
-			ResizeZone();
-		}
-		if( ResizeCorner == 0 )
-		{
-			if( !isGroupMove )
-			{
-				SelectZone();
-			}
-			MoveZone();
-		}
-		AddZone();
-		DeleteZone();
-		ChangeID();
-		ChangeArg();
-
-	}
-	else if( CurMode == TILE_MODE )
-	{
-		SwitchModel();
-		
-		AddModel();
-		DeleteModel();
-		
-		if( !isGroupMove )
-		{
-			SelectModel();
-		}
-		MoveModel();
-
-	}
-	SaveMap( DirMapName.c_str() );
-	
-	if( !isGroupMove )
-	{
-		SwitchMode();
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Draw()
 {
 	Gfx::EnableTex2D();
-	Gfx::EnableDepth();
 	Gfx::EnableBlend();
+	Gfx::EnableDepth();
 	
 	// Draw Scenery 3D Model //
 	for( size_t idx = 0; idx < Model.size(); ++idx )
@@ -270,6 +191,85 @@ void cMapEdit::HudDraw()
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
 */
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::Step()
+{
+	// Handles scrolling around the map
+	Scroll( Camera );
+	
+	// Handles the zooming in and out of a map
+	Zoom( Real( 256.0 ), Camera );
+	
+	// Toggles the physics 
+//	Physics();
+
+	if( CurMode == OBJECT_MODE )
+	{
+		
+		AddObject();
+		PasteObject();
+		
+		SwitchMesh();
+	
+		Undo();
+
+		if( !MapObject.empty() )
+		{
+			if( !isGroupMove )
+			{
+				SelectObject();
+			}
+			CopyObject();
+			
+			MoveObject();
+			
+			DeleteObject();
+		}
+
+	}
+	else if( CurMode == ZONE_MODE )
+	{
+		SwitchZone();
+		
+		if( !isGroupMove )
+		{
+			ResizeZone();
+		}
+		if( ResizeCorner == 0 )
+		{
+			if( !isGroupMove )
+			{
+				SelectZone();
+			}
+			MoveZone();
+		}
+		AddZone();
+		DeleteZone();
+		ChangeID();
+		ChangeArg();
+
+	}
+	else if( CurMode == TILE_MODE )
+	{
+		SwitchModel();
+		
+		AddModel();
+		DeleteModel();
+		
+		if( !isGroupMove )
+		{
+			SelectModel();
+		}
+		MoveModel();
+
+	}
+	SaveMap( DirMapName.c_str() );
+	
+	if( !isGroupMove )
+	{
+		SwitchMode();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Draw2D()
@@ -414,7 +414,7 @@ void cMapEdit::DrawSelected()
 	*/
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMapEdit::DrawSelBox()
+/*void cMapEdit::DrawSelBox()
 {
 //	if( Button[ MOUSE_1 ].Pressed() )
 //	{
@@ -439,7 +439,7 @@ void cMapEdit::DrawSelBox()
 //			}
 //		}
 //	}
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cMapEdit::CalcMousePos()
 {

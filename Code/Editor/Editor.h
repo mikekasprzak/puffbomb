@@ -27,7 +27,7 @@ public:
 	~cEditor();
 
 public:
-//	cMapEdit* MapEdit;
+	cMapEdit* MapEdit;
 	cCollectionEdit* CollectionEdit;
 	cComponentEdit* ComponentEdit;
 //	cAnimationEdit* AnimationEdit;
