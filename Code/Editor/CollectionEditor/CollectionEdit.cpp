@@ -13,7 +13,6 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::cCollectionEdit() :
 	CollBaseDirName( "../../../../Content/PuffBOMB/2D/" ),
-//	CollBaseDirName( "2D/" ),
 	CompBaseDirName( "2D/" ),
 	CurColl( 0 ),
 	CurComp( 0 ),

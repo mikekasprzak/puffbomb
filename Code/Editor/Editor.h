@@ -8,14 +8,12 @@
 
 
 // - ------------------------------------------------------------------------------------------ - //
-//#include "Game.h"
 #include <Geometry/Vector.h>
 
 #include "MapEditor/MapEdit.h"
 #include "CollectionEditor/CollectionEdit.h"
 #include "ComponentEditor/ComponentEdit.h"
 #include "AnimationEditor/AnimationEdit.h"
-//#include "Mesh2DEditor/Mesh2DEdit.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include <MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -26,12 +24,9 @@ public:
 public:
 	// Construct, and require an associated object //
 	cEditor();
-//	cEditor( cGame& _Game );
 	~cEditor();
 
 public:
-//	cGame* Game;
-
 //	cMapEdit* MapEdit;
 	cCollectionEdit* CollectionEdit;
 	cComponentEdit* ComponentEdit;
