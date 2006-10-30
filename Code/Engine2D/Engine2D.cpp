@@ -29,22 +29,22 @@ cEngine2D::cEngine2D() {
 		1.0,											// NearClip
 		100000.0,										// FarClip
 		Global::HudZoom,								// MinZoom
-		Global::HudZoom + Real( 8000 ),				// MaxZoom
+		Global::HudZoom + Real( 8000 ),					// MaxZoom
 		Global::HudZoom,								// HudZoom
 		Real( 0 ),										// X
 		Real( 0 ),										// Y
 		Real( Global::ScreenW ),						// Width
-		Real( Global::ScreenH )						// Height
+		Real( Global::ScreenH )							// Height
 	 );
 	
 	// Add a dummy object for testing //
-	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 200, 0 ) ) );
-	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 200, 120 ) ) );
-	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 50, 0 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 200, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 120, 400 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( -200, 200 ) ) );
 	
-	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.blend.mesh3d", Vector2D( 0, 0 ) ) );
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 200, -400 )) );
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 400, -420 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.blend.mesh3d", Vector2D( -100, -150 ) ) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 100, -150 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 0, -100 )) );
 	
 	// Populate component list with all components //
 	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {

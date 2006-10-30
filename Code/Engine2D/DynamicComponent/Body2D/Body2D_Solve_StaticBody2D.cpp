@@ -10,11 +10,11 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 	std::vector< cSphere >& Sphere = Pose->Sphere;
 
 	// Test Bounding Rectangles //
-	if ( (BoundingRect - _Offset) != _Vs.BoundingRect )
+	if ( BoundingRect != (_Vs.BoundingRect + _Offset) )
 		return;
 
 	// Find overlap Region //		
-	cPhysics::BoundingRectType OverlapRect = (BoundingRect - _Offset) - _Vs.BoundingRect;
+	cPhysics::BoundingRectType OverlapRect = BoundingRect - (_Vs.BoundingRect + _Offset);
 
 	// Find all spheres //
 	std::vector< int > SphereIndex;							// Store this Vector in thread/worker //
@@ -22,8 +22,8 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 	for ( size_t idx = 0; idx < Sphere.size(); idx++ ) {
 		// Make a rectangle for the sphere //
 		cPhysics::BoundingRectType Rect = cPhysics::BoundingRectType::Pair(
-			Nodes.Pos( Sphere[ idx ].Index ) - _Offset - Sphere[ idx ].Radius,
-			Nodes.Pos( Sphere[ idx ].Index ) - _Offset + Sphere[ idx ].Radius
+			Nodes.Pos( Sphere[ idx ].Index ) - Sphere[ idx ].Radius,
+			Nodes.Pos( Sphere[ idx ].Index ) + Sphere[ idx ].Radius
 			);
 		// Test the sphere against the region //
 		if ( OverlapRect == Rect ) {
@@ -35,34 +35,34 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 	// Find all polygons //
 	std::vector< int > PolyIndex;							// Store this Vector in thread/worker //
 	for ( size_t idx = 0; idx < _Vs.Polygon.size(); idx++ ) {
-		if ( OverlapRect == _Vs.Polygon[idx].BoundingRect ) {
+		if ( OverlapRect == (_Vs.Polygon[idx].BoundingRect + _Offset) ) {
 			PolyIndex.push_back( idx );
 		}
 	}
 	// Find all edges //
 	std::vector< int > EdgeIndex;							// Store this Vector in thread/worker //
 	for ( size_t idx = 0; idx < _Vs.Edge.size(); idx++ ) {
-		//if ( OverlapRect == _Vs.Edge[idx].BoundingRect )
+		//if ( OverlapRect == (_Vs.Edge[idx].BoundingRect + _Offset) )
 		{
 			EdgeIndex.push_back( idx );
 		}
-	}
-	
+	}	
 	
 	// Do tests //
 	for ( size_t idx = 0; idx < SphereIndex.size(); idx++ ) {
 		// Store the Point //
-		Vector2D Point = Nodes.Pos( Sphere[ SphereIndex[idx] ].Index ) - _Offset;
-		Vector2D PointOld = Nodes.Old( Sphere[ SphereIndex[idx] ].Index ) - _Offset;
+		Vector2D& Point = Nodes.Pos( Sphere[ SphereIndex[idx] ].Index );// - _Offset;
+		Vector2D& PointOld = Nodes.Old( Sphere[ SphereIndex[idx] ].Index );// - _Offset;
 		Vector2D PointVelocity = Nodes.Velocity( Sphere[ SphereIndex[idx] ].Index );
 
 		// Versus Edges //
 		for ( size_t idx2 = 0; idx2 < EdgeIndex.size(); idx2++ ) {
 			// Rectangles throw away test (overkill?) //
-			if ( _Vs.Edge[ EdgeIndex[idx2] ].BoundingRect == SphereRect[idx] ) {
+			//if ( _Vs.Edge[ EdgeIndex[idx2] ].BoundingRect + _Offset == SphereRect[idx] )
+			{
 				// Find the closest point on the edge to us //
 				int ClosestFlags = 0;
-				Vector2D PointOnEdge = _Vs.Edge[ EdgeIndex[idx2] ].ClosestPoint( _Vs.Nodes, Point, ClosestFlags );
+				Vector2D PointOnEdge = _Vs.Edge[ EdgeIndex[idx2] ].ClosestPoint( _Vs.Nodes, Point - _Offset, ClosestFlags ) + _Offset;
 				
 				// If the closest point was a corner, bail, as we'd prefer to solve with edges first //
 				if ( ClosestFlags & cStaticEdge::flCorner )
@@ -204,9 +204,9 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 		// Versus Corners of Edges //
 		for ( size_t idx2 = 0; idx2 < EdgeIndex.size(); idx2++ ) {
 			// Rectangles throw away test (overkill?) //
-			if ( _Vs.Edge[ EdgeIndex[idx2] ].BoundingRect == SphereRect[idx] ) {
+			if ( (_Vs.Edge[ EdgeIndex[idx2] ].BoundingRect + _Offset) == SphereRect[idx] ) {
 				// Get the first point (a) of an edge //
-				Vector2D& VersusPoint = _Vs.Nodes.Pos( _Vs.Edge[ EdgeIndex[idx2] ].a );
+				Vector2D VersusPoint = _Vs.Nodes.Pos( _Vs.Edge[ EdgeIndex[idx2] ].a ) + _Offset;
 				
 				// Trace a vector to the point //
 				Vector2D ToPoint = VersusPoint - Point;
@@ -257,7 +257,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 			// See if sphere is inside any polygon //
 			for ( size_t idx2 = 0; idx2 < PolyIndex.size(); idx2++ ) {
 				// Rectangles throw away test //
-				if ( _Vs.Polygon[ PolyIndex[idx2] ].BoundingRect == SphereRect[idx] ) {
+				if ( (_Vs.Polygon[ PolyIndex[idx2] ].BoundingRect + _Offset) == SphereRect[idx] ) {
 					// The number of sides found, so far //
 					size_t SideCount = 0;
 
@@ -270,7 +270,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 							_Vs.Nodes.Pos( _Vs.Polygon[ PolyIndex[idx2] ].Index[idx3 + 1] ) -
 							_Vs.Nodes.Pos( _Vs.Polygon[ PolyIndex[idx2] ].Index[idx3] );
 						
-						ToCorner = _Vs.Nodes.Pos( _Vs.Polygon[ PolyIndex[idx2] ].Index[idx3 + 1] ) - Point;
+						ToCorner = _Vs.Nodes.Pos( _Vs.Polygon[ PolyIndex[idx2] ].Index[idx3 + 1] ) + _Offset - Point;
 						
 						// If Inside this side //
 						if ( (-Segment.Tangent()) * ToCorner > Real::Zero )
@@ -307,7 +307,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 					// Motion Vector half space throw away test (Bad, as it allows perfect squishes to go through) //
 					//if ( Nodes.Velocity( Sphere[ SphereIndex[idx] ].Index ) * _Vs.Edge[ EdgeIndex[idx2] ].Normal <= Real::Zero )
 					{
-						Vector2D PointOnEdge = _Vs.Edge[ EdgeIndex[idx2] ].ClosestPoint( _Vs.Nodes, Point );
+						Vector2D PointOnEdge = _Vs.Edge[ EdgeIndex[idx2] ].ClosestPoint( _Vs.Nodes, Point - _Offset ) + _Offset;
 						
 						if ( !FoundPoint ) {
 							Push = PointOnEdge - Point;
@@ -332,7 +332,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 						// Motion Vector half space throw away test (Bad, as it allows perfect squishes to go through) //
 						//if ( Nodes.Velocity( Sphere[ SphereIndex[idx] ].Index ) * _Vs.Edge[idx2].Normal <= Real::Zero )
 						{
-							Vector2D PointOnEdge = _Vs.Edge[idx2].ClosestPoint( _Vs.Nodes, Point );
+							Vector2D PointOnEdge = _Vs.Edge[idx2].ClosestPoint( _Vs.Nodes, Point - _Offset ) + _Offset;
 							
 							if ( !FoundPoint ) {
 								Push = PointOnEdge - Point;
@@ -403,7 +403,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 				}
 			}
 		}
-
+	
 	}
 
 	// Recalculate Bounding Rectangles //
