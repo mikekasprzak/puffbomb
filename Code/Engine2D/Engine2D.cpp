@@ -47,9 +47,9 @@ cEngine2D::cEngine2D() {
 //	//Dummy->Component.push_back( cDynamicComponent( Dummy, "Hamster/Body/HamsterBody.comp", Vector2D::Zero ) );
 //	Dummy->LoadBinary( "2D/HighFive/HighFive.coll" );
 	
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_Brickter.blend.mesh3d" ) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.blend.mesh3d", Vector2D( 0, 0 ) ) );
 
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 200, 0 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_Brickter.blend.mesh3d", Vector2D( 200, 0 )) );
 
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 400, 0 )) );
 	
@@ -222,16 +222,16 @@ void cEngine2D::Draw() {
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
+	// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+		StaticObjectInstance[ idx ].Draw();
+	}
+
 	// Draw Objects //
 	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
 		if ( DynamicComponent[ idx ]->IsActive() ) { 
 			DynamicComponent[ idx ]->Draw();
 		}
-	}
-
-	// Draw Tiles //
-	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-		StaticObjectInstance[ idx ].Draw();
 	}
 	
 #ifdef EDITOR
@@ -247,7 +247,21 @@ void cEngine2D::Draw() {
 #endif // EDITOR //
 
 	Gfx::DisableTex2D();
+	Gfx::DisableDepth();
 	Gfx::DisableBlend();
+
+	// Draw Tiles //
+	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+		StaticObjectInstance[ idx ].Object->Body.DrawNodes();
+		StaticObjectInstance[ idx ].Object->Body.DrawEdges();
+		StaticObjectInstance[ idx ].Object->Body.DrawPolygons();
+		StaticObjectInstance[ idx ].Object->Body.DrawEdgeRects();
+		StaticObjectInstance[ idx ].Object->Body.DrawPolygonRects();
+		
+		StaticObjectInstance[ idx ].Object->Body.DrawBoundingRect();
+	}
+	Gfx::EnableDepth();
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -48,14 +48,18 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 			// Test if polygon if it crosses the Z axis //
 			int Sign = 0;
 
-			const Vector3D* V1 = &((*Mesh[ ObjectIndex ].Vertex)[ ((*Mesh[ ObjectIndex ].Indices)[ Index ]) + 0 ]);
-			const Vector3D* V2 = &((*Mesh[ ObjectIndex ].Vertex)[ ((*Mesh[ ObjectIndex ].Indices)[ Index ]) + 1 ]);
-			const Vector3D* V3 = &((*Mesh[ ObjectIndex ].Vertex)[ ((*Mesh[ ObjectIndex ].Indices)[ Index ]) + 2 ]);
+			const Vector3D* V1 = &((*Mesh[ ObjectIndex ].Vertex)[ ((*Mesh[ ObjectIndex ].Indices)[ Index + 0 ]) ]);
+			const Vector3D* V2 = &((*Mesh[ ObjectIndex ].Vertex)[ ((*Mesh[ ObjectIndex ].Indices)[ Index + 1 ]) ]);
+			const Vector3D* V3 = &((*Mesh[ ObjectIndex ].Vertex)[ ((*Mesh[ ObjectIndex ].Indices)[ Index + 2 ]) ]);
 			
 			const Vector3D* Positive = V1;
 			const Vector3D* Negative = V1;
 
-			
+			Log( 10, "Vert " << Index << " * " << (*V1).x << " " << (*V1).y << " " << (*V1).z );
+			Log( 10, "Vert " << Index + 1 << " - " << (*V2).x << " " << (*V2).y << " " << (*V2).z );
+			Log( 10, "Vert " << Index + 2 << " - " << (*V3).x << " " << (*V3).y << " " << (*V3).z );
+
+			// Determine if the polygon crosses the origin, by counting the number of Z signs //
 			if ( V1->z < Real::Zero ) {
 				Negative = V1;
 				Sign--;
@@ -84,13 +88,13 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 			}
 
 
-			// If if did //
+			// If the number of Z signs is not +/- 3, then it crosses the origin //
 			if ( abs( Sign ) != 3 ) {
 				// Add a new Collision Line //
 				CollisionLine.push_back( cCollisionLine() );
 				
 				// Get the approximate normal (zero z and perhaps normalize) //
-				CollisionLine.back().Normal = (*Mesh[ ObjectIndex ].VertexNormal[ ((*Mesh[ ObjectIndex ].Indices)[ Index ]) + 0 ]).ToVector2D();
+				CollisionLine.back().Normal = ((*Mesh[ ObjectIndex ].VertexNormal)[ ((*Mesh[ ObjectIndex ].Indices)[ Index + 0 ]) ]).ToVector2D();
 				//CollisionLine.back().Normal = Vector2D( Model[0].Model->VertexNormal[ Model[0].Model->Object[ ObjectIndex ].Group[ GroupIndex ].Face[ FaceIndex ].Normal.a ].x,Model[0].Model->VertexNormal[ Model[0].Model->Object[ ObjectIndex ].Group[ GroupIndex ].Face[ FaceIndex ].Normal.a ].z ); 
 					
 				// Determine which two lines are the crossing lines //
@@ -142,7 +146,7 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 		}
 	}
 	
-	Log( 10, "Optimized down to " << CollisionLine.size() << " lines" );
+	Log( 10, "Optimized down to " << CollisionLine.size() << " lines (Nearly Equal Position Removal)" );
 
 
 	// Rearrange the A/B order based on the normal //
@@ -187,7 +191,7 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 		}
 	}
 	
-	Log( 10, "Optimized down to " << CollisionLine.size() << " lines" );
+	Log( 10, "Optimized down to " << CollisionLine.size() << " lines (Common normal angle removal)" );
 
 	Log( 10, "" );
 
@@ -197,7 +201,7 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 	for( size_t idx = 0; idx < CollisionLine.size(); idx++ ) {		
 		// If found an unused line, create a new polygon //
 		if ( !CollisionLine[ idx ].Used ) {
-			//Log( 10, "Object " << StaticObject.size() << " (WorkingPolygon " << idx << ")..." );
+			Log( 10, "(WorkingPolygon " << idx << ")..." );
 
 			CollisionLine[ idx ].Used = true;
 			WorkingPolygon.push_back( vector< cCollisionLine >() );
@@ -219,23 +223,32 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 //				}
 //			}
 
-			
 			Real BestNext = Real(10*10);
 			Real BestPrev = Real(10*10);
 			
+			// Search for lines to continue a polygon //
 			for( size_t idx2 = idx+1; idx2 < CollisionLine.size(); idx2++ ) {
 				if ( !CollisionLine[ idx2 ].Used ) {
-					//Log( 10, "+ b " << idx << " " << CollisionLine[ idx ].b.x<< " " << CollisionLine[ idx ].b.y );
-					//Log( 10, "+ a " << idx2 << " " << CollisionLine[ idx2 ].a.x<< " " << CollisionLine[ idx2 ].a.y );
+					Log( 10, "+ b " << idx << " - " << CollisionLine[ idx ].b.x << " " << CollisionLine[ idx ].b.y );
+					Log( 10, "+ a " << idx2 << " - " << CollisionLine[ idx2 ].a.x << " " << CollisionLine[ idx2 ].a.y );
+					
+					// Test if the next line is the best possible match for the next line //
 					if ( (CollisionLine[ idx ].b - CollisionLine[ idx2 ].a).MagnitudeSquared() < BestNext ) {
-						//Log( 10, "++ Better " << idx2 );
+						// If so, tag it as the next best //
+						Log( 10, "++ Better " << idx2 );
 						NextLine = idx2;
 						BestNext = (CollisionLine[ idx ].b - CollisionLine[ idx2 ].a).MagnitudeSquared();
 					}
-					//Log( 10, "- a " << idx << " " << CollisionLine[ idx ].a.x<< " " << CollisionLine[ idx ].a.y );
-					//Log( 10, "- b " << idx2 << " " << CollisionLine[ idx2 ].b.x<< " " << CollisionLine[ idx2 ].b.y );
+					
+					// ---- //
+					
+					Log( 10, "- a " << idx << " -  " << CollisionLine[ idx ].a.x << " " << CollisionLine[ idx ].a.y );
+					Log( 10, "- b " << idx2 << " -  " << CollisionLine[ idx2 ].b.x << " " << CollisionLine[ idx2 ].b.y );
+					
+					// Test if previous line is the best possible match for the previous line //
 					if ( (CollisionLine[ idx ].a - CollisionLine[ idx2 ].b).MagnitudeSquared() < BestPrev ) {
-						//Log( 10, "-- Better " << idx2 );
+						// If so, tag it as the best //
+						Log( 10, "-- Better " << idx2 );
 						PrevLine = idx2;
 						BestPrev = (CollisionLine[ idx ].a - CollisionLine[ idx2 ].b).MagnitudeSquared();
 					}
@@ -451,22 +464,22 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 		}	
 	}
 	
-/*	
+	
 	Log( 10, "Polygon Optimization" );
 	
 	// Optimize triangles that can join together to become convex polygons //
-	for( size_t ObjectIdx = 0; ObjectIdx < StaticObject.size(); ObjectIdx++ ) {
-		cStaticObject& Obj = *StaticObject[ObjectIdx];
-		Log( 10, "Object " << ObjectIdx );
-		Log( 10, Obj.Polygon.size() << " polygons before optimization" );
+//	for( size_t ObjectIdx = 0; ObjectIdx < StaticObject.size(); ObjectIdx++ ) {
+//		cStaticObject& Obj = *StaticObject[ObjectIdx];
+//		Log( 10, "Object " << ObjectIdx );
+		Log( 10, Polygon.size() << " polygons before optimization" );
 		
 		// For every polygon versus every other polygon inside the static object //
-		for ( size_t PolyIdx = 0; PolyIdx < Obj.Polygon.size(); PolyIdx++ ) {
+		for ( size_t PolyIdx = 0; PolyIdx < Polygon.size(); PolyIdx++ ) {
 //			Log( 10, "Polygon " << PolyIdx );
-			for ( size_t PolyIdx2 = PolyIdx+1; PolyIdx2 < Obj.Polygon.size(); PolyIdx2++ ) {
+			for ( size_t PolyIdx2 = PolyIdx+1; PolyIdx2 < Polygon.size(); PolyIdx2++ ) {
 //				Log( 10, "Versus Polygon " << PolyIdx2 );
-				cStaticPolygon& Polygon1 = Obj.Polygon[PolyIdx];
-				cStaticPolygon& Polygon2 = Obj.Polygon[PolyIdx2];
+				cStaticPolygon& Polygon1 = Polygon[PolyIdx];
+				cStaticPolygon& Polygon2 = Polygon[PolyIdx2];
 				
 				// Bail if an edge was found... may be a wasteful optimization //
 				bool EdgeFound = false;
@@ -551,8 +564,8 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 									int IdxNext = (idx + 1) % NewPolygon.Index.size();
 									int IdxNextNext = (idx + 2) % NewPolygon.Index.size();
 									
-									Vector2D VecA = Obj.Pos( NewPolygon.Index[IdxNext] ) - Obj.Pos( NewPolygon.Index[idx] );
-									Vector2D VecB = Obj.Pos( NewPolygon.Index[IdxNextNext] ) - Obj.Pos( NewPolygon.Index[IdxNext] );
+									Vector2D VecA = Nodes.Pos( NewPolygon.Index[IdxNext] ) - Nodes.Pos( NewPolygon.Index[idx] );
+									Vector2D VecB = Nodes.Pos( NewPolygon.Index[IdxNextNext] ) - Nodes.Pos( NewPolygon.Index[IdxNext] );
 									
 									if ( VecA * -VecB.Tangent() >= Real::Zero ) {
 										Convex++;
@@ -570,8 +583,8 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 //									Log( 10, "New Polygon is Convex!" );
 									
 									// Replace and delete the original two //
-									Obj.Polygon[PolyIdx] = NewPolygon;
-									Obj.Polygon.erase( Obj.Polygon.begin() + PolyIdx2 );
+									Polygon[PolyIdx] = NewPolygon;
+									Polygon.erase( Polygon.begin() + PolyIdx2 );
 
 									// An edge was found //
 									EdgeFound = true;
@@ -593,10 +606,10 @@ void cStaticBody2D::GenerateCollision( const std::vector< cMesh3D >& Mesh ) {
 			}			
 		}
 		
-		Log( 10, Obj.Polygon.size() << " polygons after optimization" );
-		Log( 10, "" );
-	}	
-*/	
+		Log( 10, Polygon.size() << " polygons after optimization" );
+//		Log( 10, "" );
+//	}	
+
 	
 	// Calculate bounding rectangles for all polygons // 	
 	for ( size_t idx2 = 0; idx2 < this->Polygon.size(); idx2++ ) {
