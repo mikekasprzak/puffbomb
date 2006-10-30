@@ -16,7 +16,7 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSelModel()
 {
-	glEnableClientState(GL_VERTEX_ARRAY);
+/*	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -43,12 +43,12 @@ void cMapEdit::DrawSelModel()
 	}
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SwitchModel()
 {
-	if ( Button[ KEY_LEFT ].Pressed() )
+	/*if ( Button[ KEY_LEFT ].Pressed() )
 	{
 		if( CurModel > 0 )
 		{
@@ -69,12 +69,12 @@ void cMapEdit::SwitchModel()
 		{
 			CurModel = 0;
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SelectModel()
 {
-	if( Button[ MOUSE_1 ].Released() )
+/*	if( Button[ MOUSE_1 ].Released() )
 	{
 		int SceneTest = 0;
 		
@@ -179,12 +179,12 @@ void cMapEdit::SelectModel()
 				}
 			}
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::MoveModel()
 {
-	if( Button[ MOUSE_1 ].Pressed() )
+/*	if( Button[ MOUSE_1 ].Pressed() )
 	{
 		int SceneTest = 0;
 		
@@ -273,12 +273,12 @@ void cMapEdit::MoveModel()
 			Model[CurSelected[idx]].Offset.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
 				Real( Camera->Pos.z / Global::HudZoom );
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::AddModel()
 {
-	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
+/*	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
 		ModelName.push_back( ModelNameList[CurModel] );
 		
@@ -309,12 +309,12 @@ void cMapEdit::AddModel()
 		}
 
 		ActiveAction();
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DeleteModel()
 {
-	if( !ModelName.empty() )
+/*	if( !ModelName.empty() )
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
@@ -348,7 +348,7 @@ void cMapEdit::DeleteModel()
 			
 			ActiveAction();
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

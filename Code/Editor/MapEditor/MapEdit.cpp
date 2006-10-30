@@ -38,26 +38,27 @@ cMapEdit::cMapEdit() :
 	Focus2( 0 ),
 	isPaste( false ),
 	CurZone( 0 ),
-	CurMode( 1 ),
 	CornerSize( 128 ),
 	ResizeCorner( 0 )
 {
-	Focus = Vector2D( Real(0.0), Real(0.0) );
+//	Focus = Vector2D( Real(0.0), Real(0.0) );
 	Log( LOG_HIGHEST_LEVEL, "MapEdit Constructor (Editor) " );
 	
-	ListModels();
-	Log( LOG_HIGHEST_LEVEL, "ListModels Complete " );
+//	ListModels();
+//	Log( LOG_HIGHEST_LEVEL, "ListModels Complete " );
 
 	MapName = "Level00.map";
 //	DirMapName = CurrentDir + "Maps/" + MapName;
-	DirMapName = "Maps/" + MapName;
-	LoadMap( DirMapName );
-	Log( LOG_HIGHEST_LEVEL, "LoadMap Complete " );
+//	DirMapName = "Maps/" + MapName;
+//	LoadMap( DirMapName );
+//	Log( LOG_HIGHEST_LEVEL, "LoadMap Complete " );
 		
-	ActiveAction();
-	isSaved = true;
+//	ActiveAction();
+//	IsSaved = true;
 
-	LoadZoneDesc();
+//	LoadZoneDesc();
+	
+	CurMode = ZONE_MODE;
 
 }	
 // - ------------------------------------------------------------------------------------------ - //	
@@ -203,18 +204,18 @@ void cMapEdit::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::HudDraw()
 {
-/*	if( CurMode == OBJECT_MODE )
-	{
-		Mesh2DEdit->Object[CurMesh].CalcBoundingRect();
-		Vector2D Point1 = Mesh2DEdit->Object[CurMesh].BoundingRect.P1();
-		Vector2D Point2 = Mesh2DEdit->Object[CurMesh].BoundingRect.P2();
-	
-		Point1.x = ( ( Global::HudW >> 1 ) - Point2.x );
-		Point1.y = ( -( Global::HudH >> 1 ) - Point1.y );
-
-		DrawMesh( CurMesh, Point1 );
-	}*/
-	if( CurMode == TILE_MODE )
+//	if( CurMode == OBJECT_MODE )
+//	{
+//		Mesh2DEdit->Object[CurMesh].CalcBoundingRect();
+//		Vector2D Point1 = Mesh2DEdit->Object[CurMesh].BoundingRect.P1();
+//		Vector2D Point2 = Mesh2DEdit->Object[CurMesh].BoundingRect.P2();
+//	
+//		Point1.x = ( ( Global::HudW >> 1 ) - Point2.x );
+//		Point1.y = ( -( Global::HudH >> 1 ) - Point1.y );
+//
+//		DrawMesh( CurMesh, Point1 );
+//	}
+/*	if( CurMode == TILE_MODE )
 	{
 		glEnable( GL_TEXTURE_2D );
 	
@@ -268,7 +269,7 @@ void cMapEdit::HudDraw()
 
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
-
+*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Draw2D()
@@ -346,14 +347,14 @@ void cMapEdit::ToggleEdit()
 {
 //	Global::Origin = Focus;
 	
-	if( Global::DebugDraw & Global::flExtraInfo )
-	{
-		Global::DebugDraw ^= Global::flExtraInfo;
-	}
-	if( Global::DebugDraw & Global::flCollision )
-	{
-		Global::DebugDraw ^= Global::flCollision;
-	}
+//	if( Global::DebugDraw & Global::flExtraInfo )
+//	{
+//		Global::DebugDraw ^= Global::flExtraInfo;
+//	}
+//	if( Global::DebugDraw & Global::flCollision )
+//	{
+//		Global::DebugDraw ^= Global::flCollision;
+//	}
 	//Global::DebugDraw |= Global::flExtraInfo;
 	//Global::DebugDraw |= Global::flCollision;
 }
@@ -366,31 +367,31 @@ void cMapEdit::ToggleGame()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Physics()
 {
-	if ( Button[ KEY_TAB ].Pressed() ) {
-//		for ( size_t idx = 0; idx < Game->SphereObject.size(); ++idx ) {
-//			Game->SphereObject[ idx ]->Reset();
-//		}
-/*		for ( size_t idx = 0; idx < Game->PolyObject.size(); ++idx ) {
-			Game->PolyObject[ idx ]->Reset();
-		}*/
-		// Resets the zoom
-		Scale = Real::One;
-//		Global::Origin.x = 0;
-//		Global::Origin.y = 0;
-			
-		Camera->Pos.x = 0.0;
-		Camera->Pos.y = 0.0;
-		Camera->Pos.z = Global::HudZoom;
-		
-		Camera->View.x = Camera->Pos.x;
-		Camera->View.y = Camera->Pos.y;
-		Camera->View.z = 0.0;
-	}
-	// Step Physics
-//	if( Button[ KEY_RCTRL ] )
-//	{
-//		Game->Step();
+//	if ( Button[ KEY_TAB ].Pressed() ) {
+////		for ( size_t idx = 0; idx < Game->SphereObject.size(); ++idx ) {
+////			Game->SphereObject[ idx ]->Reset();
+////		}
+///*		for ( size_t idx = 0; idx < Game->PolyObject.size(); ++idx ) {
+//			Game->PolyObject[ idx ]->Reset();
+//		}*/
+//		// Resets the zoom
+//		Scale = Real::One;
+////		Global::Origin.x = 0;
+////		Global::Origin.y = 0;
+//			
+//		Camera->Pos.x = 0.0;
+//		Camera->Pos.y = 0.0;
+//		Camera->Pos.z = Global::HudZoom;
+//		
+//		Camera->View.x = Camera->Pos.x;
+//		Camera->View.y = Camera->Pos.y;
+//		Camera->View.z = 0.0;
 //	}
+//	// Step Physics
+////	if( Button[ KEY_RCTRL ] )
+////	{
+////		Game->Step();
+////	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSelected()
@@ -415,29 +416,29 @@ void cMapEdit::DrawSelected()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSelBox()
 {
-	if( Button[ MOUSE_1 ].Pressed() )
-	{
-		OldMousePos = CalcMousePos();
-	}
-
-	if( Button[ MOUSE_1 ] )
-	{
-		if( !isGroupMove )
-		{
-			Vector2D CurMousePos = CalcMousePos();
-			Gfx::Rect( OldMousePos, CurMousePos, Gfx::RGBA( 255, 255, 255, 255 ) );
-		}
-		else if( SnapToGrid )
-		{
-			if( CurMode != TILE_MODE )
-			{
-				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-				{
-					DrawSnapToGrid( idx );
-				}
-			}
-		}
-	}
+//	if( Button[ MOUSE_1 ].Pressed() )
+//	{
+//		OldMousePos = CalcMousePos();
+//	}
+//
+//	if( Button[ MOUSE_1 ] )
+//	{
+//		if( !isGroupMove )
+//		{
+//			Vector2D CurMousePos = CalcMousePos();
+//			Gfx::Rect( OldMousePos, CurMousePos, Gfx::RGBA( 255, 255, 255, 255 ) );
+//		}
+//		else if( SnapToGrid )
+//		{
+//			if( CurMode != TILE_MODE )
+//			{
+//				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+//				{
+//					DrawSnapToGrid( idx );
+//				}
+//			}
+//		}
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cMapEdit::CalcMousePos()
@@ -566,61 +567,61 @@ int cMapEdit::SingleSelect( Vector2D &CurMousePos )
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::MoveObject()
 {
-	if( Button[ MOUSE_1 ].Pressed() )
-	{
-		if( !Button[ KEY_LCTRL ] )
-		{
-			Vector2D CurMousePos = CalcMousePos();
-			int temp = SingleSelect( CurMousePos );
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-			{
-				if( temp == int(CurSelected[idx]) )
-				{
-					isGroupMove = true;
-				}
-			}
-		}
-		// Snaps to grid
-		if( !Button[ KEY_LSHIFT ] && isGroupMove )
-		{
-			SnapToGrid = true;
-		}
-		else
-		{
-			SnapToGrid = false;
-		}
-	}
-	if( Button[ MOUSE_1 ].Released() )
-	{
-		if( SnapToGrid )
-		{
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-			{
-				CalcSnapToGrid( MapObject[CurSelected[idx]].Pos, CurrentGridDepth, GridDepth );
-				SnapToGrid = false;
-			}
-			ActiveAction();
-		}
-		else
-		{
-			if( isGroupMove )
-			{
-				ActiveAction();
-			}
-		}
-		isGroupMove = false;
-	}
-	if( isGroupMove )
-	{
-		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-		{
-			MapObject[CurSelected[idx]].Pos.x -= ( Mouse.Diff().x * Real( Global::HudW ) ) *
-				Real( Camera->Pos.z / Global::HudZoom );
-
-			MapObject[CurSelected[idx]].Pos.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
-				Real( Camera->Pos.z / Global::HudZoom );
-		}
-	}
+//	if( Button[ MOUSE_1 ].Pressed() )
+//	{
+//		if( !Button[ KEY_LCTRL ] )
+//		{
+//			Vector2D CurMousePos = CalcMousePos();
+//			int temp = SingleSelect( CurMousePos );
+//			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+//			{
+//				if( temp == int(CurSelected[idx]) )
+//				{
+//					isGroupMove = true;
+//				}
+//			}
+//		}
+//		// Snaps to grid
+//		if( !Button[ KEY_LSHIFT ] && isGroupMove )
+//		{
+//			SnapToGrid = true;
+//		}
+//		else
+//		{
+//			SnapToGrid = false;
+//		}
+//	}
+//	if( Button[ MOUSE_1 ].Released() )
+//	{
+//		if( SnapToGrid )
+//		{
+//			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+//			{
+//				CalcSnapToGrid( MapObject[CurSelected[idx]].Pos, CurrentGridDepth, GridDepth );
+//				SnapToGrid = false;
+//			}
+//			ActiveAction();
+//		}
+//		else
+//		{
+//			if( isGroupMove )
+//			{
+//				ActiveAction();
+//			}
+//		}
+//		isGroupMove = false;
+//	}
+//	if( isGroupMove )
+//	{
+//		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+//		{
+//			MapObject[CurSelected[idx]].Pos.x -= ( Mouse.Diff().x * Real( Global::HudW ) ) *
+//				Real( Camera->Pos.z / Global::HudZoom );
+//
+//			MapObject[CurSelected[idx]].Pos.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
+//				Real( Camera->Pos.z / Global::HudZoom );
+//		}
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSnapToGrid( size_t idx )
@@ -636,68 +637,68 @@ void cMapEdit::DrawSnapToGrid( size_t idx )
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::AddObject()
 {
-	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() || isPaste == true )
-	{
-		cMapObject tempMapObject;
-		
-		tempMapObject.MeshIdx = CurMesh;
-		tempMapObject.Pos = CalcMousePos();
-		
-		CalcSnapToGrid( tempMapObject.Pos, CurrentGridDepth, GridDepth );
-		
-		MapObject.push_back( tempMapObject );
-
-		if( !isPaste )
-		{
-			ActiveAction();
-			CurSelected.clear();
-			CurSelected.push_back( MapObject.size() - 1 );
-			CurrentObject = MapObject.size() - 1;
-		}
-	}
+//	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() || isPaste == true )
+//	{
+//		cMapObject tempMapObject;
+//		
+//		tempMapObject.MeshIdx = CurMesh;
+//		tempMapObject.Pos = CalcMousePos();
+//		
+//		CalcSnapToGrid( tempMapObject.Pos, CurrentGridDepth, GridDepth );
+//		
+//		MapObject.push_back( tempMapObject );
+//
+//		if( !isPaste )
+//		{
+//			ActiveAction();
+//			CurSelected.clear();
+//			CurSelected.push_back( MapObject.size() - 1 );
+//			CurrentObject = MapObject.size() - 1;
+//		}
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DeleteObject()
 {
-	if( !CurSelected.empty() )
-	{
-		if( Button[ KEY_DELETE ].Pressed() )
-		{
-			for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
-			{
-				if( Focus1 > int( CurSelected[idx] ) )
-				{
-					--Focus1;
-				}
-				if( Focus2 > int( CurSelected[idx] ) )
-				{
-					--Focus2;
-				}
-				
-				std::vector <cMapObject> tempVec;
-				for( size_t vec = 0; vec < MapObject.size(); ++vec )
-				{
-					if( CurSelected[idx] != vec )
-					{
-						tempVec.push_back( MapObject[vec] );
-					}
-				}
-				MapObject.swap( tempVec );
-			}
-						
-			CurSelected.clear();
-		
-			ActiveAction();
-			if( MapObject.size() != 0 )
-			{
-				CurrentObject = MapObject.size() - 1;
-			}
-			else
-			{
-				CurrentObject = 0;
-			}			
-		}
-	}
+//	if( !CurSelected.empty() )
+//	{
+//		if( Button[ KEY_DELETE ].Pressed() )
+//		{
+//			for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
+//			{
+//				if( Focus1 > int( CurSelected[idx] ) )
+//				{
+//					--Focus1;
+//				}
+//				if( Focus2 > int( CurSelected[idx] ) )
+//				{
+//					--Focus2;
+//				}
+//				
+//				std::vector <cMapObject> tempVec;
+//				for( size_t vec = 0; vec < MapObject.size(); ++vec )
+//				{
+//					if( CurSelected[idx] != vec )
+//					{
+//						tempVec.push_back( MapObject[vec] );
+//					}
+//				}
+//				MapObject.swap( tempVec );
+//			}
+//						
+//			CurSelected.clear();
+//		
+//			ActiveAction();
+//			if( MapObject.size() != 0 )
+//			{
+//				CurrentObject = MapObject.size() - 1;
+//			}
+//			else
+//			{
+//				CurrentObject = 0;
+//			}			
+//		}
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SwitchMesh()
@@ -728,97 +729,97 @@ void cMapEdit::SwitchMesh()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::CopyObject()
 {
-	if( Button[ KEY_LCTRL ] )
-	{
-		if( Button[ KEY_C ].Pressed() || Button[ KEY_INSERT ].Pressed() )
-		{
-			CopyStorage.clear();
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-			{
-				CopyStorage.push_back( MapObject[CurSelected[idx]] );	
-			}			
-		}
-	}
+//	if( Button[ KEY_LCTRL ] )
+//	{
+//		if( Button[ KEY_C ].Pressed() || Button[ KEY_INSERT ].Pressed() )
+//		{
+//			CopyStorage.clear();
+//			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+//			{
+//				CopyStorage.push_back( MapObject[CurSelected[idx]] );	
+//			}			
+//		}
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::PasteObject()
 {
-	if( Button[ KEY_LCTRL ] && Button[ KEY_V ].Pressed() ||
-	Button[ KEY_LSHIFT ] && Button[ KEY_INSERT ].Pressed() )
-	{
-		CurSelected.clear();
-		Vector2D CurMousePos = CalcMousePos();
-		for( size_t idx = 0; idx < CopyStorage.size(); ++idx )
-		{
-			MapObject.push_back( CopyStorage[idx] );
-			
-			MapObject[ MapObject.size() - 1 ].Pos
-				= CurMousePos + CopyStorage[idx].Pos - CopyStorage[0].Pos;
-			
-			CurSelected.push_back( MapObject.size() - 1 );
-		}
-		ActiveAction();
-	}
+//	if( Button[ KEY_LCTRL ] && Button[ KEY_V ].Pressed() ||
+//	Button[ KEY_LSHIFT ] && Button[ KEY_INSERT ].Pressed() )
+//	{
+//		CurSelected.clear();
+//		Vector2D CurMousePos = CalcMousePos();
+//		for( size_t idx = 0; idx < CopyStorage.size(); ++idx )
+//		{
+//			MapObject.push_back( CopyStorage[idx] );
+//			
+//			MapObject[ MapObject.size() - 1 ].Pos
+//				= CurMousePos + CopyStorage[idx].Pos - CopyStorage[0].Pos;
+//			
+//			CurSelected.push_back( MapObject.size() - 1 );
+//		}
+//		ActiveAction();
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ActiveAction()
 {
-	cUndoObject tempUndoObj;
-	
-	tempUndoObj.Focus1 = Focus1;
-	tempUndoObj.Focus2 = Focus2;
-		
-	tempUndoObj.MapObject = MapObject;
-
-	UndoObject.push_back( tempUndoObj );
-	
-	RedoObject.clear();
-	
-	isSaved = false;
+//	cUndoObject tempUndoObj;
+//	
+//	tempUndoObj.Focus1 = Focus1;
+//	tempUndoObj.Focus2 = Focus2;
+//		
+//	tempUndoObj.MapObject = MapObject;
+//
+//	UndoObject.push_back( tempUndoObj );
+//	
+//	RedoObject.clear();
+//	
+	IsSaved = false;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Undo()
 {
-	if( Button[ KEY_LCTRL ] )
-	{
-		// Undo the last action //
-		if( Button[ KEY_Z ].Pressed() )
-		{
-			if( UndoObject.size() > 1 )
-			{
-				RedoObject.push_back( UndoObject.back() );
-				UndoObject.pop_back();
-				
-				if( !UndoObject.empty() )
-				{
-					Focus1 = UndoObject.back().Focus1;
-					Focus2 = UndoObject.back().Focus2;
-					
-					MapObject = UndoObject.back().MapObject;
-				}
-				CurSelected.clear();
-				CurrentObject = MapObject.size() - 1;
-			}
-		}
-		// Redo the undo action //
-		if( Button[ KEY_Y ].Pressed() )
-		{
-			
-			if( !RedoObject.empty() )
-			{
-				UndoObject.push_back( RedoObject.back() );
-				RedoObject.pop_back();
-				
-				Focus1 = UndoObject.back().Focus1;
-				Focus2 = UndoObject.back().Focus2;
-
-				MapObject = UndoObject.back().MapObject;
-
-				CurSelected.clear();
-				CurrentObject = MapObject.size() - 1;
-			}
-		}
-	}
+//	if( Button[ KEY_LCTRL ] )
+//	{
+//		// Undo the last action //
+//		if( Button[ KEY_Z ].Pressed() )
+//		{
+//			if( UndoObject.size() > 1 )
+//			{
+//				RedoObject.push_back( UndoObject.back() );
+//				UndoObject.pop_back();
+//				
+//				if( !UndoObject.empty() )
+//				{
+//					Focus1 = UndoObject.back().Focus1;
+//					Focus2 = UndoObject.back().Focus2;
+//					
+//					MapObject = UndoObject.back().MapObject;
+//				}
+//				CurSelected.clear();
+//				CurrentObject = MapObject.size() - 1;
+//			}
+//		}
+//		// Redo the undo action //
+//		if( Button[ KEY_Y ].Pressed() )
+//		{
+//			
+//			if( !RedoObject.empty() )
+//			{
+//				UndoObject.push_back( RedoObject.back() );
+//				RedoObject.pop_back();
+//				
+//				Focus1 = UndoObject.back().Focus1;
+//				Focus2 = UndoObject.back().Focus2;
+//
+//				MapObject = UndoObject.back().MapObject;
+//
+//				CurSelected.clear();
+//				CurrentObject = MapObject.size() - 1;
+//			}
+//		}
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SetFocus()

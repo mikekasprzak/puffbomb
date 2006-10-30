@@ -53,7 +53,7 @@ void cMapEdit::DisplaySavedStatus()
 {
 	// Displays the if the current map requires saving or not //
 	// - ---------------------------------------------------------------------------------- - //
-	if( isSaved == false )
+	if( IsSaved == false )
 	{
 		cFonts::FlangeLight.Write(
 			"*",
@@ -66,7 +66,7 @@ void cMapEdit::DisplaySavedStatus()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayHelp()
 {
-	Real LeftCenter = Global::Left / Real( 2 );
+/*	Real LeftCenter = Global::Left / Real( 2 );
 	
 	
 	Real FontSize = 0.5;
@@ -259,21 +259,12 @@ void cMapEdit::DisplayHelp()
 		FontSize,
 		Color
 	);
-
-/*		
-	
-//	TempLocation.y -= newline;
-//	TTFTextOut( "F + 1                         - Sets Focus 1", EditorFont, &TempLocation );
-//
-//	TempLocation.y -= newline;
-//	TTFTextOut( "F + 2                         - Sets Focus 2", EditorFont, &TempLocation );
-
 */
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayMesh2DInfo()
 {
-	Real FontSize = 0.5;
+/*	Real FontSize = 0.5;
 	Real XShift = 120;
 	Real YShift = 40;
 	Real XPos = 0;
@@ -369,12 +360,12 @@ void cMapEdit::DisplayMesh2DInfo()
 			FontSize,
 			Color
 		);
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayZoneInfo()
 {
-	Real FontSize = 0.5;
+/*	Real FontSize = 0.5;
 	Real XShift = 120;
 	Real YShift = 40;
 	Real XPos = 0;
@@ -458,12 +449,12 @@ void cMapEdit::DisplayZoneInfo()
 		Color
 	);
 	XPos += XShift;
-	Temp.str(std::string());
+	Temp.str(std::string());*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayMapName()
 {
-	Real FontSize = 0.5;
+/*	Real FontSize = 0.5;
 	Real XShift = 30;
 	Real YShift = 25;
 	Real XPos = 0;
@@ -478,12 +469,12 @@ void cMapEdit::DisplayMapName()
 		Vector3D( Global::Left + XPos, Global::Top - YShift, 0.0 ),
 		FontSize,
 		Color
-	);
+	);*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayMesh3dName()
 {
-	if( !ModelNameList.empty() )
+/*	if( !ModelNameList.empty() )
 	{
 		Real FontSize = 0.5;
 		Real XShift = 4;
@@ -501,7 +492,7 @@ void cMapEdit::DisplayMesh3dName()
 			FontSize,
 			Color
 		);
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

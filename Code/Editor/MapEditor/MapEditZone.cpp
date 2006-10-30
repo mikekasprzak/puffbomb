@@ -242,7 +242,7 @@ void cMapEdit::MoveZone()
 	if( Button[ MOUSE_1 ].Released() )
 	{
 		isGroupMove = false;
-		isSaved = false;
+		IsSaved = false;
 	} */ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -370,7 +370,7 @@ void cMapEdit::ResizeZone()
 					)
 				);
 			}
-			isSaved = false;
+			IsSaved = false;
 		}
 	}
 	else
@@ -396,7 +396,7 @@ void cMapEdit::AddZone()
 			
 		CurZone = Game->Zone.size() - 1;
 		
-		isSaved = false;
+		IsSaved = false;
 	}*/ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -419,7 +419,7 @@ void cMapEdit::DeleteZone()
 			
 			CurZone = Game->Zone.size() - 1;
 			
-			isSaved = false;
+			IsSaved = false;
 		}
 	} */ // Removed because of game dependency //
 }
@@ -432,7 +432,7 @@ void cMapEdit::ChangeID()
 		{
 			Game->Zone[ CurZone ].Id--;
 			
-			isSaved = false;
+			IsSaved = false;
 		}
 	}
 	if( Button[ KEY_W ].Pressed() )
@@ -441,7 +441,7 @@ void cMapEdit::ChangeID()
 		{
 			Game->Zone[ CurZone ].Id++;
 			
-			isSaved = false;
+			IsSaved = false;
 		}
 	}
 	*/ // Removed because of game dependency //
@@ -455,14 +455,14 @@ void cMapEdit::ChangeArg()
 		{
 			Game->Zone[ CurZone ].Argument--;
 			
-			isSaved = false;
+			IsSaved = false;
 		}
 	}
 	if( Button[ KEY_X ].Pressed() )
 	{
 		Game->Zone[ CurZone ].Argument++;
 		
-		isSaved = false;
+		IsSaved = false;
 	} */ // Removed because of game dependency //
 }
 // - ------------------------------------------------------------------------------------------ - //

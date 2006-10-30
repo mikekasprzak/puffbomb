@@ -69,12 +69,10 @@ public:
 //	bool SnapToGrid;
 //	bool isGroupMove;
 	bool isPaste;
-	bool isSaved;
+//	bool isSaved;
 
 	unsigned int CurZone;
 
-	int CurMode;
-	
 	Real CornerSize;
 	int ResizeCorner;
 	std::vector< std::string > ZoneDesc;

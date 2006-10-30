@@ -21,7 +21,7 @@ using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::LoadMap( string &Dir )
 {
-	cSearchPath SearchPath;
+/*	cSearchPath SearchPath;
 	SearchPath.Add( "../../../../Content/PuffBOMB" );
 //	SearchPath.Add( "Maps" );
 	Log( LOG_EDITOR_CREATE, "LoadMap (Editor) " );
@@ -63,34 +63,7 @@ void cMapEdit::LoadMap( string &Dir )
 			else if( Token == "Dynamic" )
 			{
 				Text >> Token;
-/*			
-				std::string FullPathName = SearchPath.Find( Token );
 
-				Log( LOG_EDITOR_INFO, "Dynamic Token (Editor)= " << Token );
-				Log( LOG_EDITOR_INFO, "Dynamic (Editor)= " << FullPathName );
-				
-				tempMapObject.MeshIdx = -1;
-				
-				for( size_t idx = 0; idx < Mesh2DEdit->Mesh2DInfo.size(); ++idx )
-				{
-					if( FullPathName == Mesh2DEdit->Mesh2DInfo[idx].MeshName )
-					{
-						Log( LOG_EDITOR_INFO, "Success " << Mesh2DEdit->Mesh2DInfo[idx].MeshName );
-						tempMapObject.MeshIdx = idx;
-					}					
-				}
-				if( tempMapObject.MeshIdx == -1 )
-				{
-					tempMapObject.MeshIdx = 0;
-				}				
-				
-				Text >> Token;
-				tempMapObject.Pos.x = atof( Token.c_str() );
-				
-				Text >> Token;
-				tempMapObject.Pos.y = atof( Token.c_str() );
-				
-				MapObject.push_back( tempMapObject );*/
 			}
 			else if( Token == "Focus1" )
 			{
@@ -141,24 +114,16 @@ void cMapEdit::LoadMap( string &Dir )
 				
 				CurModel = 0;
 				
-				/*for ( size_t idx = 0; idx < ModelNameList.size(); ++idx )
-				{
-					if( MapModel == ModelNameList[ idx ] )
-					{
-						CurModel = idx;
-						break;
-					}
-				}*/
 			}
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SaveMap( const char* File )
 {
-	if( Input::Button[ KEY_LCTRL ] )
+/*	if( Input::Button[ KEY_LCTRL ] )
 	{
-		if( Input::Button[ KEY_S ].Pressed() && isSaved == false )
+		if( Input::Button[ KEY_S ].Pressed() && IsSaved == false )
 		{
 			std::string SavePath = CurrentDir + File;
 			Log( LOG_EDITOR_CREATE, "Map Saved = " << SavePath );
@@ -184,32 +149,18 @@ void cMapEdit::SaveMap( const char* File )
 					Script.Append( "Focus2" );
 				}
 			}
-/*			for( size_t idx = 0; idx < Game->Zone.size(); ++idx )
-			{
-				Script.Append( "Zone",
-					Game->Zone[ idx ].BoundingRect.P1().x,
-					Game->Zone[ idx ].BoundingRect.P1().y,
-					Game->Zone[ idx ].BoundingRect.P2().x,
-					Game->Zone[ idx ].BoundingRect.P2().y
-				);
-				Script.Append( "ZoneId",
-					Game->Zone[ idx ].Id
-				);
-				Script.Append( "ZoneArg",
-					Game->Zone[ idx ].Argument
-				);
-			} */ // Removed because of game dependency //
-			isSaved = true;
+
+			IsSaved = true;
 			
 			Script.SaveFile( SavePath.c_str() );
 		
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ListModels()
 {
-	string DirPrefix = "3D/";
+/*	string DirPrefix = "3D/";
 	Log( LOG_EDITOR_INFO, "ListModels " );
 	
 	cDirectoryCache cDirCache( DirPrefix );
@@ -236,12 +187,12 @@ void cMapEdit::ListModels()
 				);
 			}
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::LoadZoneDesc()
 {
-	char Line[1024];
+/*char Line[1024];
 	
 	ifstream InFile( "../../../../Content/ZoneDescriptions.txt" );
 
@@ -257,7 +208,7 @@ void cMapEdit::LoadZoneDesc()
 		Text << Line;
 		
 		ZoneDesc.push_back( Text.str() );
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
