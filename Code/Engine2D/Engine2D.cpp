@@ -157,11 +157,20 @@ void cEngine2D::Step() {
 
 	// Physics Stage 3 -------------------------------------- //	
 	// Components Interact with Zones and Passives once, since previous is a relaxation loop //
-//	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-//		// If object is active //
-//		if ( DynamicComponent[ idx ]->IsActive() ) {
-//		}
-//	}
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		// If object is active //
+		if ( DynamicComponent[ idx ]->IsActive() ) {
+			// Solve Versus Zones //
+			for ( size_t idx2 = 0; idx2 < Zone.size(); ++idx2 ) {
+				DynamicComponent[ idx ]->Solve( *Zone[ idx2 ] );
+			}
+
+			// Solve Versus Passive Objects //
+			for ( size_t idx2 = 0; idx2 < PassiveObject.size(); ++idx2 ) {
+				DynamicComponent[ idx ]->Solve( *PassiveObject[ idx2 ] );
+			}
+		}
+	}
 	
 	// Physics Stage 4 -------------------------------------- //	
 	// All objects have now moved.  Now to have them do and interpret what they've learned //
