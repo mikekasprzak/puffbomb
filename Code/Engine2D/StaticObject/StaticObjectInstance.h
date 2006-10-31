@@ -34,7 +34,18 @@ public:
 	inline void Draw() {
 		Object->Draw( Pos );
 	}
-	
+
+	inline void DrawBody() {
+		std::vector< size_t > Selection;
+		
+		Object->Body.DrawNodes( Selection, Pos );
+		Object->Body.DrawEdges( Selection, Pos );
+		Object->Body.DrawPolygons( Selection, Pos );
+		Object->Body.DrawEdgeRects( Selection, Pos );
+		Object->Body.DrawPolygonRects( Selection, Pos );
+		
+		Object->Body.DrawBoundingRect( false, Pos );
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

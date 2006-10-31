@@ -229,13 +229,7 @@ void cEngine2D::Draw() {
 
 	// Draw Tiles //
 	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-		StaticObjectInstance[ idx ].Object->Body.DrawNodes();
-		StaticObjectInstance[ idx ].Object->Body.DrawEdges();
-		StaticObjectInstance[ idx ].Object->Body.DrawPolygons();
-		StaticObjectInstance[ idx ].Object->Body.DrawEdgeRects();
-		StaticObjectInstance[ idx ].Object->Body.DrawPolygonRects();
-		
-		StaticObjectInstance[ idx ].Object->Body.DrawBoundingRect();
+		StaticObjectInstance[ idx ].DrawBody();
 	}
 	Gfx::EnableDepth();
 
