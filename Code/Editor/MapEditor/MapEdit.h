@@ -76,7 +76,6 @@ public:
 
 public:
 	// MapEditTile.cpp //
-	void DrawSelMesh3D();
 	void SelectMesh3D();
 	void MoveMesh3D();
 	void AddMesh3D();

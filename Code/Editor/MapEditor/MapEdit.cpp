@@ -181,6 +181,8 @@ void cMapEdit::Step()
 	
 	if( CurMode == TILE_MODE )
 	{
+		SelectMesh3D();
+		
 		AddMesh3D();
 		SwitchMesh3D();
 	}

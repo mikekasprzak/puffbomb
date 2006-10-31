@@ -8,54 +8,19 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-void cMapEdit::DrawSelMesh3D()
-{
-/*	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-	{
-		for( size_t i = 0; i < Model[CurSelected[idx]].Mesh3d->Data.size(); ++i )
-		{
-			cMesh3d& ThisMesh = *Model[CurSelected[idx]].Mesh3d;
-				
-			glBindTexture( GL_TEXTURE_2D, ThisMesh.Data[i].TextureID );
-			
-			glVertexPointer(3, GL_FLOAT, 0, &(*ThisMesh.Data[i].Vertex)[0]);
-			glColorPointer(4, GL_UNSIGNED_BYTE, 0, &(*ThisMesh.Data[i].VertexColor)[0]);
-			glTexCoordPointer(2, GL_FLOAT, 0, &(*ThisMesh.Data[i].TextureCoord)[0]);
-
-			glPushMatrix();
-			glTranslatef( Model[CurSelected[idx]].Offset.x, Model[CurSelected[idx]].Offset.y, Model[CurSelected[idx]].Offset.z );
-			glDrawElements(
-				GL_TRIANGLES, ThisMesh.Data[i].Indices->Size(),
-				GL_UNSIGNED_INT, &(*ThisMesh.Data[i].Indices)[0]
-			);
-			glPopMatrix();
-		}
-	}
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);*/
-}
-// - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SelectMesh3D()
 {
-/*	if( Button[ MOUSE_1 ].Released() )
+	if( Button[ MOUSE_1 ].Released() )
 	{
-		int SceneTest = 0;
-		
-		Vector2D CurMousePos = CalcMousePos();
 		if( Button[ KEY_LSHIFT ] )
 		{
-			for( size_t idx = 0; idx < ModelName.size(); ++idx )
+			for( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx )
 			{
 				RadiusRect2D Selection = RadiusRect2D::Pair( OldMousePos, CurMousePos );
 					
 				RadiusRect2D Boundy = RadiusRect2D::Pair(
-					Model[ idx ].Mesh3d->BoundingRect.P1().ToVector2D() + Vector2D( Model[ idx ].Offset.x, Model[ idx ].Offset.y ),
-					Model[ idx ].Mesh3d->BoundingRect.P2().ToVector2D() + Vector2D( Model[ idx ].Offset.x, Model[ idx ].Offset.y ) );
+					StaticObjectInstance[ idx ].Object->BoundingRect.P1().ToVector2D() + StaticObjectInstance[ idx ].Pos,
+					StaticObjectInstance[ idx ].Object->BoundingRect.P2().ToVector2D() + StaticObjectInstance[ idx ].Pos );
 
 				if( Selection == Boundy )
 				{
@@ -69,34 +34,20 @@ void cMapEdit::SelectMesh3D()
 					}
 					if( !CurSelectedTest )
 					{
-						if( idx != size_t(SceneryIdx) )
-						{
-							SceneTest++;
-							CurSelected.push_back( idx );
-						}
+						CurSelected.push_back( idx );
 					}
 				}
 			}
-			if( SceneryIdx != -1 )
-			{
-				if( SceneTest == 0 )
-				{
-					CurSelected.push_back( SceneryIdx );
-				}
-			}
-		
-			
 		}
 		else if( Button[ KEY_LCTRL ] )
 		{	
-			for( size_t idx = 0; idx < ModelName.size(); ++idx )
+			for( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx )
 			{
 				RadiusRect2D Selection = RadiusRect2D::Pair( OldMousePos, CurMousePos );
 				
 				RadiusRect2D Boundy = RadiusRect2D::Pair(
-					Model[ idx ].Mesh3d->BoundingRect.P1().ToVector2D() + Vector2D( Model[ idx ].Offset.x, Model[ idx ].Offset.y ),
-					Model[ idx ].Mesh3d->BoundingRect.P2().ToVector2D() + Vector2D( Model[ idx ].Offset.x, Model[ idx ].Offset.y ) );
-
+					StaticObjectInstance[ idx ].Object->BoundingRect.P1().ToVector2D() + StaticObjectInstance[ idx ].Pos,
+					StaticObjectInstance[ idx ].Object->BoundingRect.P2().ToVector2D() + StaticObjectInstance[ idx ].Pos );
 
 				if( Selection == Boundy )
 				{
@@ -122,32 +73,21 @@ void cMapEdit::SelectMesh3D()
 		{
 			CurSelected.clear();
 			
-			for( size_t idx = 0; idx < ModelName.size(); ++idx )
+			for( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx )
 			{
 				RadiusRect2D Selection = RadiusRect2D::Pair( OldMousePos, CurMousePos );
 
 				RadiusRect2D Boundy = RadiusRect2D::Pair(
-					Model[ idx ].Mesh3d->BoundingRect.P1().ToVector2D() + Vector2D( Model[ idx ].Offset.x, Model[ idx ].Offset.y ),
-					Model[ idx ].Mesh3d->BoundingRect.P2().ToVector2D() + Vector2D( Model[ idx ].Offset.x, Model[ idx ].Offset.y ) );
+					StaticObjectInstance[ idx ].Object->BoundingRect.P1().ToVector2D() + StaticObjectInstance[ idx ].Pos,
+					StaticObjectInstance[ idx ].Object->BoundingRect.P2().ToVector2D() + StaticObjectInstance[ idx ].Pos );
 
 				if( Selection == Boundy )
 				{
-					if( idx != size_t(SceneryIdx) )
-					{
-						SceneTest++;
-						CurSelected.push_back( idx );
-					}
-				}
-			}
-			if( SceneryIdx != -1 )
-			{
-				if( SceneTest == 0 )
-				{
-					CurSelected.push_back( SceneryIdx );
+					CurSelected.push_back( idx );
 				}
 			}
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::MoveMesh3D()
