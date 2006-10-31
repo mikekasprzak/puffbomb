@@ -64,6 +64,16 @@ cEngine2D::~cEngine2D() {
 	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
 		delete DynamicCollection[ idx ];
 	}
+
+	// Delete PassiveObject's //
+	for ( size_t idx = 0; idx < PassiveObject.size(); idx++ ) {
+		delete PassiveObject[ idx ];
+	}
+
+	// Delete Zones //
+	for ( size_t idx = 0; idx < Zone.size(); idx++ ) {
+		delete Zone[ idx ];
+	}
 	
 	// Toast our Camera //
 	delete Camera;

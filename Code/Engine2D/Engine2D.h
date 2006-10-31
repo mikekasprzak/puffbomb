@@ -29,8 +29,8 @@ public:
 	// Our in game entities //
 	std::vector< cDynamicCollection* > DynamicCollection;
 	std::vector< cStaticObjectInstance > StaticObjectInstance;
-	std::vector< cPassiveObject > PassiveObject;
-	std::vector< cZone > Zone;
+	std::vector< cPassiveObject* > PassiveObject;
+	std::vector< cZone* > Zone;
 
 	// Partitioning //
 	std::vector< cDynamicComponent* > DynamicComponent;
