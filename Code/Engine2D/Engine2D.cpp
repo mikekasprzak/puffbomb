@@ -42,9 +42,9 @@ cEngine2D::cEngine2D() {
 	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 120, 400 ) ) );
 	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( -200, 200 ) ) );
 	
-	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.blend.mesh3d", Vector2D( -100, -150 ) ) );
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 100, -150 )) );
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.blend.mesh3d", Vector2D( 0, -100 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -150 ) ) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -150 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 0, -100 )) );
 	
 	// Populate component list with all components //
 	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {

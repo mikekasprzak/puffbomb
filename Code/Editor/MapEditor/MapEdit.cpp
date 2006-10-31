@@ -11,37 +11,35 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-cMapEdit::cMapEdit()/* :
-	CollBaseDirName( "../../../../Content/PuffBOMB/2D/" ),
-	CompBaseDirName( "2D/" ),
-	CurColl( 0 ),
-	CurComp( 0 ),
-	CurSelComp( 0 )*/
+cMapEdit::cMapEdit() :
+	MapBaseDirName( "../../../../Content/PuffBOMB/" ),
+	CurMap( 0 )
+
 {
 	Camera->Pos.z = Global::HudZoom;
 	
-/*	Physics.ZeroGravity();
-	Physics.Friction = Real( 0.8 );
+	StaticObjectInstance.push_back( Engine2D::cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -150 ) ) );
+	StaticObjectInstance.push_back( Engine2D::cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -150 ) ) );
 	
-	Log( LOG_HIGHEST_LEVEL, "Collection editor physics created" );
-
-	FindCollCompPaths();
-	
-	Component.AnimationSet = new Engine2D::cComponentAnimationSet();
-	Component.AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
-	Component.Body = Component.AnimationSet->BodyPose[ 0 ];
-
-	if( !CollectionPath.empty() )
-	{
-		Collection.LoadBinary( CollBaseDirName + CollectionPath[ CurColl ] );
-	}
-	*/
 	CurMode = TILE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::~cMapEdit()
 {
+	// Delete the collections //
+	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
+		delete DynamicCollection[ idx ];
+	}
 
+	// Delete PassiveObject's //
+	for ( size_t idx = 0; idx < PassiveObject.size(); idx++ ) {
+		delete PassiveObject[ idx ];
+	}
+
+	// Delete Zones //
+	for ( size_t idx = 0; idx < Zone.size(); idx++ ) {
+		delete Zone[ idx ];
+	}
 
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -53,16 +51,20 @@ void cMapEdit::Draw()
 	Gfx::EnableBlend();
 	Gfx::EnableDepth();
 
-/*	// Draw our collection //
-	Collection.Draw();
+	// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+		StaticObjectInstance[ idx ].Draw();
+	}
 
-	Gfx::EnableAddBlend();
-	
-*/
-
-	Gfx::DisableTex2D();
 	Gfx::DisableDepth();
-		
+	Gfx::DisableTex2D();
+	
+
+	// Draw Tiles //
+	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+		StaticObjectInstance[ idx ].DrawBody();
+	}
+
 	Gfx::SetLineWidth( 1.0 );
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
@@ -82,67 +84,13 @@ void cMapEdit::HudDraw()
 	Gfx::EnableBlend();
 
 	DisplayText();
-/*	
-	Gfx::PushMatrix();
-	{
-		Gfx::Translate( Global::Right - Real( 256 ), Global::Bottom + Real( 256 ), 0 );
-		
-		Component.Draw();
-		
-		Gfx::DisableTex2D();
-			
-		Component.DrawBody();
 
-	}
-	Gfx::PushMatrix();*/
 	
-	Gfx::DisableBlend();	
-
+	Gfx::DisableBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Step()
 {
-/*	// Makes my physics active //
-	Physics.SetActive();
-	// Step our collection (intenal physics system, based on physics above) //
-	Collection.Step();
-	
-	CurMousePos = CalcMousePos();
-
-	if( Button[ MOUSE_1 ].Pressed() )
-	{
-		OldMousePos = CurMousePos;
-	}
-	
-	if( CurMode == COLL_STATIC_COMP )
-	{
-		if( !isGroupMove )
-		{
-			StaticSelect();
-			StaticAddComp();
-			StaticDelete();
-		}
-		StaticMove();
-	}
-	else if( CurMode == COLL_DYNAMIC_COMP )
-	{
-		if( !isGroupMove )
-		{
-			DynSelect();
-		}
-		DynMove();		
-	}
-	else if( CurMode == COLL_NODE_LINK )
-	{
-		
-	}
-	else if( CurMode == COLL_HARD_NODE )
-	{
-		
-	}
-	SwitchColl();
-	SwitchComp();
-*/	
 	SwitchMode();
 	
 	Save();
@@ -169,76 +117,36 @@ Vector2D cMapEdit::CalcMousePos()
 	return tempMousPos;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMapEdit::SwitchColl()
+void cMapEdit::SwitchMap()
 {
-/*	if( IsSaved )
+	if( IsSaved )
 	{
-		if( !CollectionPath.empty() )
+		if( !MapPath.empty() )
 		{
 			if( Button[ KEY_MINUS_PAD ].Pressed() )
 			{
-				if( CurColl > 0 )
+				if( CurMap > 0 )
 				{
-					--CurColl;
+					--CurMap;
 				}
 				else
 				{
-					CurColl = CollectionPath.size() - 1;
+					CurMap = MapPath.size() - 1;
 				}
-				
-				UpdateColl();
 			}
 			else if( Button[ KEY_PLUS_PAD ].Pressed() )
 			{
-				if( CurColl < CollectionPath.size() - 1 )
+				if( CurMap < MapPath.size() - 1 )
 				{
-					++CurColl;
+					++CurMap;
 				}
 				else
 				{
-					CurColl = 0;	
+					CurMap = 0;	
 				}
-					
-				UpdateColl();
 			}
-		}
-	}*/
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cMapEdit::SwitchComp()
-{
-/*	if ( Button[ KEY_LEFT ].Pressed() ) 
-	{
-		if( !ComponentPath.empty() )
-		{
-			if( CurComp > 0 )
-			{
-				--CurComp;
-			}
-			else
-			{
-				CurComp = ComponentPath.size() - 1;
-			}
-			
-			UpdatePreviewComp();
 		}
 	}
-	else if ( Button[ KEY_RIGHT ].Pressed() )
-	{
-		if( !ComponentPath.empty() )
-		{
-			if( CurComp < ComponentPath.size() - 1 )
-			{
-				++CurComp;
-			}
-			else
-			{
-				CurComp = 0;	
-			}
-				
-			UpdatePreviewComp();
-		}
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SwitchMode()
@@ -281,9 +189,9 @@ void cMapEdit::Save()
 {
 	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
 	{
-		/*if( !CollectionPath.empty() )
+		/*if( !MapPath.empty() )
 		{
-			Collection.SaveBinary( CollBaseDirName + CollectionPath[ CurColl ] );
+			
 		}*/
 
 		IsSaved = true;

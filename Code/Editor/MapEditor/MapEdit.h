@@ -8,13 +8,19 @@
 #include <string>
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
 #include <Global.h>
-
-#include <Physics/Physics.h>
-#include <DynamicCollection/DynamicCollection.h>
-
+#include <Geometry/Vector.h>
 #include <Graphics/Camera.h>
+// - ------------------------------------------------------------------------------------------ - //
+#include <Physics/Physics.h>
+// - ------------------------------------------------------------------------------------------ - //
+#include <DynamicCollection/DynamicCollection.h>
+#include <StaticObject/StaticObjectInstance.h>
+#include <PassiveObject/PassiveObject.h>
+#include <Zone/Zone.h>
+// - ------------------------------------------------------------------------------------------ - //
+#include <Map/Map.h>
+// - ------------------------------------------------------------------------------------------ - //
 #include "Editor/Edit.h"
 // - ------------------------------------------------------------------------------------------ - //
 #define TILE_MODE 1
@@ -25,19 +31,20 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cMapEdit : public cEdit {
 public:
-/*	Engine2D::cPhysics Physics;
-	Engine2D::cDynamicCollection Collection;
-	Engine2D::cDynamicComponent Component;
-	
-	std::string CollBaseDirName;
-	std::string CompBaseDirName;
+	Engine2D::cMap Map;
+
+	// Our in game entities //
+	std::vector< Engine2D::cDynamicCollection* > DynamicCollection;
+	std::vector< Engine2D::cStaticObjectInstance > StaticObjectInstance;
+	std::vector< Engine2D::cPassiveObject* > PassiveObject;
+	std::vector< Engine2D::cZone* > Zone;
+
+	std::string MapBaseDirName;
 		
-	size_t CurColl;
-	size_t CurComp;
-	size_t CurSelComp;
-	
-	std::vector< Vector2D > MouseOffset;*/
-	
+	std::vector< std::string > MapPath;
+		
+	size_t CurMap;
+		
 public:
 	cMapEdit();
 	~cMapEdit();
@@ -49,8 +56,7 @@ public:
 	void Step();
 	
 	Vector2D CalcMousePos();
-	void SwitchColl();
-	void SwitchComp();
+	void SwitchMap();
 	void SwitchMode();
 	void ActiveAction();
 	void Save();

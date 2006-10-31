@@ -9,11 +9,18 @@
 #include "PassiveObjectInstanceInfo.h"
 #include "ZoneInstanceInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
+#include <vector>
+#include <string>
+// - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cMap {
 public:
-
+	std::vector< cStaticObjectInstanceInfo > StaticObjectInstanceInfo;
+	std::vector< cDynamicObjectInstanceInfo > DynamicObjectInstanceInfo;
+	std::vector< cPassiveObjectInstanceInfo > PassiveObjectInstanceInfo;
+	std::vector< cZoneInstanceInfo > ZoneInstanceInfo;
+	
 public:
 	cMap()
 	{
@@ -21,8 +28,8 @@ public:
 	}
 
 public:
-	
-
+	void LoadBinary( const std::string FileName );
+	void SaveBinary( const std::string FileName );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
