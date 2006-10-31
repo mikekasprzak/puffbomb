@@ -7,9 +7,10 @@
 #include <string>
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
+#include <Geometry/Rect.h>
+// - ------------------------------------------------------------------------------------------ - //
 #include "StaticBody2D/StaticBody2D.h"
-// Update this one day.  This should replace the general purpose "Mesh3D" under library/graphics //
-#include "Mesh3D/Mesh3D.h"
+#include <Graphics/Mesh3D.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -24,6 +25,10 @@ public:
 	// The block of binary Mesh, as read from the file //
 	char* Buffer;
 
+	// - -------------------------------------------------------------------------------------- - //
+	typedef Rect3D RectType;
+	RectType BoundingRect;
+	// - -------------------------------------------------------------------------------------- - //
 
 public:
 	cStaticObject() {
@@ -38,6 +43,22 @@ public:
 	void Draw( const Vector2D& Offset = Vector2D::Zero );
 	
 	void Load( const std::string& FileName );
+		
+	inline void CalcBoundingRect() {
+		Vector3D P1 = (*Mesh[0].Vertex)[0];
+		Vector3D P2 = (*Mesh[0].Vertex)[0];
+		
+		for ( size_t idx = 0; idx < Mesh.size(); idx++ ) {
+			for ( size_t idx2 = 0; idx2 < Mesh[idx].Vertex->Size(); idx2++ ) {
+				P1 = (*Mesh[idx].Vertex)[idx2].Min( P1 );
+				P2 = (*Mesh[idx].Vertex)[idx2].Max( P2 );
+
+			}
+		}
+		
+		BoundingRect = RectType::Pair( P1, P2 );
+	}
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -12,7 +12,7 @@
 #include "Constraints/StaticEdge.h"
 #include "Constraints/StaticPolygon.h"
 
-#include "../Mesh3D/Mesh3D.h"
+#include <Graphics/Mesh3D.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
