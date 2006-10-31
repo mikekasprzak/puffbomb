@@ -43,10 +43,12 @@ public:
 	std::string Mesh3DBaseDirName;
 		
 	std::vector< std::string > MapPath;
-		
 	std::vector< std::string > Mesh3DName;
 		
+	Engine2D::cStaticObjectInstance Mesh3DPreview;
+	
 	size_t CurMap;
+	size_t CurMesh3D;
 		
 public:
 	cMapEdit();
@@ -75,11 +77,12 @@ public:
 public:
 	// MapEditTile.cpp //
 	void DrawSelMesh3D();
-	void SwitchMesh3D();
 	void SelectMesh3D();
 	void MoveMesh3D();
 	void AddMesh3D();
 	void DeleteMesh3D();
+	void UpdateMesh3DPreview();
+	void SwitchMesh3D();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

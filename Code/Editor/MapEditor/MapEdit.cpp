@@ -14,15 +14,17 @@ using namespace Input;
 cMapEdit::cMapEdit() :
 	MapBaseDirName( "../../../../Content/PuffBOMB/Maps/" ),
 	Mesh3DBaseDirName( "3D/" ),
-	CurMap( 0 )
-
+	CurMap( 0 ),
+	CurMesh3D( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
 	
-	StaticObjectInstance.push_back( Engine2D::cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -150 ) ) );
-	StaticObjectInstance.push_back( Engine2D::cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -150 ) ) );
-	
 	FindMapMesh3DPaths();
+	
+	if( !Mesh3DName.empty() )
+	{
+		UpdateMesh3DPreview();
+	}
 	
 	CurMode = TILE_MODE;
 }
@@ -142,11 +144,10 @@ void cMapEdit::HudDraw()
 	
 	if( CurMode == TILE_MODE )
 	{
-		// Change mesh to the preview mesh //!!!!!!!!!!!!!!!!!!!!!
 		// Displays the preview mesh3d //
 		Gfx::DrawMesh3D(
-			StaticObjectInstance.back().Object->Mesh,
-			Vector3D( Global::Left, Global::Bottom, Real::Zero )
+			Mesh3DPreview.Object->Mesh,
+			Mesh3DPreview.Pos.ToVector3D()
 		);
 	}
 	else if( CurMode == ZONE_MODE )
@@ -181,6 +182,7 @@ void cMapEdit::Step()
 	if( CurMode == TILE_MODE )
 	{
 		AddMesh3D();
+		SwitchMesh3D();
 	}
 	else if( CurMode == ZONE_MODE )
 	{
@@ -325,10 +327,10 @@ void cMapEdit::FindMapMesh3DPaths()
 	{
 		if( String::LastExtension( MapDirCache.File[idx] ) == ".map" )
 		{
-			std::string TmpString = String::FileName( MapDirCache.File[idx] );
+			//std::string TmpString = String::FileName( MapDirCache.File[idx] );
 			
 			//Log( LOG_HIGHEST_LEVEL, "Map " << TmpString );
-			MapPath.push_back( TmpString );
+			MapPath.push_back( MapDirCache.File[idx] );
 		}
 	}
 

@@ -277,7 +277,7 @@ void cCollectionEdit::UpdateColl()
 	CurSelected.clear();	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cCollectionEdit::UpdatePreviewComp()
+void cCollectionEdit::UpdateCompPreview()
 {
 	delete Component.AnimationSet;	
 	
@@ -337,7 +337,7 @@ void cCollectionEdit::SwitchComp()
 				CurComp = ComponentPath.size() - 1;
 			}
 			
-			UpdatePreviewComp();
+			UpdateCompPreview();
 		}
 	}
 	else if ( Button[ KEY_RIGHT ].Pressed() )
@@ -353,7 +353,7 @@ void cCollectionEdit::SwitchComp()
 				CurComp = 0;	
 			}
 				
-			UpdatePreviewComp();
+			UpdateCompPreview();
 		}
 	}
 }

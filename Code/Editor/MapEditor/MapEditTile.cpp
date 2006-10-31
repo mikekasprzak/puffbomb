@@ -40,32 +40,6 @@ void cMapEdit::DrawSelMesh3D()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);*/
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMapEdit::SwitchMesh3D()
-{
-	/*if ( Button[ KEY_LEFT ].Pressed() )
-	{
-		if( CurModel > 0 )
-		{
-			--CurModel;
-		}
-		else
-		{
-			CurModel = ModelNameList.size() - 1;
-		}
-	}
-	else if ( Button[ KEY_RIGHT ].Pressed() )
-	{
-		if( size_t( CurModel ) < ModelNameList.size() - 1 )
-		{
-			++CurModel;
-		}
-		else
-		{
-			CurModel = 0;
-		}
-	}*/
-}
-// - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SelectMesh3D()
 {
 /*	if( Button[ MOUSE_1 ].Released() )
@@ -276,7 +250,7 @@ void cMapEdit::AddMesh3D()
 	{
 		Map.StaticObjectInstanceInfo.push_back(
 			Engine2D::cStaticObjectInstanceInfo( 
-				std::string( "Tile_BrickterPaste.bin.pack.mesh3d" ),
+				Mesh3DName[ CurMesh3D ],
 				CurMousePos
 			)
 		);
@@ -344,6 +318,50 @@ void cMapEdit::DeleteMesh3D()
 			ActiveAction();
 		}
 	}*/
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::UpdateMesh3DPreview()
+{
+	Mesh3DPreview = Engine2D::cStaticObjectInstance(
+		Mesh3DName[ CurMesh3D ],
+		Vector2D( Global::Left, Global::Bottom )
+	);
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::SwitchMesh3D()
+{
+	if ( Button[ KEY_LEFT ].Pressed() ) 
+	{
+		if( !Mesh3DName.empty() )
+		{
+			if( CurMesh3D > 0 )
+			{
+				--CurMesh3D;
+			}
+			else
+			{
+				CurMesh3D = Mesh3DName.size() - 1;
+			}
+			
+			UpdateMesh3DPreview();
+		}
+	}
+	else if ( Button[ KEY_RIGHT ].Pressed() )
+	{
+		if( !Mesh3DName.empty() )
+		{
+			if( CurMesh3D < Mesh3DName.size() - 1 )
+			{
+				++CurMesh3D;
+			}
+			else
+			{
+				CurMesh3D = 0;	
+			}
+				
+			UpdateMesh3DPreview();
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

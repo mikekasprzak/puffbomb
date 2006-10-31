@@ -49,7 +49,7 @@ public:
 	void Undo();
 	void FindCollCompPaths();
 	void UpdateColl();
-	void UpdatePreviewComp();
+	void UpdateCompPreview();
 	void SwitchColl();
 	void SwitchComp();
 	void SwitchMode();
