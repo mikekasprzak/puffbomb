@@ -92,10 +92,8 @@ void cMapEdit::SelectMesh3D()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::MoveMesh3D()
 {
-/*	if( Button[ MOUSE_1 ].Pressed() )
+	if( Button[ MOUSE_1 ].Pressed() )
 	{
-		int SceneTest = 0;
-		
 		bool SceneMove = false;
 		
 		if( !Button[ KEY_LCTRL ] )
@@ -104,29 +102,21 @@ void cMapEdit::MoveMesh3D()
 			
 			int temp = -1;
 			
-			for( size_t idx = 0; idx < Model.size(); ++idx )
+			for( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx )
 			{
-				Vector2D PointA = Model[ idx ].Mesh3d->BoundingRect.P1().ToVector2D() + Vector2D( Model[ idx ].Offset.x, Model[ idx ].Offset.y );
-				Vector2D PointB = Model[ idx ].Mesh3d->BoundingRect.P2().ToVector2D() + Vector2D( Model[ idx ].Offset.x, Model[ idx ].Offset.y );
+				Vector2D PointA = StaticObjectInstance[ idx ].Object->BoundingRect.P1().ToVector2D() + StaticObjectInstance[ idx ].Pos;
+				Vector2D PointB = StaticObjectInstance[ idx ].Object->BoundingRect.P2().ToVector2D() + StaticObjectInstance[ idx ].Pos;
 				
 				if( WithinBox( CurMousePos, PointA, PointB ) )
 				{
-					if( idx != size_t(SceneryIdx) )
+	//				if( idx != size_t(SceneryIdx) )
 					{						
-						SceneTest++;
 						temp = idx;
 					}
-					else
+		/*			else
 					{
 						SceneMove = true;	
-					}
-				}
-			}
-			if( SceneTest == 0 )
-			{
-				if( SceneMove )
-				{
-					temp = SceneryIdx;
+					}*/
 				}
 			}
 			if( temp != -1 )
@@ -156,8 +146,12 @@ void cMapEdit::MoveMesh3D()
 		{
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
-				Vector2D TempOffset = Vector2D( Model[CurSelected[idx]].Offset.x, Model[CurSelected[idx]].Offset.y );
-				Model[CurSelected[idx]].Offset = CalcSnapToGrid( TempOffset, CurrentGridDepth, GridDepth ).ToVector3D();
+				Vector2D TempPos = StaticObjectInstance[ CurSelected[ idx ] ].Pos;
+				CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
+				
+				StaticObjectInstance[ CurSelected[ idx ] ].Pos = TempPos;
+				Map.StaticObjectInstanceInfo[ CurSelected[ idx ] ].Pos = TempPos;
+
 				SnapToGrid = false;
 			}
 			ActiveAction();
@@ -175,13 +169,15 @@ void cMapEdit::MoveMesh3D()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			Model[CurSelected[idx]].Offset.x -= ( Mouse.Diff().x * Real( Global::HudW ) ) *
+			StaticObjectInstance[ CurSelected[ idx ] ].Pos.x -= ( Mouse.Diff().x * Real( Global::HudW ) ) *
 				Real( Camera->Pos.z / Global::HudZoom );
 
-			Model[CurSelected[idx]].Offset.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
+			StaticObjectInstance[ CurSelected[ idx ] ].Pos.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
 				Real( Camera->Pos.z / Global::HudZoom );
+			
+			Map.StaticObjectInstanceInfo[ CurSelected[ idx ] ].Pos = StaticObjectInstance[ CurSelected[ idx ] ].Pos;
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::AddMesh3D()

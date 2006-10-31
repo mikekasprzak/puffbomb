@@ -125,7 +125,10 @@ void cMapEdit::Draw()
 	
 		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 		
-		DrawSelBox();
+		if( !isGroupMove )
+		{
+			DrawSelBox();
+		}
 	}
 
 	Gfx::DisableBlend();
@@ -181,10 +184,13 @@ void cMapEdit::Step()
 	
 	if( CurMode == TILE_MODE )
 	{
-		SelectMesh3D();
-		
-		AddMesh3D();
-		SwitchMesh3D();
+		if( !isGroupMove )
+		{
+			SelectMesh3D();	
+			AddMesh3D();
+			SwitchMesh3D();
+		}
+		MoveMesh3D();
 	}
 	else if( CurMode == ZONE_MODE )
 	{
