@@ -109,14 +109,7 @@ void cMapEdit::MoveMesh3D()
 				
 				if( WithinBox( CurMousePos, PointA, PointB ) )
 				{
-	//				if( idx != size_t(SceneryIdx) )
-					{						
-						temp = idx;
-					}
-		/*			else
-					{
-						SceneMove = true;	
-					}*/
+					temp = idx;
 				}
 			}
 			if( temp != -1 )
@@ -219,41 +212,32 @@ void cMapEdit::AddMesh3D()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DeleteMesh3D()
 {
-/*	if( !ModelName.empty() )
+	if( !Mesh3DName.empty() )
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
 			for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
 			{
-				std::vector< cLevelData > TempModel;
-				std::vector< std::string > TempModelName;
+				std::vector< Engine2D::cStaticObjectInstance > TempMesh3D;
+				std::vector< Engine2D::cStaticObjectInstanceInfo > TempMesh3DInfo;
 	
-				for( size_t i = 0; i < ModelName.size(); ++i )
+				for( size_t i = 0; i < StaticObjectInstance.size(); ++i )
 				{
 					if( CurSelected[idx] != i )
 					{
-						TempModel.push_back( Model[ i ] );
-						TempModelName.push_back( ModelName[ i ] );
+						TempMesh3D.push_back( StaticObjectInstance[ i ] );
+						TempMesh3DInfo.push_back( Map.StaticObjectInstanceInfo[ i ] );
 					}
 				}
 				
-				if( int( CurSelected[idx] ) == SceneryIdx )
-				{
-					SceneryIdx = -1;
-				}
-				else if( int( CurSelected[idx] ) < SceneryIdx )
-				{
-					SceneryIdx--;
-				}
-				
-				Model.swap( TempModel );
-				ModelName.swap( TempModelName );
+				StaticObjectInstance.swap( TempMesh3D );
+				Map.StaticObjectInstanceInfo.swap( TempMesh3DInfo );
 			}
 			CurSelected.clear();
 			
 			ActiveAction();
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::UpdateMesh3DPreview()

@@ -188,6 +188,7 @@ void cMapEdit::Step()
 		{
 			SelectMesh3D();	
 			AddMesh3D();
+			DeleteMesh3D();
 			SwitchMesh3D();
 		}
 		MoveMesh3D();
