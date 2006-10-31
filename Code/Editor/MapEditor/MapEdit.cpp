@@ -164,7 +164,7 @@ void cMapEdit::Step()
 	
 	if( CurMode == TILE_MODE )
 	{
-	
+		AddMesh3D();
 	}
 	else if( CurMode == ZONE_MODE )
 	{

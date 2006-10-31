@@ -10,22 +10,22 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cStaticObjectInstanceInfo {
 public:
-	Vector2D Pos;
 	std::string FileName;
+	Vector2D Pos;
 	int Arg;
 
 public:
 	cStaticObjectInstanceInfo() :
-		Pos( Vector2D::Zero ),
 		FileName( "" ),
+		Pos( Vector2D::Zero ),
 		Arg( 0 )
 	{
 		
 	}
-	cStaticObjectInstanceInfo( const Vector2D _Pos, const std::string _FileName, const int _Arg = 0 ) :
-		Pos( Vector2D::Zero ),
-		FileName( "" ),
-		Arg( 0 )
+	cStaticObjectInstanceInfo( const std::string _FileName, const Vector2D _Pos, const int _Arg = 0 ) :
+		FileName( _FileName ),
+		Pos( _Pos ),
+		Arg( _Arg )
 	{
 		
 	}

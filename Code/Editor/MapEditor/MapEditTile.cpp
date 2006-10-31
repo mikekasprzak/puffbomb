@@ -272,22 +272,31 @@ void cMapEdit::MoveMesh3D()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::AddMesh3D()
 {
-/*	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
+	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
+		Map.StaticObjectInstanceInfo.push_back(
+			Engine2D::cStaticObjectInstanceInfo( 
+				std::string( "Tile_BrickterPaste.bin.pack.mesh3d" ),
+				CurMousePos
+			)
+		);
+				
+		StaticObjectInstance.push_back(
+			Engine2D::cStaticObjectInstance(
+				Map.StaticObjectInstanceInfo.back().FileName,
+				Map.StaticObjectInstanceInfo.back().Pos
+			)
+		);
+		/*
 		ModelName.push_back( ModelNameList[CurModel] );
 		
 		Vector2D PointA = ModelList[ CurModel ].Mesh3d->BoundingRect.P1().ToVector2D();
 		Vector2D PointB = ModelList[ CurModel ].Mesh3d->BoundingRect.P2().ToVector2D();
 
-		Vector2D TempPos = CalcMousePos() - ( ( PointB - PointA ) / 2 );
+		Vector2D TempPos = CurMousePos - ( ( PointB - PointA ) / 2 );
 		CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
 		
-		Model.push_back(
-			cLevelData(
-				TempPos.ToVector3D(),
-				&Mesh3dPool.Load( ModelNameList[CurModel] )
-			)
-		);
+
 				
 		CurSelected.clear();
 		CurSelected.push_back( Model.size() - 1 );
@@ -301,9 +310,9 @@ void cMapEdit::AddMesh3D()
 				SceneryIdx = ModelName.size() - 1;
 			}
 		}
-
+*/
 		ActiveAction();
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DeleteMesh3D()
