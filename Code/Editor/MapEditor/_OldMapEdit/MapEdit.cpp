@@ -125,18 +125,18 @@ void cMapEdit::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::HudDraw()
 {
-//	if( CurMode == OBJECT_MODE )
-//	{
-//		Mesh2DEdit->Object[CurMesh].CalcBoundingRect();
-//		Vector2D Point1 = Mesh2DEdit->Object[CurMesh].BoundingRect.P1();
-//		Vector2D Point2 = Mesh2DEdit->Object[CurMesh].BoundingRect.P2();
-//	
-//		Point1.x = ( ( Global::HudW >> 1 ) - Point2.x );
-//		Point1.y = ( -( Global::HudH >> 1 ) - Point1.y );
-//
-//		DrawMesh( CurMesh, Point1 );
-//	}
-/*	if( CurMode == TILE_MODE )
+/*	if( CurMode == OBJECT_MODE )
+	{
+		Mesh2DEdit->Object[CurMesh].CalcBoundingRect();
+		Vector2D Point1 = Mesh2DEdit->Object[CurMesh].BoundingRect.P1();
+		Vector2D Point2 = Mesh2DEdit->Object[CurMesh].BoundingRect.P2();
+	
+		Point1.x = ( ( Global::HudW >> 1 ) - Point2.x );
+		Point1.y = ( -( Global::HudH >> 1 ) - Point1.y );
+
+		DrawMesh( CurMesh, Point1 );
+	}
+	if( CurMode == TILE_MODE )
 	{
 		glEnable( GL_TEXTURE_2D );
 	

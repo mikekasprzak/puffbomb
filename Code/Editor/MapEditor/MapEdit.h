@@ -40,8 +40,11 @@ public:
 	std::vector< Engine2D::cZone* > Zone;
 
 	std::string MapBaseDirName;
+	std::string Mesh3DBaseDirName;
 		
 	std::vector< std::string > MapPath;
+		
+	std::vector< std::string > Mesh3DName;
 		
 	size_t CurMap;
 		
@@ -60,6 +63,7 @@ public:
 	void SwitchMode();
 	void ActiveAction();
 	void Save();
+	void FindMapMesh3DPaths();
 		
 public:
 	// MapEditText.cpp //

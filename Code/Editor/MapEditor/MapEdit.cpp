@@ -12,7 +12,8 @@
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::cMapEdit() :
-	MapBaseDirName( "../../../../Content/PuffBOMB/" ),
+	MapBaseDirName( "../../../../Content/PuffBOMB/Maps/" ),
+	Mesh3DBaseDirName( "3D/" ),
 	CurMap( 0 )
 
 {
@@ -20,6 +21,8 @@ cMapEdit::cMapEdit() :
 	
 	StaticObjectInstance.push_back( Engine2D::cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -150 ) ) );
 	StaticObjectInstance.push_back( Engine2D::cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -150 ) ) );
+	
+	FindMapMesh3DPaths();
 	
 	CurMode = TILE_MODE;
 }
@@ -56,26 +59,34 @@ void cMapEdit::Draw()
 		StaticObjectInstance[ idx ].Draw();
 	}
 
-	if( CurMode == TILE_MODE )
+	// Draw selected //
+	Gfx::EnableAddBlend();
+
+	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 	{
-	
+		if( CurMode == TILE_MODE )
+		{
+			// Draw selected mesh3d's //
+			StaticObjectInstance[ CurSelected[ idx ] ].Draw();
+		}
+		else if( CurMode == ZONE_MODE )
+		{
+			
+		}
+		else if( CurMode == OBJECT_MODE )
+		{
+			
+		}
+		else if( CurMode == FREE_OBJECT_MODE )
+		{
+			
+		}
+		else if( CurMode == PASSIVE_OBJECT_MODE )
+		{
+			
+		}
 	}
-	else if( CurMode == ZONE_MODE )
-	{
-		
-	}
-	else if( CurMode == OBJECT_MODE )
-	{
-		
-	}
-	else if( CurMode == FREE_OBJECT_MODE )
-	{
-		
-	}
-	else if( CurMode == PASSIVE_OBJECT_MODE )
-	{
-		
-	}
+	Gfx::DisableAddBlend();
 
 	Gfx::DisableDepth();
 	Gfx::DisableTex2D();
@@ -131,7 +142,12 @@ void cMapEdit::HudDraw()
 	
 	if( CurMode == TILE_MODE )
 	{
-	
+		// Change mesh to the preview mesh //!!!!!!!!!!!!!!!!!!!!!
+		// Displays the preview mesh3d //
+		Gfx::DrawMesh3D(
+			StaticObjectInstance.back().Object->Mesh,
+			Vector3D( Global::Left, Global::Bottom, Real::Zero )
+		);
 	}
 	else if( CurMode == ZONE_MODE )
 	{
@@ -297,6 +313,35 @@ void cMapEdit::Save()
 		}*/
 
 		IsSaved = true;
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+// Goes through all the dirs finding the .coll .comp files then stores them and there locations   //
+void cMapEdit::FindMapMesh3DPaths()
+{
+	cDirectoryCache MapDirCache( MapBaseDirName );
+	
+	for( size_t idx = 0; idx < MapDirCache.File.size(); ++idx )
+	{
+		if( String::LastExtension( MapDirCache.File[idx] ) == ".map" )
+		{
+			std::string TmpString = String::FileName( MapDirCache.File[idx] );
+			
+			//Log( LOG_HIGHEST_LEVEL, "Map " << TmpString );
+			MapPath.push_back( TmpString );
+		}
+	}
+
+	cDirectoryCache MeshDirCache( Mesh3DBaseDirName );
+	
+	for( size_t idx = 0; idx < MeshDirCache.File.size(); ++idx )
+	{
+		if( String::LastExtension( MeshDirCache.File[idx] ) == ".mesh3d" )
+		{
+			std::string TmpString = String::FileName( MeshDirCache.File[idx] );
+			//Log( LOG_HIGHEST_LEVEL, "Mesh3D " << TmpString );
+			Mesh3DName.push_back( TmpString );
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
