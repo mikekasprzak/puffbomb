@@ -287,30 +287,22 @@ void cMapEdit::AddMesh3D()
 				Map.StaticObjectInstanceInfo.back().Pos
 			)
 		);
-		/*
-		ModelName.push_back( ModelNameList[CurModel] );
 		
-		Vector2D PointA = ModelList[ CurModel ].Mesh3d->BoundingRect.P1().ToVector2D();
-		Vector2D PointB = ModelList[ CurModel ].Mesh3d->BoundingRect.P2().ToVector2D();
+		StaticObjectInstance.back().Object->CalcBoundingRect();
+
+		Vector2D PointA = StaticObjectInstance.back().Object->BoundingRect.P1().ToVector2D();
+		Vector2D PointB = StaticObjectInstance.back().Object->BoundingRect.P2().ToVector2D();
 
 		Vector2D TempPos = CurMousePos - ( ( PointB - PointA ) / 2 );
 		CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
-		
 
-				
+		StaticObjectInstance.back().Pos = TempPos;
+		Map.StaticObjectInstanceInfo.back().Pos = TempPos;
+		
 		CurSelected.clear();
-		CurSelected.push_back( Model.size() - 1 );
 		
-		std::string tempstr = String::PriorBaseName( ModelNameList[CurModel] );
-		
-		if( tempstr.size() > 2 )
-		{
-			if( tempstr == "Scene" )
-			{
-				SceneryIdx = ModelName.size() - 1;
-			}
-		}
-*/
+		CurSelected.push_back( StaticObjectInstance.size() - 1 );
+
 		ActiveAction();
 	}
 }
