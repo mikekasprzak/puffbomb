@@ -68,6 +68,15 @@ public:
 	void DisplayInfo();
 	void DisplayMapInfo();
 
+public:
+	// MapEditTile.cpp //
+	void DrawSelMesh3D();
+	void SwitchMesh3D();
+	void SelectMesh3D();
+	void MoveMesh3D();
+	void AddMesh3D();
+	void DeleteMesh3D();
+
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

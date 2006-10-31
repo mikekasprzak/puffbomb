@@ -56,20 +56,64 @@ void cMapEdit::Draw()
 		StaticObjectInstance[ idx ].Draw();
 	}
 
+	if( CurMode == TILE_MODE )
+	{
+	
+	}
+	else if( CurMode == ZONE_MODE )
+	{
+		
+	}
+	else if( CurMode == OBJECT_MODE )
+	{
+		
+	}
+	else if( CurMode == FREE_OBJECT_MODE )
+	{
+		
+	}
+	else if( CurMode == PASSIVE_OBJECT_MODE )
+	{
+		
+	}
+
 	Gfx::DisableDepth();
 	Gfx::DisableTex2D();
 	
-
 	// Draw Tiles //
 	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
 		StaticObjectInstance[ idx ].DrawBody();
 	}
 
-	Gfx::SetLineWidth( 1.0 );
-
-	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+	if( CurMode == TILE_MODE )
+	{
 	
-	DrawSelBox();
+	}
+	else if( CurMode == ZONE_MODE )
+	{
+		
+	}
+	else if( CurMode == OBJECT_MODE )
+	{
+		
+	}
+	else if( CurMode == FREE_OBJECT_MODE )
+	{
+		
+	}
+	else if( CurMode == PASSIVE_OBJECT_MODE )
+	{
+		
+	}
+
+	if( CurMode != ZONE_MODE )
+	{
+		Gfx::SetLineWidth( 1.0 );
+	
+		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+		
+		DrawSelBox();
+	}
 
 	Gfx::DisableBlend();
 	
@@ -84,22 +128,80 @@ void cMapEdit::HudDraw()
 	Gfx::EnableBlend();
 
 	DisplayText();
-
+	
+	if( CurMode == TILE_MODE )
+	{
+	
+	}
+	else if( CurMode == ZONE_MODE )
+	{
+		
+	}
+	else if( CurMode == OBJECT_MODE )
+	{
+		
+	}
+	else if( CurMode == FREE_OBJECT_MODE )
+	{
+		
+	}
+	else if( CurMode == PASSIVE_OBJECT_MODE )
+	{
+		
+	}
 	
 	Gfx::DisableBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Step()
 {
+	CurMousePos = CalcMousePos();
+
+	if( Button[ MOUSE_1 ].Pressed() )
+	{
+		OldMousePos = CurMousePos;
+	}
+	
+	if( CurMode == TILE_MODE )
+	{
+	
+	}
+	else if( CurMode == ZONE_MODE )
+	{
+		
+	}
+	else if( CurMode == OBJECT_MODE )
+	{
+		
+	}
+	else if( CurMode == FREE_OBJECT_MODE )
+	{
+		
+	}
+	else if( CurMode == PASSIVE_OBJECT_MODE )
+	{
+		
+	}
+	
 	SwitchMode();
+	SwitchMap();
 	
 	Save();
 
+
 	// Handles scrolling around the map
 	Scroll( Camera );
-	
-	// Handles the zooming in and out of a map
-	Zoom( Real( 64.0 ), Camera );
+
+	if( CurMode == ZONE_MODE )
+	{
+		// Handles the zooming in and out of a map
+		Zoom( Real( 256.0 ), Camera );
+	}
+	else
+	{
+		// Handles the zooming in and out of a map
+		Zoom( Real( 64.0 ), Camera );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cMapEdit::CalcMousePos()
