@@ -31,7 +31,7 @@ public:
 	void DebugDraw() const;
 public:
 	// Messanging //
-	void Action( class cDynamicComponent& _Vs );
+	virtual void Action( class cDynamicComponent& _Vs );
 	
 	// Functioning (actions to take with zones on initialization) //
 	// Return true to kill it after executing //
