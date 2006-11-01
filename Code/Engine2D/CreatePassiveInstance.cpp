@@ -2,6 +2,8 @@
 // CreatePassiveInstance //
 // - ------------------------------------------------------------------------------------------ - //
 #include "CreatePassiveInstance.h"
+
+#include <PassiveObject/Distortion.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -9,7 +11,7 @@ cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Vector2D& Po
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
 		case 1: {
-			//return new cPassiveObject( "2D/Hamster/Hamster.coll", Pos );
+			return new cDistortion( Pos );
 			break;
 		}
 		

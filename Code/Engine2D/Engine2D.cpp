@@ -5,6 +5,8 @@
 #include <Global.h>
 
 #include "CreateCollectionInstance.h"
+#include "CreatePassiveInstance.h"
+#include "CreateZoneInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
@@ -45,6 +47,8 @@ cEngine2D::cEngine2D() {
 	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -150 ) ) );
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -150 )) );
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 0, -100 )) );
+	
+	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
 	
 	// Populate component list with all components //
 	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
@@ -177,6 +181,13 @@ void cEngine2D::Step() {
 	for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
 		//if ( DynamicCollection[ idx ].IsActive() ) {
 			DynamicCollection[ idx ]->Work();
+		//}
+	}
+
+	// Do the job of passives //
+	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+		//if ( PassiveObject[ idx ].IsActive() ) {
+		PassiveObject[ idx ]->Work();
 		//}
 	}
 	

@@ -22,12 +22,14 @@ public:
 	public:
 		Real Radius;
 		Real Force;
+		Real Tangent;
 		
 		Real RadiusSquared;
 		
-		cImpulseData( const Real& _Radius, const Real& _Force ) :
+		cImpulseData( const Real& _Radius, const Real& _Force, const Real& _Tangent = Real::Zero ) :
 			Radius( _Radius),
 			Force( _Force ),
+			Tangent( _Tangent ),
 			RadiusSquared( _Radius * _Radius )
 		{
 		}
@@ -52,12 +54,12 @@ public:
 	// Standard Constructor //
 	inline cImpulse(
 		const Vector2D& _Pos,
-		const Real& _InnerRadius, const Real& _InnerForce,
-		const Real& _OuterRadius, const Real& _OuterForce
+		const Real& _InnerRadius, const Real& _InnerForce, const Real& _InnerTangent,
+		const Real& _OuterRadius, const Real& _OuterForce, const Real& _OuterTangent
 		) :
 		Pos( _Pos ),
-		Inner( _InnerRadius, _InnerForce ),
-		Outer( _OuterRadius, _OuterForce ),
+		Inner( _InnerRadius, _InnerForce, _InnerTangent ),
+		Outer( _OuterRadius, _OuterForce, _OuterTangent ),
 		ForceDiff( _InnerForce - _OuterForce ),
 		RadiusDiff( _OuterRadius - _InnerRadius ),
 		InvRadiusDiff( Real::One / RadiusDiff )

@@ -4,6 +4,7 @@
 #include <Util/Debug.h>
 
 #include "Distortion.h"
+#include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -29,7 +30,19 @@ namespace Engine2D {
 //}
 // - ------------------------------------------------------------------------------------------ - //
 void cDistortion::Work() {
+	// Step pulse rate timer //
 	
+	// On pulse match, impulse //
+	
+	cEngine2D::Current->Impulse.push_back( 
+		cImpulse(
+			Pos,
+			// Inner Radius, Intensity, Tangent //
+			Real( 0 ), Real( -1 ), Real( 0 ),
+			// Outer Radius, Intensity, Tangent //
+			Real( 512 ), Real( 0 ), Real( 0 )
+			)
+		);	
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

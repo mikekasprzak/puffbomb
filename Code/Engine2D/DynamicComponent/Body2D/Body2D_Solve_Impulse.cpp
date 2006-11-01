@@ -33,6 +33,8 @@ void cBody2D::Solve( cImpulse& _Vs ) {
 			SphereFlags[ idx ].SetImpulse();
 		}
 	}
+	
+	CalcBoundingRect();
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
