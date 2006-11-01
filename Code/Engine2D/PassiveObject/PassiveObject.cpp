@@ -11,24 +11,24 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cPassiveObject::Action( cDynamicComponent& _Vs ) {
-	switch ( Id ) {
-		// Camera Boundary //
-		case 1: {
-			
-		}
-
-		// Level Boundary //
-		case 2: {
-			
-		}
-		
-		// ??? //
-		case 3: {
-			if ( _Vs.Body.Pose->Sphere.size() ) {
-				// Uhh //	
-			}
-		}
-	};
+//	switch ( Id ) {
+//		// Camera Boundary //
+//		case 1: {
+//			
+//		}
+//
+//		// Level Boundary //
+//		case 2: {
+//			
+//		}
+//		
+//		// ??? //
+//		case 3: {
+//			if ( _Vs.Body.Pose->Sphere.size() ) {
+//				// Uhh //	
+//			}
+//		}
+//	};
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cPassiveObject::Work() {
