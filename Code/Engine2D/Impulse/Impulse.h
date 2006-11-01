@@ -75,13 +75,15 @@ public:
 			return Vector2D::Zero;
 		}
 		else if ( Line.MagnitudeSquared() <= Inner.RadiusSquared ) {
-			return Line.Normal() * Inner.Force;
+			Vector2D LineNormal = Line.Normal();
+
+			return (LineNormal * Inner.Force) + (LineNormal.Tangent() * Inner.Tangent);
 		}
 		else {
 			// Linear Impulses //
 			Real Mag = Line.NormalizeRet();
 			Real ForceScalar = (RadiusDiff - ( Mag - Inner.Radius )) * InvRadiusDiff;
-			return Line * (ForceDiff * ForceScalar);
+			return (Line * (ForceDiff * ForceScalar)) + (ForceScalar * (Line.Tangent() * Outer.Tangent));
 			
 			// Exponential Impulses //
 //			Real Mag = Line.NormalizeRet();

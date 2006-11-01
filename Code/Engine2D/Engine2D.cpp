@@ -40,9 +40,35 @@ cEngine2D::cEngine2D() {
 	 );
 	
 	// Add a dummy object for testing //
-	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 200, 200 ) ) );
-	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 120, 400 ) ) );
-	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( -200, 200 ) ) );
+	//DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 200, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -400, 400 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -300, 400 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -200, 400 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -100, 400 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 0, 400 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 100, 400 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 200, 400 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 300, 400 ) ) );
+
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -400, 300 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -300, 300 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -200, 300 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -100, 300 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 0, 300 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 100, 300 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 200, 300 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 300, 300 ) ) );
+
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -400, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -300, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -200, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -100, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 0, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 100, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 200, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 300, 200 ) ) );
+	
+	//DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( -200, 200 ) ) );
 	
 	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -150 ) ) );
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -150 )) );
