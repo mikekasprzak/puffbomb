@@ -4,6 +4,8 @@
 #include <Graphics/Gfx.h>
 #include <Global.h>
 
+#include <Input/Input.h>
+
 #include "CreateCollectionInstance.h"
 #include "CreatePassiveInstance.h"
 #include "CreateZoneInstance.h"
@@ -70,9 +72,9 @@ cEngine2D::cEngine2D() {
 	
 	//DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( -200, 200 ) ) );
 	
-	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -150 ) ) );
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -150 )) );
-	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 0, -100 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -350 ) ) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -350 )) );
+	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 0, -300 )) );
 	
 	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
 	
@@ -110,6 +112,9 @@ cEngine2D::~cEngine2D() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Step() {
+	if( Input::Button[ KEY_SPACE ] )
+		return;
+	
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
 	Physics.SetActive();
@@ -263,7 +268,7 @@ void cEngine2D::Draw() {
 	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
 	// -------------- //
 #endif // EDITOR //
-
+/*
 	Gfx::DisableTex2D();
 	Gfx::DisableDepth();
 	Gfx::DisableBlend();
@@ -278,7 +283,7 @@ void cEngine2D::Draw() {
 		StaticObjectInstance[ idx ].DrawBody();
 	}
 	Gfx::EnableDepth();
-
+*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
