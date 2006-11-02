@@ -8,12 +8,16 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cEditor::cEditor()
 {
-	CollectionEdit = new cCollectionEdit();
-	ComponentEdit = new cComponentEdit();
-	MapEdit = new cMapEdit();
+//	CollectionEdit = new cCollectionEdit();
+//	ComponentEdit = new cComponentEdit();
+//	MapEdit = new cMapEdit();
 //	AnimationEdit = new cAnimationEdit();
 
-	CurEditor = COMPONENT_EDITOR;
+
+	MapEdit = new cMapEdit();
+
+	CurEditor = MAP_EDITOR;
+	LastEditor = MAP_EDITOR;
 	
 	Work();
 }
@@ -21,12 +25,39 @@ cEditor::cEditor()
 cEditor::~cEditor()
 {
 	Log( LOG_HIGHEST_LEVEL, "~cEditor()" );
-	Log( LOG_HIGHEST_LEVEL, "Delete Collection Editor" );
+	
+	FreeEditorMemory();
+	
+/*	Log( LOG_HIGHEST_LEVEL, "Delete Collection Editor" );
 	delete CollectionEdit;
 	Log( LOG_HIGHEST_LEVEL, "Delete Component Editor" );
 	delete ComponentEdit;
 	Log( LOG_HIGHEST_LEVEL, "Delete Map Editor" );
-	delete MapEdit;
+	delete MapEdit;*/
+}
+// - ------------------------------------------------------------------------------------------ - //	
+void cEditor::FreeEditorMemory()
+{
+	if( LastEditor == MAP_EDITOR )
+	{
+		Log( LOG_HIGHEST_LEVEL, "Delete Map Editor" );
+		delete MapEdit;
+	}
+	else if( LastEditor == COLLECTION_EDITOR )
+	{
+		Log( LOG_HIGHEST_LEVEL, "Delete Collection Editor" );
+		delete CollectionEdit;
+	}
+	else if( LastEditor == COMPONENT_EDITOR )
+	{
+		Log( LOG_HIGHEST_LEVEL, "Delete Component Editor" );
+		delete ComponentEdit;
+	}
+/*	else if( CurEditor == ANIMATION_EDITOR )
+	{
+		
+	}
+	*/
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Step()
@@ -93,20 +124,41 @@ void cEditor::Step()
 	}
 	if( Button[ KEY_F4 ].Pressed() )
 	{
-		CurEditor = MAP_EDITOR;
+		if( CurEditor != MAP_EDITOR )
+		{
+			CurEditor = MAP_EDITOR;
+			MapEdit = new cMapEdit();
+		}
 	}
 	else if( Button[ KEY_F5 ].Pressed() )
 	{
-		CurEditor = COLLECTION_EDITOR;
+		if( CurEditor != COLLECTION_EDITOR )
+		{
+			CurEditor = COLLECTION_EDITOR;
+			CollectionEdit = new cCollectionEdit();
+		}
 	}
-	else if( Button[ KEY_F6 ].Pressed() )
+/*	else if( Button[ KEY_F6 ].Pressed() )
 	{
-		CurEditor = ANIMATION_EDITOR;
-	}
+		if( CurEditor != ANIMATION_EDITOR )
+		{
+			CurEditor = ANIMATION_EDITOR;
+		}
+	}*/
 	else if( Button[ KEY_F7 ].Pressed() )
 	{
-		CurEditor = COMPONENT_EDITOR;
+		if( CurEditor != COMPONENT_EDITOR )
+		{
+			CurEditor = COMPONENT_EDITOR;
+			ComponentEdit = new cComponentEdit();
+		}
 	}
+	
+	if( CurEditor != LastEditor )
+	{
+		FreeEditorMemory();
+		LastEditor = CurEditor;
+	}	
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Draw()

@@ -20,11 +20,13 @@
 class cEditor : public cMessageEntity {
 public:
 	int CurEditor;
+	int LastEditor;
 
 public:
 	// Construct, and require an associated object //
 	cEditor();
 	~cEditor();
+	void FreeEditorMemory();
 
 public:
 	cMapEdit* MapEdit;
