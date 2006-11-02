@@ -122,7 +122,7 @@ void cEditor::Step()
 			
 		}
 	}
-	if( Button[ KEY_F4 ].Pressed() )
+	if( Button[ KEY_F5 ].Pressed() )
 	{
 		if( CurEditor != MAP_EDITOR )
 		{
@@ -130,7 +130,7 @@ void cEditor::Step()
 			MapEdit = new cMapEdit();
 		}
 	}
-	else if( Button[ KEY_F5 ].Pressed() )
+	else if( Button[ KEY_F6 ].Pressed() )
 	{
 		if( CurEditor != COLLECTION_EDITOR )
 		{
@@ -138,14 +138,14 @@ void cEditor::Step()
 			CollectionEdit = new cCollectionEdit();
 		}
 	}
-/*	else if( Button[ KEY_F6 ].Pressed() )
+/*	else if( Button[ KEY_F7 ].Pressed() )
 	{
 		if( CurEditor != ANIMATION_EDITOR )
 		{
 			CurEditor = ANIMATION_EDITOR;
 		}
 	}*/
-	else if( Button[ KEY_F7 ].Pressed() )
+	else if( Button[ KEY_F8 ].Pressed() )
 	{
 		if( CurEditor != COMPONENT_EDITOR )
 		{
