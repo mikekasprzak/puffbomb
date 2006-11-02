@@ -242,6 +242,8 @@ void cMapEdit::DeleteMesh3D()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::UpdateMesh3DPreview()
 {
+	Mesh3DPreview.~cStaticObjectInstance();
+	
 	Mesh3DPreview = Engine2D::cStaticObjectInstance(
 		Mesh3DName[ CurMesh3D ],
 		Vector2D( Global::Left, Global::Bottom )
