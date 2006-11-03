@@ -14,6 +14,10 @@ public:
 	Vector2D Pos;
 	int Arg;
 
+	#ifdef EDITOR
+	int Layer;
+	#endif // Editor //
+
 public:
 	cStaticObjectInstanceInfo() :
 		FileName( "" ),

@@ -40,15 +40,32 @@ public:
 	std::vector< Engine2D::cZone* > Zone;
 
 	std::string MapBaseDirName;
-	std::string Mesh3DBaseDirName;
-		
 	std::vector< std::string > MapPath;
+	size_t CurMap;
+
+	// Tile //
+	// - -------------------------------------------------------------------------------------- - //
+	std::string Mesh3DBaseDirName;
 	std::vector< std::string > Mesh3DName;
 		
 	Engine2D::cStaticObjectInstance Mesh3DPreview;
 	
-	size_t CurMap;
 	size_t CurMesh3D;
+	
+	int CurLayer;
+
+	// Dynamic //
+	// - -------------------------------------------------------------------------------------- - //
+	
+
+
+	// Passive //
+	// - -------------------------------------------------------------------------------------- - //
+
+
+	// Zone //
+	// - -------------------------------------------------------------------------------------- - //
+
 		
 public:
 	cMapEdit();
@@ -82,6 +99,7 @@ public:
 	void DeleteMesh3D();
 	void UpdateMesh3DPreview();
 	void SwitchMesh3D();
+	void SwitchLayer();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

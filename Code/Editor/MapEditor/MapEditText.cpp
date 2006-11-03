@@ -11,9 +11,30 @@
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayText()
 {
-/*	if( CurMode == TILE_MODE )
+	if( CurMode == TILE_MODE )
 	{
-
+		Real FontSize = 0.5;
+		int Color = Gfx::RGBA( 255, 100, 100, 255 );
+		
+		std::stringstream Temp;
+	
+		// Displays the current layer //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"CurLayer",
+			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 90 ), 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << CurLayer;
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( Global::Left + Real( 130 ), Global::Top - Real( 90 ), 0.0 ),
+			FontSize,
+			Color
+		);
 	}
 	else if( CurMode == ZONE_MODE )
 	{
@@ -30,7 +51,7 @@ void cMapEdit::DisplayText()
 	else if( CurMode == PASSIVE_OBJECT_MODE )
 	{
 		
-	}*/
+	}
 
 	DisplayMode();
 	
@@ -128,17 +149,16 @@ void cMapEdit::DisplayInfo()
 		);
 	}
 
-/*
-// Dir Name?
-	if( !CollectionPath.empty() )
+	// Map and Dir Name //
+	if( !MapPath.empty() )
 	{
 		cFonts::FlangeLight.Write(
-			CollectionPath[ CurColl ],
+			MapPath[ CurMap ],
 			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 60 ), 0.0 ),
 			Real( 0.5 ),
 			Gfx::RGBA( 100, 255, 100, 255 )
 		);
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayMapInfo()

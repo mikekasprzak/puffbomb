@@ -24,17 +24,20 @@ void cMapEdit::SelectMesh3D()
 
 				if( Selection == Boundy )
 				{
-					bool CurSelectedTest = false;
-					for( size_t i = 0; i < CurSelected.size(); ++i )
+					if( Map.StaticObjectInstanceInfo[ idx ].Layer == CurLayer )
 					{
-						if( CurSelected[i] == idx )
+						bool CurSelectedTest = false;
+						for( size_t i = 0; i < CurSelected.size(); ++i )
 						{
-							CurSelectedTest = true;
+							if( CurSelected[i] == idx )
+							{
+								CurSelectedTest = true;
+							}
 						}
-					}
-					if( !CurSelectedTest )
-					{
-						CurSelected.push_back( idx );
+						if( !CurSelectedTest )
+						{
+							CurSelected.push_back( idx );
+						}
 					}
 				}
 			}
@@ -83,7 +86,10 @@ void cMapEdit::SelectMesh3D()
 
 				if( Selection == Boundy )
 				{
-					CurSelected.push_back( idx );
+					if( Map.StaticObjectInstanceInfo[ idx ].Layer == CurLayer )
+					{
+						CurSelected.push_back( idx );
+					}
 				}
 			}
 		}
@@ -202,6 +208,8 @@ void cMapEdit::AddMesh3D()
 		StaticObjectInstance.back().Pos = TempPos;
 		Map.StaticObjectInstanceInfo.back().Pos = TempPos;
 		
+		Map.StaticObjectInstanceInfo.back().Layer = CurLayer;
+		
 		CurSelected.clear();
 		
 		CurSelected.push_back( StaticObjectInstance.size() - 1 );
@@ -282,6 +290,32 @@ void cMapEdit::SwitchMesh3D()
 			}
 				
 			UpdateMesh3DPreview();
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::SwitchLayer()
+{
+	if ( Button[ KEY_L ].Pressed() ) 
+	{
+		if( CurLayer < 10 )
+		{
+			++CurLayer;
+		}
+		else
+		{
+			CurLayer = -10;	
+		}
+	}
+	else if ( Button[ KEY_K ].Pressed() )
+	{
+		if( CurLayer > -10 )
+		{
+			--CurLayer;
+		}
+		else
+		{
+			CurLayer = 10;
 		}
 	}
 }

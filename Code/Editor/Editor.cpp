@@ -8,11 +8,6 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cEditor::cEditor()
 {
-//	CollectionEdit = new cCollectionEdit();
-//	ComponentEdit = new cComponentEdit();
-//	MapEdit = new cMapEdit();
-//	AnimationEdit = new cAnimationEdit();
-
 
 	MapEdit = new cMapEdit();
 
@@ -27,13 +22,6 @@ cEditor::~cEditor()
 	Log( LOG_HIGHEST_LEVEL, "~cEditor()" );
 	
 	FreeEditorMemory();
-	
-/*	Log( LOG_HIGHEST_LEVEL, "Delete Collection Editor" );
-	delete CollectionEdit;
-	Log( LOG_HIGHEST_LEVEL, "Delete Component Editor" );
-	delete ComponentEdit;
-	Log( LOG_HIGHEST_LEVEL, "Delete Map Editor" );
-	delete MapEdit;*/
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::FreeEditorMemory()

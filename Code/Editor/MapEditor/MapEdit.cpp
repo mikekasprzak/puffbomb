@@ -13,9 +13,10 @@ using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::cMapEdit() :
 	MapBaseDirName( "../../../../Content/PuffBOMB/Maps/" ),
-	Mesh3DBaseDirName( "3D/" ),
 	CurMap( 0 ),
-	CurMesh3D( 0 )
+	Mesh3DBaseDirName( "3D/" ),
+	CurMesh3D( 0 ),
+	CurLayer( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
 	
@@ -190,6 +191,7 @@ void cMapEdit::Step()
 			AddMesh3D();
 			DeleteMesh3D();
 			SwitchMesh3D();
+			SwitchLayer();
 		}
 		MoveMesh3D();
 	}
@@ -214,7 +216,6 @@ void cMapEdit::Step()
 	SwitchMap();
 	
 	Save();
-
 
 	// Handles scrolling around the map
 	Scroll( Camera );
