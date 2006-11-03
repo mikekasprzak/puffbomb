@@ -153,18 +153,6 @@ void cEditor::Draw()
 {
 	if( CurEditor == MAP_EDITOR )
 	{
-/*		if( MapEdit->IsHelp )
-		{
-			glEnable(GL_TEXTURE_2D);
-			glEnable(GL_BLEND);
-
-			MapEdit->DisplayHelp();
-					
-			glDisable(GL_BLEND);
-			glDisable(GL_TEXTURE_2D);
-
-		}
-		else*/
 		{
 			MapEdit->Draw();
 		}
