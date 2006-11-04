@@ -223,6 +223,8 @@ void cMapEdit::Step()
 	SwitchMap();
 	
 	Save();
+	
+	Reset();
 
 	// Handles scrolling around the map
 	Scroll( Camera );
@@ -375,6 +377,21 @@ void cMapEdit::FindMapMesh3DPaths()
 			//Log( LOG_HIGHEST_LEVEL, "Coll " << DynDirCache.File[idx] );
 			DynPath.push_back( DynDirCache.File[idx] );
 		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::Reset()
+{
+	if( Button[ KEY_TAB ].Pressed() )
+	{
+		// Resets to default values //
+		Camera->Pos.x = 0.0;
+		Camera->Pos.y = 0.0;
+		Camera->Pos.z = Global::HudZoom;
+		
+		Camera->View.x = Camera->Pos.x;
+		Camera->View.y = Camera->Pos.y;
+		Camera->View.z = 0.0;
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -87,6 +87,7 @@ public:
 	void ActiveAction();
 	void Save();
 	void FindMapMesh3DPaths();
+	void Reset();
 		
 public:
 	// MapEditText.cpp //
