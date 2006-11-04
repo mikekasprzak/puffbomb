@@ -21,7 +21,12 @@ cDynamicComponent::cDynamicComponent( ) :
 cDynamicComponent::cDynamicComponent( const cDynamicCollection* const _Parent, const std::string& ComponentFile, const Vector2D& Offset ) :
 	Parent( _Parent ),
 	AnimationSet( ComponentAnimationSetPool.Load( ComponentFile ) ),
-	Body( AnimationSet->BodyPose[ 0 ], Offset )
+	Body( AnimationSet->BodyPose[ 0 ], Offset ),
+	
+	CurrentAnimation( 0 ),
+	CurrentFrame( 0 ),
+	CurrentFrameTime( Real::Zero ),
+	PlayBackRate( Real::One )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -39,7 +44,26 @@ void cDynamicComponent::Step() {
 void cDynamicComponent::Draw() {
 	// Make sure we actually have an associated animation set //
 	if ( AnimationSet ) {
-		AnimationSet->Animation[ 0 ].Frame[ 0 ].Draw( Body );
+		// Step our current frame time forward by our rate of playback //
+		CurrentFrameTime += PlayBackRate;
+		
+		// If our current frame time breaks the hold length of the current frame //
+		if ( CurrentFrameTime >= Real( AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Time ) ) {
+			// Step to the next frame //
+			CurrentFrame++;
+			// If our frame hits the end //
+			if ( CurrentFrame >= AnimationSet->Animation[ CurrentAnimation ].Frame.size() ) {
+				// Set frame to the loop point //
+				CurrentFrame = AnimationSet->Animation[ CurrentAnimation ].LoopPoint;
+				
+				// Set animation flags //
+			}
+			
+			// Offset the Current Frame Time by the hold of the previous, to correctly accumulate //
+			CurrentFrameTime -= Real( AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Time );
+		}
+		
+		AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Draw( Body );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

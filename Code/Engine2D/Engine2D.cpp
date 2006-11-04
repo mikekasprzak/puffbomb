@@ -42,7 +42,8 @@ cEngine2D::cEngine2D() {
 	 );
 	
 	// Add a dummy object for testing //
-	//DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 200, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 0, 700 ) ) );
+	
 	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -400, 400 ) ) );
 	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -300, 400 ) ) );
 	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -200, 400 ) ) );
@@ -70,7 +71,7 @@ cEngine2D::cEngine2D() {
 	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 200, 200 ) ) );
 	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( 300, 200 ) ) );
 	
-	//DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( -200, 200 ) ) );
+	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 0, 900 ) ) );
 	
 	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -350 ) ) );
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -350 )) );

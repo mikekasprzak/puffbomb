@@ -31,10 +31,10 @@ public:
 public:
 	int CurrentAnimation;
 	int CurrentFrame;
-	Real FrameTime; // ?
+	Real CurrentFrameTime;
 
 	// The rate at which to play back the animation //
-	Real PlaybackRate;
+	Real PlayBackRate;
 
 public:
 	cDynamicComponent();
