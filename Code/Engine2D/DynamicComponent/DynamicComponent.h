@@ -59,8 +59,11 @@ public:
 	// Set the current animation to another one //
 	void SetAnimation( const int AnimationNumber, const Real& _PlayBackRate = Real::One );
 	
-	// Add functions for creating an arcing animation //
-	// (i.e. given a 0-1 real number, select an appropriate frame.  Set PlayBackRate to 0 too //
+	// Set's the animation mode to/for an Arcing animation (an animation controlled by a scalar) //
+	void SetArcingAnimation( const int AnimationNumber );
+	// Call this every work frame to update the currently displayed frame //
+	void SetArc( const Real& Arc );
+	
 		
 public:	
 	// - -------------------------------------------------------------------------------------- - //

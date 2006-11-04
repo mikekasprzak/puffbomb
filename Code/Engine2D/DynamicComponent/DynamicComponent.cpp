@@ -91,6 +91,45 @@ void cDynamicComponent::SetAnimation( const int AnimationNumber, const Real& _Pl
 	Body.Pose = &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cDynamicComponent::SetArcingAnimation( const int AnimationNumber ) {
+	// Set the animation as requested //
+	if ( AnimationNumber < AnimationSet->Animation.size() )
+		CurrentAnimation = AnimationNumber;
+	else {
+		Log( 10, "Error!  Arcing Animation " << AnimationNumber << " Requested, but doesn't exist!" );
+	}
+	
+	// Set internal animator variables //
+	PlayBackRate = Real::Zero;
+	CurrentFrame = 0;
+	CurrentFrameTime = Real::Zero;
+	
+	// Clear Flags //
+	AnimationFlags.Clear();
+	
+	// Set Pose //
+	Body.Pose = &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicComponent::SetArc( const Real& Arc ) {
+	CurrentFrame = (int)( Arc * Real( AnimationSet->Animation[ CurrentAnimation ].Frame.size() ) );
+
+	// If too big //
+	if ( CurrentFrame >= AnimationSet->Animation[ CurrentAnimation ].Frame.size() ) {
+		// Clip to the end //
+		CurrentFrame = AnimationSet->Animation[ CurrentAnimation ].Frame.size() - 1;
+	}
+	// If too small //
+	else if ( CurrentFrame < 0 ) {
+		CurrentFrame = 0;
+	}
+
+	// Set Pose //
+	Body.Pose = &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];	
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::Draw() {
 	// Make sure we actually have an associated animation set //
 	if ( AnimationSet ) {
