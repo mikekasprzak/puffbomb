@@ -70,6 +70,25 @@ void cDynamicComponent::StepAnimation() {
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cDynamicComponent::SetAnimation( const int AnimationNumber, const Real& _PlayBackRate ) {
+	// Set the animation as requested //
+	if ( AnimationNumber < AnimationSet->Animation.size() )
+		CurrentAnimation = AnimationNumber;
+	else {
+		Log( 10, "Error!  Animation " << AnimationNumber << " Requested, but doesn't exist!" );
+	}
+	
+	// Set internal animator variables //
+	PlayBackRate = _PlayBackRate;
+	CurrentFrame = 0;
+	CurrentFrameTime = Real::Zero;
+	
+	// Clear Flags //
+	
+	// Set Pose //
+	Body.Pose = &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::Draw() {
 	// Make sure we actually have an associated animation set //
 	if ( AnimationSet ) {

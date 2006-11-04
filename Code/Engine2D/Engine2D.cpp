@@ -72,7 +72,7 @@ cEngine2D::cEngine2D() {
 	
 	cDynamicCollection* Mine;
 	DynamicCollection.push_back( Mine = CreateCollectionInstance( 1, Vector2D( 20, 1000 ) ) );
-	Mine->Component[ 0 ].CurrentAnimation = 2;
+	Mine->Component[ 0 ].SetAnimation( 2 );
 	
 	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -350 ) ) );
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -350 )) );

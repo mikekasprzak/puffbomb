@@ -46,10 +46,18 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Do physics as a self sustaining object //
 	void Step();
-	
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Move the currently visible animation stuffs forward a frame //
 	void StepAnimation();
 
+	// Set the current animation to another one //
+	void SetAnimation( const int AnimationNumber, const Real& _PlayBackRate = Real::One );
+	
+	// Add functions for creating an arcing animation //
+	// (i.e. given a 0-1 real number, select an appropriate frame.  Set PlayBackRate to 0 too //
+		
 public:	
 	// - -------------------------------------------------------------------------------------- - //
 	// Draw object Mesh transformed by Body //
