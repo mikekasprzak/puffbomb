@@ -44,6 +44,9 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Do physics as a self sustaining object //
 	void Step();
+	
+	// Move the currently visible animation stuffs forward a frame //
+	void StepAnimation();
 
 public:	
 	// - -------------------------------------------------------------------------------------- - //

@@ -41,7 +41,7 @@ void cDynamicComponent::Step() {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicComponent::Draw() {
+void cDynamicComponent::StepAnimation() {
 	// Make sure we actually have an associated animation set //
 	if ( AnimationSet ) {
 		// Step our current frame time forward by our rate of playback //
@@ -62,7 +62,12 @@ void cDynamicComponent::Draw() {
 			// Offset the Current Frame Time by the hold of the previous, to correctly accumulate //
 			CurrentFrameTime -= Real( AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Time );
 		}
-		
+	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicComponent::Draw() {
+	// Make sure we actually have an associated animation set //
+	if ( AnimationSet ) {
 		AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Draw( Body );
 	}
 }

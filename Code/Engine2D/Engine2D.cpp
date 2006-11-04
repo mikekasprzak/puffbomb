@@ -130,6 +130,9 @@ void cEngine2D::Step() {
 			// Step Object //
 			DynamicComponent[ idx ]->Body.Step();
 			
+			// Step it's internal Animation system //
+			DynamicComponent[ idx ]->StepAnimation();
+			
 			// Apply Impulses //
 			for ( size_t idx2 = 0; idx2 < Impulse.size(); idx2++ ) {
 				DynamicComponent[ idx ]->Solve( Impulse[ idx2 ] );
