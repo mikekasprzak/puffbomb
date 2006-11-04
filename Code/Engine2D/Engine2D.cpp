@@ -19,8 +19,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-// Static instance to know who's active //
-cEngine2D* cEngine2D::Current;
+// Static instance to know who's active is inside "Engine2D_Current.cpp" //
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::cEngine2D() {
 	// Create Camera //

@@ -240,7 +240,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 				// Frames //
 				for ( size_t idx2 = 0; idx2 < Animation[ idx ].Frame.size(); idx2++ ) {
 					// Data //
-					Out.Write( Animation[ idx ].Frame[ idx2 ].Time );
+					Out.Write( Animation[ idx ].Frame[ idx2 ].Time * Art.Animation[ idx ].FrameHold );
 					Out.Write( Animation[ idx ].Frame[ idx2 ].Flags );
 					Out.Write( Animation[ idx ].Frame[ idx2 ].BodyPoseIndex );
 					

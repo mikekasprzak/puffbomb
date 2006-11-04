@@ -29,5 +29,5 @@ CODE_DIRS		:=	Engine2D/DynamicComponent \
 # - -------------------------------------------------------------------------------------------- - #
 # Explicit files from the source tree to grab (if directory masks aren't good enough) ---------- - #
 # Example: External/Lzma/LzmaDecode.cpp
-CODE_FILES		:=	
+CODE_FILES		:=	Engine2D/Engine2D_Current.cpp
 # - -------------------------------------------------------------------------------------------- - #
