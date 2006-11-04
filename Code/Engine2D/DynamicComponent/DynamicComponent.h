@@ -11,6 +11,7 @@
 #include "Body2D/Body2D.h"
 #include "ComponentAnimationSet/ComponentAnimationSet.h"
 #include "StateFlags.h"
+#include "AnimationFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -30,6 +31,9 @@ public:
 
 	// The rate at which to play back the animation //
 	Real PlayBackRate;
+	
+	// Flags for monitoring aspects of the animation (looping) //
+	cAnimationFlags AnimationFlags;
 
 public:
 	cBody2D Body;

@@ -58,7 +58,8 @@ void cDynamicComponent::StepAnimation() {
 				// Set frame to the loop point //
 				CurrentFrame = AnimationSet->Animation[ CurrentAnimation ].LoopPoint;
 				
-				// Set animation flags //
+				// Set looped flag //
+				AnimationFlags.SetLooped();
 			}
 
 			// Update the Pose //
@@ -84,6 +85,7 @@ void cDynamicComponent::SetAnimation( const int AnimationNumber, const Real& _Pl
 	CurrentFrameTime = Real::Zero;
 	
 	// Clear Flags //
+	AnimationFlags.Clear();
 	
 	// Set Pose //
 	Body.Pose = &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];
