@@ -108,6 +108,11 @@ public:
 
 public:
 	// MapEditDyn.cpp //
+	void SelectDyn();
+	void MoveDyn();
+	void AddDyn();
+	void DeleteDyn();
+	void UpdateDynPreview();
 	void SwitchDyn();
 
 };

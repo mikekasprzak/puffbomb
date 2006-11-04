@@ -32,6 +32,15 @@ cMapEdit::cMapEdit() :
 	if( !DynPath.empty() )
 	{
 		DynPreview.LoadBinary( DynBaseDirName + DynPath[ CurDyn ] );
+		
+		for( size_t idx = 0; idx < DynPreview.Component.size(); ++idx )
+		{
+			for( size_t idx2 = 0; idx2 < DynPreview.Component[ idx ].Body.Nodes.Size(); ++idx2 )
+			{
+				DynPreview.Component[ idx ].Body.Nodes.Pos( idx2 ) +=
+					 Vector2D( Global::Left, Global::Bottom ) += Vector2D( 256, 256 );
+			}
+		}
 	}
 
 	CurMode = TILE_MODE;
@@ -69,6 +78,12 @@ void cMapEdit::Draw()
 		StaticObjectInstance[ idx ].Draw();
 	}
 
+	for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
+		if ( DynamicCollection[ idx ]->IsActive() ) { 
+			DynamicCollection[ idx ]->Draw();
+		}
+	}
+
 	// Draw selected //
 	Gfx::EnableAddBlend();
 
@@ -85,7 +100,7 @@ void cMapEdit::Draw()
 		}
 		else if( CurMode == OBJECT_MODE )
 		{
-			
+
 		}
 		else if( CurMode == FREE_OBJECT_MODE )
 		{
@@ -167,7 +182,7 @@ void cMapEdit::HudDraw()
 	}
 	else if( CurMode == OBJECT_MODE )
 	{
-		
+		DynPreview.Draw();
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{
@@ -208,7 +223,14 @@ void cMapEdit::Step()
 	}
 	else if( CurMode == OBJECT_MODE )
 	{
-		
+		if( !isGroupMove )
+		{
+			SelectDyn();	
+			AddDyn();
+			DeleteDyn();
+			SwitchDyn();
+		}
+		MoveDyn();
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{

@@ -10,21 +10,21 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cDynamicObjectInstanceInfo {
 public:
-	Vector2D Pos;
 	int Id;
+	Vector2D Pos;
 	int Arg;
 	
 public:
 	cDynamicObjectInstanceInfo() :
-		Pos( Vector2D::Zero ),
 		Id( 0 ),
+		Pos( Vector2D::Zero ),
 		Arg( 0 )
 	{
 		
 	}
-	cDynamicObjectInstanceInfo( const Vector2D _Pos, const int _Id, const int _Arg = 0 ) :
-		Pos( _Pos ),
+	cDynamicObjectInstanceInfo( const int _Id, const Vector2D _Pos, const int _Arg = 0 ) :
 		Id( _Id ),
+		Pos( _Pos ),
 		Arg( _Arg )
 	{
 		
