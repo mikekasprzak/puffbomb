@@ -1,9 +1,7 @@
 #ifdef EDITOR
 // - ------------------------------------------------------------------------------------------ - //
 #include "MapEdit.h"
-#include <Graphics/Gfx.h>
 #include <Input/Input.h>
-#include <Util/String.h>
 
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
@@ -306,6 +304,10 @@ void cMapEdit::SwitchLayer()
 		{
 			CurLayer = -10;	
 		}
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Map.StaticObjectInstanceInfo[ CurSelected[ idx ] ].Layer = CurLayer;
+		}		
 	}
 	else if ( Button[ KEY_K ].Pressed() )
 	{
@@ -317,6 +319,10 @@ void cMapEdit::SwitchLayer()
 		{
 			CurLayer = 10;
 		}
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Map.StaticObjectInstanceInfo[ CurSelected[ idx ] ].Layer = CurLayer;
+		}		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

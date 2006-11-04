@@ -16,7 +16,9 @@ cMapEdit::cMapEdit() :
 	CurMap( 0 ),
 	Mesh3DBaseDirName( "3D/" ),
 	CurMesh3D( 0 ),
-	CurLayer( 0 )
+	CurLayer( 0 ),
+	DynBaseDirName( "2D/" ),
+	CurDyn( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
 	
@@ -27,6 +29,11 @@ cMapEdit::cMapEdit() :
 		UpdateMesh3DPreview();
 	}
 	
+	if( !DynPath.empty() )
+	{
+		DynPreview.LoadBinary( DynBaseDirName + DynPath[ CurDyn ] );
+	}
+
 	CurMode = TILE_MODE;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -331,6 +338,7 @@ void cMapEdit::Save()
 // Goes through all the dirs finding the .coll .comp files then stores them and there locations   //
 void cMapEdit::FindMapMesh3DPaths()
 {
+	// Find all the .map files //
 	cDirectoryCache MapDirCache( MapBaseDirName );
 	
 	for( size_t idx = 0; idx < MapDirCache.File.size(); ++idx )
@@ -344,6 +352,7 @@ void cMapEdit::FindMapMesh3DPaths()
 		}
 	}
 
+	// Find all the .mesh3d files //
 	cDirectoryCache MeshDirCache( Mesh3DBaseDirName );
 	
 	for( size_t idx = 0; idx < MeshDirCache.File.size(); ++idx )
@@ -353,6 +362,18 @@ void cMapEdit::FindMapMesh3DPaths()
 			std::string TmpString = String::FileName( MeshDirCache.File[idx] );
 			//Log( LOG_HIGHEST_LEVEL, "Mesh3D " << TmpString );
 			Mesh3DName.push_back( TmpString );
+		}
+	}
+
+	// Find all the .coll files //
+	cDirectoryCache DynDirCache( DynBaseDirName );
+	
+	for( size_t idx = 0; idx < DynDirCache.File.size(); ++idx )
+	{
+		if( String::LastExtension( DynDirCache.File[idx] ) == ".coll" )
+		{
+			//Log( LOG_HIGHEST_LEVEL, "Coll " << DynDirCache.File[idx] );
+			DynPath.push_back( DynDirCache.File[idx] );
 		}
 	}
 }

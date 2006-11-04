@@ -56,8 +56,12 @@ public:
 
 	// Dynamic //
 	// - -------------------------------------------------------------------------------------- - //
+	std::string DynBaseDirName;
+	std::vector< std::string > DynPath;
+		
+	Engine2D::cDynamicCollection DynPreview;
 	
-
+	size_t CurDyn;
 
 	// Passive //
 	// - -------------------------------------------------------------------------------------- - //
@@ -100,6 +104,10 @@ public:
 	void UpdateMesh3DPreview();
 	void SwitchMesh3D();
 	void SwitchLayer();
+
+public:
+	// MapEditDyn.cpp //
+	void SwitchDyn();
 
 };
 // - ------------------------------------------------------------------------------------------ - //
