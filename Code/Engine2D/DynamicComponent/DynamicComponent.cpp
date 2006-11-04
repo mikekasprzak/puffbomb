@@ -21,12 +21,13 @@ cDynamicComponent::cDynamicComponent( ) :
 cDynamicComponent::cDynamicComponent( const cDynamicCollection* const _Parent, const std::string& ComponentFile, const Vector2D& Offset ) :
 	Parent( _Parent ),
 	AnimationSet( ComponentAnimationSetPool.Load( ComponentFile ) ),
-	Body( AnimationSet->BodyPose[ 0 ], Offset ),
-	
+
 	CurrentAnimation( 0 ),
 	CurrentFrame( 0 ),
 	CurrentFrameTime( Real::Zero ),
-	PlayBackRate( Real::One )
+	PlayBackRate( Real::One ),
+
+	Body( AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ], Offset )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -51,6 +52,7 @@ void cDynamicComponent::StepAnimation() {
 		if ( CurrentFrameTime >= Real( AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Time ) ) {
 			// Step to the next frame //
 			CurrentFrame++;
+			
 			// If our frame hits the end //
 			if ( CurrentFrame >= AnimationSet->Animation[ CurrentAnimation ].Frame.size() ) {
 				// Set frame to the loop point //
@@ -58,6 +60,9 @@ void cDynamicComponent::StepAnimation() {
 				
 				// Set animation flags //
 			}
+
+			// Update the Pose //
+			Body.Pose = &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];
 			
 			// Offset the Current Frame Time by the hold of the previous, to correctly accumulate //
 			CurrentFrameTime -= Real( AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Time );

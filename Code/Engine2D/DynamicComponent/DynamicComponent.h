@@ -22,11 +22,6 @@ public:
 public:
 	// Parts of a component //
 	cComponentAnimationSet* AnimationSet;
-	cBody2D Body;
-	
-	// Activity State Flags //
-	cStateFlags State;
-
 
 public:
 	int CurrentAnimation;
@@ -35,6 +30,13 @@ public:
 
 	// The rate at which to play back the animation //
 	Real PlayBackRate;
+
+public:
+	cBody2D Body;
+	
+	// Activity State Flags //
+	cStateFlags State;
+
 
 public:
 	cDynamicComponent();
