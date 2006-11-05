@@ -42,7 +42,6 @@ cMapEdit::cMapEdit() :
 		}
 	}
 	
-	
 	if( !ActiveDyns.empty() )
 	{
 		DynPreview = Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
@@ -109,7 +108,8 @@ void cMapEdit::Draw()
 		}
 		else if( CurMode == OBJECT_MODE )
 		{
-
+			// Draw selected mesh3d's //
+			DynamicCollection[ CurSelected[ idx ] ]->Draw();
 		}
 		else if( CurMode == FREE_OBJECT_MODE )
 		{
@@ -140,7 +140,10 @@ void cMapEdit::Draw()
 	}
 	else if( CurMode == OBJECT_MODE )
 	{
-		
+		for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
+		{
+			DynamicCollection[ idx ]->DebugDraw();
+		}
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{

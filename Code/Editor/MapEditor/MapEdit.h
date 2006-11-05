@@ -47,7 +47,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	std::string Mesh3DBaseDirName;
 	std::vector< std::string > Mesh3DName;
-		
+
 	Engine2D::cStaticObjectInstance Mesh3DPreview;
 	
 	size_t CurMesh3D;
@@ -56,8 +56,6 @@ public:
 
 	// Dynamic //
 	// - -------------------------------------------------------------------------------------- - //
-//	std::string DynBaseDirName;
-//	std::vector< std::string > DynPath;
 	std::vector< int > ActiveDyns;
 	
 	Engine2D::cDynamicCollection* DynPreview;
@@ -109,6 +107,7 @@ public:
 
 public:
 	// MapEditDyn.cpp //
+	int SingleSelectDyn();
 	void SelectDyn();
 	void MoveDyn();
 	void AddDyn();
