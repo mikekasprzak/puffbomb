@@ -182,70 +182,38 @@ void cMapEdit::MoveDyn()
 {
 /*	if( Button[ MOUSE_1 ].Pressed() )
 	{
-		bool SceneMove = false;
-		
-		if( !Button[ KEY_LCTRL ] )
+		if( !Button[ KEY_LCTRL ] && !Button[ KEY_RCTRL ] && !Button[ KEY_LSHIFT ]  )
 		{
-			Vector2D CurMousePos = CalcMousePos();
+			int temp = DynSingleSelect();
+			MouseOffset.resize( CurSelected.size() );
 			
-			int temp = -1;
-			
-			for( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx )
+			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
-				Vector2D PointA = StaticObjectInstance[ idx ].Object->BoundingRect.P1().ToVector2D() + StaticObjectInstance[ idx ].Pos;
-				Vector2D PointB = StaticObjectInstance[ idx ].Object->BoundingRect.P2().ToVector2D() + StaticObjectInstance[ idx ].Pos;
+				MouseOffset[ idx ] = Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx ] ) - OldMousePos;
 				
-				if( WithinBox( CurMousePos, PointA, PointB ) )
+				if( temp == int( CurSelected[idx] ) )
 				{
-					temp = idx;
+					isGroupMove = true;
 				}
 			}
-			if( temp != -1 )
-			{
-				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-				{
-					if( temp == int(CurSelected[idx]) )
-					{
-						isGroupMove = true;
-					}
-				}
-			}
-		}
-		// Snaps to grid
-		if( !Button[ KEY_LSHIFT ] && isGroupMove )
-		{
-			SnapToGrid = true;
-		}
-		else
-		{
-			SnapToGrid = false;
 		}
 	}
 	if( Button[ MOUSE_1 ].Released() )
 	{
-		if( SnapToGrid )
-		{
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-			{
-				Vector2D TempPos = StaticObjectInstance[ CurSelected[ idx ] ].Pos;
-				CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
-				
-				StaticObjectInstance[ CurSelected[ idx ] ].Pos = TempPos;
-				Map.StaticObjectInstanceInfo[ CurSelected[ idx ] ].Pos = TempPos;
-
-				SnapToGrid = false;
-			}
-			ActiveAction();
-		}
-		else
-		{
-			if( isGroupMove )
-			{
-				ActiveAction();
-			}
-		}
 		isGroupMove = false;
+		
+		ActiveAction();
 	}
+	if( isGroupMove )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx ] ) = MouseOffset[ idx ] + CurMousePos;
+		}
+		
+		OldMousePos = CurMousePos;
+	}
+	
 	if( isGroupMove )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
@@ -288,32 +256,36 @@ void cMapEdit::AddDyn()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DeleteDyn()
 {
-/*	if( !Mesh3DName.empty() )
+	if( !ActiveDyns.empty() )
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
 			for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
 			{
-				std::vector< Engine2D::cStaticObjectInstance > TempMesh3D;
-				std::vector< Engine2D::cStaticObjectInstanceInfo > TempMesh3DInfo;
+				std::vector< Engine2D::cDynamicCollection* > TempDyn;
+				std::vector< Engine2D::cDynamicObjectInstanceInfo > TempDynInfo;
 	
-				for( size_t i = 0; i < StaticObjectInstance.size(); ++i )
+				for( size_t i = 0; i < DynamicCollection.size(); ++i )
 				{
 					if( CurSelected[idx] != i )
 					{
-						TempMesh3D.push_back( StaticObjectInstance[ i ] );
-						TempMesh3DInfo.push_back( Map.StaticObjectInstanceInfo[ i ] );
+						TempDyn.push_back( DynamicCollection[ i ] );
+						TempDynInfo.push_back( Map.DynamicObjectInstanceInfo[ i ] );
+					}
+					else
+					{
+						delete DynamicCollection[ i ];
 					}
 				}
 				
-				StaticObjectInstance.swap( TempMesh3D );
-				Map.StaticObjectInstanceInfo.swap( TempMesh3DInfo );
+				DynamicCollection.swap( TempDyn );
+				Map.DynamicObjectInstanceInfo.swap( TempDynInfo );
 			}
 			CurSelected.clear();
 			
 			ActiveAction();
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::UpdateDynPreview()
