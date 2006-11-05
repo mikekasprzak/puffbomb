@@ -191,18 +191,6 @@ void cMapEdit::MoveDyn()
 			
 			int temp = SingleSelectDyn();
 			
-/*			for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
-			{
-				
-				
-				Vector2D PointA = StaticObjectInstance[ idx ].Object->BoundingRect.P1().ToVector2D() + StaticObjectInstance[ idx ].Pos;
-				Vector2D PointB = StaticObjectInstance[ idx ].Object->BoundingRect.P2().ToVector2D() + StaticObjectInstance[ idx ].Pos;
-				
-				if( WithinBox( CurMousePos, PointA, PointB ) )
-				{
-					temp = idx;
-				}
-			}*/
 			if( temp != -1 )
 			{
 				for( size_t idx = 0; idx < CurSelected.size(); ++idx )

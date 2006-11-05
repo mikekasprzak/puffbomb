@@ -180,6 +180,8 @@ void cMapEdit::HudDraw()
 
 	DisplayText();
 	
+	Gfx::EnableAddBlend();
+		
 	if( CurMode == TILE_MODE )
 	{
 		// Displays the preview mesh3d //
@@ -207,6 +209,10 @@ void cMapEdit::HudDraw()
 	{
 		
 	}
+	
+	Gfx::DisableAddBlend();
+
+	
 	
 	Gfx::DisableBlend();
 }
