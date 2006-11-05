@@ -183,47 +183,23 @@ void cMapEdit::AddDyn()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
-		DynamicCollection.push_back( Engine2D::CreateCollectionInstance( 2, Vector2D( -400, 400 ) ) );
+		Vector2D TempPos = CurMousePos;
 
-		
-		/*Map.DynamicObjectInstanceInfo.push_back(
-			Engine2D::cDynamicObjectInstanceInfo( 
-				Mesh3DName[ CurMesh3D ],
-				CurMousePos
-			)
-		);*/
-		
-		/*Map.StaticObjectInstanceInfo.push_back(
-			Engine2D::cStaticObjectInstanceInfo( 
-				Mesh3DName[ CurMesh3D ],
-				CurMousePos
-			)
-		);
-				
-		StaticObjectInstance.push_back(
-			Engine2D::cStaticObjectInstance(
-				Map.StaticObjectInstanceInfo.back().FileName,
-				Map.StaticObjectInstanceInfo.back().Pos
-			)
-		);
-		
-		StaticObjectInstance.back().Object->CalcBoundingRect();
-
-		Vector2D PointA = StaticObjectInstance.back().Object->BoundingRect.P1().ToVector2D();
-		Vector2D PointB = StaticObjectInstance.back().Object->BoundingRect.P2().ToVector2D();
-
-		Vector2D TempPos = CurMousePos - ( ( PointB - PointA ) / 2 );
 		CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
-
-		StaticObjectInstance.back().Pos = TempPos;
-		Map.StaticObjectInstanceInfo.back().Pos = TempPos;
 		
-		Map.StaticObjectInstanceInfo.back().Layer = CurLayer;
+		DynamicCollection.push_back( Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], TempPos ) );
+		
+		Map.DynamicObjectInstanceInfo.push_back(
+			Engine2D::cDynamicObjectInstanceInfo( 
+				ActiveDyns[ CurDyn ],
+				TempPos
+			)
+		);
 		
 		CurSelected.clear();
 		
 		CurSelected.push_back( StaticObjectInstance.size() - 1 );
-*/
+
 		ActiveAction();
 	}
 }
@@ -260,15 +236,14 @@ void cMapEdit::DeleteDyn()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::UpdateDynPreview()
 {
-	DynPreview.LoadBinary( DynBaseDirName + DynPath[ CurDyn ] );
-	
-	for( size_t idx = 0; idx < DynPreview.Component.size(); ++idx )
+	if( DynPreview != 0 )
 	{
-		for( size_t idx2 = 0; idx2 < DynPreview.Component[ idx ].Body.Nodes.Size(); ++idx2 )
-		{
-			DynPreview.Component[ idx ].Body.Nodes.Pos( idx2 ) +=
-				 Vector2D( Global::Left, Global::Bottom ) += Vector2D( 256, 256 );
-		}
+		delete DynPreview;
+	}
+	
+	if( !ActiveDyns.empty() )
+	{
+		DynPreview = Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -276,7 +251,7 @@ void cMapEdit::SwitchDyn()
 {
 	if ( Button[ KEY_LEFT ].Pressed() ) 
 	{
-		if( !DynPath.empty() )
+		if( !ActiveDyns.empty() )
 		{
 			if( CurDyn > 0 )
 			{
@@ -284,7 +259,7 @@ void cMapEdit::SwitchDyn()
 			}
 			else
 			{
-				CurDyn = DynPath.size() - 1;
+				CurDyn = ActiveDyns.size() - 1;
 			}
 			
 			UpdateDynPreview();
@@ -292,9 +267,9 @@ void cMapEdit::SwitchDyn()
 	}
 	else if ( Button[ KEY_RIGHT ].Pressed() )
 	{
-		if( !DynPath.empty() )
+		if( !ActiveDyns.empty() )
 		{
-			if( CurDyn < DynPath.size() - 1 )
+			if( CurDyn < ActiveDyns.size() - 1 )
 			{
 				++CurDyn;
 			}

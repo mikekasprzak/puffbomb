@@ -56,10 +56,11 @@ public:
 
 	// Dynamic //
 	// - -------------------------------------------------------------------------------------- - //
-	std::string DynBaseDirName;
-	std::vector< std::string > DynPath;
-		
-	Engine2D::cDynamicCollection DynPreview;
+//	std::string DynBaseDirName;
+//	std::vector< std::string > DynPath;
+	std::vector< int > ActiveDyns;
+	
+	Engine2D::cDynamicCollection* DynPreview;
 	
 	size_t CurDyn;
 

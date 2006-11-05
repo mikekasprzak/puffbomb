@@ -2,6 +2,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "MapEdit.h"
 
+#include "CreateCollectionInstance.h"
+
 #include <Util/DirectoryCache.h>
 
 #include <Graphics/Gfx.h>
@@ -17,7 +19,6 @@ cMapEdit::cMapEdit() :
 	Mesh3DBaseDirName( "3D/" ),
 	CurMesh3D( 0 ),
 	CurLayer( 0 ),
-	DynBaseDirName( "2D/" ),
 	CurDyn( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
@@ -29,18 +30,22 @@ cMapEdit::cMapEdit() :
 		UpdateMesh3DPreview();
 	}
 	
-	if( !DynPath.empty() )
+	
+	for ( size_t idx = 0; idx < 256; idx++ )
 	{
-		DynPreview.LoadBinary( DynBaseDirName + DynPath[ CurDyn ] );
+		Engine2D::cDynamicCollection* TempDyn = Engine2D::CreateCollectionInstance( idx, Vector2D::Zero );
 		
-		for( size_t idx = 0; idx < DynPreview.Component.size(); ++idx )
+		if( TempDyn != 0 )
 		{
-			for( size_t idx2 = 0; idx2 < DynPreview.Component[ idx ].Body.Nodes.Size(); ++idx2 )
-			{
-				DynPreview.Component[ idx ].Body.Nodes.Pos( idx2 ) +=
-					 Vector2D( Global::Left, Global::Bottom ) += Vector2D( 256, 256 );
-			}
+			delete TempDyn;
+			ActiveDyns.push_back( idx );
 		}
+	}
+	
+	
+	if( !ActiveDyns.empty() )
+	{
+		DynPreview = Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
 	}
 
 	CurMode = TILE_MODE;
@@ -62,7 +67,11 @@ cMapEdit::~cMapEdit()
 	for ( size_t idx = 0; idx < Zone.size(); idx++ ) {
 		delete Zone[ idx ];
 	}
-
+	
+	if( DynPreview != 0 )
+	{
+		delete DynPreview;
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Draw()
@@ -182,7 +191,10 @@ void cMapEdit::HudDraw()
 	}
 	else if( CurMode == OBJECT_MODE )
 	{
-		DynPreview.Draw();
+		if( DynPreview->IsActive() )
+		{ 
+			DynPreview->Draw();
+		}
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{
@@ -390,16 +402,16 @@ void cMapEdit::FindMapMesh3DPaths()
 	}
 
 	// Find all the .coll files //
-	cDirectoryCache DynDirCache( DynBaseDirName );
+/*	cDirectoryCache DynDirCache( DynBaseDirName );
 	
 	for( size_t idx = 0; idx < DynDirCache.File.size(); ++idx )
 	{
 		if( String::LastExtension( DynDirCache.File[idx] ) == ".coll" )
 		{
 			//Log( LOG_HIGHEST_LEVEL, "Coll " << DynDirCache.File[idx] );
-			DynPath.push_back( DynDirCache.File[idx] );
+		//	DynPath.push_back( DynDirCache.File[idx] );
 		}
-	}
+	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Reset()
