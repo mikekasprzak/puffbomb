@@ -19,7 +19,9 @@ cMapEdit::cMapEdit() :
 	Mesh3DBaseDirName( "3D/" ),
 	CurMesh3D( 0 ),
 	CurLayer( 0 ),
-	CurDyn( 0 )
+	CurDyn( 0 ),
+	CurSelColl( 0 ),
+	CurSelComp( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
 	
@@ -111,15 +113,19 @@ void cMapEdit::Draw()
 			// Draw selected mesh3d's //
 			DynamicCollection[ CurSelected[ idx ] ]->Draw();
 		}
-		else if( CurMode == FREE_OBJECT_MODE )
-		{
-			
-		}
 		else if( CurMode == PASSIVE_OBJECT_MODE )
 		{
 			
 		}
 	}
+	if( CurMode == FREE_OBJECT_MODE )
+	{
+		if( !DynamicCollection.empty() )
+		{
+			DynamicCollection[ CurSelColl ]->Draw();
+		}
+	}
+
 	Gfx::DisableAddBlend();
 
 	Gfx::DisableDepth();
@@ -147,17 +153,34 @@ void cMapEdit::Draw()
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{
-		
+		for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
+		{
+			DynamicCollection[ idx ]->DebugDraw();
+		}
+
+		Gfx::SetLineWidth( 4.0 );
+			
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			DynamicCollection[ CurSelColl ]->Component[ CurSelComp ].Body.DrawNode( CurSelected[ idx ], true );
+			
+			for( size_t SphereIdx = 0; SphereIdx < DynamicCollection[ CurSelColl ]->Component[ CurSelComp ].Body.SphereSize(); ++SphereIdx )
+			{
+				if( CurSelected[idx] == DynamicCollection[ CurSelColl ]->Component[ CurSelComp ].Body.Sphere( SphereIdx ).Index )
+				{
+					DynamicCollection[ CurSelColl ]->Component[ CurSelComp ].Body.DrawSphere( SphereIdx, true );
+				}
+			}
+		}
 	}
 	else if( CurMode == PASSIVE_OBJECT_MODE )
 	{
 		
 	}
+	Gfx::SetLineWidth( 1.0 );
 
 	if( CurMode != ZONE_MODE )
 	{
-		Gfx::SetLineWidth( 1.0 );
-	
 		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 		
 		if( !isGroupMove )
@@ -255,7 +278,11 @@ void cMapEdit::Step()
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{
-		
+		if( !isGroupMove )
+		{
+			SelectDynFree();
+		}
+		MoveDynFree();
 	}
 	else if( CurMode == PASSIVE_OBJECT_MODE )
 	{

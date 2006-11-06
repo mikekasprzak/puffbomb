@@ -61,7 +61,10 @@ public:
 	Engine2D::cDynamicCollection* DynPreview;
 	
 	size_t CurDyn;
-
+	
+	size_t CurSelColl;
+	size_t CurSelComp;
+	
 	// Passive //
 	// - -------------------------------------------------------------------------------------- - //
 
@@ -114,7 +117,11 @@ public:
 	void DeleteDyn();
 	void UpdateDynPreview();
 	void SwitchDyn();
-
+	
+	int SingleSelectDynFree();
+	void SelectDynFree();
+	void MoveDynFree();
+	
 public:
 	// MapEditPass.cpp //
 	int SingleSelectPass();
