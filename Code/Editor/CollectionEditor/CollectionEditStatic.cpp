@@ -14,12 +14,6 @@ void cCollectionEdit::StaticAddComp()
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{	
 		CurSelected.clear();
-		
-		Collection.Component.push_back( Engine2D::cDynamicComponent() );
-		
-		Collection.Component.back().AnimationSet = new Engine2D::cComponentAnimationSet();
-		Collection.Component.back().AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
-		Collection.Component.back().Body = Collection.Component.back().AnimationSet->BodyPose[ 0 ];
 
 		Collection.ComponentName.push_back( ComponentPath[ CurComp ] );
 		
@@ -33,13 +27,8 @@ void cCollectionEdit::StaticAddComp()
 			CalcSnapToGrid( AddPos, CurrentGridDepth, GridDepth );
 		}
 
-		for( size_t idx = 0; idx < Collection.Component.back().Body.Nodes.Size(); ++idx )
-		{
-			Collection.Component.back().Body.Nodes.Pos( idx ) += AddPos;
-		}
-		
-		//Collection.Component[ CSize ].State.Active();
-		
+		Collection.Component.push_back( Engine2D::cDynamicComponent( 0, CompBaseDirName + ComponentPath[ CurComp ], AddPos ) );
+
 		CurSelected.push_back( Collection.Component.size() - 1 );
 		
 		ActiveAction();
