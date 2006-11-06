@@ -424,34 +424,38 @@ int cMapEdit::SingleSelectDynFree()
 void cMapEdit::SelectDynFree()
 {
 	if( Button[ MOUSE_1 ].Released() )
-	{	/*
+	{	
 		// Group add-select //
 		if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
 		{
-			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+			for( size_t CollIdx = 0; CollIdx < DynamicCollection.size(); ++CollIdx )
 			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
+				for( size_t idx = 0; idx < DynamicCollection[ CollIdx ]->Component.size(); ++idx )
 				{
-					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
+					for( size_t idx2 = 0; idx2 < DynamicCollection[ CollIdx ]->Component[ idx ].Body.Nodes.Size(); ++idx2 )
 					{
-						bool CurSelectedTest = false;
-						for( size_t i = 0; i < CurSelected.size(); ++i )
+						if( WithinBox( DynamicCollection[ CollIdx ]->Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 						{
-							if( CurSelected[i] == idx2 )
+							bool CurSelectedTest = false;
+							for( size_t i = 0; i < CurSelected.size(); ++i )
 							{
-								CurSelectedTest = true;
+								if( CurSelected[i] == idx2 )
+								{
+									CurSelectedTest = true;
+								}
 							}
-						}
-						if( !CurSelectedTest )
-						{
-							CurSelComp = idx;
-							CurSelected.push_back( idx2 );	
+							if( !CurSelectedTest )
+							{
+								CurSelColl = CollIdx;
+								CurSelComp = idx;
+								CurSelected.push_back( idx2 );	
+							}
 						}
 					}
 				}
 			}
 			// Single add-select //
-			int temp = DynSingleSelect();
+			int temp = SingleSelectDynFree();
 			if( temp != -1 )
 			{
 				bool CurSelectedTest = false;
@@ -471,34 +475,38 @@ void cMapEdit::SelectDynFree()
 		// Group de-select //
 		else if( Button[ KEY_LCTRL ] || Button[ KEY_RCTRL ] )
 		{
-			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+			for( size_t CollIdx = 0; CollIdx < DynamicCollection.size(); ++CollIdx )
 			{
-				for( size_t idx2 = 0; idx2 < Collection.Component[ idx ].Body.Nodes.Size(); ++idx2 )
+				for( size_t idx = 0; idx < DynamicCollection[ CollIdx ]->Component.size(); ++idx )
 				{
-					if( WithinBox( Collection.Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
+					for( size_t idx2 = 0; idx2 < DynamicCollection[ CollIdx ]->Component[ idx ].Body.Nodes.Size(); ++idx2 )
 					{
-						for( size_t i = 0; i < CurSelected.size(); ++i )
+						if( WithinBox( DynamicCollection[ CollIdx ]->Component[ idx ].Body.Nodes.Pos( idx2 ), CurMousePos, OldMousePos ) )
 						{
-							if( CurSelected[i] == idx2 )
+							for( size_t i = 0; i < CurSelected.size(); ++i )
 							{
-								std::vector <size_t> tempVec;
-								for( size_t vec = 0; vec < CurSelected.size(); ++vec )
+								if( CurSelected[i] == idx2 )
 								{
-									if( CurSelected[vec] != idx2 )
+									std::vector <size_t> tempVec;
+									for( size_t vec = 0; vec < CurSelected.size(); ++vec )
 									{
-										CurSelComp = idx;
-										//CurSelected.push_back( idx2 );	
-										tempVec.push_back( CurSelected[vec] );
+										if( CurSelected[vec] != idx2 )
+										{
+											CurSelColl = CollIdx;
+											CurSelComp = idx;
+											
+											tempVec.push_back( CurSelected[vec] );
+										}
 									}
+									CurSelected.swap( tempVec );
 								}
-								CurSelected.swap( tempVec );
 							}
 						}
 					}
 				}
 			}
 			// Single de-select //
-			int temp = DynSingleSelect();
+			int temp = SingleSelectDynFree();
 			if( temp != -1 )
 			{
 				for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -519,7 +527,7 @@ void cMapEdit::SelectDynFree()
 			}
 		}
 		// Standard group select //
-		else*/
+		else
 		{
 			CurSelected.clear();
 			
