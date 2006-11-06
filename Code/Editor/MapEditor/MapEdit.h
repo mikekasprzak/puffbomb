@@ -115,6 +115,16 @@ public:
 	void UpdateDynPreview();
 	void SwitchDyn();
 
+public:
+	// MapEditPass.cpp //
+	int SingleSelectPass();
+	void SelectPass();
+	void MovePass();
+	void AddPass();
+	void DeletePass();
+	void UpdatePassPreview();
+	void SwitchPass();
+
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
