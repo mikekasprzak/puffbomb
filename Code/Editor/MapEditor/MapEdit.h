@@ -32,6 +32,7 @@
 class cMapEdit : public cEdit {
 public:
 	Engine2D::cMap Map;
+	Engine2D::cPhysics Physics;
 
 	// Our in game entities //
 	std::vector< Engine2D::cDynamicCollection* > DynamicCollection;
@@ -64,6 +65,8 @@ public:
 	
 	size_t CurSelColl;
 	size_t CurSelComp;
+	
+	std::vector< Vector2D > MouseOffset;
 	
 	// Passive //
 	// - -------------------------------------------------------------------------------------- - //

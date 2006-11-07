@@ -24,6 +24,11 @@ cMapEdit::cMapEdit() :
 	CurSelComp( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
+
+	Physics.ZeroGravity();
+	Physics.Friction = Real( 0.8 );
+	
+	Log( LOG_HIGHEST_LEVEL, "Map editor physics created" );
 	
 	FindMapMesh3DPaths();
 	
@@ -242,6 +247,15 @@ void cMapEdit::HudDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Step()
 {
+	// Makes my physics active //
+	Physics.SetActive();
+			
+	// Step the collections in the map //
+	for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
+	{
+		DynamicCollection[ idx ]->Step();
+	}
+	
 	CurMousePos = CalcMousePos();
 
 	if( Button[ MOUSE_1 ].Pressed() )
@@ -278,6 +292,12 @@ void cMapEdit::Step()
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{
+/*		// Step the collections in the map //
+		for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
+		{
+			DynamicCollection[ idx ]->Step();
+		}*/
+	
 		if( !isGroupMove )
 		{
 			SelectDynFree();

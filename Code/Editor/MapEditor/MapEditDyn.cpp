@@ -232,6 +232,8 @@ void cMapEdit::MoveDyn()
 						
 						DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).x -= TempX;
 						DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).y += TempY;
+
+						DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Old( i3 ) = DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 );
 						
 						Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x -= TempX;
 						Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x += TempY;
@@ -241,6 +243,7 @@ void cMapEdit::MoveDyn()
 
 				SnapToGrid = false;
 			}
+			
 			ActiveAction();
 		}
 		else
@@ -269,6 +272,8 @@ void cMapEdit::MoveDyn()
 					DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).x -= TempX;
 					DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).y += TempY;
 					
+					DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Old( i3 ) = DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 );
+
 					Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x -= TempX;
 					Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x += TempY;
 				}
@@ -572,16 +577,16 @@ void cMapEdit::SelectDynFree()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::MoveDynFree()
 {
-/*	if( Button[ MOUSE_1 ].Pressed() )
+	if( Button[ MOUSE_1 ].Pressed() )
 	{
 		if( !Button[ KEY_LCTRL ] && !Button[ KEY_RCTRL ] && !Button[ KEY_LSHIFT ]  )
 		{
-			int temp = DynSingleSelect();
+			int temp = SingleSelectDynFree();
 			MouseOffset.resize( CurSelected.size() );
 			
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
-				MouseOffset[ idx ] = Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx ] ) - OldMousePos;
+				MouseOffset[ idx ] = DynamicCollection[ CurSelColl ]->Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx ] ) - OldMousePos;
 				
 				if( temp == int( CurSelected[idx] ) )
 				{
@@ -600,11 +605,11 @@ void cMapEdit::MoveDynFree()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			Collection.Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx ] ) = MouseOffset[ idx ] + CurMousePos;
+			DynamicCollection[ CurSelColl ]->Component[ CurSelComp ].Body.Nodes.Pos( CurSelected[ idx ] ) = MouseOffset[ idx ] + CurMousePos;
 		}
 		
 		OldMousePos = CurMousePos;
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
