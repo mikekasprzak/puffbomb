@@ -32,9 +32,6 @@ cMapEdit::cMapEdit() :
 	
 	FindMapMesh3DPaths();
 	
-	// Loads the map file //
-	LoadMap();
-	
 	if( !Mesh3DName.empty() )
 	{
 		UpdateMesh3DPreview();
@@ -56,6 +53,9 @@ cMapEdit::cMapEdit() :
 	{
 		DynPreview = Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
 	}
+
+	// Loads the map file //
+	LoadMap();
 
 	CurMode = TILE_MODE;
 }
@@ -445,8 +445,42 @@ void cMapEdit::LoadMap()
 		}
 	}
 	
-	
-	
+	// Dynamic Object part //
+	{
+		// Delete the collections //
+		for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
+			delete DynamicCollection[ idx ];
+		}
+
+		DynamicCollection.clear();
+		
+		for ( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+		{
+			DynamicCollection.push_back(
+				Engine2D::CreateCollectionInstance(
+					Map.DynamicObjectInstanceInfo[ idx ].Id,
+					Map.DynamicObjectInstanceInfo[ idx ].Pos,
+					Map.DynamicObjectInstanceInfo[ idx ].Arg
+				)
+			);
+			
+			for ( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+			{
+				for ( size_t idx2 = 0; idx2 < Map.DynamicObjectInstanceInfo[ idx ].Component.size(); idx2++ )
+				{
+					for ( size_t idx3 = 0; idx3 < Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.size(); idx3++ )
+					{
+						DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ) =
+							Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];
+							
+						DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Old( idx3 ) =
+							Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];					
+					}
+				}
+			}
+		}
+	}
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SaveMap()
