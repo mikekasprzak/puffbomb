@@ -20,20 +20,99 @@ void cMap::LoadBinary( const std::string FileName )
 		return;
 	}
 	
+	// Static Object part //
+	{
+		StaticObjectInstanceInfo.clear();
 		
+		size_t StaticObjectSize = In.Read();
+		StaticObjectInstanceInfo.resize( StaticObjectSize );
+		
+		Log( LOG_HIGHEST_LEVEL, "StaticObjectSize : " << StaticObjectSize );
+
+		for ( size_t idx = 0; idx < StaticObjectSize; idx++ )
+		{
+			int StrLen = In.Read();
+			char MyString[ StrLen + 1 ];
+			
+			In.Read( &MyString[0], StrLen );
+			
+			MyString[ StrLen ] = 0;
+			
+			StaticObjectInstanceInfo[ idx ].FileName = MyString;
+			
+			Log( LOG_HIGHEST_LEVEL, "StaticObjectInstanceInfo[ idx ].FileName " << StaticObjectInstanceInfo[ idx ].FileName );
+			
+			In.Read( StaticObjectInstanceInfo[ idx ].Pos.x );
+			In.Read( StaticObjectInstanceInfo[ idx ].Pos.y );
+
+			In.Read( StaticObjectInstanceInfo[ idx ].Arg );
+
+		}
+	}
+
+	// Dynamic Object part //
+	{
+		DynamicObjectInstanceInfo.clear();
+		
+		size_t DynamicObjectSize = In.Read();
+		DynamicObjectInstanceInfo.resize( DynamicObjectSize );
+		
+		Log( LOG_HIGHEST_LEVEL, "DynamicObjectSize : " << DynamicObjectSize );
+
+		for ( size_t idx = 0; idx < DynamicObjectSize; idx++ )
+		{
+			In.Read( DynamicObjectInstanceInfo[ idx ].Id );
+			
+			In.Read( DynamicObjectInstanceInfo[ idx ].Pos.x );
+			In.Read( DynamicObjectInstanceInfo[ idx ].Pos.y );
+
+			In.Read( DynamicObjectInstanceInfo[ idx ].Arg );
+			
+			size_t CompSize = In.Read();
+			
+			DynamicObjectInstanceInfo[ idx ].Component.resize( CompSize );			
+
+			for ( size_t idx2 = 0; idx2 < CompSize; idx2++ )
+			{
+				size_t NodeSize = In.Read();
+				
+				DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.resize( NodeSize );
+				
+				for ( size_t idx3 = 0; idx3 < NodeSize; idx3++ )
+				{
+					In.Read( DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ].x );
+					In.Read( DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ].y );
+				}
+			}
+		}
+	}
+	
+	// Passive Object part //
+	{
+		PassiveObjectInstanceInfo.clear();
+		
+		size_t PassiveObjectSize = In.Read();
+		PassiveObjectInstanceInfo.resize( PassiveObjectSize );
+
+	}
+
+	// Zones part //
+	{
+		ZoneInstanceInfo.clear();
+		
+		size_t ZoneSize = In.Read();
+		ZoneInstanceInfo.resize( ZoneSize );
+
+	}
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMap::SaveBinary( const std::string FileName )
 {
-	// Write Data (Comp File) //
+	// Write Data (Map File) //
 	{
 		cEndianWriter Out( FileName, true );
-		
-		/*std::vector< cStaticObjectInstanceInfo > StaticObjectInstanceInfo;
-		std::vector< cDynamicObjectInstanceInfo > DynamicObjectInstanceInfo;
-		std::vector< cPassiveObjectInstanceInfo > PassiveObjectInstanceInfo;
-		std::vector< cZoneInstanceInfo > ZoneInstanceInfo;
-	*/
+
 		// Static Object part //
 		{
 			Out.Write( StaticObjectInstanceInfo.size() );
@@ -90,28 +169,6 @@ void cMap::SaveBinary( const std::string FileName )
 			Out.Write( ZoneInstanceInfo.size() );
 			
 		}
-		
-		// 	
-		/*// Component part //
-		{
-			// Number of Components //
-			Out.Write( Component.size() );
-			
-			// For every component //
-			for ( size_t idx = 0; idx < Component.size(); idx++ )
-			{
-				Out.Write( ComponentName[ idx ].size() );
-				Out.Write( ComponentName[ idx ].c_str(), ComponentName[ idx ].size() );
-				
-				Out.Write( Component[ idx ].Body.Nodes.Size() );
-				
-				for( size_t idx2 = 0; idx2 < Component[ idx ].Body.Nodes.Size(); ++idx2 )
-				{
-					Out.Write( Component[ idx ].Body.Nodes.Pos( idx2 ).x );
-					Out.Write( Component[ idx ].Body.Nodes.Pos( idx2 ).y );
-				}			
-			}
-		}*/
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

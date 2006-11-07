@@ -202,57 +202,37 @@ void cMapEdit::MoveDyn()
 				}
 			}
 		}
-		// Snaps to grid
-		if( !Button[ KEY_LSHIFT ] && isGroupMove )
-		{
-			SnapToGrid = true;
-		}
-		else
-		{
-			SnapToGrid = false;
-		}
 	}
 	if( Button[ MOUSE_1 ].Released() )
 	{
-		if( SnapToGrid )
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+			for( size_t i2 = 0; i2 < DynamicCollection[ CurSelected[ idx ] ]->Component.size(); ++i2 )
 			{
-				for( size_t i2 = 0; i2 < DynamicCollection[ CurSelected[ idx ] ]->Component.size(); ++i2 )
+				for( size_t i3 = 0; i3 < DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Size(); ++i3 )
 				{
-					for( size_t i3 = 0; i3 < DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Size(); ++i3 )
-					{
-						//CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
-						
-						Real TempX = ( Mouse.Diff().x * Real( Global::HudW ) )
-							* Real( Camera->Pos.z / Global::HudZoom );
-						
-						Real TempY = ( Mouse.Diff().y * Real( Global::HudH ) )
-							* Real( Camera->Pos.z / Global::HudZoom );
-						
-						DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).x -= TempX;
-						DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).y += TempY;
+					//CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
+					
+					Real TempX = ( Mouse.Diff().x * Real( Global::HudW ) )
+						* Real( Camera->Pos.z / Global::HudZoom );
+					
+					Real TempY = ( Mouse.Diff().y * Real( Global::HudH ) )
+						* Real( Camera->Pos.z / Global::HudZoom );
+					
+					DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).x -= TempX;
+					DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).y += TempY;
 
-						DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Old( i3 ) = DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 );
-						
-						Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x -= TempX;
-						Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x += TempY;
-						
-					}
+					DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Old( i3 ) = DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 );
+					
+					Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x -= TempX;
+					Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x += TempY;
+					
 				}
-
-				SnapToGrid = false;
-			}
-			
-			ActiveAction();
-		}
-		else
-		{
-			if( isGroupMove )
-			{
-				ActiveAction();
 			}
 		}
+				
+		ActiveAction();
+	
 		isGroupMove = false;
 	}
 	if( isGroupMove )

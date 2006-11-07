@@ -418,10 +418,10 @@ void cMapEdit::Save()
 {
 	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
 	{
-		/*if( !MapPath.empty() )
+		if( !MapPath.empty() )
 		{
-			
-		}*/
+			Map.SaveBinary( MapBaseDirName + MapPath[ CurMap ] );
+		}
 
 		IsSaved = true;
 	}
