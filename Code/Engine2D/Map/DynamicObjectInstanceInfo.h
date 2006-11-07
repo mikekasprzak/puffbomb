@@ -13,6 +13,7 @@ namespace Engine2D {
 class cDynamicObjectInstanceInfo {
 public:
 	class cComponent {
+	public:
 		std::vector< Vector2D > NodePos;
 	};
 

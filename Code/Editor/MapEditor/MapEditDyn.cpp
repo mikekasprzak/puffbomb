@@ -597,9 +597,27 @@ void cMapEdit::MoveDynFree()
 	}
 	if( Button[ MOUSE_1 ].Released() )
 	{
+		if( isGroupMove )
+		{
+			Map.DynamicObjectInstanceInfo[ CurSelColl ].Component.clear();
+			
+			Map.DynamicObjectInstanceInfo[ CurSelColl ].Component.resize( DynamicCollection[ CurSelColl ]->Component.size() );
+
+			for( size_t idx = 0; idx < DynamicCollection[ CurSelColl ]->Component.size(); ++idx )
+			{
+				Map.DynamicObjectInstanceInfo[ CurSelColl ].Component[ idx ].NodePos.resize( DynamicCollection[ CurSelColl ]->Component[ idx ].Body.Nodes.Size() );
+
+				for( size_t idx2 = 0; idx2 < DynamicCollection[ CurSelColl ]->Component[ idx ].Body.Nodes.Size(); ++idx2 )
+				{
+					Map.DynamicObjectInstanceInfo[ CurSelColl ].Component[ idx ].NodePos[ idx2 ]
+						= DynamicCollection[ CurSelColl ]->Component[ idx ].Body.Nodes.Pos( idx2 );
+				}
+			}
+			
+			ActiveAction();
+		}
+				
 		isGroupMove = false;
-		
-		ActiveAction();
 	}
 	if( isGroupMove )
 	{

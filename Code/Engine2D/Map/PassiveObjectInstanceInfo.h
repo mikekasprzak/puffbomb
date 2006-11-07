@@ -10,21 +10,21 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cPassiveObjectInstanceInfo {
 public:
-	Vector2D Pos;
 	int Id;
+	Vector2D Pos;
 	int Arg;
 	
 public:
 	cPassiveObjectInstanceInfo() :
-		Pos( Vector2D::Zero ),
 		Id( 0 ),
+		Pos( Vector2D::Zero ),
 		Arg( 0 )
 	{
 		
 	}
-	cPassiveObjectInstanceInfo( const Vector2D _Pos, const int _Id, const int _Arg = 0 ) :
-		Pos( _Pos ),
+	cPassiveObjectInstanceInfo(  const int _Id, const Vector2D _Pos, const int _Arg = 0 ) :
 		Id( _Id ),
+		Pos( _Pos ),
 		Arg( _Arg )
 	{
 		
