@@ -90,7 +90,8 @@ public:
 	void SwitchMap();
 	void SwitchMode();
 	void ActiveAction();
-	void Save();
+	void LoadMap();
+	void SaveMap();
 	void FindMapMesh3DPaths();
 	void Reset();
 		

@@ -12,9 +12,14 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cMap::LoadBinary( const std::string FileName )
 {
+	StaticObjectInstanceInfo.clear();
+	DynamicObjectInstanceInfo.clear();
+	PassiveObjectInstanceInfo.clear();
+	ZoneInstanceInfo.clear();
+
 	// Read Data //
 	cEndianReader In( FileName );
-	
+
 	if( In.Empty() )
 	{
 		return;
@@ -22,8 +27,6 @@ void cMap::LoadBinary( const std::string FileName )
 	
 	// Static Object part //
 	{
-		StaticObjectInstanceInfo.clear();
-		
 		size_t StaticObjectSize = In.Read();
 		StaticObjectInstanceInfo.resize( StaticObjectSize );
 		
@@ -52,8 +55,6 @@ void cMap::LoadBinary( const std::string FileName )
 
 	// Dynamic Object part //
 	{
-		DynamicObjectInstanceInfo.clear();
-		
 		size_t DynamicObjectSize = In.Read();
 		DynamicObjectInstanceInfo.resize( DynamicObjectSize );
 		
@@ -89,8 +90,6 @@ void cMap::LoadBinary( const std::string FileName )
 	
 	// Passive Object part //
 	{
-		PassiveObjectInstanceInfo.clear();
-		
 		size_t PassiveObjectSize = In.Read();
 		PassiveObjectInstanceInfo.resize( PassiveObjectSize );
 
@@ -98,8 +97,6 @@ void cMap::LoadBinary( const std::string FileName )
 
 	// Zones part //
 	{
-		ZoneInstanceInfo.clear();
-		
 		size_t ZoneSize = In.Read();
 		ZoneInstanceInfo.resize( ZoneSize );
 

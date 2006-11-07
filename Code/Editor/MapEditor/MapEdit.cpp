@@ -32,6 +32,9 @@ cMapEdit::cMapEdit() :
 	
 	FindMapMesh3DPaths();
 	
+	// Loads the map file //
+	LoadMap();
+	
 	if( !Mesh3DName.empty() )
 	{
 		UpdateMesh3DPreview();
@@ -312,7 +315,7 @@ void cMapEdit::Step()
 	SwitchMode();
 	SwitchMap();
 	
-	Save();
+	SaveMap();
 	
 	Reset();
 
@@ -362,6 +365,8 @@ void cMapEdit::SwitchMap()
 				{
 					CurMap = MapPath.size() - 1;
 				}
+
+				LoadMap();
 			}
 			else if( Button[ KEY_PLUS_PAD ].Pressed() )
 			{
@@ -373,6 +378,8 @@ void cMapEdit::SwitchMap()
 				{
 					CurMap = 0;	
 				}
+
+				LoadMap();
 			}
 		}
 	}
@@ -414,7 +421,35 @@ void cMapEdit::ActiveAction()
 	IsSaved = false;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMapEdit::Save()
+void cMapEdit::LoadMap()
+{
+	Map.LoadBinary( MapBaseDirName + MapPath[ CurMap ] );
+	
+	// Static Object part //
+	{
+		StaticObjectInstance.clear();
+		
+		for ( size_t idx = 0; idx < Map.StaticObjectInstanceInfo.size(); idx++ )
+		{
+			StaticObjectInstance.push_back(
+				Engine2D::cStaticObjectInstance(
+					Map.StaticObjectInstanceInfo[ idx ].FileName,
+					Map.StaticObjectInstanceInfo[ idx ].Pos //,
+//					Map.StaticObjectInstanceInfo[ idx ].Arg
+				)
+			);
+			
+			StaticObjectInstance.back().Object->CalcBoundingRect();
+			Map.StaticObjectInstanceInfo[ idx ].Layer = CurLayer;
+
+		}
+	}
+	
+	
+	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::SaveMap()
 {
 	if( Button[ KEY_LCTRL ] && Button[ KEY_S ].Pressed() && !IsSaved )
 	{
