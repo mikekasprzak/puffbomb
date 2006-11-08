@@ -579,7 +579,7 @@ void cMapEdit::MoveDynFree()
 	{
 		if( isGroupMove )
 		{
-			Map.DynamicObjectInstanceInfo[ CurSelColl ].Component.clear();
+/*			Map.DynamicObjectInstanceInfo[ CurSelColl ].Component.clear();
 			
 			Map.DynamicObjectInstanceInfo[ CurSelColl ].Component.resize( DynamicCollection[ CurSelColl ]->Component.size() );
 
@@ -592,7 +592,7 @@ void cMapEdit::MoveDynFree()
 					Map.DynamicObjectInstanceInfo[ CurSelColl ].Component[ idx ].NodePos[ idx2 ]
 						= DynamicCollection[ CurSelColl ]->Component[ idx ].Body.Nodes.Pos( idx2 );
 				}
-			}
+			}*/
 			
 			ActiveAction();
 		}

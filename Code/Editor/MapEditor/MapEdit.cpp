@@ -485,6 +485,24 @@ void cMapEdit::SaveMap()
 	{
 		if( !MapPath.empty() )
 		{
+			for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); ++idx )
+			{
+				Map.DynamicObjectInstanceInfo[ idx ].Component.clear();
+				
+				Map.DynamicObjectInstanceInfo[ idx ].Component.resize( DynamicCollection[ idx ]->Component.size() );
+	
+				for( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); ++idx2 )
+				{
+					Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.resize( DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Size() );
+	
+					for( size_t idx3 = 0; idx3 < DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Size(); ++idx3 )
+					{
+						Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ]
+							= DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 );
+					}
+				}
+			}			
+			
 			Map.SaveBinary( MapBaseDirName + MapPath[ CurMap ] );
 		}
 
