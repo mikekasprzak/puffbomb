@@ -14,6 +14,7 @@
 #include <Impulse/Impulse.h>
 
 #include <Graphics/Camera.h>
+#include <Map/Map.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -27,6 +28,8 @@ public:
 
 public:
 	// Our in game entities //
+	cMap Map;
+
 	std::vector< cDynamicCollection* > DynamicCollection;
 	std::vector< cStaticObjectInstance > StaticObjectInstance;
 	std::vector< cPassiveObject* > PassiveObject;
@@ -49,6 +52,7 @@ public:
 	// Move and Display Everything //
 	void Step();
 	void Draw();
+	void LoadMap();
 
 	// Reset game back to a neutral state //
 	void Reset();

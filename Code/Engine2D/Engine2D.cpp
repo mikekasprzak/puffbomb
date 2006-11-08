@@ -40,7 +40,7 @@ cEngine2D::cEngine2D() {
 		Real( Global::ScreenH )							// Height
 	 );
 	
-	// Add a dummy object for testing //
+/*	// Add a dummy object for testing //
 	DynamicCollection.push_back( CreateCollectionInstance( 1, Vector2D( 0, 600 ) ) );
 	
 	DynamicCollection.push_back( CreateCollectionInstance( 2, Vector2D( -400, 400 ) ) );
@@ -77,7 +77,10 @@ cEngine2D::cEngine2D() {
 	StaticObjectInstance.push_back( cStaticObjectInstance( "BlortBlock.bin.pack.mesh3d", Vector2D( -100, -350 ) ) );
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 100, -350 )) );
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 0, -300 )) );
-	
+*/	
+
+	LoadMap();
+
 	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
 	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 300 ) ) );
 	
@@ -290,6 +293,64 @@ void cEngine2D::Draw() {
 	}
 	Gfx::EnableDepth();
 */
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::LoadMap()
+{
+	Map.LoadBinary( "Maps/Level00.map" );
+	
+	// Static Object part //
+	{
+		StaticObjectInstance.clear();
+		
+		for ( size_t idx = 0; idx < Map.StaticObjectInstanceInfo.size(); idx++ )
+		{
+			StaticObjectInstance.push_back(
+				Engine2D::cStaticObjectInstance(
+					Map.StaticObjectInstanceInfo[ idx ].FileName,
+					Map.StaticObjectInstanceInfo[ idx ].Pos //,
+//					Map.StaticObjectInstanceInfo[ idx ].Arg
+				)
+			);
+		}
+	}
+	
+	// Dynamic Object part //
+	{
+		// Delete the collections //
+		for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
+			delete DynamicCollection[ idx ];
+		}
+
+		DynamicCollection.clear();
+		
+		for ( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+		{
+			DynamicCollection.push_back(
+				Engine2D::CreateCollectionInstance(
+					Map.DynamicObjectInstanceInfo[ idx ].Id,
+					Map.DynamicObjectInstanceInfo[ idx ].Pos,
+					Map.DynamicObjectInstanceInfo[ idx ].Arg
+				)
+			);
+			
+			for ( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+			{
+				for ( size_t idx2 = 0; idx2 < Map.DynamicObjectInstanceInfo[ idx ].Component.size(); idx2++ )
+				{
+					for ( size_t idx3 = 0; idx3 < Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.size(); idx3++ )
+					{
+						DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ) =
+							Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];
+							
+						DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Old( idx3 ) =
+							Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];					
+					}
+				}
+			}
+		}
+	}
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
