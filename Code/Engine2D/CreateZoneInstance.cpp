@@ -9,7 +9,7 @@ cZone* CreateZoneInstance( const unsigned int Id, const Rect2D& Rect, const int 
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
 		case 1: {
-			//return new cZone( "2D/Hamster/Hamster.coll", Pos );
+			return new cZone( Rect.P1(), Rect.P2() );
 			break;
 		}
 		

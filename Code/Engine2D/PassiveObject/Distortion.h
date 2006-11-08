@@ -16,7 +16,7 @@ public:
 	cDistortion( const Vector2D& _Pos ) :
 		cPassiveObject( _Pos )
 	{
-		
+		BoundingRect = cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 32, 32 ), _Pos + Vector2D( 32, 32 ) );
 	}
 
 public:	
