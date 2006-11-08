@@ -26,7 +26,7 @@ export TextureToolArgs
 CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Framework Game/JunkGame Game/$(GAME_TARGET)
 # - -------------------------------------------------------------------------------------------- - #
 CONTENT_DIRS	:=	$(GAME_TARGET)
-CONTENT_EXT		:=	.png .ogg .anim .font .form .mesh3d .comp .coll
+CONTENT_EXT		:=	.png .ogg .anim .font .form .mesh3d .comp .coll .map
 # - -------------------------------------------------------------------------------------------- - #
 
 
@@ -88,6 +88,8 @@ PLATFORM_CONTENT:=	$(subst .png,.pack.tx,$(PLATFORM_CONTENT))
 # Target Component and Collection files -------------------------------------------------------- - #
 PLATFORM_CONTENT:=	$(subst .comp,.bin.comp,$(PLATFORM_CONTENT))
 PLATFORM_CONTENT:=	$(subst .coll,.coll,$(PLATFORM_CONTENT))
+
+PLATFORM_CONTENT:=	$(subst .map,.map,$(PLATFORM_CONTENT))
 # - -------------------------------------------------------------------------------------------- - #
 
 # - -------------------------------------------------------------------------------------------- - #
@@ -181,6 +183,10 @@ $(RELEASE_DIR)/%.bin.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_
 # - -------------------------------------------------------------------------------------------- - #
 # Collections ---------------------------------------------------------------------------------- - #
 $(RELEASE_DIR)/%.coll: Content/$(GAME_TARGET)/%.coll $(CollectionTool) $(ALL_DEPEND)
+	cp $< $@
+# - -------------------------------------------------------------------------------------------- - #
+# Maps ----------------------------------------------------------------------------------------- - #
+$(RELEASE_DIR)/%.map: Content/$(GAME_TARGET)/%.map $(MapTool) $(ALL_DEPEND)
 	cp $< $@
 # - -------------------------------------------------------------------------------------------- - #
 # Specific unprocessed content ----------------------------------------------------------------- - #
