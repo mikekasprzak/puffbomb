@@ -295,12 +295,6 @@ void cMapEdit::Step()
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{
-/*		// Step the collections in the map //
-		for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
-		{
-			DynamicCollection[ idx ]->Step();
-		}*/
-	
 		if( !isGroupMove )
 		{
 			SelectDynFree();
@@ -539,18 +533,6 @@ void cMapEdit::FindMapMesh3DPaths()
 			Mesh3DName.push_back( TmpString );
 		}
 	}
-
-	// Find all the .coll files //
-/*	cDirectoryCache DynDirCache( DynBaseDirName );
-	
-	for( size_t idx = 0; idx < DynDirCache.File.size(); ++idx )
-	{
-		if( String::LastExtension( DynDirCache.File[idx] ) == ".coll" )
-		{
-			//Log( LOG_HIGHEST_LEVEL, "Coll " << DynDirCache.File[idx] );
-		//	DynPath.push_back( DynDirCache.File[idx] );
-		}
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Reset()
