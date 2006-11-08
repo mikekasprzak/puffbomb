@@ -13,6 +13,12 @@ cEditor::cEditor()
 
 	CurEditor = MAP_EDITOR;
 	LastEditor = MAP_EDITOR;
+
+/*	CollectionEdit = new cCollectionEdit();
+
+	CurEditor = COLLECTION_EDITOR;
+	LastEditor = COLLECTION_EDITOR;
+*/
 	
 	Work();
 }
@@ -52,22 +58,9 @@ void cEditor::Step()
 {
 	if( CurEditor == MAP_EDITOR )
 	{
-/*		if( MapEdit->IsHelp )
-		{
-			// Handles scrolling around the map
-			MapEdit->Scroll( MapEdit->Camera );
-			
-			// Handles the zooming in and out of a map
-			MapEdit->Zoom( Real( 256.0 ), MapEdit->Camera );
-
-		}
-		else*/
-		{
-			MapEdit->Step();
-		}
+		MapEdit->Step();
 	}
-	else 
-	if( CurEditor == COLLECTION_EDITOR )
+	else if( CurEditor == COLLECTION_EDITOR )
 	{
 		CollectionEdit->Step();
 	}
@@ -79,37 +72,7 @@ void cEditor::Step()
 	{
 //		AnimationEdit->Step();
 	}
-	if( Button[ KEY_F1 ].Pressed() )
-	{
-
-/*		if( CurEditor == MAP_EDITOR )
-		{
-			MapEdit->IsHelp = !MapEdit->IsHelp;
-			// Resets the zoom
-			MapEdit->Scale = Real::One;
-
-			MapEdit->Camera->Pos.x = 0.0;
-			MapEdit->Camera->Pos.y = 0.0;
-			MapEdit->Camera->Pos.z = Global::HudZoom;
-			
-			MapEdit->Camera->View.x = MapEdit->Camera->Pos.x;
-			MapEdit->Camera->View.y = MapEdit->Camera->Pos.y;
-			MapEdit->Camera->View.z = 0.0;
-		}
-		else*/
-		if( CurEditor == COLLECTION_EDITOR )
-		{
 	
-		}
-		else if( CurEditor == COMPONENT_EDITOR )
-		{
-	
-		}
-		else if( CurEditor == ANIMATION_EDITOR )
-		{
-			
-		}
-	}
 	if( Button[ KEY_F5 ].Pressed() )
 	{
 		if( CurEditor != MAP_EDITOR )
@@ -153,9 +116,7 @@ void cEditor::Draw()
 {
 	if( CurEditor == MAP_EDITOR )
 	{
-		{
-			MapEdit->Draw();
-		}
+		MapEdit->Draw();
 	}
 	else if( CurEditor == COLLECTION_EDITOR )
 	{

@@ -26,10 +26,8 @@ cCollectionEdit::cCollectionEdit() :
 	Log( LOG_HIGHEST_LEVEL, "Collection editor physics created" );
 
 	FindCollCompPaths();
-	
-	Component.AnimationSet = new Engine2D::cComponentAnimationSet();
-	Component.AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
-	Component.Body = Component.AnimationSet->BodyPose[ 0 ];
+
+	Component = Engine2D::cDynamicComponent( 0, CompBaseDirName + ComponentPath[ CurComp ], Vector2D::Zero );
 
 	if( !CollectionPath.empty() )
 	{
@@ -41,12 +39,7 @@ cCollectionEdit::cCollectionEdit() :
 // - ------------------------------------------------------------------------------------------ - //
 cCollectionEdit::~cCollectionEdit()
 {
-	/*for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
-	{
-		delete Collection.Component[ idx ].AnimationSet;
-	}*/
-	
-	delete Component.AnimationSet;
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::Draw()
@@ -253,6 +246,8 @@ void cCollectionEdit::FindCollCompPaths()
 	{
 		if( String::LastExtension( CompDirCache.File[idx] ) == ".comp" )
 		{
+			Log( LOG_HIGHEST_LEVEL, "CompDirCache.File[idx] " << CompDirCache.File[idx] );
+			
 			ComponentPath.push_back( CompDirCache.File[idx] );
 		}
 	}
@@ -279,11 +274,7 @@ void cCollectionEdit::UpdateColl()
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::UpdateCompPreview()
 {
-	delete Component.AnimationSet;	
-	
-	Component.AnimationSet = new Engine2D::cComponentAnimationSet();
-	Component.AnimationSet->LoadBinary( CompBaseDirName + ComponentPath[ CurComp ] );
-	Component.Body = Component.AnimationSet->BodyPose[ 0 ];
+	Component = Engine2D::cDynamicComponent( 0, CompBaseDirName + ComponentPath[ CurComp ], Vector2D::Zero );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::SwitchColl()
