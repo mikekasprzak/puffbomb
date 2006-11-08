@@ -22,6 +22,12 @@ cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vecto
 			return new cDynamicCollection( "2D/Phatastic/Phatastic.coll", Pos );
 			break;
 		}
+
+
+		case 64: {
+			return new cDynamicCollection( "2D/UglyHamster/UglyHamster.coll", Pos );
+			break;
+		}
 		
 		default: {
 			// No object with Id requested found, so return a null object //

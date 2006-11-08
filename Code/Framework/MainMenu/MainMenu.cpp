@@ -105,6 +105,7 @@ void cMainMenu::Step()
 		int XPos = rand() % int( Global::ScreenW ) - int( Global::Right );
 		int YPos = rand() % int( Global::ScreenH ) - int( Global::Top );
 		
+//		FXLibrary::Bomb( Vector2D( XPos, YPos ) );
 		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
 		
 		LastTime = GetTime() + 30;
