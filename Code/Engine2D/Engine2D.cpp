@@ -299,6 +299,8 @@ void cEngine2D::LoadMap()
 {
 	Map.LoadBinary( "Maps/Level00.map" );
 	
+	Log( LOG_HIGHEST_LEVEL, "Static Object part " );
+
 	// Static Object part //
 	{
 		StaticObjectInstance.clear();
@@ -314,6 +316,7 @@ void cEngine2D::LoadMap()
 			);
 		}
 	}
+	Log( LOG_HIGHEST_LEVEL, "Dynamic Object part " );
 	
 	// Dynamic Object part //
 	{
@@ -334,22 +337,20 @@ void cEngine2D::LoadMap()
 				)
 			);
 			
-			for ( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+			for ( size_t idx2 = 0; idx2 < Map.DynamicObjectInstanceInfo[ idx ].Component.size(); idx2++ )
 			{
-				for ( size_t idx2 = 0; idx2 < Map.DynamicObjectInstanceInfo[ idx ].Component.size(); idx2++ )
+				for ( size_t idx3 = 0; idx3 < Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.size(); idx3++ )
 				{
-					for ( size_t idx3 = 0; idx3 < Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.size(); idx3++ )
-					{
-						DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ) =
-							Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];
-							
-						DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Old( idx3 ) =
-							Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];					
-					}
+					DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ) =
+						Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];
+						
+					DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Old( idx3 ) =
+						Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];					
 				}
 			}
 		}
 	}
+	//Log( LOG_HIGHEST_LEVEL, "Finished LoadMap() " );
 
 }
 // - ------------------------------------------------------------------------------------------ - //

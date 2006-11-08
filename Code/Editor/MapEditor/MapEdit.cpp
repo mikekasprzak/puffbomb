@@ -464,23 +464,19 @@ void cMapEdit::LoadMap()
 				)
 			);
 			
-			for ( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+			for ( size_t idx2 = 0; idx2 < Map.DynamicObjectInstanceInfo[ idx ].Component.size(); idx2++ )
 			{
-				for ( size_t idx2 = 0; idx2 < Map.DynamicObjectInstanceInfo[ idx ].Component.size(); idx2++ )
+				for ( size_t idx3 = 0; idx3 < Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.size(); idx3++ )
 				{
-					for ( size_t idx3 = 0; idx3 < Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.size(); idx3++ )
-					{
-						DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ) =
-							Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];
-							
-						DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Old( idx3 ) =
-							Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];					
-					}
+					DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ) =
+						Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];
+						
+					DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Old( idx3 ) =
+						Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];					
 				}
 			}
 		}
 	}
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SaveMap()

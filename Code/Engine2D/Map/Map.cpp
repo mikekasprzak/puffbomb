@@ -76,7 +76,7 @@ void cMap::LoadBinary( const std::string FileName )
 			for ( size_t idx2 = 0; idx2 < CompSize; idx2++ )
 			{
 				size_t NodeSize = In.Read();
-				
+
 				DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos.resize( NodeSize );
 				
 				for ( size_t idx3 = 0; idx3 < NodeSize; idx3++ )
