@@ -10,13 +10,6 @@
 #include "CreatePassiveInstance.h"
 #include "CreateZoneInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
-#ifdef EDITOR
-// For FPS test //
-#include <Font/Fonts.h>
-#include <sstream>
-// ------------ //
-#endif // EDITOR //
-// - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 // Static instance to know who's active is inside "Engine2D_Current.cpp" //
@@ -24,7 +17,7 @@ namespace Engine2D {
 cEngine2D::cEngine2D() {
 	// Create Camera //
 	Camera = new cCamera(
-		Vector3D( 0.0, 0.0, Global::HudZoom ),			// Pos
+		Vector3D( 0.0, 0.0, Global::HudZoom * Real( 3 ) ),			// Pos
 		Vector3D( 0.0, 0.0, 0.0 ),						// View
 		Vector3D( 0.0, 1.0, 0.0 ),						// Up
 		45.0,											// Field of View
@@ -265,18 +258,6 @@ void cEngine2D::Draw() {
 			DynamicComponent[ idx ]->Draw();
 		}
 	}
-	
-#ifdef EDITOR
-	//	//  DISPLAYS FPS  //
-	std::stringstream Temp;
-	Temp << Global::FPS;
-	std::string TempString = Temp.str();
-	
-	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
-
-	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
-	// -------------- //
-#endif // EDITOR //
 /*
 	Gfx::DisableTex2D();
 	Gfx::DisableDepth();
@@ -297,7 +278,7 @@ void cEngine2D::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::LoadMap()
 {
-	Map.LoadBinary( "Maps/Level00.map" );
+	Map.LoadBinary( "Maps/Level01.map" );
 	
 	Log( LOG_HIGHEST_LEVEL, "Static Object part " );
 

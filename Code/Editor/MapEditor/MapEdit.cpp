@@ -23,7 +23,7 @@ cMapEdit::cMapEdit() :
 	CurSelColl( 0 ),
 	CurSelComp( 0 )
 {
-	Camera->Pos.z = Global::HudZoom;
+	Camera->Pos.z = Global::HudZoom * Real( 4 );
 
 	Physics.ZeroGravity();
 	Physics.Friction = Real( 0.8 );
@@ -319,12 +319,12 @@ void cMapEdit::Step()
 	if( CurMode == ZONE_MODE )
 	{
 		// Handles the zooming in and out of a map
-		Zoom( Real( 256.0 ), Camera );
+		Zoom( Real( 512.0 ), Camera );
 	}
 	else
 	{
 		// Handles the zooming in and out of a map
-		Zoom( Real( 64.0 ), Camera );
+		Zoom( Real( 256.0 ), Camera );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -542,7 +542,7 @@ void cMapEdit::Reset()
 		// Resets to default values //
 		Camera->Pos.x = 0.0;
 		Camera->Pos.y = 0.0;
-		Camera->Pos.z = Global::HudZoom;
+		Camera->Pos.z = Global::HudZoom * Real( 4 );
 		
 		Camera->View.x = Camera->Pos.x;
 		Camera->View.y = Camera->Pos.y;

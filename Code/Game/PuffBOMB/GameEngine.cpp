@@ -3,6 +3,14 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+#ifdef EDITOR
+// For FPS test //
+#include <Graphics/Gfx.h>
+#include <Font/Fonts.h>
+#include <sstream>
+// ------------ //
+#endif // EDITOR //
+// - ------------------------------------------------------------------------------------------ - //
 cGameEngine::cGameEngine() {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -50,5 +58,18 @@ void cGameEngine::Draw() {
 	
 	// Stuff my engine does after //
 	HudCamera->Update();
+	
+	#ifdef EDITOR
+	//	//  DISPLAYS FPS  //
+	std::stringstream Temp;
+	Temp << Global::FPS;
+	std::string TempString = Temp.str();
+	
+	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
+
+	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
+	// -------------- //
+	#endif // EDITOR //
+
 }
 // - ------------------------------------------------------------------------------------------ - //
