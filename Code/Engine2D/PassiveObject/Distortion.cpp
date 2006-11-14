@@ -38,9 +38,9 @@ void cDistortion::Work() {
 		cImpulse(
 			Pos,
 			// Inner Radius, Intensity, Tangent //
-			Real( 0 ), Real( -5 ), Real( 0.5 ),
+			Real( 0 ), Real( -2 ), Real( 0.2 ),
 			// Outer Radius, Intensity, Tangent //
-			Real( 512 ), Real( 1 ), Real( 0.5 )
+			Real( 1312 ), Real( 0 ), Real( 0.2 )
 			)
 		);	
 }

@@ -74,8 +74,8 @@ cEngine2D::cEngine2D() {
 
 	LoadMap();
 
-	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
-	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 300 ) ) );
+//	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
+//	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 300 ) ) );
 	
 	// Populate component list with all components //
 	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
@@ -267,13 +267,13 @@ void cEngine2D::Draw() {
 	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
 		DynamicComponent[ idx ]->DrawBody();
 	}
-
+/*
 	// Draw Tiles //
 	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
 		StaticObjectInstance[ idx ].DrawBody();
 	}
+ /**/
 	Gfx::EnableDepth();
-*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::LoadMap()
