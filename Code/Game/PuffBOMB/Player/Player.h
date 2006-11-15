@@ -8,10 +8,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cPlayer { 
 public:
-	cDynamicCollection* MyObject;
+	Engine2D::cDynamicCollection* MyObject;
 public:
 	cPlayer();
-	~cPlayer();
+	virtual ~cPlayer();
 	
 public:
 	virtual void Control();

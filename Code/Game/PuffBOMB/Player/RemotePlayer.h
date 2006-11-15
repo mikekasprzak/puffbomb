@@ -11,7 +11,7 @@ class cRemotePlayer: public cPlayer {
 public:
 public:
 	cRemotePlayer();
-	~cRemotePlayer();
+	virtual ~cRemotePlayer();
 	
 public:
 	virtual void Control();

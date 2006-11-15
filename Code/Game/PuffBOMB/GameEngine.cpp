@@ -11,7 +11,9 @@
 // ------------ //
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
-cGameEngine::cGameEngine() {
+cGameEngine::cGameEngine() :
+	CurrentPlayer( 0 )
+{
 	// Create Camera //
 	HudCamera = new cCamera(
 		Vector3D( 0.0, 0.0, Global::HudZoom ),			// Pos
@@ -34,6 +36,11 @@ cGameEngine::cGameEngine() {
 cGameEngine::~cGameEngine() {
 	// Destroy my Custom Camera //
 	delete HudCamera;
+	
+	// Deletes all our players //
+	for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+		delete Player[ idx ];
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -46,7 +53,7 @@ void cGameEngine::Step() {
 	cEngine2D::Step();
 	
 	// Stuff my engine does after //
-	// ... //
+	TurnBasedPlay();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cGameEngine::Draw() {
@@ -71,5 +78,21 @@ void cGameEngine::Draw() {
 	// -------------- //
 #endif // EDITOR //
 
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+void cGameEngine::TurnBasedPlay() {
+	if ( !Player.empty() ) {
+		Player[ CurrentPlayer ]->Control();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cGameEngine::RealTimePlay() {
+	if ( !Player.empty() ) {
+		for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+			Player[ idx ]->Control();
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //

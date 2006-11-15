@@ -10,7 +10,7 @@ class cLocalAIPlayer: public cPlayer {
 public:
 public:
 	cLocalAIPlayer();
-	~cLocalAIPlayer();
+	virtual ~cLocalAIPlayer();
 	
 public:
 	virtual void Control();

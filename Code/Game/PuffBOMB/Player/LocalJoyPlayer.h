@@ -10,7 +10,7 @@ class cLocalJoyPlayer: public cPlayer {
 public:
 public:
 	cLocalJoyPlayer();
-	~cLocalJoyPlayer();
+	virtual ~cLocalJoyPlayer();
 	
 public:
 	virtual void Control();
