@@ -88,6 +88,7 @@ void cGameEngine::TurnBasedPlay() {
 		switch( State ) {
 			case 1: {
 				// Stage 1 - Asking for input ------------------------------------------------- - //
+				
 				// If our control is all done, and wants action //
 				if ( Player[ CurrentPlayer ]->Control() ) {
 					// Create Bomb at position requested //
@@ -103,7 +104,6 @@ void cGameEngine::TurnBasedPlay() {
 				
 				// If Turn is over //
 				if ( false ) {
-					
 					// Next Player //
 					CurrentPlayer++;
 					if ( CurrentPlayer >= Player.size() ) {
@@ -112,7 +112,6 @@ void cGameEngine::TurnBasedPlay() {
 					
 					// Change State, to ask player for his control (input) //
 					State = 1;
-					
 				}
 				
 				break;
