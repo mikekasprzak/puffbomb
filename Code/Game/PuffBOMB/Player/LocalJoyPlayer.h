@@ -8,6 +8,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cLocalJoyPlayer: public cPlayer { 
 public:
+	int MyInputDevice;
+
+public:
 	cLocalJoyPlayer();
 	virtual ~cLocalJoyPlayer();
 	

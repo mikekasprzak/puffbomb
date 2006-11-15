@@ -4,6 +4,8 @@
 #ifndef __Game_PuffBOMB_Player_Player_H__
 #define __Game_PuffBOMB_Player_Player_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <Geometry/Vector.h>
+
 #include <DynamicCollection/DynamicCollection.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cPlayer { 
@@ -13,6 +15,12 @@ public:
 public:
 	// Elements of a Player //
 	int Score;
+	Vector2D BombPos;
+	
+	// Statistics //
+	// int NumberOfShotsTaken;
+	// something to represent the last position of the player, just in case he goes out of bounds //
+	// Total Time taken over all turns (hahaha... stupid statistic) //
 	
 public:
 	cPlayer();
