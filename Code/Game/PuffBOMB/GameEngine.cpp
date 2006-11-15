@@ -12,7 +12,8 @@
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
 cGameEngine::cGameEngine() :
-	CurrentPlayer( 0 )
+	CurrentPlayer( 0 ),
+	State( 1 )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -84,7 +85,39 @@ void cGameEngine::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cGameEngine::TurnBasedPlay() {
 	if ( !Player.empty() ) {
-		Player[ CurrentPlayer ]->Control();
+		switch( State ) {
+			case 1: {
+				// Stage 1 - Asking for input ------------------------------------------------- - //
+				// If our control is all done, and wants action //
+				if ( Player[ CurrentPlayer ]->Control() ) {
+					// Create Bomb at position requested //
+					
+					// Change State, to play it out //
+					State = 2;
+				}
+				
+				break;
+			}
+			case 2: {
+				// Stage 2 - Acting on input (and waiting for the turn to end) ---------------- - //		
+				
+				// If Turn is over //
+/*				{
+					
+					// Next Player //
+					CurrentPlayer++;
+					if ( CurrentPlayer >= Player.size() ) {
+						Player = 0;
+					}
+					
+					// Change State, to ask player for his control (input) //
+					State = 1;
+					
+				}
+*/				
+				break;
+			}
+		};
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

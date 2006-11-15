@@ -18,8 +18,12 @@ public:
 public:
 	// Our players //
 	std::vector< cPlayer* > Player;
+	
 	// Our current player //
 	size_t CurrentPlayer;
+	// Engine State //
+	int State;
+	
 
 	void TurnBasedPlay();
 	void RealTimePlay();

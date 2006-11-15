@@ -13,7 +13,7 @@ public:
 	virtual ~cLocalJoyPlayer();
 	
 public:
-	virtual void Control();
+	virtual bool Control();
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Game_PuffBOMB_Player_LocalJoyPlayer_H__ // 

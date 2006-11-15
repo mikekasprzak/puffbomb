@@ -13,7 +13,7 @@ public:
 	virtual ~cLocalAIPlayer();
 	
 public:
-	virtual void Control();
+	virtual bool Control();
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Game_PuffBOMB_Player_LocalAIPlayer_H__ // 

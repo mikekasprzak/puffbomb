@@ -9,12 +9,17 @@
 class cPlayer { 
 public:
 	Engine2D::cDynamicCollection* MyObject;
+
+public:
+	// Elements of a Player //
+	int Score;
+	
 public:
 	cPlayer();
 	virtual ~cPlayer();
 	
 public:
-	virtual void Control();
+	virtual bool Control();
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Game_PuffBOMB_Player_Player_H__ // 

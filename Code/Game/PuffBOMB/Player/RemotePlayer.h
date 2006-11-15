@@ -14,7 +14,7 @@ public:
 	virtual ~cRemotePlayer();
 	
 public:
-	virtual void Control();
+	virtual bool Control();
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Game_PuffBOMB_Player_RemotePlayer_H__ // 
