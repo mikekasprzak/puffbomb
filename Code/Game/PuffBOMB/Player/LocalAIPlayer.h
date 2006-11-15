@@ -8,7 +8,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cLocalAIPlayer: public cPlayer { 
 public:
-public:
 	cLocalAIPlayer();
 	virtual ~cLocalAIPlayer();
 	

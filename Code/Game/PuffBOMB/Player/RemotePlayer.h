@@ -9,7 +9,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cRemotePlayer: public cPlayer { 
 public:
-public:
 	cRemotePlayer();
 	virtual ~cRemotePlayer();
 	

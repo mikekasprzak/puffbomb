@@ -8,7 +8,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cLocalJoyPlayer: public cPlayer { 
 public:
-public:
 	cLocalJoyPlayer();
 	virtual ~cLocalJoyPlayer();
 	
