@@ -102,19 +102,19 @@ void cGameEngine::TurnBasedPlay() {
 				// Stage 2 - Acting on input (and waiting for the turn to end) ---------------- - //		
 				
 				// If Turn is over //
-/*				{
+				if ( false ) {
 					
 					// Next Player //
 					CurrentPlayer++;
 					if ( CurrentPlayer >= Player.size() ) {
-						Player = 0;
+						CurrentPlayer = 0;
 					}
 					
 					// Change State, to ask player for his control (input) //
 					State = 1;
 					
 				}
-*/				
+				
 				break;
 			}
 		};
