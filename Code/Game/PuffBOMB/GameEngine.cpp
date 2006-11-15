@@ -59,7 +59,7 @@ void cGameEngine::Draw() {
 	// Stuff my engine does after //
 	HudCamera->Update();
 	
-	#ifdef EDITOR
+#ifdef EDITOR
 	//	//  DISPLAYS FPS  //
 	std::stringstream Temp;
 	Temp << Global::FPS;
@@ -69,7 +69,7 @@ void cGameEngine::Draw() {
 
 	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
 	// -------------- //
-	#endif // EDITOR //
+#endif // EDITOR //
 
 }
 // - ------------------------------------------------------------------------------------------ - //
