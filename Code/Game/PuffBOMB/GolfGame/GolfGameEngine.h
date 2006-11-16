@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// GameEngine //
+// GolfGameEngine //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Game_PuffBOMB_GameEngine_H__
-#define __Game_PuffBOMB_GameEngine_H__
+#ifndef __GolfGame_PuffBOMB_GolfGameEngine_H__
+#define __GolfGame_PuffBOMB_GolfGameEngine_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
@@ -10,7 +10,7 @@
 
 #include "Player/Player.h"
 // - ------------------------------------------------------------------------------------------ - //
-class cGameEngine : public Engine2D::cEngine2D { 
+class cGolfGameEngine : public Engine2D::cEngine2D { 
 public:
 	// Custom Camera used to create a HUD //
 	cCamera *HudCamera;
@@ -26,16 +26,16 @@ public:
 	
 
 	void TurnBasedPlay();
-	void RealTimePlay();
+//	void RealTimePlay();
 
 public:
-	cGameEngine();
-	~cGameEngine();
+	cGolfGameEngine();
+	~cGolfGameEngine();
 	
 public:
 	void Step();
 	void Draw();
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // Game // 
+#endif // GolfGame // 
 // - ------------------------------------------------------------------------------------------ - //

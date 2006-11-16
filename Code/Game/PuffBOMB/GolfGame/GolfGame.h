@@ -1,24 +1,24 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Game //
+// GolfGame //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Game_PuffBOMB_Game_H__
-#define __Game_PuffBOMB_Game_H__
+#ifndef __GolfGame_PuffBOMB_GolfGame_H__
+#define __GolfGame_PuffBOMB_GolfGame_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <MessageEntity.h>
-#include <GameEngine.h>
+#include "GolfGameEngine.h"
 // - ------------------------------------------------------------------------------------------ - //
-class cGame : public cMessageEntity { 
+class cGolfGame : public cMessageEntity { 
 public:
-	cGameEngine* Engine;
+	cGolfGameEngine* Engine;
 
 public:
-	cGame();
-	~cGame();
+	cGolfGame();
+	~cGolfGame();
 
 public:
 	void Step();
 	void Draw();
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // Game // 
+#endif // GolfGame // 
 // - ------------------------------------------------------------------------------------------ - //

@@ -7,8 +7,6 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Engine2D.h>
-
-#include "Player/Player.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cClassicGameEngine : public Engine2D::cEngine2D { 
 public:

@@ -14,7 +14,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <SplashScreen/SplashScreen.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Game.h>
+#include "ClassicGame/ClassicGame.h"
+#include "GolfGame/GolfGame.h"
+
 #include <MainMenu/MainMenu.h>
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -109,7 +111,7 @@ void cSuperFlow::StateFlow()
 			{
 				// Start the game //
 				{
-					cGame Game;
+					cClassicGame Game;
 				}
 				State = stMainMenu;
 				break;

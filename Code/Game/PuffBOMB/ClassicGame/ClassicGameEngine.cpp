@@ -11,9 +11,7 @@
 // ------------ //
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
-cClassicGameEngine::cClassicGameEngine() :
-	CurrentPlayer( 0 ),
-	State( 1 )
+cClassicGameEngine::cClassicGameEngine()
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -37,11 +35,6 @@ cClassicGameEngine::cClassicGameEngine() :
 cClassicGameEngine::~cClassicGameEngine() {
 	// Destroy my Custom Camera //
 	delete HudCamera;
-	
-	// Deletes all our players //
-	for ( size_t idx = 0; idx < Player.size(); idx++ ) {
-		delete Player[ idx ];
-	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -54,7 +47,7 @@ void cClassicGameEngine::Step() {
 	cEngine2D::Step();
 	
 	// Stuff my engine does after //
-	TurnBasedPlay();
+//	TurnBasedPlay();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Draw() {
