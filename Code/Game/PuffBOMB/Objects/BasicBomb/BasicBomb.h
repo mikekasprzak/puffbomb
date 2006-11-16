@@ -8,11 +8,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cBasicBomb: public Engine2D::cPassiveObject {
 public:
-	// ??? //
+	// How many frames to wait before exploding //
+	int FrameClock;
 
 public:
-	cBasicBomb( const Vector2D& _Pos ) :
-		cPassiveObject( _Pos )
+	cBasicBomb( const Vector2D& _Pos, int _FrameClock = 60 ) :
+		cPassiveObject( _Pos ),
+		FrameClock( _FrameClock )
 	{
 		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 32, 32 ), _Pos + Vector2D( 32, 32 ) );
 	}

@@ -6,6 +6,10 @@
 #include "CreateZoneInstance.h"
 
 // - ------------------------------------------------------------------------------------------ - //
+#include <Particle2D/FXLibrary.h>
+#include <Particle2D/NewParticleFactory.h>
+
+// - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
 #include <Graphics/Gfx.h>
@@ -35,8 +39,8 @@ cClassicGameEngine::cClassicGameEngine()
 	 );
 	 
 	 
-	PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1000, 500 ) ) );
-	 
+	PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1200, 700 ), 10 ) );
+	//PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -1000, 600 ), 10 ) ); 
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -54,6 +58,8 @@ void cClassicGameEngine::Step() {
 	cEngine2D::Step();
 	
 	// Stuff my engine does after //
+	NewParticle.Step();
+	
 //	TurnBasedPlay();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -63,6 +69,9 @@ void cClassicGameEngine::Draw() {
 	
 	// Original Engine Stuff //
 	cEngine2D::Draw();
+	
+	// Particle System //
+	NewParticle.Draw();
 	
 	// Stuff my engine does after //
 	HudCamera->Update();

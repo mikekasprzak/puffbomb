@@ -15,7 +15,7 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 		}
 
 		case 2: {
-			return new cBasicBomb( Pos );
+			return new cBasicBomb( Pos, Argument );
 			break;
 		}
 		

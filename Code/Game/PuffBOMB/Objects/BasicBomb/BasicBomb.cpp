@@ -2,7 +2,10 @@
 // BasicBomb //
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-
+// - ------------------------------------------------------------------------------------------ - //
+#include <Particle2D/FXLibrary.h>
+#include <Particle2D/NewParticleFactory.h>
+// - ------------------------------------------------------------------------------------------ - //
 #include "BasicBomb.h"
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -29,19 +32,22 @@
 // - ------------------------------------------------------------------------------------------ - //
 void cBasicBomb::Work() {
 	// Count down timer //
+	if ( FrameClock >= 0 )
+		FrameClock--;
 	
 	// On timer zero, impulse //
-	
-	Engine2D::cEngine2D::Current->Impulse.push_back( 
-		Engine2D::cImpulse(
-			Pos,
-			// Inner Radius, Intensity, Tangent //
-			Real( 0 ), Real( 2 ), Real( 0 ),
-			// Outer Radius, Intensity, Tangent //
-			Real( 512 ), Real( 0 ), Real( 0 )
-			)
-		);
+	if ( FrameClock == 0 ) {
+		FXLibrary::Bomb( Pos );
 		
-	// Make sure we don't accidentially impulse again //
+		Engine2D::cEngine2D::Current->Impulse.push_back( 
+			Engine2D::cImpulse(
+				Pos,
+				// Inner Radius, Intensity, Tangent //
+				Real( 0 ), Real( 25 ), Real( 0 ),
+				// Outer Radius, Intensity, Tangent //
+				Real( 1512 ), Real( 0 ), Real( 0 )
+				)
+			);
+	}		
 }
 // - ------------------------------------------------------------------------------------------ - //
