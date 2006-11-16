@@ -77,17 +77,7 @@ cEngine2D::cEngine2D() {
 //	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
 //	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 300 ) ) );
 	
-	// Populate component list with all components //
-	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
-		for ( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); idx2++ ) {
-			DynamicComponent.push_back( &DynamicCollection[ idx ]->Component[ idx2 ] );
-		}
-	}
-	
-	// Wake up all components //
-	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-		DynamicComponent[ idx ]->Body.Nodes.WakeUp();
-	}
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::~cEngine2D() {
@@ -229,8 +219,7 @@ void cEngine2D::Step() {
 	// - -------------------------------------------------------------------------------------- - //
 	// Other //
 //	Form.Step();
-
-
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Draw() {
@@ -294,6 +283,12 @@ void cEngine2D::LoadMap()
 			);
 		}
 	}
+
+	ResetMap();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::ResetMap()
+{
 	Log( LOG_HIGHEST_LEVEL, "Dynamic Object part " );
 	
 	// Dynamic Object part //
@@ -330,6 +325,19 @@ void cEngine2D::LoadMap()
 	}
 	//Log( LOG_HIGHEST_LEVEL, "Finished LoadMap() " );
 
+	DynamicComponent.clear();
+
+	// Populate component list with all components //
+	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ ) {
+		for ( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); idx2++ ) {
+			DynamicComponent.push_back( &DynamicCollection[ idx ]->Component[ idx2 ] );
+		}
+	}
+
+	// Wake up all components //
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		DynamicComponent[ idx ]->Body.Nodes.WakeUp();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

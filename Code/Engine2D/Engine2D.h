@@ -53,6 +53,7 @@ public:
 	void Step();
 	void Draw();
 	void LoadMap();
+	void ResetMap();
 
 	// Reset game back to a neutral state //
 	void Reset();
