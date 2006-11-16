@@ -17,6 +17,7 @@ public:
 	bool GameActive;
 
 //	void TurnBasedPlay();
+	void AddBombs();
 
 public:
 	cClassicGameEngine();

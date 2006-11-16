@@ -41,10 +41,8 @@ cClassicGameEngine::cClassicGameEngine() :
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )						// Height
 	 );
-	 
-	 
-	PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1200, 700 ), 10 ) );
-	//PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -1000, 600 ), 10 ) ); 
+	
+	AddBombs();	 
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -63,6 +61,7 @@ void cClassicGameEngine::Step() {
 	// When you push backspace, reload/reset the level //
 	if( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
 		ResetMap();
+		AddBombs();
 	}
 	
 	// Only step the engine whilst we are active //
@@ -108,6 +107,13 @@ void cClassicGameEngine::Draw() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
+// - ------------------------------------------------------------------------------------------ - //
+void cClassicGameEngine::AddBombs() {
+	PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1200, 700 ), 10 ) );
+	//PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -1000, 600 ), 10 ) ); 
+	
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //void cClassicGameEngine::RealTimePlay() {
