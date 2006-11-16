@@ -267,12 +267,12 @@ void cEngine2D::Draw() {
 	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
 		DynamicComponent[ idx ]->DrawBody();
 	}
-/*
+
 	// Draw Tiles //
 	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
 		StaticObjectInstance[ idx ].DrawBody();
 	}
- /**/
+*/
 	Gfx::EnableDepth();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -311,7 +311,7 @@ void cEngine2D::LoadMap()
 		for ( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
 		{
 			DynamicCollection.push_back(
-				Engine2D::CreateCollectionInstance(
+				CreateCollectionInstance(
 					Map.DynamicObjectInstanceInfo[ idx ].Id,
 					Map.DynamicObjectInstanceInfo[ idx ].Pos,
 					Map.DynamicObjectInstanceInfo[ idx ].Arg

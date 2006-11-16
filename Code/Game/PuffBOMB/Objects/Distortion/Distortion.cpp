@@ -6,8 +6,6 @@
 #include "Distortion.h"
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-namespace Engine2D {
-// - ------------------------------------------------------------------------------------------ - //
 //void cDistortion::Action( cDynamicComponent& _Vs ) {
 //	switch ( Id ) {
 //		// Camera Boundary //
@@ -34,8 +32,8 @@ void cDistortion::Work() {
 	
 	// On pulse match, impulse //
 	
-	cEngine2D::Current->Impulse.push_back( 
-		cImpulse(
+	Engine2D::cEngine2D::Current->Impulse.push_back( 
+		Engine2D::cImpulse(
 			Pos,
 			// Inner Radius, Intensity, Tangent //
 			Real( 0 ), Real( -2 ), Real( 0.2 ),
@@ -44,6 +42,4 @@ void cDistortion::Work() {
 			)
 		);	
 }
-// - ------------------------------------------------------------------------------------------ - //
-}; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //

@@ -3,13 +3,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "CreateZoneInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
-namespace Engine2D {
-// - ------------------------------------------------------------------------------------------ - //
-cZone* CreateZoneInstance( const unsigned int Id, const Rect2D& Rect, const int Argument ) {
+Engine2D::cZone* CreateZoneInstance( const unsigned int Id, const Rect2D& Rect, const int Argument ) {
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
 		case 1: {
-			return new cZone( Rect.P1(), Rect.P2() );
+			return new Engine2D::cZone( Rect.P1(), Rect.P2() );
 			break;
 		}
 		
@@ -23,6 +21,4 @@ cZone* CreateZoneInstance( const unsigned int Id, const Rect2D& Rect, const int 
 	// In case the function accidentially doesn't return anything //
 	return 0;
 }
-// - ------------------------------------------------------------------------------------------ - //
-}; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //

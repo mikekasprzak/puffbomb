@@ -8,16 +8,12 @@
 
 #include <PassiveObject/PassiveObject.h>
 // - ------------------------------------------------------------------------------------------ - //
-namespace Engine2D {
-// - ------------------------------------------------------------------------------------------ - //
 // Create an instance of the requested object //
-extern cPassiveObject* CreatePassiveInstance(
+extern Engine2D::cPassiveObject* CreatePassiveInstance(
 	const unsigned int Id,
 	const Vector2D& Pos = Vector2D::Zero,
 	const int Argument = 0
 	);
-// - ------------------------------------------------------------------------------------------ - //
-}; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Engine2D_CreatePassiveInstance_H__ //
 // - ------------------------------------------------------------------------------------------ - //

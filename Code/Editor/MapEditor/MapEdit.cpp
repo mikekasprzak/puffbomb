@@ -40,7 +40,7 @@ cMapEdit::cMapEdit() :
 	
 	for ( size_t idx = 0; idx < 256; idx++ )
 	{
-		Engine2D::cDynamicCollection* TempDyn = Engine2D::CreateCollectionInstance( idx, Vector2D::Zero );
+		Engine2D::cDynamicCollection* TempDyn = CreateCollectionInstance( idx, Vector2D::Zero );
 		
 		if( TempDyn != 0 )
 		{
@@ -51,7 +51,7 @@ cMapEdit::cMapEdit() :
 	
 	if( !ActiveDyns.empty() )
 	{
-		DynPreview = Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
+		DynPreview = CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
 	}
 
 	// Loads the map file //
@@ -451,7 +451,7 @@ void cMapEdit::LoadMap()
 		for ( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
 		{
 			DynamicCollection.push_back(
-				Engine2D::CreateCollectionInstance(
+				CreateCollectionInstance(
 					Map.DynamicObjectInstanceInfo[ idx ].Id,
 					Map.DynamicObjectInstanceInfo[ idx ].Pos,
 					Map.DynamicObjectInstanceInfo[ idx ].Arg

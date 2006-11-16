@@ -1,6 +1,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "ClassicGameEngine.h"
 // - ------------------------------------------------------------------------------------------ - //
+#include "CreateCollectionInstance.h"
+#include "CreatePassiveInstance.h"
+#include "CreateZoneInstance.h"
 
 // - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
@@ -30,6 +33,10 @@ cClassicGameEngine::cClassicGameEngine()
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )						// Height
 	 );
+	 
+	 
+	PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1000, 500 ) ) );
+	 
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {

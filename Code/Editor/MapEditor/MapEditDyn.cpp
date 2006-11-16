@@ -270,7 +270,7 @@ void cMapEdit::AddDyn()
 
 		CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
 		
-		DynamicCollection.push_back( Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], TempPos ) );
+		DynamicCollection.push_back( CreateCollectionInstance( ActiveDyns[ CurDyn ], TempPos ) );
 		
 		Map.DynamicObjectInstanceInfo.push_back(
 			Engine2D::cDynamicObjectInstanceInfo( 
@@ -330,7 +330,7 @@ void cMapEdit::UpdateDynPreview()
 	
 	if( !ActiveDyns.empty() )
 	{
-		DynPreview = Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
+		DynPreview = CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
