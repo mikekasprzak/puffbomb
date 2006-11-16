@@ -14,6 +14,7 @@ public:
 	cCamera *HudCamera;
 
 public:
+	bool GameActive;
 
 //	void TurnBasedPlay();
 

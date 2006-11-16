@@ -4,6 +4,9 @@
 #include "CreateCollectionInstance.h"
 #include "CreatePassiveInstance.h"
 #include "CreateZoneInstance.h"
+// - ------------------------------------------------------------------------------------------ - //
+
+#include <Input/Input.h>
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
@@ -18,7 +21,8 @@
 // ------------ //
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
-cClassicGameEngine::cClassicGameEngine()
+cClassicGameEngine::cClassicGameEngine() :
+	GameActive( false )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -51,16 +55,29 @@ cClassicGameEngine::~cClassicGameEngine() {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
-	// Stuff my engine does before //
-	// ... //
+	// When you push space, toggle activity //
+	if( Input::Button[ KEY_SPACE ].Pressed() ) {
+		GameActive = !GameActive;
+	}
+
+	// When you push backspace, reload/reset the level //
+	if( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
+		
+	}
 	
-	// Original Engine Step Stuff //
-	cEngine2D::Step();
-	
-	// Stuff my engine does after //
-	NewParticle.Step();
-	
-//	TurnBasedPlay();
+	// Only step the engine whilst we are active //
+	if ( GameActive ) {
+		// Stuff my engine does before //
+		// ... //
+		
+		// Original Engine Step Stuff //
+		cEngine2D::Step();
+		
+		// Stuff my engine does after //
+		NewParticle.Step();
+		
+	//	TurnBasedPlay();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Draw() {

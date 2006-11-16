@@ -110,10 +110,7 @@ cEngine2D::~cEngine2D() {
 	delete Camera;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cEngine2D::Step() {
-	if( Input::Button[ KEY_SPACE ] )
-		return;
-	
+void cEngine2D::Step() {	
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
 	Physics.SetActive();
