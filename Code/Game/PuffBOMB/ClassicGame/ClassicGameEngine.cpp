@@ -46,7 +46,7 @@ cClassicGameEngine::cClassicGameEngine() :
 	
 	NewParticle.Clear();
 	
-	LoadMap( "Maps/Level01.map" );
+	LoadMap( "Maps/Classic/Level01.map" );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
