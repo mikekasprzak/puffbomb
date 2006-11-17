@@ -77,7 +77,6 @@ cEngine2D::cEngine2D() {
 //	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
 //	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 300 ) ) );
 	
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::~cEngine2D() {

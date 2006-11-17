@@ -64,6 +64,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	int Allocate( const int SegmentSize, const bool _IsAdditive );
 	void Release( const int SegIdx );
+	void Clear();
 
 	void Add(
 		const Vector2D &_Pos,

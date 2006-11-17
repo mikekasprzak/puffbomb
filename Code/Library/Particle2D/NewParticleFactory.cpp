@@ -96,6 +96,7 @@ int NewParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive 
 
 	return -1;
 }
+// - ------------------------------------------------------------------------------------------ - //
 void NewParticleFactory::Release( const int SegIdx )
 {
 	Segment[ SegIdx ].Start = Particles.size();
@@ -103,6 +104,11 @@ void NewParticleFactory::Release( const int SegIdx )
 	std::sort( Segment.begin(), Segment.end(), compare_segment );
 		
 	Segment.pop_back();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void NewParticleFactory::Clear()
+{
+	Segment.clear();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void NewParticleFactory::Add(
@@ -138,7 +144,7 @@ void NewParticleFactory::Add(
 	}
 	else // Perhaps delete this later when all the particle effects are done //
 	{
-		Log( LOG_HIGHEST_LEVEL, "Error, did not allocate enough particles for particle effect" );
+		Log( LOG_HIGHEST_LEVEL, "Error, did not allocate enough particles for the particle effect" );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -219,11 +225,15 @@ void NewParticleFactory::Step()
 		}
 		if( Segment[ SegIdx ].SegIdx == Segment[ SegIdx ].Start )
 		{
-			Segment[ SegIdx ].Start = Particles.size();
+			
+			/*Segment[ SegIdx ].Start = Particles.size();
 			
 			std::sort( Segment.begin(), Segment.end(), compare_segment );
 				
-			Segment.pop_back();
+			Segment.pop_back();*/
+			
+			// make sure that this works //
+			Release( SegIdx );
 			
 			SegIdx--;
 		}
