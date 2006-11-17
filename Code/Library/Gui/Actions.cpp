@@ -10,9 +10,14 @@ void cActions::Quit()
 	Global::Shutdown = true;
 }
 // - ------------------------------------------------------------------------------------------ - //
-int cActions::NewGame()
+int cActions::StartClassic()
 {
 	return 2;
+}
+// - ------------------------------------------------------------------------------------------ - //
+int cActions::StartGolf()
+{
+	return 4;
 }
 // - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
@@ -44,7 +49,7 @@ int cActions::ExecuteAction( int _ActionID )
 		}
 		case 2:
 		{
-			SuperFlowState = NewGame();
+			SuperFlowState = StartClassic();
 		break;
 		}
 #ifdef EDITOR
@@ -57,6 +62,11 @@ int cActions::ExecuteAction( int _ActionID )
 		case 4:
 		{
 			SuperFlowState = SplashScreen();
+		break;
+		}
+		case 5:
+		{
+			SuperFlowState = StartGolf();
 		break;
 		}
 	}

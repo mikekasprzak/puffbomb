@@ -37,14 +37,16 @@
 };*/
 #define stSykhronicsSplash 0
 #define stMainMenu 1
-#define stStartGame 2
+#define stStartClassicGame 2
+#define stStartGolfGame 4
 #define stEditor 3
 
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 cSuperFlow::cSuperFlow() :
-	State( stSykhronicsSplash )
+	State( stMainMenu )
+//	State( stSykhronicsSplash )
 {
 	SetHudData();
 	
@@ -107,11 +109,21 @@ void cSuperFlow::StateFlow()
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //
-			case stStartGame:
+			case stStartClassicGame:
 			{
 				// Start the game //
 				{
 					cClassicGame Game;
+				}
+				State = stMainMenu;
+				break;
+			}
+			// - ------------------------------------------------------------------------------ - //
+			case stStartGolfGame:
+			{
+				// Start the game //
+				{
+					cGolfGame Game;
 				}
 				State = stMainMenu;
 				break;

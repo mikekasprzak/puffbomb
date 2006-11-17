@@ -13,7 +13,8 @@ public:
 
 public:
 	static void Quit();
-	static int NewGame();
+	static int StartClassic();
+	static int StartGolf();
 #ifdef EDITOR
 	static int StartEditor();
 #endif // EDITOR //
