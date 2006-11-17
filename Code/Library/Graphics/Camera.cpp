@@ -40,7 +40,7 @@ cCamera::cCamera(
 		Delay( 0 ),
 		Low( Vector2D( 0, 0 ) ),
 		High( Vector2D( 0, 0 ) ),
-		CameraBounds( Vector2D( -1792, -1792 ), Vector2D( 6656, 1280 ) )
+		CameraBounds( Vector2D( -10000, -10000 ), Vector2D( 20000, 20000 ) )
 {
 
 	Gfx::Viewport( XPos, YPos, Width, Height );

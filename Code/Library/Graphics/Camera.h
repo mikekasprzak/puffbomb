@@ -8,7 +8,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
 #include <Geometry/Rect.h>
-//#include <Phiz/SphereObject.h>
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cCamera
@@ -70,6 +69,7 @@ public:
 	Vector2D GetPos();
 	void UpdateTarget( const Vector2D& _Focus );
 	void Update();
+	
 //	void RemoveTarget( cSphereObject* _NewFocus );
 //	void RemoveTarget( cSphereObject* _NewFocus, const int _Delay );
 
