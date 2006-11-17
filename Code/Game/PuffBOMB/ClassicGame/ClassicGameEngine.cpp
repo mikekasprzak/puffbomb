@@ -63,6 +63,7 @@ void cClassicGameEngine::Step() {
 	// When you push backspace, reload/reset the level //
 	if( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
 		ResetMap();
+		Impulse.clear();
 		AddBombs();
 	}
 	
