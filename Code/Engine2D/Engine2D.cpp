@@ -72,8 +72,6 @@ cEngine2D::cEngine2D() {
 	StaticObjectInstance.push_back( cStaticObjectInstance( "Tile_BrickterPaste.bin.pack.mesh3d", Vector2D( 0, -300 )) );
 */	
 
-	LoadMap();
-
 //	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
 //	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 300 ) ) );
 	
@@ -261,9 +259,9 @@ void cEngine2D::Draw() {
 	Gfx::EnableDepth();
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cEngine2D::LoadMap()
+void cEngine2D::LoadMap( const std::string MapName )
 {
-	Map.LoadBinary( "Maps/Level01.map" );
+	Map.LoadBinary( MapName );
 	
 	Log( LOG_HIGHEST_LEVEL, "Static Object part " );
 

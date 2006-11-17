@@ -32,6 +32,8 @@ cGolfGameEngine::cGolfGameEngine() :
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )						// Height
 	 );
+	 
+ 	LoadMap( "Maps/Level00.map" );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::~cGolfGameEngine() {

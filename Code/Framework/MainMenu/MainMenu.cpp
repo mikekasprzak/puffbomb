@@ -102,8 +102,8 @@ void cMainMenu::Step()
 	
 	if( LastTime < GetTime() )
 	{
-		int XPos = rand() % int( Global::ScreenW ) - int( Global::Right );
-		int YPos = rand() % int( Global::ScreenH ) - int( Global::Top );
+		int XPos = rand() % int( Global::HudW ) - int( Global::Right );
+		int YPos = rand() % int( Global::HudH ) - int( Global::Top );
 		
 //		FXLibrary::Bomb( Vector2D( XPos, YPos ) );
 		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );

@@ -52,7 +52,7 @@ public:
 	// Move and Display Everything //
 	void Step();
 	void Draw();
-	void LoadMap();
+	void LoadMap( const std::string MapName );
 	void ResetMap();
 
 	// Reset game back to a neutral state //
