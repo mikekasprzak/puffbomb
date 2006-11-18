@@ -38,7 +38,7 @@ public:
 	std::vector< Engine2D::cDynamicCollection* > DynamicCollection;
 	std::vector< Engine2D::cStaticObjectInstance > StaticObjectInstance;
 	std::vector< Engine2D::cPassiveObject* > PassiveObject;
-	std::vector< Engine2D::cZone* > Zone;
+	std::vector< Engine2D::cZone > Zone;
 
 	std::string MapBaseDirName;
 	std::vector< std::string > MapPath;
@@ -74,6 +74,11 @@ public:
 
 	// Zone //
 	// - -------------------------------------------------------------------------------------- - //
+	size_t CurZone;
+
+	Real CornerSize;
+	int ResizeCorner;
+	std::vector< std::string > ZoneDesc;
 
 		
 public:
@@ -125,7 +130,7 @@ public:
 	int SingleSelectDynFree();
 	void SelectDynFree();
 	void MoveDynFree();
-	
+
 public:
 	// MapEditPass.cpp //
 	int SingleSelectPass();
@@ -135,6 +140,19 @@ public:
 	void DeletePass();
 	void UpdatePassPreview();
 	void SwitchPass();
+
+public:
+	// MapEditZone.cpp //
+	void DrawZones();
+	void DrawSelZone();
+	void SwitchZone();
+	void SelectZone();
+	void MoveZone();
+	void ResizeZone();
+	void AddZone();
+	void DeleteZone();
+	void ChangeID();
+	void ChangeArg();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

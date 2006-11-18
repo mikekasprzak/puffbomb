@@ -21,7 +21,10 @@ cMapEdit::cMapEdit() :
 	CurLayer( 0 ),
 	CurDyn( 0 ),
 	CurSelColl( 0 ),
-	CurSelComp( 0 )
+	CurSelComp( 0 ),
+	CurZone( 0 ),
+	CornerSize( 128 ),
+	ResizeCorner( 0 )
 {
 	Camera->Pos.z = Global::HudZoom * Real( 4 );
 
@@ -58,6 +61,12 @@ cMapEdit::cMapEdit() :
 	LoadMap();
 
 	CurMode = TILE_MODE;
+	
+	
+	Zone.push_back( Engine2D::cZone( Vector2D( -100, -100 ), Vector2D( 100, 100 ) ) );
+	Zone.push_back( Engine2D::cZone( Vector2D( -400, -400 ), Vector2D( 400, 400 ) ) );
+
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::~cMapEdit()
@@ -73,9 +82,9 @@ cMapEdit::~cMapEdit()
 	}
 
 	// Delete Zones //
-	for ( size_t idx = 0; idx < Zone.size(); idx++ ) {
+	/*for ( size_t idx = 0; idx < Zone.size(); idx++ ) {
 		delete Zone[ idx ];
-	}
+	}*/
 	
 	if( DynPreview != 0 )
 	{
@@ -112,10 +121,6 @@ void cMapEdit::Draw()
 			// Draw selected mesh3d's //
 			StaticObjectInstance[ CurSelected[ idx ] ].Draw();
 		}
-		else if( CurMode == ZONE_MODE )
-		{
-			
-		}
 		else if( CurMode == OBJECT_MODE )
 		{
 			// Draw selected mesh3d's //
@@ -150,7 +155,7 @@ void cMapEdit::Draw()
 	}
 	else if( CurMode == ZONE_MODE )
 	{
-		
+		DrawZones();
 	}
 	else if( CurMode == OBJECT_MODE )
 	{
@@ -252,7 +257,7 @@ void cMapEdit::Step()
 {
 	// Makes my physics active //
 	Physics.SetActive();
-			
+
 	// Step the collections in the map //
 	for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
 	{
@@ -280,7 +285,24 @@ void cMapEdit::Step()
 	}
 	else if( CurMode == ZONE_MODE )
 	{
+		SwitchZone();
 		
+		if( !isGroupMove )
+		{
+			ResizeZone();
+		}
+		if( ResizeCorner == 0 )
+		{
+			if( !isGroupMove )
+			{
+				SelectZone();
+			}
+			MoveZone();
+		}
+		AddZone();
+		DeleteZone();
+		ChangeID();
+		ChangeArg();
 	}
 	else if( CurMode == OBJECT_MODE )
 	{

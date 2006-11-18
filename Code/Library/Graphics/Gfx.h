@@ -95,6 +95,9 @@ namespace Gfx {
 	void Rect( const Rect2D& _Rect, Gfx::Color Color );
 	void Rect( const Rect3D& _Rect, Gfx::Color Color );
 	// - -------------------------------------------------------------------------------------- - //
+	void FilledRect( const Vector3D& v1, const Vector3D& v2, Gfx::Color Color );
+	void FilledRect( const Vector2D& v1, const Vector2D& v2, Gfx::Color Color );
+	// - -------------------------------------------------------------------------------------- - //
 	void EnableTex2D();
 	void DisableTex2D();
 	void EnableBlend();

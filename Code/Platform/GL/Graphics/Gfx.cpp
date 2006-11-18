@@ -359,6 +359,40 @@ namespace Gfx
 		Rect( _Rect.P1(), _Rect.P2(), Color );
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	void FilledRect( const Vector3D& v1, const Vector3D& v2, Gfx::Color Color )
+	{
+		Vector3D Vertex[ 4 ];
+		unsigned int Indices[ 4 ];
+		
+		Vertex[ 0 ] = Vector3D( v1.x, v2.y, v1.z );
+		Vertex[ 1 ] = v1;
+		Vertex[ 2 ] = Vector3D( v2.x, v1.y, v2.z );
+		Vertex[ 3 ] = v2;
+		
+		for( int idx = 0; idx < 4; idx++ )
+		{
+			Indices[ idx ] = idx;
+		}
+				
+		glColor4ub( Color & 0xff, (Color>>8) & 0xff, (Color>>16) & 0xff, (Color>>24) & 0xff );
+		
+		glEnableClientState(GL_VERTEX_ARRAY);
+	
+		glVertexPointer(3, GL_FLOAT, 0, &Vertex[0]);
+	
+		glDrawElements(
+			GL_QUADS, 4,
+			GL_UNSIGNED_INT, &Indices[0]
+		);
+	
+		glDisableClientState(GL_VERTEX_ARRAY);
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void FilledRect( const Vector2D& v1, const Vector2D& v2, Gfx::Color Color )
+	{
+		FilledRect( v1.ToVector3D(), v2.ToVector3D(), Color );
+	}
+	// - -------------------------------------------------------------------------------------- - //
 	// This section is to add a wrapper to the gl functions we can't do without.
 	// - -------------------------------------------------------------------------------------- - //
 	void EnableTex2D()
