@@ -32,20 +32,20 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 		In.Read( MagicNumber );
 		In.Read( FileVersion );
 		
-		Log( LOG_HIGHEST_LEVEL, "Magic: " << MagicNumber );
-		Log( LOG_HIGHEST_LEVEL, "Version: " << FileVersion );
+		Log( 1, "Magic: " << MagicNumber );
+		Log( 1, "Version: " << FileVersion );
 	}
 	
 	// Animations part //
 	{
 		Animation.resize( In.Read() );
-		Log( LOG_HIGHEST_LEVEL, "Animation Count: " << Animation.size() );
+		Log( 1, "Animation Count: " << Animation.size() );
 
 		// For every animation //
 		for ( size_t idx = 0; idx < Animation.size(); idx++ ) {
 			// Frame count //
 			Animation[ idx ].Frame.resize( In.Read() );
-			Log( LOG_HIGHEST_LEVEL, "Frame Count " << Animation[ idx ].Frame.size() );
+			Log( 1, "Frame Count " << Animation[ idx ].Frame.size() );
 			
 			// Loop point //
 			In.Read( Animation[ idx ].LoopPoint );

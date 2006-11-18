@@ -30,7 +30,7 @@ void cMap::LoadBinary( const std::string FileName )
 		size_t StaticObjectSize = In.Read();
 		StaticObjectInstanceInfo.resize( StaticObjectSize );
 		
-		Log( LOG_HIGHEST_LEVEL, "StaticObjectSize : " << StaticObjectSize );
+		//Log( LOG_HIGHEST_LEVEL, "StaticObjectSize : " << StaticObjectSize );
 
 		for ( size_t idx = 0; idx < StaticObjectSize; idx++ )
 		{
@@ -43,7 +43,7 @@ void cMap::LoadBinary( const std::string FileName )
 			
 			StaticObjectInstanceInfo[ idx ].FileName = MyString;
 			
-			Log( LOG_HIGHEST_LEVEL, "StaticObjectInstanceInfo[ idx ].FileName " << StaticObjectInstanceInfo[ idx ].FileName );
+			//Log( LOG_HIGHEST_LEVEL, "StaticObjectInstanceInfo[ idx ].FileName " << StaticObjectInstanceInfo[ idx ].FileName );
 			
 			In.Read( StaticObjectInstanceInfo[ idx ].Pos.x );
 			In.Read( StaticObjectInstanceInfo[ idx ].Pos.y );
@@ -58,7 +58,7 @@ void cMap::LoadBinary( const std::string FileName )
 		size_t DynamicObjectSize = In.Read();
 		DynamicObjectInstanceInfo.resize( DynamicObjectSize );
 		
-		Log( LOG_HIGHEST_LEVEL, "DynamicObjectSize : " << DynamicObjectSize );
+		//Log( LOG_HIGHEST_LEVEL, "DynamicObjectSize : " << DynamicObjectSize );
 
 		for ( size_t idx = 0; idx < DynamicObjectSize; idx++ )
 		{

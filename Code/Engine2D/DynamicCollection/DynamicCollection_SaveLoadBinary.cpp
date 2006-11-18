@@ -20,7 +20,7 @@ void cDynamicCollection::LoadBinary( const std::string& FileName, const Vector2D
 	{
 		size_t CompSize = In.Read();
 		Component.resize( CompSize );
-		Log( LOG_HIGHEST_LEVEL, "Component Count: " << Component.size() );
+		Log( 1, "Component Count: " << Component.size() );
 			
 		// For every component //
 		for ( size_t idx = 0; idx < CompSize; idx++ )
@@ -35,7 +35,7 @@ void cDynamicCollection::LoadBinary( const std::string& FileName, const Vector2D
 			std::string TmpString1 = "2D/";
 			std::string TmpString2 = MyString;
 			
-			Log( LOG_HIGHEST_LEVEL, "ComponentName " << TmpString1 << TmpString2 );
+			Log( 1, "ComponentName " << TmpString1 << TmpString2 );
 
 			Component[ idx ] = Engine2D::cDynamicComponent( this, TmpString1 + TmpString2, Offset );
 			//Component[ idx ].AnimationSet->LoadBinary( TmpString1 + TmpString2 );
