@@ -99,7 +99,28 @@ void cMap::LoadBinary( const std::string FileName )
 	{
 		size_t ZoneSize = In.Read();
 		ZoneInstanceInfo.resize( ZoneSize );
-
+		
+		for ( size_t idx = 0; idx < ZoneSize; idx++ )
+		{
+			Vector2D Pos1;
+			Vector2D Pos2;
+			int Id;
+			int Arg;
+			
+			In.Read( Pos1.x );
+			In.Read( Pos1.y );
+			
+			In.Read( Pos2.x );
+			In.Read( Pos2.y );
+			
+			In.Read( Id );
+			
+			In.Read( Arg );
+			
+			ZoneInstanceInfo[ idx ] =
+				cZoneInstanceInfo( cPhysics::BoundingRectType::Pair( Pos1, Pos2 ), Id, Arg );
+			
+		}
 	}
 	
 }
@@ -165,6 +186,18 @@ void cMap::SaveBinary( const std::string FileName )
 		{
 			Out.Write( ZoneInstanceInfo.size() );
 			
+			for ( size_t idx = 0; idx < ZoneInstanceInfo.size(); idx++ )
+			{
+				Out.Write( ZoneInstanceInfo[ idx ].BoundingRect.P1().x );
+				Out.Write( ZoneInstanceInfo[ idx ].BoundingRect.P1().y );
+
+				Out.Write( ZoneInstanceInfo[ idx ].BoundingRect.P2().x );
+				Out.Write( ZoneInstanceInfo[ idx ].BoundingRect.P2().y );
+
+				Out.Write( ZoneInstanceInfo[ idx ].Id );
+				
+				Out.Write( ZoneInstanceInfo[ idx ].Arg );
+			}
 		}
 	}
 }

@@ -489,6 +489,24 @@ void cMapEdit::LoadMap()
 			}
 		}
 	}
+	
+	
+	// Passive Object Part //
+
+	// Zones Part //
+	{
+		Zone.clear();
+	
+		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
+		{
+			Zone.push_back( Engine2D::cZone( 
+				Map.ZoneInstanceInfo[ idx ].BoundingRect,
+				Map.ZoneInstanceInfo[ idx ].Id,
+				Map.ZoneInstanceInfo[ idx ].Arg
+				)
+			);
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SaveMap()
@@ -497,6 +515,10 @@ void cMapEdit::SaveMap()
 	{
 		if( !MapPath.empty() )
 		{
+			
+			// Static Object Part //
+			
+			// Dynamic Object Part //
 			for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); ++idx )
 			{
 				Map.DynamicObjectInstanceInfo[ idx ].Component.clear();
@@ -513,7 +535,22 @@ void cMapEdit::SaveMap()
 							= DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 );
 					}
 				}
-			}		
+			}
+			
+			// Passive Object Part //
+			
+
+			// Zones Part //
+			Map.ZoneInstanceInfo.clear();
+			
+			Map.ZoneInstanceInfo.resize( Zone.size() );
+
+			for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
+			{
+				Map.ZoneInstanceInfo[ idx ].BoundingRect = Zone[ idx ].BoundingRect;
+				Map.ZoneInstanceInfo[ idx ].Id = Zone[ idx ].Id;
+				Map.ZoneInstanceInfo[ idx ].Arg = Zone[ idx ].Argument;
+			}
 			
 			Map.SaveBinary( MapBaseDirName + MapPath[ CurMap ] );
 		}

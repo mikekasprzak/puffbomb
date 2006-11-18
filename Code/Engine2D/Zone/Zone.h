@@ -27,6 +27,13 @@ public:
 	{
 	}
 
+	cZone( const cPhysics::BoundingRectType _BoundingRect, const int _Id, const int _Arg = 0 ) :
+		Id( _Id ),
+		Argument( _Arg ),
+		BoundingRect( _BoundingRect )
+	{
+		
+	}
 public:
 	void DebugDraw() const;
 public:
