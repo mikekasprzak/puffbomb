@@ -106,6 +106,7 @@ public:
 	void DisplayMode();
 	void DisplayInfo();
 	void DisplayMapInfo();
+	void DisplayZoneInfo();
 
 public:
 	// MapEditTile.cpp //
@@ -153,6 +154,7 @@ public:
 	void DeleteZone();
 	void ChangeID();
 	void ChangeArg();
+	void LoadZoneDesc();
 
 };
 // - ------------------------------------------------------------------------------------------ - //

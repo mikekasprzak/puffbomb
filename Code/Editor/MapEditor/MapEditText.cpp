@@ -38,7 +38,10 @@ void cMapEdit::DisplayText()
 	}
 	else if( CurMode == ZONE_MODE )
 	{
-		
+		if( !Zone.empty() )
+		{
+			DisplayZoneInfo();
+		}		
 	}
 	else if( CurMode == OBJECT_MODE )
 	{
@@ -189,6 +192,96 @@ void cMapEdit::DisplayMapInfo()
 		FontSize,
 		Color
 	);*/
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::DisplayZoneInfo()
+{
+	Real FontSize = 0.5;
+	Real XShift = 120;
+	Real YShift = 40;
+	Real XPos = 0;
+	
+	int Color = Gfx::RGBA( 255, 255, 255, 255 );
+	std::stringstream Temp;
+	
+	// Displays the current zone number //
+	// - -------------------------------------------------------------------------------------- - //
+	cFonts::FlangeLight.Write(
+		"Zone #",
+		Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
+		FontSize,
+		Color
+	);
+	
+	Temp << CurZone;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
+		FontSize,
+		Color
+	);
+	XPos += XShift;
+	Temp.str(std::string());
+		
+	// Displays the ID of the zone //
+	// - -------------------------------------------------------------------------------------- - //
+	cFonts::FlangeLight.Write(
+		"Zone ID",
+		Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
+		FontSize,
+		Color
+	);
+	
+	Temp << Zone[ CurZone ].Id;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
+		FontSize,
+		Color
+	);
+	XPos += XShift;
+	Temp.str(std::string());
+	// Displays the ARG of the zone //
+	// - -------------------------------------------------------------------------------------- - //
+	cFonts::FlangeLight.Write(
+		"Zone Arg",
+		Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
+		FontSize,
+		Color
+	);
+	
+	Temp << Zone[ CurZone ].Argument;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
+		FontSize,
+		Color
+	);
+	XPos += XShift;
+	XPos += XShift;
+	Temp.str(std::string());
+	// Displays the ID Description //
+	// - -------------------------------------------------------------------------------------- - //
+	cFonts::FlangeLight.Write(
+		"ID Description",
+		Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
+		FontSize,
+		Color
+	);
+	
+	Temp << ZoneDesc[ Zone[ CurZone ].Id ];
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
+		FontSize,
+		Color
+	);
+	XPos += XShift;
+	Temp.str(std::string());
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

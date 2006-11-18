@@ -57,16 +57,12 @@ cMapEdit::cMapEdit() :
 		DynPreview = CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
 	}
 
+	LoadZoneDesc();
+
 	// Loads the map file //
 	LoadMap();
 
 	CurMode = TILE_MODE;
-	
-	
-	Zone.push_back( Engine2D::cZone( Vector2D( -100, -100 ), Vector2D( 100, 100 ) ) );
-	Zone.push_back( Engine2D::cZone( Vector2D( -400, -400 ), Vector2D( 400, 400 ) ) );
-
-	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::~cMapEdit()
@@ -517,7 +513,7 @@ void cMapEdit::SaveMap()
 							= DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 );
 					}
 				}
-			}			
+			}		
 			
 			Map.SaveBinary( MapBaseDirName + MapPath[ CurMap ] );
 		}

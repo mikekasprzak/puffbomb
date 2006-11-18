@@ -455,5 +455,31 @@ void cMapEdit::ChangeArg()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <iostream>
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::LoadZoneDesc()
+{
+char Line[1024];
+	
+	std::ifstream InFile( "../../../../Content/ZoneDescriptions.txt" );
+
+	ZoneDesc.push_back( "Undefined" );
+
+	while( !InFile.eof() )
+	{
+		// Read a line from the file //
+		InFile.getline( Line, sizeof( Line ) );
+	
+		// Populate and use a string stream to tokenize the data //
+		std::stringstream Text;
+		Text << Line;
+		
+		ZoneDesc.push_back( Text.str() );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
