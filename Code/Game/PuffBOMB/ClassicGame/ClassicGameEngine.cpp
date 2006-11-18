@@ -41,12 +41,12 @@ cClassicGameEngine::cClassicGameEngine() :
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )						// Height
 	 );
-	
-	AddBombs();	
+
+	LoadMap( "Maps/Classic/Level01.map" );
 	
 	NewParticle.Clear();
 	
-	LoadMap( "Maps/Classic/Level01.map" );
+	AddBombs();		
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {

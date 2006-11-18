@@ -89,9 +89,9 @@ cEngine2D::~cEngine2D() {
 	}
 
 	// Delete Zones //
-	for ( size_t idx = 0; idx < Zone.size(); idx++ ) {
+/*	for ( size_t idx = 0; idx < Zone.size(); idx++ ) {
 		delete Zone[ idx ];
-	}
+	}*/
 	
 	// Toast our Camera //
 	delete Camera;
@@ -183,7 +183,7 @@ void cEngine2D::Step() {
 		if ( DynamicComponent[ idx ]->IsActive() ) {
 			// Solve Versus Zones //
 			for ( size_t idx2 = 0; idx2 < Zone.size(); ++idx2 ) {
-				DynamicComponent[ idx ]->Solve( *Zone[ idx2 ] );
+				DynamicComponent[ idx ]->Solve( Zone[ idx2 ] );
 			}
 
 			// Solve Versus Passive Objects //
@@ -276,6 +276,22 @@ void cEngine2D::LoadMap( const std::string MapName )
 					Map.StaticObjectInstanceInfo[ idx ].FileName,
 					Map.StaticObjectInstanceInfo[ idx ].Pos //,
 //					Map.StaticObjectInstanceInfo[ idx ].Arg
+				)
+			);
+		}
+	}
+	
+	
+	// Zones part //
+	{
+		Zone.clear();
+	
+		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
+		{
+			Zone.push_back( Engine2D::cZone( 
+				Map.ZoneInstanceInfo[ idx ].BoundingRect,
+				Map.ZoneInstanceInfo[ idx ].Id,
+				Map.ZoneInstanceInfo[ idx ].Arg
 				)
 			);
 		}
