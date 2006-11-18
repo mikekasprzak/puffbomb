@@ -43,8 +43,11 @@ void cMapEdit::DrawZones()
 		}
 	}
 	
-	// Draws the select zone //
-	DrawSelZone();
+	if( !Zone.empty() )
+	{
+		// Draws the select zone //
+		DrawSelZone();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DrawSelZone()
