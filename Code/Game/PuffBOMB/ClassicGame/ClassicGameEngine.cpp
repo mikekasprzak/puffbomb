@@ -42,7 +42,7 @@ cClassicGameEngine::cClassicGameEngine() :
 		Real( Global::ScreenH )						// Height
 	 );
 
-	LoadMap( "Maps/Classic/Level01.map" );
+	LoadMap( "Maps/Classic/Level05.map" );
 	
 	NewParticle.Clear();
 	
