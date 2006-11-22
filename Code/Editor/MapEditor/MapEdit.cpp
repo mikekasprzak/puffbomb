@@ -9,6 +9,9 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
+			#include <Animation/AnimationPool.h>
+
+// - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
@@ -63,6 +66,12 @@ cMapEdit::cMapEdit() :
 	LoadMap();
 
 	CurMode = TILE_MODE;
+	
+	// SAfagfsdgsadfgasdfg sd //
+	
+	Animator.Set( &AnimationPool.Load( "OldPuff.anim" ), 0 );
+//	Animator.Set( &AnimationPool.Load( "ParticleTest.anim" ), 0 );
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::~cMapEdit()
@@ -244,6 +253,8 @@ void cMapEdit::HudDraw()
 	
 	Gfx::DisableAddBlend();
 
+		
+	Animator.DrawQuad( Vector2D( 0, 0 ) );
 	
 	
 	Gfx::DisableBlend();
@@ -251,6 +262,8 @@ void cMapEdit::HudDraw()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Step()
 {
+		Animator.Step();
+
 	// Makes my physics active //
 	Physics.SetActive();
 

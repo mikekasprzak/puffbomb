@@ -3,7 +3,7 @@
 #include "MapEdit.h"
 #include <Input/Input.h>
 
-#include "CreateCollectionInstance.h"
+#include "CreatePassiveInstance.h"
 
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
@@ -285,7 +285,9 @@ void cMapEdit::AddPass()
 
 		CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
 		
-		DynamicCollection.push_back( Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], TempPos ) );
+		PassiveObject.push_back( Engine2D::CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
+		
+//		DynamicCollection.push_back( Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], TempPos ) );
 		
 		Map.DynamicObjectInstanceInfo.push_back(
 			Engine2D::cDynamicObjectInstanceInfo( 
