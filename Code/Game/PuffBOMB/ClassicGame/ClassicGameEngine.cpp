@@ -84,8 +84,12 @@ void cClassicGameEngine::Step() {
 		
 		// Stuff my engine does after //
 		NewParticle.Step();
+	}
+	// If the engine is not active, then we'r in edit mode //
+	else {
+		// Update Cursor //
 		
-	//	TurnBasedPlay();
+		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

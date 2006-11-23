@@ -16,6 +16,10 @@ public:
 public:
 	bool GameActive;
 
+	// Position of the cursor //
+	Vector2D CursorPos;
+
+public:
 //	void TurnBasedPlay();
 	void AddBombs();
 
