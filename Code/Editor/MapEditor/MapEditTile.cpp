@@ -222,23 +222,29 @@ void cMapEdit::DeleteMesh3D()
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
-			for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
-			{
-				std::vector< Engine2D::cStaticObjectInstance > TempMesh3D;
-				std::vector< Engine2D::cStaticObjectInstanceInfo > TempMesh3DInfo;
+			std::vector< Engine2D::cStaticObjectInstance > TempMesh3D;
+			std::vector< Engine2D::cStaticObjectInstanceInfo > TempMesh3DInfo;
 	
-				for( size_t i = 0; i < StaticObjectInstance.size(); ++i )
+			for( size_t i = 0; i < StaticObjectInstance.size(); ++i )
+			{
+				bool IsDeleted = false;
+				for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
 				{
-					if( CurSelected[idx] != i )
+					if( CurSelected[idx] == i )
 					{
-						TempMesh3D.push_back( StaticObjectInstance[ i ] );
-						TempMesh3DInfo.push_back( Map.StaticObjectInstanceInfo[ i ] );
+						IsDeleted = true;
 					}
 				}
+				if( !IsDeleted )
+				{
+					TempMesh3D.push_back( StaticObjectInstance[ i ] );
+					TempMesh3DInfo.push_back( Map.StaticObjectInstanceInfo[ i ] );
+				}
 				
-				StaticObjectInstance.swap( TempMesh3D );
-				Map.StaticObjectInstanceInfo.swap( TempMesh3DInfo );
 			}
+			StaticObjectInstance.swap( TempMesh3D );
+			Map.StaticObjectInstanceInfo.swap( TempMesh3DInfo );
+
 			CurSelected.clear();
 			
 			ActiveAction();
