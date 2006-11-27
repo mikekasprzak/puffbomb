@@ -5,8 +5,9 @@
 #define __Engine2D_Engine_PassiveObject_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
-
 #include <Physics/Physics.h>
+
+#include <Animation/Animator.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -16,7 +17,7 @@ public:
 	
 	int Argument;
 	
-	//cAnimator Animator;
+	cAnimator Animator;
 
 public:
 	// Bounding rectangle //
@@ -34,6 +35,11 @@ public:
 		Pos( _Pos ),
 		Argument( _Argument )
 	{
+	}
+	
+	virtual ~cPassiveObject()
+	{
+		
 	}
 
 public:	
