@@ -74,9 +74,9 @@ void cClassicGameEngine::Step() {
 		// Stuff my engine does before //
 		
 		// Hack to follow the hamster.  we need a way to identify the collection to follow //
-		if( DynamicCollection.size() >= 8 )
+		if( DynamicCollection.size() >= 1 )
 		{
-			Camera->UpdateTarget( DynamicCollection[ 7 ]->Component[ 0 ].Body.BoundingRect.Center() );
+			Camera->UpdateTarget( DynamicCollection[ 0 ]->Component[ 0 ].Body.BoundingRect.Center() );
 		}
 		
 		// Original Engine Step Stuff //
