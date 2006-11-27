@@ -27,6 +27,12 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			break;
 		}
 		
+		case 128: {
+			return new Engine2D::cDynamicCollection( "2D/BubblePlant/BubblePlant.coll", Pos );
+			break;
+		}
+
+		
 		default: {
 			// No object with Id requested found, so return a null object //
 			return 0;
