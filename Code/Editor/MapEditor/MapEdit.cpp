@@ -225,10 +225,25 @@ void cMapEdit::HudDraw()
 		
 	if( CurMode == TILE_MODE )
 	{
-		// Displays the preview mesh3d //
+		/*
+			void PushMatrix();
+	void PopMatrix();
+	void Translate( Real x, Real y, Real z );
+	
+	
+			// Displays the preview mesh3d //
 		Gfx::DrawMesh3D(
 			Mesh3DPreview.Object->Mesh,
 			Mesh3DPreview.Pos.ToVector3D()
+		);
+
+*/
+		
+		
+		// Displays the preview mesh3d //
+		Gfx::DrawMesh3D(
+			Mesh3DPreview.Object->Mesh,
+			Vector3D( Mesh3DPreview.Pos.x * Real( 3 ), Mesh3DPreview.Pos.y * Real( 3 ), Real( -Global::HudZoom * Real( 2 ) ) )
 		);
 	}
 	else if( CurMode == ZONE_MODE )
