@@ -68,6 +68,7 @@ void cBody2D::DeleteNode( size_t Number ) {
 	for( size_t idx = 0; idx < Pose->Sphere.size(); idx++ ) {
 		if ( Pose->Sphere[ idx ].Index == Number ) {
 			DeleteSphere( idx );
+			--idx;
 		}
 	}
 	// Update offsets //
@@ -76,14 +77,17 @@ void cBody2D::DeleteNode( size_t Number ) {
 			Pose->Sphere[ idx ].Index--;
 		}
 	}
-	
+
 	// Remove Springs, and offset greater ones //
+
 	for( size_t idx = 0; idx < Pose->Spring.size(); idx++ ) {
 		if ( Pose->Spring[ idx ].IndexA == Number ) {
 			DeleteSpring( idx );
+			--idx;
 		}
-		if ( Pose->Spring[ idx ].IndexB == Number ) {
+		else if ( Pose->Spring[ idx ].IndexB == Number ) {
 			DeleteSpring( idx );
+			--idx;
 		}
 	}
 	for( size_t idx = 0; idx < Pose->Spring.size(); idx++ ) {			
@@ -94,6 +98,7 @@ void cBody2D::DeleteNode( size_t Number ) {
 			Pose->Spring[ idx ].IndexB--;
 		}
 	}
+
 		
 	// Remove the Node //
 	Pose->Node.erase( Pose->Node.begin() + Number );

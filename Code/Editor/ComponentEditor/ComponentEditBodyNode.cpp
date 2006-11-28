@@ -264,8 +264,10 @@ void cComponentEdit::BodyDeleteNode()
 			for( int idx = CurSelected.size() - 1; idx > -1; --idx )
 			{
 				DynObj->Body.DeleteNode( CurSelected[idx] );
-
 			}
+			
+			BodyCalcTotalMass();
+			
 			CurSelected.clear();
 		}
 	}
