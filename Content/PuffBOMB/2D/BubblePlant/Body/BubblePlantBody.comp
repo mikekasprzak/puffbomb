@@ -4,8 +4,8 @@ LoopPoint	0
 Frame	0	0		
 Animation_End				
 BodyPose_Start				
-TotalMass	16			
-BodyPose_Node_Start	16			
+TotalMass	15			
+BodyPose_Node_Start	15			
 BodyNode	55.707	68.3124	1	
 BodyNode	-151.375	-8.0387	1	
 BodyNode	-192	-160	1	
@@ -20,10 +20,9 @@ BodyNode	-174.308	-214.446	1
 BodyNode	22.2474	-142.352	1	
 BodyNode	-108.075	-192	1	
 BodyNode	0	-512	1	
-BodyNode	-768	-256	1	
 BodyNode	768	-256	1	
 BodyPose_Node_End				
-BodyPose_Spring_Start	54			
+BodyPose_Spring_Start	47			
 BodySpring	0	8	79.7797	1
 BodySpring	0	11	213.305	1
 BodySpring	8	11	134.386	1
@@ -60,21 +59,14 @@ BodySpring	9	6	93.9729	1
 BodySpring	10	6	398.999	1
 BodySpring	1	0	220.709	1
 BodySpring	7	0	232.273	1
-BodySpring	14	13	809.543	1
-BodySpring	14	15	1536	1
-BodySpring	14	6	992.638	1
-BodySpring	14	3	560.914	1
-BodySpring	13	15	809.543	1
+BodySpring	13	14	809.543	1
 BodySpring	13	6	359.27	1
 BodySpring	13	3	355.258	1
-BodySpring	15	6	544.225	1
-BodySpring	15	3	976.524	1
+BodySpring	14	6	544.225	1
+BodySpring	14	3	976.524	1
 BodySpring	6	3	432.395	1
-BodySpring	15	9	633.866	1
-BodySpring	15	11	754.363	1
-BodySpring	14	10	595.144	1
-BodySpring	14	12	663.021	1
-BodySpring	14	11	798.378	1
+BodySpring	14	9	633.866	1
+BodySpring	14	11	754.363	1
 BodySpring	13	11	370.317	1
 BodySpring	13	12	337.758	1
 BodySpring	13	9	343.501	1
