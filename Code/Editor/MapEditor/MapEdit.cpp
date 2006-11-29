@@ -225,7 +225,7 @@ void cMapEdit::HudDraw()
 
 	DisplayText();
 	
-	Gfx::EnableAddBlend();
+//	Gfx::EnableAddBlend();
 		
 	if( CurMode == TILE_MODE )
 	{
@@ -245,10 +245,14 @@ void cMapEdit::HudDraw()
 		
 		
 		// Displays the preview mesh3d //
+		Gfx::EnableDepth();
+
 		Gfx::DrawMesh3D(
 			Mesh3DPreview.Object->Mesh,
 			Vector3D( Mesh3DPreview.Pos.x * Real( 3 ), Mesh3DPreview.Pos.y * Real( 3 ), Real( -Global::HudZoom * Real( 2 ) ) )
 		);
+
+		Gfx::DisableDepth();
 	}
 	else if( CurMode == ZONE_MODE )
 	{
@@ -257,8 +261,20 @@ void cMapEdit::HudDraw()
 	else if( CurMode == OBJECT_MODE )
 	{
 		if( DynPreview->IsActive() )
-		{ 
+		{
+			/*
+			
+			PushMatrix();
+	void PopMatrix();
+	void Translate( Real x, Real y, Real z );*/
+			
+			Gfx::PushMatrix();
+			
+			Gfx::Translate( Global::Left * Real( 2 ), Global::Bottom * Real( 2 ), Real( -Global::HudZoom * Real( 2 ) ) );
+			
 			DynPreview->Draw();
+			
+			Gfx::PopMatrix();
 		}
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
@@ -270,7 +286,7 @@ void cMapEdit::HudDraw()
 		
 	}
 	
-	Gfx::DisableAddBlend();
+//	Gfx::DisableAddBlend();
 
 		
 //	Animator.DrawQuad( Vector2D( 0, 0 ) );
