@@ -149,11 +149,15 @@ void cMapEdit::Draw()
 	Gfx::DisableDepth();
 	Gfx::DisableTex2D();
 	
-	// Draw Tiles //
-	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-		StaticObjectInstance[ idx ].DrawBody();
-	}
+	if( CurMode != ZONE_MODE )
+	{
 
+		// Draw Tiles //
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+			StaticObjectInstance[ idx ].DrawBody();
+		}
+	}
+	
 	if( CurMode == TILE_MODE )
 	{
 	
