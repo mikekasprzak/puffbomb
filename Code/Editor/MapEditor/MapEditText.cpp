@@ -21,8 +21,28 @@ void cMapEdit::DisplayText()
 		// Displays the current layer //
 		// - ---------------------------------------------------------------------------------- - //
 		cFonts::FlangeLight.Write(
-			"CurLayer",
+			"TileName",
 			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 90 ), 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << Mesh3DName[ CurMesh3D ];
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( Global::Left + Real( 140 ), Global::Top - Real( 90 ), 0.0 ),
+			FontSize,
+			Color
+		);
+
+		Temp.str(std::string());
+
+		// Displays the current layer //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"CurLayer",
+			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 120 ), 0.0 ),
 			FontSize,
 			Color
 		);
@@ -31,10 +51,11 @@ void cMapEdit::DisplayText()
 	
 		cFonts::FlangeLight.Write(
 			Temp.str(),
-			Vector3D( Global::Left + Real( 130 ), Global::Top - Real( 90 ), 0.0 ),
+			Vector3D( Global::Left + Real( 140 ), Global::Top - Real( 120 ), 0.0 ),
 			FontSize,
 			Color
 		);
+	
 	}
 	else if( CurMode == ZONE_MODE )
 	{
