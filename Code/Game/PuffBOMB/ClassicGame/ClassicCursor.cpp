@@ -81,9 +81,11 @@ void cClassicCursor::Step() {
 				}
 			}
 			
+			// Pull the cursor position from the now currently selected bomb //
 			Pos = Bomb[ Selection ].Pos;
 		}
 
+		// Quick select Next/First Bomb //
 		if ( Input::Pad[0].Button[ PAD_R ].Pressed() ) {
 			// If no selection //
 			if ( Selection == -1 ) {
@@ -98,11 +100,10 @@ void cClassicCursor::Step() {
 				}
 			}
 			
+			// Pull the cursor position from the now currently selected bomb //
 			Pos = Bomb[ Selection ].Pos;
 		}
-
-	}
-	
+	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicCursor::Draw() {
