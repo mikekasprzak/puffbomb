@@ -215,6 +215,8 @@ void cCollectionEdit::StaticMove()
 	{
 		isGroupMove = false;
 		
+		Collection.UpdateAnchors();
+		
 		ActiveAction();
 	}
 	if( isGroupMove )

@@ -104,6 +104,7 @@ void cMapEdit::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	Gfx::EnableDepth();
+//	Gfx::DisableDepth();
 
 	// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
 	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {

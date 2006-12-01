@@ -16,7 +16,9 @@ cCollectionEdit::cCollectionEdit() :
 	CompBaseDirName( "2D/" ),
 	CurColl( 0 ),
 	CurComp( 0 ),
-	CurSelComp( 0 )
+	CurSelComp( 0 ),
+	LastComp( 0 ),
+	LastNode( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
 	
@@ -74,7 +76,7 @@ void cCollectionEdit::Draw()
 	}
 	else if( CurMode == COLL_HARD_NODE )
 	{
-		
+
 	}
 	
 
@@ -86,7 +88,7 @@ void cCollectionEdit::Draw()
 
 	Collection.DebugDraw();
 
-	if( CurMode == COLL_DYNAMIC_COMP )
+	if( CurMode == COLL_DYNAMIC_COMP || CurMode == COLL_HARD_NODE )
 	{
 		Gfx::SetLineWidth( 4.0 );
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
@@ -174,11 +176,13 @@ void cCollectionEdit::Step()
 	}
 	else if( CurMode == COLL_NODE_LINK )
 	{
-		
+		DynSelect();
+		NodeAddLink();
 	}
 	else if( CurMode == COLL_HARD_NODE )
 	{
-		
+		DynSelect();
+		HardAdd();
 	}
 
 	// Handles scrolling around the map

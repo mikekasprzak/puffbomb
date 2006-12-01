@@ -33,6 +33,9 @@ public:
 	size_t CurComp;
 	size_t CurSelComp;
 	
+	size_t LastComp;
+	size_t LastNode;
+	
 	std::vector< Vector2D > MouseOffset;
 	
 public:
@@ -79,9 +82,12 @@ public:
 
 public:
 	// CollectionEditNode.cpp //
-
+	void NodeAddLink();
+	void NodeDeleteLink();
+	
 public:
 	// CollectionEditHard.cpp //
+	void HardAdd();
 	
 };
 // - ------------------------------------------------------------------------------------------ - //

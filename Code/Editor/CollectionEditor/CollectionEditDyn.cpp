@@ -201,6 +201,8 @@ void cCollectionEdit::DynMove()
 	{
 		isGroupMove = false;
 		
+		Collection.UpdateAnchors();
+		
 		ActiveAction();
 	}
 	if( isGroupMove )
