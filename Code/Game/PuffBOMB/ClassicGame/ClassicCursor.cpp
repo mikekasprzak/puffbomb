@@ -26,11 +26,12 @@ void cClassicCursor::Step() {
 		Pos += Input::Pad[0].Stick1 * Real(16);
 	}
 	else {
-		// Update Cursor //
-		Pos += Input::Pad[0].Stick1 * Real(4);
-			
 		// Update Bomb Pos //
-		Bomb[ Selection ].Pos = Pos;
+		Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(4);
+		PushMeOutOfOtherBombs( Selection );
+					
+		// Update Cursor //
+		Pos = Bomb[ Selection ].Pos;
 	}
 		
 	// If Action Button Pressed (A) //
@@ -46,7 +47,9 @@ void cClassicCursor::Step() {
 			// If there is //
 			else {
 				Selection = WhatBombIsHere();
-				Pos = Bomb[ Selection ].Pos;
+				if ( Selection != -1 ) {
+					Pos = Bomb[ Selection ].Pos;
+				}
 			}
 		}
 	}
@@ -95,7 +98,7 @@ void cClassicCursor::Step() {
 			else {
 				Selection++;
 				// If this puts us under, loop around //
-				if ( Selection > Bomb.size() - 1 ) {
+				if ( Selection > (int)Bomb.size() - 1 ) {
 					Selection = 0;
 				}
 			}
@@ -112,7 +115,14 @@ void cClassicCursor::Draw() {
 
 	// Draw the cursor //
 	if ( Selection == -1 ) {
-		Gfx::Circle( Pos, Real(10), CanPlaceBombHere() ? Gfx::RGBA( 255, 255, 255, 255 ) : Gfx::RGBA( 255, 0, 0, 255 ) );
+		if ( WhatBombIsHere() == -1 ) {
+			// A bomb is or isn't too close //
+			Gfx::Circle( Pos, Real(10), CanPlaceBombHere() ? Gfx::RGBA( 255, 255, 255, 255 ) : Gfx::RGBA( 255, 0, 0, 255 ) );
+		}
+		else {
+			// A bomb I can select //
+			Gfx::Circle( Pos, Real(10), Gfx::RGBA( 0, 255, 0, 255 ) );
+		}
 		Gfx::Rect( Pos - Real(20), Pos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
 	}
 	else {
@@ -139,11 +149,33 @@ bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) const {
 }
 // - ------------------------------------------------------------------------------------------ - //
 int cClassicCursor::WhatBombIsHere( const Vector2D& _Pos ) const {
+	int NearestBomb = -1;
+	Real BestDistance( 32*32 );
+	
 	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
-		if ( (Bomb[ idx ].Pos - _Pos).MagnitudeSquared() < Real(64) * Real(64) )
-			return idx;
+		Real DistanceToBomb = (Bomb[ idx ].Pos - _Pos).MagnitudeSquared();
+		if ( DistanceToBomb < BestDistance ) {
+			NearestBomb = idx;
+			BestDistance = DistanceToBomb;
+		}
 	}	
 
-	return -1;
+	return NearestBomb;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cClassicCursor::PushMeOutOfOtherBombs( const int _Selection ) {
+	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
+		if ( idx == _Selection )
+			continue;
+			
+		Vector2D BombDiff = Bomb[ idx ].Pos - Bomb[ _Selection ].Pos;
+		
+		Real RadiusSum = Real(32) + Real(32);
+		Real RadiusSumSquared = RadiusSum * RadiusSum;
+		
+		if ( BombDiff.MagnitudeSquared() < RadiusSumSquared ) {
+			Bomb[ _Selection ].Pos -= BombDiff.Normal() * (RadiusSum - BombDiff.Magnitude());
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -29,18 +29,23 @@ public:
 	void Draw();
 
 public:	
+	// Check if a Bomb can be placed at a position //
+	bool CanPlaceBombHere( const Vector2D& _Pos ) const;
 	inline bool CanPlaceBombHere() const {
 		return CanPlaceBombHere( Pos );
 	}
 	
-	bool CanPlaceBombHere( const Vector2D& _Pos ) const;
-	
-	
+	// Determine what bomb can be found at a position //
+	int WhatBombIsHere( const Vector2D& _Pos ) const;
 	inline int WhatBombIsHere() const {
 		return WhatBombIsHere( Pos );
 	}
 
-	int WhatBombIsHere( const Vector2D& _Pos ) const;
+	// Make sure a bomb isn't inside another bomb //
+	void PushMeOutOfOtherBombs( const int _Selection );
+	inline void PushMeOutOfOtherBombs() {
+		PushMeOutOfOtherBombs( Selection );
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __ClassicGame_PuffBOMB_ClassicCursor_H__ // 
