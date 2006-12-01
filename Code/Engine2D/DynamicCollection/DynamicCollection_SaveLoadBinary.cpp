@@ -58,6 +58,32 @@ void cDynamicCollection::LoadBinary( const std::string& FileName, const Vector2D
 			}
 		}
 	}
+	
+	// NodeLink part //
+	{
+		size_t LinkSize = In.Read();
+	
+	}
+	
+	// NodeAnchor part //
+	{
+		size_t AnchorSize = In.Read();
+		
+		for( size_t idx = 0; idx < AnchorSize; ++idx )
+		{
+			Real Strength = Real::Zero;
+			Real BreakPoint = Real( 3 );
+			size_t Object = 0;
+			size_t Index = 0;
+				
+			In.Read( Strength );
+			In.Read( BreakPoint );
+			In.Read( Object );
+			In.Read( Index );
+			
+			NodeAnchor.push_back( Engine2D::cNodeAnchor( Object, Index, BreakPoint, Strength ) );		
+		}		
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicCollection::SaveBinary( const std::string& FileName, bool LittleEndian )
@@ -87,7 +113,7 @@ void cDynamicCollection::SaveBinary( const std::string& FileName, bool LittleEnd
 								
 			}
 		}
-/*		// NodeLink part //
+		// NodeLink part //
 		{
 			// Number of NodeLinks //
 			Out.Write( NodeLink.size() );
@@ -95,7 +121,7 @@ void cDynamicCollection::SaveBinary( const std::string& FileName, bool LittleEnd
 			// For every nodelink //
 			for ( size_t idx = 0; idx < NodeLink.size(); idx++ )
 			{
-												
+											
 			}
 		}
 	
@@ -107,10 +133,12 @@ void cDynamicCollection::SaveBinary( const std::string& FileName, bool LittleEnd
 			// For every NodeAnchor //
 			for ( size_t idx = 0; idx < NodeAnchor.size(); idx++ )
 			{
-												
+				Out.Write( NodeAnchor[ idx ].Strength );				
+				Out.Write( NodeAnchor[ idx ].BreakPoint );				
+				Out.Write( NodeAnchor[ idx ].Object );				
+				Out.Write( NodeAnchor[ idx ].Index );				
 			}
 		}
-		*/
 		
 	}
 }

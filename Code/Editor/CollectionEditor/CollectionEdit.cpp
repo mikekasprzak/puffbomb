@@ -34,6 +34,8 @@ cCollectionEdit::cCollectionEdit() :
 	if( !CollectionPath.empty() )
 	{
 		Collection.LoadBinary( CollBaseDirName + CollectionPath[ CurColl ] );
+		
+		Collection.UpdateAnchors();
 	}
 	
 	CurMode = COLL_STATIC_COMP;
@@ -267,11 +269,14 @@ void cCollectionEdit::UpdateColl()
 			delete Collection.Component[ idx ].AnimationSet;
 		}*/
 		Collection.Component.clear();
+		Collection.NodeAnchor.clear();
 		Collection.ComponentName.clear();
 	}
 	if( !CollectionPath.empty() )
 	{
 		Collection.LoadBinary( CollBaseDirName + CollectionPath[ CurColl ] );
+		
+		Collection.UpdateAnchors();
 	}
 	
 	CurSelected.clear();	
