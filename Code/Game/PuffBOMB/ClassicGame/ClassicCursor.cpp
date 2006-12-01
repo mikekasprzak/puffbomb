@@ -39,6 +39,14 @@ void cClassicCursor::Draw() {
 	// Draw the cursor //
 	Gfx::Circle( Pos, Real(10), Gfx::RGBA( 255, 255, 255, 255 ) );
 	Gfx::Rect( Pos - Real(20), Pos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
+
+	// Draw Bomb placeholders //
+	for ( int idx = 0; idx < Bomb.size(); idx++ ) {
+		if ( Bomb[ idx ].Placed ) {
+			Gfx::Circle( Bomb[ idx ].Pos, Real(32), Gfx::RGBA( 255, 0, 0, 255 ) );
+			Gfx::Rect( Bomb[ idx ].Pos + Vector2D( -40, -40 ), Bomb[ idx ].Pos + Vector2D( -40 + (Bomb[ idx ].Time*4), -44 ), Gfx::RGBA( 255, 255, 0, 255 ) );
+		}	
+	}
 	
 	Gfx::EnableTex2D();
 	Gfx::EnableDepth();

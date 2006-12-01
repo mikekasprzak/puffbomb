@@ -58,15 +58,33 @@ cClassicGameEngine::~cClassicGameEngine() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
 	// When you push space, toggle activity //
-	if( Input::Button[ KEY_SPACE ].Pressed() ) {
+	if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[7].Pressed() ) {
 		GameActive = !GameActive;
+		
+		if ( GameActive ) {
+			// Add bombs here, 'cause they could be tweaked up until this point //
+			AddBombs();
+		}
+		else {
+			// Reset here, to restore everything back to it's home position, before we edit //
+			ResetMap();			
+			Impulse.clear();
+		}
 	}
 
-	// When you push backspace, reload/reset the level //
-	if( Input::Button[ KEY_TAB ].Pressed() ) {
-		ResetMap();
-		Impulse.clear();
-		AddBombs();
+	// temporary keys //
+	{
+		// Toggle play //
+		if( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
+			GameActive = !GameActive;
+		}
+		
+		// When you push backspace, reload/reset the level //
+		if( Input::Button[ KEY_TAB ].Pressed() ) {
+			ResetMap();
+			Impulse.clear();
+			AddBombs();
+		}
 	}
 	
 	// Only step the engine whilst we are active //
