@@ -87,8 +87,12 @@ void cClassicGameEngine::Step() {
 	}
 	// If the engine is not active, then we'r in edit mode //
 	else {
-		// Update Cursor //
+		// User Control //
+		{
+			// Update Cursor //
+			CursorPos += Input::Pad[0].Stick1 * Real(16);
 		
+		}		
 		
 		// Update Camera //
 		Camera->UpdateTarget( CursorPos );
