@@ -30,6 +30,23 @@ public:
 	size_t ObjectB, IndexB;
 	
 public:
+	cNodeLink() :
+		Strength( Real::One ),
+		BreakPoint( Real( 3 ) )
+	{
+	}
+	
+	cNodeLink( size_t _ObjectIndexA, size_t _NodeIndexA, size_t _ObjectIndexB, size_t _NodeIndexB, Real _BreakPoint = Real( 3 ), Real _Strength = Real::One ) :
+		Strength( _Strength ),
+		BreakPoint( _BreakPoint ),
+		ObjectA( _ObjectIndexA ),
+		IndexA( _NodeIndexA ),
+		ObjectB( _ObjectIndexB ),
+		IndexB( _NodeIndexB )
+	{
+	}
+
+	
 	inline void Step( std::vector< cDynamicComponent >& Component ) {
 		// Bail if inactive //
 		if ( !Flags.ActiveAndNotBroken() )

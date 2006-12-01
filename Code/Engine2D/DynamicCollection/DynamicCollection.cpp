@@ -15,8 +15,10 @@ void cDynamicCollection::Step() {
 
 	// Physics relaxation loop //
 	for ( int NodeSteps = 0; NodeSteps < cPhysics::Current->RelaxationSteps; NodeSteps++ ) {
-		// Update nodes via NodeLink springs //
-		StepLinkage();
+		// Update nodes via NodeLink springs only (no anchors) //
+		for ( size_t idx = 0; idx < NodeLink.size(); idx++ ) {
+			NodeLink[ idx ].Step( Component );
+		}
 		
 		// Update all Springs //
 		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
@@ -57,6 +59,17 @@ void cDynamicCollection::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicCollection::Work() {
 }
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicCollection::UpdateAnchors() {
+	for ( size_t idx = 0; idx < NodeAnchor.size(); idx++ ) {
+		cNodeAnchor& MyAnchor = NodeAnchor[ idx ];
+		MyAnchor.Pos = Component[ MyAnchor.Object ].Body.Nodes.Pos( MyAnchor.Index );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //

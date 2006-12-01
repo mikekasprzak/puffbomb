@@ -31,6 +31,22 @@ public:
 	size_t Object, Index;
 		
 public:
+	cNodeAnchor() :
+		Strength( Real::One ),
+		BreakPoint( Real( 3 ) )
+	{
+	}
+	
+	cNodeAnchor( size_t _ObjectIndex, size_t _NodeIndex, Real _BreakPoint = Real( 3 ), Real _Strength = Real::One ) :
+		Strength( _Strength ),
+		BreakPoint( _BreakPoint ),
+		Object( _ObjectIndex ),
+		Index( _NodeIndex )
+	{
+	}
+		
+
+public:
 	inline void Step( std::vector< cDynamicComponent >& Component ) {
 		// Bail if inactive //
 		if ( !Flags.ActiveAndNotBroken() )

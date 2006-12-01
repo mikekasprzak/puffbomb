@@ -80,7 +80,9 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	void LoadBinary( const std::string& FileName, const Vector2D& Offset = Vector2D::Zero );
-	void SaveBinary( const std::string& FileName, bool LittleEndian = true );	
+	void SaveBinary( const std::string& FileName, bool LittleEndian = true );
+		
+	void UpdateAnchors();
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
