@@ -34,7 +34,7 @@ void cClassicCursor::Step() {
 	}
 		
 	// If Action Button Pressed (A) //
-	if ( Input::Pad[0].Button[0].Pressed() ) {
+	if ( Input::Pad[0].Button[ PAD_A ].Pressed() ) {
 		// If you have no selection //
 		if ( Selection == -1 ) {
 			// If there isn't a bomb alread here //
@@ -52,16 +52,55 @@ void cClassicCursor::Step() {
 	}
 
 	// If Back Button Pressed (B) //
-	if ( Input::Pad[0].Button[1].Pressed() ) {
+	if ( Input::Pad[0].Button[ PAD_B ].Pressed() ) {
 		Selection = -1;
 	}
 
 	// If Delete Button Pressed (Y) //
-	if ( Input::Pad[0].Button[3].Pressed() ) {
+	if ( Input::Pad[0].Button[ PAD_Y ].Pressed() ) {
 		if ( Selection != -1 ) {
 			Bomb.erase( Bomb.begin() + Selection );
 			Selection = -1;
 		}
+	}
+	
+	// If there are bombs to select //
+	if ( Bomb.size() > 0 ) {
+		// Quick select Previous/Last Bomb //
+		if ( Input::Pad[0].Button[ PAD_L ].Pressed() ) {
+			// If no selection //
+			if ( Selection == -1 ) {
+				Selection = Bomb.size() - 1;
+			}
+			// If a selection //
+			else {
+				Selection--;
+				// If this puts us under, loop around //
+				if ( Selection < 0 ) {
+					Selection = Bomb.size() - 1;
+				}
+			}
+			
+			Pos = Bomb[ Selection ].Pos;
+		}
+
+		if ( Input::Pad[0].Button[ PAD_R ].Pressed() ) {
+			// If no selection //
+			if ( Selection == -1 ) {
+				Selection = 0;
+			}
+			// If a selection //
+			else {
+				Selection++;
+				// If this puts us under, loop around //
+				if ( Selection > Bomb.size() - 1 ) {
+					Selection = 0;
+				}
+			}
+			
+			Pos = Bomb[ Selection ].Pos;
+		}
+
 	}
 	
 }
@@ -80,7 +119,7 @@ void cClassicCursor::Draw() {
 	}
 
 	// Draw Bomb placeholders //
-	for ( int idx = 0; idx < Bomb.size(); idx++ ) {
+	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
 		Gfx::Circle( Bomb[ idx ].Pos, Real(32), Gfx::RGBA( 255, 0, 0, 255 ) );
 		Gfx::Rect( Bomb[ idx ].Pos + Vector2D( -40, -40 ), Bomb[ idx ].Pos + Vector2D( -40 + (Bomb[ idx ].Time*4), -44 ), Gfx::RGBA( 255, 255, 0, 255 ) );
 	}
@@ -90,7 +129,7 @@ void cClassicCursor::Draw() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) const {
-	for ( int idx = 0; idx < Bomb.size(); idx++ ) {
+	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
 		if ( (Bomb[ idx ].Pos - _Pos).MagnitudeSquared() < Real(64) * Real(64) )
 			return false;
 	}	
@@ -99,7 +138,7 @@ bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) const {
 }
 // - ------------------------------------------------------------------------------------------ - //
 int cClassicCursor::WhatBombIsHere( const Vector2D& _Pos ) const {
-	for ( int idx = 0; idx < Bomb.size(); idx++ ) {
+	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
 		if ( (Bomb[ idx ].Pos - _Pos).MagnitudeSquared() < Real(64) * Real(64) )
 			return idx;
 	}	

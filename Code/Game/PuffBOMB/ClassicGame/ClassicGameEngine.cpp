@@ -58,7 +58,7 @@ cClassicGameEngine::~cClassicGameEngine() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
 	// When you push space, toggle activity //
-	if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[7].Pressed() ) {
+	if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() ) {
 		GameActive = !GameActive;
 		
 		if ( GameActive ) {
