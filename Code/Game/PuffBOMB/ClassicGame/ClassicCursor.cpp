@@ -56,14 +56,24 @@ void cClassicCursor::Step() {
 
 	// If Back Button Pressed (B) //
 	if ( Input::Pad[0].Button[ PAD_B ].Pressed() ) {
+		// Deselect, if you had a selection //
 		Selection = -1;
 	}
 
 	// If Delete Button Pressed (Y) //
 	if ( Input::Pad[0].Button[ PAD_Y ].Pressed() ) {
+		// If you have a selection //
 		if ( Selection != -1 ) {
+			// Remove this bomb //
 			Bomb.erase( Bomb.begin() + Selection );
 			Selection = -1;
+		}
+		// Or make a selection if there's a bomb that can be selected here //
+		else {
+			Selection = WhatBombIsHere();
+			if ( Selection != -1 ) {
+				Pos = Bomb[ Selection ].Pos;
+			}
 		}
 	}
 	
