@@ -63,7 +63,12 @@ void cClassicCursor::Step() {
 			}
 		}
 		else {
-			TimeMode = !TimeMode;
+			if ( !TimeMode ) {
+				TimeMode = true;
+			}
+			else {
+				Selection = -1;
+			}
 		}
 	}
 
