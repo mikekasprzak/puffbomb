@@ -306,6 +306,7 @@ void cEngine2D::ResetMap()
 		for ( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); idx2++ ) {
 			DynamicComponent.push_back( &DynamicCollection[ idx ]->Component[ idx2 ] );
 		}
+		DynamicCollection[ idx ]->UpdateAnchors();
 	}
 
 	// Wake up all components //
