@@ -1,35 +1,24 @@
 // - ------------------------------------------------------------------------------------------ - //
-// ClassicGameEngine //
+// ClassicCursor //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __ClassicGame_PuffBOMB_ClassicGameEngine_H__
-#define __ClassicGame_PuffBOMB_ClassicGameEngine_H__
+#ifndef __ClassicGame_PuffBOMB_ClassicCursor_H__
+#define __ClassicGame_PuffBOMB_ClassicCursor_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <vector>
+#include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Engine2D.h>
-#include "ClassicCursor.h"
-// - ------------------------------------------------------------------------------------------ - //
-class cClassicGameEngine : public Engine2D::cEngine2D { 
+class cClassicCursor { 
 public:
-	// Custom Camera used to create a HUD //
-	cCamera *HudCamera;
+	// Position of the cursor //
+	Vector2D Pos;
 
 public:
-	bool GameActive;
-	cClassicCursor Cursor;
-
-public:
-//	void TurnBasedPlay();
-	void AddBombs();
-
-public:
-	cClassicGameEngine();
-	~cClassicGameEngine();
+	cClassicCursor();
+	~cClassicCursor();
 	
 public:
 	void Step();
 	void Draw();
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // ClassicGame // 
+#endif // __ClassicGame_PuffBOMB_ClassicCursor_H__ // 
 // - ------------------------------------------------------------------------------------------ - //

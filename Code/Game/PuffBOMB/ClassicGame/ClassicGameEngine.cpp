@@ -87,15 +87,10 @@ void cClassicGameEngine::Step() {
 	}
 	// If the engine is not active, then we'r in edit mode //
 	else {
-		// User Control //
-		{
-			// Update Cursor //
-			CursorPos += Input::Pad[0].Stick1 * Real(16);
-		
-		}		
+		Cursor.Step();
 		
 		// Update Camera //
-		Camera->UpdateTarget( CursorPos );
+		Camera->UpdateTarget( Cursor.Pos );
 		
 	}
 }
@@ -114,15 +109,7 @@ void cClassicGameEngine::Draw() {
 
 	// Things to draw only when the game isn't active //
 	if ( !GameActive ) {
-		Gfx::DisableTex2D();
-		Gfx::DisableDepth();
-
-		// Draw the cursor //
-		Gfx::Circle( CursorPos, Real(10), Gfx::RGBA( 255, 255, 255, 255 ) );
-		Gfx::Rect( CursorPos - Real(20), CursorPos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
-		
-		Gfx::EnableTex2D();
-		Gfx::EnableDepth();
+		Cursor.Draw();
 	}	
 
 	// -- Hud Camera Space -------------------------- //
