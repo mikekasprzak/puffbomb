@@ -25,10 +25,12 @@ void cClassicCursor::Step() {
 	Pos += Input::Pad[0].Stick1 * Real(16);
 		
 	// If button pressed //
-	if ( Input::Pad[0].Button[0].Pressed() ) {
-		Log( 10, "Placed!" );
-		// Add a bomb //
-		Bomb.push_back( cBombInfo( Pos ) );
+	if ( CanPlaceBombHere() ) {
+		if ( Input::Pad[0].Button[0].Pressed() ) {
+			Log( 10, "Placed!" );
+			// Add a bomb //
+			Bomb.push_back( cBombInfo( Pos ) );
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -37,7 +39,7 @@ void cClassicCursor::Draw() {
 	Gfx::DisableDepth();
 
 	// Draw the cursor //
-	Gfx::Circle( Pos, Real(10), Gfx::RGBA( 255, 255, 255, 255 ) );
+	Gfx::Circle( Pos, Real(10), CanPlaceBombHere() ? Gfx::RGBA( 255, 255, 255, 255 ) : Gfx::RGBA( 255, 0, 0, 255 ) );
 	Gfx::Rect( Pos - Real(20), Pos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
 
 	// Draw Bomb placeholders //
@@ -52,4 +54,14 @@ void cClassicCursor::Draw() {
 	Gfx::EnableDepth();
 }
 // - ------------------------------------------------------------------------------------------ - //
-
+bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) {
+	for ( int idx = 0; idx < Bomb.size(); idx++ ) {
+		if ( Bomb[ idx ].Placed ) {
+			if ( (Bomb[ idx ].Pos - _Pos).MagnitudeSquared() < Real(64) * Real(64) )
+				return false;
+		}	
+	}	
+	
+	return true;
+}
+// - ------------------------------------------------------------------------------------------ - //

@@ -27,6 +27,12 @@ public:
 public:
 	void Step();
 	void Draw();
+	
+	inline bool CanPlaceBombHere() {
+		return CanPlaceBombHere( Pos );
+	}
+	
+	bool CanPlaceBombHere( const Vector2D& _Pos );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __ClassicGame_PuffBOMB_ClassicCursor_H__ // 
