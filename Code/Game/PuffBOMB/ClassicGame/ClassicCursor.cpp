@@ -41,6 +41,7 @@ void cClassicCursor::Step() {
 			if ( CanPlaceBombHere() ) {
 				// Add a bomb //
 				Bomb.push_back( cBombInfo( Pos ) );
+				Selection = Bomb.size() - 1;
 			}
 			// If there is //
 			else {
@@ -53,6 +54,14 @@ void cClassicCursor::Step() {
 	// If Back Button Pressed (B) //
 	if ( Input::Pad[0].Button[1].Pressed() ) {
 		Selection = -1;
+	}
+
+	// If Delete Button Pressed (Y) //
+	if ( Input::Pad[0].Button[3].Pressed() ) {
+		if ( Selection != -1 ) {
+			Bomb.erase( Bomb.begin() + Selection );
+			Selection = -1;
+		}
 	}
 	
 }
