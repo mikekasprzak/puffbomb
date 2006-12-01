@@ -133,9 +133,14 @@ void cClassicGameEngine::Draw() {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::AddBombs() {
-	PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1200, 700 ), 10 ) );
-	//PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -1000, 600 ), 10 ) ); 
+	for ( int idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
+		if ( Cursor.Bomb[ idx ].Placed ) {
+			PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, Cursor.Bomb[ idx ].Time ) );
+		}	
+	}
 	
+	//PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1200, 700 ), 10 ) );
+	//PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -1000, 600 ), 10 ) ); 
 }
 // - ------------------------------------------------------------------------------------------ - //
 

@@ -3,10 +3,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Input/Input.h>
 #include <Graphics/Gfx.h>
+
+#include <Util/Debug.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cClassicCursor::cClassicCursor()
+cClassicCursor::cClassicCursor() :
+	Selected( -1 )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -20,6 +23,13 @@ void cClassicCursor::Step() {
 
 	// Update Cursor //
 	Pos += Input::Pad[0].Stick1 * Real(16);
+		
+	// If button pressed //
+	if ( Input::Pad[0].Button[0].Pressed() ) {
+		Log( 10, "Placed!" );
+		// Add a bomb //
+		Bomb.push_back( cBombInfo( Pos ) );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicCursor::Draw() {

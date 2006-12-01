@@ -1,33 +1,32 @@
 // - ------------------------------------------------------------------------------------------ - //
-// ClassicCursor //
+// BombInfo //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __ClassicGame_PuffBOMB_ClassicCursor_H__
-#define __ClassicGame_PuffBOMB_ClassicCursor_H__
-// - ------------------------------------------------------------------------------------------ - //
-#include <vector>
+#ifndef __ClassicGame_PuffBOMB_BombInfo_H__
+#define __ClassicGame_PuffBOMB_BombInfo_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
-
-#include "BombInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
-class cClassicCursor { 
+class cBombInfo { 
 public:
-	// Position of the cursor //
+	// Position of the Bomb //
 	Vector2D Pos;
-	
-	int Selected;
 
-	// Vector of bomb information to be added //
-	std::vector< cBombInfo > Bomb;
+	// Fuse Length //
+	int Time;
 
+	// True if actually placed //
+	bool Placed;
 public:
-	cClassicCursor();
-	~cClassicCursor();
+	cBombInfo( const Vector2D& _Pos = Vector2D::Zero ) :
+		Pos( _Pos ),
+		Time( 10 ),
+		Placed( true )
+	{
+	}
 	
-public:
-	void Step();
-	void Draw();
+	~cBombInfo() {
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __ClassicGame_PuffBOMB_ClassicCursor_H__ // 
+#endif // __ClassicGame_PuffBOMB_BombInfo_H__ // 
 // - ------------------------------------------------------------------------------------------ - //
