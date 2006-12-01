@@ -49,8 +49,8 @@ public:
 public:
 	inline void Step( std::vector< cDynamicComponent >& Component ) {
 		// Bail if inactive //
-		if ( !Flags.ActiveAndNotBroken() )
-			return;
+//		if ( !Flags.ActiveAndNotBroken() )
+//			return;
 
 		// Create some nice easier to use references //
 		cBody2D& Body = Component[ Object ].Body;
