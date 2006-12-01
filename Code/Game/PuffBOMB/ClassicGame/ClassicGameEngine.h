@@ -23,7 +23,7 @@ public:
 	void AddBombs();
 
 public:
-	cClassicGameEngine();
+	cClassicGameEngine( const std::string& FileName );
 	~cClassicGameEngine();
 	
 public:

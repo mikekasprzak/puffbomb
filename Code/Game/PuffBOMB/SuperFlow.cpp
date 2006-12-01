@@ -113,7 +113,7 @@ void cSuperFlow::StateFlow()
 			{
 				// Start the game //
 				{
-					cClassicGame Game;
+					cClassicGame Game( "Maps/Classic/Level05.map" );
 				}
 				State = stMainMenu;
 				break;

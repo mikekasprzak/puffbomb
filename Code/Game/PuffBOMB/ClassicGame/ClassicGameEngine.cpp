@@ -21,7 +21,7 @@
 // ------------ //
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
-cClassicGameEngine::cClassicGameEngine() :
+cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false )
 {
 	// Create Camera //
@@ -42,7 +42,7 @@ cClassicGameEngine::cClassicGameEngine() :
 		Real( Global::ScreenH )						// Height
 	 );
 
-	LoadMap( "Maps/Classic/Level05.map" );
+	LoadMap( FileName );
 	
 	NewParticle.Clear();
 	

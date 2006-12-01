@@ -4,6 +4,8 @@
 #ifndef __ClassicGame_PuffBOMB_ClassicGame_H__
 #define __ClassicGame_PuffBOMB_ClassicGame_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <string>
+
 #include <MessageEntity.h>
 #include "ClassicGameEngine.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -12,7 +14,7 @@ public:
 	cClassicGameEngine* Engine;
 
 public:
-	cClassicGame();
+	cClassicGame( const std::string& FileName );
 	~cClassicGame();
 
 public:

@@ -3,10 +3,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cClassicGame::cClassicGame() {
+cClassicGame::cClassicGame( const std::string& FileName ) {
 	// Creating Engine //
 	Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-	Engine = new cClassicGameEngine();
+	Engine = new cClassicGameEngine( FileName );
 	
 	Work();
 }
