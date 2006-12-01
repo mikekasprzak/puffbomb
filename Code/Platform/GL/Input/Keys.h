@@ -193,19 +193,19 @@
 #define PAD_MOUSE					PAD_14
 #define PAD_REMOTE					PAD_15
 // - ------------------------------------------------------------------------------------------ - //
-#define PAD_FACE_A					0
-#define PAD_FACE_B					1
-#define PAD_FACE_X					2
-#define PAD_FACE_Y					3
+#define PAD_A						0
+#define PAD_B						1
+#define PAD_X						2
+#define PAD_Y						3
 
 #define PAD_L						4
 #define PAD_R						5
 
-#define PAD_STICK1					6
-#define PAD_STICK2					7
+#define PAD_BACK					6
+#define PAD_START					7
 
-#define PAD_BACK					8
-#define PAD_START					9
+#define PAD_STICK1					8
+#define PAD_STICK2					9
 
 //#define PAD_SELECT					PAD_BACK
 // - ------------------------------------------------------------------------------------------ - //

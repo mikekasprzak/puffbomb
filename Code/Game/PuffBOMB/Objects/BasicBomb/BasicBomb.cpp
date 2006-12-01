@@ -43,9 +43,9 @@ void cBasicBomb::Work() {
 			Engine2D::cImpulse(
 				Pos,
 				// Inner Radius, Intensity, Tangent //
-				Real( 0 ), Real( 25 ), Real( 0 ),
+				Real( 0 ), Real( 50 ), Real( 0 ),
 				// Outer Radius, Intensity, Tangent //
-				Real( 1512 ), Real( 0 ), Real( 0 )
+				Real( 512 ), Real( 0 ), Real( 0 )
 				)
 			);
 	}		
