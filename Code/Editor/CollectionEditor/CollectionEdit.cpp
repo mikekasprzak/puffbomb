@@ -183,6 +183,7 @@ void cCollectionEdit::Step()
 	{
 		DynSelect();
 		HardAdd();
+		HardDelete();
 	}
 
 	// Handles scrolling around the map

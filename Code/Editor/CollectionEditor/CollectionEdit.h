@@ -88,6 +88,7 @@ public:
 public:
 	// CollectionEditHard.cpp //
 	void HardAdd();
+	void HardDelete();
 	
 };
 // - ------------------------------------------------------------------------------------------ - //
