@@ -30,8 +30,8 @@ void cClassicCursor::Step() {
 		if ( TimeMode ) {
 			Bomb[ Selection ].Time += (int)Input::Pad[0].Stick1.x;
 				
-			if ( Bomb[ Selection ].Time < 0 )
-				Bomb[ Selection ].Time = 0;
+			if ( Bomb[ Selection ].Time < 1 )
+				Bomb[ Selection ].Time = 1;
 		}
 		else {
 			// Update Bomb Pos //
