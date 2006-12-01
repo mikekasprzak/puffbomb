@@ -15,7 +15,7 @@ public:
 	// Position of the cursor //
 	Vector2D Pos;
 	
-	int Selected;
+	int Selection;
 
 	// Vector of bomb information to be added //
 	std::vector< cBombInfo > Bomb;
@@ -27,12 +27,20 @@ public:
 public:
 	void Step();
 	void Draw();
-	
-	inline bool CanPlaceBombHere() {
+
+public:	
+	inline bool CanPlaceBombHere() const {
 		return CanPlaceBombHere( Pos );
 	}
 	
-	bool CanPlaceBombHere( const Vector2D& _Pos );
+	bool CanPlaceBombHere( const Vector2D& _Pos ) const;
+	
+	
+	inline int WhatBombIsHere() const {
+		return WhatBombIsHere( Pos );
+	}
+
+	int WhatBombIsHere( const Vector2D& _Pos ) const;
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __ClassicGame_PuffBOMB_ClassicCursor_H__ // 

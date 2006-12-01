@@ -152,9 +152,7 @@ void cClassicGameEngine::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::AddBombs() {
 	for ( int idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
-		if ( Cursor.Bomb[ idx ].Placed ) {
-			PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, Cursor.Bomb[ idx ].Time ) );
-		}	
+		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, Cursor.Bomb[ idx ].Time ) );
 	}
 	
 	//PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1200, 700 ), 10 ) );
