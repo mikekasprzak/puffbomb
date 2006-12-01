@@ -9,7 +9,8 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 cClassicCursor::cClassicCursor() :
-	Selection( -1 )
+	Selection( -1 ),
+	TimeMode( false )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -26,12 +27,20 @@ void cClassicCursor::Step() {
 		Pos += Input::Pad[0].Stick1 * Real(16);
 	}
 	else {
-		// Update Bomb Pos //
-		Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(4);
-		PushMeOutOfOtherBombs( Selection );
-					
-		// Update Cursor //
-		Pos = Bomb[ Selection ].Pos;
+		if ( TimeMode ) {
+			Bomb[ Selection ].Time += (int)Input::Pad[0].Stick1.x;
+				
+			if ( Bomb[ Selection ].Time < 0 )
+				Bomb[ Selection ].Time = 0;
+		}
+		else {
+			// Update Bomb Pos //
+			Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(4);
+			PushMeOutOfOtherBombs( Selection );
+						
+			// Update Cursor //
+			Pos = Bomb[ Selection ].Pos;
+		}
 	}
 		
 	// If Action Button Pressed (A) //
@@ -47,10 +56,14 @@ void cClassicCursor::Step() {
 			// If there is //
 			else {
 				Selection = WhatBombIsHere();
+				TimeMode = false;
 				if ( Selection != -1 ) {
 					Pos = Bomb[ Selection ].Pos;
 				}
 			}
+		}
+		else {
+			TimeMode = !TimeMode;
 		}
 	}
 
@@ -71,6 +84,7 @@ void cClassicCursor::Step() {
 		// Or make a selection if there's a bomb that can be selected here //
 		else {
 			Selection = WhatBombIsHere();
+			TimeMode = false;
 			if ( Selection != -1 ) {
 				Pos = Bomb[ Selection ].Pos;
 			}
@@ -133,10 +147,11 @@ void cClassicCursor::Draw() {
 			// A bomb I can select //
 			Gfx::Circle( Pos, Real(10), Gfx::RGBA( 0, 255, 0, 255 ) );
 		}
+		
 		Gfx::Rect( Pos - Real(20), Pos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
 	}
 	else {
-		Gfx::Rect( Bomb[ Selection ].Pos - Real(50), Bomb[ Selection ].Pos + Real(50), Gfx::RGBA( 0, 255, 0, 255 ) );
+		Gfx::Rect( Bomb[ Selection ].Pos - Real(50), Bomb[ Selection ].Pos + Real(50), TimeMode ? Gfx::RGBA( 0, 64, 255, 255 ) : Gfx::RGBA( 0, 255, 0, 255 ) );
 	}
 
 	// Draw Bomb placeholders //

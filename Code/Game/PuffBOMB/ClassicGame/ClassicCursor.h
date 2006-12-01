@@ -15,7 +15,11 @@ public:
 	// Position of the cursor //
 	Vector2D Pos;
 	
+	// Currently Selected Bomb //
 	int Selection;
+	
+	// Boolean describing what edit mode you're in (Position or Time) //
+	bool TimeMode;
 
 	// Vector of bomb information to be added //
 	std::vector< cBombInfo > Bomb;
