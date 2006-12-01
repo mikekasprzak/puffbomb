@@ -63,7 +63,7 @@ void cClassicGameEngine::Step() {
 	}
 
 	// When you push backspace, reload/reset the level //
-	if( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
+	if( Input::Button[ KEY_TAB ].Pressed() ) {
 		ResetMap();
 		Impulse.clear();
 		AddBombs();
@@ -90,21 +90,40 @@ void cClassicGameEngine::Step() {
 		// Update Cursor //
 		
 		
+		// Update Camera //
+		Camera->UpdateTarget( CursorPos );
+		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Draw() {
-	// Stuff my engine does before //
+	// -- Stuff my engine does before --------------- //
 	// ... //
 	
-	// Original Engine Stuff //
+	// -- Original Engine Draw ---------------------- //
 	cEngine2D::Draw();
 	
+	// -- Stuff my engine does after ---------------- //
+
 	// Particle System //
 	NewParticle.Draw();
-	
-	// Stuff my engine does after //
+
+	// Things to draw only when the game isn't active //
+	if ( !GameActive ) {
+		Gfx::DisableTex2D();
+		Gfx::DisableDepth();
+
+		// Draw the cursor //
+		Gfx::Circle( CursorPos, Real(10), Gfx::RGBA( 255, 255, 255, 255 ) );
+		Gfx::Rect( CursorPos - Real(20), CursorPos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
+		
+		Gfx::EnableTex2D();
+		Gfx::EnableDepth();
+	}	
+
+	// -- Hud Camera Space -------------------------- //
 	HudCamera->Update();
+
 	
 #ifdef EDITOR
 	//	//  DISPLAYS FPS  //
