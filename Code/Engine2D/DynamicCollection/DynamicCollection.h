@@ -76,13 +76,13 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
-	virtual void Action( cDynamicComponent& _Vs );
-	virtual void Action( class cPassiveObject& _Vs );
-	virtual void Action( class cZone& _Vs );
+	virtual void Action( cDynamicCollection* const _Vs );
+	virtual void Action( class cPassiveObject* const _Vs );
+	virtual void Action( class cZone* const _Vs );
 
-	virtual int Query( cDynamicComponent& _Vs );
-	virtual int Query( class cPassiveObject& _Vs );
-	virtual int Query( class cZone& _Vs );
+	virtual int Query( cDynamicCollection* const _Vs ) const;
+	virtual int Query( class cPassiveObject* const _Vs ) const;
+	virtual int Query( class cZone* const _Vs ) const;
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

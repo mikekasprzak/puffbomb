@@ -18,7 +18,7 @@ namespace Engine2D {
 class cDynamicComponent {
 public:
 	// Who our parent is //
-	const class cDynamicCollection* Parent;
+	class cDynamicCollection* Parent;
 
 public:
 	// Parts of a component //
@@ -44,7 +44,7 @@ public:
 
 public:
 	cDynamicComponent();
-	cDynamicComponent( const class cDynamicCollection* const _Parent, const std::string& ComponentFile, const Vector2D& Offset = Vector2D::Zero );
+	cDynamicComponent( class cDynamicCollection* const _Parent, const std::string& ComponentFile, const Vector2D& Offset = Vector2D::Zero );
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

@@ -11,7 +11,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cZone::Action( cDynamicComponent& _Vs ) {
+void cZone::Action( const cDynamicComponent* _Vs ) {
 	switch ( Id ) {
 		// Camera Boundary //
 		case 1: {
@@ -25,7 +25,7 @@ void cZone::Action( cDynamicComponent& _Vs ) {
 		
 		// ??? //
 		case 3: {
-			if ( _Vs.Body.Pose->Sphere.size() ) {
+			if ( _Vs->Body.Pose->Sphere.size() ) {
 				// Uhh //	
 			}
 		}

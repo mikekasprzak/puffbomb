@@ -2,6 +2,7 @@
 #include <Util/Debug.h>
 
 #include <DynamicComponent/DynamicComponent.h>
+#include <DynamicCollection/DynamicCollection.h>
 #include <PassiveObject/PassiveObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -24,8 +25,9 @@ void cDynamicComponent::Solve( cPassiveObject& _Vs ) {
 	if ( Body.BoundingRect != _Vs.BoundingRect )
 		return;
 
-	// Send message //
-	_Vs.Action( *this );
+	// Send messages //
+	Parent->Action( &_Vs );
+	_Vs.Action( this );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

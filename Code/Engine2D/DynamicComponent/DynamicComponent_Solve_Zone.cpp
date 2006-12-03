@@ -2,6 +2,7 @@
 #include <Util/Debug.h>
 
 #include <DynamicComponent/DynamicComponent.h>
+#include <DynamicCollection/DynamicCollection.h>
 #include <Zone/Zone.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -25,7 +26,8 @@ void cDynamicComponent::Solve( cZone& _Vs ) {
 		return;
 
 	// Send message //
-	_Vs.Action( *this );
+	Parent->Action( &_Vs );
+	_Vs.Action( this );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
