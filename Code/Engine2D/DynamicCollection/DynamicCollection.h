@@ -44,7 +44,7 @@ public:
 	void StepLinkage();
 
 	// Do any work (control/AI) I may have.  This is commonly overloaded to provide control. //
-	virtual void Work();
+	virtual bool Work();
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
@@ -76,6 +76,13 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
+	virtual void Action( cDynamicComponent& _Vs );
+	virtual void Action( class cPassiveObject& _Vs );
+	virtual void Action( class cZone& _Vs );
+
+	virtual int Query( cDynamicComponent& _Vs );
+	virtual int Query( class cPassiveObject& _Vs );
+	virtual int Query( class cZone& _Vs );
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

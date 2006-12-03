@@ -46,7 +46,7 @@ public:
 	void Draw() const;
 	void DebugDraw() const;
 	
-	virtual void Work();
+	virtual bool Work();
 
 public:
 	// Messanging //

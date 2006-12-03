@@ -27,7 +27,7 @@
 //	};
 //}
 // - ------------------------------------------------------------------------------------------ - //
-void cDistortion::Work() {
+bool cDistortion::Work() {
 	// Step pulse rate timer //
 	
 	// On pulse match, impulse //
@@ -40,6 +40,8 @@ void cDistortion::Work() {
 			// Outer Radius, Intensity, Tangent //
 			Real( 1312 ), Real( 0 ), Real( 0.2 )
 			)
-		);	
+		);
+	
+	return true;
 }
 // - ------------------------------------------------------------------------------------------ - //

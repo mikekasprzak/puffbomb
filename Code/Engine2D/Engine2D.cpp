@@ -154,14 +154,20 @@ void cEngine2D::Step() {
 	// All objects have now moved.  Now to have them do and interpret what they've learned //
 	for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
 		//if ( DynamicCollection[ idx ].IsActive() ) {
-			DynamicCollection[ idx ]->Work();
+			// If work returns false, then destroy object //
+			if ( !DynamicCollection[ idx ]->Work() ) {
+				
+			}
 		//}
 	}
 
 	// Do the job of passives //
 	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
 		//if ( PassiveObject[ idx ].IsActive() ) {
-		PassiveObject[ idx ]->Work();
+			// If work returns false, then destroy object //
+			if ( !PassiveObject[ idx ]->Work() ) {
+				
+			}
 		//}
 	}
 	

@@ -20,7 +20,7 @@ public:
 	}
 
 public:	
-	virtual void Work();
+	virtual bool Work();
 
 public:
 	// Messanging //

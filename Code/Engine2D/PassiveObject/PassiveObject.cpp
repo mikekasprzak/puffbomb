@@ -31,7 +31,8 @@ void cPassiveObject::Action( cDynamicComponent& _Vs ) {
 //	};
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cPassiveObject::Work() {
+bool cPassiveObject::Work() {
+	return true;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cPassiveObject::Draw() const {
