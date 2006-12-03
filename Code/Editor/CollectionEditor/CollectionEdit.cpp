@@ -180,6 +180,7 @@ void cCollectionEdit::Step()
 	{
 		DynSelect();
 		NodeAddLink();
+		NodeDeleteLink();
 	}
 	else if( CurMode == COLL_HARD_NODE )
 	{

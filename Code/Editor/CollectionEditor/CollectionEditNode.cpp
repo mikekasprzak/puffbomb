@@ -40,7 +40,43 @@ void cCollectionEdit::NodeAddLink()
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::NodeDeleteLink()
 {
+	if( !CurSelected.empty() )
+	{
+		if( Button[ KEY_DELETE ].Pressed() )
+		{
+			std::vector< Engine2D::cNodeLink > tempVec;
+			
+			for( size_t idx = 0; idx < Collection.NodeLink.size(); ++idx )
+			{
+				bool isDelete = false;
+				for( size_t i = 0; i < CurSelected.size(); ++i )
+				{
+					if( CurSelComp == Collection.NodeLink[ idx ].ObjectA )
+					{
+						if( CurSelected[ i ] == Collection.NodeLink[ idx ].IndexA )
+						{
+							isDelete = true;
+						}
+					}
+					if( CurSelComp == Collection.NodeLink[ idx ].ObjectB )
+					{
+						if( CurSelected[ i ] == Collection.NodeLink[ idx ].IndexB )
+						{
+							isDelete = true;
+						}
+					}
+				}
+				if( !isDelete )
+				{
+					tempVec.push_back( Collection.NodeLink[ idx ] );
+				}
+			}
 
+			Collection.NodeLink.swap( tempVec );
+			
+			CurSelected.clear();
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
