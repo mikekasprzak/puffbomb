@@ -90,7 +90,7 @@ void cCollectionEdit::Draw()
 
 	Collection.DebugDraw();
 
-	if( CurMode == COLL_DYNAMIC_COMP || CurMode == COLL_HARD_NODE )
+	if( CurMode == COLL_DYNAMIC_COMP || CurMode == COLL_NODE_LINK || CurMode == COLL_HARD_NODE )
 	{
 		Gfx::SetLineWidth( 4.0 );
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
