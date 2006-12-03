@@ -270,6 +270,7 @@ void cCollectionEdit::UpdateColl()
 			delete Collection.Component[ idx ].AnimationSet;
 		}*/
 		Collection.Component.clear();
+		Collection.NodeLink.clear();
 		Collection.NodeAnchor.clear();
 		Collection.ComponentName.clear();
 	}

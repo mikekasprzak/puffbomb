@@ -62,7 +62,31 @@ void cDynamicCollection::LoadBinary( const std::string& FileName, const Vector2D
 	// NodeLink part //
 	{
 		size_t LinkSize = In.Read();
-	
+		
+		for( size_t idx = 0; idx < LinkSize; ++idx )
+		{
+			Real Length = Real::Zero;
+			Real Strength = Real::Zero;
+			Real BreakPoint = Real( 3 );
+			size_t ObjectA = 0;
+			size_t IndexA = 0;
+			size_t ObjectB = 0;
+			size_t IndexB = 0;
+			
+			In.Read( Length );
+			In.Read( Strength );
+			In.Read( BreakPoint );
+			In.Read( ObjectA );
+			In.Read( IndexA );
+			In.Read( ObjectB );
+			In.Read( IndexB );
+									
+			NodeLink.push_back( Engine2D::cNodeLink( ObjectA, IndexA, ObjectB, IndexB, BreakPoint, Strength ) );
+					
+			NodeLink.back().Length = Length;
+			
+			// NodeLink.back().Flags.ResetBreakable();
+		}
 	}
 	
 	// NodeAnchor part //
@@ -121,7 +145,13 @@ void cDynamicCollection::SaveBinary( const std::string& FileName, bool LittleEnd
 			// For every nodelink //
 			for ( size_t idx = 0; idx < NodeLink.size(); idx++ )
 			{
-											
+				Out.Write( NodeLink[ idx ].Length );				
+				Out.Write( NodeLink[ idx ].Strength );				
+				Out.Write( NodeLink[ idx ].BreakPoint );				
+				Out.Write( NodeLink[ idx ].ObjectA );				
+				Out.Write( NodeLink[ idx ].IndexA );				
+				Out.Write( NodeLink[ idx ].ObjectB );				
+				Out.Write( NodeLink[ idx ].IndexB );					
 			}
 		}
 	
