@@ -7,10 +7,9 @@
 #include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "HamsterCharacter.h"
-#include <Impulse/Impulse.h>
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-void cHamsterCharacter::Action( cImpulse* const _Vs ) {
+void cHamsterCharacter::Action( const Engine2D::cImpulse& _Vs ) {
 	Component[ 0 ].SetAnimation( 1 );
 }
 // - ------------------------------------------------------------------------------------------ - //

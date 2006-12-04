@@ -15,13 +15,17 @@ public:
 	{
 		
 	}
+	
+	virtual ~cHamsterCharacter() {
+	}
 
 public:	
 	virtual bool Work();
 
+
 public:
 	// Messanging //
-	virtual void Action( class cImpulse* const _Vs );
+	virtual void Action( const Engine2D::cImpulse& _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __PuffBOMB_Objects_HamsterCharacter_H__ //

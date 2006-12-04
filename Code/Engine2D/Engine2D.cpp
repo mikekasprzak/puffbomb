@@ -88,7 +88,7 @@ void cEngine2D::Step() {
 		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
 			// Update nodes via NodeLink springs and Anchors //
 			DynamicCollection[ idx ]->StepLinkage();
-			
+
 			// Update all Springs //
 			for ( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); idx2++ ) {
 				DynamicCollection[ idx ]->Component[ idx2 ].Body.StepSprings();

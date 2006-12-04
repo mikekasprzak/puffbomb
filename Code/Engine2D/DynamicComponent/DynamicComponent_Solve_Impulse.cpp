@@ -25,7 +25,7 @@ void cDynamicComponent::Solve( cImpulse& _Vs ) {
 	Body.Solve( _Vs );
 	
 	// Take action based on the impulse //
-	Parent->Action( &_Vs );
+	Parent->Action( _Vs );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

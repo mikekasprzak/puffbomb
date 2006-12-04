@@ -81,7 +81,7 @@ void cDynamicCollection::Action( cPassiveObject* const _Vs ) {
 void cDynamicCollection::Action( cZone* const _Vs ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::Action( cImpulse* const _Vs ) {
+void cDynamicCollection::Action( const cImpulse& _Vs ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 

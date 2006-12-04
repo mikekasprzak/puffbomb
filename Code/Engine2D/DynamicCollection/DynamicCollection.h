@@ -8,6 +8,7 @@
 
 #include "Linkage/Linkage.h"
 #include "DynamicComponent/DynamicComponent.h"
+#include <Impulse/Impulse.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -79,7 +80,7 @@ public:
 	virtual void Action( cDynamicCollection* const _Vs );
 	virtual void Action( class cPassiveObject* const _Vs );
 	virtual void Action( class cZone* const _Vs );
-	virtual void Action( class cImpulse* const _Vs );
+	virtual void Action( const cImpulse& _Vs );
 
 	virtual int Query( cDynamicCollection* const _Vs ) const;
 	virtual int Query( class cPassiveObject* const _Vs ) const;
