@@ -21,7 +21,7 @@ public:
 
 public:
 	// Messanging //
-	//virtual void Action( class cDynamicComponent& _Vs ) const;
+	virtual void Action( class cImpulse* const _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __PuffBOMB_Objects_HamsterCharacter_H__ //

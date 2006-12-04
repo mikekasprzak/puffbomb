@@ -2,6 +2,7 @@
 #include <Util/Debug.h>
 
 #include <DynamicComponent/DynamicComponent.h>
+#include <DynamicCollection/DynamicCollection.h>
 #include <Impulse/Impulse.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -21,7 +22,10 @@ void cDynamicComponent::Solve( cImpulse& _Vs ) {
 	}
 	
 	// Solve the collision //
-	Body.Solve( _Vs ); 
+	Body.Solve( _Vs );
+	
+	// Take action based on the impulse //
+	Parent->Action( &_Vs );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

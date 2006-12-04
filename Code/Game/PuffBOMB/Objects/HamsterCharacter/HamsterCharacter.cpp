@@ -7,31 +7,18 @@
 #include <Particle2D/NewParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "HamsterCharacter.h"
+#include <Impulse/Impulse.h>
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-//void cHamsterCharacter::Action( cDynamicComponent& _Vs ) {
-//	switch ( Id ) {
-//		// Camera Boundary //
-//		case 1: {
-//			
-//		}
-//
-//		// Level Boundary //
-//		case 2: {
-//			
-//		}
-//		
-//		// ??? //
-//		case 3: {
-//			if ( _Vs.Body.Pose->Sphere.size() ) {
-//				// Uhh //	
-//			}
-//		}
-//	};
-//}
+void cHamsterCharacter::Action( cImpulse* const _Vs ) {
+	Component[ 0 ].SetAnimation( 1 );
+}
 // - ------------------------------------------------------------------------------------------ - //
 bool cHamsterCharacter::Work() {
-	Component[ 0 ].SetAnimation( 1 );
+//	if ( Component[ 0 ].Body.CollisionFlags.Scenery() )
+//		Component[ 0 ].SetAnimation( 0 );
+//	else
+//		Component[ 0 ].SetAnimation( 1 );
 	
 	return true;
 }
