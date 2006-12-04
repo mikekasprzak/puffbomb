@@ -30,6 +30,10 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 		case 128: {
 			return new Engine2D::cDynamicCollection( "2D/BubblePlant/BubblePlant.coll", Pos );
 			break;
+		}	
+		case 129: {
+			return new Engine2D::cDynamicCollection( "2D/Bridge/Bridge.coll", Pos );
+			break;
 		}
 
 		

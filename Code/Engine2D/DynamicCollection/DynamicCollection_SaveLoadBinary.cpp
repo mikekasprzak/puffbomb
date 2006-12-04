@@ -85,7 +85,8 @@ void cDynamicCollection::LoadBinary( const std::string& FileName, const Vector2D
 					
 			NodeLink.back().Length = Length;
 			
-			// NodeLink.back().Flags.ResetBreakable();
+			// disables breakable node links... (HACK) remove when breakable node links become useful (or work better) //
+			NodeLink.back().Flags.ResetBreakable();
 		}
 	}
 	
