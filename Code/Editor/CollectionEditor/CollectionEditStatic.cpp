@@ -239,32 +239,93 @@ void cCollectionEdit::StaticDelete()
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
-			std::vector< Engine2D::cDynamicComponent > tempVec;
-			std::vector< std::string > tempNameVec;
-			for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
+			// Object Part //
 			{
-				bool isDelete = false;
-				for( size_t i = 0; i < CurSelected.size(); ++i )
+				std::vector< Engine2D::cDynamicComponent > tempVec;
+				std::vector< std::string > tempNameVec;
+				for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 				{
-					if( CurSelected[i] == idx )
+					bool isDelete = false;
+					for( size_t i = 0; i < CurSelected.size(); ++i )
 					{
-						isDelete = true;
+						if( CurSelected[i] == idx )
+						{
+							isDelete = true;
+						}
+					}
+					if( !isDelete )
+					{
+						tempVec.push_back( Collection.Component[ idx ] );
+						tempNameVec.push_back( Collection.ComponentName[ idx ] );
+						
+					}
+					else
+					{
+						//delete Collection.Component[ idx ].AnimationSet; // removed because animationsets are now part of a pool.
 					}
 				}
-				if( !isDelete )
-				{
-					tempVec.push_back( Collection.Component[ idx ] );
-					tempNameVec.push_back( Collection.ComponentName[ idx ] );
-				}
-				else
-				{
-					//delete Collection.Component[ idx ].AnimationSet; // removed because animationsets are now part of a pool.
-				}
+				Collection.Component.swap( tempVec );
+				Collection.ComponentName.swap( tempNameVec );
 			}
-			Collection.Component.swap( tempVec );
-			Collection.ComponentName.swap( tempNameVec );
-
+			
+			Collection.NodeLink.clear();
+			Collection.NodeAnchor.clear();
 			CurSelected.clear();
+			
+/*  // If we need a better version of the delete we can continue this //
+	// What it needs //
+	// anchors and node links need to decrement every object after the one that was deleted.  however I
+	// am deleting multiple objects at once in the code above.   so devise a good way of decrementing
+	// all the objects.
+			// Node Link Part //
+			{
+				std::vector< Engine2D::cNodeLink > tempVec;
+		
+				for( size_t idx = 0; idx < Collection.NodeLink.size(); ++idx )
+				{
+					bool isDelete = false;
+					for( size_t i = 0; i < CurSelected.size(); ++i )
+					{
+						if( CurSelected[ i ] == Collection.NodeLink[ idx ].ObjectA )
+						{	
+							isDelete = true;
+						}
+						if( CurSelected[ i ] == Collection.NodeLink[ idx ].ObjectB )
+						{
+							isDelete = true;
+						}
+					}
+					if( !isDelete )
+					{
+						tempVec.push_back( Collection.NodeLink[ idx ] );
+					}
+				}
+	
+				Collection.NodeLink.swap( tempVec );
+			}
+			
+			// Anchor Part //
+			{
+				std::vector< Engine2D::cNodeAnchor > tempVec;
+	
+				for( size_t idx = 0; idx < Collection.NodeAnchor.size(); ++idx )
+				{
+					bool isDelete = false;
+					for( size_t i = 0; i < CurSelected.size(); ++i )
+					{
+						if( CurSelected[i] == Collection.NodeAnchor[ idx ].Object )
+						{
+							isDelete = true;
+						}
+					}
+					if( !isDelete )
+					{
+						tempVec.push_back( Collection.NodeAnchor[ idx ] );
+					}
+				}
+				Collection.NodeAnchor.swap( tempVec );
+			}
+			*/
 		}
 	}
 }
