@@ -64,7 +64,7 @@ cMapEdit::cMapEdit() :
 
 	// Loads the map file //
 	LoadMap();
-
+	
 	CurMode = TILE_MODE;
 	
 	// SAfagfsdgsadfgasdfg sd //
@@ -531,6 +531,11 @@ void cMapEdit::LoadMap()
 				)
 			);
 		}
+	}
+		
+	for ( size_t idx = 0; idx < DynamicCollection.size(); idx++ )
+	{
+		DynamicCollection[ idx ]->UpdateAnchors();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

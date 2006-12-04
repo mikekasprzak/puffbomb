@@ -229,8 +229,10 @@ void cMapEdit::MoveDyn()
 					
 				}
 			}
+			
+			DynamicCollection[ CurSelected[ idx ] ]->UpdateAnchors();
 		}
-				
+		
 		ActiveAction();
 	
 		isGroupMove = false;
@@ -593,6 +595,8 @@ void cMapEdit::MoveDynFree()
 						= DynamicCollection[ CurSelColl ]->Component[ idx ].Body.Nodes.Pos( idx2 );
 				}
 			}*/
+			
+			DynamicCollection[ CurSelColl ]->UpdateAnchors();
 			
 			ActiveAction();
 		}
