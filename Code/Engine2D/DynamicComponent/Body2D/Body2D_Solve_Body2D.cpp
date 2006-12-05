@@ -3,7 +3,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::Solve( cBody2D& _Vs ) {
+bool cBody2D::Solve( cBody2D& _Vs ) {
 	// Convert our pose parts in to something local //
 	std::vector< cSphere >& Sphere = Pose->Sphere;
 	std::vector< cSphere >& _VsSphere = _Vs.Pose->Sphere;
@@ -15,9 +15,12 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 	
 	// Test Bounding Rectangles //
 	if ( BoundingRect != _Vs.BoundingRect )
-		return;
+		return false;
 		
 	// *** Wake Up the other SphereObject *** //	
+	
+	
+	bool Changed = false;
 	
 	// Test Sphere's //
 	{
@@ -95,7 +98,7 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 				_Vs.SphereFlags[ idx2 ].SetObject().SetSphere();
 				_Vs.CollisionFlags.Set( _Vs.SphereFlags[ idx2 ] );
 
-
+				Changed = true;
 
 				// Friction "A - A dot B * B" //
 //				Nodes.Old( Index ) += MyFriction;
@@ -126,6 +129,8 @@ void cBody2D::Solve( cBody2D& _Vs ) {
 	// Recalculate Bounding Rectangles //
 	CalcBoundingRect();
 	_Vs.CalcBoundingRect();
+	
+	return Changed;
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

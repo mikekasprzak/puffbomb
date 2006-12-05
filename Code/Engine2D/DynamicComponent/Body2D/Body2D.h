@@ -118,7 +118,7 @@ public:
 public:	
 	// - -------------------------------------------------------------------------------------- - //
 	// Solve Collisions/Actions //
-	void Solve( cBody2D& _Vs );
+	bool Solve( cBody2D& _Vs );
 	void Solve( class cStaticBody2D& _Vs, const Vector2D& _Offset = Vector2D::Zero );
 	void Solve( class cImpulse& _Vs );
 

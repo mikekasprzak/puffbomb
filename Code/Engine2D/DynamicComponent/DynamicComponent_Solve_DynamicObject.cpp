@@ -28,11 +28,11 @@ void cDynamicComponent::Solve( cDynamicComponent& _Vs ) {
 	}
 	
 	// Solve the collision //
-	Body.Solve( _Vs.Body ); 
-
-	// Send messages //
-	Parent->Action( _Vs.Parent );
-	_Vs.Parent->Action( this->Parent );
+	if ( Body.Solve( _Vs.Body ) ) {
+		// Send messages //
+		Parent->Action( _Vs.Parent );
+		_Vs.Parent->Action( this->Parent );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

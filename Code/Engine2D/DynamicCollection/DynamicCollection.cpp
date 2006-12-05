@@ -72,25 +72,25 @@ void cDynamicCollection::UpdateAnchors() {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::Action( cDynamicCollection* const _Vs ) {	
+void cDynamicCollection::Action( cDynamicCollection* const ) {	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::Action( cPassiveObject* const _Vs ) {
+void cDynamicCollection::Action( cPassiveObject* const ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::Action( const cZone& _Vs ) {
+void cDynamicCollection::Action( const cZone& ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::Action( const cImpulse& _Vs ) {
+void cDynamicCollection::Action( const cImpulse& ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-int cDynamicCollection::Query( cDynamicCollection* const _Vs ) const {
+int cDynamicCollection::Query( cDynamicCollection* const ) const {
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-int cDynamicCollection::Query( cPassiveObject* const _Vs ) const {
+int cDynamicCollection::Query( cPassiveObject* const ) const {
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
