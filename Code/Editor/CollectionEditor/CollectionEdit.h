@@ -89,6 +89,7 @@ public:
 	// CollectionEditHard.cpp //
 	void HardAdd();
 	void HardDelete();
+	void HardStrength( const Real Strength );
 	
 };
 // - ------------------------------------------------------------------------------------------ - //

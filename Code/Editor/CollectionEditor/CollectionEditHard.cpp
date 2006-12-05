@@ -17,8 +17,6 @@ void cCollectionEdit::HardAdd()
 		{
 			Collection.NodeAnchor.push_back( Engine2D::cNodeAnchor( CurSelComp, CurSelected[ idx ] ) );
 		}
-	//	Collection.NodeAnchor.back().Strength = Real( 1.0 );
-		//Log( 10, "Collection.NodeAnchor.back().Strength " << Collection.NodeAnchor.back().Strength );
 		
 		Collection.UpdateAnchors();
 		
@@ -61,6 +59,36 @@ void cCollectionEdit::HardDelete()
 			Collection.NodeAnchor.swap( tempVec );
 
 			CurSelected.clear();
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::HardStrength( const Real Strength )
+{
+	if( Button[ KEY_LCTRL ] )
+	{
+		for( size_t idx = 0; idx < Collection.NodeAnchor.size(); ++idx )
+		{
+			if( Collection.NodeAnchor[ idx ].Object == CurSelComp )
+			{
+				for( size_t i = 0; i < CurSelected.size(); ++i )
+				{
+					if( CurSelected[i] == Collection.NodeAnchor[ idx ].Index )
+					{
+						if( Collection.NodeAnchor[ idx ].Strength > Real( 1.0 ) )
+						{
+							if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
+							{
+								Collection.NodeAnchor[ idx ].Strength -= Strength;
+							}
+						}
+						if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
+						{
+								Collection.NodeAnchor[ idx ].Strength += Strength;
+						}
+					}
+				}
+			}
 		}
 	}
 }

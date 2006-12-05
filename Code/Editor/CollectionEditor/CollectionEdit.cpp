@@ -187,13 +187,25 @@ void cCollectionEdit::Step()
 		DynSelect();
 		HardAdd();
 		HardDelete();
+		
+		if( Button[ KEY_LSHIFT ] )
+		{
+			HardStrength( Real( 0.1 ) );
+		}
+		else
+		{
+			HardStrength( Real( 1 ) );
+		}
 	}
 
 	// Handles scrolling around the map
 	Scroll( Camera );
 	
-	// Handles the zooming in and out of a map
-	Zoom( Real( 64.0 ), Camera );
+	if( !Button[ KEY_LCTRL ] )
+	{
+		// Handles the zooming in and out of a map
+		Zoom( Real( 64.0 ), Camera );
+	}
 	
 	SwitchColl();
 	SwitchComp();
