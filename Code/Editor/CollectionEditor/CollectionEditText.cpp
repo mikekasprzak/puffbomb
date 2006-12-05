@@ -11,7 +11,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 void cCollectionEdit::DisplayText()
 {
-/*	if( CurMode == COLL_STATIC_COMP )
+	if( CurMode == COLL_STATIC_COMP )
 	{
 
 	}
@@ -21,12 +21,149 @@ void cCollectionEdit::DisplayText()
 	}
 	else if( CurMode == COLL_NODE_LINK )
 	{
+		if( !CurSelected.empty() && !Collection.NodeLink.empty() )
+		{
+			int TempIdx = -1;
+			for( size_t idx = 0; idx < Collection.NodeLink.size(); ++idx )
+			{
+				if( Collection.NodeLink[ idx ].ObjectA == CurSelComp )
+				{
+					if( Collection.NodeLink[ idx ].IndexA == CurSelected[ 0 ] )
+					{
+						TempIdx = idx;
+					}
+				}
+				if( Collection.NodeLink[ idx ].ObjectB == CurSelComp )
+				{
+					if( Collection.NodeLink[ idx ].IndexB == CurSelected[ 0 ] )
+					{
+						TempIdx = idx;
+					}
+				}
+			}
+			
+			if( TempIdx != -1 )
+			{
+			
+				Real FontSize = 0.5;
+				Real XShift = 140;
+				Real YShift = 40;
+				Real XPos = 0;
+				Real YPos = 0;
+			
+				int Color = Gfx::RGBA( 255, 255, 255, 255 );
+				std::stringstream Temp;
 		
+				XPos += XShift + Real( 20 );
+		
+				// Displays the Strength //
+				// - -------------------------------------------------------------------------- - //
+				cFonts::FlangeLight.Write(
+					"Strength",
+					Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
+					FontSize,
+					Color
+				);
+				
+				Temp << Collection.NodeLink[ TempIdx ].Strength;
+			
+				cFonts::FlangeLight.Write(
+					Temp.str(),
+					Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
+					FontSize,
+					Color
+				);
+				XPos += XShift;
+				Temp.str(std::string());
+				// Displays the Break Point //
+				// - -------------------------------------------------------------------------- - //
+				cFonts::FlangeLight.Write(
+					"BreakPoint",
+					Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
+					FontSize,
+					Color
+				);
+				
+				Temp << Collection.NodeLink[ TempIdx ].BreakPoint;
+			
+				cFonts::FlangeLight.Write(
+					Temp.str(),
+					Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
+					FontSize,
+					Color
+				);
+			}
+		}	
 	}
 	else if( CurMode == COLL_HARD_NODE )
 	{
+		if( !CurSelected.empty() && !Collection.NodeAnchor.empty() )
+		{
+			int TempIdx = -1;
+			for( size_t idx = 0; idx < Collection.NodeAnchor.size(); ++idx )
+			{
+				if( Collection.NodeAnchor[ idx ].Object == CurSelComp )
+				{
+					if( Collection.NodeAnchor[ idx ].Index == CurSelected[ 0 ] )
+					{
+						TempIdx = idx;
+					}
+				}
+			}
+			
+			if( TempIdx != -1 )
+			{
+			
+				Real FontSize = 0.5;
+				Real XShift = 140;
+				Real YShift = 40;
+				Real XPos = 0;
+				Real YPos = 0;
+			
+				int Color = Gfx::RGBA( 255, 255, 255, 255 );
+				std::stringstream Temp;
 		
-	}*/
+				XPos += XShift + Real( 20 );
+		
+				// Displays the Strength //
+				// - -------------------------------------------------------------------------- - //
+				cFonts::FlangeLight.Write(
+					"Strength",
+					Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
+					FontSize,
+					Color
+				);
+				
+				Temp << Collection.NodeAnchor[ TempIdx ].Strength;
+			
+				cFonts::FlangeLight.Write(
+					Temp.str(),
+					Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
+					FontSize,
+					Color
+				);
+				XPos += XShift;
+				Temp.str(std::string());
+				// Displays the Break Point //
+				// - -------------------------------------------------------------------------- - //
+				cFonts::FlangeLight.Write(
+					"BreakPoint",
+					Vector3D( Global::Left + XPos, Global::Bottom + YPos + YShift, 0.0 ),
+					FontSize,
+					Color
+				);
+				
+				Temp << Collection.NodeAnchor[ TempIdx ].BreakPoint;
+			
+				cFonts::FlangeLight.Write(
+					Temp.str(),
+					Vector3D( Global::Left + XPos, Global::Bottom + YPos + Real( 6 ), 0.0 ),
+					FontSize,
+					Color
+				);
+			}
+		}
+	}
 
 	DisplayMode();
 	

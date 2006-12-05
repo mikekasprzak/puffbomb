@@ -17,6 +17,9 @@ void cCollectionEdit::HardAdd()
 		{
 			Collection.NodeAnchor.push_back( Engine2D::cNodeAnchor( CurSelComp, CurSelected[ idx ] ) );
 		}
+	//	Collection.NodeAnchor.back().Strength = Real( 1.0 );
+		//Log( 10, "Collection.NodeAnchor.back().Strength " << Collection.NodeAnchor.back().Strength );
+		
 		Collection.UpdateAnchors();
 		
 		CurSelected.clear();
