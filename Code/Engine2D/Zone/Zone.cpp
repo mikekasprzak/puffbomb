@@ -11,26 +11,26 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cZone::Action( const cDynamicComponent* _Vs ) {
-	switch ( Id ) {
-		// Camera Boundary //
-		case 1: {
-			
-		}
-
-		// Level Boundary //
-		case 2: {
-			
-		}
-		
-		// ??? //
-		case 3: {
-			if ( _Vs->Body.Pose->Sphere.size() ) {
-				// Uhh //	
-			}
-		}
-	};
-}
+//void cZone::Action( const cDynamicComponent* _Vs ) {
+//	switch ( Id ) {
+//		// Camera Boundary //
+//		case 1: {
+//			
+//		}
+//
+//		// Level Boundary //
+//		case 2: {
+//			
+//		}
+//		
+//		// ??? //
+//		case 3: {
+//			if ( _Vs->Body.Pose->Sphere.size() ) {
+//				// Uhh //	
+//			}
+//		}
+//	};
+//}
 // - ------------------------------------------------------------------------------------------ - //
 bool cZone::InitZone( ) {
 	switch ( Id ) {

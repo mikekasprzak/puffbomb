@@ -8,7 +8,9 @@
 
 #include "Linkage/Linkage.h"
 #include "DynamicComponent/DynamicComponent.h"
+
 #include <Impulse/Impulse.h>
+#include <Zone/Zone.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -79,12 +81,11 @@ public:
 	// Messanging //
 	virtual void Action( cDynamicCollection* const _Vs );
 	virtual void Action( class cPassiveObject* const _Vs );
-	virtual void Action( class cZone* const _Vs );
+	virtual void Action( const cZone& _Vs );
 	virtual void Action( const cImpulse& _Vs );
 
 	virtual int Query( cDynamicCollection* const _Vs ) const;
 	virtual int Query( class cPassiveObject* const _Vs ) const;
-	virtual int Query( class cZone* const _Vs ) const;
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

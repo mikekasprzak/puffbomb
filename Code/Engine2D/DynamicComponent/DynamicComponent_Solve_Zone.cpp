@@ -26,8 +26,7 @@ void cDynamicComponent::Solve( cZone& _Vs ) {
 		return;
 
 	// Send message //
-	Parent->Action( &_Vs );
-	_Vs.Action( this );
+	Parent->Action( _Vs );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

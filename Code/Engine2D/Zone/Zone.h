@@ -32,13 +32,13 @@ public:
 		Argument( _Arg ),
 		BoundingRect( _BoundingRect )
 	{
-		
 	}
+	
 public:
 	void DebugDraw() const;
 public:
 	// Messanging //
-	virtual void Action( const class cDynamicComponent* _Vs );
+	//virtual void Action( const class cDynamicComponent* _Vs );
 	
 	// Functioning (actions to take with zones on initialization) //
 	// Return true to kill it after executing //

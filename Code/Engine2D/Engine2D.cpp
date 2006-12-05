@@ -300,8 +300,6 @@ void cEngine2D::ResetMap()
 		}
 		
 		PassiveObject.clear();
-		
-		Zone.clear();
 	}
 	//Log( LOG_HIGHEST_LEVEL, "Finished LoadMap() " );
 

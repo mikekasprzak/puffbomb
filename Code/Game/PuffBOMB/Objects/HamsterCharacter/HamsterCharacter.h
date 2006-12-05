@@ -26,6 +26,7 @@ public:
 public:
 	// Messanging //
 	virtual void Action( const Engine2D::cImpulse& _Vs );
+	virtual void Action( const Engine2D::cZone& _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __PuffBOMB_Objects_HamsterCharacter_H__ //

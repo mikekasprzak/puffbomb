@@ -78,7 +78,7 @@ void cDynamicCollection::Action( cDynamicCollection* const _Vs ) {
 void cDynamicCollection::Action( cPassiveObject* const _Vs ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::Action( cZone* const _Vs ) {
+void cDynamicCollection::Action( const cZone& _Vs ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicCollection::Action( const cImpulse& _Vs ) {
@@ -91,10 +91,6 @@ int cDynamicCollection::Query( cDynamicCollection* const _Vs ) const {
 }
 // - ------------------------------------------------------------------------------------------ - //
 int cDynamicCollection::Query( cPassiveObject* const _Vs ) const {
-	return 0;
-}
-// - ------------------------------------------------------------------------------------------ - //
-int cDynamicCollection::Query( cZone* const _Vs ) const {
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
