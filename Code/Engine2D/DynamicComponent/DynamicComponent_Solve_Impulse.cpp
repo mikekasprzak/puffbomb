@@ -22,10 +22,10 @@ void cDynamicComponent::Solve( cImpulse& _Vs ) {
 	}
 	
 	// Solve the collision //
-	Body.Solve( _Vs );
-	
-	// Take action based on the impulse //
-	Parent->Action( _Vs );
+	if ( Body.Solve( _Vs ) ) {
+		// Take action based on the impulse //
+		Parent->Action( _Vs );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

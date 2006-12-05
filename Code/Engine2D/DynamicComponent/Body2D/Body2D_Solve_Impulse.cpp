@@ -5,13 +5,15 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::Solve( cImpulse& _Vs ) {
+bool cBody2D::Solve( cImpulse& _Vs ) {
 	// Convert our pose parts in to something local //
 	std::vector< cSphere >& Sphere = Pose->Sphere;
 
 	// Test Bounding Rectangles //
 //	if ( BoundingRect != _Vs.BoundingRect )
 //		return;
+
+	bool Changed = false;
 
 	// For all spheres //
 	for ( size_t idx = 0; idx < Sphere.size(); idx++ ) {
@@ -31,10 +33,14 @@ void cBody2D::Solve( cImpulse& _Vs ) {
 			// Wake up and set flags //
 			//WakeUp();
 			SphereFlags[ idx ].SetImpulse();
+			
+			Changed = true;
 		}
 	}
 	
 	CalcBoundingRect();
+	
+	return Changed;
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
