@@ -59,6 +59,8 @@ void cCollectionEdit::HardDelete()
 			Collection.NodeAnchor.swap( tempVec );
 
 			CurSelected.clear();
+			
+			ActiveAction();
 		}
 	}
 }
@@ -80,11 +82,45 @@ void cCollectionEdit::HardStrength( const Real Strength )
 							if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
 							{
 								Collection.NodeAnchor[ idx ].Strength -= Strength;
+								ActiveAction();
 							}
 						}
 						if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
 						{
-								Collection.NodeAnchor[ idx ].Strength += Strength;
+							Collection.NodeAnchor[ idx ].Strength += Strength;
+							ActiveAction();
+						}
+					}
+				}
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::HardBreakPoint( const Real BreakPoint )
+{
+	if( Button[ KEY_LALT ] )
+	{
+		for( size_t idx = 0; idx < Collection.NodeAnchor.size(); ++idx )
+		{
+			if( Collection.NodeAnchor[ idx ].Object == CurSelComp )
+			{
+				for( size_t i = 0; i < CurSelected.size(); ++i )
+				{
+					if( CurSelected[i] == Collection.NodeAnchor[ idx ].Index )
+					{
+						if( Collection.NodeAnchor[ idx ].BreakPoint > Real( 1.0 ) )
+						{
+							if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
+							{
+								Collection.NodeAnchor[ idx ].BreakPoint -= BreakPoint;
+								ActiveAction();
+							}
+						}
+						if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
+						{
+							Collection.NodeAnchor[ idx ].BreakPoint += BreakPoint;
+							ActiveAction();
 						}
 					}
 				}

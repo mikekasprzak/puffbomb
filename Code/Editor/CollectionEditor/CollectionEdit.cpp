@@ -191,17 +191,19 @@ void cCollectionEdit::Step()
 		if( Button[ KEY_LSHIFT ] )
 		{
 			HardStrength( Real( 0.1 ) );
+			HardBreakPoint( Real( 0.1 ) );
 		}
 		else
 		{
 			HardStrength( Real( 1 ) );
+			HardBreakPoint( Real( 1 ) );
 		}
 	}
 
 	// Handles scrolling around the map
 	Scroll( Camera );
 	
-	if( !Button[ KEY_LCTRL ] )
+	if( !Button[ KEY_LCTRL ] && !Button[ KEY_LALT ] )
 	{
 		// Handles the zooming in and out of a map
 		Zoom( Real( 64.0 ), Camera );

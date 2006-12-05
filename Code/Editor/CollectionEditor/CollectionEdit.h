@@ -90,6 +90,7 @@ public:
 	void HardAdd();
 	void HardDelete();
 	void HardStrength( const Real Strength );
+	void HardBreakPoint( const Real BreakPoint );
 	
 };
 // - ------------------------------------------------------------------------------------------ - //
