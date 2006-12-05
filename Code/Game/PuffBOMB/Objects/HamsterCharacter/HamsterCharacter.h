@@ -5,6 +5,7 @@
 #define __PuffBOMB_Objects_HamsterCharacter_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <DynamicCollection/DynamicCollection.h>
+#include <PassiveObject/PassiveObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cHamsterCharacter: public Engine2D::cDynamicCollection {
 public:
@@ -28,6 +29,7 @@ public:
 	virtual void Action( const Engine2D::cImpulse& _Vs );
 	virtual void Action( const Engine2D::cZone& _Vs );
 	virtual void Action( Engine2D::cDynamicCollection* const _Vs );
+	virtual void Action( Engine2D::cPassiveObject* const _Vs );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __PuffBOMB_Objects_HamsterCharacter_H__ //
