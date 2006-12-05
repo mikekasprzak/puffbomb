@@ -7,12 +7,14 @@
 #include <Global.h>
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
+cMessageEntity* cMessageEntity::Current;
+// - ------------------------------------------------------------------------------------------ - //
 cMessageEntity::cMessageEntity() :
 	EndTime( 0 ),
 	HasEndTime( false ),
 	BreakLoop( false )
 {
-
+	Current = this;
 }
 // - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();

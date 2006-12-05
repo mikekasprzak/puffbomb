@@ -6,6 +6,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cMessageEntity { 
 public:
+	static cMessageEntity* Current;
+	
+public:
 	int EndTime;
 	bool HasEndTime;
 	bool BreakLoop;
