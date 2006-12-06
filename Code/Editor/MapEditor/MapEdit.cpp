@@ -404,6 +404,7 @@ void cMapEdit::SwitchMap()
 				}
 
 				LoadMap();
+				CurSelected.clear();
 			}
 			else if( Button[ KEY_PLUS_PAD ].Pressed() )
 			{
@@ -417,6 +418,7 @@ void cMapEdit::SwitchMap()
 				}
 
 				LoadMap();
+				CurSelected.clear();
 			}
 		}
 	}
