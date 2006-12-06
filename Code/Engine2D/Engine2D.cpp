@@ -263,12 +263,18 @@ void cEngine2D::LoadMap( const std::string MapName )
 	
 		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
 		{
-			Zone.push_back( Engine2D::cZone( 
-				Map.ZoneInstanceInfo[ idx ].BoundingRect,
-				Map.ZoneInstanceInfo[ idx ].Id,
-				Map.ZoneInstanceInfo[ idx ].Arg
-				)
-			);
+			if ( Map.ZoneInstanceInfo[ idx ].Id == 1 ) {
+				Camera->CameraBounds = Map.ZoneInstanceInfo[ idx ].BoundingRect.ToPairRect();
+			}
+			else {
+				Zone.push_back(
+					Engine2D::cZone( 
+						Map.ZoneInstanceInfo[ idx ].BoundingRect,
+						Map.ZoneInstanceInfo[ idx ].Id,
+						Map.ZoneInstanceInfo[ idx ].Arg
+						)
+					);
+			}
 		}
 	}
 
