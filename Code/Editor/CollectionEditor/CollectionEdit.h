@@ -84,6 +84,8 @@ public:
 	// CollectionEditNode.cpp //
 	void NodeAddLink();
 	void NodeDeleteLink();
+	void NodeStrength( const Real Strength );
+	void NodeBreakPoint( const Real BreakPoint );
 	
 public:
 	// CollectionEditHard.cpp //

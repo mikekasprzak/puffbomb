@@ -79,5 +79,69 @@ void cCollectionEdit::NodeDeleteLink()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::NodeStrength( const Real Strength )
+{
+	if( Button[ KEY_LCTRL ] )
+	{
+		for( size_t idx = 0; idx < Collection.NodeLink.size(); ++idx )
+		{
+			if( Collection.NodeLink[ idx ].ObjectA == CurSelComp || Collection.NodeLink[ idx ].ObjectB == CurSelComp )
+			{
+				for( size_t i = 0; i < CurSelected.size(); ++i )
+				{
+					if( CurSelected[i] == Collection.NodeLink[ idx ].IndexA || CurSelected[i] == Collection.NodeLink[ idx ].IndexB )
+					{
+						if( Collection.NodeLink[ idx ].Strength > Real( 1.0 ) )
+						{
+							if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
+							{
+								Collection.NodeLink[ idx ].Strength -= Strength;
+								ActiveAction();
+							}
+						}
+						if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
+						{
+							Collection.NodeLink[ idx ].Strength += Strength;
+							ActiveAction();
+						}
+					}
+				}
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cCollectionEdit::NodeBreakPoint( const Real BreakPoint )
+{
+	if( Button[ KEY_LALT ] )
+	{
+		for( size_t idx = 0; idx < Collection.NodeLink.size(); ++idx )
+		{
+			if( Collection.NodeLink[ idx ].ObjectA == CurSelComp || Collection.NodeLink[ idx ].ObjectB == CurSelComp )
+			{
+				for( size_t i = 0; i < CurSelected.size(); ++i )
+				{
+					if( CurSelected[i] == Collection.NodeLink[ idx ].IndexA || CurSelected[i] == Collection.NodeLink[ idx ].IndexB )
+					{
+						if( Collection.NodeLink[ idx ].BreakPoint > Real( 1.0 ) )
+						{
+							if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
+							{
+								Collection.NodeLink[ idx ].BreakPoint -= BreakPoint;
+								ActiveAction();
+							}
+						}
+						if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
+						{
+							Collection.NodeLink[ idx ].BreakPoint += BreakPoint;
+							ActiveAction();
+						}
+					}
+				}
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //

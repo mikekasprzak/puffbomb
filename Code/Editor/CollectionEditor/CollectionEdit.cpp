@@ -181,6 +181,17 @@ void cCollectionEdit::Step()
 		DynSelect();
 		NodeAddLink();
 		NodeDeleteLink();
+		
+		if( Button[ KEY_LSHIFT ] )
+		{
+			NodeStrength( Real( 0.1 ) );
+			NodeBreakPoint( Real( 0.1 ) );
+		}
+		else
+		{
+			NodeStrength( Real( 1 ) );
+			NodeBreakPoint( Real( 1 ) );
+		}
 	}
 	else if( CurMode == COLL_HARD_NODE )
 	{
