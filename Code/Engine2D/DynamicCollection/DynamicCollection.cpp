@@ -80,10 +80,12 @@ int cDynamicCollection::Message( int, cPassiveObject* const ) {
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::Action( const cZone& ) {
+
+// - ------------------------------------------------------------------------------------------ - //
+void cDynamicCollection::Message( const cZone& ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicCollection::Action( const cImpulse& ) {
+void cDynamicCollection::Message( const cImpulse& ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 

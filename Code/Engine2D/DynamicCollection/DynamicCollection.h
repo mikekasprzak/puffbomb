@@ -81,8 +81,8 @@ public:
 	// Messanging //
 	virtual int Message( int Msg, cDynamicCollection* const Sender );
 	virtual int Message( int Msg, class cPassiveObject* const Sender );
-	virtual void Action( const cZone& _Vs );
-	virtual void Action( const cImpulse& _Vs );
+	virtual void Message( const cZone& Sender );
+	virtual void Message( const cImpulse& Sender );
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

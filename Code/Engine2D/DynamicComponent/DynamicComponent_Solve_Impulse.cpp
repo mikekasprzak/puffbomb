@@ -24,7 +24,7 @@ void cDynamicComponent::Solve( cImpulse& _Vs ) {
 	// Solve the collision //
 	if ( Body.Solve( _Vs ) ) {
 		// Take action based on the impulse //
-		Parent->Action( _Vs );
+		Parent->Message( _Vs );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

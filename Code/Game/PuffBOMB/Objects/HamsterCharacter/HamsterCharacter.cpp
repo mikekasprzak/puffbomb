@@ -35,12 +35,14 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const Sen
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cHamsterCharacter::Action( const Engine2D::cImpulse& _Vs ) {
+
+// - ------------------------------------------------------------------------------------------ - //
+void cHamsterCharacter::Message( const Engine2D::cImpulse& Sender ) {
 	Component[ 0 ].SetAnimation( 1 );
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cHamsterCharacter::Action( const Engine2D::cZone& _Vs ) {
-	switch ( _Vs.Id ) {
+void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
+	switch ( Sender.Id ) {
 		// Win Zonev!! //
 		case 9: {
 			
@@ -49,6 +51,8 @@ void cHamsterCharacter::Action( const Engine2D::cZone& _Vs ) {
 		}		
 	};
 }
+// - ------------------------------------------------------------------------------------------ - //
+
 // - ------------------------------------------------------------------------------------------ - //
 bool cHamsterCharacter::Work() {
 //	if ( Component[ 0 ].Body.CollisionFlags.Scenery() )
