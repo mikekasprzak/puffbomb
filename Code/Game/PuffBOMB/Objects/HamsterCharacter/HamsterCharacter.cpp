@@ -8,8 +8,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "HamsterCharacter.h"
 #include <Engine2D.h>
-
-#include <Framework/MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
 int cHamsterCharacter::Message( int Msg, Engine2D::cPassiveObject* const Sender ) {
 	switch ( Msg ) {
@@ -45,8 +43,8 @@ void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
 	switch ( Sender.Id ) {
 		// Win Zonev!! //
 		case 9: {
+			Engine2D::cEngine2D::Current->Message( 2, this );
 			
-			cMessageEntity::Current->BreakLoop = true;
 			break;
 		}		
 	};

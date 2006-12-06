@@ -22,9 +22,14 @@ public:
 //	void TurnBasedPlay();
 	void AddBombs();
 
+
+public:
+	// Victory related variables //
+	int CharactersAtEndZones;
+	
 public:
 	cClassicGameEngine( const std::string& FileName );
-	~cClassicGameEngine();
+	virtual ~cClassicGameEngine();
 	
 public:
 	void Step();

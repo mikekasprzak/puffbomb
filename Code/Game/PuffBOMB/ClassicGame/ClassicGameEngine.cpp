@@ -12,6 +12,7 @@
 #include <Particle2D/FXLibrary.h>
 #include <Particle2D/NewParticleFactory.h>
 
+#include <Framework/MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
@@ -57,6 +58,13 @@ cClassicGameEngine::~cClassicGameEngine() {
 
 // - ------------------------------------------------------------------------------------------ - //
 int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* const Sender ) {
+	switch ( Msg ) {
+		case 2: {
+			CharactersAtEndZones++;
+			break;
+		};
+	};
+	
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -67,6 +75,9 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* const Sender
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
+	// New Frame //
+	CharactersAtEndZones = 0;
+	
 	// When you push space, toggle activity //
 	if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() ) {
 		GameActive = !GameActive;
@@ -120,6 +131,11 @@ void cClassicGameEngine::Step() {
 		// Update Camera //
 		Camera->UpdateTarget( Cursor.Pos );
 		
+	}
+	
+	// End of loop //
+	if ( CharactersAtEndZones == 1 ) {
+		cMessageEntity::Current->BreakLoop = true;	
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

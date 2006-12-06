@@ -46,7 +46,7 @@ public:
 
 public:
 	cEngine2D();
-	~cEngine2D();
+	virtual ~cEngine2D();
 
 public:
 	// Move and Display Everything //
