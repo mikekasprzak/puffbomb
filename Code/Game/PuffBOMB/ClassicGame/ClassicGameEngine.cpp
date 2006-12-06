@@ -75,8 +75,10 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* const Sender
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
+	// ------------------------------------------------------------------------------------------ //
 	// New Frame //
 	CharactersAtEndZones = 0;
+	// ------------------------------------------------------------------------------------------ //
 	
 	// When you push space, toggle activity //
 	if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() ) {
@@ -130,13 +132,14 @@ void cClassicGameEngine::Step() {
 		
 		// Update Camera //
 		Camera->UpdateTarget( Cursor.Pos );
-		
 	}
 	
+	// ------------------------------------------------------------------------------------------ //
 	// End of loop //
-	if ( CharactersAtEndZones == 1 ) {
+	if ( CharactersAtEndZones == 2 ) {
 		cMessageEntity::Current->BreakLoop = true;	
 	}
+	// ------------------------------------------------------------------------------------------ //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Draw() {
@@ -180,18 +183,5 @@ void cClassicGameEngine::AddBombs() {
 	for ( int idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
 		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, Cursor.Bomb[ idx ].Time ) );
 	}
-	
-	//PassiveObject.push_back( CreatePassiveInstance( 2, Vector2D( -1200, 700 ), 10 ) );
-	//PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -1000, 600 ), 10 ) ); 
 }
-// - ------------------------------------------------------------------------------------------ - //
-
-// - ------------------------------------------------------------------------------------------ - //
-//void cClassicGameEngine::RealTimePlay() {
-//	if ( !Player.empty() ) {
-//		for ( size_t idx = 0; idx < Player.size(); idx++ ) {
-//			Player[ idx ]->Control();
-//		}
-//	}
-//}
 // - ------------------------------------------------------------------------------------------ - //

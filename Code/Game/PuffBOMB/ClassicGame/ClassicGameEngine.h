@@ -19,9 +19,7 @@ public:
 	cClassicCursor Cursor;
 
 public:
-//	void TurnBasedPlay();
 	void AddBombs();
-
 
 public:
 	// Victory related variables //
