@@ -49,7 +49,7 @@ cSuperFlow::cSuperFlow() :
 	State( stMainMenu ),
 	ClassicPath( "Maps/Classic/" ),
 	GolfPath( "Maps/Golf/" ),
-	CurClassicMap( 4 ),
+	CurClassicMap( 3 ),
 	CurGolfMap( 0 )
 {
 	SetHudData();

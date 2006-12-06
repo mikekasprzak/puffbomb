@@ -80,7 +80,8 @@ void cClassicGameEngine::FrameStart() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::FrameEnd() {
-	if ( CharactersAtEndZones == 2 ) {
+	//if ( CharactersAtEndZones == 2 ) {
+	if ( CharactersAtEndZones == 1 ) {
 		LevelComplete = true;
 		cMessageEntity::Current->BreakLoop = true;	
 	}
