@@ -44,6 +44,8 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 		Real( Global::ScreenH )						// Height
 	 );
 
+	SetActive();
+
 	LoadMap( FileName );
 	
 	NewParticle.Clear();
@@ -60,6 +62,13 @@ cClassicGameEngine::~cClassicGameEngine() {
 // - ------------------------------------------------------------------------------------------ - //
 int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* const Sender ) {
 	switch ( Msg ) {
+		// Add me to the follow list //
+		case 1: {
+			Log( 10, "*** I Have Recieved a Message saying I have people " );
+			CameraTracking.push_back( Sender );
+			break;
+		};
+		// I am at the end of the level //
 		case 2: {
 			CharactersAtEndZones++;
 			break;
@@ -104,8 +113,9 @@ void cClassicGameEngine::Step() {
 		}
 		else {
 			// Reset here, to restore everything back to it's home position, before we edit //
-			ResetMap();			
+			CameraTracking.clear();
 			Impulse.clear();
+			ResetMap();			
 		}
 	}
 
@@ -118,8 +128,9 @@ void cClassicGameEngine::Step() {
 		
 		// When you push backspace, reload/reset the level //
 		if( Input::Button[ KEY_TAB ].Pressed() ) {
-			ResetMap();
+			CameraTracking.clear();
 			Impulse.clear();
+			ResetMap();
 			AddBombs();
 		}
 	}
@@ -129,9 +140,15 @@ void cClassicGameEngine::Step() {
 		// Stuff my engine does before //
 		
 		// Hack to follow the hamster.  we need a way to identify the collection to follow //
-		if( DynamicCollection.size() >= 1 )
+		if( CameraTracking.size() >= 1 )
 		{
-			Camera->UpdateTarget( DynamicCollection[ 0 ]->Component[ 0 ].Body.BoundingRect.Center() );
+			Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
+			
+			for ( int idx = 1; idx < CameraTracking.size(); idx++ ) {
+				FollowRect += CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect();
+			}
+			
+			Camera->UpdateTarget( FollowRect.Center() );
 		}
 		
 		// Original Engine Step Stuff //

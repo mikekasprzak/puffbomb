@@ -7,6 +7,8 @@
 
 #include "Objects/HamsterCharacter/HamsterCharacter.h"
 // - ------------------------------------------------------------------------------------------ - //
+#include <Engine2D.h>
+// - ------------------------------------------------------------------------------------------ - //
 Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
@@ -25,7 +27,12 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 
 
 		case 64: {
-			return new cHamsterCharacter( Pos );
+			Log( 10, "*** Create" );
+			cHamsterCharacter* NewChar = new cHamsterCharacter( Pos );
+			Log( 10, "*** Send" );
+			Engine2D::cEngine2D::Current->Message( 1, NewChar );
+			Log( 10, "*** Return it" );
+			return NewChar;
 			break;
 		}
 		

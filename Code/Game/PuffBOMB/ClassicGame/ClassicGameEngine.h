@@ -17,6 +17,8 @@ public:
 public:
 	bool GameActive;
 	cClassicCursor Cursor;
+	
+	std::vector< Engine2D::cDynamicCollection* > CameraTracking;
 
 public:
 	void AddBombs();
