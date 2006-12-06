@@ -89,9 +89,11 @@ void cClassicGameEngine::FrameStart() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::FrameEnd() {
-	if ( CharactersAtEndZones == CameraTracking.size() ) {
-		LevelComplete = true;
-		cMessageEntity::Current->BreakLoop = true;	
+	if ( CameraTracking.size() != 0 ) {
+		if ( CharactersAtEndZones == CameraTracking.size() ) {
+			LevelComplete = true;
+			cMessageEntity::Current->BreakLoop = true;	
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
