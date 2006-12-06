@@ -23,7 +23,8 @@
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
-	GameActive( false )
+	GameActive( false ),
+	LevelComplete( false )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -74,10 +75,22 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* const Sender
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+void cClassicGameEngine::FrameStart() {
+	CharactersAtEndZones = 0;	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cClassicGameEngine::FrameEnd() {
+	if ( CharactersAtEndZones == 2 ) {
+		LevelComplete = true;
+		cMessageEntity::Current->BreakLoop = true;	
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
-	// ------------------------------------------------------------------------------------------ //
-	// New Frame //
-	CharactersAtEndZones = 0;
+	FrameStart();
+
 	// ------------------------------------------------------------------------------------------ //
 	
 	// When you push space, toggle activity //
@@ -135,11 +148,8 @@ void cClassicGameEngine::Step() {
 	}
 	
 	// ------------------------------------------------------------------------------------------ //
-	// End of loop //
-	if ( CharactersAtEndZones == 2 ) {
-		cMessageEntity::Current->BreakLoop = true;	
-	}
-	// ------------------------------------------------------------------------------------------ //
+	
+	FrameEnd();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Draw() {
