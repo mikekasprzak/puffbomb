@@ -56,6 +56,16 @@ cClassicGameEngine::~cClassicGameEngine() {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* const Sender ) {
+	return 0;
+}
+// - ------------------------------------------------------------------------------------------ - //
+int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* const Sender ) {
+	return 0;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
 	// When you push space, toggle activity //
 	if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() ) {

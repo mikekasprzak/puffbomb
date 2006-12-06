@@ -30,7 +30,11 @@ public:
 	void Step();
 	void Draw();
 	
+public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
+	virtual int Message( int Msg, Engine2D::cDynamicCollection* const Sender );
+	virtual int Message( int Msg, Engine2D::cPassiveObject* const Sender );	
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // ClassicGame // 

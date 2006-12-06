@@ -59,6 +59,13 @@ public:
 	void Reset();
 
 public:
+	// - -------------------------------------------------------------------------------------- - //
+	// Messanging //
+	virtual int Message( int Msg, cDynamicCollection* const Sender );
+	virtual int Message( int Msg, cPassiveObject* const Sender );
+
+public:
+	// - -------------------------------------------------------------------------------------- - //
 	// Claim the engine in control status //
 	inline void SetActive() {
 		Current = this;
