@@ -27,11 +27,10 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 
 
 		case 64: {
-			Log( 10, "*** Create" );
 			cHamsterCharacter* NewChar = new cHamsterCharacter( Pos );
-			Log( 10, "*** Send" );
-			Engine2D::cEngine2D::Current->Message( 1, NewChar );
-			Log( 10, "*** Return it" );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 1, NewChar );
+			}
 			return NewChar;
 			break;
 		}
