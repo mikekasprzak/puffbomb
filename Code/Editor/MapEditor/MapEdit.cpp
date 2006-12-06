@@ -9,7 +9,7 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-			#include <Animation/AnimationPool.h>
+//			#include <Animation/AnimationPool.h>
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>

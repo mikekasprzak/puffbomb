@@ -19,7 +19,8 @@
 
 #include <MainMenu/MainMenu.h>
 // - ------------------------------------------------------------------------------------------ - //
-
+#include <Util/DirectoryCache.h>
+#include <Util/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 // Use an ENUM to generate unique numbers for each SuperFlow State //
 /*enum {
@@ -45,8 +46,11 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 cSuperFlow::cSuperFlow() :
-	State( stMainMenu )
-//	State( stSykhronicsSplash )
+	State( stMainMenu ),
+	ClassicPath( "Maps/Classic/" ),
+	GolfPath( "Maps/Golf/" ),
+	CurClassicMap( 4 ),
+	CurGolfMap( 0 )
 {
 	SetHudData();
 	
@@ -59,8 +63,10 @@ cSuperFlow::cSuperFlow() :
 	Log( LOG_HIGHEST_LEVEL, "****** Loading Fonts ******" );
 	cFonts::LoadFonts();
 	
-	StateFlow();
+	FindMaps( ClassicPath, ClassicMaps );
+	FindMaps( GolfPath, GolfMaps );
 	
+	StateFlow();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cSuperFlow::StateFlow()
@@ -112,10 +118,24 @@ void cSuperFlow::StateFlow()
 			case stStartClassicGame:
 			{
 				// Start the game //
+				
+				int OldClassicMap = CurClassicMap;
 				{
-					cClassicGame Game( "Maps/Classic/Level05.map" );
+					cClassicGame Game( ClassicPath + ClassicMaps[ CurClassicMap ] );
+					
+					if( Game.Engine->LevelComplete ) // Re-add this if all the levels become beatable
+					{	
+						CurClassicMap++;
+					}
 				}
-				State = stMainMenu;
+				if( OldClassicMap == CurClassicMap )
+				{
+					State = stMainMenu;
+				}
+				else
+				{
+					State = stStartClassicGame;
+				}
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //
@@ -215,5 +235,23 @@ void cSuperFlow::SetHudData()
 	Global::HudW = Real( Global::Right * Real( 2.0 ) );
 	
 	Global::HudZoom = HudZoom;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cSuperFlow::FindMaps( const std::string& Path, std::vector< std::string >& Maps )
+{
+	
+	// Find all the .map files //
+	cDirectoryCache MapDirCache( Path );
+	
+	for( size_t idx = 0; idx < MapDirCache.File.size(); ++idx )
+	{
+		if( String::LastExtension( MapDirCache.File[idx] ) == ".map" )
+		{
+			//std::string TmpString = String::FileName( MapDirCache.File[idx] );
+			
+			//Log( LOG_HIGHEST_LEVEL, "Map " << TmpString );
+			Maps.push_back( MapDirCache.File[idx] );
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
