@@ -22,7 +22,7 @@ public:
 
 public:
 	// Messanging //
-	//virtual void Action( class cDynamicComponent& _Vs );
+	//virtual int Message( int Msg, cDynamicComponent* const Sender );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Engine2D_Engine_Distortion_H__ //

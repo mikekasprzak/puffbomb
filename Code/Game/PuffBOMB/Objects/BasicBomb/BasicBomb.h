@@ -24,7 +24,7 @@ public:
 
 public:
 	// Messanging //
-	//virtual void Action( class cDynamicComponent& _Vs );
+	//virtual int Message( int Msg, cDynamicComponent* const Sender );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __PuffBOMB_Objects_BasicBomb_H__ //

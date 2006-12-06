@@ -50,7 +50,7 @@ public:
 
 public:
 	// Messanging //
-	virtual void Action( const class cDynamicComponent* _Vs );
+	virtual int Message( int Msg, class cDynamicComponent* const Sender );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

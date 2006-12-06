@@ -27,7 +27,7 @@ void cDynamicComponent::Solve( cPassiveObject& _Vs ) {
 
 	// Send messages //
 	Parent->Message( 1, &_Vs );
-	_Vs.Action( this );
+	_Vs.Message( 1, this );
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

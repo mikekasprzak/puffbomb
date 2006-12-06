@@ -10,7 +10,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-void cPassiveObject::Action( const cDynamicComponent* _Vs ) {
+int cPassiveObject::Message( int Msg, cDynamicComponent* const Sender ) {
 //	switch ( Id ) {
 //		// Camera Boundary //
 //		case 1: {
@@ -29,6 +29,7 @@ void cPassiveObject::Action( const cDynamicComponent* _Vs ) {
 //			}
 //		}
 //	};
+	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
 bool cPassiveObject::Work() {

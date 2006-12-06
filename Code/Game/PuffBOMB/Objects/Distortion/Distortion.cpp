@@ -6,7 +6,7 @@
 #include "Distortion.h"
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-//void cDistortion::Action( cDynamicComponent& _Vs ) {
+//int cDistortion::Message( int Msg, cDynamicComponent* const Sender ) {
 //	switch ( Id ) {
 //		// Camera Boundary //
 //		case 1: {
@@ -25,6 +25,7 @@
 //			}
 //		}
 //	};
+//	return 0;
 //}
 // - ------------------------------------------------------------------------------------------ - //
 bool cDistortion::Work() {

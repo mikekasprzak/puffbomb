@@ -9,7 +9,7 @@
 #include "BasicBomb.h"
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-//void cBasicBomb::Action( cDynamicComponent& _Vs ) {
+//int cBasicBomb::Message( int Msg, cDynamicComponent* const Sender ) {
 //	switch ( Id ) {
 //		// Camera Boundary //
 //		case 1: {
@@ -28,6 +28,7 @@
 //			}
 //		}
 //	};
+//	return 0;
 //}
 // - ------------------------------------------------------------------------------------------ - //
 bool cBasicBomb::Work() {
