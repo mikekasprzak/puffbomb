@@ -11,12 +11,28 @@
 
 #include <Framework/MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
-void cHamsterCharacter::Action( Engine2D::cPassiveObject* const _Vs ) {
-	//Log( 10, "Teenage mundane samurai rodents!" );
+int cHamsterCharacter::Message( int Msg, Engine2D::cPassiveObject* const Sender ) {
+	switch ( Msg ) {
+		// Impact //
+		case 1: {
+			Log( 10, "Teenage mundane samurai rodents!" );
+			break;
+		}
+	};
+	
+	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cHamsterCharacter::Action( Engine2D::cDynamicCollection* const _Vs ) {
-	//Log( 10, "Cowabunga!" );
+int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const Sender ) {
+	switch ( Msg ) {
+		// Impact //
+		case 1: {
+			Log( 10, "Cowabunga!" );
+			break;
+		}
+	};
+	
+	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cHamsterCharacter::Action( const Engine2D::cImpulse& _Vs ) {

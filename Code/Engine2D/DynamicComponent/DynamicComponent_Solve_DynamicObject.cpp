@@ -30,8 +30,8 @@ void cDynamicComponent::Solve( cDynamicComponent& _Vs ) {
 	// Solve the collision //
 	if ( Body.Solve( _Vs.Body ) ) {
 		// Send messages //
-		Parent->Action( _Vs.Parent );
-		_Vs.Parent->Action( this->Parent );
+		Parent->Message( 1, _Vs.Parent );
+		_Vs.Parent->Message( 1, this->Parent );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

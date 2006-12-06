@@ -26,7 +26,7 @@ void cDynamicComponent::Solve( cPassiveObject& _Vs ) {
 		return;
 
 	// Send messages //
-	Parent->Action( &_Vs );
+	Parent->Message( 1, &_Vs );
 	_Vs.Action( this );
 }
 // - ------------------------------------------------------------------------------------------ - //
