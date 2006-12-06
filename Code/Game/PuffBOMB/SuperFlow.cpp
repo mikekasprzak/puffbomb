@@ -38,8 +38,8 @@
 };*/
 #define stSykhronicsSplash 0
 #define stMainMenu 1
-#define stStartClassicGame 2
-#define stStartGolfGame 4
+#define stClassicGame 2
+#define stGolfGame 4
 #define stEditor 3
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -115,17 +115,16 @@ void cSuperFlow::StateFlow()
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //
-			case stStartClassicGame:
+			case stClassicGame:
 			{
-				// Start the game //
-				
+				// Start the game //	
 				int OldClassicMap = CurClassicMap;
 				{
 					cClassicGame Game( ClassicPath + ClassicMaps[ CurClassicMap ] );
 					
 					if( Game.Engine->LevelComplete ) // Re-add this if all the levels become beatable
 					{	
-						if( CurClassicMap < ClassicMaps.size() )
+						if( size_t( CurClassicMap ) < ClassicMaps.size() )
 						{
 							CurClassicMap++;
 						}
@@ -137,12 +136,12 @@ void cSuperFlow::StateFlow()
 				}
 				else
 				{
-					State = stStartClassicGame;
+					State = stClassicGame;
 				}
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //
-			case stStartGolfGame:
+			case stGolfGame:
 			{
 				// Start the game //
 				{
