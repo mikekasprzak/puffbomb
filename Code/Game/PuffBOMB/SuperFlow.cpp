@@ -125,7 +125,10 @@ void cSuperFlow::StateFlow()
 					
 					if( Game.Engine->LevelComplete ) // Re-add this if all the levels become beatable
 					{	
-						CurClassicMap++;
+						if( CurClassicMap < ClassicMaps.size() )
+						{
+							CurClassicMap++;
+						}
 					}
 				}
 				if( OldClassicMap == CurClassicMap )
