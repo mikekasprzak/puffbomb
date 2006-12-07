@@ -48,6 +48,8 @@ cMainMenu::cMainMenu()
 	
 	srand ( time(NULL) );
 	
+	Gfx::DisableSmoothPolygon();
+	
 	Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -66,9 +68,10 @@ void cMainMenu::Draw()
 {
 	Camera->Update();
 
-	Gfx::DisableDepth();
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
+		
+	Gfx::StandardBlend();
 
 	NewParticle.Draw();
 
@@ -86,7 +89,6 @@ void cMainMenu::Draw()
 	// -------------- //
 #endif // EDITOR //
 	
-	Gfx::EnableDepth();
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();	
 }

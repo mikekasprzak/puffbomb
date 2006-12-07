@@ -147,7 +147,7 @@ void cMapEdit::Draw()
 
 	Gfx::StandardBlend();
 
-	Gfx::DisableDepth();
+//	Gfx::DisableDepth();
 	Gfx::DisableTex2D();
 	
 	if( CurMode != ZONE_MODE )
@@ -223,21 +223,22 @@ void cMapEdit::HudDraw()
 	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
-
+	
+	Gfx::SaturateBlend();
+	
 	DisplayText();
 	
 	if( CurMode == TILE_MODE )
 	{
-		
 		// Displays the preview mesh3d //
-		Gfx::EnableDepth();
+		//Gfx::EnableDepth();
 
 		Gfx::DrawMesh3D(
 			Mesh3DPreview.Object->Mesh,
 			Vector3D( Mesh3DPreview.Pos.x * Real( 3 ), Mesh3DPreview.Pos.y * Real( 3 ), Real( -Global::HudZoom * Real( 2 ) ) )
 		);
 
-		Gfx::DisableDepth();
+		//Gfx::DisableDepth();
 	}
 	else if( CurMode == ZONE_MODE )
 	{

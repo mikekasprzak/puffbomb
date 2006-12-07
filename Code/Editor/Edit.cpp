@@ -132,6 +132,8 @@ cEdit::cEdit() :
 
 	CalcUVZoomOffset();
 	
+	Gfx::EnableSmoothPolygon();
+	
 }
 
 cEdit::~cEdit()

@@ -55,27 +55,37 @@ void cDialogBox::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cDialogBox::Draw()
 {
-	if( IsVisable )
+/*	if( IsVisable )
 	{
 		DrawBoxFrame();
 	}
-	
+	*/
+		
 	if( IsLabelsVisable )
 	{
+		if( ActiveLabels[ Focus ] < 10000 )
+		{
+			TextLabel[ ActiveLabels[ Focus ] ].SelDraw();
+		}
+
 		for( size_t idx = 0; idx < TextLabel.size(); ++idx )
 		{
-			TextLabel[ idx ].Draw();
+			if( ActiveLabels[ Focus ] != idx )
+			{	
+				TextLabel[ idx ].Draw();
+			}
 		}
 		for( size_t idx = 0; idx < AniLabel.size(); ++idx )
 		{
 			AniLabel[ idx ].Draw();
 		}
-		
-		if( ActiveLabels[ Focus ] < 10000 )
-		{
-			TextLabel[ ActiveLabels[ Focus ] ].SelDraw();
-		}
 	}
+	
+	if( IsVisable )
+	{
+		DrawBoxFrame();
+	}
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDialogBox::DrawBoxFrame()

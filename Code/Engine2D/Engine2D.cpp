@@ -233,7 +233,7 @@ void cEngine2D::Draw() {
 		StaticObjectInstance[ idx ].DrawBody();
 	}
 */
-	Gfx::EnableDepth();
+//	Gfx::EnableDepth();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::LoadMap( const std::string MapName )

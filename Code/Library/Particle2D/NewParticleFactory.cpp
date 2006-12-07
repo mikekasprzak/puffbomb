@@ -281,7 +281,8 @@ void NewParticleFactory::Draw()
 		);
 		
 		// Disables additive blending //
-		Gfx::StandardBlend();
+		//Gfx::StandardBlend();
+		Gfx::SaturateBlend();
 	}
 	
 	/*

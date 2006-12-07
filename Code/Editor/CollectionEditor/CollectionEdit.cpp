@@ -21,6 +21,7 @@ cCollectionEdit::cCollectionEdit() :
 	LastNode( 0 )
 {
 	Camera->Pos.z = Global::HudZoom;
+	Camera->NearClip = Real( 1.0 );
 	
 	Physics.ZeroGravity();
 	Physics.Friction = Real( 0.8 );
@@ -50,39 +51,9 @@ void cCollectionEdit::Draw()
 {
 	Camera->Update();
 	
-	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
-	Gfx::EnableDepth();
-
-	Gfx::DisableDepth();
-
-	// Draw our collection //
-	Collection.Draw();
-
-	Gfx::AddBlend();
-
-	if( CurMode == COLL_STATIC_COMP )
-	{
-		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-		{
-			Collection.Component[ CurSelected[ idx ] ].Draw();
-		}
-	}
-	else if( CurMode == COLL_DYNAMIC_COMP )
-	{
-		Collection.Component[ CurSelComp ].Draw();
-	}
-	else if( CurMode == COLL_NODE_LINK )
-	{
-		
-	}
-	else if( CurMode == COLL_HARD_NODE )
-	{
-
-	}
 	
-
-	Gfx::StandardBlend();
+	Gfx::SaturateBlend();
 	
 	Gfx::DisableTex2D();
 
@@ -109,6 +80,33 @@ void cCollectionEdit::Draw()
 	Gfx::SetLineWidth( 1.0 );
 
 	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
+	
+	Gfx::EnableTex2D();
+
+	// Draw our collection //
+	Collection.Draw();
+
+	Gfx::AddBlend();
+
+	if( CurMode == COLL_STATIC_COMP )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Collection.Component[ CurSelected[ idx ] ].Draw();
+		}
+	}
+	else if( CurMode == COLL_DYNAMIC_COMP )
+	{
+		Collection.Component[ CurSelComp ].Draw();
+	}
+	else if( CurMode == COLL_NODE_LINK )
+	{
+		
+	}
+	else if( CurMode == COLL_HARD_NODE )
+	{
+
+	}
 	
 		
 	DrawSelBox();

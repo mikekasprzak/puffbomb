@@ -168,7 +168,8 @@ int main( int argc, char* argv[] ) {
 		glLineWidth( 1.0 );
 		
 		glShadeModel( GL_SMOOTH );
-		glEnable( GL_DEPTH_TEST );
+//		glEnable( GL_DEPTH_TEST );
+		glDisable( GL_DEPTH_TEST );
 		glDepthFunc( GL_LEQUAL );
 		glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 		

@@ -141,7 +141,7 @@ void cClassicCursor::Step() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicCursor::Draw() {
 	Gfx::DisableTex2D();
-	Gfx::DisableDepth();
+//	Gfx::DisableDepth();
 
 	// Draw the cursor //
 	if ( Selection == -1 ) {
@@ -167,7 +167,7 @@ void cClassicCursor::Draw() {
 	}
 	
 	Gfx::EnableTex2D();
-	Gfx::EnableDepth();
+//	Gfx::EnableDepth();
 }
 // - ------------------------------------------------------------------------------------------ - //
 bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) const {

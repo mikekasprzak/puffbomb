@@ -107,6 +107,8 @@ namespace Gfx {
 	void SaturateBlend();
 	void EnableDepth();
 	void DisableDepth();
+	void EnableSmoothPolygon();
+	void DisableSmoothPolygon();
 	void BindTexture( unsigned int& TextureId );
 	void DeleteTexture( unsigned int& TextureId );
 	void SetLineWidth( const Real Num );

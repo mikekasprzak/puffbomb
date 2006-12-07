@@ -34,6 +34,8 @@ cComponentEdit::cComponentEdit() :
 	Camera->Aspect *= Real(0.75);
 	Camera->Width *= Real(0.75);
 	
+	Camera->NearClip = Real( 1.0 );
+	
 	// Create Cameras //
 	UVCamera = new cCamera(
 		Vector3D( 128.0, 128.0, 400.0 ),				// Pos
@@ -145,7 +147,7 @@ void cComponentEdit::Draw()
 {
 	Camera->Update();
 
-	Gfx::EnableDepth();
+//	Gfx::EnableDepth();
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 
@@ -344,7 +346,7 @@ void cComponentEdit::HudDraw()
 {
 	HudCamera->Update();
 
-	Gfx::DisableDepth();
+//	Gfx::DisableDepth();
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	
@@ -359,7 +361,7 @@ void cComponentEdit::HudDraw()
 //
 //	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 184, 0, 0, 255 ) );
 //	// -------------- //
-	Gfx::EnableDepth();
+//	Gfx::EnableDepth();
 	Gfx::DisableBlend();
 	Gfx::DisableTex2D();
 }
