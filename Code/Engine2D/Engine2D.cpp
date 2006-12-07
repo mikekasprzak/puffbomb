@@ -32,6 +32,11 @@ cEngine2D::cEngine2D() {
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )							// Height
 	 );
+	 
+	Gfx::EnableSmoothPolygon();
+	 
+ 	Gfx::SaturateBlend();
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 cEngine2D::~cEngine2D() {
@@ -206,6 +211,8 @@ void cEngine2D::Draw() {
 
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
+
+	Gfx::SaturateBlend();
 
 	// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
 	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {

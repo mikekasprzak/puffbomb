@@ -190,7 +190,6 @@ void cClassicGameEngine::Draw() {
 
 	// -- Hud Camera Space -------------------------- //
 	HudCamera->Update();
-
 	
 #ifdef EDITOR
 	//	//  DISPLAYS FPS  //
