@@ -134,12 +134,9 @@ int main( int argc, char* argv[] ) {
 	
 	Log( LOG_HIGHEST_LEVEL, "" );
 	
-	glEnable (GL_DEPTH_TEST);
-	
 	// Create our Screen //
 	SDL_Surface* Surface = SetVideoMode();
 	
-
 	// Disable Vertical Sync //	
 /*	{
 		typedef void (APIENTRY * WGLSWAPINTERVALEXT) ( int ) ;
@@ -166,6 +163,7 @@ int main( int argc, char* argv[] ) {
 		glEnable( GL_CULL_FACE );
 	
 		glEnable( GL_LINE_SMOOTH );
+		glEnable( GL_POLYGON_SMOOTH );
 		glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
 		glLineWidth( 1.0 );
 		

@@ -104,6 +104,7 @@ namespace Gfx {
 	void DisableBlend();
 	void EnableAddBlend();
 	void DisableAddBlend();
+	void SaturateBlend();
 	void EnableDepth();
 	void DisableDepth();
 	void BindTexture( unsigned int& TextureId );
