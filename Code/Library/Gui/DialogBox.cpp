@@ -55,12 +55,11 @@ void cDialogBox::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cDialogBox::Draw()
 {
-/*	if( IsVisable )
+	if( IsVisable )
 	{
 		DrawBoxFrame();
 	}
-	*/
-		
+	
 	if( IsLabelsVisable )
 	{
 		if( ActiveLabels[ Focus ] < 10000 )
@@ -79,11 +78,6 @@ void cDialogBox::Draw()
 		{
 			AniLabel[ idx ].Draw();
 		}
-	}
-	
-	if( IsVisable )
-	{
-		DrawBoxFrame();
 	}
 
 }

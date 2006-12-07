@@ -71,9 +71,9 @@ void cMainMenu::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 		
-	Gfx::StandardBlend();
-
 	NewParticle.Draw();
+
+	Gfx::StandardBlend();
 
 	Form.Draw();
 	
