@@ -82,7 +82,7 @@ void cMessageEntity::GlobalInput()
 // ---------------------------------------------------------------------------------------------- //
 void cMessageEntity::Work()
 {
-	Gfx::DisableAddBlend();
+	Gfx::StandardBlend();
 	
 	int LastTime = GetTime();
 	int BeginTime = LastTime;

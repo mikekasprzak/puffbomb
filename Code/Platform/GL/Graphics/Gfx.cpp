@@ -378,13 +378,13 @@ namespace Gfx
 		glDisable( GL_BLEND );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void EnableAddBlend()
+	void AddBlend()
 	{
 		// Enables additive blending //
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void DisableAddBlend()
+	void StandardBlend()
 	{
 		// Disables additive blending //
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

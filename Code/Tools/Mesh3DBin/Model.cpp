@@ -345,8 +345,19 @@ void cModel::Load( const std::string& FileName )
 //	Log( LOG_HIGHEST_LEVEL, "Finished Loading Model File" );
 }
 // - ------------------------------------------------------------------------------------------ - //
+#include <algorithm>
+#include <functional>
+// - ------------------------------------------------------------------------------------------ - //
+bool compare_vert(const cModel::cObject &a, const cModel::cObject &b) 
+{
+    return a.Vertex[ 0 ].c < b.Vertex[ 0 ].c;
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cModel::SaveBin( char* NewName )
-{	
+{
+	std::sort( Object.begin(), Object.end(), compare_vert );
+		
+
 /*	
 	std::string NewName = String::DirectorySlash( PathName )
 						+ String::BaseName( PathName )

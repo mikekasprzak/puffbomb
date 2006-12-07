@@ -102,8 +102,8 @@ namespace Gfx {
 	void DisableTex2D();
 	void EnableBlend();
 	void DisableBlend();
-	void EnableAddBlend();
-	void DisableAddBlend();
+	void AddBlend();
+	void StandardBlend();
 	void SaturateBlend();
 	void EnableDepth();
 	void DisableDepth();

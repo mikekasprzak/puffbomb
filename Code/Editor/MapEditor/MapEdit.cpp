@@ -118,7 +118,7 @@ void cMapEdit::Draw()
 	}
 
 	// Draw selected //
-	Gfx::EnableAddBlend();
+	Gfx::AddBlend();
 
 	for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 	{
@@ -145,7 +145,7 @@ void cMapEdit::Draw()
 		}
 	}
 
-	Gfx::DisableAddBlend();
+	Gfx::StandardBlend();
 
 	Gfx::DisableDepth();
 	Gfx::DisableTex2D();

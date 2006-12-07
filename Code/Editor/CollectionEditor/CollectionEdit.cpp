@@ -59,7 +59,7 @@ void cCollectionEdit::Draw()
 	// Draw our collection //
 	Collection.Draw();
 
-	Gfx::EnableAddBlend();
+	Gfx::AddBlend();
 
 	if( CurMode == COLL_STATIC_COMP )
 	{
@@ -82,7 +82,7 @@ void cCollectionEdit::Draw()
 	}
 	
 
-	Gfx::DisableAddBlend();
+	Gfx::StandardBlend();
 	
 	Gfx::DisableTex2D();
 

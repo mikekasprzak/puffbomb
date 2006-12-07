@@ -269,7 +269,7 @@ void NewParticleFactory::Draw()
 	for( size_t SegIdx = 0; SegIdx < AdditiveSize; SegIdx++ )
 	{
 		// Enables additive blending //
-		Gfx::EnableAddBlend();
+		Gfx::AddBlend();
 
 		Gfx::DrawQuads(
 			&Vertex[ 0 ],
@@ -281,7 +281,7 @@ void NewParticleFactory::Draw()
 		);
 		
 		// Disables additive blending //
-		Gfx::DisableAddBlend();
+		Gfx::StandardBlend();
 	}
 	
 	/*
