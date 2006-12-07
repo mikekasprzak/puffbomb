@@ -133,7 +133,9 @@ int main( int argc, char* argv[] ) {
 	Input::Init();
 	
 	Log( LOG_HIGHEST_LEVEL, "" );
-
+	
+	glEnable (GL_DEPTH_TEST);
+	
 	// Create our Screen //
 	SDL_Surface* Surface = SetVideoMode();
 	
