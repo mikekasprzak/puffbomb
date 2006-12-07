@@ -17,7 +17,7 @@ cSplashScreen::cSplashScreen() :
 		Vector3D( 0.0, 1.0, 0.0 ),						// Up
 		45.0,											// Field of View
 		Global::AspectRatio,							// Aspect Ratio
-		1.0,											// NearClip
+		1000.0,											// NearClip
 		100000.0,										// FarClip
 		Global::HudZoom,								// MinZoom
 		Global::HudZoom,								// MaxZoom
