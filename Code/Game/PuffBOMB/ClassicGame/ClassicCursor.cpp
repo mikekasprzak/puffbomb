@@ -52,6 +52,7 @@ void cClassicCursor::Step() {
 				// Add a bomb //
 				Bomb.push_back( cBombInfo( Pos ) );
 				Selection = Bomb.size() - 1;
+				TimeMode = false;
 			}
 			// If there is //
 			else {
