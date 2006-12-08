@@ -1,7 +1,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "GolfGameEngine.h"
 // - ------------------------------------------------------------------------------------------ - //
-
+#include "CreateCollectionInstance.h"
+#include "CreatePassiveInstance.h"
+#include "CreateZoneInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
@@ -34,6 +36,8 @@ cGolfGameEngine::cGolfGameEngine() :
 	 );
 	 
  	LoadMap( "Maps/Golf/Level01.map" );
+ 	
+ 	PassiveObject.push_back( CreatePassiveInstance( 5, Vector2D( 0, 0 ) ) );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::~cGolfGameEngine() {
@@ -89,20 +93,32 @@ void cGolfGameEngine::TurnBasedPlay() {
 	if ( !Player.empty() ) {
 		switch( State ) {
 			case 1: {
-				// Stage 1 - Asking for input ------------------------------------------------- - //
+				// Stage 1 - Attract Mode ----------------------------------------------------- - //
+				State = 2;
+				
+				break;
+			};
+			case 2: {
+				// Stage 2 - Add Players (if not added) --------------------------------------- - //
+
+				State = 3;
+				break;
+			};
+			case 3: {
+				// Stage 3 - Asking for input ------------------------------------------------- - //
 				
 				// If our control is all done, and wants action //
 				if ( Player[ CurrentPlayer ]->Control() ) {
 					// Create Bomb at position requested //
 					
 					// Change State, to play it out //
-					State = 2;
+					State = 4;
 				}
 				
 				break;
 			}
-			case 2: {
-				// Stage 2 - Acting on input (and waiting for the turn to end) ---------------- - //		
+			case 4: {
+				// Stage 4 - Acting on input (and waiting for the turn to end) ---------------- - //		
 				
 				// If Turn is over //
 				if ( false ) {
@@ -113,7 +129,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 					}
 					
 					// Change State, to ask player for his control (input) //
-					State = 1;
+					State = 2;
 				}
 				
 				break;
