@@ -350,7 +350,7 @@ void cModel::Load( const std::string& FileName )
 // - ------------------------------------------------------------------------------------------ - //
 bool compare_vert(const cModel::cObject &a, const cModel::cObject &b) 
 {
-    return a.Vertex[ 0 ].c < b.Vertex[ 0 ].c;
+    return a.Vertex[ 0 ].c > b.Vertex[ 0 ].c;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cModel::SaveBin( char* NewName )

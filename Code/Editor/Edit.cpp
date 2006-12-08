@@ -131,9 +131,7 @@ cEdit::cEdit() :
 	TexIndices[3] = 3;
 
 	CalcUVZoomOffset();
-	
-	Gfx::EnableSmoothPolygon();
-	
+
 }
 
 cEdit::~cEdit()

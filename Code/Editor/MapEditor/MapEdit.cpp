@@ -103,8 +103,8 @@ void cMapEdit::Draw()
 	
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
-//	Gfx::EnableDepth();
-	Gfx::SaturateBlend();
+	Gfx::EnableDepth();
+//	Gfx::SaturateBlend();
 
 	// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
 	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
@@ -147,7 +147,7 @@ void cMapEdit::Draw()
 
 	Gfx::StandardBlend();
 
-//	Gfx::DisableDepth();
+	Gfx::DisableDepth();
 	Gfx::DisableTex2D();
 	
 	if( CurMode != ZONE_MODE )
@@ -213,6 +213,7 @@ void cMapEdit::Draw()
 	}
 
 	Gfx::DisableBlend();
+//	Gfx::DisableDepth();
 	
 	HudDraw();
 }
@@ -224,21 +225,21 @@ void cMapEdit::HudDraw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	
-	Gfx::SaturateBlend();
+//	Gfx::SaturateBlend();
 	
 	DisplayText();
 	
 	if( CurMode == TILE_MODE )
 	{
 		// Displays the preview mesh3d //
-		//Gfx::EnableDepth();
+		Gfx::EnableDepth();
 
 		Gfx::DrawMesh3D(
 			Mesh3DPreview.Object->Mesh,
 			Vector3D( Mesh3DPreview.Pos.x * Real( 3 ), Mesh3DPreview.Pos.y * Real( 3 ), Real( -Global::HudZoom * Real( 2 ) ) )
 		);
 
-		//Gfx::DisableDepth();
+		Gfx::DisableDepth();
 	}
 	else if( CurMode == ZONE_MODE )
 	{

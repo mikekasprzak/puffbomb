@@ -92,13 +92,19 @@ SDL_Surface* SetVideoMode() {
 //	SDL_GL_SetAttribute( SDL_GL_ACCUM_BLUE_SIZE, 8 );
 //	SDL_GL_SetAttribute( SDL_GL_ACCUM_ALPHA_SIZE, 8 );
 	
-	SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
-	SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 4 );	
+	//SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
+	//SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 4 ); 
 
 //	SDL_GL_SetAttribute( SDL_GL_SUGGEST, SDL_GL_DOUBLEBUFFER | SDL_GL_Z_DEPTH | SDL_GL_RENDERMETHOD | SDL_GL_SAMPLE_BUFFERS | SDL_GL_SAMPLES );
 
 	SDL_WM_SetCaption( "PuffBOMB", NULL );
 
+
+//	float largest_supported_anisotropy;
+//	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &largest_supported_anisotropy);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, &largest_supported_anisotropy);
+//-	Log( LOG_HIGHEST_LEVEL, "largest_supported_anisotropy: " << largest_supported_anisotropy );
+	
 	// Create our Screen //
 	Log( LOG_HIGHEST_LEVEL, "Setting Video Mode: " << Global::ScreenW << "x" << Global::ScreenH );
 	return SDL_SetVideoMode( Global::ScreenW, Global::ScreenH, ColorDepth, VideoFlags );	
@@ -163,7 +169,7 @@ int main( int argc, char* argv[] ) {
 		glEnable( GL_CULL_FACE );
 	
 		glEnable( GL_LINE_SMOOTH );
-		glEnable( GL_POLYGON_SMOOTH );
+//		glEnable( GL_POLYGON_SMOOTH );  // used in the bad anti-aliasing
 		glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
 		glLineWidth( 1.0 );
 		

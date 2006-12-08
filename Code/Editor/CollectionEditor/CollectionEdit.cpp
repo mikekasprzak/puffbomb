@@ -53,34 +53,6 @@ void cCollectionEdit::Draw()
 	
 	Gfx::EnableBlend();
 	
-	Gfx::SaturateBlend();
-	
-	Gfx::DisableTex2D();
-
-	Gfx::SetLineWidth( 1.0 );
-
-	Collection.DebugDraw();
-
-	if( CurMode == COLL_DYNAMIC_COMP || CurMode == COLL_NODE_LINK || CurMode == COLL_HARD_NODE )
-	{
-		Gfx::SetLineWidth( 4.0 );
-		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-		{
-			Collection.Component[ CurSelComp ].Body.DrawNode( CurSelected[ idx ], true );
-			
-			for( size_t SphereIdx = 0; SphereIdx < Collection.Component[ CurSelComp ].Body.SphereSize(); ++SphereIdx )
-			{
-				if( CurSelected[idx] == Collection.Component[ CurSelComp ].Body.Sphere( SphereIdx ).Index )
-				{
-					Collection.Component[ CurSelComp ].Body.DrawSphere( SphereIdx, true );
-				}
-			}
-		}
-	}
-	Gfx::SetLineWidth( 1.0 );
-
-	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
-	
 	Gfx::EnableTex2D();
 
 	// Draw our collection //
@@ -108,6 +80,33 @@ void cCollectionEdit::Draw()
 
 	}
 	
+	Gfx::StandardBlend();
+
+	Gfx::DisableTex2D();
+
+	Gfx::SetLineWidth( 1.0 );
+
+	Collection.DebugDraw();
+
+	if( CurMode == COLL_DYNAMIC_COMP || CurMode == COLL_NODE_LINK || CurMode == COLL_HARD_NODE )
+	{
+		Gfx::SetLineWidth( 4.0 );
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			Collection.Component[ CurSelComp ].Body.DrawNode( CurSelected[ idx ], true );
+			
+			for( size_t SphereIdx = 0; SphereIdx < Collection.Component[ CurSelComp ].Body.SphereSize(); ++SphereIdx )
+			{
+				if( CurSelected[idx] == Collection.Component[ CurSelComp ].Body.Sphere( SphereIdx ).Index )
+				{
+					Collection.Component[ CurSelComp ].Body.DrawSphere( SphereIdx, true );
+				}
+			}
+		}
+	}
+	Gfx::SetLineWidth( 1.0 );
+
+	DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 		
 	DrawSelBox();
 
