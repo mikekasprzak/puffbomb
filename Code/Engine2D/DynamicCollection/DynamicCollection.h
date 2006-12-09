@@ -73,7 +73,19 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Query if this object is, at all, enabled //
 	inline bool IsActive() {
-		return true;
+		return Component[ 0 ].IsActive() != 0;
+	}
+	
+	void Activate() {
+		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+			Component[ idx ].State.SetActive();
+		}
+	}
+
+	void Deactivate() {
+		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+			Component[ idx ].State.ResetActive();
+		}
 	}
 
 public:

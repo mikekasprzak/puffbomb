@@ -43,12 +43,12 @@ cGolfGameEngine::cGolfGameEngine() :
  	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
  	PassiveObject.push_back( StartPoint );
  	
- 	
  	// Add Players //
- 	for ( int idx = 0; idx < 2; idx++ ) {
+ 	for ( int idx = 0; idx < 4; idx++ ) {
  		Engine2D::cDynamicCollection* MyCol = CreateCollectionInstance( 64, StartPoint->Pos );
  		AddCollection( MyCol );
  		Player.push_back( new cLocalJoyPlayer( MyCol ) );
+ 		MyCol->Deactivate();
  	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -111,7 +111,8 @@ void cGolfGameEngine::TurnBasedPlay() {
 				break;
 			};
 			case 2: {
-				// Stage 2 - Add Players (if not added) --------------------------------------- - //
+				// Stage 2 - Activate Players (if not activated) ------------------------------ - //
+				Player[ CurrentPlayer ]->MyObject->Activate();
 
 				State = 3;
 				break;
@@ -133,7 +134,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 				// Stage 4 - Acting on input (and waiting for the turn to end) ---------------- - //		
 				
 				// If Turn is over //
-				if ( false ) {
+				if ( true ) {
 					// Next Player //
 					CurrentPlayer++;
 					if ( CurrentPlayer >= Player.size() ) {
