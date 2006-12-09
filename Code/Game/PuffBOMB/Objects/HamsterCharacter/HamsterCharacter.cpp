@@ -13,7 +13,7 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cPassiveObject* const Sender 
 	switch ( Msg ) {
 		// Impact //
 		case 1: {
-			Log( 10, "Teenage mundane samurai rodents!" );
+			//Log( 10, "Teenage mundane samurai rodents!" );
 			break;
 		}
 	};
@@ -25,7 +25,7 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const Sen
 	switch ( Msg ) {
 		// Impact //
 		case 1: {
-			Log( 10, "Cowabunga!" );
+			//Log( 10, "Cowabunga!" );
 			break;
 		}
 	};
