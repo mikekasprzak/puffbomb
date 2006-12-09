@@ -13,7 +13,7 @@ public:
 	int MyInputDevice;
 
 public:
-	cLocalJoyPlayer( /*cDynamicCollection* _MyObject, int _MyInputDevice = 0*/ );
+	cLocalJoyPlayer( Engine2D::cDynamicCollection* _MyObject, int _MyInputDevice = 0 );
 	virtual ~cLocalJoyPlayer();
 	
 public:

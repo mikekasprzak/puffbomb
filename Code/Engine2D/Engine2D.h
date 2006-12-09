@@ -70,6 +70,9 @@ public:
 	inline void SetActive() {
 		Current = this;
 	}
+	
+public:
+	void AddCollection( cDynamicCollection* _Col );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

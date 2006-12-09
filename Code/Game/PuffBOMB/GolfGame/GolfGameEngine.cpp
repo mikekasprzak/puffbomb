@@ -5,6 +5,8 @@
 #include "CreatePassiveInstance.h"
 #include "CreateZoneInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
+#include "Player/LocalJoyPlayer.h"
+// - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
 #include <Graphics/Gfx.h>
@@ -37,7 +39,17 @@ cGolfGameEngine::cGolfGameEngine() :
 	 
  	LoadMap( "Maps/Golf/Level01.map" );
  	
- 	PassiveObject.push_back( CreatePassiveInstance( 5, Vector2D( 0, 0 ) ) );
+ 	// Add the start point (temporarily) //
+ 	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
+ 	PassiveObject.push_back( StartPoint );
+ 	
+ 	
+ 	// Add Players //
+ 	for ( int idx = 0; idx < 2; idx++ ) {
+ 		Engine2D::cDynamicCollection* MyCol = CreateCollectionInstance( 64, StartPoint->Pos );
+ 		AddCollection( MyCol );
+ 		Player.push_back( new cLocalJoyPlayer( MyCol ) );
+ 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::~cGolfGameEngine() {

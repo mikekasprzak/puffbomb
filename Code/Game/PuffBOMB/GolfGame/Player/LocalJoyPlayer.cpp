@@ -5,7 +5,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cLocalJoyPlayer::cLocalJoyPlayer( /*cDynamicCollection* _MyObject, int _MyInputDevice*/ ) {
+cLocalJoyPlayer::cLocalJoyPlayer( Engine2D::cDynamicCollection* _MyObject, int _MyInputDevice ) :
+	cPlayer( _MyObject ),
+	MyInputDevice( _MyInputDevice )
+{
 	
 }
 // - ------------------------------------------------------------------------------------------ - //

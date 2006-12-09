@@ -9,7 +9,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cRemotePlayer: public cPlayer { 
 public:
-	cRemotePlayer();
+	cRemotePlayer( Engine2D::cDynamicCollection* _MyObject );
 	virtual ~cRemotePlayer();
 	
 public:

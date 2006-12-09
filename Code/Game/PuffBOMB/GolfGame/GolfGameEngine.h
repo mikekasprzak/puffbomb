@@ -16,6 +16,9 @@ public:
 	cCamera *HudCamera;
 
 public:
+	// Start point //
+	Engine2D::cPassiveObject* StartPoint;
+	
 	// Our players //
 	std::vector< cPlayer* > Player;
 	

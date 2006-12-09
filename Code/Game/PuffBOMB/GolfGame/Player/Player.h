@@ -23,7 +23,7 @@ public:
 	// Total Time taken over all turns (hahaha... stupid statistic) //
 	
 public:
-	cPlayer();
+	cPlayer( Engine2D::cDynamicCollection* _MyObject );
 	virtual ~cPlayer();
 	
 public:

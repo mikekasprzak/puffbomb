@@ -8,7 +8,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cLocalAIPlayer: public cPlayer { 
 public:
-	cLocalAIPlayer();
+	cLocalAIPlayer( Engine2D::cDynamicCollection* _MyObject );
 	virtual ~cLocalAIPlayer();
 	
 public:

@@ -344,5 +344,15 @@ void cEngine2D::ResetMap()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::AddCollection( cDynamicCollection* _Col ) {
+	// Add the collection //
+	DynamicCollection.push_back( _Col );
+
+	// Add it's parts to the component list //
+	for ( size_t idx2 = 0; idx2 < _Col->Component.size(); idx2++ ) {
+		DynamicComponent.push_back( &_Col->Component[ idx2 ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
 // - ------------------------------------------------------------------------------------------ - //
