@@ -25,7 +25,6 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			break;
 		}
 
-
 		case 64: {
 			cHamsterCharacter* NewChar = new cHamsterCharacter( Pos );
 			if ( Engine2D::cEngine2D::Current ) {

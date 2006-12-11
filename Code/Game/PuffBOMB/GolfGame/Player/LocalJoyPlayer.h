@@ -12,6 +12,7 @@ class cLocalJoyPlayer: public cPlayer {
 public:
 	int MyInputDevice;
 
+
 public:
 	cLocalJoyPlayer( Engine2D::cDynamicCollection* _MyObject, int _MyInputDevice = 0 );
 	virtual ~cLocalJoyPlayer();

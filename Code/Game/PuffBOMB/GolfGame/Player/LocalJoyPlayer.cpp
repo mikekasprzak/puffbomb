@@ -19,7 +19,6 @@ cLocalJoyPlayer::~cLocalJoyPlayer() {
 
 // - ------------------------------------------------------------------------------------------ - //
 bool cLocalJoyPlayer::Control() {
-	
 	if ( MyJoy().Button[ PAD_A ].Pressed() ) {
 		return true;
 	}
