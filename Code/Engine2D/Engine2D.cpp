@@ -14,7 +14,12 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 // Static instance to know who's active is inside "Engine2D_Current.cpp" //
 // - ------------------------------------------------------------------------------------------ - //
-cEngine2D::cEngine2D() {
+cEngine2D::cEngine2D() :
+	ShowCollectionDebug( false ),
+	ShowStaticDebug( false ),
+	ShowPassiveDebug( false ),
+	ShowZoneDebug( false )
+{
 	// Create Camera //
 	Camera = new cCamera(
 		Vector3D( 0.0, 0.0, Global::HudZoom * Real( 2 ) ),			// Pos
@@ -197,6 +202,30 @@ void cEngine2D::Step() {
 	// Other //
 //	Form.Step();
 	
+	// - -------------------------------------------------------------------------------------- - //
+	// Debug Info //
+	if ( Input::Button[ KEY_0 ].Pressed() ) {
+		ShowCollectionDebug = !ShowCollectionDebug;
+		ShowPassiveDebug = ShowCollectionDebug;
+		ShowZoneDebug = ShowCollectionDebug;
+		ShowStaticDebug = ShowCollectionDebug;
+	}
+	
+	if ( Input::Button[ KEY_9 ].Pressed() ) {
+		ShowCollectionDebug = !ShowCollectionDebug;
+	}
+
+	if ( Input::Button[ KEY_8 ].Pressed() ) {
+		ShowStaticDebug = !ShowStaticDebug;
+	}
+
+	if ( Input::Button[ KEY_7 ].Pressed() ) {
+		ShowPassiveDebug = !ShowPassiveDebug;
+	}
+
+	if ( Input::Button[ KEY_6 ].Pressed() ) {
+		ShowZoneDebug = !ShowZoneDebug;
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Draw() {
@@ -222,23 +251,41 @@ void cEngine2D::Draw() {
 			DynamicComponent[ idx ]->Draw();
 		}
 	}
-/*
+
 	Gfx::DisableTex2D();
 	Gfx::DisableDepth();
-	Gfx::DisableBlend();
+	//Gfx::DisableBlend();
 
 	// Draw Objects //
-	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-		DynamicComponent[ idx ]->DrawBody();
+	if ( ShowCollectionDebug ) {
+		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+			DynamicComponent[ idx ]->DrawBody();
+		}
 	}
 
 	// Draw Tiles //
-	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-		StaticObjectInstance[ idx ].DrawBody();
+	if ( ShowStaticDebug ) {
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+			StaticObjectInstance[ idx ].DrawBody();
+		}
 	}
-*/
-//	Gfx::EnableDepth();
-	Gfx::DisableDepth();
+
+	// Draw Passive Object //
+	if ( ShowPassiveDebug ) {
+		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+			PassiveObject[ idx ]->DebugDraw();
+		}
+	}
+
+	// Draw Zone //
+	if ( ShowZoneDebug ) {
+		for ( size_t idx = 0; idx < Zone.size(); ++idx ) {
+			Zone[ idx ].DebugDraw();
+		}
+	}
+
+	Gfx::EnableDepth();
+	Gfx::EnableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::LoadMap( const std::string MapName )

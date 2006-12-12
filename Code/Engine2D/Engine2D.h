@@ -73,6 +73,13 @@ public:
 	
 public:
 	void AddCollection( cDynamicCollection* _Col );
+	
+public:
+	// Debug Info //
+	bool ShowCollectionDebug;
+	bool ShowStaticDebug;
+	bool ShowPassiveDebug;
+	bool ShowZoneDebug;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

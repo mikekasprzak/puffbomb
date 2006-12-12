@@ -185,6 +185,7 @@ void cClassicGameEngine::Draw() {
 
 	// Things to draw only when the game isn't active //
 	if ( !GameActive ) {
+		Gfx::DisableDepth();
 		Cursor.Draw();
 	}	
 

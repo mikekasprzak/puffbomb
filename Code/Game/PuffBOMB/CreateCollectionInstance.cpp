@@ -51,6 +51,8 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 		}
 	}
 	
+	// Say something loud to note that a Collection Intance wasn't created correctly //
+	
 	// In case the function accidentially doesn't return anything //
 	return 0;
 }
