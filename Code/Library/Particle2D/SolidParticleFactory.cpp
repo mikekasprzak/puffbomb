@@ -289,51 +289,55 @@ void SolidParticleFactory::Draw()
 }
 // - ------------------------------------------------------------------------------------------ - //
 void SolidParticleFactory::SolveVsObjects( cParticle& Particle ) {
-	// Calculate bounding rectangle of particle  //
+	if( Engine2D::cEngine2D::Current )
+	{
+		
+		// Calculate bounding rectangle of particle  //
+		
+		
+		// For every dynamic component //
+		for ( size_t idx = 0; idx < Engine2D::cEngine2D::Current->DynamicComponent.size(); idx++ ) {
+			const Engine2D::cDynamicComponent& MyComponent = *(Engine2D::cEngine2D::Current->DynamicComponent[ idx ]);
+			
+			// Early out Active //
+			if ( !MyComponent.IsActive() ) 
+				continue;
+			
+			// Early out Rectangle //
+			
+			// Test all speheres against point //
+			for ( size_t idx2 = 0; idx2 < MyComponent.Body.SphereSize(); idx2++ ) {
+				const Engine2D::cSphere& MySphere = MyComponent.Body.Sphere( idx2 );
+				const int& Index = MySphere.Index;
 	
-	// For every dynamic component //
-	for ( size_t idx = 0; idx < Engine2D::cEngine2D::Current->DynamicComponent.size(); idx++ ) {
-		const Engine2D::cDynamicComponent& MyComponent = *(Engine2D::cEngine2D::Current->DynamicComponent[ idx ]);
-		
-		// Early out Active //
-		if ( !MyComponent.IsActive() ) 
-			continue;
-		
-		// Early out Rectangle //
-		
-		
-		// Test all speheres against point //
-		for ( size_t idx2 = 0; idx2 < MyComponent.Body.SphereSize(); idx2++ ) {
-			const Engine2D::cSphere& MySphere = MyComponent.Body.Sphere( idx2 );
-			const int& Index = MySphere.Index;
-
-			// Sum of Radius //				
-			Real RadiusSum = MySphere.Radius + Real( 0 );
-			Real RadiusSumSquared = RadiusSum * RadiusSum;
-
-			// Optimized Verlet with Square Root Approximation //
-			Vector2D Ray = Particle.Pos - MyComponent.Body.Nodes.Pos( Index );
-			
-			// Bail if not touching //
-			if ( RadiusSumSquared < Ray.MagnitudeSquared() ) {
-				continue;
+				// Sum of Radius //				
+				Real RadiusSum = MySphere.Radius + Real( 0 );
+				Real RadiusSumSquared = RadiusSum * RadiusSum;
+	
+				// Optimized Verlet with Square Root Approximation //
+				Vector2D Ray = Particle.Pos - MyComponent.Body.Nodes.Pos( Index );
+				
+				// Bail if not touching //
+				if ( RadiusSumSquared < Ray.MagnitudeSquared() ) {
+					continue;
+				}
+	
+				// Bail if he's a sensor //
+				if ( MySphere.Flags.Sensor() ) {
+					continue;
+				}
+				
+				// Solve (Massless with square root approximation) //
+				Real Divisor = ( (Ray * Ray) + (RadiusSumSquared) ) - Real( 0.5 );
+				if ( Divisor.IsZero() )
+					continue;
+	
+				Ray *= (RadiusSumSquared) / Divisor;
+	
+				//Particle.Pos -= Ray;
+				Particle.Velocity = -( ( Ray.Normal() * Particle.Velocity ) * Real( 2 ) * ( Ray.Normal() ) );
+			//	Particle.Velocity += Ray;
 			}
-
-			// Bail if he's a sensor //
-			if ( MySphere.Flags.Sensor() ) {
-				continue;
-			}
-			
-			// Solve (Massless with square root approximation) //
-			Real Divisor = ( (Ray * Ray) + (RadiusSumSquared) ) - Real( 0.5 );
-			if ( Divisor.IsZero() )
-				continue;
-
-			Ray *= (RadiusSumSquared) / Divisor;
-
-			Particle.Velocity += Ray;
-			Particle.Velocity += Ray;
-			Particle.Velocity += Ray;
 		}
 	}
 }

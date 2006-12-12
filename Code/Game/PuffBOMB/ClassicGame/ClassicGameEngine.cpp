@@ -100,6 +100,15 @@ void cClassicGameEngine::FrameEnd() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
+
+
+// DELETE THIS WHEN YOU GET SICK OF THE RANDOM PARTICLE SHIT //
+#include <Particle2D/FXLibrary.h>
+// - ------------------------------------------------------------------------------------------ - //
+extern int GetTime();
+
+int LastTime;
+
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
 	FrameStart();
@@ -160,6 +169,20 @@ void cClassicGameEngine::Step() {
 		// Stuff my engine does after //
 		SolidParticle.Step();
 		DenseParticle.Step();
+		
+		// Bad Rain Thing !/ //
+		if( LastTime < GetTime() )
+		{
+			int XPos = rand() % int( Global::HudW ) - int( Global::Right );
+			int YPos = rand() % int( Global::HudH ) - int( Global::Top );
+			
+			FXLibrary::Rain( Vector2D( XPos, YPos ) );
+			
+			LastTime = GetTime() + 80;
+		}
+
+		
+		
 	}
 	// If the engine is not active, then we'r in edit mode //
 	else {
