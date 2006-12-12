@@ -37,7 +37,7 @@ cGolfGameEngine::cGolfGameEngine() :
 		Real( Global::ScreenH )						// Height
 	 );
 	 
- 	LoadMap( "Maps/Golf/Level01.map" );
+ 	LoadMap( "Maps/Golf/Level02.map" );
  	
  	// Add the start point (temporarily) //
  	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
