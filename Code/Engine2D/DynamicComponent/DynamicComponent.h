@@ -80,7 +80,7 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Query the state to know if component is active //
-	inline bool IsActive() {
+	inline bool IsActive() const {
 		return State.Active();
 	}
 

@@ -52,10 +52,17 @@ public:
 	);
 
 	void SetParticleData( const int SegIdx );
+
 	// - -------------------------------------------------------------------------------------- - //
 
 	void Step();
 	void Draw();
+
+	// - -------------------------------------------------------------------------------------- - //
+	
+	void SolveVsObjects( cParticle& Particle );
+	void SolveVsStatics( cParticle& Particle );
+	void SolveVsImpulses( cParticle& Particle );
 };
 // - ------------------------------------------------------------------------------------------ - //
 extern SolidParticleFactory SolidParticle;

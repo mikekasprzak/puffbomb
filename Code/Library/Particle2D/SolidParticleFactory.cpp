@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <functional>
 // - ------------------------------------------------------------------------------------------ - //
+#include <Engine2D.h>
+// - ------------------------------------------------------------------------------------------ - //
 SolidParticleFactory SolidParticle;
 // - ------------------------------------------------------------------------------------------ - //
 void SolidParticleFactory::Populate( int Num )
@@ -178,12 +180,23 @@ void SolidParticleFactory::SetParticleData( const int SegIdx )
 // - ------------------------------------------------------------------------------------------ - //
 void SolidParticleFactory::Step()
 {
+	// For every segment //
 	for( size_t SegIdx = 0; SegIdx < Segment.size(); SegIdx++ )
 	{
+		// Calculate first polygon co-ordinate offset //
 		OffsetIdx = Segment[ SegIdx ]->IndicesIdx;
+		// For every part of a segment //
 		for( int idx = Segment[ SegIdx ]->Start; idx < Segment[ SegIdx ]->SegIdx; idx++ )
 		{
+			// Step the physics of the particle (move it based on all it's factors) //
 			Particles[ idx ].Step();
+			
+			// Do collision //
+			SolveVsImpulses( Particles[ idx ] );
+			SolveVsObjects( Particles[ idx ] );
+			SolveVsStatics( Particles[ idx ] );
+			
+			// If the particle dies, remove it's particle //
 			if( Particles[ idx ].Life <= 0 )
 			{
 				while( Particles[ idx ].Life <= 0 && Segment[ SegIdx ]->Start < Segment[ SegIdx ]->SegIdx )
@@ -200,6 +213,8 @@ void SolidParticleFactory::Step()
 			Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;  // this made the particles twitch once and a while
 			Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
 */
+			
+			// Generate co-ordinates for the polygons in a particle //			
 			Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
 			VertColor[ OffsetIdx ] = Gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
 		
@@ -217,6 +232,8 @@ void SolidParticleFactory::Step()
 		
 			++OffsetIdx;
 		}
+		
+		// If the segment dies, remove the segment //
 		if( Segment[ SegIdx ]->SegIdx == Segment[ SegIdx ]->Start )
 		{
 			Release( SegIdx );
@@ -269,5 +286,63 @@ void SolidParticleFactory::Draw()
 		// Disables additive blending //
 		Gfx::StandardBlend();
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void SolidParticleFactory::SolveVsObjects( cParticle& Particle ) {
+	// Calculate bounding rectangle of particle  //
+	
+	// For every dynamic component //
+	for ( size_t idx = 0; idx < Engine2D::cEngine2D::Current->DynamicComponent.size(); idx++ ) {
+		const Engine2D::cDynamicComponent& MyComponent = *(Engine2D::cEngine2D::Current->DynamicComponent[ idx ]);
+		
+		// Early out Active //
+		if ( !MyComponent.IsActive() ) 
+			continue;
+		
+		// Early out Rectangle //
+		
+		
+		// Test all speheres against point //
+		for ( size_t idx2 = 0; idx2 < MyComponent.Body.SphereSize(); idx2++ ) {
+			const Engine2D::cSphere& MySphere = MyComponent.Body.Sphere( idx2 );
+			const int& Index = MySphere.Index;
+
+			// Sum of Radius //				
+			Real RadiusSum = MySphere.Radius + Real( 0 );
+			Real RadiusSumSquared = RadiusSum * RadiusSum;
+
+			// Optimized Verlet with Square Root Approximation //
+			Vector2D Ray = Particle.Pos - MyComponent.Body.Nodes.Pos( Index );
+			
+			// Bail if not touching //
+			if ( RadiusSumSquared < Ray.MagnitudeSquared() ) {
+				continue;
+			}
+
+			// Bail if he's a sensor //
+			if ( MySphere.Flags.Sensor() ) {
+				continue;
+			}
+			
+			// Solve (Massless with square root approximation) //
+			Real Divisor = ( (Ray * Ray) + (RadiusSumSquared) ) - Real( 0.5 );
+			if ( Divisor.IsZero() )
+				continue;
+
+			Ray *= (RadiusSumSquared) / Divisor;
+
+			Particle.Velocity += Ray;
+			Particle.Velocity += Ray;
+			Particle.Velocity += Ray;
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void SolidParticleFactory::SolveVsStatics( cParticle& Particle ) {
+	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void SolidParticleFactory::SolveVsImpulses( cParticle& Particle ) {
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
