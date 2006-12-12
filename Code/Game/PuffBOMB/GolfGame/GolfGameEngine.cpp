@@ -145,6 +145,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 				// Stage 2 - Activate Players (if not activated) ------------------------------ - //
 				Player[ CurrentPlayer ]->MyObject->Activate();
 
+
 				State = 3;
 				break;
 			};
