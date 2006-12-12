@@ -523,8 +523,8 @@ void FXLibrary::Rain( const Vector2D& Pos )
 		return;
 	}
 
-//	cAnimation& ParticleTest = AnimationPool.Load( "RainParticle.anim" );
-	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
+	cAnimation& ParticleTest = AnimationPool.Load( "RainParticle.anim" );
+//	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
 
 	int MaxSteps = 20;
 	for( int idx = 0; idx < MaxSteps; idx++ )
@@ -532,16 +532,31 @@ void FXLibrary::Rain( const Vector2D& Pos )
 		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
 
 		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
+
+		Vector2D Velocity = Point * Real::Random() * 3;
 		
 		// Bad circle explosion //
 		
 		//Vector2D Velocity = Point * Real::Random() * Real(2.5);
-		Vector2D Velocity = Point * Real(1.5);
+//		Vector2D Velocity = Point * Real(2.5);
 		
 		Real LifeTime = Real::Random() * Real(30) + Real(500);
 
 		// Additive //
 		SolidParticle.Add(
+			Pos, 		// Pos //
+			Velocity,	// Velocity //
+			Vector2D( 0, -0.1 ),  			// Acceleration //
+			Vector2D::Zero,		// Drift //
+			int( LifeTime ), 	// Life //
+			ParticleTest,		// Animation //
+			255,						// Alpha //
+			20,							// Fade // What time to start fading //
+			AdditiveParticles
+		);
+		
+		/*
+				SolidParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -552,6 +567,8 @@ void FXLibrary::Rain( const Vector2D& Pos )
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
 		);
+*/
+		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

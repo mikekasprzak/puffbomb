@@ -173,12 +173,12 @@ void cClassicGameEngine::Step() {
 		// Bad Rain Thing !/ //
 		if( LastTime < GetTime() )
 		{
-			int XPos = rand() % int( Global::HudW ) - int( Global::Right );
-			int YPos = rand() % int( Global::HudH ) - int( Global::Top );
+			int XPos = rand() % ( int( Global::HudW * Real( 4 ) ) - int( Global::Right * Real( 4 ) ) );
+			int YPos = rand() % ( int( Global::HudH * Real( 4 ) ) - int( Global::Top * Real( 4 ) ) );
 			
-			FXLibrary::Rain( Vector2D( XPos, YPos ) );
+			FXLibrary::Rain( Vector2D( XPos - 2500, YPos + 3000 ) );
 			
-			LastTime = GetTime() + 80;
+			LastTime = GetTime() + 40;
 		}
 
 		
