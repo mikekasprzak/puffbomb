@@ -73,7 +73,7 @@ void cMainMenu::Draw()
 	Gfx::EnableBlend();
 		
 	DenseParticle.Draw();
-//	SolidParticle.Draw();
+	SolidParticle.Draw();
 
 	Gfx::StandardBlend();
 
@@ -130,6 +130,6 @@ void cMainMenu::Step()
 	}
 	
 	DenseParticle.Step();
-//	SolidParticle.Step();
+	SolidParticle.Step();
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -12,7 +12,7 @@
 class SolidParticleFactory
 {
 public:
-	std::vector< cSegment > Segment;	
+	std::vector< cSegment* > Segment;	
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	SolidParticleFactory() :

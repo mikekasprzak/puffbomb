@@ -323,7 +323,7 @@ void FXLibrary::Steam( const Vector2D& Pos, const Vector2D& Direction )
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::Bomb( const Vector2D& Pos )
 {
-	int AdditiveParticles = SolidParticle.Allocate( 300, true );
+	int AdditiveParticles = DenseParticle.Allocate( 300, true );
 	
 	if( AdditiveParticles == -1 )
 	{
@@ -347,7 +347,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 		Real LifeTime = Real(45);
 
 			// Additive //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -363,7 +363,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 		Velocity = Point * Real(3.85);
 		
 		// Additive //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -378,7 +378,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 		Velocity = Point * Real(4);
 		
 		// Additive //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -475,20 +475,20 @@ void FXLibrary::CrazyTest( const Vector2D& Pos )
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::OutlineTest( const Vector2D& Pos )
 {
-	int FlatParticles = SolidParticle.Allocate( 240, false );
+	int FlatParticles = DenseParticle.Allocate( 240, false );
 
 	if( FlatParticles == -1 )
 	{
 		return;
 	}
 	
-	int TempStart = SolidParticle.Segment[ FlatParticles ].Start;
+	int TempStart = DenseParticle.Segment[ FlatParticles ]->Start;
 	
-	int AdditiveParticles = SolidParticle.Allocate( 240, true );
+	int AdditiveParticles = DenseParticle.Allocate( 240, true );
 	
-	for( size_t idx = 0; idx < SolidParticle.Segment.size(); idx++ )
+	for( size_t idx = 0; idx < DenseParticle.Segment.size(); idx++ )
 	{
-		if( SolidParticle.Segment[ idx ].Start == TempStart )
+		if( DenseParticle.Segment[ idx ]->Start == TempStart )
 		{
 			FlatParticles = idx;
 			break;
@@ -497,7 +497,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 	
 	if( AdditiveParticles == -1 )
 	{
-		SolidParticle.Release( FlatParticles );
+		DenseParticle.Release( FlatParticles );
 		return;
 	}
 
@@ -517,7 +517,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		Real LifeTime = Real::Random() * Real(30) + Real(30);
 
 		// Additive //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -530,7 +530,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		);
 		
 		// Flat //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -548,7 +548,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		LifeTime = Real::Random() * Real(30) + Real(50);
 		
 		// Additive //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -561,7 +561,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		);
 		
 		// Flat //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -580,7 +580,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		Vector2D MyDrift = Vector2D( 0.0, -0.001 * Real::Random() );
 		
 		// Additive //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
@@ -593,7 +593,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		);
 		
 		// Flat //
-		SolidParticle.Add(
+		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
