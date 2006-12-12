@@ -44,7 +44,7 @@ void NewParticleFactory::Populate( int Num )
 	Segment.reserve( 1024 );
 }
 // - ------------------------------------------------------------------------------------------ - //
-bool compare_segment(const NewParticleFactory::cSegment &a, const NewParticleFactory::cSegment &b) 
+bool compare_segment(const cSegment &a, const cSegment &b) 
 {
     return a.Start < b.Start;
 }
