@@ -8,7 +8,7 @@
 #include "Player/LocalJoyPlayer.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
-#include <Particle2D/NewParticleFactory.h>
+#include <Particle2D/DenseParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
@@ -42,7 +42,7 @@ cGolfGameEngine::cGolfGameEngine() :
 	 
  	LoadMap( "Maps/Golf/Level02.map" );
  	
- 	NewParticle.Clear();
+ 	DenseParticle.Clear();
  	
  	// Add the start point (temporarily) //
  	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
@@ -79,7 +79,7 @@ void cGolfGameEngine::Step() {
 	// Stuff my engine does after //
 	TurnBasedPlay();
 
-	NewParticle.Step();	
+	DenseParticle.Step();	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cGolfGameEngine::Draw() {
@@ -112,7 +112,7 @@ void cGolfGameEngine::Draw() {
 		Gfx::EnableTex2D();
 	}
 	
-	NewParticle.Draw();
+	DenseParticle.Draw();
 
 	HudCamera->Update();
 	
