@@ -1,15 +1,15 @@
 // - ------------------------------------------------------------------------------------------ - //
-// NewParticleFactory //
+// SolidParticleFactory //
 // - ------------------------------------------------------------------------------------------ - //
 #include <Animation/AnimationPool.h>
-#include "NewParticleFactory.h"
+#include "SolidParticleFactory.h"
 
 #include <algorithm>
 #include <functional>
 // - ------------------------------------------------------------------------------------------ - //
-NewParticleFactory NewParticle;
+SolidParticleFactory SolidParticle;
 // - ------------------------------------------------------------------------------------------ - //
-void NewParticleFactory::Populate( int Num )
+void SolidParticleFactory::Populate( int Num )
 {
 //	Vertex.resize( Num * 4 );
 //	TexCoord.resize( Num * 4 );
@@ -49,7 +49,7 @@ bool compare_segment(const cSegment &a, const cSegment &b)
     return a.Start < b.Start;
 }
 // - ------------------------------------------------------------------------------------------ - //
-int NewParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive )
+int SolidParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive )
 {
 	int ParticleIdx = 0;
 	
@@ -97,7 +97,7 @@ int NewParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive 
 	return -1;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void NewParticleFactory::Release( const int SegIdx )
+void SolidParticleFactory::Release( const int SegIdx )
 {
 	Segment[ SegIdx ].Start = Particles.size();
 	
@@ -106,12 +106,12 @@ void NewParticleFactory::Release( const int SegIdx )
 	Segment.pop_back();
 }
 // - ------------------------------------------------------------------------------------------ - //
-void NewParticleFactory::Clear()
+void SolidParticleFactory::Clear()
 {
 	Segment.clear();
 }
 // - ------------------------------------------------------------------------------------------ - //
-void NewParticleFactory::Add(
+void SolidParticleFactory::Add(
 	const Vector2D &_Pos,
 	const Vector2D &_Velocity,
 	const Vector2D &_Acceleration,
@@ -148,7 +148,7 @@ void NewParticleFactory::Add(
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void NewParticleFactory::SetParticleData( const int SegIdx )
+void SolidParticleFactory::SetParticleData( const int SegIdx )
 {
 	OffsetIdx = Segment[ SegIdx ].IndicesIdx;
 
@@ -182,7 +182,7 @@ void NewParticleFactory::SetParticleData( const int SegIdx )
 	Segment[ SegIdx ].TextureID = Particles[ Segment[ SegIdx ].Start ].Animator.CurDrawFrame->TextureId;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void NewParticleFactory::Step()
+void SolidParticleFactory::Step()
 {
 	for( size_t SegIdx = 0; SegIdx < Segment.size(); SegIdx++ )
 	{
@@ -240,7 +240,7 @@ void NewParticleFactory::Step()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void NewParticleFactory::Draw()
+void SolidParticleFactory::Draw()
 {
 	int AdditiveArray[ Segment.size() ];
 	size_t AdditiveSize = 0;

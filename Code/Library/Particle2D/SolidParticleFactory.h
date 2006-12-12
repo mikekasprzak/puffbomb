@@ -1,21 +1,21 @@
 // - ------------------------------------------------------------------------------------------ - //
-// NewParticleFactory //
+// SolidParticleFactory //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Particle2D_NewParticleFactory_H__
-#define __Library_Particle2D_NewParticleFactory_H__
+#ifndef __Library_Particle2D_SolidParticleFactory_H__
+#define __Library_Particle2D_SolidParticleFactory_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "Particle.h"
 #include "Segment.h"
 #include <Animation/Animation.h>
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-class NewParticleFactory
+class SolidParticleFactory
 {
 public:
 	std::vector< cSegment > Segment;	
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	NewParticleFactory() :
+	SolidParticleFactory() :
 		OffsetIdx( 0 )
 	{
 		
@@ -58,7 +58,7 @@ public:
 	void Draw();
 };
 // - ------------------------------------------------------------------------------------------ - //
-extern NewParticleFactory NewParticle;
+extern SolidParticleFactory SolidParticle;
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Particle2D_NewParticleFactory_H__ //
+#endif // __Library_Particle2D_SolidParticleFactory_H__ //
 // - ------------------------------------------------------------------------------------------ - //

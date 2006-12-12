@@ -10,7 +10,7 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
-#include <Particle2D/NewParticleFactory.h>
+#include <Particle2D/SolidParticleFactory.h>
 
 #include <Framework/MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -48,7 +48,7 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 
 	LoadMap( FileName );
 	
-	NewParticle.Clear();
+	SolidParticle.Clear();
 	
 	AddBombs();		
 }
@@ -156,7 +156,7 @@ void cClassicGameEngine::Step() {
 		cEngine2D::Step();
 		
 		// Stuff my engine does after //
-		NewParticle.Step();
+		SolidParticle.Step();
 	}
 	// If the engine is not active, then we'r in edit mode //
 	else {
@@ -181,7 +181,7 @@ void cClassicGameEngine::Draw() {
 	// -- Stuff my engine does after ---------------- //
 
 	// Particle System //
-	NewParticle.Draw();
+	SolidParticle.Draw();
 
 	// Things to draw only when the game isn't active //
 	if ( !GameActive ) {

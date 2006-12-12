@@ -8,7 +8,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 // DELETE THIS WHEN YOU GET SICK OF THE RANDOM PARTICLE SHIT //
 #include <Particle2D/FXLibrary.h>
-#include <Particle2D/NewParticleFactory.h>
+#include <Particle2D/SolidParticleFactory.h>
 
 #include <stdlib.h>
 #include <time.h>
@@ -71,7 +71,7 @@ void cMainMenu::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 		
-	NewParticle.Draw();
+	SolidParticle.Draw();
 
 	Gfx::StandardBlend();
 
@@ -113,6 +113,6 @@ void cMainMenu::Step()
 		LastTime = GetTime() + 30;
 	}
 	
-	NewParticle.Step();
+	SolidParticle.Step();
 }
 // - ------------------------------------------------------------------------------------------ - //

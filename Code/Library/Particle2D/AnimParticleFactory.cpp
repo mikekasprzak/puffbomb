@@ -1,12 +1,12 @@
 // - ------------------------------------------------------------------------------------------ - //
-// ParticleFactory //
+// AnimParticleFactory //
 // - ------------------------------------------------------------------------------------------ - //
-#include "ParticleFactory.h"
+#include "AnimParticleFactory.h"
 // - ------------------------------------------------------------------------------------------ - //
-ParticleFactory FlatParticle;
-ParticleFactory AdditiveParticle;
+AnimParticleFactory AnimFlatParticle;
+AnimParticleFactory AnimAdditiveParticle;
 // - ------------------------------------------------------------------------------------------ - //
-void ParticleFactory::Populate( int Num )
+void AnimParticleFactory::Populate( int Num )
 {
 	Vertex.resize( Num * 4 );
 	TexCoord.resize( Num * 4 );
@@ -19,7 +19,7 @@ void ParticleFactory::Populate( int Num )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void ParticleFactory::Step()
+void AnimParticleFactory::Step()
 {
 	ParticleSize = 0;
 	
@@ -75,7 +75,7 @@ void ParticleFactory::Step()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void ParticleFactory::Draw()
+void AnimParticleFactory::Draw()
 {
 // Without Color changes or alpha //
 	Gfx::DrawQuads(

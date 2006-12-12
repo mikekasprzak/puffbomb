@@ -1,19 +1,19 @@
 // - ------------------------------------------------------------------------------------------ - //
-// ParticleFactory //
+// AnimParticleFactory //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Rendo_ParticleFactory_H__
-#define __Rendo_ParticleFactory_H__
+#ifndef __Library_Particle2D_AnimParticleFactory_H__
+#define __Library_Particle2D_AnimParticleFactory_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "Particle.h"
 #include <Animation/Animation.h>
 #include <list>
 // - ------------------------------------------------------------------------------------------ - //
-class ParticleFactory;
+class AnimParticleFactory;
 // - ------------------------------------------------------------------------------------------ - //
-extern ParticleFactory FlatParticle;
-extern ParticleFactory AdditiveParticle;
+extern AnimParticleFactory AnimFlatParticle;
+extern AnimParticleFactory AnimAdditiveParticle;
 // - ------------------------------------------------------------------------------------------ - //
-class ParticleFactory
+class AnimParticleFactory
 {
 public:
 	// - -------------------------------------------------------------------------------------- - //
@@ -22,7 +22,7 @@ public:
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	ParticleFactory()
+	AnimParticleFactory()
 	{
 		
 	}
@@ -121,5 +121,5 @@ public:
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Rendo_ParticleFactory_H__ //
+#endif // __Library_Particle2D_AnimParticleFactory_H__ //
 // - ------------------------------------------------------------------------------------------ - //

@@ -4,7 +4,7 @@
 #include <Util/Debug.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
-#include <Particle2D/NewParticleFactory.h>
+//#include <Particle2D/SolidParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "HamsterCharacter.h"
 #include <Engine2D.h>

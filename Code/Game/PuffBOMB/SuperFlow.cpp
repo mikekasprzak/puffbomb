@@ -9,8 +9,8 @@
 #include <Editor/Editor.h>
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
-#include <Particle2D/ParticleFactory.h>
-#include <Particle2D/NewParticleFactory.h>
+#include <Particle2D/AnimParticleFactory.h>
+#include <Particle2D/SolidParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SplashScreen/SplashScreen.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -55,10 +55,10 @@ cSuperFlow::cSuperFlow() :
 	SetHudData();
 	
 	// Populate the particle factorys with their max number of particles //
-	FlatParticle.Populate( 500 );
-	AdditiveParticle.Populate( 500 );
+	AnimFlatParticle.Populate( 500 );
+	AnimAdditiveParticle.Populate( 500 );
 
-	NewParticle.Populate( 40000 );
+	SolidParticle.Populate( 40000 );
 
 	Log( LOG_HIGHEST_LEVEL, "****** Loading Fonts ******" );
 	cFonts::LoadFonts();
