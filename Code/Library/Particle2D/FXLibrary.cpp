@@ -6,6 +6,7 @@
 #include <Animation/Animation.h>
 #include <Particle2D/AnimParticleFactory.h>
 #include <Particle2D/SolidParticleFactory.h>
+#include <Particle2D/DenseParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -395,7 +396,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::CrazyTest( const Vector2D& Pos )
 {
-	int AdditiveParticles = SolidParticle.Allocate( 120, true );
+/*	int AdditiveParticles = SolidParticle.Allocate( 120, true );
 	
 	if( AdditiveParticles == -1 )
 	{
@@ -429,6 +430,47 @@ void FXLibrary::CrazyTest( const Vector2D& Pos )
 			AdditiveParticles
 		);
 	}
+	
+	*/
+	
+	
+		int AdditiveParticles = DenseParticle.Allocate( 120, true );
+	
+	if( AdditiveParticles == -1 )
+	{
+		return;
+	}
+
+	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
+
+	int MaxSteps = 120;
+	for( int idx = 0; idx < MaxSteps; idx++ )
+	{
+		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+
+		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
+		// Bad circle explosion //
+		
+		Vector2D Velocity = Point * Real::Random() * Real(1.5);
+		
+		Real LifeTime = Real::Random() * Real(30) + Real(30);
+
+		// Additive //
+		DenseParticle.Add(
+			Pos, 		// Pos //
+			Velocity,	// Velocity //
+			Vector2D::Zero,  			// Acceleration //
+			Vector2D::Zero,		// Drift //
+			int( LifeTime ), 	// Life //
+			ParticleTest,		// Animation //
+			255,						// Alpha //
+			20,							// Fade // What time to start fading //
+			AdditiveParticles
+		);
+	}
+	
+	
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::OutlineTest( const Vector2D& Pos )

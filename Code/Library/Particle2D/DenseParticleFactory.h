@@ -12,7 +12,8 @@
 class DenseParticleFactory
 {
 public:
-	std::vector< cSegment > Segment;	
+//	std::vector< cSegment > Segment;	
+	std::vector< cSegment* > Segment;	
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	DenseParticleFactory() :

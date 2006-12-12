@@ -26,6 +26,7 @@ void AnimParticleFactory::Step()
 	for ( iter = Alive.begin(); iter != Alive.end(); iter++ )
 	{
 		iter->Step();
+		iter->Animator.Step();
 		
 		if( iter->Life <= 0 )
 		{

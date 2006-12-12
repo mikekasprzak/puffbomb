@@ -11,10 +11,6 @@ DenseParticleFactory DenseParticle;
 // - ------------------------------------------------------------------------------------------ - //
 void DenseParticleFactory::Populate( int Num )
 {
-//	Vertex.resize( Num * 4 );
-//	TexCoord.resize( Num * 4 );
-//	VertColor.resize( Num * 4 );
-//	Indices.resize( Num * 4 );
 
 	Vertex.resize( Num << 2 );
 	TexCoord.resize( Num << 2 );
@@ -49,42 +45,37 @@ int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditiv
 	int ParticleIdx = 0;
 	
 	// Sort Segment //
-	std::sort( Segment.begin(), Segment.end(), cSegment::compare_segment );
+	std::sort( Segment.begin(), Segment.end(), cSegment::less_segment );
 	
 	for( size_t idx = 0; idx < Segment.size(); idx++ )
 	{
 //		Log( LOG_HIGHEST_LEVEL, "Segment[ idx ] = " << Segment[ idx ].Start << " - " << Segment[ idx ].Size << " Segment.size() = " << Segment.size() );
 		
-//		if( ( ParticleIdx >= Segment[ idx ].Start ) && ( ( ParticleIdx ) < ( Segment[ idx ].Size ) ) )
-		if( ( ParticleIdx == Segment[ idx ].Start ) )
+		if( ( ParticleIdx == Segment[ idx ]->Start ) )
 		{
 
 		}
 		else
 		{
-//			if( idx < Segment.size() - 1 )
+			if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
 			{
-				if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
+				if( ( ParticleIdx + SegmentSize ) < Segment[ idx ]->Start )
 				{
-//					if( ( ParticleIdx + SegmentSize ) < Segment[ idx + 1 ].Start )
-					if( ( ParticleIdx + SegmentSize ) < Segment[ idx ].Start )
-					{
-						//Log( LOG_HIGHEST_LEVEL, "( ParticleIdx + SegmentSize ) = " << ( ParticleIdx + SegmentSize ) );
-						//Log( LOG_HIGHEST_LEVEL, "Segment[ idx + 1 ].Start = " << Segment[ idx + 1 ].Start );
+					//Log( LOG_HIGHEST_LEVEL, "( ParticleIdx + SegmentSize ) = " << ( ParticleIdx + SegmentSize ) );
+					//Log( LOG_HIGHEST_LEVEL, "Segment[ idx + 1 ].Start = " << Segment[ idx + 1 ].Start );
 
-						Segment.push_back( cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );					
-						
-						return Segment.size() - 1;
-					}
+					Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );					
+					
+					return Segment.size() - 1;
 				}
 			}
 		}
-		ParticleIdx = ( Segment[ idx ].Size );
+		ParticleIdx = ( Segment[ idx ]->Size );
 	}
 	
 	if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
 	{
-		Segment.push_back( cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );
+		Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );
 		
 		return Segment.size() - 1;
 	}
@@ -94,15 +85,22 @@ int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditiv
 // - ------------------------------------------------------------------------------------------ - //
 void DenseParticleFactory::Release( const int SegIdx )
 {
-	Segment[ SegIdx ].Start = Particles.size();
+	Segment[ SegIdx ]->Start = Particles.size();
 	
-	std::sort( Segment.begin(), Segment.end(), cSegment::compare_segment );
+	std::sort( Segment.begin(), Segment.end(), cSegment::less_segment );
+	
+	delete Segment.back();
 		
 	Segment.pop_back();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void DenseParticleFactory::Clear()
 {
+	for( size_t idx = 0; idx < Segment.size(); idx++ )
+	{	
+		delete Segment[ idx ];
+	}
+	
 	Segment.clear();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -117,9 +115,9 @@ void DenseParticleFactory::Add(
 	const int _Fade,
 	const int SegIdx )
 {
-	if( Segment[ SegIdx ].SegIdx < Segment[ SegIdx ].Size )
+	if( Segment[ SegIdx ]->SegIdx < Segment[ SegIdx ]->Size )
 	{
-		Particles[ Segment[ SegIdx ].SegIdx ].SetParticle( 
+		Particles[ Segment[ SegIdx ]->SegIdx ].SetParticle( 
 			_Pos,
 			_Velocity,
 			_Acceleration, 
@@ -130,9 +128,9 @@ void DenseParticleFactory::Add(
 			_Fade
 		);
 	
-		Segment[ SegIdx ].SegIdx++;
+		Segment[ SegIdx ]->SegIdx++;
 		
-		if( Segment[ SegIdx ].SegIdx == Segment[ SegIdx ].Size )
+		if( Segment[ SegIdx ]->SegIdx == Segment[ SegIdx ]->Size )
 		{
 			SetParticleData( SegIdx );
 		}
@@ -145,9 +143,9 @@ void DenseParticleFactory::Add(
 // - ------------------------------------------------------------------------------------------ - //
 void DenseParticleFactory::SetParticleData( const int SegIdx )
 {
-	OffsetIdx = Segment[ SegIdx ].IndicesIdx;
+	OffsetIdx = Segment[ SegIdx ]->IndicesIdx;
 
-	for( int idx = Segment[ SegIdx ].Start; idx < Segment[ SegIdx ].Size; idx++ )
+	for( int idx = Segment[ SegIdx ]->Start; idx < Segment[ SegIdx ]->Size; idx++ )
 	{
 		Indices[ OffsetIdx ] = OffsetIdx;
 		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
@@ -174,25 +172,25 @@ void DenseParticleFactory::SetParticleData( const int SegIdx )
 	
 		++OffsetIdx;
 	}
-	Segment[ SegIdx ].TextureID = Particles[ Segment[ SegIdx ].Start ].Animator.CurDrawFrame->TextureId;
+	Segment[ SegIdx ]->TextureID = Particles[ Segment[ SegIdx ]->Start ].Animator.CurDrawFrame->TextureId;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void DenseParticleFactory::Step()
 {
 	for( size_t SegIdx = 0; SegIdx < Segment.size(); SegIdx++ )
 	{
-		OffsetIdx = Segment[ SegIdx ].IndicesIdx;
-		for( int idx = Segment[ SegIdx ].Start; idx < Segment[ SegIdx ].SegIdx; idx++ )
+		OffsetIdx = Segment[ SegIdx ]->IndicesIdx;
+		for( int idx = Segment[ SegIdx ]->Start; idx < Segment[ SegIdx ]->SegIdx; idx++ )
 		{
 			Particles[ idx ].Step();
 			if( Particles[ idx ].Life <= 0 )
 			{
-				while( Particles[ idx ].Life <= 0 && Segment[ SegIdx ].Start < Segment[ SegIdx ].SegIdx )
+				while( Particles[ idx ].Life <= 0 && Segment[ SegIdx ]->Start < Segment[ SegIdx ]->SegIdx )
 				{
-					Segment[ SegIdx ].IndicesSize -= 4;
-					Segment[ SegIdx ].SegIdx--;
+					Segment[ SegIdx ]->IndicesSize -= 4;
+					Segment[ SegIdx ]->SegIdx--;
 	
-					Particles[ idx ] = Particles[ Segment[ SegIdx ].SegIdx ];
+					Particles[ idx ] = Particles[ Segment[ SegIdx ]->SegIdx ];
 					
 					Particles[ idx ].Step();
 				}
@@ -218,16 +216,8 @@ void DenseParticleFactory::Step()
 		
 			++OffsetIdx;
 		}
-		if( Segment[ SegIdx ].SegIdx == Segment[ SegIdx ].Start )
+		if( Segment[ SegIdx ]->SegIdx == Segment[ SegIdx ]->Start )
 		{
-			
-			/*Segment[ SegIdx ].Start = Particles.size();
-			
-			std::sort( Segment.begin(), Segment.end(), cSegment::compare_segment );
-				
-			Segment.pop_back();*/
-			
-			// make sure that this works //
 			Release( SegIdx );
 			
 			SegIdx--;
@@ -242,7 +232,7 @@ void DenseParticleFactory::Draw()
 	
 	for( size_t SegIdx = 0; SegIdx < Segment.size(); SegIdx++ )
 	{
-		if( Segment[ SegIdx ].IsAdditive )
+		if( Segment[ SegIdx ]->IsAdditive )
 		{
 			AdditiveArray[ AdditiveSize ] = SegIdx;
 			
@@ -254,9 +244,9 @@ void DenseParticleFactory::Draw()
 				&Vertex[ 0 ],
 				&TexCoord[ 0 ],
 				&VertColor[ 0 ],
-				&Indices[ Segment[ SegIdx ].IndicesIdx ],
-				Segment[ SegIdx ].IndicesSize - Segment[ SegIdx ].IndicesIdx,
-				Segment[ SegIdx ].TextureID
+				&Indices[ Segment[ SegIdx ]->IndicesIdx ],
+				Segment[ SegIdx ]->IndicesSize - Segment[ SegIdx ]->IndicesIdx,
+				Segment[ SegIdx ]->TextureID
 			);
 		}
 	}
@@ -270,48 +260,13 @@ void DenseParticleFactory::Draw()
 			&Vertex[ 0 ],
 			&TexCoord[ 0 ],
 			&VertColor[ 0 ],
-			&Indices[ Segment[ AdditiveArray[ SegIdx ] ].IndicesIdx ],
-			Segment[ AdditiveArray[ SegIdx ] ].IndicesSize - Segment[ AdditiveArray[ SegIdx ] ].IndicesIdx,
-			Segment[ AdditiveArray[ SegIdx ] ].TextureID
+			&Indices[ Segment[ AdditiveArray[ SegIdx ] ]->IndicesIdx ],
+			Segment[ AdditiveArray[ SegIdx ] ]->IndicesSize - Segment[ AdditiveArray[ SegIdx ] ]->IndicesIdx,
+			Segment[ AdditiveArray[ SegIdx ] ]->TextureID
 		);
 		
 		// Disables additive blending //
 		Gfx::StandardBlend();
-		//Gfx::SaturateBlend();
 	}
-	
-	/*
-	
-		for( size_t SegIdx = 0; SegIdx < Segment.size(); SegIdx++ )
-	{
-		if( Segment[ SegIdx ].IsAdditive )
-		{
-			// Enables additive blending //
-			Gfx::EnableAddBlend();
-
-			Gfx::DrawQuads(
-				&Vertex[ 0 ],
-				&TexCoord[ 0 ],
-				&VertColor[ 0 ],
-				&Indices[ Segment[ SegIdx ].IndicesIdx ],
-				Segment[ SegIdx ].IndicesSize - Segment[ SegIdx ].IndicesIdx,
-				Segment[ SegIdx ].TextureID
-			);
-			
-			// Disables additive blending //
-			Gfx::DisableAddBlend();
-		}
-		else
-		{
-			Gfx::DrawQuads(
-				&Vertex[ 0 ],
-				&TexCoord[ 0 ],
-				&VertColor[ 0 ],
-				&Indices[ Segment[ SegIdx ].IndicesIdx ],
-				Segment[ SegIdx ].IndicesSize - Segment[ SegIdx ].IndicesIdx,
-				Segment[ SegIdx ].TextureID
-			);
-		}
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //

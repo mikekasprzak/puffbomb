@@ -9,6 +9,7 @@
 // DELETE THIS WHEN YOU GET SICK OF THE RANDOM PARTICLE SHIT //
 #include <Particle2D/FXLibrary.h>
 #include <Particle2D/SolidParticleFactory.h>
+#include <Particle2D/DenseParticleFactory.h>
 
 #include <stdlib.h>
 #include <time.h>
@@ -46,7 +47,7 @@ cMainMenu::cMainMenu()
 	
 	LastTime = GetTime();
 	
-	srand ( time(NULL) );
+	//srand ( time(NULL) );
 	
 	Gfx::DisableSmoothPolygon();
 	
@@ -71,6 +72,7 @@ void cMainMenu::Draw()
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 		
+	DenseParticle.Draw();
 	SolidParticle.Draw();
 
 	Gfx::StandardBlend();
@@ -102,7 +104,16 @@ void cMainMenu::Step()
 		BreakLoop = true;	
 	}
 	
-	if( LastTime < GetTime() )
+	for( size_t idx = 0; idx < 16; ++idx )
+	{
+		int XPos = rand() % int( Global::HudW ) - int( Global::Right );
+		int YPos = rand() % int( Global::HudH ) - int( Global::Top );
+		
+		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
+		
+	}
+
+/*	if( LastTime < GetTime() )
 	{
 		int XPos = rand() % int( Global::HudW ) - int( Global::Right );
 		int YPos = rand() % int( Global::HudH ) - int( Global::Top );
@@ -111,8 +122,9 @@ void cMainMenu::Step()
 		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
 		
 		LastTime = GetTime() + 30;
-	}
+	}*/
 	
+	DenseParticle.Step();
 	SolidParticle.Step();
 }
 // - ------------------------------------------------------------------------------------------ - //

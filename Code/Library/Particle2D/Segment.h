@@ -7,17 +7,23 @@
 #include <algorithm>
 #include <functional>
 // - ------------------------------------------------------------------------------------------ - //
+#include <Geometry/Set.h>
+// - ------------------------------------------------------------------------------------------ - //
 class cSegment
 {
 public:
 	int Start;
 	int SegIdx;
 	int Size;
-	bool IsAdditive;
 	
 	unsigned int IndicesIdx;
 	unsigned int IndicesSize;
 	unsigned int TextureID;
+	
+	ABCDSet< Vector2D > UVPos;
+	ABCDSet< Vector2D > UV;
+	
+	bool IsAdditive;
 	
 	cSegment(
 		const int _Start,
@@ -26,9 +32,9 @@ public:
 			Start( _Start ),
 			SegIdx( _Start ),
 			Size( _Start + _Size ),
-			IsAdditive( _IsAdditive ),
 			IndicesIdx( ( Start << 2 ) ),
-			IndicesSize( ( Size << 2 ) )
+			IndicesSize( ( Size << 2 ) ),
+			IsAdditive( _IsAdditive )
 	{
 		
 	}
@@ -37,6 +43,11 @@ public:
 	static bool compare_segment(const cSegment &a, const cSegment &b) 
 	{
 	    return a.Start < b.Start;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	static bool less_segment(const cSegment *a, const cSegment *b) 
+	{
+	    return a->Start < b->Start;
 	}
 };
 

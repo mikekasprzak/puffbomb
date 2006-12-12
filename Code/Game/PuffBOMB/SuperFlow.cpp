@@ -11,6 +11,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/AnimParticleFactory.h>
 #include <Particle2D/SolidParticleFactory.h>
+#include <Particle2D/DenseParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <SplashScreen/SplashScreen.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -58,7 +59,8 @@ cSuperFlow::cSuperFlow() :
 	AnimFlatParticle.Populate( 500 );
 	AnimAdditiveParticle.Populate( 500 );
 
-	SolidParticle.Populate( 40000 );
+	SolidParticle.Populate( 80000 );
+	DenseParticle.Populate( 80000 );
 
 	Log( LOG_HIGHEST_LEVEL, "****** Loading Fonts ******" );
 	cFonts::LoadFonts();

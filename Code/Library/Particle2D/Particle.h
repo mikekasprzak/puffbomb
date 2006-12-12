@@ -83,7 +83,7 @@ public:
 			Alpha = ( Life * Opaque ) / Fade;
 		}
 		
-		Animator.Step();
+	//	Animator.Step();
 	}
 	
 	inline void Draw()
