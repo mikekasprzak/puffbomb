@@ -27,6 +27,7 @@ public:
 	
 	static void Bomb( const Vector2D& Pos );
 	static void CrazyTest( const Vector2D& Pos );
+	static void CrazyPuffTest( const Vector2D& Pos );
 	static void OutlineTest( const Vector2D& Pos );
 };
 // - ------------------------------------------------------------------------------------------ - //

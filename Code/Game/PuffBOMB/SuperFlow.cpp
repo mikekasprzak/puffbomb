@@ -60,7 +60,7 @@ cSuperFlow::cSuperFlow() :
 	AnimAdditiveParticle.Populate( 500 );
 
 	SolidParticle.Populate( 10000 );
-	DenseParticle.Populate( 30000 );
+	DenseParticle.Populate( 20000 );
 
 	Log( LOG_HIGHEST_LEVEL, "****** Loading Fonts ******" );
 	cFonts::LoadFonts();

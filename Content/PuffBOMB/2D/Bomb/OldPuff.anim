@@ -1,9 +1,9 @@
 Texture	PlacementElements.tx
 
-Vertex	-100.0	100.0
-Vertex	-100.0	-100.0
-Vertex	100.0	-100.0
-Vertex	100.0	100.0
+Vertex	-20.0	23.0
+Vertex	-20.0	-23.0
+Vertex	20.0	-23.0
+Vertex	20.0	23.0
 
 FVa	0
 FVb	1

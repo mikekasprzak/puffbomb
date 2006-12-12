@@ -47,7 +47,7 @@ cMainMenu::cMainMenu()
 	
 	LastTime = GetTime();
 	
-	//srand ( time(NULL) );
+	srand ( time(NULL) );
 	
 	Gfx::DisableSmoothPolygon();
 	
@@ -118,15 +118,38 @@ void cMainMenu::Step()
 		LastTime = GetTime() + 400;
 	}*/
 
+/*	if( LastTime < GetTime() )
+	{
+		int XPos = 500 - int( Global::Right );
+		int YPos = 500 - int( Global::Top );
+		
+//		FXLibrary::Bomb( Vector2D( XPos, YPos ) );
+		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
+//		FXLibrary::CrazyPuffTest( Vector2D( XPos, YPos ) );
+//		FXLibrary::OutlineTest( Vector2D( XPos, YPos ) );
+		
+		XPos = 700 - int( Global::Right );
+		YPos = 700 - int( Global::Top );
+		
+//		FXLibrary::Bomb( Vector2D( XPos, YPos ) );
+//		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
+		FXLibrary::CrazyPuffTest( Vector2D( XPos, YPos ) );
+//		FXLibrary::OutlineTest( Vector2D( XPos, YPos ) );
+		
+		LastTime = GetTime() + 30;
+	}*/
+	
 	if( LastTime < GetTime() )
 	{
 		int XPos = rand() % int( Global::HudW ) - int( Global::Right );
 		int YPos = rand() % int( Global::HudH ) - int( Global::Top );
 		
 //		FXLibrary::Bomb( Vector2D( XPos, YPos ) );
-		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
+//		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
+		FXLibrary::CrazyPuffTest( Vector2D( XPos, YPos ) );
+//		FXLibrary::OutlineTest( Vector2D( XPos, YPos ) );
 		
-		LastTime = GetTime() + 30;
+		LastTime = GetTime() + 80;
 	}
 	
 	DenseParticle.Step();
