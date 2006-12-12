@@ -434,7 +434,7 @@ void FXLibrary::CrazyTest( const Vector2D& Pos )
 	*/
 	
 	
-		int AdditiveParticles = DenseParticle.Allocate( 120, true );
+	int AdditiveParticles = DenseParticle.Allocate( 120, true );
 	
 	if( AdditiveParticles == -1 )
 	{

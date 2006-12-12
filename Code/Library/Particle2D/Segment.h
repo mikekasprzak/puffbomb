@@ -20,8 +20,11 @@ public:
 	unsigned int IndicesSize;
 	unsigned int TextureID;
 	
-	ABCDSet< Vector2D > UVPos;
-	ABCDSet< Vector2D > UV;
+//	ABCDSet< Vector2D > UVPos;
+//	ABCDSet< Vector2D > UV;
+	
+	//ABCSet< Vector2D > UVPos;
+	//ABCSet< Vector2D >* UVTest;
 	
 	bool IsAdditive;
 	

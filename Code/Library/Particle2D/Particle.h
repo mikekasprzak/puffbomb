@@ -71,6 +71,27 @@ public:
 		Opaque = Alpha;
 	}
 
+	inline void SetParticle(
+		const Vector2D &_Pos,
+		const Vector2D &_Velocity,
+		const Vector2D &_Acceleration,
+		const Vector2D &_Drift,
+		const int &_Life,
+		const int _Alpha,
+		const int _Fade )
+	{
+		Pos = _Pos;
+		Velocity = _Velocity;
+		Acceleration = _Acceleration;
+		Drift = _Drift;
+		Life = _Life;
+		Alpha = _Alpha;
+		Fade = _Fade;
+		
+		Opaque = Alpha;
+	}
+
+
 	inline void Step()
 	{
 		Pos += Velocity;

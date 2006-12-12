@@ -73,7 +73,7 @@ void cMainMenu::Draw()
 	Gfx::EnableBlend();
 		
 	DenseParticle.Draw();
-	SolidParticle.Draw();
+//	SolidParticle.Draw();
 
 	Gfx::StandardBlend();
 
@@ -104,16 +104,21 @@ void cMainMenu::Step()
 		BreakLoop = true;	
 	}
 	
-	for( size_t idx = 0; idx < 16; ++idx )
-	{
-		int XPos = rand() % int( Global::HudW ) - int( Global::Right );
-		int YPos = rand() % int( Global::HudH ) - int( Global::Top );
-		
-		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
-		
-	}
-
+	
 /*	if( LastTime < GetTime() )
+	{
+		for( size_t idx = 0; idx < 200; ++idx )
+		{
+			int XPos = rand() % int( Global::HudW ) - int( Global::Right );
+			int YPos = rand() % int( Global::HudH ) - int( Global::Top );
+			
+			FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
+			
+		}
+		LastTime = GetTime() + 400;
+	}*/
+
+	if( LastTime < GetTime() )
 	{
 		int XPos = rand() % int( Global::HudW ) - int( Global::Right );
 		int YPos = rand() % int( Global::HudH ) - int( Global::Top );
@@ -122,9 +127,9 @@ void cMainMenu::Step()
 		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
 		
 		LastTime = GetTime() + 30;
-	}*/
+	}
 	
 	DenseParticle.Step();
-	SolidParticle.Step();
+//	SolidParticle.Step();
 }
 // - ------------------------------------------------------------------------------------------ - //

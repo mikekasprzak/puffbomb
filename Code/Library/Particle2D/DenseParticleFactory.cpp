@@ -40,6 +40,7 @@ void DenseParticleFactory::Populate( int Num )
 	Segment.reserve( 1024 );
 }
 // - ------------------------------------------------------------------------------------------ - //
+//int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive, cAnimation &_Animation )
 int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive )
 {
 	int ParticleIdx = 0;
@@ -65,7 +66,20 @@ int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditiv
 					//Log( LOG_HIGHEST_LEVEL, "Segment[ idx + 1 ].Start = " << Segment[ idx + 1 ].Start );
 
 					Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );					
+
+		/*			Segment.back()->UVPos.a = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.a ].Pos;
+					Segment.back()->UVPos.b = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.b ].Pos;
+					Segment.back()->UVPos.c = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.c ].Pos;
+					Segment.back()->UVPos.d = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 1 ].VertexIdx.c ].Pos;
 					
+					Segment.back()->UV.a = _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.a;
+					Segment.back()->UV.b = _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.b;
+					Segment.back()->UV.c = _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.c;
+					Segment.back()->UV.d = _Animation.Frame[ 0 ].MyFrame.Face[ 1 ].UV.c;
+
+					Segment.back()->TextureID = _Animation.Frame[ 0 ].MyFrame.TextureId;*/
+
+
 					return Segment.size() - 1;
 				}
 			}
@@ -76,6 +90,30 @@ int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditiv
 	if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
 	{
 		Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );
+		
+/*		Segment.back()->UVPos.a = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.a ].Pos;
+		Segment.back()->UVPos.b = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.b ].Pos;
+		Segment.back()->UVPos.c = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.c ].Pos;
+		Segment.back()->UVPos.d = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 1 ].VertexIdx.c ].Pos;
+		
+		Segment.back()->UV.a = _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.a;
+		Segment.back()->UV.b = _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.b;
+		Segment.back()->UV.c = _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.c;
+		Segment.back()->UV.d = _Animation.Frame[ 0 ].MyFrame.Face[ 1 ].UV.c;
+
+
+		Segment.back()->UVPos.a = &_Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.a ].Pos;
+		Segment.back()->UVPos.b = &_Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.b ].Pos;
+		Segment.back()->UVPos.c = &_Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.c ].Pos;
+		Segment.back()->UVPos.d = &_Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 1 ].VertexIdx.c ].Pos;
+		
+		Segment.back()->UV.a = &_Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.a;
+		Segment.back()->UV.b = &_Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.b;
+		Segment.back()->UV.c = &_Animation.Frame[ 0 ].MyFrame.Face[ 0 ].UV.c;
+		Segment.back()->UV.d = &_Animation.Frame[ 0 ].MyFrame.Face[ 1 ].UV.c;
+
+		
+		Segment.back()->TextureID = _Animation.Frame[ 0 ].MyFrame.TextureId;*/
 		
 		return Segment.size() - 1;
 	}
@@ -122,7 +160,7 @@ void DenseParticleFactory::Add(
 			_Velocity,
 			_Acceleration, 
 			_Drift, 
-			_Life, 
+			_Life,
 			_Animation,
 			_Alpha,
 			_Fade
@@ -147,6 +185,33 @@ void DenseParticleFactory::SetParticleData( const int SegIdx )
 
 	for( int idx = Segment[ SegIdx ]->Start; idx < Segment[ SegIdx ]->Size; idx++ )
 	{
+	/*	Indices[ OffsetIdx ] = OffsetIdx;
+		Vertex[ OffsetIdx ] = (*Segment[ SegIdx ]->UVPos.a + Particles[ idx ].Pos).ToVector3D();
+		TexCoord[ OffsetIdx ] = *Segment[ SegIdx ]->UV.a;
+		VertColor[ OffsetIdx ] = Gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
+	
+		++OffsetIdx;
+		Indices[ OffsetIdx ] = OffsetIdx;
+		Vertex[ OffsetIdx ] = (*Segment[ SegIdx ]->UVPos.b + Particles[ idx ].Pos).ToVector3D();
+		TexCoord[ OffsetIdx ] = *Segment[ SegIdx ]->UV.b;
+		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+	
+		++OffsetIdx;
+		Indices[ OffsetIdx ] = OffsetIdx;
+		Vertex[ OffsetIdx ] = (*Segment[ SegIdx ]->UVPos.c + Particles[ idx ].Pos).ToVector3D();
+		TexCoord[ OffsetIdx ] = *Segment[ SegIdx ]->UV.c;
+		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+	
+		++OffsetIdx;
+		Indices[ OffsetIdx ] = OffsetIdx;
+		Vertex[ OffsetIdx ] = (*Segment[ SegIdx ]->UVPos.d + Particles[ idx ].Pos).ToVector3D();
+		TexCoord[ OffsetIdx ] = *Segment[ SegIdx ]->UV.d;
+		VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+	
+		++OffsetIdx;
+		
+		*/
+		
 		Indices[ OffsetIdx ] = OffsetIdx;
 		Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
 		TexCoord[ OffsetIdx ] = Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].UV.a;
@@ -199,6 +264,44 @@ void DenseParticleFactory::Step()
 			Vertex[ OffsetIdx ].x += Particles[ idx ].Velocity.x;  // this made the particles twitch once and a while
 			Vertex[ OffsetIdx ].y += Particles[ idx ].Velocity.y;
 */
+	/*		Vertex[ OffsetIdx ] = (LAPos.a + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = Gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (LAPos.b + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (LAPos.c + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (LAPos.d + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
+
+
+
+			Vertex[ OffsetIdx ] = (Segment[ SegIdx ]->UVPos.a + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = Gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (Segment[ SegIdx ]->UVPos.b + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (Segment[ SegIdx ]->UVPos.c + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
+			Vertex[ OffsetIdx ] = (Segment[ SegIdx ]->UVPos.d + Particles[ idx ].Pos).ToVector3D();
+			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
+		
+			++OffsetIdx;
+*/
+
+
 			Vertex[ OffsetIdx ] = (Particles[ idx ].Animator.CurDrawFrame->Vertex[ Particles[ idx ].Animator.CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Particles[ idx ].Pos).ToVector3D();
 			VertColor[ OffsetIdx ] = Gfx::RGBA( 255, 255, 255, Particles[ idx ].Alpha );
 		
@@ -215,6 +318,7 @@ void DenseParticleFactory::Step()
 			VertColor[ OffsetIdx ] = VertColor[ OffsetIdx - 1 ];
 		
 			++OffsetIdx;
+
 		}
 		if( Segment[ SegIdx ]->SegIdx == Segment[ SegIdx ]->Start )
 		{

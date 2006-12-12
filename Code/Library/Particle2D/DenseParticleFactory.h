@@ -34,7 +34,7 @@ public:
 	std::vector< Vector2D > TexCoord;
 	std::vector< unsigned int > VertColor;
 	std::vector< unsigned int > Indices;
-
+	
 	// - -------------------------------------------------------------------------------------- - //
 	int Allocate( const int SegmentSize, const bool _IsAdditive );
 	void Release( const int SegIdx );
