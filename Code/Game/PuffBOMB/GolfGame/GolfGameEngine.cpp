@@ -7,6 +7,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Player/LocalJoyPlayer.h"
 // - ------------------------------------------------------------------------------------------ - //
+#include <Particle2D/FXLibrary.h>
+#include <Particle2D/NewParticleFactory.h>
+// - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
 #include <Graphics/Gfx.h>
@@ -38,6 +41,8 @@ cGolfGameEngine::cGolfGameEngine() :
 	 );
 	 
  	LoadMap( "Maps/Golf/Level02.map" );
+ 	
+ 	NewParticle.Clear();
  	
  	// Add the start point (temporarily) //
  	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
@@ -73,6 +78,8 @@ void cGolfGameEngine::Step() {
 	
 	// Stuff my engine does after //
 	TurnBasedPlay();
+
+	NewParticle.Step();	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cGolfGameEngine::Draw() {
@@ -83,6 +90,30 @@ void cGolfGameEngine::Draw() {
 	cEngine2D::Draw();
 	
 	// Stuff my engine does after //
+
+	// Particle System //
+	if ( State == 3 ) {
+		Gfx::DisableTex2D();
+		Gfx::DisableDepth();
+		
+		Vector2D CharacterCenter = Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center();
+		Vector2D CursorPos = Player[ CurrentPlayer ]->BombPos + CharacterCenter;
+			
+		// Cursor //
+		Gfx::Circle( CursorPos, Real( 3 ), Gfx::RGBA( 255, 255, 255, 255 ) );
+		
+		// Inner Circle //
+		Gfx::Circle( CharacterCenter, Real( 128 ), Gfx::RGBA( 0, 255, 0, 255 ) );
+		
+		// Outer Circle //
+		Gfx::Circle( CharacterCenter, Real( 512 ), Gfx::RGBA( 255, 0, 0, 255 ) );
+
+		Gfx::EnableDepth();
+		Gfx::EnableTex2D();
+	}
+	
+	NewParticle.Draw();
+
 	HudCamera->Update();
 	
 #ifdef EDITOR
@@ -120,10 +151,26 @@ void cGolfGameEngine::TurnBasedPlay() {
 			};
 			case 3: {
 				// Stage 3 - Asking for input ------------------------------------------------- - //
+				Camera->UpdateTarget( Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center() );
 				
 				// If our control is all done, and wants action //
 				if ( Player[ CurrentPlayer ]->Control() ) {
 					// Create Bomb at position requested //
+					Vector2D BombPos =
+						Player[ CurrentPlayer ]->BombPos + 
+						Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center();
+					
+					FXLibrary::Bomb( BombPos );
+					
+					Engine2D::cEngine2D::Current->Impulse.push_back( 
+						Engine2D::cImpulse(
+							BombPos,
+							// Inner Radius, Intensity, Tangent //
+							Real( 0 ), Real( 50 ), Real( 0 ),
+							// Outer Radius, Intensity, Tangent //
+							Real( 512 ), Real( 0 ), Real( 0 )
+							)
+						);
 					
 					// Change State, to play it out //
 					State = 4;
@@ -133,9 +180,10 @@ void cGolfGameEngine::TurnBasedPlay() {
 			}
 			case 4: {
 				// Stage 4 - Acting on input (and waiting for the turn to end) ---------------- - //		
+				Camera->UpdateTarget( Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center() );
 				
 				// If Turn is over //
-				if ( true ) {
+				if ( Input::Pad[ 0 ].Button[ 0 ].Pressed() ) {
 					// Next Player //
 					CurrentPlayer++;
 					if ( CurrentPlayer >= Player.size() ) {
