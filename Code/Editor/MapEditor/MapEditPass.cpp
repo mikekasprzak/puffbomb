@@ -235,5 +235,26 @@ void cMapEdit::SwitchPass()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::ChangeArg( const size_t ArgDiff )
+{
+	if( Button[ KEY_LCTRL ] )
+	{
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			if( PassiveObject[ CurSelected[ idx ] ]->Argument > 1 )
+			{
+				if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
+				{
+					PassiveObject[ CurSelected[ idx ] ]->Argument -= ArgDiff;
+				}
+			}
+			if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
+			{
+					PassiveObject[ CurSelected[ idx ] ]->Argument += ArgDiff;
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //

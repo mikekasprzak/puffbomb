@@ -366,6 +366,15 @@ void cMapEdit::Step()
 			AddPass();
 			DeletePass();
 			SwitchPass();
+			
+			if( Button[ KEY_LSHIFT ] )
+			{
+				ChangeArg( 10 );
+			}
+			else
+			{
+				ChangeArg( 1 );
+			}
 		}
 		MovePass();
 	}
@@ -387,8 +396,11 @@ void cMapEdit::Step()
 	}
 	else
 	{
-		// Handles the zooming in and out of a map
-		Zoom( Real( 256.0 ), Camera );
+		if( !Button[ KEY_LCTRL ] )
+		{
+			// Handles the zooming in and out of a map
+			Zoom( Real( 256.0 ), Camera );
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

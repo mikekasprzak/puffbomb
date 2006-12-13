@@ -23,8 +23,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Editor/Edit.h"
 // - ------------------------------------------------------------------------------------------ - //
-			#include <Animation/Animator.h>
-			
 #define TILE_MODE 1
 #define ZONE_MODE 2
 #define OBJECT_MODE 3
@@ -144,6 +142,7 @@ public:
 	void AddPass();
 	void DeletePass();
 	void SwitchPass();
+	void ChangeArg( const size_t ArgDiff );
 
 public:
 	// MapEditZone.cpp //
