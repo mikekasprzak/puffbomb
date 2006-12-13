@@ -514,11 +514,11 @@ void FXLibrary::CrazyPuffTest( const Vector2D& Pos )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void FXLibrary::Rain( const Vector2D& Pos )
+void FXLibrary::Rain( const Vector2D& Pos, const int Density )
 {
-	int MaxSteps = 20;
+	//int MaxSteps = Density;
 	
-	int AdditiveParticles = SolidParticle.Allocate( MaxSteps, true );
+	int AdditiveParticles = SolidParticle.Allocate( Density, true );
 	
 	if( AdditiveParticles == -1 )
 	{
@@ -528,9 +528,9 @@ void FXLibrary::Rain( const Vector2D& Pos )
 	cAnimation& ParticleTest = AnimationPool.Load( "RainParticle.anim" );
 //	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
 	
-	for( int idx = 0; idx < MaxSteps; idx++ )
+	for( int idx = 0; idx < Density; idx++ )
 	{
-		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+		Real StepAsRadian = (Real( idx ) / Real( Density )) * (Real( 2 ) * Real::Pi);
 
 		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
 

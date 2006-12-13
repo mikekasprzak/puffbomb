@@ -6,6 +6,7 @@
 #include <Objects/Distortion/Distortion.h>
 #include <Objects/BasicBomb/BasicBomb.h>
 #include <Objects/GolfStart/GolfStart.h>
+#include <Objects/RainGenerator/RainGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
 Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
 	// Switch based on the Id passed to the function //
@@ -22,6 +23,11 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 
 		case 5: {
 			return new cGolfStart( Pos );
+			break;
+		}
+
+		case 32: {
+			return new cRainGenerator( Pos, Argument );
 			break;
 		}
 		

@@ -52,7 +52,9 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 		
-	AddBombs();		
+	AddBombs();
+	
+	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 0, 1000 ), 80 ) );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -102,12 +104,12 @@ void cClassicGameEngine::FrameEnd() {
 
 
 
-// DELETE THIS WHEN YOU GET SICK OF THE RANDOM PARTICLE SHIT //
+/*// DELETE THIS WHEN YOU GET SICK OF THE RANDOM PARTICLE SHIT //
 #include <Particle2D/FXLibrary.h>
 // - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();
 
-int LastTime;
+int LastTime;*/
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
@@ -170,7 +172,7 @@ void cClassicGameEngine::Step() {
 		SolidParticle.Step();
 		DenseParticle.Step();
 		
-		// Bad Rain Thing !/ //
+/*		// Bad Rain Thing !/ //
 		if( LastTime < GetTime() )
 		{
 			int XPos = rand() % ( int( Global::HudW * Real( 4 ) ) - int( Global::Right * Real( 4 ) ) );
@@ -180,7 +182,7 @@ void cClassicGameEngine::Step() {
 			
 			LastTime = GetTime() + 5;
 		}
-
+*/
 		
 		
 	}
