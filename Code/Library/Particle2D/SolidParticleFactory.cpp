@@ -430,7 +430,7 @@ void SolidParticleFactory::SolveVsStatics( cParticle& Particle ) {
 				if ( FoundPoint ) {
 					// Solve //
 					//Push += (Push.Normal() * Sphere[ SphereIndex[idx] ].Radius);
-					Particle.Pos += Push * Real::Half;											
+					Particle.Pos += Push;// - (((Particle.Pos - Particle.Old) * Push.Normal()));//*Push.Normal());
 				}
 				else {
 					Log( 10, "ERROR!!!! NO EXIT POINT FOUND!!!!! *********" );
@@ -441,6 +441,21 @@ void SolidParticleFactory::SolveVsStatics( cParticle& Particle ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void SolidParticleFactory::SolveVsImpulses( cParticle& Particle ) {
-	
+	if( Engine2D::cEngine2D::Current ) {
+		// Calculate bounding rectangle of particle  //
+		
+
+		// For every impulse //
+		for ( size_t idx = 0; idx < Engine2D::cEngine2D::Current->Impulse.size(); idx++ ) {
+			const Engine2D::cImpulse& MyImpulse = Engine2D::cEngine2D::Current->Impulse[ idx ];
+
+			// Calculate the force applied by the impulse //
+			Vector2D Force = MyImpulse.GetForce( Particle.Pos );// * Nodes.InvMass( Sphere[ idx ].Index );
+			// If the force is worth caring about //
+			if ( !Force.IsZero() ) {
+				Particle.Pos += Force;
+			}
+		}	
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //

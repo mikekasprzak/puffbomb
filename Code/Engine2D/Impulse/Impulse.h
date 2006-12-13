@@ -68,7 +68,7 @@ public:
 	}
 
 	// Get the force on you, given your position //
-	inline Vector2D GetForce( const Vector2D& _Pos ) {
+	inline Vector2D GetForce( const Vector2D& _Pos ) const {
 		Vector2D Line = _Pos - Pos;
 		
 		if ( Line.MagnitudeSquared() > Outer.RadiusSquared ) {

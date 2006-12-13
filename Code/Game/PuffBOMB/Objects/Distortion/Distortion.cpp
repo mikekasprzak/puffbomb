@@ -37,9 +37,9 @@ bool cDistortion::Work() {
 		Engine2D::cImpulse(
 			Pos,
 			// Inner Radius, Intensity, Tangent //
-			Real( 0 ), Real( -2 ), Real( 0.2 ),
+			Real( 0 ), Real( -2 ), Real( 0.5 ),
 			// Outer Radius, Intensity, Tangent //
-			Real( 1312 ), Real( 0 ), Real( 0.2 )
+			Real( 512 ), Real( 0 ), Real( 0.1 )
 			)
 		);
 	
