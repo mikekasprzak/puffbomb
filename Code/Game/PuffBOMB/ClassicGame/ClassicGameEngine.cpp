@@ -156,6 +156,21 @@ void cClassicGameEngine::Step() {
 	// Only step the engine whilst we are active //
 	if ( GameActive ) {
 		// Stuff my engine does before //
+	
+		// Hack to follow the hamster.  we need a way to identify the collection to follow //
+		if( CameraTracking.size() >= 1 )
+		{
+			Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
+			
+			for ( int idx = 1; idx < CameraTracking.size(); idx++ ) {
+				FollowRect += CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect();
+			}
+			
+			Camera->UpdateTarget( FollowRect.Center() );
+		}
+		
+		// Original Engine Step Stuff //
+		cEngine2D::Step();
 		
 		if( Input::Button[ MOUSE_1 ] )
 		{
@@ -180,21 +195,7 @@ void cClassicGameEngine::Step() {
 					)
 				);
 		}
-		
-		// Hack to follow the hamster.  we need a way to identify the collection to follow //
-		if( CameraTracking.size() >= 1 )
-		{
-			Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
-			
-			for ( int idx = 1; idx < CameraTracking.size(); idx++ ) {
-				FollowRect += CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect();
-			}
-			
-			Camera->UpdateTarget( FollowRect.Center() );
-		}
-		
-		// Original Engine Step Stuff //
-		cEngine2D::Step();
+
 		
 		// Stuff my engine does after //
 		SolidParticle.Step();
