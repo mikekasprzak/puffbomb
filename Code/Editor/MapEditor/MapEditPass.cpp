@@ -94,17 +94,26 @@ void cMapEdit::SelectPass()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::MovePass()
 {
-/*	
 	if( Button[ MOUSE_1 ].Pressed() )
 	{
 		bool SceneMove = false;
 		
-		if( !Button[ KEY_LCTRL ] && !Button[ KEY_RCTRL ] && !Button[ KEY_LSHIFT ]  )
+		if( !Button[ KEY_LCTRL ] )
 		{
 			Vector2D CurMousePos = CalcMousePos();
 			
-			int temp = SingleSelectDyn();
+			int temp = -1;
 			
+			for( size_t idx = 0; idx < PassiveObject.size(); ++idx )
+			{
+				Vector2D PointA = PassiveObject[ idx ]->BoundingRect.P1();
+				Vector2D PointB = PassiveObject[ idx ]->BoundingRect.P2();
+				
+				if( WithinBox( CurMousePos, PointA, PointB ) )
+				{
+					temp = idx;
+				}
+			}
 			if( temp != -1 )
 			{
 				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
@@ -128,67 +137,28 @@ void cMapEdit::MovePass()
 	}
 	if( Button[ MOUSE_1 ].Released() )
 	{
-		if( SnapToGrid )
+		if( isGroupMove )
 		{
-			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
-			{
-				for( size_t i2 = 0; i2 < DynamicCollection[ CurSelected[ idx ] ]->Component.size(); ++i2 )
-				{
-					for( size_t i3 = 0; i3 < DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Size(); ++i3 )
-					{
-						//CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
-						
-						Real TempX = ( Mouse.Diff().x * Real( Global::HudW ) )
-							* Real( Camera->Pos.z / Global::HudZoom );
-						
-						Real TempY = ( Mouse.Diff().y * Real( Global::HudH ) )
-							* Real( Camera->Pos.z / Global::HudZoom );
-						
-						DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).x -= TempX;
-						DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).y += TempY;
-						
-						Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x -= TempX;
-						Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x += TempY;
-						
-					}
-				}
-
-				SnapToGrid = false;
-			}
 			ActiveAction();
 		}
-		else
-		{
-			if( isGroupMove )
-			{
-				ActiveAction();
-			}
-		}
+		
 		isGroupMove = false;
 	}
 	if( isGroupMove )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			for( size_t i2 = 0; i2 < DynamicCollection[ CurSelected[ idx ] ]->Component.size(); ++i2 )
-			{
-				for( size_t i3 = 0; i3 < DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Size(); ++i3 )
-				{
-					Real TempX = ( Mouse.Diff().x * Real( Global::HudW ) )
-						* Real( Camera->Pos.z / Global::HudZoom );
+			PassiveObject[ CurSelected[ idx ] ]->Pos.x -= ( Mouse.Diff().x * Real( Global::HudW ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
+
+			PassiveObject[ CurSelected[ idx ] ]->Pos.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
+				Real( Camera->Pos.z / Global::HudZoom );
 					
-					Real TempY = ( Mouse.Diff().y * Real( Global::HudH ) )
-						* Real( Camera->Pos.z / Global::HudZoom );
-					
-					DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).x -= TempX;
-					DynamicCollection[ CurSelected[ idx ] ]->Component[ i2 ].Body.Nodes.Pos( i3 ).y += TempY;
-					
-					Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x -= TempX;
-					Map.DynamicObjectInstanceInfo[ CurSelected[ idx ] ].Pos.x += TempY;
-				}
-			}
+			PassiveObject[ CurSelected[ idx ] ]->BoundingRect =
+				Engine2D::cPhysics::BoundingRectType::Pair(
+					PassiveObject[ CurSelected[ idx ] ]->Pos - Vector2D( 32, 32 ), PassiveObject[ CurSelected[ idx ] ]->Pos + Vector2D( 32, 32 ) );	
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::AddPass()
