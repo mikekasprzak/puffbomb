@@ -1,9 +1,9 @@
 Texture	ShadedParticles.tx
 
-Vertex	-5.0	5.0
-Vertex	-5.0	-5.0
-Vertex	5.0	-5.0
-Vertex	5.0	5.0
+Vertex	-8.0	8.0
+Vertex	-8.0	-8.0
+Vertex	8.0	-8.0
+Vertex	8.0	8.0
 
 FVa	0
 FVb	1

@@ -55,10 +55,10 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	AddBombs();
 	
 	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 0, 1000 ), 1 ) );
-	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 1300 ), 1 ) );
+/*	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 1300 ), 1 ) );
 	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 701 ), 1 ) );
 	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -400, 1301 ), 1 ) );
-	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -400, 700 ), 1 ) );
+	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -400, 700 ), 1 ) );*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -157,6 +157,30 @@ void cClassicGameEngine::Step() {
 	if ( GameActive ) {
 		// Stuff my engine does before //
 		
+		if( Input::Button[ MOUSE_1 ] )
+		{
+			Vector2D BobPos = Vector2D(
+					Real( ( int( Input::Mouse.x * Real( Global::HudW ) ) )
+					- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
+					- ( Real(Global::HudW >> 1) ) )
+					* Real( Camera->Pos.z / Global::HudZoom ),
+					Real( ( int( -Input::Mouse.y * Real( Global::HudH ) ) )
+					+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom ) )
+					+ ( Global::HudH >> 1 ) )
+					* Real( Camera->Pos.z / Global::HudZoom )
+			);
+		
+			Engine2D::cEngine2D::Current->Impulse.push_back( 
+				Engine2D::cImpulse(
+					BobPos,
+					// Inner Radius, Intensity, Tangent //
+					Real( 0 ), Real( -2 ), Real( 0.5 ),
+					// Outer Radius, Intensity, Tangent //
+					Real( 512 ), Real( 0 ), Real( 0.1 )
+					)
+				);
+		}
+		
 		// Hack to follow the hamster.  we need a way to identify the collection to follow //
 		if( CameraTracking.size() >= 1 )
 		{
@@ -187,8 +211,7 @@ void cClassicGameEngine::Step() {
 			LastTime = GetTime() + 5;
 		}
 */
-		
-		
+
 	}
 	// If the engine is not active, then we'r in edit mode //
 	else {
