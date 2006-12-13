@@ -550,7 +550,7 @@ void FXLibrary::Rain( const Vector2D& Pos, const int Density )
 		SolidParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
-			Vector2D( 0, -0.05 - (0.05 * Real::Random()) ),  			// Acceleration //
+			Vector2D( 0, -0.15 - (0.05 * Real::Random()) ),  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
 			ParticleTest,		// Animation //

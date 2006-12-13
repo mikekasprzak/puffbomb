@@ -117,6 +117,10 @@ void cMapEdit::Draw()
 		}
 	}
 
+	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+		PassiveObject[ idx ]->DebugDraw();
+	}
+	
 	// Draw selected //
 	Gfx::AddBlend();
 
@@ -199,6 +203,12 @@ void cMapEdit::Draw()
 	else if( CurMode == PASSIVE_OBJECT_MODE )
 	{
 		
+		Gfx::SetLineWidth( 4.0 );
+			
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			PassiveObject[ CurSelected[ idx ] ]->DebugDraw();
+		}
 	}
 	Gfx::SetLineWidth( 1.0 );
 
@@ -348,7 +358,14 @@ void cMapEdit::Step()
 	}
 	else if( CurMode == PASSIVE_OBJECT_MODE )
 	{
-		
+		if( !isGroupMove )
+		{
+			SelectPass();	
+			AddPass();
+			DeletePass();
+			SwitchPass();
+		}
+		MovePass();
 	}
 	
 	SwitchMode();

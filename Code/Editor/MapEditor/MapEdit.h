@@ -140,7 +140,6 @@ public:
 
 public:
 	// MapEditPass.cpp //
-	int SingleSelectPass();
 	void SelectPass();
 	void MovePass();
 	void AddPass();

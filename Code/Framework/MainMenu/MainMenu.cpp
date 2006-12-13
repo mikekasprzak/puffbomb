@@ -145,8 +145,8 @@ void cMainMenu::Step()
 		int YPos = rand() % int( Global::HudH ) - int( Global::Top );
 		
 //		FXLibrary::Bomb( Vector2D( XPos, YPos ) );
-//		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
-		FXLibrary::CrazyPuffTest( Vector2D( XPos, YPos ) );
+		FXLibrary::CrazyTest( Vector2D( XPos, YPos ) );
+//		FXLibrary::CrazyPuffTest( Vector2D( XPos, YPos ) );
 //		FXLibrary::OutlineTest( Vector2D( XPos, YPos ) );
 		
 		LastTime = GetTime() + 80;

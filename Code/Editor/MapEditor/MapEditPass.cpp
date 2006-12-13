@@ -8,131 +8,63 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
-int cMapEdit::SingleSelectPass()
-{
-	int LastIdx = -1;
-	/*Real LastDistance = Real( 100 );
-
-	for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
-	{
-		for( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); ++idx2 )
-		{
-			for( size_t idx3 = 0; idx3 < DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Size(); ++idx3 )
-			{
-				Real TestDistance = ( DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ) - CurMousePos ).Magnitude();
-				
-				if( TestDistance < Real( 100 ) )
-				{
-					if( TestDistance < LastDistance )
-					{
-						LastDistance = TestDistance;
-
-						LastIdx = idx;
-					}
-				}
-			}
-		}
-	}
-		*/
-	return LastIdx;
-}
-// - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SelectPass()
 {
-	/*if( Button[ MOUSE_1 ].Released() )
+	if( Button[ MOUSE_1 ].Released() )
 	{
-		// Group add-select //
-		if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
+		if( Button[ KEY_LSHIFT ] )
 		{
-			for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
+			for( size_t idx = 0; idx < PassiveObject.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); ++idx2 )
+				RadiusRect2D Selection = RadiusRect2D::Pair( OldMousePos, CurMousePos );
+					
+				RadiusRect2D Boundy = RadiusRect2D::Pair(
+					PassiveObject[ idx ]->BoundingRect.P1(),
+					PassiveObject[ idx ]->BoundingRect.P2() );	
+					
+				if( Selection == Boundy )
 				{
-					for( size_t idx3 = 0; idx3 < DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Size(); ++idx3 )
+					bool CurSelectedTest = false;
+					for( size_t i = 0; i < CurSelected.size(); ++i )
 					{
-						if( WithinBox( DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ), CurMousePos, OldMousePos ) )
+						if( CurSelected[i] == idx )
 						{
-							bool CurSelectedTest = false;
-							for( size_t i = 0; i < CurSelected.size(); ++i )
-							{
-								if( CurSelected[i] == idx )
-								{
-									CurSelectedTest = true;
-								}
-							}
-							if( !CurSelectedTest )
-							{
-								CurSelected.push_back( idx );	
-							}
+							CurSelectedTest = true;
 						}
 					}
-				}
-			}
-			// Single add-select //
-			int temp = SingleSelectDyn();
-			if( temp != -1 )
-			{
-				bool CurSelectedTest = false;
-				for( size_t i = 0; i < CurSelected.size(); ++i )
-				{
-					if( int( CurSelected[i] ) == temp )
+					if( !CurSelectedTest )
 					{
-						CurSelectedTest = true;
-					}					
-				}
-				if( !CurSelectedTest )
-				{
-					CurSelected.push_back( temp );	
+						CurSelected.push_back( idx );
+					}
 				}
 			}
 		}
-		// Group de-select //
-		else if( Button[ KEY_LCTRL ] || Button[ KEY_RCTRL ] )
-		{
-			for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
+		else if( Button[ KEY_LCTRL ] )
+		{	
+			for( size_t idx = 0; idx < PassiveObject.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); ++idx2 )
+				RadiusRect2D Selection = RadiusRect2D::Pair( OldMousePos, CurMousePos );
+				
+				RadiusRect2D Boundy = RadiusRect2D::Pair(
+					PassiveObject[ idx ]->BoundingRect.P1(),
+					PassiveObject[ idx ]->BoundingRect.P2() );	
+					
+				if( Selection == Boundy )
 				{
-					for( size_t idx3 = 0; idx3 < DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Size(); ++idx3 )
+					for( size_t i = 0; i < CurSelected.size(); ++i )
 					{
-						if( WithinBox( DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ), CurMousePos, OldMousePos ) )
+						if( CurSelected[i] == idx )
 						{
-							for( size_t i = 0; i < CurSelected.size(); ++i )
+							std::vector <size_t> tempVec;
+							for( size_t vec = 0; vec < CurSelected.size(); ++vec )
 							{
-								if( CurSelected[i] == idx )
+								if( CurSelected[vec] != idx )
 								{
-									std::vector <size_t> tempVec;
-									for( size_t vec = 0; vec < CurSelected.size(); ++vec )
-									{
-										if( CurSelected[vec] != idx )
-										{											
-											tempVec.push_back( CurSelected[vec] );
-										}
-									}
-									CurSelected.swap( tempVec );
+									tempVec.push_back( CurSelected[vec] );
 								}
 							}
+							CurSelected.swap( tempVec );
 						}
-					}
-				}
-			}
-			// Single de-select //
-			int temp = SingleSelectDyn();
-			if( temp != -1 )
-			{
-				for( size_t i = 0; i < CurSelected.size(); ++i )
-				{
-					if( int(CurSelected[i]) == temp )
-					{			
-						std::vector <size_t> tempVec;
-						for( size_t vec = 0; vec < CurSelected.size(); ++vec )
-						{
-							if( int(CurSelected[vec]) != temp )
-							{
-								tempVec.push_back( CurSelected[vec] );
-							}
-						}
-						CurSelected.swap( tempVec );
 					}
 				}
 			}
@@ -141,41 +73,23 @@ void cMapEdit::SelectPass()
 		{
 			CurSelected.clear();
 			
-			for( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
+			for( size_t idx = 0; idx < PassiveObject.size(); ++idx )
 			{
-				for( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); ++idx2 )
+				RadiusRect2D Selection = RadiusRect2D::Pair( OldMousePos, CurMousePos );
+				
+				Real TempValue = PassiveObject[ idx ]->BoundingRect.P2().x;
+				
+				RadiusRect2D Boundy = RadiusRect2D::Pair(
+					PassiveObject[ idx ]->BoundingRect.P1(),
+					PassiveObject[ idx ]->BoundingRect.P2() );
+
+				if( Selection == Boundy )
 				{
-					for( size_t idx3 = 0; idx3 < DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Size(); ++idx3 )
-					{
-						if( WithinBox( DynamicCollection[ idx ]->Component[ idx2 ].Body.Nodes.Pos( idx3 ), CurMousePos, OldMousePos ) )
-						{
-							bool CurSelectedTest = false;
-							for( size_t i = 0; i < CurSelected.size(); ++i )
-							{
-								if( CurSelected[i] == idx )
-								{
-									CurSelectedTest = true;
-								}					
-							}
-							if( !CurSelectedTest )
-							{
-								CurSelected.push_back( idx );	
-							}
-						}
-					}
-				}
-			}
-			// Single select //
-			if( CurSelected.empty() )
-			{
-				int temp = SingleSelectDyn();
-				if( temp != -1 )
-				{
-					CurSelected.push_back( temp );
+					CurSelected.push_back( idx );
 				}
 			}
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::MovePass()
@@ -281,25 +195,12 @@ void cMapEdit::AddPass()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
-	/*	Vector2D TempPos = CurMousePos;
-
-		CalcSnapToGrid( TempPos, CurrentGridDepth, GridDepth );
-		
-		PassiveObject.push_back( Engine2D::CreatePassiveInstance( 1, Vector2D( -300, 300 ) ) );
-		
-//		DynamicCollection.push_back( Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], TempPos ) );
-		
-		Map.DynamicObjectInstanceInfo.push_back(
-			Engine2D::cDynamicObjectInstanceInfo( 
-				ActiveDyns[ CurDyn ],
-				TempPos
-			)
-		);
+		PassiveObject.push_back( CreatePassiveInstance( 32, CurMousePos, 80 ) );
 		
 		CurSelected.clear();
 		
-		CurSelected.push_back( DynamicCollection.size() - 1 );
-*/
+		CurSelected.push_back( PassiveObject.size() - 1 );
+
 		ActiveAction();
 	}
 }
