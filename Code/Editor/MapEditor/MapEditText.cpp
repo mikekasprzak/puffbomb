@@ -74,7 +74,82 @@ void cMapEdit::DisplayText()
 	}	
 	else if( CurMode == PASSIVE_OBJECT_MODE )
 	{
+		Real FontSize = 0.5;
+		int Color = Gfx::RGBA( 255, 100, 100, 255 );
 		
+		std::stringstream Temp;
+		
+		if( !ActivePass.empty() )
+		{
+			// Displays the Current ID //
+			// - ---------------------------------------------------------------------------------- - //
+			cFonts::FlangeLight.Write(
+				"ActivePass",
+				Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 90 ), 0.0 ),
+				FontSize,
+				Color
+			);
+			
+			Temp << ActivePass[ CurPass ];
+		
+			cFonts::FlangeLight.Write(
+				Temp.str(),
+				Vector3D( Global::Left + Real( 165 ), Global::Top - Real( 90 ), 0.0 ),
+				FontSize,
+				Color
+			);
+		}
+
+		if( !CurSelected.empty() )
+		{
+			Real XShift = 120;
+			Real YShift = 40;
+			Real XPos = 0;
+
+			Color = Gfx::RGBA( 255, 255, 255, 255 );
+			
+			Temp.str(std::string());
+			
+			// Displays the passive objects Arg //
+			// - -------------------------------------------------------------------------------------- - //
+			cFonts::FlangeLight.Write(
+				"Arg",
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
+				FontSize,
+				Color
+			);
+			
+			Temp << PassiveObject[ CurSelected[ 0 ] ]->Argument;
+		
+			cFonts::FlangeLight.Write(
+				Temp.str(),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
+				FontSize,
+				Color
+			);
+
+
+	
+/*			Temp.str(std::string());
+	
+			// Displays the passive objects ID //
+			// - ---------------------------------------------------------------------------------- - //
+			cFonts::FlangeLight.Write(
+				"CurLayer",
+				Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 120 ), 0.0 ),
+				FontSize,
+				Color
+			);
+			
+			Temp << PassiveObject[ CurSelected[ 0 ] ]->Argument;
+		
+			cFonts::FlangeLight.Write(
+				Temp.str(),
+				Vector3D( Global::Left + Real( 140 ), Global::Top - Real( 120 ), 0.0 ),
+				FontSize,
+				Color
+			);*/
+		}
 	}
 
 	DisplayMode();

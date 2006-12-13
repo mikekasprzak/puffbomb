@@ -165,7 +165,7 @@ void cMapEdit::AddPass()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
-		PassiveObject.push_back( CreatePassiveInstance( 32, CurMousePos, 80 ) );
+		PassiveObject.push_back( CreatePassiveInstance( ActivePass[ CurPass ], CurMousePos, 80 ) );
 		
 		CurSelected.clear();
 		
@@ -203,53 +203,36 @@ void cMapEdit::DeletePass()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMapEdit::UpdatePassPreview()
-{
-	/*if( DynPreview != 0 )
-	{
-		delete DynPreview;
-	}
-	
-	if( !ActiveDyns.empty() )
-	{
-		DynPreview = Engine2D::CreateCollectionInstance( ActiveDyns[ CurDyn ], Vector2D( Global::Left, Global::Bottom ) + Vector2D( 256, 256 ) );
-	}*/
-}
-// - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SwitchPass()
 {
-	/*if ( Button[ KEY_LEFT ].Pressed() ) 
+	if ( Button[ KEY_LEFT ].Pressed() ) 
 	{
-		if( !ActiveDyns.empty() )
+		if( !ActivePass.empty() )
 		{
-			if( CurDyn > 0 )
+			if( CurPass > 0 )
 			{
-				--CurDyn;
+				--CurPass;
 			}
 			else
 			{
-				CurDyn = ActiveDyns.size() - 1;
+				CurPass = ActivePass.size() - 1;
 			}
-			
-			UpdateDynPreview();
 		}
 	}
 	else if ( Button[ KEY_RIGHT ].Pressed() )
 	{
-		if( !ActiveDyns.empty() )
+		if( !ActivePass.empty() )
 		{
-			if( CurDyn < ActiveDyns.size() - 1 )
+			if( CurPass < ActivePass.size() - 1 )
 			{
-				++CurDyn;
+				++CurPass;
 			}
 			else
 			{
-				CurDyn = 0;	
+				CurPass = 0;	
 			}
-				
-			UpdateDynPreview();
 		}
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

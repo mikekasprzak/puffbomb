@@ -3,13 +3,12 @@
 #include "MapEdit.h"
 
 #include "CreateCollectionInstance.h"
+#include "CreatePassiveInstance.h"
 
 #include <Util/DirectoryCache.h>
 
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
-// - ------------------------------------------------------------------------------------------ - //
-//			#include <Animation/AnimationPool.h>
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
@@ -25,6 +24,7 @@ cMapEdit::cMapEdit() :
 	CurDyn( 0 ),
 	CurSelColl( 0 ),
 	CurSelComp( 0 ),
+	CurPass( 0 ),
 	CurZone( 0 ),
 	CornerSize( 128 ),
 	ResizeCorner( 0 )
@@ -53,6 +53,14 @@ cMapEdit::cMapEdit() :
 			delete TempDyn;
 			ActiveDyns.push_back( idx );
 		}
+		
+		Engine2D::cPassiveObject* TempPass = CreatePassiveInstance( idx, Vector2D::Zero );
+		
+		if( TempPass != 0 )
+		{
+			delete TempPass;
+			ActivePass.push_back( idx );
+		}
 	}
 	
 	if( !ActiveDyns.empty() )
@@ -66,12 +74,7 @@ cMapEdit::cMapEdit() :
 	LoadMap();
 	
 	CurMode = TILE_MODE;
-	
-	// SAfagfsdgsadfgasdfg sd //
-	
-//	Animator.Set( &AnimationPool.Load( "OldPuff.anim" ), 0 );
-//	Animator.Set( &AnimationPool.Load( "ParticleTest.anim" ), 0 );
-	
+		
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::~cMapEdit()
@@ -117,10 +120,14 @@ void cMapEdit::Draw()
 		}
 	}
 
+	Gfx::DisableTex2D();
+
 	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
 		PassiveObject[ idx ]->DebugDraw();
 	}
 	
+	Gfx::EnableTex2D();
+
 	// Draw selected //
 	Gfx::AddBlend();
 
@@ -277,17 +284,12 @@ void cMapEdit::HudDraw()
 	{
 		
 	}
-		
-//	Animator.DrawQuad( Vector2D( 0, 0 ) );
-	
 	
 	Gfx::DisableBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::Step()
 {
-	//	Animator.Step();
-
 	// Makes my physics active //
 	Physics.SetActive();
 

@@ -74,9 +74,8 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	std::vector< int > ActivePass;
 	
-	Engine2D::cPassiveObject* PassPreview;
+	size_t CurPass;
 		
-	cAnimator Animator;
 	
 	// Zone //
 	// - -------------------------------------------------------------------------------------- - //
@@ -144,7 +143,6 @@ public:
 	void MovePass();
 	void AddPass();
 	void DeletePass();
-	void UpdatePassPreview();
 	void SwitchPass();
 
 public:
