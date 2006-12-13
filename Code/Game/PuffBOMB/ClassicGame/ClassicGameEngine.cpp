@@ -178,7 +178,7 @@ void cClassicGameEngine::Step() {
 			
 			FXLibrary::Rain( Vector2D( XPos - 2500, YPos + 3000 ) );
 			
-			LastTime = GetTime() + 40;
+			LastTime = GetTime() + 5;
 		}
 
 		

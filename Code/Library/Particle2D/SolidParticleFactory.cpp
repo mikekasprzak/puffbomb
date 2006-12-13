@@ -335,8 +335,8 @@ void SolidParticleFactory::SolveVsObjects( cParticle& Particle ) {
 				Ray *= (RadiusSumSquared) / Divisor;
 	
 				//Particle.Pos -= Ray;
-				Particle.Velocity = -( ( Ray.Normal() * Particle.Velocity ) * Real( 2 ) * ( Ray.Normal() ) );
-			//	Particle.Velocity += Ray;
+				//Particle.Velocity = -( ( Ray.Normal() * Particle.Velocity ) * Real( 2 ) * ( Ray.Normal() ) );
+				Particle.Pos += Ray;
 			}
 		}
 	}

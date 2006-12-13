@@ -13,7 +13,8 @@ class cParticle
 {
 public:
 	Vector2D Pos;
-	Vector2D Velocity;
+	//Vector2D Velocity;
+	Vector2D Old;
 	Vector2D Acceleration;
 	Vector2D Drift;
 	
@@ -39,7 +40,8 @@ public:
 			const int &_Life,
 			cAnimation &_Animation ) :
 		Pos( _Pos ),
-		Velocity( _Velocity ),
+		//Velocity( _Velocity ),
+		Old( _Pos - _Velocity ),
 		Acceleration( _Acceleration ),
 		Drift( _Drift ),
 		Life( _Life ),
@@ -60,7 +62,8 @@ public:
 		const int _Fade )
 	{
 		Pos = _Pos;
-		Velocity = _Velocity;
+		//Velocity = _Velocity;
+		Old = _Pos - _Velocity;
 		Acceleration = _Acceleration;
 		Drift = _Drift;
 		Life = _Life;
@@ -81,7 +84,8 @@ public:
 		const int _Fade )
 	{
 		Pos = _Pos;
-		Velocity = _Velocity;
+		//Velocity = _Velocity;
+		Old = _Pos - _Velocity;
 		Acceleration = _Acceleration;
 		Drift = _Drift;
 		Life = _Life;
@@ -94,8 +98,13 @@ public:
 
 	inline void Step()
 	{
-		Pos += Velocity;
-		Velocity += Acceleration;
+//		Pos += Velocity;
+//		Velocity += Acceleration;
+//		Acceleration += Drift;
+
+		Vector2D NewOld = Pos;
+		Pos += (Pos - Old) + Acceleration;
+		Old = NewOld;
 		Acceleration += Drift;
 		--Life;
 		
