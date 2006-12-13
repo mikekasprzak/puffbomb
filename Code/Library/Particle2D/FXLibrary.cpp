@@ -516,7 +516,7 @@ void FXLibrary::CrazyPuffTest( const Vector2D& Pos )
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::Rain( const Vector2D& Pos )
 {
-	int MaxSteps = 50;
+	int MaxSteps = 20;
 	
 	int AdditiveParticles = SolidParticle.Allocate( MaxSteps, true );
 	
@@ -547,7 +547,7 @@ void FXLibrary::Rain( const Vector2D& Pos )
 		SolidParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
-			Vector2D( 0, -0.1 ),  			// Acceleration //
+			Vector2D( 0, -0.05 ),  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
 			ParticleTest,		// Animation //

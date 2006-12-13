@@ -289,9 +289,7 @@ void SolidParticleFactory::Draw()
 }
 // - ------------------------------------------------------------------------------------------ - //
 void SolidParticleFactory::SolveVsObjects( cParticle& Particle ) {
-	if( Engine2D::cEngine2D::Current )
-	{
-		
+	if( Engine2D::cEngine2D::Current ) {
 		// Calculate bounding rectangle of particle  //
 		
 		
@@ -334,8 +332,6 @@ void SolidParticleFactory::SolveVsObjects( cParticle& Particle ) {
 	
 				Ray *= (RadiusSumSquared) / Divisor;
 	
-				//Particle.Pos -= Ray;
-				//Particle.Velocity = -( ( Ray.Normal() * Particle.Velocity ) * Real( 2 ) * ( Ray.Normal() ) );
 				Particle.Pos += Ray;
 			}
 		}
@@ -343,7 +339,105 @@ void SolidParticleFactory::SolveVsObjects( cParticle& Particle ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void SolidParticleFactory::SolveVsStatics( cParticle& Particle ) {
-	
+	if( Engine2D::cEngine2D::Current ) {
+		// Calculate bounding rectangle of particle  //
+		
+
+		// For every static Object //
+		for ( size_t idx = 0; idx < Engine2D::cEngine2D::Current->StaticObjectInstance.size(); idx++ ) {
+			const Engine2D::cStaticBody2D& MyStatic = Engine2D::cEngine2D::Current->StaticObjectInstance[ idx ].Object->Body;
+			const Vector2D _Offset = Engine2D::cEngine2D::Current->StaticObjectInstance[ idx ].Pos;
+
+			bool Inside = false;
+			
+			// See if sphere is inside any polygon //
+			for ( size_t idx2 = 0; idx2 < MyStatic.Polygon.size(); idx2++ ) {
+				// Rectangles throw away test //
+				//if ( (MyStatic.Polygon[ idx2 ].BoundingRect + _Offset) == SphereRect[idx] )
+				{
+					// The number of sides found, so far //
+					size_t SideCount = 0;
+
+					// An optimization.  As long as it's only 1 more, we can re use if to the end //
+					Vector2D ToCorner;
+					
+					// Check if we're inside all sides except the last //
+					for ( size_t idx3 = 0; idx3 < MyStatic.Polygon[ idx2 ].Index.size() - 1; idx3++ ) {
+						Vector2D Segment =
+							MyStatic.Nodes.Pos( MyStatic.Polygon[ idx2 ].Index[idx3 + 1] ) -
+							MyStatic.Nodes.Pos( MyStatic.Polygon[ idx2 ].Index[idx3] );
+						
+						ToCorner = MyStatic.Nodes.Pos( MyStatic.Polygon[ idx2 ].Index[idx3 + 1] ) + _Offset - Particle.Pos;
+						
+						// If Inside this side //
+						if ( (-Segment.Tangent()) * ToCorner > Real::Zero )
+							SideCount++;
+						else
+							break;
+					}
+
+					// If we bailed early, we're not inside //
+					if ( SideCount != MyStatic.Polygon[ idx2 ].Index.size() - 1 )
+						continue;
+						
+					// Test last side //
+					Vector2D Segment =
+						MyStatic.Nodes.Pos( MyStatic.Polygon[ idx2 ].Index[0] ) -
+						MyStatic.Nodes.Pos( MyStatic.Polygon[ idx2 ].Index[SideCount] );
+					
+					// If you are inside, great!  That's all we care about. //
+					if ( (-Segment.Tangent()) * ToCorner > Real::Zero ) {
+						Inside = true;
+						break;
+					}
+				}
+			}
+			
+			// If you are (confirmed), find the closest point on the nearest edge //
+			if ( Inside ) {
+				bool FoundPoint = false;
+				Vector2D Push;
+				Real Mag;
+
+				// If none found, search all edges for nearest //
+				if ( !FoundPoint ) {
+					for ( size_t idx2 = 0; idx2 < MyStatic.Edge.size(); idx2++ ) {
+						// Motion Vector half space throw away test (Bad, as it allows perfect squishes to go through) //
+						//if ( Nodes.Velocity( Sphere[ SphereIndex[idx] ].Index ) * _Vs.Edge[idx2].Normal <= Real::Zero )
+						{
+							Vector2D PointOnEdge = MyStatic.Edge[idx2].ClosestPoint( MyStatic.Nodes, Particle.Pos - _Offset ) + _Offset;
+							
+							if ( !FoundPoint ) {
+								Push = PointOnEdge - Particle.Pos;
+								Mag = Push.MagnitudeSquared();
+								FoundPoint = true;
+							}
+							else {
+								Vector2D ToEdge = PointOnEdge - Particle.Pos;
+								Real NewMag = ToEdge.MagnitudeSquared();
+								
+								if ( NewMag < Mag ) {
+									Push = ToEdge;
+									Mag = NewMag;
+								}
+							}
+						}
+					}
+					
+				}
+				
+				// Solve for the found edge //
+				if ( FoundPoint ) {
+					// Solve //
+					//Push += (Push.Normal() * Sphere[ SphereIndex[idx] ].Radius);
+					Particle.Pos += Push * Real::Half;											
+				}
+				else {
+					Log( 10, "ERROR!!!! NO EXIT POINT FOUND!!!!! *********" );
+				}
+			}
+		}
+	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void SolidParticleFactory::SolveVsImpulses( cParticle& Particle ) {
