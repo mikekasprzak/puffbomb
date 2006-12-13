@@ -177,35 +177,29 @@ void cMapEdit::AddPass()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DeletePass()
 {
-	if( !ActiveDyns.empty() )
+	if( Button[ KEY_DELETE ].Pressed() )
 	{
-		if( Button[ KEY_DELETE ].Pressed() )
+		for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
 		{
-			/*for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
+			std::vector< Engine2D::cPassiveObject* > TempPass;
+
+			for( size_t i = 0; i < PassiveObject.size(); ++i )
 			{
-				std::vector< Engine2D::cDynamicCollection* > TempDyn;
-				std::vector< Engine2D::cDynamicObjectInstanceInfo > TempDynInfo;
-	
-				for( size_t i = 0; i < DynamicCollection.size(); ++i )
+				if( CurSelected[idx] != i )
 				{
-					if( CurSelected[idx] != i )
-					{
-						TempDyn.push_back( DynamicCollection[ i ] );
-						TempDynInfo.push_back( Map.DynamicObjectInstanceInfo[ i ] );
-					}
-					else
-					{
-						delete DynamicCollection[ i ];
-					}
+					TempPass.push_back( PassiveObject[ i ] );
 				}
-				
-				DynamicCollection.swap( TempDyn );
-				Map.DynamicObjectInstanceInfo.swap( TempDynInfo );
-			}*/
-			CurSelected.clear();
+				else
+				{
+					delete PassiveObject[ i ];
+				}
+			}
 			
-			ActiveAction();
+			PassiveObject.swap( TempPass );
 		}
+		CurSelected.clear();
+		
+		ActiveAction();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
