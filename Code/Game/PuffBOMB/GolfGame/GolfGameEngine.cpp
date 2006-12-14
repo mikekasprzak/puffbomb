@@ -108,7 +108,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 				Player[ CurrentPlayer ]->Stroke++;
 			}
 			Sender->Deactivate();
-			Sender->SetPos( StartPoint->Pos );
+			Sender->SetPos( FindNearestDrop( *Sender ) );
 			
 			break;
 		};
