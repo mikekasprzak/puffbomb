@@ -214,17 +214,50 @@ void cGolfGameEngine::Draw() {
 	HudCamera->Update();
 	
 #ifdef EDITOR
-	//	//  DISPLAYS FPS  //
-	std::stringstream Temp;
-	Temp << Global::FPS;
-	std::string TempString = Temp.str();
+	{
+		//  DISPLAYS FPS  //
+		std::stringstream Temp;
+		Temp << Global::FPS;
+		std::string TempString = Temp.str();
+		
+		Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
 	
-	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
-
-	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
-	// -------------- //
+		cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
+	}
 #endif // EDITOR //
 
+	{
+		//  Display Stroke //
+		std::stringstream Temp;
+		Temp << Player[ CurrentPlayer ]->Stroke;
+		std::string TempString = Temp.str();
+		
+		Vector3D TempPos = Vector3D( Global::Right - Real( 45 ), Global::Top - Real( 45 ), 0.0 );
+	
+		cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 50, 100, 255, 255 ) );
+	}
+
+	{
+		//  Display Score //
+		std::stringstream Temp;
+		Temp << "Score:  " << Player[ CurrentPlayer ]->Score;
+		std::string TempString = Temp.str();
+		
+		Vector3D TempPos = Vector3D( Global::Right - Real( 545 ), Global::Top - Real( 45 ), 0.0 );
+	
+		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 200, 55, 255 ) );
+	}
+
+	{
+		// Display Player Number //
+		std::stringstream Temp;
+		Temp << "Player  " << (CurrentPlayer + 1);
+		std::string TempString = Temp.str();
+		
+		Vector3D TempPos = Vector3D( Global::Left + Real( 100 ), Global::Top - Real( 45 ), 0.0 );
+	
+		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 100, 255, 255 ) );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 
