@@ -44,6 +44,8 @@ public:
 public:
 	cCamera *Camera;
 
+	int RotateCounter;
+
 public:
 	cEngine2D();
 	virtual ~cEngine2D();

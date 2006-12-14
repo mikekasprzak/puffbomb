@@ -471,6 +471,11 @@ namespace Gfx
 		glTranslatef ( x, y, z );
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	void Rotate( Real angle, Real x, Real y, Real z )
+	{
+		glRotatef( angle, x, y, z );
+	}
+	// - -------------------------------------------------------------------------------------- - //
 	void ClearColorDepth()
 	{
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );

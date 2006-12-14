@@ -50,6 +50,7 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	
 	SolidParticle.Clear();
 	DenseParticle.Clear();
+// 	Gfx::Rotate( Real( 45 ), Real( 0 ), Real( 0 ), Real( 20 ) );
 	
 //	PassiveObject.push_back( CreatePassiveInstance( 33, Vector2D( 0, 1000 ), 600 ) );
 //	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 200, 1000 ), 20 ) );
@@ -116,19 +117,10 @@ void cClassicGameEngine::FrameEnd() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
-
-
-/*// DELETE THIS WHEN YOU GET SICK OF THE RANDOM PARTICLE SHIT //
-#include <Particle2D/FXLibrary.h>
-// - ------------------------------------------------------------------------------------------ - //
-extern int GetTime();
-
-int LastTime;*/
-
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
 	FrameStart();
-
+	
 	// ------------------------------------------------------------------------------------------ //
 	
 	// When you push space, toggle activity //
@@ -217,18 +209,6 @@ void cClassicGameEngine::Step() {
 
 		
 		// Stuff my engine does after //
-		
-/*		// Bad Rain Thing !/ //
-		if( LastTime < GetTime() )
-		{
-			int XPos = rand() % ( int( Global::HudW * Real( 4 ) ) - int( Global::Right * Real( 4 ) ) );
-			int YPos = rand() % ( int( Global::HudH * Real( 4 ) ) - int( Global::Top * Real( 4 ) ) );
-			
-			FXLibrary::Rain( Vector2D( XPos - 2500, YPos + 3000 ) );
-			
-			LastTime = GetTime() + 5;
-		}
-*/
 
 	}
 	// If the engine is not active, then we'r in edit mode //
@@ -256,12 +236,20 @@ void cClassicGameEngine::Step() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Draw() {
+	
+//	Gfx::PushMatrix();
+
+//	Gfx::Rotate( Real( 22 ), Real( 0 ), Real( 221 ), Real( 20 ) );
+//	Gfx::Translate( Real( 0 ), Real( 220 ), Real( 0 ) );
+
 	// -- Stuff my engine does before --------------- //
 	// ... //
 	
 	// -- Original Engine Draw ---------------------- //
 	cEngine2D::Draw();
-	
+
+//	Gfx::PopMatrix();
+
 	// -- Stuff my engine does after ---------------- //
 
 	Gfx::DisableDepth();

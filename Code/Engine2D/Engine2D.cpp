@@ -17,7 +17,8 @@ cEngine2D::cEngine2D() :
 	ShowCollectionDebug( false ),
 	ShowStaticDebug( false ),
 	ShowPassiveDebug( false ),
-	ShowZoneDebug( false )
+	ShowZoneDebug( false ),
+	RotateCounter( 90 )
 {
 	// Create Camera //
 	Camera = new cCamera(
@@ -230,6 +231,18 @@ void cEngine2D::Step() {
 void cEngine2D::Draw() {
 	// --------------- Engine ------------------------- //
 	Camera->Update();
+
+//	Gfx::PushMatrix();
+
+	if( RotateCounter != 0 )
+	{
+		Gfx::Rotate( Real( RotateCounter ), -Real( 1.0 ), Real( 1.0 ), Real( 1.0 ) );
+			
+		RotateCounter -= 9;
+	}
+//	Gfx::Translate( Real( 0 ), Real( 0 ), Real( 0 ) );
+
+//	Gfx::PopMatrix();
 
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
