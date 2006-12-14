@@ -47,8 +47,6 @@ cMainMenu::cMainMenu()
 	
 	LastTime = GetTime();
 	
-	srand ( time(NULL) );
-	
 	Gfx::DisableSmoothPolygon();
 	
 	Work();

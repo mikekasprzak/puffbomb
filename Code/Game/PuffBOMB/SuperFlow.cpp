@@ -69,6 +69,8 @@ cSuperFlow::cSuperFlow() :
 	FindMaps( GolfPath, GolfMaps );
 	
 	StateFlow();
+	
+	srand ( time(NULL) );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cSuperFlow::StateFlow()
