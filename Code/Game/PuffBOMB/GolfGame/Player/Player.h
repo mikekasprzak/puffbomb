@@ -34,6 +34,13 @@ public:
 public:
 	virtual bool Control() = 0;
 	
+	inline void AddScore( const int _Value ) {
+		Score += _Value;
+		if ( Score < 0 ) {
+			Score = 0;
+		}
+	}
+	
 	inline void AddStroke() {
 		Stroke++;
 		if ( Stroke > 10 ) {

@@ -8,6 +8,7 @@
 #include <Objects/Distortion/Distortion.h>
 #include <Objects/BasicBomb/BasicBomb.h>
 #include <Objects/GolfStart/GolfStart.h>
+#include <Objects/Coin/Coin.h>
 #include <Objects/RainGenerator/RainGenerator.h>
 #include <Objects/DripGenerator/DripGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -42,6 +43,11 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 				Engine2D::cEngine2D::Current->Message( 6, MyStart );
 			}
 			return MyStart;
+			break;
+		}
+
+		case 10 ... 13: {
+			return new cCoin( Pos, 10 - Id );
 			break;
 		}
 
