@@ -27,6 +27,7 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex );
 void BlackenFilter( cTex& Tex );
 void FattenFilter( cTex& Tex );
 void HalfFilter( cTex& Tex );
+void WhiteFilter( cTex& Tex );
 // - ------------------------------------------------------------------------------------------ - //
 //	FlagFilters
 typedef const unsigned int fl;
@@ -34,6 +35,7 @@ fl flFatten 	= bit4;
 fl flHalf 		= bit5;
 fl flQuarter 	= bit6;
 fl flEighth 	= bit7;
+fl flWhite	 	= bit8;
 
 fl flRGB 		= bit16;
 fl flRGBA 		= bit17;
@@ -155,6 +157,12 @@ unsigned int Filters( const std::string PathFileName )
 		FilterFlags |= flDXT;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	if( String::HasAnyExtension( PathFileName, "white" ) )
+	{
+		FilterFlags |= flWhite;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
 	return FilterFlags;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -216,6 +224,17 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 		cout << "DXT filter applied" << endl;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	if( FilterFlags & flWhite )
+	{
+		for( int i = 0; i < 7; ++i )
+		{ 			
+			WhiteFilter( Tex );
+		}
+		
+		FilterFlags ^= flWhite;
+		cout << "White filter applied" << endl;
+	}
+	// - -------------------------------------------------------------------------------------- - //
 
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -246,7 +265,6 @@ void FattenFilter( cTex& Tex )
 		{
 			for( size_t x = 0; x < Tex.Width; ++x )
 			{
-				// ? not sure why we loop this ? //
 				for( size_t ColorIdx = 0; ColorIdx < Tex.PixelSize; ++ColorIdx )
 				{
 					unsigned int Color = 0;
@@ -412,5 +430,104 @@ void HalfFilter( cTex& Tex )
 			
 	Tex.Pixels = (unsigned char*)HalfedImage;
 	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void WhiteFilter( cTex& Tex )
+{
+	if( Tex.PixelSize == 4 )
+	{
+		int MaxColor = 255;
+
+		for( size_t y = 0; y < Tex.Height; ++y )
+		{
+			for( size_t x = 0; x < Tex.Width; ++x )
+			{
+				unsigned int idx = ( ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) );
+					
+				if( ( Tex.Pixels[ idx + 3 ] & 0xff ) == 0 )
+				{
+					Tex.Pixels[ idx ] = 0;
+					Tex.Pixels[ idx + 1 ] = 0;
+					Tex.Pixels[ idx + 2 ] = 0;
+										
+				}
+				else
+				{
+					Tex.Pixels[ idx ] = MaxColor;
+					Tex.Pixels[ idx + 1 ] = MaxColor;
+					Tex.Pixels[ idx + 2 ] = MaxColor;
+					Tex.Pixels[ idx + 3 ] = MaxColor;
+				}
+			}
+		}
+
+		MaxColor = 128;
+
+		for( size_t y = 0; y < Tex.Height; ++y )
+		{
+			for( size_t x = 0; x < Tex.Width; ++x )
+			{
+				unsigned int idx = ( ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) );
+
+				if( x != 0 )
+				{
+					if( ( ( Tex.Pixels[ idx - 1 ] ) == 255 ) && Tex.Pixels[ idx ] == 0 )
+					{
+						Tex.Pixels[ idx ] = MaxColor;
+						Tex.Pixels[ idx + 1 ] = MaxColor;
+						Tex.Pixels[ idx + 2 ] = MaxColor;
+						Tex.Pixels[ idx + 3 ] = MaxColor;
+					}
+				}
+				if( x != Tex.Width - 2 )
+				{
+					if( ( ( Tex.Pixels[ idx + 4 ] ) == 255 ) && Tex.Pixels[ idx ] == 0 )
+					{
+						Tex.Pixels[ idx ] = MaxColor;
+						Tex.Pixels[ idx + 1 ] = MaxColor;
+						Tex.Pixels[ idx + 2 ] = MaxColor;
+						Tex.Pixels[ idx + 3 ] = MaxColor;
+					}
+				}
+				if( y != 0 )
+				{
+					if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) ] ) == 255 ) && Tex.Pixels[ idx ] == 0 )
+					{
+						Tex.Pixels[ idx ] = MaxColor;
+						Tex.Pixels[ idx + 1 ] = MaxColor;
+						Tex.Pixels[ idx + 2 ] = MaxColor;
+						Tex.Pixels[ idx + 3 ] = MaxColor;
+					}  
+				}
+				if( y < Tex.Height - 2 )
+				{
+					if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) ] ) == 255 ) && Tex.Pixels[ idx ] == 0 )
+					{
+						Tex.Pixels[ idx ] = MaxColor;
+						Tex.Pixels[ idx + 1 ] = MaxColor;
+						Tex.Pixels[ idx + 2 ] = MaxColor;
+						Tex.Pixels[ idx + 3 ] = MaxColor;
+					}  
+				}
+			}
+		}
+		
+		for( size_t y = 0; y < Tex.Height; ++y )
+		{
+			for( size_t x = 0; x < Tex.Width; ++x )
+			{
+				unsigned int idx = ( ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) );
+					
+				if( ( Tex.Pixels[ idx + 3 ] & 0xff ) == MaxColor )
+				{
+					Tex.Pixels[ idx ] = 255;
+					Tex.Pixels[ idx + 1 ] = 255;
+					Tex.Pixels[ idx + 2 ] = 255;
+					Tex.Pixels[ idx + 3 ] = 255;
+				}
+			}
+		}
+		
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
