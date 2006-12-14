@@ -8,7 +8,6 @@
 
 #include "CreateCollectionInstance.h"
 #include "CreatePassiveInstance.h"
-#include "CreateZoneInstance.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
