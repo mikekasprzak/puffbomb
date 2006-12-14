@@ -203,8 +203,6 @@ void cClassicGameEngine::Step() {
 
 		
 		// Stuff my engine does after //
-		SolidParticle.Step();
-		DenseParticle.Step();
 		
 /*		// Bad Rain Thing !/ //
 		if( LastTime < GetTime() )
@@ -227,6 +225,10 @@ void cClassicGameEngine::Step() {
 		Camera->UpdateTarget( Cursor.Pos );
 	}
 	
+	// Run the Particle systems always in both active and non active modes of the game //
+	SolidParticle.Step();
+	DenseParticle.Step();
+
 	// ------------------------------------------------------------------------------------------ //
 	
 	FrameEnd();
