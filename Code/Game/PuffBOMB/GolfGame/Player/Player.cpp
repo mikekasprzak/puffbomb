@@ -7,7 +7,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 cPlayer::cPlayer( Engine2D::cDynamicCollection* _MyObject ) :
 	MyObject( _MyObject ),
-	Score( 0 )
+	Score( 0 ),
+	Stroke( 0 )
 {
 	
 }

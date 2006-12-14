@@ -15,6 +15,7 @@ public:
 public:
 	// Elements of a Player //
 	int Score;
+	int Stroke;
 	Vector2D BombPos;
 	
 	// Statistics //

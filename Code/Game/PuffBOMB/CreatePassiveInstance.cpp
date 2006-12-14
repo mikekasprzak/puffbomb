@@ -29,7 +29,19 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 		}
 
 		case 5: {
-			return new cGolfStart( Pos );
+			cGolfStart* MyStart = new cGolfStart( Pos );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 5, MyStart );
+			}
+			return MyStart;
+			break;
+		}
+		case 6: {
+			cGolfStart* MyStart = new cGolfStart( Pos );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 6, MyStart );
+			}
+			return MyStart;
 			break;
 		}
 

@@ -19,6 +19,7 @@
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::cGolfGameEngine() :
+	StartPoint( 0 ),
 	CurrentPlayer( 0 ),
 	State( 1 ),
 	HitBoundery( false )
@@ -39,7 +40,9 @@ cGolfGameEngine::cGolfGameEngine() :
 		Real( 0 ),										// Y
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )						// Height
-	 );
+		);
+	 
+	SetActive();
 	 
  	LoadMap( "Maps/Golf/Level02.map" );
  	
@@ -47,8 +50,10 @@ cGolfGameEngine::cGolfGameEngine() :
  	SolidParticle.Clear();
  	
  	// Add the start point (temporarily) //
- 	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
- 	PassiveObject.push_back( StartPoint );
+// 	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
+// 	PassiveObject.push_back( StartPoint );
+
+	Log( 10, "St " << (int)StartPoint );
  	
  	// Add Players //
  	for ( int idx = 0; idx < 4; idx++ ) {
@@ -73,11 +78,20 @@ cGolfGameEngine::~cGolfGameEngine() {
 // - ------------------------------------------------------------------------------------------ - //
 int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 	switch ( Msg ) {
+		// I am at the end of the level //
+		case 2: {
+			CharacterAtEndZone++;
+			break;
+		};
+
 		// Player hit a 'Go Back To Safe' Zone //
 		case 4: {
 			Log( 10, "+ Player hit a 'Go Back To Safe' Zone" );
 			if ( Sender == Player[ CurrentPlayer ]->MyObject ) {
 				HitBoundery = true;
+
+				// We went out of bounds, add a stroke //
+				Player[ CurrentPlayer ]->Stroke++;
 			}
 			Sender->Deactivate();
 			Sender->SetPos( StartPoint->Pos );
@@ -89,16 +103,13 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			Log( 10, "+ Player hit a 'Go To Nearest Drop' Zone" );
 			if ( Sender == Player[ CurrentPlayer ]->MyObject ) {
 				HitBoundery = true;
+
+				// We went out of bounds, add a stroke //
+				Player[ CurrentPlayer ]->Stroke++;
 			}
 			Sender->Deactivate();
 			Sender->SetPos( StartPoint->Pos );
 			
-			break;
-		};
-		
-		// I am at the end of the level //
-		case 2: {
-			CharacterAtEndZone++;
 			break;
 		};
 	};
@@ -107,6 +118,23 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 int cGolfGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
+	switch ( Msg ) {
+		// Golf Start //
+		case 5: {
+			Log( 10, "+ Golf Start" );
+			StartPoint = Sender;
+			DropPoint.push_back( Sender );
+			
+			break;
+		};
+		// Golf Drop Point //
+		case 6: {
+			Log( 10, "+ Golf Drop Point" );
+			DropPoint.push_back( Sender );
+			
+			break;
+		};
+	};
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -203,6 +231,9 @@ void cGolfGameEngine::TurnBasedPlay() {
 				
 				// If our control is all done, and wants action //
 				if ( Player[ CurrentPlayer ]->Control() ) {
+					// Since we're bombing, add a stroke //
+					Player[ CurrentPlayer ]->Stroke++;
+					
 					// Create Bomb at position requested //
 					Vector2D BombPos =
 						Player[ CurrentPlayer ]->BombPos + 
