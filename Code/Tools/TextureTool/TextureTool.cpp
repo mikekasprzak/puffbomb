@@ -21,6 +21,9 @@ public:
 	unsigned int Height;
 	unsigned char* Pixels;
 };
+
+cTex WhiteTex;
+
 // - ------------------------------------------------------------------------------------------ - //
 unsigned int Filters( const std::string PathFileName );
 void ApplyFilters( unsigned int& FilterFlags, cTex& Tex );
@@ -76,6 +79,8 @@ int main( int argc, char* argv[] ) {
 	
 	SDL_FreeSurface( Image );
 	
+	WhiteTex.PixelSize = 0;
+	
 	// - -------------------------------------------------------------------------------------- - //
 	// Command Line Filters //
 	// - -------------------------------------------------------------------------------------- - //
@@ -103,10 +108,20 @@ int main( int argc, char* argv[] ) {
 	
 	outfile.write( ( char* )Tex.Pixels, Tex.PixelSize * ( Tex.Width * Tex.Height ) );
 	
+	outfile.write( (char*)&WhiteTex.PixelSize, sizeof( unsigned int ) );
+	if( WhiteTex.PixelSize != 0 )
+	{
+		outfile.write( ( char* )WhiteTex.Pixels, WhiteTex.PixelSize * ( WhiteTex.Width * WhiteTex.Height ) );	
+	}
+	
 	outfile.close();
 	
 	delete[] Tex.Pixels;
-
+	if( WhiteTex.Pixels != 0 )
+	{
+		delete[] WhiteTex.Pixels;
+	}
+	
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -226,9 +241,17 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 	// - -------------------------------------------------------------------------------------- - //
 	if( FilterFlags & flWhite )
 	{
+		WhiteTex.Width = Tex.Width;
+		WhiteTex.Height = Tex.Height;
+		WhiteTex.PixelSize = Tex.PixelSize;
+		
+		WhiteTex.Pixels = new unsigned char[ WhiteTex.Width * WhiteTex.Height * WhiteTex.PixelSize ];
+		
+		memcpy( WhiteTex.Pixels, Tex.Pixels, WhiteTex.Width * WhiteTex.Height * WhiteTex.PixelSize );
+
 		for( int i = 0; i < 7; ++i )
 		{ 			
-			WhiteFilter( Tex );
+			WhiteFilter( WhiteTex );
 		}
 		
 		FilterFlags ^= flWhite;
