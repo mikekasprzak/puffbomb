@@ -111,7 +111,7 @@ void cClassicGameEngine::FrameEnd() {
 	if ( CameraTracking.size() != 0 ) {
 		if ( CharactersAtEndZones == CameraTracking.size() ) {
 			LevelComplete = true;
-			cMessageEntity::Current->BreakLoop = true;	
+			cMessageEntity::Current->BreakLoop = true;
 		}
 	}
 }

@@ -16,6 +16,7 @@ public:
 	// Elements of a Player //
 	int Score;
 	int Stroke;
+	bool Finished;
 	
 	Vector2D BombPos;
 	
@@ -32,6 +33,14 @@ public:
 	
 public:
 	virtual bool Control() = 0;
+	
+	inline void AddStroke() {
+		Stroke++;
+		if ( Stroke > 10 ) {
+			Stroke = 10;
+			Finished = true;
+		}
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Game_PuffBOMB_Player_Player_H__ // 

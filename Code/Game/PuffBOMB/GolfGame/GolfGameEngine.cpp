@@ -10,6 +10,8 @@
 #include <Particle2D/SolidParticleFactory.h>
 #include <Particle2D/DenseParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
+#include <Framework/MessageEntity.h>
+// - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
 #include <Graphics/Gfx.h>
@@ -52,8 +54,6 @@ cGolfGameEngine::cGolfGameEngine() :
  	// Add the start point (temporarily) //
 // 	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
 // 	PassiveObject.push_back( StartPoint );
-
-	Log( 10, "St " << (int)StartPoint );
  	
  	// Add Players //
  	for ( int idx = 0; idx < 4; idx++ ) {
@@ -81,7 +81,16 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 	switch ( Msg ) {
 		// I am at the end of the level //
 		case 2: {
-			CharacterAtEndZone++;
+			//CharacterAtEndZone++;
+			Sender->Deactivate();
+
+			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+				if ( Sender == Player[ idx ]->MyObject ) {
+					Player[ idx ]->Finished = true;
+					break;
+				}	
+			}
+
 			break;
 		};
 
@@ -92,7 +101,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 				HitBoundery = true;
 
 				// We went out of bounds, add a stroke //
-				Player[ CurrentPlayer ]->Stroke++;
+				Player[ CurrentPlayer ]->AddStroke();
 			}
 			// Deactivate this player, to dissapear and stop moving //
 			Sender->Deactivate();
@@ -116,7 +125,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 				HitBoundery = true;
 
 				// We went out of bounds, add a stroke //
-				Player[ CurrentPlayer ]->Stroke++;
+				Player[ CurrentPlayer ]->AddStroke();
 			}
 			Sender->Deactivate();
 			Sender->SetPos( FindNearestDrop( *Sender ) );
@@ -231,9 +240,14 @@ void cGolfGameEngine::TurnBasedPlay() {
 			};
 			case 2: {
 				// Stage 2 - Activate Players (if not activated) ------------------------------ - //
-				Player[ CurrentPlayer ]->MyObject->Activate();
-
-				State = 3;
+				if ( !Player[ CurrentPlayer ]->Finished ) {
+					Player[ CurrentPlayer ]->MyObject->Activate();
+					State = 3;
+				}
+				else {
+					State = 5;
+				}
+				
 				break;
 			};
 			case 3: {
@@ -243,7 +257,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 				// If our control is all done, and wants action //
 				if ( Player[ CurrentPlayer ]->Control() ) {
 					// Since we're bombing, add a stroke //
-					Player[ CurrentPlayer ]->Stroke++;
+					Player[ CurrentPlayer ]->AddStroke();
 					
 					// Create Bomb at position requested //
 					Vector2D BombPos =
@@ -252,15 +266,16 @@ void cGolfGameEngine::TurnBasedPlay() {
 					
 					FXLibrary::Bomb( BombPos );
 					
-					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.ApplyImpulse( 
-						Engine2D::cImpulse(
+					Engine2D::cImpulse MyImpulse(
 							BombPos,
 							// Inner Radius, Intensity, Tangent //
 							Real( 0 ), Real( 30 ), Real( 0 ),
 							// Outer Radius, Intensity, Tangent //
 							Real( 512 ), Real( 0 ), Real( 0 )
-							)
-						);
+							);
+
+					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.ApplyImpulse( MyImpulse );
+					Player[ CurrentPlayer ]->MyObject->Message( MyImpulse );
 					
 					// Change State, to play it out //
 					State = 4;
@@ -273,22 +288,40 @@ void cGolfGameEngine::TurnBasedPlay() {
 				Camera->UpdateTarget( Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center() );
 				
 				// If Turn is over //
-				if ( Input::Pad[ 0 ].Button[ 0 ].Pressed() || HitBoundery ) {
+				if ( Input::Pad[ 0 ].Button[ 0 ].Pressed() || HitBoundery || Player[ CurrentPlayer ]->Finished ) {
 					// If we ended a turn successufully, note the nearest drop zone;
 					if ( !HitBoundery ) {
 						Player[ CurrentPlayer ]->MyLastDropPos = FindNearestDrop( *Player[ CurrentPlayer ]->MyObject );
 					}
 					
-					// Next Player //
-					CurrentPlayer++;
-					if ( CurrentPlayer >= Player.size() ) {
-						CurrentPlayer = 0;
-					}
-					
-					// Change State, to ask player for his control (input) //
-					State = 2;
+					State = 5;
 				}
 				
+				break;
+			}
+			case 5: {
+				// Next Player //
+				CurrentPlayer++;
+				if ( CurrentPlayer >= Player.size() ) {
+					CurrentPlayer = 0;
+				}
+
+				// Confirm all players aren't done //
+				{
+					int PlayersDone = 0;
+					for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+						if ( Player[ idx ]->Finished ) {
+							PlayersDone++;
+						}
+					}
+					if ( PlayersDone == Player.size() ) {
+						cMessageEntity::Current->BreakLoop = true;
+					}
+				}
+				
+				// Change State, to ask player for his control (input) //
+				State = 2;
+
 				break;
 			}
 		};
