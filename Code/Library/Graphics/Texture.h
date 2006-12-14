@@ -16,8 +16,10 @@ public:
 	unsigned int Height;
 	
 	IdType Id;  // Prob GL specific //
-		
 	void* Pixels;
+
+	IdType WhiteId;
+	void* WhitePixels;
 
 #ifdef EDITOR
 	std::string FileName;

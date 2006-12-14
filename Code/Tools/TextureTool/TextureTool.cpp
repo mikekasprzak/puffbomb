@@ -97,7 +97,7 @@ int main( int argc, char* argv[] ) {
 	FilterFlags |= Filters( PathFileName );
 	
 	// - -------------------------------------------------------------------------------------- - //
-	// Apply processing filters //
+	// Apply processing filters // 
 	// - -------------------------------------------------------------------------------------- - //
 	ApplyFilters( FilterFlags, Tex );
 	
