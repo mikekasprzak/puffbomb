@@ -7,7 +7,7 @@
 #include <Geometry/Vector.h>
 #include <Physics/Physics.h>
 
-#include <Animation/Animator.h>
+//#include <Animation/Animator.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -17,7 +17,7 @@ public:
 	
 	int Argument;
 	
-	cAnimator Animator;
+//	cAnimator Animator;
 
 public:
 	// Bounding rectangle //

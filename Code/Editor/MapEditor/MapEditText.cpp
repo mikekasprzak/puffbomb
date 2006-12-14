@@ -119,7 +119,7 @@ void cMapEdit::DisplayText()
 				Color
 			);
 			
-			Temp << PassiveObject[ CurSelected[ 0 ] ]->Argument;
+			Temp << Map.PassiveObjectInstanceInfo[ CurSelected[ 0 ] ].Arg;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
@@ -128,27 +128,26 @@ void cMapEdit::DisplayText()
 				Color
 			);
 
-
-	
-/*			Temp.str(std::string());
-	
+			Temp.str(std::string());
+			XPos += XShift;
+		
 			// Displays the passive objects ID //
 			// - ---------------------------------------------------------------------------------- - //
 			cFonts::FlangeLight.Write(
-				"CurLayer",
-				Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 120 ), 0.0 ),
+				"ID",
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
 				FontSize,
 				Color
 			);
 			
-			Temp << PassiveObject[ CurSelected[ 0 ] ]->Argument;
+			Temp << Map.PassiveObjectInstanceInfo[ CurSelected[ 0 ] ].Id;
 		
 			cFonts::FlangeLight.Write(
 				Temp.str(),
-				Vector3D( Global::Left + Real( 140 ), Global::Top - Real( 120 ), 0.0 ),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
 				FontSize,
 				Color
-			);*/
+			);
 		}
 	}
 

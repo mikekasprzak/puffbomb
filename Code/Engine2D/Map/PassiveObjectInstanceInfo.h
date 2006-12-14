@@ -22,7 +22,7 @@ public:
 	{
 		
 	}
-	cPassiveObjectInstanceInfo(  const int _Id, const Vector2D _Pos, const int _Arg = 0 ) :
+	cPassiveObjectInstanceInfo( const int _Id, const Vector2D _Pos, const int _Arg = 0 ) :
 		Id( _Id ),
 		Pos( _Pos ),
 		Arg( _Arg )

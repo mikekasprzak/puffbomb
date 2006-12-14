@@ -154,6 +154,8 @@ void cMapEdit::MovePass()
 			PassiveObject[ CurSelected[ idx ] ]->Pos.y += ( Mouse.Diff().y * Real( Global::HudH ) ) *
 				Real( Camera->Pos.z / Global::HudZoom );
 					
+			Map.PassiveObjectInstanceInfo[ CurSelected[ idx ] ].Pos = PassiveObject[ CurSelected[ idx ] ]->Pos;
+					
 			PassiveObject[ CurSelected[ idx ] ]->BoundingRect =
 				Engine2D::cPhysics::BoundingRectType::Pair(
 					PassiveObject[ CurSelected[ idx ] ]->Pos - Vector2D( 32, 32 ), PassiveObject[ CurSelected[ idx ] ]->Pos + Vector2D( 32, 32 ) );	
@@ -165,7 +167,9 @@ void cMapEdit::AddPass()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() )
 	{
-		PassiveObject.push_back( CreatePassiveInstance( ActivePass[ CurPass ], CurMousePos, 80 ) );
+		PassiveObject.push_back( CreatePassiveInstance( ActivePass[ CurPass ], CurMousePos, 0 ) );
+		
+		Map.PassiveObjectInstanceInfo.push_back( Engine2D::cPassiveObjectInstanceInfo( ActivePass[ CurPass ], CurMousePos, 0 ) );
 		
 		CurSelected.clear();
 		
@@ -182,12 +186,14 @@ void cMapEdit::DeletePass()
 		for( int idx = CurSelected.size() - 1; idx >= 0; --idx )
 		{
 			std::vector< Engine2D::cPassiveObject* > TempPass;
-
+			std::vector< Engine2D::cPassiveObjectInstanceInfo > TempPassInst;
+			
 			for( size_t i = 0; i < PassiveObject.size(); ++i )
 			{
 				if( CurSelected[idx] != i )
 				{
 					TempPass.push_back( PassiveObject[ i ] );
+					TempPassInst.push_back( Map.PassiveObjectInstanceInfo[ i ] );
 				}
 				else
 				{
@@ -196,6 +202,7 @@ void cMapEdit::DeletePass()
 			}
 			
 			PassiveObject.swap( TempPass );
+			Map.PassiveObjectInstanceInfo.swap( TempPassInst );
 		}
 		CurSelected.clear();
 		
@@ -241,16 +248,22 @@ void cMapEdit::ChangeArg( const size_t ArgDiff )
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			if( PassiveObject[ CurSelected[ idx ] ]->Argument > 1 )
+			if( Map.PassiveObjectInstanceInfo[ CurSelected[ idx ] ].Arg > 1 )
 			{
 				if( ( Button[ KEY_MINUS ] ) || ( Mouse.Wheel.Diff() < 0 ) )
 				{
-					PassiveObject[ CurSelected[ idx ] ]->Argument -= ArgDiff;
+					//PassiveObject[ CurSelected[ idx ] ]->Argument -= ArgDiff;
+					Map.PassiveObjectInstanceInfo[ CurSelected[ idx ] ].Arg -= ArgDiff;
+					
+					ActiveAction();
 				}
 			}
 			if( ( Button[ KEY_EQUALS ] ) || ( Mouse.Wheel.Diff() > 0 ) )
 			{
-					PassiveObject[ CurSelected[ idx ] ]->Argument += ArgDiff;
+				//PassiveObject[ CurSelected[ idx ] ]->Argument += ArgDiff;
+				Map.PassiveObjectInstanceInfo[ CurSelected[ idx ] ].Arg += ArgDiff;
+				
+				ActiveAction();
 			}
 		}
 	}

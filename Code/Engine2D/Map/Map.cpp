@@ -92,7 +92,22 @@ void cMap::LoadBinary( const std::string FileName )
 	{
 		size_t PassiveObjectSize = In.Read();
 		PassiveObjectInstanceInfo.resize( PassiveObjectSize );
+		
+		for ( size_t idx = 0; idx < PassiveObjectSize; idx++ )
+		{
+			int Id;
+			Vector2D Pos;
+			int Arg;
 
+			In.Read( Id );
+			
+			In.Read( Pos.x );
+			In.Read( Pos.y );
+
+			In.Read( Arg );
+			
+			PassiveObjectInstanceInfo[ idx ] = cPassiveObjectInstanceInfo( Id, Pos, Arg );
+		}
 	}
 
 	// Zones part //
@@ -180,6 +195,15 @@ void cMap::SaveBinary( const std::string FileName )
 		{
 			Out.Write( PassiveObjectInstanceInfo.size() );
 			
+			for ( size_t idx = 0; idx < PassiveObjectInstanceInfo.size(); idx++ )
+			{
+				Out.Write( PassiveObjectInstanceInfo[ idx ].Id );
+
+				Out.Write( PassiveObjectInstanceInfo[ idx ].Pos.x );
+				Out.Write( PassiveObjectInstanceInfo[ idx ].Pos.y );
+			
+				Out.Write( PassiveObjectInstanceInfo[ idx ].Arg );
+			}
 		}
 		
 		// Zones part //

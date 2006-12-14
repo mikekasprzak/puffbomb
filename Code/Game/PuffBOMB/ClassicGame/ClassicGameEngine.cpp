@@ -54,8 +54,8 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 		
 	AddBombs();
 	
-	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( -200, 1000 ), 20 ) );
-	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 200, 1000 ), 20 ) );
+//	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( -200, 1000 ), 20 ) );
+//	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 200, 1000 ), 20 ) );
 
 /*
 	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 0, 1000 ), 1 ) );

@@ -552,7 +552,25 @@ void cMapEdit::LoadMap()
 	
 	
 	// Passive Object Part //
-
+	{
+		// Delete the collections //
+		for ( size_t idx = 0; idx < PassiveObject.size(); idx++ ) {
+			delete PassiveObject[ idx ];
+		}
+		
+		PassiveObject.clear();
+	
+		for( size_t idx = 0; idx < Map.PassiveObjectInstanceInfo.size(); ++idx )
+		{
+			PassiveObject.push_back( CreatePassiveInstance( 
+				Map.PassiveObjectInstanceInfo[ idx ].Id,
+				Map.PassiveObjectInstanceInfo[ idx ].Pos,
+				Map.PassiveObjectInstanceInfo[ idx ].Arg
+				)
+			);
+		}
+	}
+	
 	// Zones Part //
 	{
 		Zone.clear();
@@ -604,7 +622,6 @@ void cMapEdit::SaveMap()
 			
 			// Passive Object Part //
 			
-
 			// Zones Part //
 			Map.ZoneInstanceInfo.clear();
 			
