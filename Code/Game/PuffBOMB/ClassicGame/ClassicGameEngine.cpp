@@ -52,7 +52,7 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 	
-//	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( -200, 1000 ), 20 ) );
+//	PassiveObject.push_back( CreatePassiveInstance( 33, Vector2D( 0, 1000 ), 600 ) );
 //	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 200, 1000 ), 20 ) );
 
 /*

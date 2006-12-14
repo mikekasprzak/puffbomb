@@ -9,6 +9,7 @@
 #include <Objects/BasicBomb/BasicBomb.h>
 #include <Objects/GolfStart/GolfStart.h>
 #include <Objects/RainGenerator/RainGenerator.h>
+#include <Objects/DripGenerator/DripGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
 Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
 	// Switch based on the Id passed to the function //
@@ -38,6 +39,15 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 				Engine2D::cEngine2D::Current->Message( 1, MyRain );
 			}
 			return MyRain;
+			break;
+		}
+		case 33: {
+			cDripGenerator* MyDrip = new cDripGenerator( Pos, Argument );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 1, MyDrip );
+			}
+			return MyDrip;
+
 			break;
 		}
 		
