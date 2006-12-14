@@ -38,7 +38,6 @@ public:
 		Stroke++;
 		if ( Stroke > 10 ) {
 			Stroke = 10;
-			Finished = true;
 		}
 	}
 };

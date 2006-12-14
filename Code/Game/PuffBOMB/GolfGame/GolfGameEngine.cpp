@@ -273,11 +273,21 @@ void cGolfGameEngine::TurnBasedPlay() {
 			};
 			case 2: {
 				// Stage 2 - Activate Players (if not activated) ------------------------------ - //
+				if ( Player[ CurrentPlayer ]->Stroke == 10 ) {
+					Player[ CurrentPlayer ]->Finished = true;
+				}
+				
 				if ( !Player[ CurrentPlayer ]->Finished ) {
+					// Activate the character, if not already activated //
 					Player[ CurrentPlayer ]->MyObject->Activate();
+					// Since we're about to take action, add a stroke //
+					Player[ CurrentPlayer ]->AddStroke();
+					
+					// Gather input //
 					State = 3;
 				}
 				else {
+					// This player is done //
 					State = 5;
 				}
 				
@@ -288,10 +298,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 				Camera->UpdateTarget( Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center() );
 				
 				// If our control is all done, and wants action //
-				if ( Player[ CurrentPlayer ]->Control() ) {
-					// Since we're bombing, add a stroke //
-					Player[ CurrentPlayer ]->AddStroke();
-					
+				if ( Player[ CurrentPlayer ]->Control() ) {					
 					// Create Bomb at position requested //
 					Vector2D BombPos =
 						Player[ CurrentPlayer ]->BombPos + 
