@@ -60,6 +60,7 @@ cGolfGameEngine::cGolfGameEngine() :
  		Engine2D::cDynamicCollection* MyCol = CreateCollectionInstance( 64, StartPoint->Pos );
  		AddCollection( MyCol );
  		Player.push_back( new cLocalJoyPlayer( MyCol ) );
+ 		Player.back()->MyLastDropPos = StartPoint->Pos;
  		MyCol->Deactivate();
  	}
 }
@@ -84,7 +85,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			break;
 		};
 
-		// Player hit a 'Go Back To Safe' Zone //
+		// Player 'Go Back To My Last Best Drop' Zone //
 		case 4: {
 			Log( 10, "+ Player hit a 'Go Back To Safe' Zone" );
 			if ( Sender == Player[ CurrentPlayer ]->MyObject ) {
@@ -93,12 +94,22 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 				// We went out of bounds, add a stroke //
 				Player[ CurrentPlayer ]->Stroke++;
 			}
+			// Deactivate this player, to dissapear and stop moving //
 			Sender->Deactivate();
-			Sender->SetPos( StartPoint->Pos );
+			
+			// Find this players last drop position //
+			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+				if ( Sender == Player[ idx ]->MyObject ) {
+					Sender->SetPos( Player[ idx ]->MyLastDropPos );
+					break;
+				}	
+			}
+			
+			//Sender->SetPos( StartPoint->Pos );			
 			
 			break;
 		};
-		// Player hit a 'Go To Nearest Drop' Zone //
+		// Player 'Go To Nearest Drop' Zone //
 		case 5: {
 			Log( 10, "+ Player hit a 'Go To Nearest Drop' Zone" );
 			if ( Sender == Player[ CurrentPlayer ]->MyObject ) {
@@ -263,6 +274,11 @@ void cGolfGameEngine::TurnBasedPlay() {
 				
 				// If Turn is over //
 				if ( Input::Pad[ 0 ].Button[ 0 ].Pressed() || HitBoundery ) {
+					// If we ended a turn successufully, note the nearest drop zone;
+					if ( !HitBoundery ) {
+						Player[ CurrentPlayer ]->MyLastDropPos = FindNearestDrop( *Player[ CurrentPlayer ]->MyObject );
+					}
+					
 					// Next Player //
 					CurrentPlayer++;
 					if ( CurrentPlayer >= Player.size() ) {

@@ -16,7 +16,10 @@ public:
 	// Elements of a Player //
 	int Score;
 	int Stroke;
+	
 	Vector2D BombPos;
+	
+	Vector2D MyLastDropPos;
 	
 	// Statistics //
 	// int NumberOfShotsTaken;
