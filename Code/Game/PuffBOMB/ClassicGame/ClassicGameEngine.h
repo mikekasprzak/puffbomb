@@ -43,8 +43,8 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
-	virtual int Message( int Msg, Engine2D::cDynamicCollection* const Sender );
-	virtual int Message( int Msg, Engine2D::cPassiveObject* const Sender );	
+	virtual int Message( int Msg, Engine2D::cDynamicCollection* Sender );
+	virtual int Message( int Msg, Engine2D::cPassiveObject* Sender );	
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // ClassicGame // 

@@ -20,7 +20,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::cGolfGameEngine() :
 	CurrentPlayer( 0 ),
-	State( 1 )
+	State( 1 ),
+	HitBoundery( false )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -70,9 +71,50 @@ cGolfGameEngine::~cGolfGameEngine() {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
+	switch ( Msg ) {
+		// Player hit a 'Go Back To Safe' Zone //
+		case 4: {
+			Log( 10, "+ Player hit a 'Go Back To Safe' Zone" );
+			if ( Sender == Player[ CurrentPlayer ]->MyObject ) {
+				HitBoundery = true;
+			}
+			Sender->Deactivate();
+			Sender->SetPos( StartPoint->Pos );
+			
+			break;
+		};
+		// Player hit a 'Go To Nearest Drop' Zone //
+		case 5: {
+			Log( 10, "+ Player hit a 'Go To Nearest Drop' Zone" );
+			if ( Sender == Player[ CurrentPlayer ]->MyObject ) {
+				HitBoundery = true;
+			}
+			Sender->Deactivate();
+			Sender->SetPos( StartPoint->Pos );
+			
+			break;
+		};
+		
+		// I am at the end of the level //
+		case 2: {
+			CharacterAtEndZone++;
+			break;
+		};
+	};
+	
+	return 0;
+}
+// - ------------------------------------------------------------------------------------------ - //
+int cGolfGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
+	return 0;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 void cGolfGameEngine::Step() {
 	// Stuff my engine does before //
-	// ... //
+	HitBoundery = false;
 	
 	// Original Engine Step Stuff //
 	cEngine2D::Step();
@@ -189,7 +231,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 				Camera->UpdateTarget( Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center() );
 				
 				// If Turn is over //
-				if ( Input::Pad[ 0 ].Button[ 0 ].Pressed() ) {
+				if ( Input::Pad[ 0 ].Button[ 0 ].Pressed() || HitBoundery ) {
 					// Next Player //
 					CurrentPlayer++;
 					if ( CurrentPlayer >= Player.size() ) {

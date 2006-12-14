@@ -87,6 +87,14 @@ public:
 			Component[ idx ].State.ResetActive();
 		}
 	}
+	
+	void SetPos( const Vector2D& _Pos ) {
+		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+			for ( size_t idx2 = 0; idx2 < Component[ idx ].Body.Nodes.Size(); idx2++ ) {
+				Component[ idx ].Body.Nodes.Set( idx2, _Pos + Component[ idx ].Body.Pose->Node[ idx2 ].Pos );
+			}
+		}		
+	}
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

@@ -70,7 +70,7 @@ cClassicGameEngine::~cClassicGameEngine() {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* const Sender ) {
+int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 	switch ( Msg ) {
 		// Add me to the follow list //
 		case 1: {
@@ -88,7 +88,7 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* const Se
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* const Sender ) {
+int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 	switch ( Msg ) {
 		// Add me to the follow list //
 		case 1: {

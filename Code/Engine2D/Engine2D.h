@@ -61,8 +61,8 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
-	virtual int Message( int Msg, cDynamicCollection* const Sender );
-	virtual int Message( int Msg, cPassiveObject* const Sender );
+	virtual int Message( int Msg, cDynamicCollection* Sender );
+	virtual int Message( int Msg, cPassiveObject* Sender );
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

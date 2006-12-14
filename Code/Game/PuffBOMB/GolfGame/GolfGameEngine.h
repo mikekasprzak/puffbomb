@@ -23,14 +23,19 @@ public:
 	// Our players //
 	std::vector< cPlayer* > Player;
 	
+	
 	// Our current player //
 	size_t CurrentPlayer;
+	
 	// Engine State //
 	int State;
-	
 
+public:
+	int CharacterAtEndZone;
+	bool HitBoundery;
+	
+public:
 	void TurnBasedPlay();
-//	void RealTimePlay();
 
 public:
 	cGolfGameEngine();
@@ -39,6 +44,9 @@ public:
 public:
 	void Step();
 	void Draw();
+
+	virtual int Message( int Msg, Engine2D::cDynamicCollection* Sender );
+	virtual int Message( int Msg, Engine2D::cPassiveObject* Sender );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // GolfGame // 

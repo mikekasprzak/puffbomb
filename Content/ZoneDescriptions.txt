@@ -1,8 +1,8 @@
 Camera Boundery
 Level Boundery
 * Unused
-* Unused
-* Unused
+Return to Last Position
+Return to Nearest Drop
 * Unused
 * Unused
 Player Start
