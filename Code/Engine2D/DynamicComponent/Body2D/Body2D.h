@@ -122,6 +122,8 @@ public:
 	void Solve( class cStaticBody2D& _Vs, const Vector2D& _Offset = Vector2D::Zero );
 	bool Solve( class cImpulse& _Vs );
 
+	void ApplyImpulse( const class cImpulse& _Vs );
+	
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Debug Drawing Functions //

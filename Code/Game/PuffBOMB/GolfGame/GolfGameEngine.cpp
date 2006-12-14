@@ -252,7 +252,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 					
 					FXLibrary::Bomb( BombPos );
 					
-					Engine2D::cEngine2D::Current->Impulse.push_back( 
+					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.ApplyImpulse( 
 						Engine2D::cImpulse(
 							BombPos,
 							// Inner Radius, Intensity, Tangent //
