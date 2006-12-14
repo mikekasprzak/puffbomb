@@ -15,8 +15,8 @@ bool cDripGenerator::Work()
 	if( LastTime < GetTime() )
 	{
 		FXLibrary::Drip( Pos, DripDensity );
-		
-		LastTime = GetTime() + DripFreq;
+				
+		LastTime = GetTime() + DripFreq + ( rand() % ( DripFreq >> 1 ) );
 	}	
 	
 	return true;
