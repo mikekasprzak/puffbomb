@@ -1,6 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // CreatePassiveInstance //
 // - ------------------------------------------------------------------------------------------ - //
+#include <Engine2D.h>
+// - ------------------------------------------------------------------------------------------ - //
 #include "CreatePassiveInstance.h"
 
 #include <Objects/Distortion/Distortion.h>
@@ -12,7 +14,11 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
 		case 1: {
-			return new cDistortion( Pos );
+			cDistortion* MyDistortion = new cDistortion( Pos );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 1, MyDistortion );
+			}
+			return MyDistortion;
 			break;
 		}
 
@@ -27,7 +33,11 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 		}
 
 		case 32: {
-			return new cRainGenerator( Pos, Argument );
+			cRainGenerator* MyRain = new cRainGenerator( Pos, Argument );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 1, MyRain );
+			}
+			return MyRain;
 			break;
 		}
 		

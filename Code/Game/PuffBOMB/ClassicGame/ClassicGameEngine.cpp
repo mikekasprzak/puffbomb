@@ -51,8 +51,6 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	
 	SolidParticle.Clear();
 	DenseParticle.Clear();
-		
-	AddBombs();
 	
 //	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( -200, 1000 ), 20 ) );
 //	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 200, 1000 ), 20 ) );
@@ -77,7 +75,7 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* const Se
 	switch ( Msg ) {
 		// Add me to the follow list //
 		case 1: {
-			Log( 10, "*** I Have Recieved a Message saying I have people " );
+			Log( 10, "+ Player to follow added" );
 			CameraTracking.push_back( Sender );
 			break;
 		};
@@ -92,6 +90,14 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* const Se
 }
 // - ------------------------------------------------------------------------------------------ - //
 int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* const Sender ) {
+	switch ( Msg ) {
+		// Add me to the follow list //
+		case 1: {
+			Log( 10, "+ Passive to run whilst in edit mode added" );
+			AlwaysActivePassives.push_back( Sender );
+			break;
+		};
+	};
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -135,10 +141,13 @@ void cClassicGameEngine::Step() {
 			AddBombs();
 		}
 		else {
-			// Reset here, to restore everything back to it's home position, before we edit //
+			// Clear various lists, 'cause we're about to repopulate them //
 			CameraTracking.clear();
 			Impulse.clear();
-			ResetMap();			
+			AlwaysActivePassives.clear();
+
+			// Reset here, to restore everything back to it's home position, before we edit //
+			ResetMap();
 		}
 	}
 
@@ -151,9 +160,15 @@ void cClassicGameEngine::Step() {
 		
 		// When you push backspace, reload/reset the level //
 		if( Input::Button[ KEY_TAB ].Pressed() ) {
+			// Clear various lists, 'cause we're about to repopulate them //
 			CameraTracking.clear();
 			Impulse.clear();
+			AlwaysActivePassives.clear();
+
+			// Reset here, to restore everything back to it's home position, before we edit //
 			ResetMap();
+			
+			// Add our bombs //
 			AddBombs();
 		}
 	}
@@ -219,6 +234,13 @@ void cClassicGameEngine::Step() {
 	}
 	// If the engine is not active, then we'r in edit mode //
 	else {
+		// Clear Impulses (passive hack) //
+		Impulse.clear();
+		
+		for ( int idx = 0; idx < AlwaysActivePassives.size(); idx++ ) {
+			AlwaysActivePassives[ idx ]->Work();
+		}
+		
 		Cursor.Step();
 		
 		// Update Camera //

@@ -1,13 +1,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 // CreateCollectionInstance //
 // - ------------------------------------------------------------------------------------------ - //
+#include <Engine2D.h>
+// - ------------------------------------------------------------------------------------------ - //
 #include "CreateCollectionInstance.h"
 
 #include "DynamicComponent/ComponentAnimationSet/ComponentAnimationSetPool.h"
 
 #include "Objects/HamsterCharacter/HamsterCharacter.h"
-// - ------------------------------------------------------------------------------------------ - //
-#include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
 Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
 	// Switch based on the Id passed to the function //

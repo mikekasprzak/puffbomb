@@ -19,6 +19,7 @@ public:
 	cClassicCursor Cursor;
 	
 	std::vector< Engine2D::cDynamicCollection* > CameraTracking;
+	std::vector< Engine2D::cPassiveObject* > AlwaysActivePassives;
 
 public:
 	void AddBombs();
