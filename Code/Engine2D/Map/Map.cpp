@@ -1,6 +1,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Zone //
 // - ------------------------------------------------------------------------------------------ - //
+#include <algorithm>
+#include <functional>
+// - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 #include <Util/InputOutput.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -140,6 +143,11 @@ void cMap::LoadBinary( const std::string FileName )
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
+bool compare_staticobj(const cStaticObjectInstanceInfo &a, const cStaticObjectInstanceInfo &b) 
+{
+    return a.FileName > b.FileName;
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cMap::SaveBinary( const std::string FileName )
 {
 	// Write Data (Map File) //
@@ -148,17 +156,22 @@ void cMap::SaveBinary( const std::string FileName )
 
 		// Static Object part //
 		{
-			Out.Write( StaticObjectInstanceInfo.size() );
+			std::vector< cStaticObjectInstanceInfo > TempSOII;
 			
-			for ( size_t idx = 0; idx < StaticObjectInstanceInfo.size(); idx++ )
+			TempSOII = StaticObjectInstanceInfo;
+			std::sort( TempSOII.begin(), TempSOII.end(), compare_staticobj );
+			
+			Out.Write( TempSOII.size() );
+			
+			for ( size_t idx = 0; idx < TempSOII.size(); idx++ )
 			{
-				Out.Write( StaticObjectInstanceInfo[ idx ].FileName.size() );
-				Out.Write( StaticObjectInstanceInfo[ idx ].FileName.c_str(), StaticObjectInstanceInfo[ idx ].FileName.size() );
+				Out.Write( TempSOII[ idx ].FileName.size() );
+				Out.Write( TempSOII[ idx ].FileName.c_str(), TempSOII[ idx ].FileName.size() );
 				
-				Out.Write( StaticObjectInstanceInfo[ idx ].Pos.x );
-				Out.Write( StaticObjectInstanceInfo[ idx ].Pos.y );
+				Out.Write( TempSOII[ idx ].Pos.x );
+				Out.Write( TempSOII[ idx ].Pos.y );
 
-				Out.Write( StaticObjectInstanceInfo[ idx ].Arg );
+				Out.Write( TempSOII[ idx ].Arg );
 			}
 		}
 		
