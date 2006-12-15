@@ -30,7 +30,7 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex );
 void BlackenFilter( cTex& Tex );
 void FattenFilter( cTex& Tex );
 void HalfFilter( cTex& Tex );
-void WhiteFilter( cTex& Tex );
+void WhiteFilter( cTex& Tex, int SWhite );
 // - ------------------------------------------------------------------------------------------ - //
 //	FlagFilters
 typedef const unsigned int fl;
@@ -249,9 +249,10 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 		
 		memcpy( WhiteTex.Pixels, Tex.Pixels, WhiteTex.Width * WhiteTex.Height * WhiteTex.PixelSize );
 
-		for( int i = 0; i < 12; ++i )
+		for( int i = 0; i < 6; ++i )
 		{ 			
-			WhiteFilter( WhiteTex );
+			WhiteFilter( WhiteTex, 1 );
+			WhiteFilter( WhiteTex, 0 );
 		}
 		
 		FilterFlags ^= flWhite;
@@ -455,7 +456,7 @@ void HalfFilter( cTex& Tex )
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void WhiteFilter( cTex& Tex )
+void WhiteFilter( cTex& Tex, int SWhite )
 {
 	if( Tex.PixelSize == 4 )
 	{
@@ -492,45 +493,93 @@ void WhiteFilter( cTex& Tex )
 			{
 				unsigned int idx = ( ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) );
 
-				if( x != 0 )
+				if( SWhite )
 				{
-					if( ( ( Tex.Pixels[ idx - 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+					if( y != 0 ) // Add white below and check the upper pixel //
 					{
-						Tex.Pixels[ idx ] = MaxColor;
-						Tex.Pixels[ idx + 1 ] = MaxColor;
-						Tex.Pixels[ idx + 2 ] = MaxColor;
-						Tex.Pixels[ idx + 3 ] = MaxColor;
+						if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+						{
+							Tex.Pixels[ idx ] = MaxColor;
+							Tex.Pixels[ idx + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 3 ] = MaxColor;
+						}  
+					} 
+					if( y < Tex.Height - 2 ) // Add white above and check the lower pixel //
+					{
+						if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+						{
+							Tex.Pixels[ idx ] = MaxColor;
+							Tex.Pixels[ idx + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 3 ] = MaxColor;
+						}  
 					}
-				}
-				if( x != Tex.Width - 2 )
-				{
-					if( ( ( Tex.Pixels[ idx + 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+					if( x != 0 ) // Add white to the right and check the left pixel //
 					{
-						Tex.Pixels[ idx ] = MaxColor;
-						Tex.Pixels[ idx + 1 ] = MaxColor;
-						Tex.Pixels[ idx + 2 ] = MaxColor;
-						Tex.Pixels[ idx + 3 ] = MaxColor;
+						if( ( ( Tex.Pixels[ idx - 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+						{
+							Tex.Pixels[ idx ] = MaxColor;
+							Tex.Pixels[ idx + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 3 ] = MaxColor;
+						}
 					}
-				}
-				if( y != 0 )
-				{
-					if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+					if( x != Tex.Width - 2 ) // Add white to the left and check the right pixel //
 					{
-						Tex.Pixels[ idx ] = MaxColor;
-						Tex.Pixels[ idx + 1 ] = MaxColor;
-						Tex.Pixels[ idx + 2 ] = MaxColor;
-						Tex.Pixels[ idx + 3 ] = MaxColor;
-					}  
-				}
-				if( y < Tex.Height - 2 )
+						if( ( ( Tex.Pixels[ idx + 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+						{
+							Tex.Pixels[ idx ] = MaxColor;
+							Tex.Pixels[ idx + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 3 ] = MaxColor;
+						}
+					}
+				}						
+				else
 				{
-					if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+					// Angle ones //
+					if( y < Tex.Height - 2 && x != Tex.Width - 2 ) // upper left //
 					{
-						Tex.Pixels[ idx ] = MaxColor;
-						Tex.Pixels[ idx + 1 ] = MaxColor;
-						Tex.Pixels[ idx + 2 ] = MaxColor;
-						Tex.Pixels[ idx + 3 ] = MaxColor;
-					}  
+						if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) - 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx + 3 ] == 0 )
+						{
+							Tex.Pixels[ idx ] = MaxColor;
+							Tex.Pixels[ idx + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 3 ] = MaxColor;
+						}  
+					}
+					if( y < Tex.Height - 2 && x != Tex.Width - 2 ) // upper right //
+					{
+						if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx + 3 ] == 0 )
+						{
+							Tex.Pixels[ idx ] = MaxColor;
+							Tex.Pixels[ idx + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 3 ] = MaxColor;
+						}  
+					}
+					
+					if( y != 0 && x != 0 ) // lower left //
+					{
+						if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) - 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx + 3 ] == 0 )
+						{
+							Tex.Pixels[ idx ] = MaxColor;
+							Tex.Pixels[ idx + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 3 ] = MaxColor;
+						}  
+					} 
+					if( y != 0 && x != 0 ) // lower right //
+					{
+						if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx + 3 ] == 0 )
+						{
+							Tex.Pixels[ idx ] = MaxColor;
+							Tex.Pixels[ idx + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 3 ] = MaxColor;
+						}  
+					}
 				}
 			}
 		}
