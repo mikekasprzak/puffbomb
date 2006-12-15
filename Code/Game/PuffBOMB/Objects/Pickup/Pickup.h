@@ -20,8 +20,6 @@ public:
 		Collected( false )
 	{
 		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 64, 64 ), _Pos + Vector2D( 64, 64 ) );
-			
-		//Animator.Set( &AnimationPool.Load( AnimationName ), 0 );
 	}
 
 public:	
