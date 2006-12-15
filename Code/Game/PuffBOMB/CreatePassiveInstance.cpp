@@ -9,6 +9,7 @@
 #include <Objects/BasicBomb/BasicBomb.h>
 #include <Objects/GolfStart/GolfStart.h>
 #include <Objects/GolfCoin/GolfCoin.h>
+#include <Objects/ClassicCoin/ClassicCoin.h>
 #include <Objects/RainGenerator/RainGenerator.h>
 #include <Objects/DripGenerator/DripGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -46,10 +47,16 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 			break;
 		}
 
-		case 10 ... 13: {
+		case 10 ... 14: {
 			return new cGolfCoin( Pos, 10 - Id );
 			break;
 		}
+
+		case 15 ... 19: {
+			return new cClassicCoin( Pos, 15 - Id );
+			break;
+		}
+
 
 		case 32: {
 			cRainGenerator* MyRain = new cRainGenerator( Pos, Argument );

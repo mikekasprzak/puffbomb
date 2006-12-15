@@ -182,6 +182,18 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			}
 			break;
 		};
+		// Coin //
+		case 14: {
+			Log( 10, "+ Coin 500" );
+			// Find this players last drop position //
+			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+				if ( Sender == Player[ idx ]->MyObject ) {
+					Player[ idx ]->AddScore( 500 );
+					break;
+				}	
+			}
+			break;
+		};
 	};
 	
 	return 0;

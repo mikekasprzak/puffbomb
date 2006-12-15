@@ -15,7 +15,8 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cPassiveObject* const Sender 
 		case 1: {
 			// Check who it is //
 			switch( int SubMsg = Sender->Message( 2, (Engine2D::cDynamicComponent*)this ) ) {
-				case 10 ... 13: {
+				case 10 ... 14: {
+					Sender->Message( 3, (Engine2D::cDynamicComponent*)this );
 					Engine2D::cEngine2D::Current->Message( SubMsg, this );
 					break;
 				};
