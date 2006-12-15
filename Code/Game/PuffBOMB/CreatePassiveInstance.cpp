@@ -47,13 +47,8 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 		}
 
 
-		case 10 ... 14: {
+		case 10 ... 19: {
 			return new cGolfCoin( Pos, 10 - Id );
-			break;
-		}
-
-		case 15 ... 19: {
-			return new cClassicCoin( Pos, 15 - Id );
 			break;
 		}
 
