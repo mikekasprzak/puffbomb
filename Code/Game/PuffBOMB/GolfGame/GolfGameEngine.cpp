@@ -232,6 +232,12 @@ void cGolfGameEngine::Step() {
 	// Stuff my engine does after //
 	TurnBasedPlay();
 
+	// For all players, accumulate motion //	
+	for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+		Player[ idx ]->AccumulateMotion();
+	}
+	
+	// Step Particle Systems //
 	SolidParticle.Step();
 	DenseParticle.Step();
 }
@@ -367,6 +373,8 @@ void cGolfGameEngine::TurnBasedPlay() {
 						Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center();
 					
 					FXLibrary::Bomb( BombPos );
+						
+					Player[ CurrentPlayer ]->InsignificantMotion = 0;
 					
 					Engine2D::cImpulse MyImpulse(
 							BombPos,
@@ -388,9 +396,17 @@ void cGolfGameEngine::TurnBasedPlay() {
 			case 4: {
 				// Stage 4 - Acting on input (and waiting for the turn to end) ---------------- - //		
 				Camera->UpdateTarget( Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center() );
+
+				// See how many players are moving //
+				int MovingPlayers = 0;				
+				for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+					if ( Player[ idx ]->InsignificantMotion < 30 ) {
+						MovingPlayers++;
+					}
+				}
 				
 				// If Turn is over //
-				if ( Input::Pad[ 0 ].Button[ 0 ].Pressed() || HitBoundery || Player[ CurrentPlayer ]->Finished ) {
+				if ( Input::Pad[ 0 ].Button[ 3 ].Pressed() || HitBoundery || MovingPlayers == 0 || Player[ CurrentPlayer ]->Finished ) {
 					// If we ended a turn successufully, note the nearest drop zone;
 					if ( !HitBoundery ) {
 						Player[ CurrentPlayer ]->MyLastDropPos = FindNearestDrop( *Player[ CurrentPlayer ]->MyObject );

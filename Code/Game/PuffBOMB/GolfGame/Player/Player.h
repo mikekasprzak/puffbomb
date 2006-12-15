@@ -22,6 +22,8 @@ public:
 	
 	Vector2D MyLastDropPos;
 	
+	int InsignificantMotion;
+	
 	// Statistics //
 	// int NumberOfShotsTaken;
 	// something to represent the last position of the player, just in case he goes out of bounds //
@@ -32,6 +34,8 @@ public:
 	virtual ~cPlayer();
 	
 public:
+	virtual bool Control() = 0;
+
 	inline const Vector2D GetCenter() const {
 		return MyObject->Component[ 0 ].Body.BoundingRect.Center();
 	}
@@ -39,8 +43,20 @@ public:
 	inline const Rect2D GetRect() const {
 		return MyObject->Component[ 0 ].Body.BoundingRect.ToRect();
 	}
-	
-	virtual bool Control() = 0;
+
+	inline void AccumulateMotion() {
+		if ( MyObject->IsActive() ) {
+			if ( MyObject->Component[ 0 ].Body.Nodes.Motion < Real( 0.5 ) ) {
+				InsignificantMotion++;
+			}
+			else {
+				InsignificantMotion = 0;
+			}
+		}
+		else {
+			InsignificantMotion++;
+		}
+	}
 	
 	inline void AddScore( const int _Value ) {
 		Score += _Value;
