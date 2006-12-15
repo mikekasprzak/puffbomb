@@ -47,6 +47,7 @@ public:
 	Vector2D High;
 	
 	PairRect2D CameraBounds;
+	PairRect2D ViewArea;
 
 public:
 	cCamera(
@@ -69,17 +70,7 @@ public:
 	Vector2D GetPos();
 	void UpdateTarget( const Vector2D& _Focus );
 	void Update();
-	
-//	void RemoveTarget( cSphereObject* _NewFocus );
-//	void RemoveTarget( cSphereObject* _NewFocus, const int _Delay );
 
-/*
-
-	Vector2D GetPos();
-	void NewTarget( cSphereObject* _NewFocus );
-	void RemoveTarget( cSphereObject* _NewFocus );
-	void RemoveTarget( cSphereObject* _NewFocus, const int _Delay );
-*/		 
 };
 
 // - ------------------------------------------------------------------------------------------ - //
