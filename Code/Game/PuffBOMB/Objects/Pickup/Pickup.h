@@ -5,6 +5,7 @@
 #define __PuffBOMB_Objects_Pickup_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <PassiveObject/PassiveObject.h>
+#include <Animation/AnimationPool.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cPickup: public Engine2D::cPassiveObject {
 public:
@@ -17,6 +18,8 @@ public:
 		Collected( false )
 	{
 		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 64, 64 ), _Pos + Vector2D( 64, 64 ) );
+			
+		Animator.Set( &AnimationPool.Load( "OldPuff.anim" ), 0 );
 	}
 
 public:	

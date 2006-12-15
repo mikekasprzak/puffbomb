@@ -36,8 +36,15 @@ bool cPassiveObject::Work() {
 	return true;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cPassiveObject::Draw() const {
+void cPassiveObject::Draw() {
 	// Draw the animation //
+	
+	if( Animator.Animation != 0 )
+	{
+		Animator.Step();
+		
+		Animator.DrawQuad( Pos );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cPassiveObject::DebugDraw() const {

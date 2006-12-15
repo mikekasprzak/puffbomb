@@ -64,12 +64,12 @@ void cCollectionEdit::Draw()
 	{
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
-			Collection.Component[ CurSelected[ idx ] ].Draw();
+			Collection.Component[ CurSelected[ idx ] ].Draw( 1 );
 		}
 	}
 	else if( CurMode == COLL_DYNAMIC_COMP )
 	{
-		Collection.Component[ CurSelComp ].Draw();
+		Collection.Component[ CurSelComp ].Draw( 1 );
 	}
 	else if( CurMode == COLL_NODE_LINK )
 	{

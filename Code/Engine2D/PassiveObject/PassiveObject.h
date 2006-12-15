@@ -7,7 +7,7 @@
 #include <Geometry/Vector.h>
 #include <Physics/Physics.h>
 
-//#include <Animation/Animator.h>
+#include <Animation/Animator.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -18,7 +18,7 @@ public:
 	int Argument;
 	bool Active;
 	
-//	cAnimator Animator;
+	cAnimator Animator;
 
 public:
 	// Bounding rectangle //
@@ -35,7 +35,8 @@ public:
 	
 	cPassiveObject( const Vector2D& _Pos, int _Argument = 0 ) :
 		Pos( _Pos ),
-		Argument( _Argument )
+		Argument( _Argument ),
+		Active( true )
 	{
 	}
 	
@@ -45,7 +46,7 @@ public:
 	}
 
 public:	
-	void Draw() const;
+	void Draw();
 	void DebugDraw() const;
 	
 	virtual bool Work();
