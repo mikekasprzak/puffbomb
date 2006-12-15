@@ -4,6 +4,8 @@
 #include <Animation/AnimationPool.h>
 #include "SolidParticleFactory.h"
 
+// If particle creation performance has a slight chunkyness it because the segment reserve is too low
+// make it 2048 or more if needed.
 #include <algorithm>
 #include <functional>
 // - ------------------------------------------------------------------------------------------ - //
@@ -13,10 +15,6 @@ SolidParticleFactory SolidParticle;
 // - ------------------------------------------------------------------------------------------ - //
 void SolidParticleFactory::Populate( int Num )
 {
-//	Vertex.resize( Num * 4 );
-//	TexCoord.resize( Num * 4 );
-//	VertColor.resize( Num * 4 );
-//	Indices.resize( Num * 4 );
 
 	Vertex.resize( Num << 2 );
 	TexCoord.resize( Num << 2 );

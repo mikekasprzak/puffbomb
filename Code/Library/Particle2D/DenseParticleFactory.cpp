@@ -4,6 +4,8 @@
 #include <Animation/AnimationPool.h>
 #include "DenseParticleFactory.h"
 
+// If particle creation performance has a slight chunkyness it because the segment reserve is too low
+// make it 2048 or more if needed.
 #include <algorithm>
 #include <functional>
 // - ------------------------------------------------------------------------------------------ - //
