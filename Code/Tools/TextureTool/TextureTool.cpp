@@ -469,9 +469,9 @@ void WhiteFilter( cTex& Tex )
 					
 				if( ( Tex.Pixels[ idx + 3 ] & 0xff ) == 0 )
 				{
-					Tex.Pixels[ idx ] = 0;
-					Tex.Pixels[ idx + 1 ] = 0;
-					Tex.Pixels[ idx + 2 ] = 0;
+					Tex.Pixels[ idx ] = MaxColor;
+					Tex.Pixels[ idx + 1 ] = MaxColor;
+					Tex.Pixels[ idx + 2 ] = MaxColor;
 										
 				}
 				else
@@ -494,7 +494,7 @@ void WhiteFilter( cTex& Tex )
 
 				if( x != 0 )
 				{
-					if( ( ( Tex.Pixels[ idx - 1 ] ) == 255 ) && Tex.Pixels[ idx ] == 0 )
+					if( ( ( Tex.Pixels[ idx - 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
 					{
 						Tex.Pixels[ idx ] = MaxColor;
 						Tex.Pixels[ idx + 1 ] = MaxColor;
@@ -504,7 +504,7 @@ void WhiteFilter( cTex& Tex )
 				}
 				if( x != Tex.Width - 2 )
 				{
-					if( ( ( Tex.Pixels[ idx + 4 ] ) == 255 ) && Tex.Pixels[ idx ] == 0 )
+					if( ( ( Tex.Pixels[ idx + 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
 					{
 						Tex.Pixels[ idx ] = MaxColor;
 						Tex.Pixels[ idx + 1 ] = MaxColor;
@@ -514,7 +514,7 @@ void WhiteFilter( cTex& Tex )
 				}
 				if( y != 0 )
 				{
-					if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) ] ) == 255 ) && Tex.Pixels[ idx ] == 0 )
+					if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
 					{
 						Tex.Pixels[ idx ] = MaxColor;
 						Tex.Pixels[ idx + 1 ] = MaxColor;
@@ -524,7 +524,7 @@ void WhiteFilter( cTex& Tex )
 				}
 				if( y < Tex.Height - 2 )
 				{
-					if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) ] ) == 255 ) && Tex.Pixels[ idx ] == 0 )
+					if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
 					{
 						Tex.Pixels[ idx ] = MaxColor;
 						Tex.Pixels[ idx + 1 ] = MaxColor;

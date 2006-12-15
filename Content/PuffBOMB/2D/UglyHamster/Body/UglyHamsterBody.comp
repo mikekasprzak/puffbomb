@@ -14,7 +14,7 @@ Frame	1	0
 Frame	1	0		
 Animation_End				
 BodyPose_Start				
-TotalMass	2.5			
+TotalMass	2			
 BodyPose_Node_Start	5			
 BodyNode	-30.7616	-64	0.5	
 BodyNode	25.4983	-64	0.5	
@@ -73,18 +73,18 @@ BodyPose_Sphere_End
 BodyPose_End				
 MeshPose_Start				
 MeshPose_Node_Start	12			
-MeshNode	-80	112	3	2
-MeshNode	16	-96	0	1
-MeshNode	96	-32	1	0
-MeshNode	80	96	4	3
-MeshNode	96	64	4	2
+MeshNode	-128	160	3	2
+MeshNode	0	-160	0	1
+MeshNode	128	-64	1	0
+MeshNode	128	128	4	3
+MeshNode	128	32	4	2
 MeshNode	32	64	2	4
 MeshNode	-112	0	2	3
 MeshNode	-16	80	2	3
-MeshNode	-48	-80	2	0
-MeshNode	80	0	2	1
-MeshNode	64	-80	1	0
-MeshNode	16	128	3	4
+MeshNode	-96	-128	2	0
+MeshNode	128	0	2	1
+MeshNode	64	-128	1	0
+MeshNode	32	160	3	4
 MeshPose_Node_End				
 MeshPose_Face_Start	12			
 MeshFace	0	6	7	
@@ -103,18 +103,18 @@ MeshPose_Face_End
 MeshPose_End				
 MeshPose_Start				
 MeshPose_Node_Start	12			
-MeshNode	-16	160	3	2
-MeshNode	-64	-96	0	1
-MeshNode	64	-96	1	0
-MeshNode	101.65	111.525	4	3
+MeshNode	-32	192	3	2
+MeshNode	-64	-128	0	1
+MeshNode	96	-128	1	0
+MeshNode	128	160	4	3
 MeshNode	112	32	2	4
 MeshNode	64	96	2	4
 MeshNode	-96	128	3	2
 MeshNode	0	112	2	3
-MeshNode	-48	-48	2	0
-MeshNode	48	-40	2	1
-MeshNode	-1.32688	-76.6441	1	0
-MeshNode	64	160	4	3
+MeshNode	-96	-64	2	0
+MeshNode	96	-32	2	1
+MeshNode	0	-128	1	0
+MeshNode	64	192	4	3
 MeshPose_Node_End				
 MeshPose_Face_Start	12			
 MeshFace	0	6	7	
