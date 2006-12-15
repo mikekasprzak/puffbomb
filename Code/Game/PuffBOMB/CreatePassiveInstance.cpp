@@ -48,7 +48,7 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 
 
 		case 10 ... 19: {
-			return new cPickup( Pos, Id - 10 );
+			return new cPickup( "OldPuff.anim", Pos, Id - 10 );
 			break;
 		}
 

@@ -4,6 +4,8 @@
 #ifndef __Engine2D_Engine_PassiveObject_H__
 #define __Engine2D_Engine_PassiveObject_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <string>
+// - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
 #include <Physics/Physics.h>
 
@@ -37,6 +39,14 @@ public:
 		Pos( _Pos ),
 		Argument( _Argument ),
 		Active( true )
+	{
+	}
+
+	cPassiveObject( const std::string& AnimationName, const Vector2D& _Pos, int _Argument = 0 ) :
+		Pos( _Pos ),
+		Argument( _Argument ),
+		Active( true ),
+		Animator( AnimationName )
 	{
 	}
 	

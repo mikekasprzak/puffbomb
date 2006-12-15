@@ -4,15 +4,25 @@
 #include <SDL/SDL.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "Animator.h"
+#include "AnimationPool.h"
+
 #include <Graphics/Gfx.h>
 #include <Geometry/Matrix.h>
 // - ------------------------------------------------------------------------------------------ - //
 cAnimator::cAnimator() :
+	Animation( 0 ),
 	CurrentFrame( 0 ),
-	Time( 0 ),
-	Animation( 0 )
+	Time( 0 )
 {
 	
+}
+// - ------------------------------------------------------------------------------------------ - //
+cAnimator::cAnimator( const std::string& AnimationName ) :
+	Animation( &AnimationPool.Load( AnimationName ) ),
+	CurrentFrame( 0 ),
+	Time( 0 ),
+	CurDrawFrame( &Animation->Frame[ CurrentFrame ].MyFrame )
+{
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
