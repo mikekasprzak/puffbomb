@@ -1,15 +1,15 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Coin //
+// GolfCoin //
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
 //#include <Particle2D/SolidParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include "Coin.h"
+#include "GolfCoin.h"
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-int cCoin::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
+int cGolfCoin::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 	switch ( Msg ) {
 		// Impact //
 		case 1: {
@@ -29,7 +29,7 @@ int cCoin::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-bool cCoin::Work() {
+bool cGolfCoin::Work() {
 	if ( Collected ) {
 		return false;
 	}
