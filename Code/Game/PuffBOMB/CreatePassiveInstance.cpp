@@ -9,7 +9,6 @@
 #include <Objects/BasicBomb/BasicBomb.h>
 #include <Objects/GolfDrop/GolfDrop.h>
 #include <Objects/GolfCoin/GolfCoin.h>
-#include <Objects/ClassicCoin/ClassicCoin.h>
 #include <Objects/RainGenerator/RainGenerator.h>
 #include <Objects/DripGenerator/DripGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
