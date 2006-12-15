@@ -249,10 +249,10 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 		
 		memcpy( WhiteTex.Pixels, Tex.Pixels, WhiteTex.Width * WhiteTex.Height * WhiteTex.PixelSize );
 
-		for( int i = 0; i < 6; ++i )
+		for( int i = 0; i < 5; ++i )
 		{ 			
-			WhiteFilter( WhiteTex, 1 );
 			WhiteFilter( WhiteTex, 0 );
+			WhiteFilter( WhiteTex, 1 );
 		}
 		
 		FilterFlags ^= flWhite;
