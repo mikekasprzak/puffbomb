@@ -231,56 +231,65 @@ void cEngine2D::Step() {
 void cEngine2D::Draw() {
 	// --------------- Engine ------------------------- //
 	Camera->Update();
-
-//	Gfx::PushMatrix();
-
-	if( RotateCounter != 0 )
-	{
+	// - -------------------------------------------------------------------------------------- - //
+	// Richard's Rotate effect //
+	if( RotateCounter != 0 ) {
 		Gfx::Rotate( Real( RotateCounter ), -Real( 1.0 ), Real( 1.0 ), Real( 1.0 ) );
 			
 		RotateCounter -= 9;
 	}
-//	Gfx::Translate( Real( 0 ), Real( 0 ), Real( 0 ) );
-
-//	Gfx::PopMatrix();
-
+	// - -------------------------------------------------------------------------------------- - //
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
 	Physics.SetActive();
 
+	// Graphics settings to correctly render everything //
 	Gfx::EnableTex2D();
 	Gfx::EnableBlend();
 	Gfx::EnableDepth();
 	
-	// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
-	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-		StaticObjectInstance[ idx ].Draw();
-	}
-
-	Gfx::PushMatrix();
-	Gfx::Translate( Real::Zero, Real::Zero, -Real( 2.05 ) );
-	// Draw Objects //
-	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-		if ( DynamicComponent[ idx ]->IsActive() ) { 
-			DynamicComponent[ idx ]->Draw( 0 );
-		}
-	}
-	Gfx::PopMatrix();
-
-	// Draw Objects //
-	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-		if ( DynamicComponent[ idx ]->IsActive() ) { 
-			DynamicComponent[ idx ]->Draw( 1 );
+	// First Pass StaticObject Draw //
+	{
+		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+			StaticObjectInstance[ idx ].Draw();
 		}
 	}
 
-	// Draw Objects //
-	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
-		if ( PassiveObject[ idx ]->IsActive() ) { 
-			PassiveObject[ idx ]->Draw();
+	// First Pass Component Draw //
+	{
+		Gfx::PushMatrix();
+		Gfx::Translate( Real::Zero, Real::Zero, -Real( 2.05 ) );
+		// Draw Objects //
+		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+			if ( DynamicComponent[ idx ]->IsActive() ) { 
+				DynamicComponent[ idx ]->Draw( 0 );
+			}
+		}
+		Gfx::PopMatrix();
+	}
+
+	// Second Pass Component Draw //
+	{
+		// Draw Objects //
+		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+			if ( DynamicComponent[ idx ]->IsActive() ) { 
+				DynamicComponent[ idx ]->Draw( 1 );
+			}
 		}
 	}
 
+	// First Pass Passive Object Draw //
+	{
+		// Draw Passive Objects //
+		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+			if ( PassiveObject[ idx ]->IsActive() ) { 
+				PassiveObject[ idx ]->Draw();
+			}
+		}
+	}
+
+	// - -------------------------------------------------------------------------------------- - //
 	// Draw Debug Information //
 	{
 		Gfx::DisableTex2D();
@@ -315,6 +324,7 @@ void cEngine2D::Draw() {
 			}
 		}
 	}
+	// - -------------------------------------------------------------------------------------- - //
 
 	Gfx::EnableDepth();
 	Gfx::EnableTex2D();
