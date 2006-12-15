@@ -1,15 +1,15 @@
 // - ------------------------------------------------------------------------------------------ - //
-// GolfStart //
+// GolfDrop //
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
 //#include <Particle2D/SolidParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include "GolfStart.h"
+#include "GolfDrop.h"
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-//int cGolfStart::Message( int Msg, cDynamicComponent* const Sender ) {
+//int cGolfDrop::Message( int Msg, cDynamicComponent* const Sender ) {
 //	switch ( Id ) {
 //		// Camera Boundary //
 //		case 1: {
@@ -31,7 +31,7 @@
 //	return 0;
 //}
 // - ------------------------------------------------------------------------------------------ - //
-bool cGolfStart::Work() {
+bool cGolfDrop::Work() {
 	
 	return true;
 }

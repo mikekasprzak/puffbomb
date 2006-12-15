@@ -7,7 +7,7 @@
 
 #include <Objects/Distortion/Distortion.h>
 #include <Objects/BasicBomb/BasicBomb.h>
-#include <Objects/GolfStart/GolfStart.h>
+#include <Objects/GolfDrop/GolfDrop.h>
 #include <Objects/GolfCoin/GolfCoin.h>
 #include <Objects/ClassicCoin/ClassicCoin.h>
 #include <Objects/RainGenerator/RainGenerator.h>
@@ -31,7 +31,7 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 		}
 
 		case 5: {
-			cGolfStart* MyStart = new cGolfStart( Pos );
+			cGolfDrop* MyStart = new cGolfDrop( Pos );
 			if ( Engine2D::cEngine2D::Current ) {
 				Engine2D::cEngine2D::Current->Message( 5, MyStart );
 			}
@@ -39,11 +39,11 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 			break;
 		}
 		case 6: {
-			cGolfStart* MyStart = new cGolfStart( Pos );
+			cGolfDrop* MyDrop = new cGolfDrop( Pos );
 			if ( Engine2D::cEngine2D::Current ) {
-				Engine2D::cEngine2D::Current->Message( 6, MyStart );
+				Engine2D::cEngine2D::Current->Message( 6, MyDrop );
 			}
-			return MyStart;
+			return MyDrop;
 			break;
 		}
 

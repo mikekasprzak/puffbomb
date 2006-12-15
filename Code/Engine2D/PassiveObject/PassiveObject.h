@@ -16,6 +16,7 @@ public:
 	Vector2D Pos;
 	
 	int Argument;
+	bool Active;
 	
 //	cAnimator Animator;
 
@@ -27,7 +28,8 @@ public:
 
 public:
 	cPassiveObject() :
-		Argument( 0 )
+		Argument( 0 ),
+		Active( true )
 	{
 	}
 	
@@ -47,6 +49,18 @@ public:
 	void DebugDraw() const;
 	
 	virtual bool Work();
+
+	inline bool IsActive() {
+		return Active;
+	}
+	
+	inline void Activate() {
+		Active = true;
+	}
+
+	inline void Deactivate() {
+		Active = false;
+	}
 
 public:
 	// Messanging //

@@ -274,6 +274,13 @@ void cEngine2D::Draw() {
 		}
 	}
 
+	// Draw Objects //
+	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+		if ( PassiveObject[ idx ]->IsActive() ) { 
+			PassiveObject[ idx ]->Draw( );
+		}
+	}
+
 	// Draw Debug Information //
 	{
 		Gfx::DisableTex2D();
