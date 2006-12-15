@@ -257,13 +257,22 @@ void cEngine2D::Draw() {
 		StaticObjectInstance[ idx ].Draw();
 	}
 
+	Gfx::PushMatrix();
+	Gfx::Translate( Real::Zero, Real::Zero, -Real( 2.05 ) );
 	// Draw Objects //
 	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
 		if ( DynamicComponent[ idx ]->IsActive() ) { 
-			DynamicComponent[ idx ]->Draw();
+			DynamicComponent[ idx ]->Draw( 0 );
 		}
 	}
+	Gfx::PopMatrix();
 
+	// Draw Objects //
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		if ( DynamicComponent[ idx ]->IsActive() ) { 
+			DynamicComponent[ idx ]->Draw( 1 );
+		}
+	}
 
 	// Draw Debug Information //
 	{

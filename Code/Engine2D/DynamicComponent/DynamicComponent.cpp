@@ -130,10 +130,10 @@ void cDynamicComponent::SetArc( const Real& Arc ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicComponent::Draw() {
+void cDynamicComponent::Draw( const int RenderPass ) {
 	// Make sure we actually have an associated animation set //
 	if ( AnimationSet ) {
-		AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Draw( Body );
+		AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Draw( Body, RenderPass );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
