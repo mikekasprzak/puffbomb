@@ -128,7 +128,7 @@ void cCollectionEdit::HudDraw()
 	{
 		Gfx::Translate( Global::Right - Real( 256 ), Global::Bottom + Real( 256 ), 0 );
 		
-		Component.Draw();
+		Component.Draw( 1 );
 		
 		Gfx::DisableTex2D();
 			
