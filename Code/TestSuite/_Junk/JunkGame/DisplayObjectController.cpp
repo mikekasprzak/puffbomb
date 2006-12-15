@@ -38,7 +38,7 @@ cDisplayObjectController::cDisplayObjectController( cSphereObject* _Object, cons
 	cDisplayMesh& DisplayMesh = DisplayMeshPool.Load( MeshFile );
 	
 
-	TextureId = TexturePool.Load( DisplayMesh.TextureName );
+	TextureId = TexturePool.Load( DisplayMesh.TextureName ).Id;
 
 //	{
 //		std::string TexturePath = "src/Content/Experimental/Textures/" + DisplayMesh.TextureName;

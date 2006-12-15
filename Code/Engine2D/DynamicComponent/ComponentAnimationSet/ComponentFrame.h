@@ -17,7 +17,7 @@ public:
 	unsigned int Flags;
 
 	size_t BodyPoseIndex;
-	size_t TextureIndex;
+	size_t TextureId[3];
 	cMesh2D Mesh;
 
 #ifdef EDITOR
@@ -46,8 +46,11 @@ public:
 #endif // EDITOR //
 
 public:
-	void Draw( const cBody2D& Body ) {
-		Mesh.Draw( Body, TextureIndex );
+	inline void Draw( const cBody2D& Body, const int RenderPass = 0 ) {
+		if ( TextureId[ RenderPass ] != 0 ) {
+			Mesh.Draw( Body, TextureId[ RenderPass ] );
+		}
+		//Mesh.Draw( Body, TextureIndex );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //

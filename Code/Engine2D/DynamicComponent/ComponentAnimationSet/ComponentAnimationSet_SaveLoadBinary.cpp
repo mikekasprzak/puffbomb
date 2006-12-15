@@ -56,7 +56,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				In.Read( Animation[ idx ].Frame[ idx2 ].Time );
 				In.Read( Animation[ idx ].Frame[ idx2 ].Flags );
 				In.Read( Animation[ idx ].Frame[ idx2 ].BodyPoseIndex );
-				In.Read( Animation[ idx ].Frame[ idx2 ].TextureIndex );
+				In.Read( Animation[ idx ].Frame[ idx2 ].TextureId[0] );
 				
 				// Mesh //
 				{
@@ -140,14 +140,23 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				MyString[ StrLen ] = 0;
 				
 				// Load the texture //
-				Texture[ idx ] = TexturePool.Load( string( MyString ) );
+				cTexture& MyTexture = TexturePool.Load( string( MyString ) ); 
+				Texture[ idx ].Id[0] = MyTexture.WhiteId;
+				Texture[ idx ].Id[1] = MyTexture.Id;
+				Texture[ idx ].Id[2] = 0;
 			}
 			
 			// Convert local Id's to texture Id's //
 			for ( size_t idx = 0; idx < Animation.size(); idx++ ) {
 				for ( size_t idx2 = 0; idx2 < Animation[ idx ].Frame.size(); idx2++ ) {
-					Animation[ idx ].Frame[ idx2 ].TextureIndex =
-						Texture[ Animation[ idx ].Frame[ idx2 ].TextureIndex ];
+					// The other 2 first //
+					Animation[ idx ].Frame[ idx2 ].TextureId[1] =
+						Texture[ Animation[ idx ].Frame[ idx2 ].TextureId[0] ].Id[1];
+					Animation[ idx ].Frame[ idx2 ].TextureId[2] =
+						Texture[ Animation[ idx ].Frame[ idx2 ].TextureId[0] ].Id[2];
+					// Then the one that actually contains the source Id, which I break //
+					Animation[ idx ].Frame[ idx2 ].TextureId[0] =
+						Texture[ Animation[ idx ].Frame[ idx2 ].TextureId[0] ].Id[0];
 				}
 			}
 		}
@@ -246,7 +255,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 					
 					// Write the index from the AnimationGenerator instead //
 					Out.Write( Art.Animation[ idx ].Frame[ idx2 ].ImageIndex );
-					//Out.Write( Animation[ idx ].Frame[ idx2 ].TextureIndex );
+					//Out.Write( Animation[ idx ].Frame[ idx2 ].TextureId[0] );
 					
 					// Mesh //
 					{

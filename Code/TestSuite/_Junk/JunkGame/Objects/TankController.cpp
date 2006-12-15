@@ -31,7 +31,7 @@ cTankController::cTankController(
 	
 	Shot = _Shot1;
 	
-	//TextureId = TexturePool.Load( "SpiderTexture.tx" );
+	//TextureId = TexturePool.Load( "SpiderTexture.tx" ).Id;
 	
 	MyPad = 0;
 }

@@ -21,9 +21,9 @@ public:
 	~cTexturePool();
 
 public:
-	inline unsigned int Load( const std::string _FileName ) {
-		return (cPool< cTexture >::Load( _FileName )).Id;
-	}
+//	inline unsigned int Load( const std::string _FileName ) {
+//		return (cPool< cTexture >::Load( _FileName )).Id;
+//	}
 
 public:
 	// - -------------------------------------------------------------------------------------- - //

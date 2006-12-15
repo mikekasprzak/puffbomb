@@ -15,9 +15,14 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 class cComponentAnimationSet {
 public:
+	class TextureType {
+	public:
+		cTexture::IdType Id[3];
+	};
+			
 	std::vector< cComponentAnimation > Animation;
 	std::vector< cBody2DPose > BodyPose;
-	std::vector< cTexture::IdType > Texture;
+	std::vector< TextureType > Texture;
 
 #ifdef EDITOR	
 	std::vector< cMesh2DPose > MeshPose;

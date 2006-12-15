@@ -659,7 +659,7 @@ void cEdit::LoadTextures()
 		{
 			std::string NoDir = String::BaseName( cDirCache.File[idx] ) + String::LastExtension( cDirCache.File[idx] );
 			
-			TextureID.push_back( TexturePool.Load( NoDir ) );
+			TextureID.push_back( TexturePool.Load( NoDir ).Id );
 			
 			std::string NoPack = String::BaseName( NoDir ) + String::LastExtension( NoDir );
 			

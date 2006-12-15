@@ -58,7 +58,7 @@ void cFont::Load( string &File )
 			else if( Token == "T" )
 			{
 				Text >> Token;
-				TempCharacter.Texture = TexturePool.Load( Token );
+				TempCharacter.Texture = TexturePool.Load( Token ).Id;
 				
 				TextureWidth = TexturePool.GetWidth( Token );
 				TextureHeight = TexturePool.GetHeight( Token );

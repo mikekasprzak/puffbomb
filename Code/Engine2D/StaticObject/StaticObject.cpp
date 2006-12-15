@@ -37,7 +37,7 @@ void cStaticObject::Load( const std::string& FileName )
 	Mesh[0].TextureName = (StaticArray< char >*) &(*Mesh[0].Indices)[ Mesh[0].Indices->Size() ];
 
 	std::string TempTextureName( &(*Mesh[0].TextureName)[0] );
-	Mesh[0].TextureID = TexturePool.Load( TempTextureName );
+	Mesh[0].TextureID = TexturePool.Load( TempTextureName ).Id;
 
 	for( size_t obj = 1; obj < ObjSize; ++obj )
 	{
@@ -58,7 +58,7 @@ void cStaticObject::Load( const std::string& FileName )
 		Mesh[obj].TextureName = (StaticArray< char >*) &(*Mesh[obj].Indices)[ Mesh[obj].Indices->Size() ];
 		
 		TempTextureName = &(*Mesh[obj].TextureName)[0];
-		Mesh[obj].TextureID = TexturePool.Load( TempTextureName );
+		Mesh[obj].TextureID = TexturePool.Load( TempTextureName ).Id;
 
 	}
 	

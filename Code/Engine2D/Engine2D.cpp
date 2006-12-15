@@ -264,35 +264,39 @@ void cEngine2D::Draw() {
 		}
 	}
 
-	Gfx::DisableTex2D();
-	Gfx::DisableDepth();
-	//Gfx::DisableBlend();
 
-	// Draw Objects //
-	if ( ShowCollectionDebug ) {
-		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-			DynamicComponent[ idx ]->DrawBody();
+	// Draw Debug Information //
+	{
+		Gfx::DisableTex2D();
+		Gfx::DisableDepth();
+		//Gfx::DisableBlend();
+	
+		// Draw Objects //
+		if ( ShowCollectionDebug ) {
+			for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+				DynamicComponent[ idx ]->DrawBody();
+			}
 		}
-	}
-
-	// Draw Tiles //
-	if ( ShowStaticDebug ) {
-		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-			StaticObjectInstance[ idx ].DrawBody();
+	
+		// Draw Tiles //
+		if ( ShowStaticDebug ) {
+			for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+				StaticObjectInstance[ idx ].DrawBody();
+			}
 		}
-	}
-
-	// Draw Passive Object //
-	if ( ShowPassiveDebug ) {
-		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
-			PassiveObject[ idx ]->DebugDraw();
+	
+		// Draw Passive Object //
+		if ( ShowPassiveDebug ) {
+			for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+				PassiveObject[ idx ]->DebugDraw();
+			}
 		}
-	}
-
-	// Draw Zone //
-	if ( ShowZoneDebug ) {
-		for ( size_t idx = 0; idx < Zone.size(); ++idx ) {
-			Zone[ idx ].DebugDraw();
+	
+		// Draw Zone //
+		if ( ShowZoneDebug ) {
+			for ( size_t idx = 0; idx < Zone.size(); ++idx ) {
+				Zone[ idx ].DebugDraw();
+			}
 		}
 	}
 

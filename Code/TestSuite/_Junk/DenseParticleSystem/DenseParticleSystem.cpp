@@ -19,7 +19,7 @@ cDenseParticleSystem::cDenseParticleSystem() :
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDenseParticleSystem::LoadSystem() {
-	CircleTexture = TexturePool.Load( "Circle.tx" );
+	CircleTexture = TexturePool.Load( "Circle.tx" ).Id;
 
 	std::string CollisionLocation = "src/Content/Level01/MapInfo/Level_Collision.tx";
 	std::string ImageLocation = "src/Content/Level01/MapInfo/Level_Image.tx";
