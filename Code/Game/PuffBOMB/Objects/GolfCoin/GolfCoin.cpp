@@ -20,6 +20,7 @@ int cGolfCoin::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 		// Who am I? //
 		case 2: {
 			if ( !Collected ) {
+				Log( 10, "aONESuht: " << (10 + Variant) );
 				return 10 + Variant;
 			}
 			break;
