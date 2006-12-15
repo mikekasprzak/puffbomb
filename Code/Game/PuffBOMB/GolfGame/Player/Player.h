@@ -32,6 +32,14 @@ public:
 	virtual ~cPlayer();
 	
 public:
+	inline const Vector2D GetCenter() const {
+		return MyObject->Component[ 0 ].Body.BoundingRect.Center();
+	}
+
+	inline const Rect2D GetRect() const {
+		return MyObject->Component[ 0 ].Body.BoundingRect.ToRect();
+	}
+	
 	virtual bool Control() = 0;
 	
 	inline void AddScore( const int _Value ) {

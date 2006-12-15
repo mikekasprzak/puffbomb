@@ -28,6 +28,7 @@ public:
 	Real TotalMass;
 
 	int SleepClock;
+	Real Motion;
 
 public:
 	// Constructor //
@@ -158,15 +159,16 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	inline void Step() {
-		if ( SleepClock > 0 ) {
-			Real TotalMotion( Real::Zero );
+//		if ( SleepClock > 0 ) {
+			//Real TotalMotion( Real::Zero );
+			Motion = Real::Zero;
 			Vector2D Velocity;
 			
 			// step physics for all DynamicNodes //
 			for ( size_t idx = 0; idx < NodeA.size(); idx++ ) {
 				// With added forces on the outside //
 				Velocity = ((Pos( idx ) - Old( idx ) ) * Friction[ idx ]) + Force[ idx ];
-				TotalMotion += Velocity.Manhattan();
+				Motion += Velocity.Manhattan();
 				Old( idx ) = Pos( idx ) + Velocity;
 				
 				// With added forces on the inside //
@@ -177,14 +179,14 @@ public:
 			// Swap the Old and Pos, as they are now backwards //
 			Swap();
 		
-			TotalMotion /= NodeA.size();
+			Motion /= NodeA.size();
 			
-			// Tweak the sleep clock //
-			if ( TotalMotion > Real( 0.2 ) )
-				WakeUp();
-			else
-				SleepClock--;
-		}		
+//			// Tweak the sleep clock //
+//			if ( Motion > Real( 0.2 ) )
+//				WakeUp();
+//			else
+//				SleepClock--;
+//		}		
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	inline void ResetFactors( int Index ) {
