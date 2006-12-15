@@ -25,7 +25,8 @@ CODE_DIRS		:=	Engine2D/DynamicComponent \
 					External \
 					Platform/GL/Graphics \
 					Library/Geometry \
-					Library/Util
+					Library/Util \
+					Library/Animation \
 # - -------------------------------------------------------------------------------------------- - #
 # Explicit files from the source tree to grab (if directory masks aren't good enough) ---------- - #
 # Example: External/Lzma/LzmaDecode.cpp
