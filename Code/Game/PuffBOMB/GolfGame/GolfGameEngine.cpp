@@ -132,6 +132,56 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			
 			break;
 		};
+
+
+		// Coin //
+		case 10: {
+			Log( 10, "+ Coin 50" );
+			// Find this players last drop position //
+			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+				if ( Sender == Player[ idx ]->MyObject ) {
+					Player[ idx ]->AddScore( 50 );
+					break;
+				}	
+			}
+			break;
+		};
+		// Coin //
+		case 11: {
+			Log( 10, "+ Coin 100" );
+			// Find this players last drop position //
+			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+				if ( Sender == Player[ idx ]->MyObject ) {
+					Player[ idx ]->AddScore( 100 );
+					break;
+				}	
+			}
+			break;
+		};
+		// Coin //
+		case 12: {
+			Log( 10, "+ Coin 150" );
+			// Find this players last drop position //
+			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+				if ( Sender == Player[ idx ]->MyObject ) {
+					Player[ idx ]->AddScore( 150 );
+					break;
+				}	
+			}
+			break;
+		};
+		// Coin //
+		case 13: {
+			Log( 10, "+ Coin 250" );
+			// Find this players last drop position //
+			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+				if ( Sender == Player[ idx ]->MyObject ) {
+					Player[ idx ]->AddScore( 250 );
+					break;
+				}	
+			}
+			break;
+		};
 	};
 	
 	return 0;
@@ -154,55 +204,6 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 			
 			break;
 		};
-
-//		// Coin //
-//		case 10: {
-//			Log( 10, "+ Coin 50" );
-//			// Find this players last drop position //
-//			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
-//				if ( Sender == Player[ idx ]->MyObject ) {
-//					Player[ idx ]->AddScore( 50 );
-//					break;
-//				}	
-//			}
-//			break;
-//		};
-//		// Coin //
-//		case 11: {
-//			Log( 10, "+ Coin 100" );
-//			// Find this players last drop position //
-//			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
-//				if ( Sender == Player[ idx ]->MyObject ) {
-//					Player[ idx ]->AddScore( 100 );
-//					break;
-//				}	
-//			}
-//			break;
-//		};
-//		// Coin //
-//		case 12: {
-//			Log( 10, "+ Coin 150" );
-//			// Find this players last drop position //
-//			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
-//				if ( Sender == Player[ idx ]->MyObject ) {
-//					Player[ idx ]->AddScore( 150 );
-//					break;
-//				}	
-//			}
-//			break;
-//		};
-//		// Coin //
-//		case 13: {
-//			Log( 10, "+ Coin 250" );
-//			// Find this players last drop position //
-//			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
-//				if ( Sender == Player[ idx ]->MyObject ) {
-//					Player[ idx ]->AddScore( 250 );
-//					break;
-//				}	
-//			}
-//			break;
-//		};
 	};
 	return 0;
 }

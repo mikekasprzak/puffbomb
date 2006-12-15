@@ -13,7 +13,19 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cPassiveObject* const Sender 
 	switch ( Msg ) {
 		// Impact //
 		case 1: {
-			//Log( 10, "Teenage mundane samurai rodents!" );
+			// Check who it is //
+			switch( int SubMsg = Sender->Message( 2, (Engine2D::cDynamicComponent*)this ) ) {
+				case 10 ... 13: {
+					Engine2D::cEngine2D::Current->Message( SubMsg, this );
+					break;
+				};
+			};
+			
+			break;
+		}
+		// Who Are You? //
+		case 2: {
+			return 0;
 			break;
 		}
 	};
@@ -26,6 +38,11 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const Sen
 		// Impact //
 		case 1: {
 			//Log( 10, "Cowabunga!" );
+			break;
+		}
+		// Who Are You? //
+		case 2: {
+			return 0;
 			break;
 		}
 	};
