@@ -8,7 +8,7 @@
 #include <Objects/Distortion/Distortion.h>
 #include <Objects/BasicBomb/BasicBomb.h>
 #include <Objects/GolfDrop/GolfDrop.h>
-#include <Objects/GolfCoin/GolfCoin.h>
+#include <Objects/Pickup/Pickup.h>
 #include <Objects/RainGenerator/RainGenerator.h>
 #include <Objects/DripGenerator/DripGenerator.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -48,7 +48,7 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 
 
 		case 10 ... 19: {
-			return new cGolfCoin( Pos, Id - 10 );
+			return new cPickup( Pos, Id - 10 );
 			break;
 		}
 

@@ -1,15 +1,15 @@
 // - ------------------------------------------------------------------------------------------ - //
-// GolfCoin //
+// Pickup //
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
 //#include <Particle2D/SolidParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include "GolfCoin.h"
+#include "Pickup.h"
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-int cGolfCoin::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
+int cPickup::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 	switch ( Msg ) {
 		// Impact //
 		case 1: {
@@ -34,7 +34,7 @@ int cGolfCoin::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-bool cGolfCoin::Work() {
+bool cPickup::Work() {
 	if ( Collected ) {
 		return false;
 	}
