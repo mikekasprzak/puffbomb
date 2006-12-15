@@ -249,7 +249,7 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 		
 		memcpy( WhiteTex.Pixels, Tex.Pixels, WhiteTex.Width * WhiteTex.Height * WhiteTex.PixelSize );
 
-		for( int i = 0; i < 7; ++i )
+		for( int i = 0; i < 12; ++i )
 		{ 			
 			WhiteFilter( WhiteTex );
 		}

@@ -89,13 +89,13 @@ BodyPose_Sphere_End
 BodyPose_End				
 MeshPose_Start				
 MeshPose_Node_Start	23			
-MeshNode	-224	64	1	7
-MeshNode	-224	-64	1	2
+MeshNode	-256	96	1	7
+MeshNode	-256	-64	1	2
 MeshNode	-64	-64	7	1
-MeshNode	-64	64	1	0
-MeshNode	-32	160	0	8
-MeshNode	160	160	0	8
-MeshNode	160	0	0	8
+MeshNode	-96	96	1	0
+MeshNode	-64	192	0	8
+MeshNode	192	192	0	8
+MeshNode	192	0	0	8
 MeshNode	-256	-128	2	3
 MeshNode	-256	-208	3	10
 MeshNode	-256	-244.39	3	10
@@ -109,9 +109,9 @@ MeshNode	112	-160	9	4
 MeshNode	176	-160	5	4
 MeshNode	176	-244.39	6	5
 MeshNode	256	-244.39	6	5
-MeshNode	240	-176	6	5
+MeshNode	256	-160	6	5
 MeshNode	112	-64	4	8
-MeshNode	208	-64	4	5
+MeshNode	256	-64	4	5
 MeshPose_Node_End				
 MeshPose_Face_Start	28			
 MeshFace	0	1	3	
