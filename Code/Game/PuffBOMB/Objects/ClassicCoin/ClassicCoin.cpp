@@ -20,7 +20,7 @@ int cClassicCoin::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) 
 		// Who am I? //
 		case 2: {
 			if ( !Collected ) {
-				return 10 + Variant;
+				return 15 + Variant;
 			}
 			break;
 		};

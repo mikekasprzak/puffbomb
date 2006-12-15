@@ -24,7 +24,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false ),
-	LevelComplete( false )
+	LevelComplete( false ),
+	Score( 0 )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -84,6 +85,42 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender )
 			CharactersAtEndZones++;
 			break;
 		};
+		
+		// Coin //
+		case 10: {
+			Log( 10, "+ Coin 50" );
+			
+			AddScore( 50 );
+			break;
+		};
+		// Coin //
+		case 11: {
+			Log( 10, "+ Coin 100" );
+
+			AddScore( 100 );
+			break;
+		};
+		// Coin //
+		case 12: {
+			Log( 10, "+ Coin 150" );
+
+			AddScore( 150 );
+			break;
+		};
+		// Coin //
+		case 13: {
+			Log( 10, "+ Coin 250" );
+
+			AddScore( 250 );
+			break;
+		};
+		// Coin //
+		case 14: {
+			Log( 10, "+ Coin 500" );
+
+			AddScore( 500 );
+			break;
+		};		
 	};
 	
 	return 0;
@@ -280,6 +317,17 @@ void cClassicGameEngine::Draw() {
 	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
 	// -------------- //
 #endif // EDITOR //
+
+	{
+		//  Display Score //
+		std::stringstream Temp;
+		Temp << "Score:  " << Score;
+		std::string TempString = Temp.str();
+		
+		Vector3D TempPos = Vector3D( Global::Right - Real( 545 ), Global::Top - Real( 45 ), 0.0 );
+	
+		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 200, 55, 255 ) );
+	}
 
 }
 // - ------------------------------------------------------------------------------------------ - //

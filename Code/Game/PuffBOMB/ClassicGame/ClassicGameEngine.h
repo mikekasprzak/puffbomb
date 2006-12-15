@@ -31,6 +31,15 @@ public:
 	
 	void FrameStart();
 	void FrameEnd();
+
+public:
+	int Score;
+	inline void AddScore( const int _Score ) {
+		Score += _Score;
+		if ( Score < 0 ) {
+			Score = 0;
+		}
+	}
 	
 public:
 	cClassicGameEngine( const std::string& FileName );
