@@ -25,7 +25,8 @@ cGolfGameEngine::cGolfGameEngine() :
 	CurrentPlayer( 0 ),
 	State( 1 ),
 	HitBoundery( false ),
- 	PlayerAnimator( "OldPuff.anim" )
+ 	PlayerAnimator( "OldPuff.anim" ),
+ 	EndingAnimator( "ParticleTest.anim" )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -242,6 +243,10 @@ void cGolfGameEngine::Step() {
 	// Step Particle Systems //
 	SolidParticle.Step();
 	DenseParticle.Step();
+	
+//	PlayerAnimator.Step();
+//	EndingAnimator.Step();
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cGolfGameEngine::Draw() {
@@ -290,6 +295,9 @@ void cGolfGameEngine::Draw() {
 			ElementTracker( PlayerAnimator, Player[ idx ]->GetRect() );
 		}
 	}
+	
+	ElementTracker( EndingAnimator, Rect2D( Vector2D( -3700, 0 ), Vector2D( -3700, 0 ) ) );
+	
 	
 #ifdef EDITOR
 	{

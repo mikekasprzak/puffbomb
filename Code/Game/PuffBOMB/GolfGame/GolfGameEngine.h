@@ -54,6 +54,7 @@ public:
 	bool HitBoundery;
 	
 	cAnimator PlayerAnimator;
+	cAnimator EndingAnimator;
 	
 public:
 	void TurnBasedPlay();
