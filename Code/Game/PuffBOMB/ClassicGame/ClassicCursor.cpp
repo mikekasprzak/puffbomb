@@ -63,14 +63,16 @@ void cClassicCursor::Step() {
 				}
 			}
 		}
-//		else {
+		else {
+			TimeMode = false;
+			
 //			if ( !TimeMode ) {
 //				TimeMode = true;
 //			}
 //			else {
 //				Selection = -1;
 //			}
-//		}
+		}
 	}
 
 	// If Timer Button Pressed (X) //
@@ -93,14 +95,16 @@ void cClassicCursor::Step() {
 				}
 			}
 		}
-//		else {
+		else {
+			TimeMode = true;
+
 //			if ( !TimeMode ) {
 //				TimeMode = true;
 //			}
 //			else {
 //				Selection = -1;
 //			}
-//		}
+		}
 	}
 	// If Back Button Pressed (B) //
 	if ( Input::Pad[0].Button[ PAD_B ].Pressed() ) {
