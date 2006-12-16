@@ -53,7 +53,7 @@ public:
 	void TurnBasedPlay();
 
 public:
-	cGolfGameEngine( const std::string& FileName );
+	cGolfGameEngine( const std::string& FileName, const int _Players = 4 );
 	~cGolfGameEngine();
 	
 public:

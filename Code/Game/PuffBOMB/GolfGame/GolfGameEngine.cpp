@@ -20,7 +20,7 @@
 // ------------ //
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
-cGolfGameEngine::cGolfGameEngine( const std::string& FileName ) :
+cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const int _Players ) :
 	StartPoint( 0 ),
 	CurrentPlayer( 0 ),
 	State( 1 ),
@@ -60,7 +60,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName ) :
 // 	PassiveObject.push_back( StartPoint );
  	
  	// Add Players //
- 	for ( int idx = 0; idx < 4; idx++ ) {
+ 	for ( int idx = 0; idx < _Players; idx++ ) {
  		Engine2D::cDynamicCollection* MyCol = CreateCollectionInstance( 64, StartPoint->Pos );
  		AddCollection( MyCol );
  		Player.push_back( new cLocalJoyPlayer( MyCol ) );
