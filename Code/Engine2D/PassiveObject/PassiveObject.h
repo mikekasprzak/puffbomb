@@ -40,6 +40,7 @@ public:
 		Argument( _Argument ),
 		Active( true )
 	{
+		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 16, 16 ), _Pos + Vector2D( 16, 16 ) );
 	}
 
 	cPassiveObject( const std::string& AnimationName, const Vector2D& _Pos, int _Argument = 0 ) :
@@ -48,6 +49,7 @@ public:
 		Active( true ),
 		Animator( AnimationName )
 	{
+		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 16, 16 ), _Pos + Vector2D( 16, 16 ) );
 	}
 	
 	virtual ~cPassiveObject()

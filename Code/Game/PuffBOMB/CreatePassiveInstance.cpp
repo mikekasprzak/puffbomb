@@ -46,6 +46,16 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 			break;
 		}
 
+		// Point of interest //
+		case 7: {
+			Engine2D::cPassiveObject* MyObj = new Engine2D::cPassiveObject( "ParticleTest.anim", Pos );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 7, MyObj );
+			}
+			return MyObj;
+			break;
+		}
+
 
 		case 10 ... 19: {
 			return new cPickup( "OldPuff.anim", Pos, Id - 10 );

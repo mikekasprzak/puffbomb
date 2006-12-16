@@ -22,6 +22,11 @@ public:
 	
 	// Our players //
 	std::vector< cPlayer* > Player;
+	
+	// Our notable things to point out //
+	std::vector< Engine2D::cPassiveObject* > PointsOfInterest;
+		
+		
 		
 	// Drop points (in case of ... pits) //
 	std::vector< Engine2D::cPassiveObject* > DropPoint;

@@ -219,6 +219,16 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 			
 			break;
 		};
+
+		// Points of Interest //
+		case 7: {
+			Log( 10, "+ Point of Interest" );
+			PointsOfInterest.push_back( Sender );
+			
+			break;
+		};
+		
+		
 	};
 	return 0;
 }
@@ -296,7 +306,9 @@ void cGolfGameEngine::Draw() {
 		}
 	}
 	
-	ElementTracker( EndingAnimator, Rect2D( Vector2D( -3700, 0 ), Vector2D( -3700, 0 ) ) );
+	for ( size_t idx = 0; idx < PointsOfInterest.size(); idx++ ) {
+		ElementTracker( EndingAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect() );		
+	}
 	
 	
 #ifdef EDITOR
@@ -370,6 +382,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 					Player[ CurrentPlayer ]->AddStroke();
 					
 					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].State.SetIgnoreObjectsUntilNoContact();
+					
 					
 					
 					// Gather input //
