@@ -137,24 +137,51 @@ void cAnimator::Draw( const Vector2D& Offset )
 			CurDrawFrame->TextureId
 		);	
 	}	
-/*
-	glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureId );
-
-	for( size_t idx = 0; idx < CurDrawFrame->Face.size(); ++idx )
-	{
-		gfx::Face(
-			CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.a ].Pos + Offset,
-			CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.c ].Pos + Offset,
-			CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.b ].Pos + Offset,
-			CurDrawFrame->Face[ idx ].UV.a,
-			CurDrawFrame->Face[ idx ].UV.b,
-			CurDrawFrame->Face[ idx ].UV.c
-		);
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix )
 {
+	if( !CurDrawFrame->Face.empty() )
+	{
+		unsigned int IndicesSize = CurDrawFrame->Face.size() * 3;
+		
+		Vector3D Vertex[ IndicesSize ];
+		Vector2D TexCoord[ IndicesSize ];
+	
+		unsigned int Indices[ IndicesSize ];
+		
+		int VertexIdx = 0;
+		
+		for( size_t idx = 0; idx < CurDrawFrame->Face.size(); ++idx )
+		{
+			
+			Vertex[	VertexIdx ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.a ].Pos.ToMatrix2x1() * Matrix + Offset ).ToVector3D();
+			TexCoord[ VertexIdx ] = CurDrawFrame->Face[ idx ].UV.a;
+			VertexIdx++;
+
+			Vertex[	VertexIdx ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.c ].Pos.ToMatrix2x1() * Matrix + Offset ).ToVector3D();
+			TexCoord[ VertexIdx ] = CurDrawFrame->Face[ idx ].UV.b;
+			VertexIdx++;
+
+			Vertex[	VertexIdx ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.b ].Pos.ToMatrix2x1() * Matrix + Offset ).ToVector3D();
+			TexCoord[ VertexIdx ] = CurDrawFrame->Face[ idx ].UV.c;
+			VertexIdx++;
+		}		
+		
+		for( size_t idx = 0; idx < IndicesSize; ++idx )
+		{
+			Indices[ idx ] = idx;
+		}
+		
+		Gfx::DrawPolygons(
+			Vertex,
+			TexCoord,
+			Indices,
+			IndicesSize,
+			CurDrawFrame->TextureId
+		);	
+	}	
+	
 /*	if( !CurDrawFrame->Face.empty() )
 	{
 		unsigned int IndicesSize = CurDrawFrame->Face.size() * 3;
@@ -208,7 +235,7 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix )
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::DrawQuad( const Vector2D& Offset )
 {
-	if( !CurDrawFrame->Face.empty() )
+	if(  CurDrawFrame->Face.size() > 1 )
 	{
 		unsigned int IndicesSize = 4;
 		
@@ -242,41 +269,43 @@ void cAnimator::DrawQuad( const Vector2D& Offset )
 			CurDrawFrame->TextureId
 		);	
 	}	
-	
-/*	
-	if( !CurDrawFrame->Face.empty() )
-	{
-		glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureId );
-	
-		gfx::Quad(
-			CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Offset,
-			CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Offset,
-			CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Offset,
-			CurDrawFrame->Vertex[ CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Offset,
-			CurDrawFrame->Face[ 0 ].UV.a,
-			CurDrawFrame->Face[ 0 ].UV.b,
-			CurDrawFrame->Face[ 0 ].UV.c,
-			CurDrawFrame->Face[ 1 ].UV.c
-		);
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix )
 {
-/*	if( !CurDrawFrame->Face.empty() )
+	if( CurDrawFrame->Face.size() > 1 )
 	{
-		glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureId );
+		unsigned int IndicesSize = 4;
+		
+		Vector3D Vertex[ IndicesSize ];
+		Vector2D TexCoord[ IndicesSize ];
 	
-		gfx::Quad(
-			( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos.ToMatrix2x1() * Matrix ) + Offset,
-			( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos.ToMatrix2x1() * Matrix ) + Offset,
-			( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos.ToMatrix2x1() * Matrix ) + Offset,
-			( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos.ToMatrix2x1() * Matrix ) + Offset,
-			CurDrawFrame->Face[ 0 ].UV.a,
-			CurDrawFrame->Face[ 0 ].UV.b,
-			CurDrawFrame->Face[ 0 ].UV.c,
-			CurDrawFrame->Face[ 1 ].UV.c
-		);
-	}*/
+		unsigned int Indices[ IndicesSize ];
+			
+		Vertex[	0 ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos.ToMatrix2x1() * Matrix + Offset ).ToVector3D();
+		TexCoord[ 0 ] = CurDrawFrame->Face[ 0 ].UV.a;
+
+		Vertex[	1 ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos.ToMatrix2x1() * Matrix + Offset ).ToVector3D();
+		TexCoord[ 1 ] = CurDrawFrame->Face[ 0 ].UV.b;
+
+		Vertex[	2 ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos.ToMatrix2x1() * Matrix + Offset ).ToVector3D();
+		TexCoord[ 2 ] = CurDrawFrame->Face[ 0 ].UV.c;
+
+		Vertex[	3 ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos.ToMatrix2x1() * Matrix + Offset ).ToVector3D();
+		TexCoord[ 3 ] = CurDrawFrame->Face[ 1 ].UV.c;
+		
+		for( size_t idx = 0; idx < IndicesSize; ++idx )
+		{
+			Indices[ idx ] = idx;
+		}
+		
+		Gfx::DrawQuads(
+			Vertex,
+			TexCoord,
+			Indices,
+			IndicesSize,
+			CurDrawFrame->TextureId
+		);	
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
