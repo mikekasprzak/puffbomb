@@ -47,9 +47,9 @@ bool cBody2D::Solve( cBody2D& _Vs ) {
 				
 				
 				// If my sphere is a sensor //
-				if ( MySphere.Flags.Sensor() ) {
+				if ( MySphere.Flags.Sensor() || Flags.ObjectSensor() ) {
 					// And his is not //
-					if ( !HisSphere.Flags.Sensor() ) {
+					if ( !HisSphere.Flags.Sensor() && !_Vs.Flags.ObjectSensor() ) {
 						// Note senses of an interaction with a sphere //
 						SphereFlags[ idx ].SetObject().SetSphere();
 						continue;
@@ -57,9 +57,9 @@ bool cBody2D::Solve( cBody2D& _Vs ) {
 				}
 
 				// If his sphere is a sensor //
-				if ( HisSphere.Flags.Sensor() ) {
-					// And not mine //
-					if ( !MySphere.Flags.Sensor() ) {
+				if ( HisSphere.Flags.Sensor() || _Vs.Flags.ObjectSensor() ) {
+					// And not mine // * Might be able to remove 'cause above test * //
+					if ( !MySphere.Flags.Sensor() && !Flags.ObjectSensor() ) {
 						// Note senses of an interaction with a sphere //
 						_Vs.SphereFlags[ idx2 ].SetObject().SetSphere();
 						continue;
