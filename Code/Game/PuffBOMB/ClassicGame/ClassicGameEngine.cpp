@@ -183,6 +183,7 @@ void cClassicGameEngine::Step() {
 			CameraTracking.clear();
 			Impulse.clear();
 			AlwaysActivePassives.clear();
+			PointsOfInterest.clear();
 
 			// Reset here, to restore everything back to it's home position, before we edit //
 			ResetMap();
@@ -202,6 +203,7 @@ void cClassicGameEngine::Step() {
 			CameraTracking.clear();
 			Impulse.clear();
 			AlwaysActivePassives.clear();
+			PointsOfInterest.clear();
 
 			// Reset here, to restore everything back to it's home position, before we edit //
 			ResetMap();
