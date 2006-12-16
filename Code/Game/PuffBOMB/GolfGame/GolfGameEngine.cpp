@@ -378,7 +378,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 					Player[ CurrentPlayer ]->MyObject->Activate();
 
 					// Make us an ObjectSensor object, until we decide not to be //
-					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].State.SetObjectSensor();
+					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.Flags.SetObjectSensor();
 					
 					
 					// Since we're about to take action, add a stroke //

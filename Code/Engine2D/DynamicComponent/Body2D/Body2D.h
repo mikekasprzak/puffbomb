@@ -12,6 +12,8 @@
 #include "Pose/Body2DPose.h"
 #include "CollisionFlags.h"
 
+#include "BodyFlags.h"
+
 #include "Constraints/Spring.h"
 #include "Constraints/Sphere.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -51,6 +53,8 @@ public:
 	// Collision monitoring flags //
 	cCollisionFlags CollisionFlags;
 	std::vector< cCollisionFlags > SphereFlags;
+
+	cBodyFlags Flags;
 
 public:
 	cBody2D() {

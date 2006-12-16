@@ -78,13 +78,13 @@ public:
 	
 	void Activate() {
 		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
-			Component[ idx ].State.SetActive();
+			Component[ idx ].Flags.SetActive();
 		}
 	}
 
 	void Deactivate() {
 		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
-			Component[ idx ].State.ResetActive();
+			Component[ idx ].Flags.ResetActive();
 		}
 	}
 	

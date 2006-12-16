@@ -9,14 +9,14 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::Solve( cPassiveObject& _Vs ) {
 	// If I'm more than simply active //
-	if ( !State.OnlyActive() ) {
+	if ( !Flags.OnlyActive() ) {
 		// If I'm ignoring passive objects, bail//
-		if ( State.IgnorePassives() ) {
+		if ( Flags.IgnorePassives() ) {
 			return;
 		}
 
 		// If I'm inactive, bail //
-		if ( !State.Active() ) {
+		if ( !Flags.Active() ) {
 			return;
 		}
 	}

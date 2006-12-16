@@ -12,7 +12,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Body2D/Body2D.h"
 #include "ComponentAnimationSet/ComponentAnimationSet.h"
-#include "StateFlags.h"
+#include "ComponentFlags.h"
 #include "AnimationFlags.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -41,7 +41,8 @@ public:
 	cBody2D Body;
 	
 	// Activity State Flags //
-	cStateFlags State;
+	//cStateFlags State;
+	cComponentFlags Flags;
 
 
 public:
@@ -81,7 +82,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Query the state to know if component is active //
 	inline bool IsActive() const {
-		return State.Active();
+		return Flags.Active();
 	}
 
 public:

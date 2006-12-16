@@ -8,14 +8,14 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::Solve( cStaticObjectInstance& _Vs ) {
 	// If I'm more than simply active //
-	if ( !State.OnlyActive() ) {
+	if ( !Flags.OnlyActive() ) {
 		// If I'm ignoring scenery, bail//
-		if ( State.IgnoreScenery() ) {
+		if ( Flags.IgnoreScenery() ) {
 			return;
 		}
 
 		// If I'm inactive, bail //
-		if ( !State.Active() ) {
+		if ( !Flags.Active() ) {
 			return;
 		}
 	}

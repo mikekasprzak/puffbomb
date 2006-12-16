@@ -8,21 +8,21 @@ namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::Solve( cDynamicComponent& _Vs ) {
 	// If either object is more than simply active //
-	if ( !State.OnlyActive() || !_Vs.State.OnlyActive() ) {
+	if ( !Flags.OnlyActive() || !_Vs.Flags.OnlyActive() ) {
 		// If either of us are ignoring our family, and we are part of the same family, bail //
-		if ( State.IgnoreFamily() || _Vs.State.IgnoreFamily() ) {
+		if ( Flags.IgnoreFamily() || _Vs.Flags.IgnoreFamily() ) {
 			if ( Parent == _Vs.Parent ) {
 				return;
 			}
 		}
 		
 		// If either of us are ignoring objects, bail //
-		if ( State.IgnoreObjects() || _Vs.State.IgnoreObjects() ) {
+		if ( Flags.IgnoreObjects() || _Vs.Flags.IgnoreObjects() ) {
 			return;
 		}
 
 		// If either of us are inactive objects, bail //
-		if ( !State.Active() || !_Vs.State.Active() ) {
+		if ( !Flags.Active() || !_Vs.Flags.Active() ) {
 			return;
 		}
 	}

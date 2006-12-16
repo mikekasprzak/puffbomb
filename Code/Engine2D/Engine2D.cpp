@@ -123,12 +123,12 @@ void cEngine2D::Step() {
 			// If object is active //
 			if ( DynamicComponent[ idx ]->IsActive() ) {
 				// If "IgnoreObjects" is set, don't test versus components //
-				if ( !DynamicComponent[ idx ]->State.IgnoreObjects() ) {
+				if ( !DynamicComponent[ idx ]->Flags.IgnoreObjects() ) {
 					// For every after object //
 					for ( size_t idx2 = idx + 1; idx2 < DynamicComponent.size(); ++idx2 ) {
 						// If either object has IgnoreFamily enabled //
-						if ( DynamicComponent[ idx ]->State.IgnoreFamily() ||
-							DynamicComponent[ idx2 ]->State.IgnoreFamily() )
+						if ( DynamicComponent[ idx ]->Flags.IgnoreFamily() ||
+							DynamicComponent[ idx2 ]->Flags.IgnoreFamily() )
 						{
 							// Bail if they do share a common parent //
 							if ( DynamicComponent[ idx ]->Parent == DynamicComponent[ idx2 ]->Parent )
@@ -144,7 +144,7 @@ void cEngine2D::Step() {
 				}
 				
 				// if "IgnoreScenery" is set, don't test versus static objects //
-				if ( !DynamicComponent[ idx ]->State.IgnoreScenery() ) {
+				if ( !DynamicComponent[ idx ]->Flags.IgnoreScenery() ) {
 					// For every piece of static collision //
 					for ( size_t idx2 = 0; idx2 < StaticObjectInstance.size(); ++idx2 ) {
 						DynamicComponent[ idx ]->Solve( StaticObjectInstance[ idx2 ] );
