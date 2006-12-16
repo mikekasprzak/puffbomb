@@ -12,7 +12,7 @@ public:
 	cGolfGameEngine* Engine;
 
 public:
-	cGolfGame();
+	cGolfGame( const std::string& FileName );
 	~cGolfGame();
 
 public:

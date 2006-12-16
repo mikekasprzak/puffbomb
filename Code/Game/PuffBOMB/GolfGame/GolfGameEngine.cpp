@@ -20,10 +20,11 @@
 // ------------ //
 #endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
-cGolfGameEngine::cGolfGameEngine() :
+cGolfGameEngine::cGolfGameEngine( const std::string& FileName ) :
 	StartPoint( 0 ),
 	CurrentPlayer( 0 ),
 	State( 1 ),
+	LevelComplete( false ),
 	HitBoundery( false ),
  	PlayerAnimator( "OldPuff.anim" ),
  	EndingAnimator( "ParticleTest.anim" )
@@ -48,7 +49,7 @@ cGolfGameEngine::cGolfGameEngine() :
 	 
 	SetActive();
 	 
- 	LoadMap( "Maps/Golf/Level02.map" );
+ 	LoadMap( FileName );
  	
  	DenseParticle.Clear();
  	SolidParticle.Clear();
@@ -485,6 +486,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 						}
 					}
 					if ( PlayersDone == Player.size() ) {
+						LevelComplete = true;
 						cMessageEntity::Current->BreakLoop = true;
 					}
 				}

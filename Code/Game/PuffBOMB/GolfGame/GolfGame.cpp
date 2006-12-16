@@ -3,10 +3,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cGolfGame::cGolfGame() {
+cGolfGame::cGolfGame( const std::string& FileName ) {
 	// Creating Engine //
 	Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-	Engine = new cGolfGameEngine();
+	Engine = new cGolfGameEngine( FileName );
 	
 	Work();
 }

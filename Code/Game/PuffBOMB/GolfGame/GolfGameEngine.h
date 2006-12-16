@@ -40,7 +40,10 @@ public:
 	int State;
 
 public:
+	// Victory related variables //
+	bool LevelComplete;
 	int CharacterAtEndZone;
+
 	bool HitBoundery;
 	
 	cAnimator PlayerAnimator;
@@ -50,7 +53,7 @@ public:
 	void TurnBasedPlay();
 
 public:
-	cGolfGameEngine();
+	cGolfGameEngine( const std::string& FileName );
 	~cGolfGameEngine();
 	
 public:
