@@ -63,16 +63,45 @@ void cClassicCursor::Step() {
 				}
 			}
 		}
-		else {
-			if ( !TimeMode ) {
-				TimeMode = true;
-			}
-			else {
-				Selection = -1;
-			}
-		}
+//		else {
+//			if ( !TimeMode ) {
+//				TimeMode = true;
+//			}
+//			else {
+//				Selection = -1;
+//			}
+//		}
 	}
 
+	// If Timer Button Pressed (X) //
+	if ( Input::Pad[0].Button[ PAD_X ].Pressed() ) {
+		// If you have no selection //
+		if ( Selection == -1 ) {
+			// If there isn't a bomb alread here //
+			if ( CanPlaceBombHere() ) {
+//				// Add a bomb //
+//				Bomb.push_back( cBombInfo( Pos ) );
+//				Selection = Bomb.size() - 1;
+//				TimeMode = true;
+			}
+			// If there is //
+			else {
+				Selection = WhatBombIsHere();
+				TimeMode = true;
+				if ( Selection != -1 ) {
+					Pos = Bomb[ Selection ].Pos;
+				}
+			}
+		}
+//		else {
+//			if ( !TimeMode ) {
+//				TimeMode = true;
+//			}
+//			else {
+//				Selection = -1;
+//			}
+//		}
+	}
 	// If Back Button Pressed (B) //
 	if ( Input::Pad[0].Button[ PAD_B ].Pressed() ) {
 		// Deselect, if you had a selection //
