@@ -7,6 +7,9 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Engine2D.h>
+
+#include <Animation/Animator.h>
+
 #include "ClassicCursor.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cClassicGameEngine : public Engine2D::cEngine2D { 
@@ -20,6 +23,9 @@ public:
 	
 	std::vector< Engine2D::cDynamicCollection* > CameraTracking;
 	std::vector< Engine2D::cPassiveObject* > AlwaysActivePassives;
+
+	// Our notable things to point out //
+	std::vector< Engine2D::cPassiveObject* > PointsOfInterest;
 
 public:
 	void AddBombs();
@@ -44,6 +50,9 @@ public:
 public:
 	cClassicGameEngine( const std::string& FileName );
 	virtual ~cClassicGameEngine();
+
+public:
+	cAnimator EndingAnimator;
 	
 public:
 	void Step();

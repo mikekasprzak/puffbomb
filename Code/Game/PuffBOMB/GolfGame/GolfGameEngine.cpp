@@ -297,15 +297,13 @@ void cGolfGameEngine::Draw() {
 	Gfx::EnableDepth();
 
 	HudCamera->Update();
-	
-	for( size_t idx = 0; idx < Player.size(); idx++ )
-	{
-		if( idx != CurrentPlayer )
-		{
-			ElementTracker( PlayerAnimator, Player[ idx ]->GetRect() );
-		}
+
+	// Draw player tracking //	
+	for( size_t idx = 0; idx < Player.size(); idx++ ) {
+		ElementTracker( PlayerAnimator, Player[ idx ]->GetRect() );
 	}
 	
+	// Draw Points of interest tracking //
 	for ( size_t idx = 0; idx < PointsOfInterest.size(); idx++ ) {
 		ElementTracker( EndingAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect() );		
 	}

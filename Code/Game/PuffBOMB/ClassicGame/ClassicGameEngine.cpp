@@ -25,7 +25,8 @@
 cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false ),
 	LevelComplete( false ),
-	Score( 0 )
+	Score( 0 ),
+	EndingAnimator( "ParticleTest.anim" )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -134,6 +135,15 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 			AlwaysActivePassives.push_back( Sender );
 			break;
 		};
+
+		// Points of Interest //
+		case 7: {
+			Log( 10, "+ Point of Interest" );
+			PointsOfInterest.push_back( Sender );
+			
+			break;
+		};
+		
 	};
 	return 0;
 }
@@ -146,7 +156,7 @@ void cClassicGameEngine::FrameStart() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::FrameEnd() {
 	if ( CameraTracking.size() != 0 ) {
-		if ( CharactersAtEndZones == CameraTracking.size() ) {
+		if ( CharactersAtEndZones == (int)CameraTracking.size() ) {
 			LevelComplete = true;
 			cMessageEntity::Current->BreakLoop = true;
 		}
@@ -210,7 +220,7 @@ void cClassicGameEngine::Step() {
 		{
 			Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
 			
-			for ( int idx = 1; idx < CameraTracking.size(); idx++ ) {
+			for ( size_t idx = 1; idx < CameraTracking.size(); idx++ ) {
 				FollowRect += CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect();
 			}
 			
@@ -253,7 +263,7 @@ void cClassicGameEngine::Step() {
 		// Clear Impulses (passive hack) //
 		Impulse.clear();
 		
-		for ( int idx = 0; idx < AlwaysActivePassives.size(); idx++ ) {
+		for ( size_t idx = 0; idx < AlwaysActivePassives.size(); idx++ ) {
 			AlwaysActivePassives[ idx ]->Work();
 		}
 		
@@ -305,6 +315,11 @@ void cClassicGameEngine::Draw() {
 
 	// -- Hud Camera Space -------------------------- //
 	HudCamera->Update();
+
+	// Draw Points of interest tracking //
+	for ( size_t idx = 0; idx < PointsOfInterest.size(); idx++ ) {
+		ElementTracker( EndingAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect() );		
+	}
 	
 #ifdef EDITOR
 	//	//  DISPLAYS FPS  //
