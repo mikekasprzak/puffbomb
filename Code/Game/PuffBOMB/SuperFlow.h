@@ -6,6 +6,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <string>
 #include <vector>
+
+#include "GolfGame/Player/PlayerInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cSuperFlow { 
 public:
@@ -15,7 +17,9 @@ public:
 	std::string GolfPath;	
 	std::vector< std::string > ClassicMaps;
 	std::vector< std::string > GolfMaps;
-		
+	
+	std::vector< cPlayerInfo > Players;
+			
 	int CurClassicMap;
 	int CurGolfMap;
 		

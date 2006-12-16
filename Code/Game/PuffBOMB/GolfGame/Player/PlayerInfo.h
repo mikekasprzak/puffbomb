@@ -1,24 +1,24 @@
 // - ------------------------------------------------------------------------------------------ - //
-// GolfGame //
+// PlayerInfo //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __GolfGame_PuffBOMB_GolfGame_H__
-#define __GolfGame_PuffBOMB_GolfGame_H__
+#ifndef __Game_PuffBOMB_Player_PlayerInfo_H__
+#define __Game_PuffBOMB_Player_PlayerInfo_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <MessageEntity.h>
-#include "GolfGameEngine.h"
-// - ------------------------------------------------------------------------------------------ - //
-class cGolfGame : public cMessageEntity { 
+class cPlayerInfo { 
 public:
-	cGolfGameEngine* Engine;
+	// Elements of a Player //
+	int Score;
 
 public:
-	cGolfGame( const std::string& FileName, const std::vector< cPlayerInfo >& _Players = std::vector< cPlayerInfo >(4) );
-	~cGolfGame();
-
-public:
-	void Step();
-	void Draw();
+	cPlayerInfo() :
+		Score( 0 )
+	{
+	}
+	
+	~cPlayerInfo() {
+		
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // GolfGame // 
+#endif // __Game_PuffBOMB_Player_PlayerInfo_H__ // 
 // - ------------------------------------------------------------------------------------------ - //

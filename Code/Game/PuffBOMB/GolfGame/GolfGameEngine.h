@@ -10,6 +10,7 @@
 #include <Animation/Animator.h>
 
 #include "Player/Player.h"
+#include "Player/PlayerInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cGolfGameEngine : public Engine2D::cEngine2D { 
 public:
@@ -53,7 +54,7 @@ public:
 	void TurnBasedPlay();
 
 public:
-	cGolfGameEngine( const std::string& FileName, const int _Players = 4 );
+	cGolfGameEngine( const std::string& FileName, const std::vector< cPlayerInfo >& _Players = std::vector< cPlayerInfo >(4) );
 	~cGolfGameEngine();
 	
 public:

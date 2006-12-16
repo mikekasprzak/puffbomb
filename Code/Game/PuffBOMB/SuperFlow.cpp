@@ -50,6 +50,7 @@ cSuperFlow::cSuperFlow() :
 	State( stMainMenu ),
 	ClassicPath( "Maps/Classic/" ),
 	GolfPath( "Maps/Golf/" ),
+	Players( 3 ),
 	CurClassicMap( 3 ),
 	CurGolfMap( 1 )
 {
@@ -151,10 +152,16 @@ void cSuperFlow::StateFlow()
 				// Start the game //	
 				int OldGolfMap = CurGolfMap;
 				{
-					cGolfGame Game( GolfPath + GolfMaps[ CurGolfMap ] );
+					cGolfGame Game( GolfPath + GolfMaps[ CurGolfMap ], Players );
 					
 					if( Game.Engine->LevelComplete ) // Re-add this if all the levels become beatable
 					{	
+						// Extract Golf Scores //
+						for ( size_t idx = 0; idx < Players.size(); idx++ ) {
+							Players[ idx ].Score = Game.Engine->Player[ idx ]->Score;
+						}
+						
+						// Go te next map //
 						if( size_t( CurGolfMap ) < GolfMaps.size() - 1 )
 						{
 							CurGolfMap++;
