@@ -453,6 +453,9 @@ void cGolfGameEngine::TurnBasedPlay() {
 void cGolfGameEngine::ElementTracker()
 {
 	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
+	
+	const Real ImageWidth = 64;
+	const Real ImageHeight = 76;
 		
 	for( size_t idx = 0; idx < Player.size(); idx++ )
 	{
@@ -460,49 +463,116 @@ void cGolfGameEngine::ElementTracker()
 		{
 			if( Player[ idx ]->GetRect() != Camera->ViewArea.ToRect() + Camera->Pos.ToVector2D() )
 			{
-				if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Bottom + Real( 76 ) &&
-					( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Top - Real( 76 ) )
+				if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Bottom + ImageHeight &&
+					( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Top - ImageHeight )
 				{
-					if( Player[ idx ]->GetCenter().x < Player[ CurrentPlayer ]->GetCenter().x )
+					if( Player[ idx ]->GetCenter().x < Camera->Pos.x )
 					{
 						ElementAnimator.DrawQuad(
 							Vector2D(
-								Global::Left + Real( 64 ),
+								Global::Left + ImageWidth,
 								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
 							)
 						);
 					}
-					if( Player[ idx ]->GetCenter().x > Player[ CurrentPlayer ]->GetCenter().x )
+					else if( Player[ idx ]->GetCenter().x > Camera->Pos.x )
 					{
 						ElementAnimator.DrawQuad(
 							Vector2D(
-								Global::Right - Real( 64 ),
+								Global::Right - ImageWidth,
 								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
 							)
 						);
-					}					
+					}
+					else
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D( -200, 0
+							)
+						);
+					}
+					
 				}
-				else if( ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) > Global::Left + Real( 64 ) &&
-					( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) < Global::Right - Real( 64 ) )
+				else if( ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) > Global::Left + ImageWidth &&
+						 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) < Global::Right - ImageWidth )
 				{
-					if( Player[ idx ]->GetCenter().y < Player[ CurrentPlayer ]->GetCenter().y )
+					if( Player[ idx ]->GetCenter().y < Camera->Pos.y )
 					{
 						ElementAnimator.DrawQuad(
 							Vector2D( 
 								( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
-								Global::Bottom + Real( 76 )
+								Global::Bottom + ImageHeight
 							)
 						);
 					}
-					if( Player[ idx ]->GetCenter().y > Player[ CurrentPlayer ]->GetCenter().y )
+					else if( Player[ idx ]->GetCenter().y > Camera->Pos.y )
 					{
 						ElementAnimator.DrawQuad(
 							Vector2D( 
 								( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
-								Global::Top - Real( 76 )
+								Global::Top - ImageHeight
 							)
 						);
 					}
+					else
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D( 200, 0
+							)
+						);
+					}
+
+				}
+				else
+				{
+					if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) <= Global::Bottom + ImageHeight &&
+						( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) <= Global::Left + ImageWidth )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Left + ImageWidth,
+								Global::Bottom + ImageHeight
+							)
+						);
+					}
+					else if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) <= Global::Bottom + ImageHeight &&
+							 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) >= Global::Right - ImageWidth )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Right - ImageWidth,
+								Global::Bottom + ImageHeight
+							)
+						);
+					}
+					else if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) >= Global::Top - ImageHeight &&
+							 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) <= Global::Left + ImageWidth )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Left + ImageWidth,
+								Global::Top - ImageHeight
+							)
+						);
+					}
+					else if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) >= Global::Top + ImageHeight ||
+							 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) >= Global::Right - ImageWidth )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Right - ImageWidth,
+								Global::Top - ImageHeight
+							)
+						);
+					}
+					else
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D( 0, 0
+							)
+						);
+					}
+
 				}
 			}
 		}	
@@ -510,48 +580,109 @@ void cGolfGameEngine::ElementTracker()
 }
 // - ------------------------------------------------------------------------------------------ - //
 /*
-				if( Player[ idx ]->GetCenter().x < Player[ CurrentPlayer ]->GetCenter().x )
+				Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
+	
+	const Real ImageWidth = 64;
+	const Real ImageHeight = 76;
+		
+	for( size_t idx = 0; idx < Player.size(); idx++ )
+	{
+		if( idx != CurrentPlayer )
+		{
+			if( Player[ idx ]->GetRect() != Camera->ViewArea.ToRect() + Camera->Pos.ToVector2D() )
+			{
+				if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Bottom + ImageHeight &&
+					( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Top - ImageHeight )
 				{
-					if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Bottom + Real( 76 ) &&
-						( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Top - Real( 76 ) )
+					if( Player[ idx ]->GetCenter().x < Player[ CurrentPlayer ]->GetCenter().x )
 					{
 						ElementAnimator.DrawQuad(
 							Vector2D(
-								Global::Left + Real( 64 ),
+								Global::Left + ImageWidth,
+								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
+							)
+						);
+					}
+					else if( Player[ idx ]->GetCenter().x > Player[ CurrentPlayer ]->GetCenter().x )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Right - ImageWidth,
 								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
 							)
 						);
 					}
 					else
 					{
-							
+
+					}					
+					
+				}
+				else if( ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) > Global::Left + ImageWidth &&
+						 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) < Global::Right - ImageWidth )
+				{
+					if( Player[ idx ]->GetCenter().y < Player[ CurrentPlayer ]->GetCenter().y )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D( 
+								( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
+								Global::Bottom + ImageHeight
+							)
+						);
+					}
+					else if( Player[ idx ]->GetCenter().y > Player[ CurrentPlayer ]->GetCenter().y )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D( 
+								( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
+								Global::Top - ImageHeight
+							)
+						);
 					}
 				}
-				if( Player[ idx ]->GetCenter().x > Player[ CurrentPlayer ]->GetCenter().x )
+				else
 				{
-					ElementAnimator.DrawQuad(
-						Vector2D(
-							Global::Right - Real( 64 ),
-							( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
-						)
-					);
+					if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Bottom + ImageHeight &&
+						( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) < Global::Left + ImageWidth )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Left + ImageWidth,
+								Global::Bottom + ImageHeight
+							)
+						);
+					}
+					else if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Bottom + ImageHeight &&
+							 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) > Global::Right - ImageWidth )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Right - ImageWidth,
+								Global::Bottom + ImageHeight
+							)
+						);
+					}
+					else if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Top - ImageHeight &&
+							 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) < Global::Left + ImageWidth )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Left + ImageWidth,
+								Global::Top - ImageHeight
+							)
+						);
+					}
+					else if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Top + ImageHeight &&
+							 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) > Global::Right - ImageWidth )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Right - ImageWidth,
+								Global::Top - ImageHeight
+							)
+						);
+					}
 				}
-
-				if( Player[ idx ]->GetCenter().y < Player[ CurrentPlayer ]->GetCenter().y )
-				{
-					ElementAnimator.DrawQuad(
-						Vector2D( 
-							( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
-							Global::Bottom + Real( 76 )
-						)
-					);
-				}
-				if( Player[ idx ]->GetCenter().y > Player[ CurrentPlayer ]->GetCenter().y )
-				{
-					ElementAnimator.DrawQuad(
-						Vector2D( 
-							( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
-							Global::Top - Real( 76 )
-						)
-					);
-				}*/
+			}
+		}	
+	}*/
