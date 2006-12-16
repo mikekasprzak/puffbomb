@@ -466,12 +466,22 @@ namespace Gfx
 		glPopMatrix();
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Translate( Real x, Real y, Real z )
+	void Translate( const Real x, const Real y, const Real z )
 	{
 		glTranslatef ( x, y, z );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	void Rotate( Real angle, Real x, Real y, Real z )
+	void Translate( const Vector3D& MyVec )
+	{
+		glTranslatef ( MyVec.x, MyVec.y, MyVec.z );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Translate( const Vector2D& MyVec )
+	{
+		glTranslatef ( MyVec.x, MyVec.y, Real( 0.0 ) );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void Rotate( const Real angle, const Real x, const Real y, const Real z )
 	{
 		glRotatef( angle, x, y, z );
 	}

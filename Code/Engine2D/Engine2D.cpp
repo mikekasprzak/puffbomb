@@ -463,7 +463,7 @@ void cEngine2D::AddCollection( cDynamicCollection* _Col ) {
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect )
 {
-	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );  // move this into the camera //
+	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
 	
 	Real ImageWidth = 0;
 	Real ImageHeight = 0;
@@ -475,10 +475,136 @@ void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect )
 			ImageWidth = ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.x;
 			ImageHeight = ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.y;
 		}
-	}	
-				
+	}			
 	Real YPlayerTest = ( ( MyRect.Center().y - Camera->Pos.y ) / ZoomOffset );
 	Real XPlayerTest = ( ( MyRect.Center().x - Camera->Pos.x ) / ZoomOffset );
+	
+	Vector2D DrawPos = Vector2D( 0, 0 );
+	
+	if( MyRect != Camera->ViewArea.ToRect() + Camera->Pos.ToVector2D() )
+	{
+		if( YPlayerTest > Global::Bottom + ImageHeight &&
+			YPlayerTest < Global::Top - ImageHeight )
+		{
+			if( MyRect.Center().x < Camera->Pos.x )
+			{
+				DrawPos =
+					Vector2D(
+						Global::Left + ImageWidth,
+						YPlayerTest
+				);
+			}
+			else if( MyRect.Center().x > Camera->Pos.x )
+			{
+				DrawPos = 
+					Vector2D(
+						Global::Right - ImageWidth,
+						YPlayerTest
+				);
+			}
+		
+		}
+		else if( XPlayerTest > Global::Left + ImageWidth &&
+				 XPlayerTest < Global::Right - ImageWidth )
+		{
+			if( MyRect.Center().y < Camera->Pos.y )
+			{
+				DrawPos =
+					Vector2D( 
+						XPlayerTest,
+						Global::Bottom + ImageHeight
+				);
+			}
+			else if( MyRect.Center().y > Camera->Pos.y )
+			{
+				DrawPos =
+					Vector2D( 
+						XPlayerTest,
+						Global::Top - ImageHeight
+				);
+			}
+		}
+		else
+		{
+			if( YPlayerTest <= Global::Bottom + ImageHeight )
+			{
+				if( XPlayerTest <= Global::Left + ImageWidth )
+				{
+					DrawPos =
+						Vector2D(
+							Global::Left + ImageWidth,
+							Global::Bottom + ImageHeight
+					);
+				}
+				else
+				{
+					DrawPos =
+						Vector2D(
+							Global::Right - ImageWidth,
+							Global::Bottom + ImageHeight
+					);	
+				}
+			}
+			else if( YPlayerTest >= Global::Top - ImageHeight )
+			{
+				if( XPlayerTest <= Global::Left + ImageWidth )
+				{
+					DrawPos =
+						Vector2D(
+							Global::Left + ImageWidth,
+							Global::Top - ImageHeight
+					);
+				}
+				else
+				{
+					DrawPos =
+						Vector2D(
+							Global::Right - ImageWidth,
+							Global::Top - ImageHeight
+					);
+				}
+			}
+		}
+		
+		Gfx::PushMatrix();
+
+		Gfx::Translate( DrawPos );
+
+		Gfx::Rotate( 180, Real( 0 ), Real( 0 ), Real( 1 ) );
+		
+		ElementAnim.DrawQuad( Vector2D::Zero );
+		
+		Gfx::PopMatrix();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+}; // namespace Engine2D //
+// - ------------------------------------------------------------------------------------------ - //
+
+/*
+void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect )
+{
+	Gfx::PushMatrix();
+	
+//	Gfx::Rotate( 90, Real( 0 ), Real( 0 ), Real( 1 ) );	
+	
+	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
+	
+	Real ImageWidth = 0;
+	Real ImageHeight = 0;
+	
+	if( !ElementAnim.Animation->Frame.empty() )
+	{
+		if( ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex.size() > 3 )
+		{
+			ImageWidth = ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.x;
+			ImageHeight = ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.y;
+		}
+	}			
+	Real YPlayerTest = ( ( MyRect.Center().y - Camera->Pos.y ) / ZoomOffset );
+	Real XPlayerTest = ( ( MyRect.Center().x - Camera->Pos.x ) / ZoomOffset );
+	
+	Vector2D DrawPos = Vector2D( 0, 0 );
 	
 	if( MyRect != Camera->ViewArea.ToRect() + Camera->Pos.ToVector2D() )
 	{
@@ -572,9 +698,12 @@ void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect )
 				}
 			}
 		}
+		
+		ElementAnim.DrawQuad( DrawPos );
 	}
+	
+	Gfx::PopMatrix();
 }
 // - ------------------------------------------------------------------------------------------ - //
-// - ------------------------------------------------------------------------------------------ - //
-}; // namespace Engine2D //
-// - ------------------------------------------------------------------------------------------ - //
+*/
+

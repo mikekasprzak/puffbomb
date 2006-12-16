@@ -120,8 +120,10 @@ namespace Gfx {
 	void Perspective( double Fovy, double Aspect, double zNear, double zFar );
 	void PushMatrix();
 	void PopMatrix();
-	void Translate( Real x, Real y, Real z );
-	void Rotate( Real angle, Real x, Real y, Real z );
+	void Translate( const Real x, const Real y, const Real z );
+	void Translate( const Vector3D& MyVec );
+	void Translate( const Vector2D& MyVec );
+	void Rotate( const Real angle, const Real x, const Real y, const Real z );
 	void ClearColorDepth();
 	void SwapBuffers();
 	// - -------------------------------------------------------------------------------------- - //
