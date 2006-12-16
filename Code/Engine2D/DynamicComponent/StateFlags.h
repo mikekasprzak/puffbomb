@@ -22,7 +22,8 @@ public:
 		flIgnorePassives = bit5,	// Ignore interactions with passive objects //
 		flIgnoreImpulses = bit6,	// Ignore interactions with impulses //
 		
-		flIgnoreObjectsUntilNoContact = bit9,		// Ignore interactions with other components //
+		flObjectSensor = bit9,		// For interactions with components, treat like a sensor //
+		flScenerySensor = bit10,	// For interactions with scenery, treat like a sensor //
 	};
 	// - -------------------------------------------------------------------------------------- - //
 
@@ -51,7 +52,8 @@ public:
 	__FLAG_FUNCTION( IgnoreZones );
 	__FLAG_FUNCTION( IgnorePassives );
 	__FLAG_FUNCTION( IgnoreImpulses );
-	__FLAG_FUNCTION( IgnoreObjectsUntilNoContact );
+	__FLAG_FUNCTION( ObjectSensor );
+	__FLAG_FUNCTION( ScenerySensor );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -73,7 +75,8 @@ public:
 	__FLAG_FUNCTION( IgnoreZones );
 	__FLAG_FUNCTION( IgnorePassives );
 	__FLAG_FUNCTION( IgnoreImpulses );
-	__FLAG_FUNCTION( IgnoreObjectsUntilNoContact );
+	__FLAG_FUNCTION( ObjectSensor );
+	__FLAG_FUNCTION( ScenerySensor );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -94,7 +97,8 @@ public:
 	__FLAG_FUNCTION( IgnoreZones );
 	__FLAG_FUNCTION( IgnorePassives );
 	__FLAG_FUNCTION( IgnoreImpulses );
-	__FLAG_FUNCTION( IgnoreObjectsUntilNoContact );
+	__FLAG_FUNCTION( ObjectSensor );
+	__FLAG_FUNCTION( ScenerySensor );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -115,7 +119,8 @@ public:
 	__FLAG_FUNCTION( IgnoreZones );
 	__FLAG_FUNCTION( IgnorePassives );
 	__FLAG_FUNCTION( IgnoreImpulses );
-	__FLAG_FUNCTION( IgnoreObjectsUntilNoContact );
+	__FLAG_FUNCTION( ObjectSensor );
+	__FLAG_FUNCTION( ScenerySensor );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //

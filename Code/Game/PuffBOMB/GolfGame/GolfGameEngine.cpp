@@ -376,12 +376,14 @@ void cGolfGameEngine::TurnBasedPlay() {
 				if ( !Player[ CurrentPlayer ]->Finished ) {
 					// Activate the character, if not already activated //
 					Player[ CurrentPlayer ]->MyObject->Activate();
+
+					// Make us an ObjectSensor object, until we decide not to be //
+					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].State.SetObjectSensor();
+					
+					
 					// Since we're about to take action, add a stroke //
 					Player[ CurrentPlayer ]->AddStroke();
-					
-					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].State.SetIgnoreObjectsUntilNoContact();
-					
-					
+
 					
 					// Gather input //
 					State = 3;
