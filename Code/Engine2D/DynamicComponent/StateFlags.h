@@ -21,6 +21,8 @@ public:
 		flIgnoreZones = bit4,		// Ignore interactions with zones //
 		flIgnorePassives = bit5,	// Ignore interactions with passive objects //
 		flIgnoreImpulses = bit6,	// Ignore interactions with impulses //
+		
+		flIgnoreObjectsUntilNoContact = bit9,		// Ignore interactions with other components //
 	};
 	// - -------------------------------------------------------------------------------------- - //
 
@@ -49,6 +51,7 @@ public:
 	__FLAG_FUNCTION( IgnoreZones );
 	__FLAG_FUNCTION( IgnorePassives );
 	__FLAG_FUNCTION( IgnoreImpulses );
+	__FLAG_FUNCTION( IgnoreObjectsUntilNoContact );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -70,6 +73,7 @@ public:
 	__FLAG_FUNCTION( IgnoreZones );
 	__FLAG_FUNCTION( IgnorePassives );
 	__FLAG_FUNCTION( IgnoreImpulses );
+	__FLAG_FUNCTION( IgnoreObjectsUntilNoContact );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -90,6 +94,7 @@ public:
 	__FLAG_FUNCTION( IgnoreZones );
 	__FLAG_FUNCTION( IgnorePassives );
 	__FLAG_FUNCTION( IgnoreImpulses );
+	__FLAG_FUNCTION( IgnoreObjectsUntilNoContact );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //
@@ -110,6 +115,7 @@ public:
 	__FLAG_FUNCTION( IgnoreZones );
 	__FLAG_FUNCTION( IgnorePassives );
 	__FLAG_FUNCTION( IgnoreImpulses );
+	__FLAG_FUNCTION( IgnoreObjectsUntilNoContact );
 	// - -------------------------------------------------------------------------------------- - //
 	#undef __FLAG_FUNCTION
 	// - -------------------------------------------------------------------------------------- - //

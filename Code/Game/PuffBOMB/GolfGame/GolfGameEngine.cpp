@@ -361,6 +361,9 @@ void cGolfGameEngine::TurnBasedPlay() {
 					// Since we're about to take action, add a stroke //
 					Player[ CurrentPlayer ]->AddStroke();
 					
+					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].State.SetIgnoreObjectsUntilNoContact();
+					
+					
 					// Gather input //
 					State = 3;
 				}
