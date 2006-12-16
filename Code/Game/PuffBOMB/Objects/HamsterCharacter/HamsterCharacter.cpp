@@ -83,10 +83,14 @@ void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 bool cHamsterCharacter::Work() {
-//	if ( Component[ 0 ].Body.CollisionFlags.Scenery() )
-//		Component[ 0 ].SetAnimation( 0 );
-//	else
-//		Component[ 0 ].SetAnimation( 1 );
+	// If I became an Object Sensor //
+	if ( Component[ 0 ].Body.Flags.ObjectSensor() ) {
+		// If I have no contact with other objects //
+		if ( !Component[ 0 ].Body.CollisionFlags.Object() ) {
+			// I no longer need to be an Object Sensor //
+			Component[ 0 ].Body.Flags.ResetObjectSensor();
+		}
+	}
 	
 	return true;
 }
