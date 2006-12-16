@@ -454,9 +454,17 @@ void cGolfGameEngine::ElementTracker()
 {
 	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
 	
-	const Real ImageWidth = 64;
-	const Real ImageHeight = 76;
-		
+	Real ImageWidth = 0;
+	Real ImageHeight = 0;
+	
+	if( !ElementAnimator.Animation->Frame.empty() )
+	{
+		if( ElementAnimator.Animation->Frame[ 0 ].MyFrame.Vertex.size() > 3 )
+		{
+			ImageWidth = ElementAnimator.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.x;
+			ImageHeight = ElementAnimator.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.y;
+		}
+	}				
 	for( size_t idx = 0; idx < Player.size(); idx++ )
 	{
 		if( idx != CurrentPlayer )
