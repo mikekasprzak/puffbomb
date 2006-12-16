@@ -18,6 +18,8 @@ public:
 	int Stroke;
 	bool Finished;
 	
+	bool Spawned;
+	
 	Vector2D BombPos;
 	
 	Vector2D MyLastDropPos;

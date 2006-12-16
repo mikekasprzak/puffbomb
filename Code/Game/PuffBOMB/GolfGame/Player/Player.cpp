@@ -10,6 +10,7 @@ cPlayer::cPlayer( Engine2D::cDynamicCollection* _MyObject ) :
 	Score( 0 ),
 	Stroke( 0 ),
 	Finished( false ),
+	Spawned( true ),
 	InsignificantMotion( 0 )
 {
 	

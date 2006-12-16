@@ -113,12 +113,15 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 				if ( Sender == Player[ idx ]->MyObject ) {
 					Sender->SetPos( Player[ idx ]->MyLastDropPos );
+					
+					Player[ idx ]->Spawned = true;
 					break;
 				}	
 			}
-			
-			//Sender->SetPos( StartPoint->Pos );			
-			
+
+			// Make us an ObjectSensor, until we decide not to be //
+			//Sender->Component[ 0 ].Body.Flags.SetObjectSensor();			
+						
 			break;
 		};
 		// Player 'Go To Nearest Drop' Zone //
@@ -132,6 +135,18 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			}
 			Sender->Deactivate();
 			Sender->SetPos( FindNearestDrop( *Sender ) );
+
+			// Make us an ObjectSensor, until we decide not to be //
+			//Sender->Component[ 0 ].Body.Flags.SetObjectSensor();			
+
+			// Note this player as spawned //
+			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+				if ( Sender == Player[ idx ]->MyObject ) {
+					
+					Player[ idx ]->Spawned = true;
+					break;
+				}	
+			}			
 			
 			break;
 		};
@@ -377,8 +392,11 @@ void cGolfGameEngine::TurnBasedPlay() {
 					// Activate the character, if not already activated //
 					Player[ CurrentPlayer ]->MyObject->Activate();
 
-					// Make us an ObjectSensor object, until we decide not to be //
-					Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.Flags.SetObjectSensor();
+					// Make us an ObjectSensor, until we decide not to be //
+					if ( Player[ CurrentPlayer ]->Spawned ) {
+						Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.Flags.SetObjectSensor();
+						Player[ CurrentPlayer ]->Spawned = false;
+					}
 					
 					
 					// Since we're about to take action, add a stroke //
