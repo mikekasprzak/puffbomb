@@ -59,7 +59,7 @@ public:
 
 	// Reset game back to a neutral state //
 	void Reset();
-
+	
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
@@ -75,6 +75,8 @@ public:
 	
 public:
 	void AddCollection( cDynamicCollection* _Col );
+	
+	void ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect );
 	
 public:
 	// Debug Info //

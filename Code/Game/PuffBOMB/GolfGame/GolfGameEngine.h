@@ -53,11 +53,10 @@ public:
 	int CharacterAtEndZone;
 	bool HitBoundery;
 	
-	cAnimator ElementAnimator;
+	cAnimator PlayerAnimator;
 	
 public:
 	void TurnBasedPlay();
-	void ElementTracker();
 
 public:
 	cGolfGameEngine();

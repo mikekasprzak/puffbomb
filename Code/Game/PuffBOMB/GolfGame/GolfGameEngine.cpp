@@ -25,7 +25,7 @@ cGolfGameEngine::cGolfGameEngine() :
 	CurrentPlayer( 0 ),
 	State( 1 ),
 	HitBoundery( false ),
- 	ElementAnimator( "OldPuff.anim" )
+ 	PlayerAnimator( "OldPuff.anim" )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -283,7 +283,13 @@ void cGolfGameEngine::Draw() {
 
 	HudCamera->Update();
 	
-	ElementTracker();
+	for( size_t idx = 0; idx < Player.size(); idx++ )
+	{
+		if( idx != CurrentPlayer )
+		{
+			ElementTracker( PlayerAnimator, Player[ idx ]->GetRect() );
+		}
+	}
 	
 #ifdef EDITOR
 	{
@@ -447,125 +453,6 @@ void cGolfGameEngine::TurnBasedPlay() {
 				break;
 			}
 		};
-	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cGolfGameEngine::ElementTracker()
-{
-	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
-	
-	Real ImageWidth = 0;
-	Real ImageHeight = 0;
-	
-	if( !ElementAnimator.Animation->Frame.empty() )
-	{
-		if( ElementAnimator.Animation->Frame[ 0 ].MyFrame.Vertex.size() > 3 )
-		{
-			ImageWidth = ElementAnimator.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.x;
-			ImageHeight = ElementAnimator.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.y;
-		}
-	}				
-	for( size_t idx = 0; idx < Player.size(); idx++ )
-	{
-		if( idx != CurrentPlayer )
-		{
-			Real YPlayerTest = ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset );
-			Real XPlayerTest = ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset );
-			
-			if( Player[ idx ]->GetRect() != Camera->ViewArea.ToRect() + Camera->Pos.ToVector2D() )
-			{
-				if( YPlayerTest > Global::Bottom + ImageHeight &&
-					YPlayerTest < Global::Top - ImageHeight )
-				{
-					if( Player[ idx ]->GetCenter().x < Camera->Pos.x )
-					{
-						ElementAnimator.DrawQuad(
-							Vector2D(
-								Global::Left + ImageWidth,
-								YPlayerTest
-							)
-						);
-					}
-					else if( Player[ idx ]->GetCenter().x > Camera->Pos.x )
-					{
-						ElementAnimator.DrawQuad(
-							Vector2D(
-								Global::Right - ImageWidth,
-								YPlayerTest
-							)
-						);
-					}
-				
-				}
-				else if( XPlayerTest > Global::Left + ImageWidth &&
-						 XPlayerTest < Global::Right - ImageWidth )
-				{
-					if( Player[ idx ]->GetCenter().y < Camera->Pos.y )
-					{
-						ElementAnimator.DrawQuad(
-							Vector2D( 
-								XPlayerTest,
-								Global::Bottom + ImageHeight
-							)
-						);
-					}
-					else if( Player[ idx ]->GetCenter().y > Camera->Pos.y )
-					{
-						ElementAnimator.DrawQuad(
-							Vector2D( 
-								XPlayerTest,
-								Global::Top - ImageHeight
-							)
-						);
-					}
-				}
-				else
-				{
-					if( YPlayerTest <= Global::Bottom + ImageHeight )
-					{
-						if( XPlayerTest <= Global::Left + ImageWidth )
-						{
-							ElementAnimator.DrawQuad(
-								Vector2D(
-									Global::Left + ImageWidth,
-									Global::Bottom + ImageHeight
-								)
-							);
-						}
-						else
-						{
-							ElementAnimator.DrawQuad(
-								Vector2D(
-									Global::Right - ImageWidth,
-									Global::Bottom + ImageHeight
-								)
-							);	
-						}
-					}
-					else if( YPlayerTest >= Global::Top - ImageHeight )
-					{
-						if( XPlayerTest <= Global::Left + ImageWidth )
-						{
-							ElementAnimator.DrawQuad(
-								Vector2D(
-									Global::Left + ImageWidth,
-									Global::Top - ImageHeight
-								)
-							);
-						}
-						else
-						{
-							ElementAnimator.DrawQuad(
-								Vector2D(
-									Global::Right - ImageWidth,
-									Global::Top - ImageHeight
-								)
-							);
-						}
-					}
-				}
-			}
-		}	
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
