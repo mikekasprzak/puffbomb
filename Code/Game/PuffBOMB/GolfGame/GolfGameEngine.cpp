@@ -480,3 +480,21 @@ void cGolfGameEngine::TurnBasedPlay() {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+const Vector2D cGolfGameEngine::FindNearestDrop( const Engine2D::cDynamicCollection& Obj ) {
+	Vector2D Pos = Obj.Component[ 0 ].Body.BoundingRect.Center();
+	Real BestDistance = (Pos - StartPoint->Pos).MagnitudeSquared();
+	Vector2D BestDrop = StartPoint->Pos;
+	
+	for ( size_t idx = 0; idx < DropPoint.size(); idx++ ) {
+		Real Distance = (Pos - DropPoint[ idx ]->Pos).MagnitudeSquared();
+		if ( Distance < BestDistance ) {
+			BestDistance = Distance;
+			BestDrop = DropPoint[ idx ]->Pos;
+		}
+	}
+	
+	return BestDrop;
+}
+// - ------------------------------------------------------------------------------------------ - //

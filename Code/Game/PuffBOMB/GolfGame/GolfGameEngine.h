@@ -28,24 +28,9 @@ public:
 		
 		
 		
-	// Drop points (in case of ... pits) //
+	// Drop points (in case of pits or other hungry things) //
 	std::vector< Engine2D::cPassiveObject* > DropPoint;
-		
-	const Vector2D FindNearestDrop( const Engine2D::cDynamicCollection& Obj ) {
-		Vector2D Pos = Obj.Component[ 0 ].Body.BoundingRect.Center();
-		Real BestDistance = (Pos - StartPoint->Pos).MagnitudeSquared();
-		Vector2D BestDrop = StartPoint->Pos;
-		
-		for ( size_t idx = 0; idx < DropPoint.size(); idx++ ) {
-			Real Distance = (Pos - DropPoint[ idx ]->Pos).MagnitudeSquared();
-			if ( Distance < BestDistance ) {
-				BestDistance = Distance;
-				BestDrop = DropPoint[ idx ]->Pos;
-			}
-		}
-		
-		return BestDrop;
-	}
+	const Vector2D FindNearestDrop( const Engine2D::cDynamicCollection& Obj );
 	
 	
 	// Our current player //
