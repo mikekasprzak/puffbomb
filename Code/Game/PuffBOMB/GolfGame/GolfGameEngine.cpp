@@ -298,7 +298,7 @@ void cGolfGameEngine::Draw() {
 		Gfx::Circle( CharacterCenter, Real( 128 ), Gfx::RGBA( 0, 255, 0, 255 ) );
 		
 		// Outer Circle //
-		Gfx::Circle( CharacterCenter, Real( 512 ), Gfx::RGBA( 255, 0, 0, 255 ) );
+		Gfx::Circle( CharacterCenter, Real( 512 - 32 ), Gfx::RGBA( 255, 0, 0, 255 ) );
 
 		Gfx::EnableDepth();
 		Gfx::EnableTex2D();

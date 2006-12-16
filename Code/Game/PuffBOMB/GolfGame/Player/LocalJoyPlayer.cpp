@@ -20,7 +20,7 @@ cLocalJoyPlayer::~cLocalJoyPlayer() {
 // - ------------------------------------------------------------------------------------------ - //
 bool cLocalJoyPlayer::Control() {
 	// Cursor Control //
-	BombPos += MyJoy().Stick1 * Real( 3 );
+	BombPos += MyJoy().Stick1 * Real( 5 );
 
 	// Constrain outside center //
 	if ( BombPos.Magnitude() < Real( 128 ) ) {
@@ -28,8 +28,8 @@ bool cLocalJoyPlayer::Control() {
 	}
 		
 	// Constrain inside circle //
-	if ( BombPos.Magnitude() > Real( 512 ) ) {
-		BombPos += (Real(512) - BombPos.Magnitude()) * BombPos.Normal();
+	if ( BombPos.Magnitude() > Real( 512 - 32 ) ) {
+		BombPos += (Real(512 - 32) - BombPos.Magnitude()) * BombPos.Normal();
 	}
 	
 	// Fire //
