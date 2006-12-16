@@ -7,7 +7,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Engine2D.h>
-
+#include <Animation/Animator.h>
 
 #include "Player/Player.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -53,8 +53,11 @@ public:
 	int CharacterAtEndZone;
 	bool HitBoundery;
 	
+	cAnimator ElementAnimator;
+	
 public:
 	void TurnBasedPlay();
+	void ElementTracker();
 
 public:
 	cGolfGameEngine();

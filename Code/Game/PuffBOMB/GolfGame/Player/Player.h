@@ -37,6 +37,11 @@ public:
 	virtual bool Control() = 0;
 
 	inline const Vector2D GetCenter() const {
+/*		if( MyObject->Component.size() > 1 )  // should change this so that its to the current player frame //
+		{
+			return MyObject->Component[ 1 ].Body.BoundingRect.Center();
+		}
+	*/
 		return MyObject->Component[ 0 ].Body.BoundingRect.Center();
 	}
 

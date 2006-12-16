@@ -24,7 +24,8 @@ cGolfGameEngine::cGolfGameEngine() :
 	StartPoint( 0 ),
 	CurrentPlayer( 0 ),
 	State( 1 ),
-	HitBoundery( false )
+	HitBoundery( false ),
+ 	ElementAnimator( "OldPuff.anim" )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -51,6 +52,7 @@ cGolfGameEngine::cGolfGameEngine() :
  	DenseParticle.Clear();
  	SolidParticle.Clear();
  	
+	 	
  	// Add the start point (temporarily) //
 // 	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );
 // 	PassiveObject.push_back( StartPoint );
@@ -281,6 +283,8 @@ void cGolfGameEngine::Draw() {
 
 	HudCamera->Update();
 	
+	ElementTracker();
+	
 #ifdef EDITOR
 	{
 		//  DISPLAYS FPS  //
@@ -446,3 +450,108 @@ void cGolfGameEngine::TurnBasedPlay() {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cGolfGameEngine::ElementTracker()
+{
+	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
+		
+	for( size_t idx = 0; idx < Player.size(); idx++ )
+	{
+		if( idx != CurrentPlayer )
+		{
+			if( Player[ idx ]->GetRect() != Camera->ViewArea.ToRect() + Camera->Pos.ToVector2D() )
+			{
+				if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Bottom + Real( 76 ) &&
+					( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Top - Real( 76 ) )
+				{
+					if( Player[ idx ]->GetCenter().x < Player[ CurrentPlayer ]->GetCenter().x )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Left + Real( 64 ),
+								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
+							)
+						);
+					}
+					if( Player[ idx ]->GetCenter().x > Player[ CurrentPlayer ]->GetCenter().x )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Right - Real( 64 ),
+								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
+							)
+						);
+					}					
+				}
+				else if( ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) > Global::Left + Real( 64 ) &&
+					( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) < Global::Right - Real( 64 ) )
+				{
+					if( Player[ idx ]->GetCenter().y < Player[ CurrentPlayer ]->GetCenter().y )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D( 
+								( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
+								Global::Bottom + Real( 76 )
+							)
+						);
+					}
+					if( Player[ idx ]->GetCenter().y > Player[ CurrentPlayer ]->GetCenter().y )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D( 
+								( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
+								Global::Top - Real( 76 )
+							)
+						);
+					}
+				}
+			}
+		}	
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+/*
+				if( Player[ idx ]->GetCenter().x < Player[ CurrentPlayer ]->GetCenter().x )
+				{
+					if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Bottom + Real( 76 ) &&
+						( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Top - Real( 76 ) )
+					{
+						ElementAnimator.DrawQuad(
+							Vector2D(
+								Global::Left + Real( 64 ),
+								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
+							)
+						);
+					}
+					else
+					{
+							
+					}
+				}
+				if( Player[ idx ]->GetCenter().x > Player[ CurrentPlayer ]->GetCenter().x )
+				{
+					ElementAnimator.DrawQuad(
+						Vector2D(
+							Global::Right - Real( 64 ),
+							( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
+						)
+					);
+				}
+
+				if( Player[ idx ]->GetCenter().y < Player[ CurrentPlayer ]->GetCenter().y )
+				{
+					ElementAnimator.DrawQuad(
+						Vector2D( 
+							( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
+							Global::Bottom + Real( 76 )
+						)
+					);
+				}
+				if( Player[ idx ]->GetCenter().y > Player[ CurrentPlayer ]->GetCenter().y )
+				{
+					ElementAnimator.DrawQuad(
+						Vector2D( 
+							( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
+							Global::Top - Real( 76 )
+						)
+					);
+				}*/
