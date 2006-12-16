@@ -83,7 +83,7 @@ void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 bool cHamsterCharacter::Work() {
-	// If I became an Object Sensor //
+	// If I have became an Object Sensor //
 	if ( Component[ 0 ].Body.Flags.ObjectSensor() ) {
 		// If I have no contact with other objects //
 		if ( !Component[ 0 ].Body.CollisionFlags.Object() ) {

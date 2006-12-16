@@ -76,6 +76,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 					// If a sensor, note our contact, but don't solve //
 					if ( Sphere[ SphereIndex[idx] ].Flags.Sensor() || Flags.ScenerySensor() ) {
 						SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetEdge();
+						CollisionFlags.Set( SphereFlags[ SphereIndex[idx] ] );
 						continue;
 					}
 
@@ -216,6 +217,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 					// If a sensor, note our contact, but don't solve //
 					if ( Sphere[ SphereIndex[idx] ].Flags.Sensor() || Flags.ScenerySensor() ) {
 						SphereFlags[ idx ].SetScenery().SetPolygon().SetCorner();
+						CollisionFlags.Set( SphereFlags[ SphereIndex[idx] ] );
 						continue;
 					}
 
@@ -358,6 +360,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 					// If a sensor, note our contact, but don't solve //
 					if ( Sphere[ SphereIndex[idx] ].Flags.Sensor() || Flags.ScenerySensor() ) {
 						SphereFlags[ SphereIndex[idx] ].SetScenery().SetPolygon().SetInside();
+						CollisionFlags.Set( SphereFlags[ SphereIndex[idx] ] );
 						continue;
 					}
 					

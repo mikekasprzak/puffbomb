@@ -52,6 +52,7 @@ bool cBody2D::Solve( cBody2D& _Vs ) {
 					if ( !HisSphere.Flags.Sensor() && !_Vs.Flags.ObjectSensor() ) {
 						// Note senses of an interaction with a sphere //
 						SphereFlags[ idx ].SetObject().SetSphere();
+						CollisionFlags.Set( SphereFlags[ idx ] );
 						continue;
 					}
 				}
@@ -62,6 +63,7 @@ bool cBody2D::Solve( cBody2D& _Vs ) {
 					if ( !MySphere.Flags.Sensor() && !Flags.ObjectSensor() ) {
 						// Note senses of an interaction with a sphere //
 						_Vs.SphereFlags[ idx2 ].SetObject().SetSphere();
+						_Vs.CollisionFlags.Set( _Vs.SphereFlags[ idx2 ] );
 						continue;
 					}
 				}

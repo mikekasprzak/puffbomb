@@ -24,6 +24,7 @@ bool cBody2D::Solve( cImpulse& _Vs ) {
 			// If a sensor, note the touch of an impulse, but don't act on it //
 			if ( Sphere[ idx ].Flags.Sensor() || Flags.ImpulseSensor() ) {
 				SphereFlags[ idx ].SetImpulse();
+				CollisionFlags.Set( SphereFlags[ idx ] );
 				continue;
 			}
 			
@@ -33,6 +34,7 @@ bool cBody2D::Solve( cImpulse& _Vs ) {
 			// Wake up and set flags //
 			//WakeUp();
 			SphereFlags[ idx ].SetImpulse();
+			CollisionFlags.Set( SphereFlags[ idx ] );
 			
 			Changed = true;
 		}
@@ -55,6 +57,7 @@ void cBody2D::ApplyImpulse( const cImpulse& _Vs ) {
 			// If a sensor, note the touch of an impulse, but don't act on it //
 			if ( Sphere[ idx ].Flags.Sensor() || Flags.ImpulseSensor() ) {
 				SphereFlags[ idx ].SetImpulse();
+				CollisionFlags.Set( SphereFlags[ idx ] );
 				continue;
 			}
 			
@@ -64,6 +67,7 @@ void cBody2D::ApplyImpulse( const cImpulse& _Vs ) {
 			// Wake up and set flags //
 			//WakeUp();
 			SphereFlags[ idx ].SetImpulse();
+			CollisionFlags.Set( SphereFlags[ idx ] );
 		}
 	}
 	
