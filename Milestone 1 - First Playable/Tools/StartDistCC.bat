@@ -1,0 +1,1 @@
+Tools\DistCC\distccd --daemon --nice -15 --allow 192.168.0.0/24

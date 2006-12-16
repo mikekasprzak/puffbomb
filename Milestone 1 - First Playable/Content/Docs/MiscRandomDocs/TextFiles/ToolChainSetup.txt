@@ -1,0 +1,48 @@
+
+Install MinGW in C:\MinGW\ from "www.mingw.org"
+Install Msys in C:\MSYS\ from "www.mingw.org"
+
+Create a batch file under C:\MinGW that contains the following (shell.bat).
+
+@echo off
+title MinGW Shell
+set path=C:\MinGW\bin;%path%
+set MINGDIR=C:\MinGW
+cmd
+
+Download and install boost in either your mingw or msys installation.  Sorry, I don't actually
+know how to do that.  I cheated and put it in a folder, and added a cheating searching link to find
+it in the makefile.
+
+Download the latest unstable Allegro from "alleg.sf.net".
+Uncompress this somewhere where you can build other tools.  C:\root\allegro for example.
+The logic behind root is a folder for a CVS root.  Since I also use SVN, the thought is to merge
+the ideas of a repository root into one.  ReposRoot might be a better name.
+
+Download and install the dx7 and optionally the dx8 files from the allegro page.  These archives
+contain lib and include folders.  Simply uncompress them into your mingw folder, over the originals
+and they'll go in the right place.
+
+From "shell.bat", build it like so:
+fix mingw32
+mingw32-make STATICLINK=1
+mingw32-make STATICLINK=1 install
+
+Download the latest CVS version of AllegroGL from "allegrogl.sf.net".
+To grab CVS, you might want Cygwin Installed, with such tools as commandline CVS and SVN.  Cygwin is
+available from "www.cygwin.com".  Or, TortoiseCVS
+
+The repository name is "alleggl".
+You need to, under cygwin or mingw, run a shell script under misc called "mkalias.sh".  It creates
+some missing files for you.
+
+Then it will compile.
+
+From "shell.bat", build it like so:
+fix mingw32
+mingw32-make STATICLINK=1
+mingw32-make STATICLINK=1 install
+
+Done.
+
+Go to the PuffBOMB folder under msys and run "make" or "make run" to do stuff.

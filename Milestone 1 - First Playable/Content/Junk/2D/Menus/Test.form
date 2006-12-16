@@ -1,0 +1,97 @@
+DialogPos	Left	+	200
+DialogPos	Top		-	100
+
+DialogPos	Left	+	550
+DialogPos	Top		-	300
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		0	-25
+IsPassive		0
+ActionID		1
+Text			Exit
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+TextLabel		0	-65
+IsPassive		0
+ActionID		0
+Text			Go to Town
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+TextLabel		0	-105
+IsPassive		0
+ActionID		0
+Text			Hammerings
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+TextLabel		0	-145
+IsPassive		0
+ActionID		0
+Text			Wall Of Pain
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+AniLabel		50	-185
+IsPassive		0
+ActionID		0
+Animation		TestAnimation.Ani
+SelectAni		InterpTest.Ani
+CurrentFrame	0
+EndAni
+
+AniLabel		100	-185
+IsPassive		0
+ActionID		0
+Animation		TestAnimation.Ani
+SelectAni		InterpTest.Ani
+CurrentFrame	0
+EndAni
+
+AniLabel		150	-185
+IsPassive		0
+ActionID		0
+Animation		TestAnimation.Ani
+SelectAni		InterpTest.Ani
+CurrentFrame	0
+EndAni
+
+EndDialog
+
+
+
+
+DialogPos	Right	-	600
+DialogPos	Top		-	100
+
+DialogPos	Right	-	200
+DialogPos	Top		-	300
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+AniLabel		50	-185
+IsPassive		0
+ActionID		0
+Animation		InterpTest.Ani
+SelectAni		InterpTest.Ani
+CurrentFrame	0
+EndAni
+
+IsVisable	0
+IsLabelsVisable	0
+
+EndDialog
