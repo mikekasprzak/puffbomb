@@ -40,9 +40,6 @@ public:
 		return Pose->Sphere.size();
 	}
 	
-//	std::vector< cSpring > Spring;
-//	std::vector< cSphere > Sphere;
-	
 //	std::vector< cCylinder > Cylinder;	// A ?
 //	std::vector< cCapsule > Capsule;	// or B ?
 
@@ -53,7 +50,7 @@ public:
 	
 	// Collision monitoring flags //
 	cCollisionFlags CollisionFlags;
-	std::vector< cCollisionFlags > SphereFlags;	
+	std::vector< cCollisionFlags > SphereFlags;
 
 public:
 	cBody2D() {

@@ -22,8 +22,8 @@ public:
 		flIgnorePassives = bit5,	// Ignore interactions with passive objects //
 		flIgnoreImpulses = bit6,	// Ignore interactions with impulses //
 		
-		flObjectSensor = bit9,		// For interactions with components, treat like a sensor //
-		flScenerySensor = bit10,	// For interactions with scenery, treat like a sensor //
+		flObjectSensor = bit8,		// For interactions with components, treat like a sensor //
+		flScenerySensor = bit9,		// For interactions with scenery, treat like a sensor //
 	};
 	// - -------------------------------------------------------------------------------------- - //
 
