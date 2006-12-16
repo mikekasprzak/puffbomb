@@ -461,17 +461,20 @@ void cGolfGameEngine::ElementTracker()
 	{
 		if( idx != CurrentPlayer )
 		{
+			Real YPlayerTest = ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset );
+			Real XPlayerTest = ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset );
+			
 			if( Player[ idx ]->GetRect() != Camera->ViewArea.ToRect() + Camera->Pos.ToVector2D() )
 			{
-				if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) > Global::Bottom + ImageHeight &&
-					( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) < Global::Top - ImageHeight )
+				if( YPlayerTest > Global::Bottom + ImageHeight &&
+					YPlayerTest < Global::Top - ImageHeight )
 				{
 					if( Player[ idx ]->GetCenter().x < Camera->Pos.x )
 					{
 						ElementAnimator.DrawQuad(
 							Vector2D(
 								Global::Left + ImageWidth,
-								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
+								YPlayerTest
 							)
 						);
 					}
@@ -480,20 +483,20 @@ void cGolfGameEngine::ElementTracker()
 						ElementAnimator.DrawQuad(
 							Vector2D(
 								Global::Right - ImageWidth,
-								( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset )
+								YPlayerTest
 							)
 						);
 					}
 				
 				}
-				else if( ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) > Global::Left + ImageWidth &&
-						 ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) < Global::Right - ImageWidth )
+				else if( XPlayerTest > Global::Left + ImageWidth &&
+						 XPlayerTest < Global::Right - ImageWidth )
 				{
 					if( Player[ idx ]->GetCenter().y < Camera->Pos.y )
 					{
 						ElementAnimator.DrawQuad(
 							Vector2D( 
-								( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
+								XPlayerTest,
 								Global::Bottom + ImageHeight
 							)
 						);
@@ -502,7 +505,7 @@ void cGolfGameEngine::ElementTracker()
 					{
 						ElementAnimator.DrawQuad(
 							Vector2D( 
-								( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ),
+								XPlayerTest,
 								Global::Top - ImageHeight
 							)
 						);
@@ -510,9 +513,9 @@ void cGolfGameEngine::ElementTracker()
 				}
 				else
 				{
-					if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) <= Global::Bottom + ImageHeight )
+					if( YPlayerTest <= Global::Bottom + ImageHeight )
 					{
-						if( ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) <= Global::Left + ImageWidth )
+						if( XPlayerTest <= Global::Left + ImageWidth )
 						{
 							ElementAnimator.DrawQuad(
 								Vector2D(
@@ -531,9 +534,9 @@ void cGolfGameEngine::ElementTracker()
 							);	
 						}
 					}
-					else if( ( ( Player[ idx ]->GetCenter().y - Camera->Pos.y ) / ZoomOffset ) >= Global::Top - ImageHeight )
+					else if( YPlayerTest >= Global::Top - ImageHeight )
 					{
-						if( ( ( Player[ idx ]->GetCenter().x - Camera->Pos.x ) / ZoomOffset ) <= Global::Left + ImageWidth )
+						if( XPlayerTest <= Global::Left + ImageWidth )
 						{
 							ElementAnimator.DrawQuad(
 								Vector2D(
@@ -552,7 +555,6 @@ void cGolfGameEngine::ElementTracker()
 							);
 						}
 					}
-					
 				}
 			}
 		}	
