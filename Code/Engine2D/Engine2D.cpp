@@ -461,13 +461,13 @@ void cEngine2D::AddCollection( cDynamicCollection* _Col ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect )
+void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect, const bool Rotate, const Vector2D& Offset )
 {
 	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
 	
 	Real ImageWidth = 0;
 	Real ImageHeight = 0;
-	
+
 	if( !ElementAnim.Animation->Frame.empty() )
 	{
 		if( ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex.size() > 3 )
@@ -475,7 +475,11 @@ void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect )
 			ImageWidth = ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.x;
 			ImageHeight = ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.y;
 		}
-	}			
+	}
+	
+	ImageWidth += Offset.x;
+	ImageHeight += Offset.y;
+	
 	Real YPlayerTest = ( ( MyRect.Center().y - Camera->Pos.y ) / ZoomOffset );
 	Real XPlayerTest = ( ( MyRect.Center().x - Camera->Pos.x ) / ZoomOffset );
 	
@@ -566,17 +570,24 @@ void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect )
 			}
 		}
 		
-		Matrix2x2 MyMatrix;
+		if( Rotate )
+		{
+			Matrix2x2 MyMatrix;
+			
+			Vector2D Direction = ( MyRect.Center() - ( Camera->Pos.ToVector2D() + ( DrawPos * ZoomOffset ) ) ).Normal();
+			
+			MyMatrix( 1, 0 ) = Direction.Tangent().y;
+			MyMatrix( 1, 1 ) = Direction.Tangent().x;
+	
+			MyMatrix( 0, 0 ) = Direction.y;
+			MyMatrix( 0, 1 ) = Direction.x;
 		
-		Vector2D Direction = ( MyRect.Center() - ( Camera->Pos.ToVector2D() + ( DrawPos * ZoomOffset ) ) ).Normal();
-		
-		MyMatrix( 1, 0 ) = Direction.Tangent().y;
-		MyMatrix( 1, 1 ) = Direction.Tangent().x;
-
-		MyMatrix( 0, 0 ) = Direction.y;
-		MyMatrix( 0, 1 ) = Direction.x;
-
-		ElementAnim.DrawQuad( DrawPos, MyMatrix );
+			ElementAnim.DrawQuad( DrawPos, MyMatrix );
+		}
+		else
+		{
+			ElementAnim.DrawQuad( DrawPos );
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -26,8 +26,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	State( 1 ),
 	LevelComplete( false ),
 	HitBoundery( false ),
- 	PlayerAnimator( "OldPuff.anim" ),
- 	EndingAnimator( "ParticleTest.anim" )
+ 	ArrowAnimator( "TrackingArrow.anim" )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -68,6 +67,14 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
  		Player.back()->Score = _Players[ idx ].Score;
  		MyCol->Deactivate();
  	}
+ 	
+ 	PlayerAnimators.push_back( cAnimator( "TrackingCircleP1.anim" ) );
+	PlayerAnimators.push_back( cAnimator( "TrackingCircleP2.anim" ) );
+	PlayerAnimators.push_back( cAnimator( "TrackingCircleP3.anim" ) );
+	PlayerAnimators.push_back( cAnimator( "TrackingCircleP4.anim" ) );
+	
+	PointsOfInterestAnimators.push_back( cAnimator( "TrackingCircleEnd.anim" ) );
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::~cGolfGameEngine() {
@@ -317,12 +324,19 @@ void cGolfGameEngine::Draw() {
 
 	// Draw player tracking //	
 	for( size_t idx = 0; idx < Player.size(); idx++ ) {
-		ElementTracker( PlayerAnimator, Player[ idx ]->GetRect() );
+		ElementTracker( ArrowAnimator, Player[ idx ]->GetRect(), true );
+		
+		ElementTracker( PlayerAnimators[ idx ], Player[ idx ]->GetRect(), false, Vector2D( 40, 40 ) );
 	}
 	
 	// Draw Points of interest tracking //
 	for ( size_t idx = 0; idx < PointsOfInterest.size(); idx++ ) {
-		ElementTracker( EndingAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect() );		
+		ElementTracker( ArrowAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect(), true );
+		
+		if( PointsOfInterestAnimators.size() == PointsOfInterest.size() )
+		{
+			ElementTracker( PointsOfInterestAnimators[ idx ], PointsOfInterest[ idx ]->BoundingRect.ToRect(), false, Vector2D( 40, 40 ) );
+		}
 	}
 	
 	

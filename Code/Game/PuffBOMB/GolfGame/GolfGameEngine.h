@@ -46,10 +46,12 @@ public:
 	int CharacterAtEndZone;
 
 	bool HitBoundery;
-	
-	cAnimator PlayerAnimator;
-	cAnimator EndingAnimator;
-	
+
+
+	cAnimator ArrowAnimator;
+	std::vector < cAnimator > PlayerAnimators;
+	std::vector < cAnimator > PointsOfInterestAnimators;
+		
 public:
 	void TurnBasedPlay();
 
