@@ -36,6 +36,7 @@ public:
 	
 	// Our current player //
 	size_t CurrentPlayer;
+	cAnimator BombGraphic;
 	
 	// Engine State //
 	int State;

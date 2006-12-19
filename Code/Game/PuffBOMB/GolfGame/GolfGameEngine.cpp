@@ -23,6 +23,7 @@
 cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector< cPlayerInfo >& _Players ) :
 	StartPoint( 0 ),
 	CurrentPlayer( 0 ),
+	BombGraphic( "BlueBomb.anim" ),
 	State( 1 ),
 	LevelComplete( false ),
 	HitBoundery( false ),
@@ -299,10 +300,17 @@ void cGolfGameEngine::Draw() {
 		
 		Vector2D CharacterCenter = Player[ CurrentPlayer ]->MyObject->Component[ 0 ].Body.BoundingRect.Center();
 		Vector2D CursorPos = Player[ CurrentPlayer ]->BombPos + CharacterCenter;
-			
-		// Cursor //
-		Gfx::Circle( CursorPos, Real( 3 ), Gfx::RGBA( 255, 255, 255, 255 ) );
 		
+		{	
+			Gfx::EnableTex2D();
+			
+			// Cursor //
+			BombGraphic.DrawQuad( CursorPos );
+			//Gfx::Circle( CursorPos, Real( 3 ), Gfx::RGBA( 255, 255, 255, 255 ) );
+		
+			Gfx::DisableTex2D();
+		}
+			
 		// Inner Circle //
 		Gfx::Circle( CharacterCenter, Real( 128 ), Gfx::RGBA( 0, 255, 0, 255 ) );
 		
@@ -324,9 +332,12 @@ void cGolfGameEngine::Draw() {
 
 	// Draw player tracking //	
 	for( size_t idx = 0; idx < Player.size(); idx++ ) {
-		ElementTracker( ArrowAnimator, Player[ idx ]->GetRect(), true, -Real( 48 ) );
-		
-		ElementTracker( PlayerAnimators[ idx ], Player[ idx ]->GetRect(), false, Real( 32 ) );
+		// Only draw the player finder when I've actually made a shot //
+		if ( Player[ idx ]->Stroke != 0 ) {
+			ElementTracker( ArrowAnimator, Player[ idx ]->GetRect(), true, -Real( 48 ) );
+			
+			ElementTracker( PlayerAnimators[ idx ], Player[ idx ]->GetRect(), false, Real( 32 ) );
+		}
 	}
 	
 	// Draw Points of interest tracking //
