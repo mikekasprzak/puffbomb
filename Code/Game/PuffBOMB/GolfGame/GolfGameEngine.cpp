@@ -333,7 +333,7 @@ void cGolfGameEngine::Draw() {
 	// Draw player tracking //	
 	for( size_t idx = 0; idx < Player.size(); idx++ ) {
 		// Only draw the player finder when I've actually made a shot //
-		if ( Player[ idx ]->Stroke != 0 ) {
+		if ( (Player[ idx ]->Stroke != 0) && (!Player[ idx ]->Finished) ) {
 			ElementTracker( ArrowAnimator, Player[ idx ]->GetRect(), true, -Real( 48 ) );
 			
 			ElementTracker( PlayerAnimators[ idx ], Player[ idx ]->GetRect(), false, Real( 32 ) );
