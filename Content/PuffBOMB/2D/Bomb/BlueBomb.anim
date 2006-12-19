@@ -1,9 +1,9 @@
 Texture	BlueBomb.tx
 
-Vertex	-128.0	128.0
-Vertex	-128.0	-128.0
-Vertex	128.0	-128.0
-Vertex	128.0	128.0
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
 
 FVa	0
 FVb	1
