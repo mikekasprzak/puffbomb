@@ -226,6 +226,17 @@ void cSuperFlow::SetHudData()
 		Global::Right = Real( 960.0 );
 
 	}
+	// 24:11 // 720x480 widescreen 480p
+	else if( Global::AspectRatio > Real( 1.47 ) && Global::AspectRatio < Real( 1.53 ) )
+	{
+		HudZoom = 1158.0;
+		
+		Global::Top = Real( 480.0 );
+		Global::Bottom = Real( -480.0 );
+		Global::Left = Real( -720.0 );
+		Global::Right = Real( 720.0 );
+
+	}
 	// 4:3
 	else if( Global::AspectRatio > Real( 1.30 ) && Global::AspectRatio < Real( 1.36 ) )
 	{
@@ -237,7 +248,6 @@ void cSuperFlow::SetHudData()
 		Global::Right = Real( 700.0 );
 
 	}
-	
 	// 5:4
 	else if( Global::AspectRatio > Real( 1.22 ) && Global::AspectRatio < Real( 1.28 ) )
 	{
