@@ -50,7 +50,7 @@ cSuperFlow::cSuperFlow() :
 	State( stMainMenu ),
 	ClassicPath( "Maps/Classic/" ),
 	GolfPath( "Maps/Golf/" ),
-	Players( 3 ),
+	Players( 4 ),
 	CurClassicMap( 3 ),
 	CurGolfMap( 1 )
 {

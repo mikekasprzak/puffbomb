@@ -52,7 +52,8 @@ public:
 	virtual ~cClassicGameEngine();
 
 public:
-	cAnimator EndingAnimator;
+	cAnimator ArrowAnimator;
+	std::vector < cAnimator > PointsOfInterestAnimators;
 	
 public:
 	void Step();

@@ -324,18 +324,18 @@ void cGolfGameEngine::Draw() {
 
 	// Draw player tracking //	
 	for( size_t idx = 0; idx < Player.size(); idx++ ) {
-		ElementTracker( ArrowAnimator, Player[ idx ]->GetRect(), true );
+		ElementTracker( ArrowAnimator, Player[ idx ]->GetRect(), true, -Real( 64 ) );
 		
-		ElementTracker( PlayerAnimators[ idx ], Player[ idx ]->GetRect(), false, Vector2D( 40, 40 ) );
+		ElementTracker( PlayerAnimators[ idx ], Player[ idx ]->GetRect(), false, Real( 40 ) );
 	}
 	
 	// Draw Points of interest tracking //
 	for ( size_t idx = 0; idx < PointsOfInterest.size(); idx++ ) {
-		ElementTracker( ArrowAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect(), true );
+		ElementTracker( ArrowAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect(), true, -Real( 64 ) );
 		
 		if( PointsOfInterestAnimators.size() == PointsOfInterest.size() )
 		{
-			ElementTracker( PointsOfInterestAnimators[ idx ], PointsOfInterest[ idx ]->BoundingRect.ToRect(), false, Vector2D( 40, 40 ) );
+			ElementTracker( PointsOfInterestAnimators[ idx ], PointsOfInterest[ idx ]->BoundingRect.ToRect(), false, Real( 40 ) );
 		}
 	}
 	

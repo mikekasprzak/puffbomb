@@ -461,7 +461,7 @@ void cEngine2D::AddCollection( cDynamicCollection* _Col ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect, const bool Rotate, const Vector2D& Offset )
+void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect, const bool Rotate, const Real Scaler )
 {
 	Real ZoomOffset = Real( Camera->Pos.z / Camera->HudZoom );
 	
@@ -474,11 +474,12 @@ void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect, co
 		{
 			ImageWidth = ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.x;
 			ImageHeight = ElementAnim.Animation->Frame[ 0 ].MyFrame.Vertex[ 3 ].Pos.y;
+
 		}
 	}
 	
-	ImageWidth += Offset.x;
-	ImageHeight += Offset.y;
+	//ImageWidth += Offset.x;
+	//ImageHeight += Offset.y;
 	
 	Real YPlayerTest = ( ( MyRect.Center().y - Camera->Pos.y ) / ZoomOffset );
 	Real XPlayerTest = ( ( MyRect.Center().x - Camera->Pos.x ) / ZoomOffset );
@@ -569,6 +570,8 @@ void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect, co
 				}
 			}
 		}
+
+		Vector2D Scaley = ( MyRect.Center() - ( Camera->Pos.ToVector2D() + ( DrawPos * ZoomOffset ) ) ).Normal() * Scaler;	
 		
 		if( Rotate )
 		{
@@ -582,11 +585,11 @@ void cEngine2D::ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect, co
 			MyMatrix( 0, 0 ) = Direction.y;
 			MyMatrix( 0, 1 ) = Direction.x;
 		
-			ElementAnim.DrawQuad( DrawPos, MyMatrix );
+			ElementAnim.DrawQuad( DrawPos - Scaley, MyMatrix );
 		}
 		else
 		{
-			ElementAnim.DrawQuad( DrawPos );
+			ElementAnim.DrawQuad( DrawPos - Scaley );
 		}
 	}
 }

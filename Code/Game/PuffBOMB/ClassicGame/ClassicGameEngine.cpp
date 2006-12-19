@@ -26,7 +26,7 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false ),
 	LevelComplete( false ),
 	Score( 0 ),
-	EndingAnimator( "ParticleTest.anim" )
+	ArrowAnimator( "TrackingArrow.anim" )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -52,6 +52,9 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	
 	SolidParticle.Clear();
 	DenseParticle.Clear();
+	
+	PointsOfInterestAnimators.push_back( cAnimator( "TrackingCircleEnd.anim" ) );
+	
 // 	Gfx::Rotate( Real( 45 ), Real( 0 ), Real( 0 ), Real( 20 ) );
 	
 //	PassiveObject.push_back( CreatePassiveInstance( 33, Vector2D( 0, 1000 ), 600 ) );
@@ -320,7 +323,12 @@ void cClassicGameEngine::Draw() {
 
 	// Draw Points of interest tracking //
 	for ( size_t idx = 0; idx < PointsOfInterest.size(); idx++ ) {
-		ElementTracker( EndingAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect() );		
+		ElementTracker( ArrowAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect(), true, -Real( 64 ) );
+		
+		if( PointsOfInterestAnimators.size() == PointsOfInterest.size() )
+		{
+			ElementTracker( PointsOfInterestAnimators[ idx ], PointsOfInterest[ idx ]->BoundingRect.ToRect(), false, Real( 40 ) );
+		}
 	}
 	
 #ifdef EDITOR

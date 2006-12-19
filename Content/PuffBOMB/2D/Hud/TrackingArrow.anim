@@ -1,9 +1,9 @@
 Texture	TrackingArrow.tx
 
-Vertex	-64.0	64.0
-Vertex	-64.0	-64.0
-Vertex	64.0	-64.0
-Vertex	64.0	64.0
+Vertex	-128.0	128.0
+Vertex	-128.0	-128.0
+Vertex	128.0	-128.0
+Vertex	128.0	128.0
 
 FVa	0
 FVb	1

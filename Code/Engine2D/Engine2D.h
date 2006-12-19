@@ -76,7 +76,7 @@ public:
 public:
 	void AddCollection( cDynamicCollection* _Col );
 	
-	void ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect, const bool Rotate = false, const Vector2D& Offset = Vector2D::Zero );
+	void ElementTracker( cAnimator& ElementAnim, const Rect2D& MyRect, const bool Rotate = false, const Real Scaler = Real::One );
 	
 public:
 	// Debug Info //
