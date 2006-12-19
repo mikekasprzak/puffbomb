@@ -10,7 +10,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 cClassicCursor::cClassicCursor() :
 	Selection( -1 ),
-	TimeMode( false )
+	TimeMode( false ),
+	BombGraphic( "BlueBomb.anim" )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -193,9 +194,20 @@ void cClassicCursor::Draw() {
 		Gfx::Rect( Bomb[ Selection ].Pos - Real(50), Bomb[ Selection ].Pos + Real(50), TimeMode ? Gfx::RGBA( 0, 64, 255, 255 ) : Gfx::RGBA( 0, 255, 0, 255 ) );
 	}
 
-	// Draw Bomb placeholders //
+
+	Gfx::EnableTex2D();
+	
+	// Draw Bomb Graphics //
 	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
-		Gfx::Circle( Bomb[ idx ].Pos, Real(48), Gfx::RGBA( 255, 0, 0, 255 ) );
+		//Gfx::Circle( Bomb[ idx ].Pos, Real(48), Gfx::RGBA( 255, 0, 0, 255 ) );
+		//BombGraphic.Step();
+		BombGraphic.DrawQuad( Bomb[ idx ].Pos );
+	}
+	
+	Gfx::DisableTex2D();
+
+	// Draw Bomb Timers //
+	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
 		Gfx::Rect( Bomb[ idx ].Pos + Vector2D( -60, -60 ), Bomb[ idx ].Pos + Vector2D( -60 + (Bomb[ idx ].Time*4), -44 ), Gfx::RGBA( 255, 255, 0, 255 ) );
 	}
 	

@@ -7,7 +7,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
-
+#include <Animation/Animator.h>
 #include "BombInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cClassicCursor { 
@@ -23,6 +23,7 @@ public:
 
 	// Vector of bomb information to be added //
 	std::vector< cBombInfo > Bomb;
+	cAnimator BombGraphic;
 
 public:
 	cClassicCursor();
