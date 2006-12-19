@@ -195,8 +195,8 @@ void cClassicCursor::Draw() {
 
 	// Draw Bomb placeholders //
 	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
-		Gfx::Circle( Bomb[ idx ].Pos, Real(32), Gfx::RGBA( 255, 0, 0, 255 ) );
-		Gfx::Rect( Bomb[ idx ].Pos + Vector2D( -40, -40 ), Bomb[ idx ].Pos + Vector2D( -40 + (Bomb[ idx ].Time*4), -44 ), Gfx::RGBA( 255, 255, 0, 255 ) );
+		Gfx::Circle( Bomb[ idx ].Pos, Real(48), Gfx::RGBA( 255, 0, 0, 255 ) );
+		Gfx::Rect( Bomb[ idx ].Pos + Vector2D( -60, -60 ), Bomb[ idx ].Pos + Vector2D( -60 + (Bomb[ idx ].Time*4), -44 ), Gfx::RGBA( 255, 255, 0, 255 ) );
 	}
 	
 	Gfx::EnableTex2D();
@@ -205,7 +205,7 @@ void cClassicCursor::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) const {
 	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
-		if ( (Bomb[ idx ].Pos - _Pos).MagnitudeSquared() < Real(64) * Real(64) )
+		if ( (Bomb[ idx ].Pos - _Pos).MagnitudeSquared() < Real(48+48) * Real(48+48) )
 			return false;
 	}	
 	
@@ -214,7 +214,7 @@ bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) const {
 // - ------------------------------------------------------------------------------------------ - //
 int cClassicCursor::WhatBombIsHere( const Vector2D& _Pos ) const {
 	int NearestBomb = -1;
-	Real BestDistance( 32*32 );
+	Real BestDistance( 48*48 );
 	
 	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
 		Real DistanceToBomb = (Bomb[ idx ].Pos - _Pos).MagnitudeSquared();
@@ -234,7 +234,7 @@ void cClassicCursor::PushMeOutOfOtherBombs( const int _Selection ) {
 			
 		Vector2D BombDiff = Bomb[ idx ].Pos - Bomb[ _Selection ].Pos;
 		
-		Real RadiusSum = Real(32) + Real(32);
+		Real RadiusSum = Real(48) + Real(48);
 		Real RadiusSumSquared = RadiusSum * RadiusSum;
 		
 		if ( BombDiff.MagnitudeSquared() < RadiusSumSquared ) {

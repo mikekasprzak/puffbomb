@@ -48,7 +48,7 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 
 		// Point of interest //
 		case 7: {
-			Engine2D::cPassiveObject* MyObj = new Engine2D::cPassiveObject( "ParticleTest.anim", Pos );
+			Engine2D::cPassiveObject* MyObj = new Engine2D::cPassiveObject( "BlueBomb.anim", Pos );
 			if ( Engine2D::cEngine2D::Current ) {
 				Engine2D::cEngine2D::Current->Message( 7, MyObj );
 			}

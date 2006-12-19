@@ -49,6 +49,8 @@ bool cBasicBomb::Work() {
 				Real( 512 ), Real( 0 ), Real( 0 )
 				)
 			);
+		
+		Deactivate();
 	}
 	
 	return true;

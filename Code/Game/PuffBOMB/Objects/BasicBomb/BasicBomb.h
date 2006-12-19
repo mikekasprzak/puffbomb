@@ -13,7 +13,7 @@ public:
 
 public:
 	cBasicBomb( const Vector2D& _Pos, int _FrameClock = 60 ) :
-		cPassiveObject( _Pos ),
+		cPassiveObject( "BlueBomb.anim", _Pos ),
 		FrameClock( _FrameClock )
 	{
 		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 32, 32 ), _Pos + Vector2D( 32, 32 ) );
