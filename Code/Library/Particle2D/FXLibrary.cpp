@@ -342,6 +342,8 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 		
 		//Vector2D Velocity = Point * Real::Random() * Real(1.5);
 		Vector2D Velocity = Point * Real(6.70) * Real::Random();
+		Vector2D Drift = Vector2D::Zero;
+		Vector2D Acceleration = Vector2D::Zero;
 		
 		//Real LifeTime = Real::Random() * Real(30) + Real(30);
 		Real LifeTime = Real(30) + ( Real( 5 ) * Real::Random() );
@@ -376,10 +378,26 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			AdditiveParticles
 		);
 		
-		Velocity = Point * Real(7) + ( Real::Random() - Real( 0.5 ) );
+		Velocity = Point * Real(12) + ( Real::Random() - Real( 0.5 ) );
+		
+		Acceleration = Point * Real(0.25);
 		
 		LifeTime = Real(35) + ( Real( 5 ) * Real::Random() );
 
+		// Additive //
+		DenseParticle.Add(
+			Pos, 		// Pos //
+			Velocity,	// Velocity //
+			-Acceleration,  			// Acceleration //
+			Vector2D::Zero,		// Drift //
+			int( LifeTime ), 	// Life //
+			ParticleTest,		// Animation //
+			255,						// Alpha //
+			20,							// Fade // What time to start fading //
+			AdditiveParticles
+		);		
+
+/*
 		// Additive //
 		DenseParticle.Add(
 			Pos, 		// Pos //
@@ -393,6 +411,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			AdditiveParticles
 		);		
 
+*/
 
 	}
 }
