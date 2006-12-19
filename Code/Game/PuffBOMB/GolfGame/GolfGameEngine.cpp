@@ -65,6 +65,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
  		AddCollection( MyCol );
  		Player.push_back( new cLocalJoyPlayer( MyCol ) );
  		Player.back()->MyLastDropPos = StartPoint->Pos;
+ 		Player.back()->BombPos = (StartPoint->Pos - PointsOfInterest[ 0 ]->Pos).Normal() * Real( 256 );
  		Player.back()->Score = _Players[ idx ].Score;
  		MyCol->Deactivate();
  	}
