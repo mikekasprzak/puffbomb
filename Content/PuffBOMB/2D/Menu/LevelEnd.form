@@ -20,7 +20,7 @@ EndText
 TextLabel		0	-75
 IsPassive		1
 ActionID		0
-Text			Player 1
+Text			Player  1
 Scale			0.5
 Color			255	255	255
 Alpha			255

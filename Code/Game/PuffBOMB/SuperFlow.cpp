@@ -19,6 +19,7 @@
 #include "GolfGame/GolfGame.h"
 
 #include <MainMenu/MainMenu.h>
+#include <PlayerSelect/PlayerSelect.h>
 #include <LevelEnd/LevelEnd.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/DirectoryCache.h>
@@ -40,8 +41,10 @@
 };*/
 #define stSykhronicsSplash 0
 #define stMainMenu 1
+#define stBackMainMenu 7
 #define stClassicGame 2
 #define stGolfGame 4
+#define stGolfPlayers 6
 #define stEditor 3
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -98,24 +101,15 @@ void cSuperFlow::StateFlow()
 			}
 			// - ------------------------------------------------------------------------------ - //
 			case stMainMenu:
+			case stBackMainMenu:
 			{
+				CurClassicMap = 3;
+				CurGolfMap = 1;
+				
 				// Display the MainMenu screen //
 				{
 					cMainMenu MainMenu;
 
-					// A local table for converting menu states to local states //
-					/*const int MenuStateTable[] =
-					{
-						stStartGame,
-						stEditor,
-						stSykhronicsSplash,
-						
-						stLastState,
-					};
-
-					// Pull and convert next state from the menu //
-					State = MenuStateTable[ MainMenu.Form.DialogBox[ 0 ].Focus ];*/
-					
 					State = MainMenu.Form.DialogBox[ 0 ].SuperFlowState;
 				}
 				break;
@@ -191,6 +185,24 @@ void cSuperFlow::StateFlow()
 					cEditor Editor;
 				}
 				State = stMainMenu;
+				break;
+			}
+			// - ------------------------------------------------------------------------------ - //
+			case stGolfPlayers:
+			{
+				// Display the Player Select screen //
+				{
+					cPlayerSelect PlayerSelect;
+					
+					if( PlayerSelect.Form.DialogBox[ 0 ].Focus <= 4 )
+					{
+						Players.clear();
+						
+						Players.resize( PlayerSelect.Form.DialogBox[ 0 ].Focus + 1 );
+					}
+					
+					State = PlayerSelect.Form.DialogBox[ 0 ].SuperFlowState;
+				}
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //

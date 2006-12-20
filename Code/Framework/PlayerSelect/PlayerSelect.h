@@ -1,21 +1,28 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Fonts //
+// PlayerSelect //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Font_Fonts_H__
-#define __Font_Fonts_H__
+#ifndef __Framework_PlayerSelect_PlayerSelect_H__
+#define __Framework_PlayerSelect_PlayerSelect_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Font/Font.h>
+#include <MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
-class cFonts
-{
+#include <Graphics/Camera.h>
+#include <Gui/Form.h>
+// - ------------------------------------------------------------------------------------------ - //
+class cPlayerSelect : public cMessageEntity { 
+private:
+	cCamera* Camera;
 public:
-	cFonts();
+	cForm Form;
 	
-	static cFont FlangeLight;
-	static void LoadFonts();
-	
-};
+	int LastTime;
 
+	cPlayerSelect();
+	~cPlayerSelect();
+	
+	void Draw();
+	void Step();
+};
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Font_Fonts_H__ //
+#endif // __Framework_PlayerSelect_PlayerSelect_H__ // 
 // - ------------------------------------------------------------------------------------------ - //

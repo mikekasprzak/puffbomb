@@ -20,6 +20,11 @@ int cActions::StartGolf()
 	return 4;
 }
 // - ------------------------------------------------------------------------------------------ - //
+int cActions::GolfPlayers()
+{
+	return 6;
+}
+// - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 int cActions::StartEditor()
 {
@@ -30,6 +35,11 @@ int cActions::StartEditor()
 int cActions::SplashScreen()
 {
 	return 0;
+}
+// - ------------------------------------------------------------------------------------------ - //
+int cActions::MainMenu()
+{
+	return 7;
 }
 // - ------------------------------------------------------------------------------------------ - //
 int cActions::ExecuteAction( int _ActionID )
@@ -67,6 +77,16 @@ int cActions::ExecuteAction( int _ActionID )
 		case 5:
 		{
 			SuperFlowState = StartGolf();
+		break;
+		}
+		case 6:
+		{
+			SuperFlowState = GolfPlayers();
+		break;
+		}
+		case 7:
+		{
+			SuperFlowState = MainMenu();
 		break;
 		}
 	}

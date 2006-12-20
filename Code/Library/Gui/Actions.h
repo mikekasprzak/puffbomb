@@ -15,10 +15,12 @@ public:
 	static void Quit();
 	static int StartClassic();
 	static int StartGolf();
+	static int GolfPlayers();
 #ifdef EDITOR
 	static int StartEditor();
 #endif // EDITOR //
 	static int SplashScreen();
+	static int MainMenu();
 	static int ExecuteAction( int _ActionID );
 	
 };
