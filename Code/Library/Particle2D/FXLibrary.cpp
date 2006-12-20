@@ -514,7 +514,7 @@ void FXLibrary::CrazyTest( const Vector2D& Pos )
 		return;
 	}
 
-	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "Star.anim" );
 
 	int MaxSteps = 120;
 	for( int idx = 0; idx < MaxSteps; idx++ )
@@ -526,7 +526,7 @@ void FXLibrary::CrazyTest( const Vector2D& Pos )
 		
 		Vector2D Velocity = Point * Real::Random() * Real(1.5);
 		
-		Real LifeTime = Real::Random() * Real(30) + Real(30);
+		Real LifeTime = Real::Random() * Real(10) + Real(50);
 
 		// Additive //
 		DenseParticle.Add(
@@ -537,7 +537,7 @@ void FXLibrary::CrazyTest( const Vector2D& Pos )
 			int( LifeTime ), 	// Life //
 			FireParticle,		// Animation //
 			255,						// Alpha //
-			20,							// Fade // What time to start fading //
+			50,							// Fade // What time to start fading //
 			AdditiveParticles
 		);
 	}
