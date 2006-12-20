@@ -12,12 +12,13 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <sstream>
 // - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cLevelEnd::cLevelEnd( Engine2D::cEngine2D* _MyEngine ) :
+cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 	MyEngine( _MyEngine )
 {
 	// Create Camera //
@@ -43,18 +44,31 @@ cLevelEnd::cLevelEnd( Engine2D::cEngine2D* _MyEngine ) :
 	
 	Form.Load( "2D/Menu/LevelEnd.form" );
 	
-	for( size_t idx = 0; idx < 4; ++idx )
+	for( size_t idx = 0; idx < MyEngine->Player.size(); ++idx )
 	{
+		
+		std::stringstream Temp;
+		Temp << MyEngine->Player[ idx ]->Score;
+		std::string TempString = Temp.str();
+
 		Form.DialogBox[ 0 ].TextLabel.push_back(
 			cTextLabel(
 				Vector2D( 160 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx ].Pos.y ),
 				true,
 				0, 
-				"Sock",
+				TempString,
 				0.5,
 				Gfx::White()
 			)
 		);
+	}
+	
+	if( MyEngine->Player.size() < 4 )
+	{
+		for( size_t idx = MyEngine->Player.size(); idx < 4; ++idx )
+		{
+			Form.DialogBox[ 0 ].TextLabel[ idx ].Text.clear();
+		}
 	}
 	
 	LastTime = GetTime();

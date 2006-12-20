@@ -134,7 +134,7 @@ void cSuperFlow::StateFlow()
 						{
 							CurClassicMap++;
 						}
-						cLevelEnd( Game.Engine );
+						//cLevelEnd( Game.Engine );
 					}
 				}
 				if( OldClassicMap == CurClassicMap )

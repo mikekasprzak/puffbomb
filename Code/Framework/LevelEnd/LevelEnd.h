@@ -9,7 +9,7 @@
 #include <Graphics/Camera.h>
 #include <Gui/Form.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Engine2D.h>
+#include <Game/PuffBOMB/GolfGame/GolfGameEngine.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cLevelEnd : public cMessageEntity { 
 private:
@@ -19,9 +19,9 @@ public:
 	
 	int LastTime;
 
-	Engine2D::cEngine2D* MyEngine;
+	cGolfGameEngine* MyEngine;
 		
-	cLevelEnd( Engine2D::cEngine2D* _MyEngine );
+	cLevelEnd( cGolfGameEngine* _MyEngine );
 	~cLevelEnd();
 	
 	void ResetMenu();
