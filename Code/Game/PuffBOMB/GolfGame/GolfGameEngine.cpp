@@ -23,7 +23,7 @@
 cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector< cPlayerInfo >& _Players ) :
 	StartPoint( 0 ),
 	CurrentPlayer( 0 ),
-	BombGraphic( "BlueBomb.anim" ),
+	BombGraphic( "GolfBomb.anim" ),
 	State( 1 ),
 	LevelComplete( false ),
 	HitBoundery( false ),

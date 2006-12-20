@@ -323,7 +323,7 @@ void FXLibrary::Steam( const Vector2D& Pos, const Vector2D& Direction )
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::Bomb( const Vector2D& Pos )
 {
-	int AdditiveParticles = DenseParticle.Allocate( 900, true );
+	int AdditiveParticles = DenseParticle.Allocate( 1200, true );
 	
 	if( AdditiveParticles == -1 )
 	{
@@ -332,7 +332,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 
 	cAnimation& SmallFireParticle = AnimationPool.Load( "SmallFireParticle.anim" );
 
-	int MaxSteps = 300;
+	int MaxSteps = 400;
 	for( int idx = 0; idx < MaxSteps; idx++ )
 	{
 		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
@@ -398,27 +398,25 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 		);		
 	}
 	
-//	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
-
-	int DenseParticleLocation = DenseParticle.Allocate( 300, true );
+	int DenseParticleLocation = DenseParticle.Allocate( 100, true );
 	
 	if( DenseParticleLocation == -1 )
 	{
 		return;
 	}
-
-	MaxSteps = 300;
+	
+	MaxSteps = 100;
 	for( int idx = 0; idx < MaxSteps; idx++ )
 	{
 		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
 
 		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
 
-		Vector2D Velocity = Point * ( Real( ( Real::Random() - Real( 2 ) ) ) );
+		Vector2D Velocity = Point * ( Real( 22 ) * Real( ( Real::Random() - Real( 0.5 ) ) ) );
 		Vector2D Drift = Vector2D::Zero;
-		Drift.y = -Real( 0.001 );
+		Drift.y = -Real( 0.0005 );
 		
-		Real LifeTime = Real(30) + ( Real( 70 ) * Real::Random() );
+		Real LifeTime = Real(40) + ( Real( 40 ) * Real::Random() );
 
 		DenseParticle.Add(
 			Pos, 		// Pos //
@@ -432,6 +430,79 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			DenseParticleLocation
 		);
 	}
+	
+	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
+
+	DenseParticleLocation = DenseParticle.Allocate( 60, true );
+	
+	if( DenseParticleLocation == -1 )
+	{
+		return;
+	}
+	
+	MaxSteps = 60;
+	for( int idx = 0; idx < MaxSteps; idx++ )
+	{
+		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+
+		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
+
+		Vector2D Velocity = Point * ( Real( 8 ) * Real( ( Real::Random() - Real( 0.5 ) ) ) );
+		Vector2D Drift = Vector2D::Zero;
+		Drift.y = -Real( 0.0005 );
+		
+		Real LifeTime = Real(40) + ( Real( 60 ) * Real::Random() );
+
+		DenseParticle.Add(
+			Pos, 		// Pos //
+			Velocity,	// Velocity //
+			Vector2D::Zero,  			// Acceleration //
+			Drift,		// Drift //
+			int( LifeTime ), 	// Life //
+			FireParticle,		// Animation //
+			255,						// Alpha //
+			20,							// Fade // What time to start fading //
+			DenseParticleLocation
+		);
+	}
+	
+	cAnimation& SmokeParticle = AnimationPool.Load( "RainParticle.anim" );
+	
+	DenseParticleLocation = DenseParticle.Allocate( 100, true );
+	
+	if( DenseParticleLocation == -1 )
+	{
+		return;
+	}
+	
+	MaxSteps = 100;
+	for( int idx = 0; idx < MaxSteps; idx++ )
+	{
+		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+
+		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
+
+		Vector2D Velocity = Point * ( Real( 1.6 ) * Real( ( Real::Random() - Real( 0.5 ) ) ) );
+		Vector2D Drift = Vector2D::Zero;
+		Drift.y = Real( 0.0001 );
+
+		// Smoke //			
+		Real LifeTime = Real(60) + ( Real( 120 ) * Real::Random() );
+
+		DenseParticle.Add(
+			Pos, 		// Pos //
+			Velocity,	// Velocity //
+			Vector2D::Zero,  			// Acceleration //
+			Drift,		// Drift //
+			int( LifeTime ), 	// Life //
+			SmokeParticle,		// Animation //
+			255,						// Alpha //
+			60,							// Fade // What time to start fading //
+			DenseParticleLocation
+		);
+	}
+	
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::CrazyTest( const Vector2D& Pos )
