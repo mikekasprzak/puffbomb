@@ -43,6 +43,20 @@ cLevelEnd::cLevelEnd( Engine2D::cEngine2D* _MyEngine ) :
 	
 	Form.Load( "2D/Menu/LevelEnd.form" );
 	
+	for( size_t idx = 0; idx < 4; ++idx )
+	{
+		Form.DialogBox[ 0 ].TextLabel.push_back(
+			cTextLabel(
+				Vector2D( 160 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx ].Pos.y ),
+				true,
+				0, 
+				"Sock",
+				0.5,
+				Gfx::White()
+			)
+		);
+	}
+	
 	LastTime = GetTime();
 	
 	Gfx::DisableSmoothPolygon();
@@ -84,7 +98,7 @@ void cLevelEnd::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cLevelEnd::Step()
 {
-	if( Input::Pad[ 0 ].Button[ 0 ].Pressed() )
+	if( Input::Pad[ 0 ].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
 	{
 		cMessageEntity::Current->BreakLoop = true;	
 	}
