@@ -95,7 +95,7 @@ void cAnimator::Step()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cAnimator::Draw( const Vector2D& Offset )
+void cAnimator::Draw( const Vector2D& Offset, int Color )
 {
 	if( !CurDrawFrame->Face.empty() )
 	{
@@ -134,12 +134,13 @@ void cAnimator::Draw( const Vector2D& Offset )
 			TexCoord,
 			Indices,
 			IndicesSize,
-			CurDrawFrame->TextureId
+			CurDrawFrame->TextureId,
+			Color
 		);	
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix )
+void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix, int Color )
 {
 	if( !CurDrawFrame->Face.empty() )
 	{
@@ -178,7 +179,8 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix )
 			TexCoord,
 			Indices,
 			IndicesSize,
-			CurDrawFrame->TextureId
+			CurDrawFrame->TextureId,
+			Color
 		);	
 	}	
 	
@@ -233,7 +235,7 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix )
 	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cAnimator::DrawQuad( const Vector2D& Offset )
+void cAnimator::DrawQuad( const Vector2D& Offset, int Color )
 {
 	if(  CurDrawFrame->Face.size() > 1 )
 	{
@@ -266,12 +268,13 @@ void cAnimator::DrawQuad( const Vector2D& Offset )
 			TexCoord,
 			Indices,
 			IndicesSize,
-			CurDrawFrame->TextureId
+			CurDrawFrame->TextureId,
+			Color
 		);	
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cAnimator::DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix )
+void cAnimator::DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix, int Color )
 {
 	if( CurDrawFrame->Face.size() > 1 )
 	{
@@ -304,7 +307,8 @@ void cAnimator::DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix )
 			TexCoord,
 			Indices,
 			IndicesSize,
-			CurDrawFrame->TextureId
+			CurDrawFrame->TextureId,
+			Color
 		);	
 	}
 }
