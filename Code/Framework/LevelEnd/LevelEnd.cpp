@@ -76,7 +76,21 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 			)
 		);
 
-		
+/*		Temp.str(std::string());
+
+		Temp << MyEngine->Player[ idx ]->Score;
+		TempString = Temp.str();
+
+		Form.DialogBox[ 0 ].TextLabel.push_back(
+			cTextLabel(
+				Vector2D( 360 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx + 1 ].Pos.y ),
+				true,
+				0, 
+				TempString,
+				0.5,
+				Gfx::White()
+			)
+		);*/
 	}
 	
 	if( MyEngine->Player.size() < 4 )
