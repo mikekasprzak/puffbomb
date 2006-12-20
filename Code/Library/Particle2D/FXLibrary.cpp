@@ -330,7 +330,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 		return;
 	}
 
-	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
 
 	int MaxSteps = 200;
 	for( int idx = 0; idx < MaxSteps; idx++ )
@@ -341,7 +341,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 		// Bad circle explosion //
 		
 		//Vector2D Velocity = Point * Real::Random() * Real(1.5);
-		Vector2D Velocity = Point * Real(6.70) * Real::Random();
+		Vector2D Velocity = Point * Real(8) * Real::Random();
 		Vector2D Drift = Vector2D::Zero;
 		Vector2D Acceleration = Vector2D::Zero;
 		
@@ -355,7 +355,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -363,7 +363,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 
 		LifeTime = Real(25) + ( Real( 5 ) * Real::Random() );
 		
-		Velocity = Point * Real(7.85) * Real::Random();
+		Velocity = Point * Real(8) * Real::Random();
 		
 		// Additive //
 		DenseParticle.Add(
@@ -372,7 +372,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -391,7 +391,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			-Acceleration,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -405,7 +405,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -425,7 +425,7 @@ void FXLibrary::CrazyTest( const Vector2D& Pos )
 		return;
 	}
 
-	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
 
 	int MaxSteps = 120;
 	for( int idx = 0; idx < MaxSteps; idx++ )
@@ -446,7 +446,7 @@ void FXLibrary::CrazyTest( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -463,8 +463,8 @@ void FXLibrary::CrazyPuffTest( const Vector2D& Pos )
 		return;
 	}
 
-	cAnimation& ParticleTest = AnimationPool.Load( "OldPuff.anim" );
-//	cAnimation& ParticleTest = AnimationPool.Load( "RainParticle.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "OldPuff.anim" );
+//	cAnimation& FireParticle = AnimationPool.Load( "RainParticle.anim" );
 
 	int MaxSteps = 20;
 	for( int idx = 0; idx < MaxSteps; idx++ )
@@ -487,7 +487,7 @@ void FXLibrary::CrazyPuffTest( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -507,8 +507,8 @@ void FXLibrary::Rain( const Vector2D& Pos, const int Density )
 		return;
 	}
 
-	cAnimation& ParticleTest = AnimationPool.Load( "RainParticle.anim" );
-//	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "RainParticle.anim" );
+//	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
 	
 	for( int idx = 0; idx < MyDensity; idx++ )
 	{
@@ -532,7 +532,7 @@ void FXLibrary::Rain( const Vector2D& Pos, const int Density )
 			Vector2D( 0, -0.15 - (0.05 * Real::Random()) ),  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -550,7 +550,7 @@ void FXLibrary::Drip( const Vector2D& Pos, const int Density )
 		return;
 	}
 
-	cAnimation& ParticleTest = AnimationPool.Load( "RainParticle.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "RainParticle.anim" );
 	
 	for( int idx = 0; idx < Density; idx++ )
 	{
@@ -570,7 +570,7 @@ void FXLibrary::Drip( const Vector2D& Pos, const int Density )
 			Vector2D( -0.005 + ( 0.01 * Real::Random() ), -0.15 - (0.015 * Real::Random()) ),  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -607,7 +607,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 		return;
 	}
 
-	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
 	cAnimation& OutlineTest = AnimationPool.Load( "OutlineTest.anim" );
 
 	int MaxSteps = 80;
@@ -629,7 +629,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			127,						// Alpha //
 			10,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -660,7 +660,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			127,						// Alpha //
 			10,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -692,7 +692,7 @@ void FXLibrary::OutlineTest( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			MyDrift,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			127,						// Alpha //
 			10,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -724,7 +724,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 		return;
 	}
 
-	cAnimation& ParticleTest = AnimationPool.Load( "ParticleTest.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
 
 	int MaxSteps = 100;
 	for( int idx = 0; idx < MaxSteps; idx++ )
@@ -747,7 +747,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -763,7 +763,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -778,7 +778,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			ParticleTest,		// Animation //
+			FireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
