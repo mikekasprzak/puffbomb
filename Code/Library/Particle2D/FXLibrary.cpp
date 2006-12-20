@@ -151,39 +151,85 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 	// Smoke //			
 	cAnimation& SmokeParticle = AnimationPool.Load( "SmokeParticle.anim" );
 	
-	DenseParticleLocation = DenseParticle.Allocate( 100, true );
+	DenseParticleLocation = DenseParticle.Allocate( 200, true );
 	
 	if( DenseParticleLocation == -1 )
 	{
 		return;
 	}
 	
-	MaxSteps = 100;
+	MaxSteps = 50;
 	for( int idx = 0; idx < MaxSteps; idx++ )
 	{
 		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
 
 		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
 
-		Vector2D Velocity = Point * ( Real( 0.7 ) * Real( ( Real::Random() - Real( 0.5 ) ) ) );
+		Vector2D Velocity = Point * ( Real( 0.7 ) * Real( ( Real::Random() ) ) );
 		Vector2D Drift = Vector2D::Zero;
 		Drift.y = Real( 0.0001 );
 
-		Real LifeTime = Real(40) + ( Real( 80 ) * Real::Random() );
+		Real LifeTime = Real(70) + ( Real( 40 ) * Real::Random() );
 
 		DenseParticle.Add(
-			Pos, 		// Pos //
+			Pos + Vector2D( -5, -5 ), 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
 			Drift,		// Drift //
 			int( LifeTime ), 	// Life //
 			SmokeParticle,		// Animation //
 			255,						// Alpha //
-			60,							// Fade // What time to start fading //
+			40,							// Fade // What time to start fading //
+			DenseParticleLocation
+		);
+		
+		Velocity = Point * ( Real( 0.7 ) * Real( ( Real::Random() ) ) );
+		LifeTime = Real(70) + ( Real( 40 ) * Real::Random() );
+
+		DenseParticle.Add(
+			Pos + Vector2D( -5, 5 ), 		// Pos //
+			Velocity,	// Velocity //
+			Vector2D::Zero,  			// Acceleration //
+			Drift,		// Drift //
+			int( LifeTime ), 	// Life //
+			SmokeParticle,		// Animation //
+			255,						// Alpha //
+			40,							// Fade // What time to start fading //
+			DenseParticleLocation
+		);
+	
+		Velocity = Point * ( Real( 0.7 ) * Real( ( Real::Random() ) ) );
+		LifeTime = Real(70) + ( Real( 40 ) * Real::Random() );
+
+		DenseParticle.Add(
+			Pos + Vector2D( 5, 5 ), 		// Pos //
+			Velocity,	// Velocity //
+			Vector2D::Zero,  			// Acceleration //
+			Drift,		// Drift //
+			int( LifeTime ), 	// Life //
+			SmokeParticle,		// Animation //
+			255,						// Alpha //
+			40,							// Fade // What time to start fading //
+			DenseParticleLocation
+		);
+	
+	
+		Velocity = Point * ( Real( 0.7 ) * Real( ( Real::Random() ) ) );
+		LifeTime = Real(70) + ( Real( 40 ) * Real::Random() );
+
+		DenseParticle.Add(
+			Pos + Vector2D( 5, -5 ), 		// Pos //
+			Velocity,	// Velocity //
+			Vector2D::Zero,  			// Acceleration //
+			Drift,		// Drift //
+			int( LifeTime ), 	// Life //
+			SmokeParticle,		// Animation //
+			255,						// Alpha //
+			40,							// Fade // What time to start fading //
 			DenseParticleLocation
 		);
 	}
-	
+
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
