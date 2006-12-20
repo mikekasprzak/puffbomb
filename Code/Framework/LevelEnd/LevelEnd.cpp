@@ -44,9 +44,8 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 	
 	Form.Load( "2D/Menu/LevelEnd.form" );
 	
-	for( size_t idx = 0; idx < MyEngine->Player.size(); ++idx )
+/*	for( size_t idx = 0; idx < MyEngine->Player.size(); ++idx )
 	{
-		
 		std::stringstream Temp;
 		Temp << MyEngine->Player[ idx ]->Score;
 		std::string TempString = Temp.str();
@@ -69,7 +68,9 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		{
 			Form.DialogBox[ 0 ].TextLabel[ idx ].Text.clear();
 		}
-	}
+	}*/
+	
+	
 	
 	LastTime = GetTime();
 	
