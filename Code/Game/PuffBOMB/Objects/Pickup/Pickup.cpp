@@ -27,6 +27,8 @@ int cPickup::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 		// Collect it //
 		case 3: {
 			Collected = true;
+			FXLibrary::Pickup( Pos );
+			
 			break;
 		};
 	};

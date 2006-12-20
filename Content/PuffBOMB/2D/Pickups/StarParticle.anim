@@ -1,9 +1,9 @@
 Texture	ShadedParticles.tx
 
-Vertex	-14.0	14.0
-Vertex	-14.0	-14.0
-Vertex	14.0	-14.0
-Vertex	14.0	14.0
+Vertex	-32.0	32.0
+Vertex	-32.0	-32.0
+Vertex	32.0	-32.0
+Vertex	32.0	32.0
 
 FVa	0
 FVb	1
