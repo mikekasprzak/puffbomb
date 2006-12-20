@@ -21,7 +21,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_02.tx
 
@@ -46,7 +46,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_03.tx
 
@@ -71,7 +71,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_04.tx
 
@@ -96,7 +96,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_05.tx
 
@@ -121,7 +121,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_06.tx
 
@@ -146,7 +146,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_07.tx
 
@@ -171,7 +171,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_08.tx
 
@@ -196,7 +196,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_09.tx
 
@@ -221,7 +221,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_10.tx
 
@@ -246,7 +246,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_11.tx
 
@@ -271,7 +271,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_12.tx
 
@@ -296,7 +296,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_13.tx
 
@@ -321,7 +321,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_14.tx
 
@@ -346,7 +346,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_15.tx
 
@@ -371,7 +371,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 Texture	BombTimer_16.tx
 
@@ -396,7 +396,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1000.0
+Time	10.0
 
 
 LoopPoint 0
