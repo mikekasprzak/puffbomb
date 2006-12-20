@@ -323,16 +323,16 @@ void FXLibrary::Steam( const Vector2D& Pos, const Vector2D& Direction )
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::Bomb( const Vector2D& Pos )
 {
-	int AdditiveParticles = DenseParticle.Allocate( 600, true );
+	int AdditiveParticles = DenseParticle.Allocate( 900, true );
 	
 	if( AdditiveParticles == -1 )
 	{
 		return;
 	}
 
-	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
+	cAnimation& SmallFireParticle = AnimationPool.Load( "SmallFireParticle.anim" );
 
-	int MaxSteps = 200;
+	int MaxSteps = 300;
 	for( int idx = 0; idx < MaxSteps; idx++ )
 	{
 		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
@@ -355,7 +355,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			FireParticle,		// Animation //
+			SmallFireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -372,7 +372,7 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			Vector2D::Zero,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			FireParticle,		// Animation //
+			SmallFireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
@@ -391,28 +391,46 @@ void FXLibrary::Bomb( const Vector2D& Pos )
 			-Acceleration,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
 			int( LifeTime ), 	// Life //
-			FireParticle,		// Animation //
+			SmallFireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
 			AdditiveParticles
 		);		
+	}
+	
+//	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
 
-/*
-		// Additive //
+	int DenseParticleLocation = DenseParticle.Allocate( 300, true );
+	
+	if( DenseParticleLocation == -1 )
+	{
+		return;
+	}
+
+	MaxSteps = 300;
+	for( int idx = 0; idx < MaxSteps; idx++ )
+	{
+		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+
+		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
+
+		Vector2D Velocity = Point * ( Real( ( Real::Random() - Real( 2 ) ) ) );
+		Vector2D Drift = Vector2D::Zero;
+		Drift.y = -Real( 0.001 );
+		
+		Real LifeTime = Real(30) + ( Real( 70 ) * Real::Random() );
+
 		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
 			Vector2D::Zero,  			// Acceleration //
-			Vector2D::Zero,		// Drift //
+			Drift,		// Drift //
 			int( LifeTime ), 	// Life //
-			FireParticle,		// Animation //
+			SmallFireParticle,		// Animation //
 			255,						// Alpha //
 			20,							// Fade // What time to start fading //
-			AdditiveParticles
-		);		
-
-*/
-
+			DenseParticleLocation
+		);
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

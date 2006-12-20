@@ -48,7 +48,7 @@ SDL_Surface* SetVideoMode() {
 #ifdef WINDOWED
 	int VideoFlags = SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_HWPALETTE; // SDL_FULLSCREEN | SDL_RESIZABLE
 #else // WINDOWED //
-	int VideoFlags = SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_HWPALETTE | SDL_FULLSCREEN; // SDL_FULLSCREEN | SDL_RESIZABLE 
+	int VideoFlags = SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_HWPALETTE | SDL_FULLSCREEN; // SDL_FULLSCREEN | SDL_RESIZABLE  
 #endif // WINDOWED //
 	
 	// Depeding on if our hardware supports a hardware framebuffer //
