@@ -66,7 +66,6 @@ void cLevelEnd::Draw()
 	
 	MyEngine->Draw();
 	
-	
 	Camera->Update();
 
 	Gfx::EnableTex2D();
@@ -85,6 +84,11 @@ void cLevelEnd::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cLevelEnd::Step()
 {
+	if( Input::Pad[ 0 ].Button[ 0 ].Pressed() )
+	{
+		cMessageEntity::Current->BreakLoop = true;	
+	}
+	
 	Form.Step();
 	
 	if( LastTime < GetTime() )
