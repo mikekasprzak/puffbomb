@@ -19,6 +19,7 @@
 #include "GolfGame/GolfGame.h"
 
 #include <MainMenu/MainMenu.h>
+#include <LevelEnd/LevelEnd.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/DirectoryCache.h>
 #include <Util/String.h>
@@ -133,6 +134,7 @@ void cSuperFlow::StateFlow()
 						{
 							CurClassicMap++;
 						}
+						cLevelEnd( Game.Engine );
 					}
 				}
 				if( OldClassicMap == CurClassicMap )
@@ -143,6 +145,7 @@ void cSuperFlow::StateFlow()
 				{
 					State = stClassicGame;
 				}
+				
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //
@@ -166,6 +169,7 @@ void cSuperFlow::StateFlow()
 						{
 							CurGolfMap++;
 						}
+						cLevelEnd( Game.Engine );
 					}
 				}
 				if( OldGolfMap == CurGolfMap )

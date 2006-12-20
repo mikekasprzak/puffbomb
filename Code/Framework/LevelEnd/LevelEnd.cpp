@@ -1,12 +1,11 @@
 // - ------------------------------------------------------------------------------------------ - //
-#include "MainMenu.h"
+#include "LevelEnd.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-// DELETE THIS WHEN YOU GET SICK OF THE RANDOM PARTICLE SHIT //
 #include <Particle2D/FXLibrary.h>
 #include <Particle2D/SolidParticleFactory.h>
 #include <Particle2D/DenseParticleFactory.h>
@@ -16,14 +15,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
-#ifdef EDITOR
-// For FPS test //
-#include <Font/Fonts.h>
-#include <sstream>
-// ------------ //
-#endif // EDITOR //
+
 // - ------------------------------------------------------------------------------------------ - //
-cMainMenu::cMainMenu()
+cLevelEnd::cLevelEnd( Engine2D::cEngine2D* _MyEngine ) :
+	MyEngine( _MyEngine )
 {
 	// Create Camera //
 	Camera = new cCamera(
@@ -46,7 +41,7 @@ cMainMenu::cMainMenu()
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 	
-	Form.Load( "2D/Menu/MainMenu.form" );
+	Form.Load( "2D/Menu/LevelEnd.form" );
 	
 	LastTime = GetTime();
 	
@@ -55,19 +50,23 @@ cMainMenu::cMainMenu()
 	Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
-cMainMenu::~cMainMenu()
+cLevelEnd::~cLevelEnd()
 {
 	delete Camera;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMainMenu::ResetMenu()
+void cLevelEnd::ResetMenu()
 {
-	//Form.DialogBox[ 0 ].SuperFlowState = 1;
-	//Work();
+
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMainMenu::Draw()
+void cLevelEnd::Draw()
 {
+	MyEngine->Camera->Update();
+	
+	MyEngine->Draw();
+	
+	
 	Camera->Update();
 
 	Gfx::EnableTex2D();
@@ -80,30 +79,13 @@ void cMainMenu::Draw()
 
 	Form.Draw();
 	
-#ifdef EDITOR
-	//	//  DISPLAYS FPS  //
-	std::stringstream Temp;
-	Temp << Global::FPS;
-	std::string TempString = Temp.str();
-	
-	Vector3D TempPos = Vector3D( Global::Left, Global::Top - Real( 45 ), 0.0 );
-
-	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
-	// -------------- //
-#endif // EDITOR //
-	
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMainMenu::Step()
+void cLevelEnd::Step()
 {
 	Form.Step();
-	
-	if( Form.DialogBox[ 0 ].SuperFlowState != 1 )
-	{
-		BreakLoop = true;	
-	}
 	
 	if( LastTime < GetTime() )
 	{

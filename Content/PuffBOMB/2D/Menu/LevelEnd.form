@@ -1,0 +1,47 @@
+DialogPos		0	-	122
+DialogPos		0	+	90
+
+DialogPos		0	+	122
+DialogPos		0	-	90
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		0	-25
+IsPassive		1
+ActionID		0
+Text			Player 1
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+TextLabel		0	-75
+IsPassive		1
+ActionID		0
+Text			Player 2
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+TextLabel		0	-125
+IsPassive		1
+ActionID		0
+Text			Player 3
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+TextLabel		0	-175
+IsPassive		1
+ActionID		4
+Text			Player 4
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+EndDialog

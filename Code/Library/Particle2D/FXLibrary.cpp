@@ -274,16 +274,16 @@ void FXLibrary::Pickup( const Vector2D& Pos, const int Points )
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::CrazyTest( const Vector2D& Pos )
 {
-	int AdditiveParticles = DenseParticle.Allocate( 120, true );
+	int AdditiveParticles = DenseParticle.Allocate( 32, true );
 	
 	if( AdditiveParticles == -1 )
 	{
 		return;
 	}
 
-	cAnimation& FireParticle = AnimationPool.Load( "FireParticle.anim" );
+	cAnimation& FireParticle = AnimationPool.Load( "StarParticle.anim" );
 
-	int MaxSteps = 120;
+	int MaxSteps = 32;
 	for( int idx = 0; idx < MaxSteps; idx++ )
 	{
 		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
