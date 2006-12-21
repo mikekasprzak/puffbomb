@@ -486,7 +486,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 				}
 				
 				// If Turn is over //
-				if ( Input::Pad[ 0 ].Button[ 3 ].Pressed() || HitBoundery || MovingPlayers == 0 || Player[ CurrentPlayer ]->Finished ) {
+				if ( Input::Pad[ 0 ].Button[ PAD_BACK ].Pressed() || HitBoundery || MovingPlayers == 0 || Player[ CurrentPlayer ]->Finished ) {
 					// If we ended a turn successufully, note the nearest drop zone;
 					if ( !HitBoundery ) {
 						Player[ CurrentPlayer ]->MyLastDropPos = FindNearestDrop( *Player[ CurrentPlayer ]->MyObject );
