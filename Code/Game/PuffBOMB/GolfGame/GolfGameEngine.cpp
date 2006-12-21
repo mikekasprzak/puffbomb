@@ -280,6 +280,12 @@ void cGolfGameEngine::Step() {
 	SolidParticle.Step();
 	DenseParticle.Step();
 	
+	if( Input::Pad[ 0 ].Button[ PAD_Y ] )
+	{
+		Camera->Pos.z += Real( 300 );
+	}
+	
+	
 //	PlayerAnimator.Step();
 //	EndingAnimator.Step();
 
