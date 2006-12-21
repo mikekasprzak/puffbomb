@@ -231,10 +231,10 @@ void cClassicCursor::Draw() {
 		};
 			
 
-//		if ( UnderColor == 0 ) {
+		if ( UnderColor != 0 ) {
 			BombTimer.SetFrame( 15 );
 			BombTimer.DrawQuad( Bomb[ idx ].Pos, UnderColor );
-//		}
+		}
 		
 		BombTimer.SetFrame( (Bomb[ idx ].Time) & 15 );
 		BombTimer.DrawQuad( Bomb[ idx ].Pos, OverColor );

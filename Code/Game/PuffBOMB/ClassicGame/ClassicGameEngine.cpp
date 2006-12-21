@@ -359,8 +359,16 @@ void cClassicGameEngine::Draw() {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::AddBombs() {
+	// 15 - 4 per second //
+	// 12 - 5 per second //
+	// 10 - 6 per second //
+	// 6 - 10 per second //
+	// 5 - 12 per second //
+	// 4 - 15 per second //
+	const int TimeScalar = 10;
+	
 	for ( int idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
-		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, (Cursor.Bomb[ idx ].Time * 15) + 1 ) );
+		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, (Cursor.Bomb[ idx ].Time * TimeScalar) + 1 ) );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
