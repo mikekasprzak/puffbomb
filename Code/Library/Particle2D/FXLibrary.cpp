@@ -286,8 +286,6 @@ void FXLibrary::Pickup( const Vector2D& Pos, const int Points )
 		);
 	}
 	
-//	int Points = 250;
-	
 	std::stringstream Temp;
 	Temp << Points;
 	std::string TempString = Temp.str();
@@ -299,26 +297,24 @@ void FXLibrary::Pickup( const Vector2D& Pos, const int Points )
 		return;
 	}
 	
-	//Vector2D OffsetPos = Vector2D( ( Pos.x + Real( 36 * TempString.size() ) ) / Real( 2 ), Pos.y );
+	Vector2D Acceleration = Vector2D::Zero;
+	Acceleration.y = Real( 0.05 );
 	
 	for( int idx = 0; idx < TempString.size(); idx++ )
 	{
 		DenseParticle.Add(
-			Vector2D( Pos.x + Real( 36 * idx ), Pos.y ), 		// Pos //
+			Vector2D( Pos.x + Real( 38 * idx ) - ( ( Real( 38 * ( TempString.size() - 1 ) ) ) / Real( 2 ) ), Pos.y ), 		// Pos //
 			Vector2D::Zero,	// Velocity //
-			Vector2D::Zero,  			// Acceleration //
+			Acceleration,  			// Acceleration //
 			Vector2D::Zero,		// Drift //
-			80, 	// Life //
+			90, 	// Life //
 			*Number[ TempString[ idx ] - '0' ],		// Animation //
 			255,						// Alpha //
 			40,							// Fade // What time to start fading //
 			NumberParticles
 		);
 	}
-	
-	//Number[ 0 ]	
-	
-	
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::CrazyTest( const Vector2D& Pos )
