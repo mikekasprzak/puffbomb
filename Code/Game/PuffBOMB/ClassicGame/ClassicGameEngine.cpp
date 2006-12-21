@@ -219,6 +219,11 @@ void cClassicGameEngine::Step() {
 	// Only step the engine whilst we are active //
 	if ( GameActive ) {
 		// Stuff my engine does before //
+		Camera->MinZoom = Global::HudZoom * Real( 2 );
+				
+		if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
+			Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+		}
 	
 		// Hack to follow the hamster.  we need a way to identify the collection to follow //
 		if( CameraTracking.size() >= 1 )
@@ -271,6 +276,11 @@ void cClassicGameEngine::Step() {
 		for ( size_t idx = 0; idx < AlwaysActivePassives.size(); idx++ ) {
 			AlwaysActivePassives[ idx ]->Work();
 		}
+
+
+//		if ( Cursor.Selection != -1 ) {
+//			Camera->Pos.z -= Real( 100 );
+//		}
 		
 		Cursor.Step();
 		

@@ -280,9 +280,11 @@ void cGolfGameEngine::Step() {
 	SolidParticle.Step();
 	DenseParticle.Step();
 	
-	if( Input::Pad[ 0 ].Button[ PAD_Y ] )
-	{
-		Camera->Pos.z += Real( 300 );
+	if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
+		Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+	}
+	else {
+		Camera->MinZoom = Global::HudZoom * Real( 2 );
 	}
 	
 	
