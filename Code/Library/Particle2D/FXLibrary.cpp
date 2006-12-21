@@ -8,7 +8,25 @@
 #include <Particle2D/SolidParticleFactory.h>
 #include <Particle2D/DenseParticleFactory.h>
 // - ------------------------------------------------------------------------------------------ - //
-
+#include <string>
+#include <sstream>
+// - ------------------------------------------------------------------------------------------ - //
+cAnimation* FXLibrary::Number[ 10 ];
+// - ------------------------------------------------------------------------------------------ - //
+void FXLibrary::InitAnims()
+{
+	Number[ 0 ] = &AnimationPool.Load( "Number0.anim" );
+	Number[ 1 ] = &AnimationPool.Load( "Number1.anim" );
+	Number[ 2 ] = &AnimationPool.Load( "Number2.anim" );
+	Number[ 3 ] = &AnimationPool.Load( "Number3.anim" );
+	Number[ 4 ] = &AnimationPool.Load( "Number4.anim" );
+	Number[ 5 ] = &AnimationPool.Load( "Number5.anim" );
+	Number[ 6 ] = &AnimationPool.Load( "Number6.anim" );
+	Number[ 7 ] = &AnimationPool.Load( "Number7.anim" );
+	Number[ 8 ] = &AnimationPool.Load( "Number8.anim" );
+	Number[ 9 ] = &AnimationPool.Load( "Number9.anim" );
+}
+// - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::Bomb( const Vector2D& Pos )
 {
 	int AdditiveParticles = DenseParticle.Allocate( 900, true );
@@ -243,7 +261,6 @@ void FXLibrary::Pickup( const Vector2D& Pos, const int Points )
 	{
 		return;
 	}
-
 	cAnimation& StarParticle = AnimationPool.Load( "StarParticle.anim" );
 	
 	for( int idx = 0; idx < MaxSteps; idx++ )
@@ -256,7 +273,6 @@ void FXLibrary::Pickup( const Vector2D& Pos, const int Points )
 		
 		Real LifeTime = Real(50);
 
-		// Additive //
 		DenseParticle.Add(
 			Pos, 		// Pos //
 			Velocity,	// Velocity //
@@ -269,6 +285,39 @@ void FXLibrary::Pickup( const Vector2D& Pos, const int Points )
 			AdditiveParticles
 		);
 	}
+	
+//	int Points = 250;
+	
+	std::stringstream Temp;
+	Temp << Points;
+	std::string TempString = Temp.str();
+	
+	int NumberParticles = DenseParticle.Allocate( TempString.size(), false );
+	
+	if( NumberParticles == -1 )
+	{
+		return;
+	}
+	
+	//Vector2D OffsetPos = Vector2D( ( Pos.x + Real( 36 * TempString.size() ) ) / Real( 2 ), Pos.y );
+	
+	for( int idx = 0; idx < TempString.size(); idx++ )
+	{
+		DenseParticle.Add(
+			Vector2D( Pos.x + Real( 36 * idx ), Pos.y ), 		// Pos //
+			Vector2D::Zero,	// Velocity //
+			Vector2D::Zero,  			// Acceleration //
+			Vector2D::Zero,		// Drift //
+			80, 	// Life //
+			*Number[ TempString[ idx ] - '0' ],		// Animation //
+			255,						// Alpha //
+			40,							// Fade // What time to start fading //
+			NumberParticles
+		);
+	}
+	
+	//Number[ 0 ]	
+	
 	
 }
 // - ------------------------------------------------------------------------------------------ - //

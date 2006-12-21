@@ -5,20 +5,25 @@
 #define __Rendo_FXLibrary_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
+#include <Animation/Animation.h>
 // - ------------------------------------------------------------------------------------------ - //
 class FXLibrary
 {
 public:
+	static cAnimation* Number[ 10 ];
 	// - -------------------------------------------------------------------------------------- - //
-
+	
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	FXLibrary()
 	{
 		
 	}
+	
+	static void InitAnims();
+	
 	static void Bomb( const Vector2D& Pos );
-	static void Pickup( const Vector2D& Pos, const int Points = -1 );
+	static void Pickup( const Vector2D& Pos, const int Points = 0 );
 	static void CrazyTest( const Vector2D& Pos );
 	static void CrazyPuffTest( const Vector2D& Pos );
 	static void Rain( const Vector2D& Pos, const int Density = 20 );

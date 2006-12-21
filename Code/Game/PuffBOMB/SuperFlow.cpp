@@ -21,6 +21,9 @@
 #include <MainMenu/MainMenu.h>
 #include <PlayerSelect/PlayerSelect.h>
 #include <LevelEnd/LevelEnd.h>
+
+// - ------------------------------------------------------------------------------------------ - //
+#include <Particle2D/FXLibrary.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/DirectoryCache.h>
 #include <Util/String.h>
@@ -73,9 +76,11 @@ cSuperFlow::cSuperFlow() :
 	FindMaps( ClassicPath, ClassicMaps );
 	FindMaps( GolfPath, GolfMaps );
 	
-	StateFlow();
-	
 	srand ( time(NULL) );
+
+	FXLibrary::InitAnims();
+
+	StateFlow(); // This must be the last thing in the constructor //
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cSuperFlow::StateFlow()
