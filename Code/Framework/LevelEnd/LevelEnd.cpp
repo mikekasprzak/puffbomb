@@ -62,7 +62,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		);
 		Temp.str(std::string());
 
-		Temp << MyEngine->Player[ idx ]->Score;
+		Temp << MyEngine->Player[ idx ]->Bonus;
 		TempString = Temp.str();
 
 		Form.DialogBox[ 0 ].TextLabel.push_back(
@@ -76,7 +76,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 			)
 		);
 
-/*		Temp.str(std::string());
+		Temp.str(std::string());
 
 		Temp << MyEngine->Player[ idx ]->Score;
 		TempString = Temp.str();
@@ -90,7 +90,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 				0.5,
 				Gfx::White()
 			)
-		);*/
+		);
 	}
 	
 	if( MyEngine->Player.size() < 4 )
