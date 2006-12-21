@@ -26,6 +26,7 @@ public:
 	cAnimator( const std::string& AnimationName );
 
 	void Set( cAnimation* _Animation, const int _CurrentFrame );
+	void SetFrame( const int _CurrentFrame );
 	
 	void Step();
 

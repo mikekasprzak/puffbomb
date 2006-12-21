@@ -24,6 +24,8 @@ public:
 	// Vector of bomb information to be added //
 	std::vector< cBombInfo > Bomb;
 	cAnimator BombGraphic;
+	cAnimator BombTimer;
+	cAnimator BombTab;
 
 public:
 	cClassicCursor();

@@ -360,7 +360,7 @@ void cClassicGameEngine::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::AddBombs() {
 	for ( int idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
-		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, Cursor.Bomb[ idx ].Time ) );
+		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, (Cursor.Bomb[ idx ].Time * 15) + 1 ) );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

@@ -11,7 +11,9 @@
 cClassicCursor::cClassicCursor() :
 	Selection( -1 ),
 	TimeMode( false ),
-	BombGraphic( "BlueBomb.anim" )
+	BombGraphic( "BlueBomb.anim" ),
+	BombTimer( "BombTimer.anim" ),
+	BombTab( "BombTimer_CoverTab.anim" )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -29,10 +31,13 @@ void cClassicCursor::Step() {
 	}
 	else {
 		if ( TimeMode ) {
-			Bomb[ Selection ].Time += (int)Input::Pad[0].Stick1.x;
+			Bomb[ Selection ].Time += ((int)Input::Pad[0].Stick1.x);
 				
-			if ( Bomb[ Selection ].Time < 1 )
-				Bomb[ Selection ].Time = 1;
+			if ( Bomb[ Selection ].Time < 0 )
+				Bomb[ Selection ].Time = 0;
+
+			if ( Bomb[ Selection ].Time > 47 )
+				Bomb[ Selection ].Time = 47;
 		}
 		else {
 			// Update Bomb Pos //
@@ -202,14 +207,47 @@ void cClassicCursor::Draw() {
 		//Gfx::Circle( Bomb[ idx ].Pos, Real(48), Gfx::RGBA( 255, 0, 0, 255 ) );
 		//BombGraphic.Step();
 		BombGraphic.DrawQuad( Bomb[ idx ].Pos );
+		
+
+		Gfx::Color OverColor;
+		Gfx::Color UnderColor;
+			
+		switch ( Bomb[ idx ].Time >> 4 ) {
+			case 0: {
+				OverColor = Gfx::RGB( 255, 0, 0 );
+				UnderColor = Gfx::RGBA( 0, 0, 0, 0 );
+				break;				
+			}
+			case 1: {
+				OverColor = Gfx::RGB( 255, 255, 0 );
+				UnderColor = Gfx::RGB( 255, 0, 0 );
+				break;				
+			}
+			case 2: {
+				OverColor = Gfx::RGB( 0, 255, 0 );
+				UnderColor = Gfx::RGB( 255, 255, 0 );
+				break;				
+			}
+		};
+			
+
+//		if ( UnderColor == 0 ) {
+			BombTimer.SetFrame( 15 );
+			BombTimer.DrawQuad( Bomb[ idx ].Pos, UnderColor );
+//		}
+		
+		BombTimer.SetFrame( (Bomb[ idx ].Time) & 15 );
+		BombTimer.DrawQuad( Bomb[ idx ].Pos, OverColor );
+		
+		BombTab.DrawQuad( Bomb[ idx ].Pos );
 	}
 	
 	Gfx::DisableTex2D();
 
 	// Draw Bomb Timers //
-	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
-		Gfx::Rect( Bomb[ idx ].Pos + Vector2D( -60, -60 ), Bomb[ idx ].Pos + Vector2D( -60 + (Bomb[ idx ].Time*4), -44 ), Gfx::RGBA( 255, 255, 0, 255 ) );
-	}
+//	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
+//		Gfx::Rect( Bomb[ idx ].Pos + Vector2D( -60, -60 ), Bomb[ idx ].Pos + Vector2D( -60 + (Bomb[ idx ].Time*4), -44 ), Gfx::RGBA( 255, 255, 0, 255 ) );
+//	}
 	
 	Gfx::EnableTex2D();
 //	Gfx::EnableDepth();

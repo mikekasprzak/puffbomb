@@ -34,6 +34,14 @@ void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
 	CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cAnimator::SetFrame( const int _CurrentFrame )
+{
+	CurrentFrame = _CurrentFrame;
+	Time = 0;
+	
+	CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cAnimator::Step()
 {
 	if( Animation->Frame.size() != 1 )
