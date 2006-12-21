@@ -17,6 +17,8 @@ namespace Input {
 		//Vector2D _Current;
 		Vector2D _Last;
 	
+		Vector2D _Digital;
+	
 	public:
 		// - ---------------------------------------------------------------------------------- - //
 		inline const Vector2D& Current() const {
@@ -39,9 +41,8 @@ namespace Input {
 		// - ---------------------------------------------------------------------------------- - //
 
 		// - ---------------------------------------------------------------------------------- - //
-		inline Vector2D Digital() const {
-			// Return the value of the axis as digital (no analog smoothness) //
-			return *this;
+		inline const Vector2D Digital() const {
+			return _Digital;
 		}
 		// - ---------------------------------------------------------------------------------- - //
 		inline int DigitalBitMask() const {
@@ -66,6 +67,11 @@ namespace Input {
 		inline void Update( const Vector2D& NewState ) {
 			_Last = *this;
 			Set( NewState );
+			
+			// Calculate the axis as digital (no analog smoothness) //
+			_Digital.x = ((x.Abs() > Real::Half )? Real::One : Real::Zero ) * x.Normal();
+			_Digital.y = ((y.Abs() > Real::Half )? Real::One : Real::Zero ) * y.Normal();
+			
 		}
 		// - ---------------------------------------------------------------------------------- - //
 	};
