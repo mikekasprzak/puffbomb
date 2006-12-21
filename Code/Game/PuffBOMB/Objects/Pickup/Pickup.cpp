@@ -27,7 +27,30 @@ int cPickup::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 		// Collect it //
 		case 3: {
 			Collected = true;
-			FXLibrary::Pickup( Pos );
+			
+			// Display appropriate particle pickup //
+			switch ( Variant ) {
+				case 0: {
+					FXLibrary::Pickup( Pos, 50 );
+					break;
+				}
+				case 1: {
+					FXLibrary::Pickup( Pos, 100 );
+					break;
+				}
+				case 2: {
+					FXLibrary::Pickup( Pos, 150 );
+					break;
+				}
+				case 3: {
+					FXLibrary::Pickup( Pos, 250 );
+					break;
+				}
+				case 4: {
+					FXLibrary::Pickup( Pos, 500 );
+					break;
+				}
+			};
 			
 			break;
 		};

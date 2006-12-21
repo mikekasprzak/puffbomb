@@ -15,6 +15,7 @@ public:
 public:
 	// Elements of a Player //
 	int Score;
+	int Bonus;
 	int Stroke;
 	bool Finished;
 	

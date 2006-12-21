@@ -515,6 +515,25 @@ void cGolfGameEngine::TurnBasedPlay() {
 					if ( PlayersDone == Player.size() ) {
 						LevelComplete = true;
 						cMessageEntity::Current->BreakLoop = true;
+
+						// All done, so lets calculate bonus //
+						
+						// Calculate Lowest Stroke //
+						int LowestStroke = 10;
+						for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+							if ( Player[ idx ]->Stroke < LowestStroke ) {
+								LowestStroke = Player[ idx ]->Stroke;
+							}
+						}
+
+						// Calculate Bonus //
+						for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+							Player[ idx ]->Bonus = (5 - (Player[ idx ]->Stroke - LowestStroke)) * 100;
+							if ( Player[ idx ]->Bonus < 0 )
+								Player[ idx ]->Bonus = 0;
+								
+							Player[ idx ]->Score += Player[ idx ]->Bonus;
+						}
 					}
 				}
 				
