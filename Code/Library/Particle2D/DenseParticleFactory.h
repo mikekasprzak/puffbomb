@@ -35,8 +35,10 @@ public:
 	std::vector< unsigned int > VertColor;
 	std::vector< unsigned int > Indices;
 	
+	size_t BlackTexId;
+	
 	// - -------------------------------------------------------------------------------------- - //
-	int Allocate( const int SegmentSize, const bool _IsAdditive );
+	int Allocate( const int SegmentSize, const bool _IsAdditive, const bool _DrawOnBlack = false );
 	void Release( const int SegIdx );
 	void Clear();
 

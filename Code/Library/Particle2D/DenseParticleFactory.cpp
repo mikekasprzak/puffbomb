@@ -2,6 +2,7 @@
 // DenseParticleFactory //
 // - ------------------------------------------------------------------------------------------ - //
 #include <Animation/AnimationPool.h>
+#include <Graphics/TexturePool.h>
 #include "DenseParticleFactory.h"
 
 // If particle creation performance has a slight chunkyness it because the segment reserve is too low
@@ -40,10 +41,12 @@ void DenseParticleFactory::Populate( int Num )
 	Particles.resize( Num );
 	
 	Segment.reserve( 1024 );
+	
+	BlackTexId = TexturePool.Load( "ShadedParticlesBlack.tx" ).Id;
 }
 // - ------------------------------------------------------------------------------------------ - //
 //int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive, cAnimation &_Animation )
-int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive )
+int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive, const bool _DrawOnBlack )
 {
 	int ParticleIdx = 0;
 	
@@ -67,7 +70,7 @@ int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditiv
 					//Log( LOG_HIGHEST_LEVEL, "( ParticleIdx + SegmentSize ) = " << ( ParticleIdx + SegmentSize ) );
 					//Log( LOG_HIGHEST_LEVEL, "Segment[ idx + 1 ].Start = " << Segment[ idx + 1 ].Start );
 
-					Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );					
+					Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive, _DrawOnBlack ) );					
 
 		/*			Segment.back()->UVPos.a = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.a ].Pos;
 					Segment.back()->UVPos.b = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.b ].Pos;
@@ -91,7 +94,7 @@ int DenseParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditiv
 	
 	if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
 	{
-		Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );
+		Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive, _DrawOnBlack ) );
 		
 /*		Segment.back()->UVPos.a = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.a ].Pos;
 		Segment.back()->UVPos.b = _Animation.Frame[ 0 ].MyFrame.Vertex[ _Animation.Frame[ 0 ].MyFrame.Face[ 0 ].VertexIdx.b ].Pos;
@@ -338,11 +341,24 @@ void DenseParticleFactory::Draw()
 	
 	for( size_t SegIdx = 0; SegIdx < Segment.size(); SegIdx++ )
 	{
+		// Cheesy additive sort hack //
 		if( Segment[ SegIdx ]->IsAdditive )
 		{
 			AdditiveArray[ AdditiveSize ] = SegIdx;
 			
 			AdditiveSize++;
+			
+			if( Segment[ SegIdx ]->DrawOnBlack )
+			{
+				Gfx::DrawQuads(
+					&Vertex[ 0 ],
+					&TexCoord[ 0 ],
+					&VertColor[ 0 ],
+					&Indices[ Segment[ SegIdx ]->IndicesIdx ],
+					Segment[ SegIdx ]->IndicesSize - Segment[ SegIdx ]->IndicesIdx,
+					BlackTexId
+				);
+			}
 		}
 		else
 		{
@@ -356,12 +372,26 @@ void DenseParticleFactory::Draw()
 			);
 		}
 	}
-	// Cheezy additive sort hack //
+	
+/*	if( Segment[ SegIdx ]->DrawOnBlack )
+	{
+		for( size_t SegIdx = 0; SegIdx < AdditiveSize; SegIdx++ )
+		{
+			Gfx::DrawQuads(
+				&Vertex[ 0 ],
+				&TexCoord[ 0 ],
+				&VertColor[ 0 ],
+				&Indices[ Segment[ AdditiveArray[ SegIdx ] ]->IndicesIdx ],
+				Segment[ AdditiveArray[ SegIdx ] ]->IndicesSize - Segment[ AdditiveArray[ SegIdx ] ]->IndicesIdx,
+				BlackTexId
+			);
+		}
+	}*/
+	// Enables additive blending //
+	Gfx::AddBlend();
+
 	for( size_t SegIdx = 0; SegIdx < AdditiveSize; SegIdx++ )
 	{
-		// Enables additive blending //
-		Gfx::AddBlend();
-
 		Gfx::DrawQuads(
 			&Vertex[ 0 ],
 			&TexCoord[ 0 ],
@@ -370,9 +400,9 @@ void DenseParticleFactory::Draw()
 			Segment[ AdditiveArray[ SegIdx ] ]->IndicesSize - Segment[ AdditiveArray[ SegIdx ] ]->IndicesIdx,
 			Segment[ AdditiveArray[ SegIdx ] ]->TextureID
 		);
-		
-		// Disables additive blending //
-		Gfx::StandardBlend();
 	}
+	
+	// Disables additive blending //
+	Gfx::StandardBlend();
 }
 // - ------------------------------------------------------------------------------------------ - //

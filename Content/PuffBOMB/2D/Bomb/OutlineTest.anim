@@ -1,25 +1,25 @@
 Texture	ShadedParticles.tx
 
-Vertex	-10.0	10.0
-Vertex	-10.0	-10.0
-Vertex	10.0	-10.0
-Vertex	10.0	10.0
+Vertex	-14.0	14.0
+Vertex	-14.0	-14.0
+Vertex	14.0	-14.0
+Vertex	14.0	14.0
 
 FVa	0
 FVb	1
 FVc	2
 
-FUVa	0.0	0.0
-FUVb	0.0	0.125
-FUVc	0.125	0.125
+FUVa	0.0	0.5
+FUVb	0.0	0.625
+FUVc	0.125	0.625
 
 FVa	0
 FVb	2
 FVc	3
 
-FUVa	0.0	0.0
-FUVb	0.125	0.125
-FUVc	0.125	0.0
+FUVa	0.0	0.5
+FUVb	0.125	0.625
+FUVc	0.125	0.5
 
 Time	1000.0
 

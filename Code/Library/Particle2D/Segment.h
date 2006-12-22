@@ -27,17 +27,20 @@ public:
 	//ABCSet< Vector2D >* UVTest;
 	
 	bool IsAdditive;
+	bool DrawOnBlack;
 	
 	cSegment(
 		const int _Start,
 		const int _Size,
-		const bool _IsAdditive ) :
+		const bool _IsAdditive,
+		const bool _DrawOnBlack ) :
 			Start( _Start ),
 			SegIdx( _Start ),
 			Size( _Start + _Size ),
 			IndicesIdx( ( Start << 2 ) ),
 			IndicesSize( ( Size << 2 ) ),
-			IsAdditive( _IsAdditive )
+			IsAdditive( _IsAdditive ),
+			DrawOnBlack( _DrawOnBlack )
 	{
 		
 	}

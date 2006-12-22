@@ -44,7 +44,7 @@ void SolidParticleFactory::Populate( int Num )
 	Segment.reserve( 1024 );
 }
 // - ------------------------------------------------------------------------------------------ - //
-int SolidParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive )
+int SolidParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditive, const bool _DrawOnBlack )
 {
 	int ParticleIdx = 0;
 	
@@ -69,7 +69,7 @@ int SolidParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditiv
 					//Log( LOG_HIGHEST_LEVEL, "( ParticleIdx + SegmentSize ) = " << ( ParticleIdx + SegmentSize ) );
 					//Log( LOG_HIGHEST_LEVEL, "Segment[ idx + 1 ].Start = " << Segment[ idx + 1 ].Start );
 
-					Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );					
+					Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive, _DrawOnBlack ) );					
 					
 					return Segment.size() - 1;
 				}
@@ -81,7 +81,7 @@ int SolidParticleFactory::Allocate( const int SegmentSize, const bool _IsAdditiv
 	
 	if( size_t( ParticleIdx + SegmentSize ) < Particles.size() )
 	{
-		Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive ) );
+		Segment.push_back( new cSegment( ParticleIdx, SegmentSize, _IsAdditive, _DrawOnBlack ) );
 		
 		return Segment.size() - 1;
 	}
