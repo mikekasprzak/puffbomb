@@ -59,7 +59,7 @@ cSuperFlow::cSuperFlow() :
 	GolfPath( "Maps/Golf/" ),
 	Players( 4 ),
 	CurClassicMap( 3 ),
-	CurGolfMap( 1 )
+	CurGolfMap( 0 )
 {
 	SetHudData();
 	
@@ -109,7 +109,7 @@ void cSuperFlow::StateFlow()
 			case stBackMainMenu:
 			{
 				CurClassicMap = 3;
-				CurGolfMap = 1;
+				CurGolfMap = 0;
 				
 				// Display the MainMenu screen //
 				{
