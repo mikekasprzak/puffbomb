@@ -7,6 +7,7 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::Solve( cDynamicComponent& _Vs ) {
+
 	// If either object is more than simply active //
 	if ( !Flags.OnlyActive() || !_Vs.Flags.OnlyActive() ) {
 		// If either of us are ignoring our family, and we are part of the same family, bail //
@@ -26,7 +27,7 @@ void cDynamicComponent::Solve( cDynamicComponent& _Vs ) {
 			return;
 		}
 	}
-	
+
 	// Solve the collision //
 	if ( Body.Solve( _Vs.Body ) ) {
 		// Send messages //

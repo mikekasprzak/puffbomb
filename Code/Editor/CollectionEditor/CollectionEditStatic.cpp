@@ -26,8 +26,8 @@ void cCollectionEdit::StaticAddComp()
 
 			CalcSnapToGrid( AddPos, CurrentGridDepth, GridDepth );
 		}
-
-		Collection.Component.push_back( Engine2D::cDynamicComponent( 0, CompBaseDirName + ComponentPath[ CurComp ], AddPos ) );
+		
+		Collection.Component.push_back( Engine2D::cDynamicComponent( &Collection, CompBaseDirName + ComponentPath[ CurComp ], AddPos ) );
 
 		CurSelected.push_back( Collection.Component.size() - 1 );
 		
