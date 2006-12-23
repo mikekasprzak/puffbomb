@@ -92,7 +92,7 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 					// 1 - Perfectly sticky surface (kills all motion) //
 					Real Friction = (ToPoint.Normal().Tangent() *
 						Nodes.Velocity( Sphere[ SphereIndex[idx] ].Index )) *
-						Real( 0.02 );
+						Real( 0.05 );
 					
 					Point -= Friction * ToPoint.Normal().Tangent();
 
