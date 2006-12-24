@@ -150,7 +150,7 @@ void cComponentEdit::BodyMoveNode()
 {
 	if( Button[ MOUSE_1 ].Pressed() )
 	{
-		if( !Button[ KEY_LCTRL ] || !Button[ KEY_RCTRL ] )
+		if( !Button[ KEY_LCTRL ] && !Button[ KEY_RCTRL ] )
 		{
 			int temp = BodySingleSelectNode();
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
