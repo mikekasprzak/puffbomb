@@ -42,6 +42,10 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			return new Engine2D::cDynamicCollection( "2D/Bridge/Bridge.coll", Pos );
 			break;
 		}
+		case 130: {
+			return new Engine2D::cDynamicCollection( "2D/Phatastic/PhatBridge.coll", Pos );
+			break;
+		}
 
 		
 		default: {

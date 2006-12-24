@@ -4,10 +4,10 @@ LoopPoint	0
 Frame	0	0		
 Animation_End				
 BodyPose_Start				
-TotalMass	4			
+TotalMass	1			
 BodyPose_Node_Start	2			
-BodyNode	-18.9855	26.5681	2	
-BodyNode	0	0	2	
+BodyNode	-18.9855	26.5681	0.5	
+BodyNode	0	0	0.5	
 BodyPose_Node_End				
 BodyPose_Spring_Start	1			
 BodySpring	0	1	32.6544	1
