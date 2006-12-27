@@ -169,9 +169,11 @@ void cComponentEdit::MeshGenerateUV()
 		
 		// Determine Scale //
 		Real MeshScale = PreviewTexVertex[2].x / Real( 256 );
+		
+		DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].TextureScale = MeshScale;
 
 		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh =
-			Engine2D::cMesh2D( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj->Body, MeshScale );
+			Engine2D::cMesh2D( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj->Body );
 				
 		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].TextureId[0] = TextureID[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
 	}

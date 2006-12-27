@@ -34,7 +34,8 @@ public:
 	{
 	}
 	
-	cMesh2D( const class cMesh2DPose& _Pose, const class cBody2D& Body, const Real ObjScale = Real( 1 ) );
+	cMesh2D( const class cMesh2DPose& _Pose, const class cBody2D& Body );
+	
 public:
 	void Draw( const class cBody2D& Body, const cTexture::IdType& Texture ) const;
 };

@@ -18,6 +18,14 @@ class cMesh2DPose {
 public:
 	std::vector< cMeshPoseNode > Node;
 	std::vector< ABCSet< size_t > > Face;
+		
+	Real TextureScale;
+
+public:
+	cMesh2DPose() :
+		TextureScale( Real::One )
+	{
+	}				
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

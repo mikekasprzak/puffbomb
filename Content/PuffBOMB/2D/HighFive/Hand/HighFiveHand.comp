@@ -41,6 +41,7 @@ BodyPose_Sphere_End
 BodyPose_End				
 MeshPose_Start				
 MeshPose_Node_Start	8			
+MeshPose_Scale	1			
 MeshNode	-128	96	0	2
 MeshNode	0	96	0	2
 MeshNode	96	96	0	2

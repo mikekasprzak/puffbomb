@@ -149,6 +149,12 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 			while ( (Obj.Instruction[ idx ].Command != "MeshPose_End") && (idx < Obj.Instruction.size()) ) {
 				// Output Command Name //
 				Log( 0, "- " << Obj.Instruction[ idx ].Command );
+				
+				// ------ Scale ------------------------ //
+				// If a Node, add a node //
+				if ( Obj.Instruction[ idx ].Command == "MeshPose_Scale" ) {
+					MeshPose.back().TextureScale = atof( Obj.Instruction[ idx ].Arg[ 0 ].c_str() );
+				}
 
 				// ------ Node ------------------------- //
 				// If a Node, add a node //
@@ -308,6 +314,8 @@ void cComponentAnimationSet::SaveText( const std::string& FileName ) {
 		{
 			// Write Node SubSection header //
 			Obj.Append( "MeshPose_Node_Start", MeshPose[ idx ].Node.size() );
+			
+			Obj.Append( "MeshPose_Scale", MeshPose[ idx ].TextureScale );
 
 			// For Every Node //
 			for ( size_t idx2 = 0; idx2 < MeshPose[ idx ].Node.size(); idx2++ ) {
