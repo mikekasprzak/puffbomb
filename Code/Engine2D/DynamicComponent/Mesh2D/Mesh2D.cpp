@@ -10,7 +10,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body ) {
+cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body, const Real ObjScale ) {
 	// Resize vertices and UV's for manipulation //
 	Vertex.resize( _Pose.Node.size() );
 	UV.resize( _Pose.Node.size() );
@@ -44,10 +44,14 @@ cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body ) {
 			_Pose.Node[ idx ].Pos - Body.Nodes.Pos( _Pose.Node[ idx ].PivotIndex ),
 			Orient
 			);
-		
+	
+	//	Vector2D Offset( -256, -256 );	// ** Hack, until magic numbers //
+	//	Real SizeScalar = Real::One / Real( 512 ); // ** Hack, until magic numbers //
+
 		// Generate the UV //
-		Vector2D Offset( -256, -256 );	// ** Hack, until magic numbers //
-		Real SizeScalar = Real::One / Real( 512 ); // ** Hack, until magic numbers //
+		Vector2D Offset( Real( -256 ) * ObjScale, Real( -256 ) * ObjScale );	// ** Hack, until magic numbers //
+		Real SizeScalar = Real::One / ( Real( 512 ) * ObjScale ); // ** Hack, until magic numbers //
+
 		UV[ idx ] = (_Pose.Node[ idx ].Pos - Offset) * SizeScalar;
 		UV[ idx ].y *=  Real( -1 );
 	}

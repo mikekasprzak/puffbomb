@@ -489,6 +489,7 @@ void cComponentEdit::ScaleAll()
 	}
 	if( EditEventFlags & flScale )
 	{
+		// Mesh Node //
 		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
@@ -499,7 +500,8 @@ void cComponentEdit::ScaleAll()
 				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos = TempPos;
 			}	
 		}
-		
+
+		// Body Node //
 		for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 		{
 			Vector2D TempPos = Pose->Node[ idx ].Pos;
@@ -508,6 +510,7 @@ void cComponentEdit::ScaleAll()
 			DynObj->Body.SetPos( idx, TempPos );
 		}
 		
+		// Texture Preview //
 		Vector2D TempPos = Vector2D( PreviewTexVertex[2].x, PreviewTexVertex[2].y );
 		TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
 		
@@ -517,6 +520,13 @@ void cComponentEdit::ScaleAll()
 		PreviewTexVertex[3] = Vector3D( -TempPos.x, TempPos.y, 0.0 );
 
 		MeshGenerateUV();
+		
+		// Spheres //
+		for( size_t idx = 0; idx < DynObj->Body.SphereSize(); ++idx )
+		{
+			DynObj->Body.Sphere( idx ).Radius *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+		}
+		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

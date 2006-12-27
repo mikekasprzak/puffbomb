@@ -165,16 +165,14 @@ void cComponentEdit::MeshGenerateUV()
 {
 	if(	!DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
-		//DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.push_back( Engine2D::cComponentFrame() );
-			
-	//	DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex = CurPose;
-		
 		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Time = 1;
 		
+		// Determine Scale //
+		Real MeshScale = PreviewTexVertex[2].x / Real( 256 );
+
 		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh =
-			Engine2D::cMesh2D( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj->Body );
+			Engine2D::cMesh2D( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj->Body, MeshScale );
 				
-	//	DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh.Texture = TextureID[ CurTexPreview ];
 		DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].TextureId[0] = TextureID[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
 	}
 }
