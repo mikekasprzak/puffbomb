@@ -273,7 +273,7 @@ void cComponentEdit::BodyDeleteNode()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::BodyScaleNode()
+/*void cComponentEdit::BodyScaleNode()
 {
 	if( Button[ KEY_L ].Pressed() )
 	{
@@ -305,7 +305,7 @@ void cComponentEdit::BodyScaleNode()
 			DynObj->Body.SetPos( CurSelected[idx], TempPos );
 		}	
 	}
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::BodyMass( const Real MassDiff )
 {

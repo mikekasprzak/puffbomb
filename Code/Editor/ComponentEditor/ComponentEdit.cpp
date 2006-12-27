@@ -105,12 +105,13 @@ cComponentEdit::cComponentEdit() :
 	{
 		Real TempTexWidth = 256;
 		Real TempTexHeight = 256;
-	
+		
 		PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
 		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
 		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
 		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 	}
+
 
 	Real GridDepthValue = 0.5;
 	
@@ -483,7 +484,7 @@ void cComponentEdit::Step()
 			}
 			BodyMoveNode();
 
-			BodyScaleNode();
+			//BodyScaleNode();
 		}
 		else if( CurMode == SPHERE_MODE )
 		{
@@ -527,7 +528,7 @@ void cComponentEdit::Step()
 			}
 			MeshMoveNode();
 
-			MeshScaleNode();
+			//MeshScaleNode();
 		}
 		else if( CurMode == PIVOT_HANDLE_MODE )
 		{
@@ -613,6 +614,8 @@ void cComponentEdit::Step()
 			
 			EditEventFlags &= ~flGlobalDecrease;
 		}
+		
+		ScaleAll();
 	}
 	else if( CurMode == COMP_BODY_MODE )
 	{
@@ -641,6 +644,8 @@ void cComponentEdit::Step()
 			
 			EditEventFlags &= ~flGlobalDecrease;
 		}
+		
+		ScaleAll();
 	}
 	
 	Undo();

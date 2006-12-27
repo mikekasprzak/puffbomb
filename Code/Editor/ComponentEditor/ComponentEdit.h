@@ -86,6 +86,7 @@ public:
 	void MeshSwitchPose( size_t MyFrame );
 	void MeshSwitchAnim();
 	void MeshSwitchFrame();
+	void ScaleAll();
 	
 public:
 	// ComponentEditBodyNode.cpp //
@@ -94,7 +95,7 @@ public:
 	void BodyMoveNode();
 	void BodyAddNode();
 	void BodyDeleteNode();
-	void BodyScaleNode();
+//	void BodyScaleNode();
 	void BodyMass( const Real MassDiff );
 	void BodyCalcTotalMass();
 
@@ -116,7 +117,7 @@ public:
 	void MeshMoveNode();
 	void MeshAddNode();
 	void MeshDeleteNode();
-	void MeshScaleNode();
+//	void MeshScaleNode();
 	void MeshSetPivot();
 	void MeshSetHandle();
 

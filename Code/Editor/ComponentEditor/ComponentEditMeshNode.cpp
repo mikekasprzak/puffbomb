@@ -316,7 +316,7 @@ void cComponentEdit::MeshDeleteNode()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cComponentEdit::MeshScaleNode()
+/*void cComponentEdit::MeshScaleNode()
 {
 	if( Button[ KEY_L ].Pressed() )
 	{
@@ -348,7 +348,7 @@ void cComponentEdit::MeshScaleNode()
 			}	
 		}
 	}
-}
+}*/
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::MeshSetPivot()
 {

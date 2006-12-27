@@ -464,5 +464,61 @@ void cComponentEdit::MeshSwitchFrame()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::ScaleAll()
+{
+	if( Button[ KEY_S ].Pressed() )
+	{
+		if( !( EditEventFlags & flScale ) )
+		{
+			EditEventFlags |= flScale;
+		}
+		else if( ( EditEventFlags & flScale ) )
+		{
+			EditEventFlags &= ~flScale;
+
+			DynObj->Body.CalculateSpringLength();
+		}
+	}
+	if( Button[ MOUSE_1 ].Pressed() && EditEventFlags & flScale )
+	{
+		EditEventFlags &= ~flScale;
+		CurMousePos = CalcMousePos();
+		OldMousePos = CurMousePos;
+		
+		DynObj->Body.CalculateSpringLength();
+	}
+	if( EditEventFlags & flScale )
+	{
+		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		{
+			for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
+			{
+				Vector2D TempPos = DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos;
+				TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+				
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos = TempPos;
+			}	
+		}
+		
+		for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+		{
+			Vector2D TempPos = Pose->Node[ idx ].Pos;
+			TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+			
+			DynObj->Body.SetPos( idx, TempPos );
+		}
+		
+		Vector2D TempPos = Vector2D( PreviewTexVertex[2].x, PreviewTexVertex[2].y );
+		TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+		
+		PreviewTexVertex[0] = Vector3D( -TempPos.x, -TempPos.y, 0.0 );
+		PreviewTexVertex[1] = Vector3D( TempPos.x, -TempPos.y, 0.0 );
+		PreviewTexVertex[2] = Vector3D( TempPos.x, TempPos.y, 0.0 );
+		PreviewTexVertex[3] = Vector3D( -TempPos.x, TempPos.y, 0.0 );
+
+		MeshGenerateUV();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //
 // - ------------------------------------------------------------------------------------------ - //
