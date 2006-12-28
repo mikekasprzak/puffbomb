@@ -66,6 +66,7 @@ public:
 	std::string GetFileName();
 	void FindCompDirs();
 	void SwitchComp();
+	void UpdatePreview();
 	
 	
 public:

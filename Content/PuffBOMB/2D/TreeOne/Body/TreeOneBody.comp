@@ -6,190 +6,190 @@ Animation_End
 BodyPose_Start				
 TotalMass	9			
 BodyPose_Node_Start	19			
-BodyNode	-112	192	0.5	
-BodyNode	-192	152	0.5	
-BodyNode	-160	128	0.5	
-BodyNode	-112	160	0.5	
-BodyNode	-32	152	0.5	
-BodyNode	-64	128	0.5	
-BodyNode	-16	72	0.5	
-BodyNode	-56	64	0.5	
-BodyNode	-208	68	0.5	
-BodyNode	-168	64	0.5	
-BodyNode	-128	96	0.5	
-BodyNode	-96	96	0.5	
-BodyNode	-116	32	0.5	
-BodyNode	-116	0	0.5	
-BodyNode	-116	-32	0.5	
-BodyNode	-116	-68	0.5	
-BodyNode	-156	-112	0.5	
-BodyNode	-72	-112	0.5	
-BodyNode	-114	-112	0.5	
+BodyNode	-267.385	458.375	0.5	
+BodyNode	-458.375	362.88	0.5	
+BodyNode	-381.979	305.583	0.5	
+BodyNode	-267.385	381.979	0.5	
+BodyNode	-76.3958	362.88	0.5	
+BodyNode	-152.792	305.583	0.5	
+BodyNode	-38.1979	171.891	0.5	
+BodyNode	-133.693	152.792	0.5	
+BodyNode	-496.573	162.341	0.5	
+BodyNode	-401.078	152.792	0.5	
+BodyNode	-305.583	229.188	0.5	
+BodyNode	-229.188	229.188	0.5	
+BodyNode	-276.935	76.3958	0.5	
+BodyNode	-276.935	0	0.5	
+BodyNode	-276.935	-76.3958	0.5	
+BodyNode	-276.935	-162.341	0.5	
+BodyNode	-372.43	-267.385	0.5	
+BodyNode	-171.891	-267.385	0.5	
+BodyNode	-272.16	-267.385	0.5	
 BodyPose_Node_End				
 BodyPose_Spring_Start	107			
-BodySpring	16	18	42	1
-BodySpring	16	17	84	1
-BodySpring	16	15	59.4643	1
-BodySpring	16	14	89.4427	1
-BodySpring	16	13	118.929	1
-BodySpring	16	12	149.452	1
-BodySpring	16	10	209.876	1
-BodySpring	16	11	216.481	1
-BodySpring	18	17	42	1
-BodySpring	18	15	44.0454	1
-BodySpring	18	14	80.025	1
-BodySpring	18	13	112.018	1
-BodySpring	18	12	144.014	1
-BodySpring	18	10	208.471	1
-BodySpring	18	11	208.777	1
-BodySpring	17	15	62.2254	1
-BodySpring	17	14	91.3017	1
-BodySpring	17	13	120.333	1
-BodySpring	17	12	150.572	1
-BodySpring	17	10	215.407	1
-BodySpring	17	11	209.38	1
-BodySpring	15	14	36	1
-BodySpring	15	13	68	1
-BodySpring	15	12	100	1
-BodySpring	15	10	164.438	1
-BodySpring	15	11	165.215	1
-BodySpring	14	13	32	1
-BodySpring	14	12	64	1
-BodySpring	14	10	128.561	1
-BodySpring	14	11	129.553	1
-BodySpring	13	12	32	1
-BodySpring	13	10	96.7471	1
-BodySpring	13	11	98.0612	1
-BodySpring	12	10	65.1153	1
-BodySpring	12	11	67.0522	1
-BodySpring	7	6	40.7922	1
-BodySpring	7	9	112	1
-BodySpring	7	8	152.053	1
-BodySpring	7	2	122.115	1
-BodySpring	7	10	78.7909	1
-BodySpring	7	11	51.225	1
-BodySpring	7	5	64.4981	1
-BodySpring	7	4	91.214	1
-BodySpring	7	1	161.988	1
-BodySpring	7	3	111.14	1
-BodySpring	7	0	139.714	1
-BodySpring	6	9	152.21	1
-BodySpring	6	8	192.042	1
-BodySpring	6	2	154.506	1
-BodySpring	6	10	114.543	1
-BodySpring	6	11	83.5225	1
-BodySpring	6	5	73.7564	1
-BodySpring	6	4	81.5843	1
-BodySpring	6	1	193.329	1
-BodySpring	6	3	130.231	1
-BodySpring	6	0	153.675	1
-BodySpring	9	8	40.1995	1
-BodySpring	9	2	64.4981	1
-BodySpring	9	10	51.225	1
-BodySpring	9	11	78.7909	1
-BodySpring	9	5	122.115	1
-BodySpring	9	4	161.988	1
-BodySpring	9	1	91.214	1
-BodySpring	9	3	111.14	1
-BodySpring	9	0	139.714	1
-BodySpring	8	2	76.8375	1
-BodySpring	8	10	84.7585	1
-BodySpring	8	11	115.447	1
-BodySpring	8	5	156	1
-BodySpring	8	4	195.018	1
-BodySpring	8	1	85.5102	1
-BodySpring	8	3	132.966	1
-BodySpring	8	0	156.818	1
-BodySpring	2	10	45.2548	1
-BodySpring	2	11	71.5542	1
-BodySpring	2	5	96	1
-BodySpring	2	4	130.231	1
-BodySpring	2	1	40	1
-BodySpring	2	3	57.6888	1
-BodySpring	2	0	80	1
-BodySpring	10	5	71.5542	1
-BodySpring	10	4	111.14	1
-BodySpring	10	1	85.0412	1
-BodySpring	10	3	65.9697	1
-BodySpring	10	0	97.3242	1
-BodySpring	11	5	45.2548	1
-BodySpring	11	4	85.0412	1
-BodySpring	11	1	111.14	1
-BodySpring	11	3	65.9697	1
-BodySpring	11	0	97.3242	1
-BodySpring	5	4	40	1
-BodySpring	5	1	130.231	1
-BodySpring	5	3	57.6888	1
-BodySpring	5	0	80	1
-BodySpring	4	1	160	1
-BodySpring	4	3	80.399	1
-BodySpring	4	0	89.4427	1
-BodySpring	1	3	80.399	1
-BodySpring	1	0	89.4427	1
-BodySpring	3	0	32	1
-BodySpring	12	9	61.0574	1
-BodySpring	8	12	98.7927	1
-BodySpring	7	12	68	1
-BodySpring	6	12	107.703	1
-BodySpring	10	11	32	1
-BodySpring	13	9	82.4621	1
-BodySpring	13	7	87.7269	1
+BodySpring	16	18	100.27	1
+BodySpring	16	17	200.539	1
+BodySpring	16	15	141.963	1
+BodySpring	16	14	213.533	1
+BodySpring	16	13	283.927	1
+BodySpring	16	12	356.798	1
+BodySpring	16	10	501.052	1
+BodySpring	16	11	516.82	1
+BodySpring	18	17	100.27	1
+BodySpring	18	15	105.153	1
+BodySpring	18	14	191.049	1
+BodySpring	18	13	267.428	1
+BodySpring	18	12	343.814	1
+BodySpring	18	10	497.697	1
+BodySpring	18	11	498.429	1
+BodySpring	17	15	148.555	1
+BodySpring	17	14	217.971	1
+BodySpring	17	13	287.279	1
+BodySpring	17	12	359.472	1
+BodySpring	17	10	514.255	1
+BodySpring	17	11	499.868	1
+BodySpring	15	14	85.9453	1
+BodySpring	15	13	162.341	1
+BodySpring	15	12	238.737	1
+BodySpring	15	10	392.576	1
+BodySpring	15	11	394.43	1
+BodySpring	14	13	76.3958	1
+BodySpring	14	12	152.792	1
+BodySpring	14	10	306.923	1
+BodySpring	14	11	309.291	1
+BodySpring	13	12	76.3958	1
+BodySpring	13	10	230.971	1
+BodySpring	13	11	234.109	1
+BodySpring	12	10	155.454	1
+BodySpring	12	11	160.079	1
+BodySpring	7	6	97.386	1
+BodySpring	7	9	267.386	1
+BodySpring	7	8	363.006	1
+BodySpring	7	2	291.533	1
+BodySpring	7	10	188.103	1
+BodySpring	7	11	122.293	1
+BodySpring	7	5	153.981	1
+BodySpring	7	4	217.762	1
+BodySpring	7	1	386.725	1
+BodySpring	7	3	265.331	1
+BodySpring	7	0	333.549	1
+BodySpring	6	9	363.383	1
+BodySpring	6	8	458.475	1
+BodySpring	6	2	368.862	1
+BodySpring	6	10	273.456	1
+BodySpring	6	11	199.399	1
+BodySpring	6	5	176.084	1
+BodySpring	6	4	194.772	1
+BodySpring	6	1	461.548	1
+BodySpring	6	3	310.909	1
+BodySpring	6	0	366.879	1
+BodySpring	9	8	95.9709	1
+BodySpring	9	2	153.981	1
+BodySpring	9	10	122.293	1
+BodySpring	9	11	188.103	1
+BodySpring	9	5	291.533	1
+BodySpring	9	4	386.725	1
+BodySpring	9	1	217.762	1
+BodySpring	9	3	265.332	1
+BodySpring	9	0	333.549	1
+BodySpring	8	2	183.439	1
+BodySpring	8	10	202.35	1
+BodySpring	8	11	275.615	1
+BodySpring	8	5	372.43	1
+BodySpring	8	4	465.58	1
+BodySpring	8	1	204.145	1
+BodySpring	8	3	317.44	1
+BodySpring	8	0	374.384	1
+BodySpring	2	10	108.04	1
+BodySpring	2	11	170.826	1
+BodySpring	2	5	229.188	1
+BodySpring	2	4	310.909	1
+BodySpring	2	1	95.495	1
+BodySpring	2	3	137.725	1
+BodySpring	2	0	190.99	1
+BodySpring	10	5	170.826	1
+BodySpring	10	4	265.331	1
+BodySpring	10	1	203.025	1
+BodySpring	10	3	157.494	1
+BodySpring	10	0	232.349	1
+BodySpring	11	5	108.04	1
+BodySpring	11	4	203.025	1
+BodySpring	11	1	265.331	1
+BodySpring	11	3	157.494	1
+BodySpring	11	0	232.349	1
+BodySpring	5	4	95.4949	1
+BodySpring	5	1	310.909	1
+BodySpring	5	3	137.725	1
+BodySpring	5	0	190.99	1
+BodySpring	4	1	381.98	1
+BodySpring	4	3	191.942	1
+BodySpring	4	0	213.533	1
+BodySpring	1	3	191.943	1
+BodySpring	1	0	213.533	1
+BodySpring	3	0	76.396	1
+BodySpring	12	9	145.767	1
+BodySpring	8	12	235.855	1
+BodySpring	7	12	162.341	1
+BodySpring	6	12	257.128	1
+BodySpring	10	11	76.3957	1
+BodySpring	13	9	196.868	1
+BodySpring	13	7	209.437	1
 BodyPose_Spring_End				
 BodyPose_Sphere_Start	19			
-BodySphere	0	54		
-BodySphere	1	53		
-BodySphere	2	66		
-BodySphere	3	53		
-BodySphere	4	46		
-BodySphere	5	66		
-BodySphere	6	32		
-BodySphere	7	37		
-BodySphere	8	31		
-BodySphere	9	40		
-BodySphere	10	53		
-BodySphere	11	53		
-BodySphere	12	46		
-BodySphere	13	46		
-BodySphere	14	51		
-BodySphere	15	58		
-BodySphere	16	27		
-BodySphere	17	26		
-BodySphere	18	27		
+BodySphere	0	128.918		
+BodySphere	1	126.531		
+BodySphere	2	157.567		
+BodySphere	3	126.531		
+BodySphere	4	109.819		
+BodySphere	5	157.567		
+BodySphere	6	76.3958		
+BodySphere	7	88.3328		
+BodySphere	8	74.0085		
+BodySphere	9	95.4948		
+BodySphere	10	126.531		
+BodySphere	11	126.531		
+BodySphere	12	109.819		
+BodySphere	13	109.819		
+BodySphere	14	121.756		
+BodySphere	15	138.467		
+BodySphere	16	64.459		
+BodySphere	17	62.0716		
+BodySphere	18	64.459		
 BodyPose_Sphere_End				
 BodyPose_End				
 MeshPose_Start				
 MeshPose_Node_Start	30			
-MeshPose_Scale	1			
-MeshNode	-288	288	1	0
-MeshNode	-160	288	0	3
-MeshNode	-64	288	0	4
-MeshNode	64	288	4	0
-MeshNode	-160	192	0	1
-MeshNode	-64	192	4	0
-MeshNode	-288	192	1	2
-MeshNode	64	192	4	6
-MeshNode	-288	96	8	1
-MeshNode	-160	96	10	9
-MeshNode	-64	96	5	7
-MeshNode	-160	144	2	1
-MeshNode	-64	144	5	4
-MeshNode	64	96	6	4
-MeshNode	-288	16	8	9
-MeshNode	64	16	6	7
-MeshNode	-192	16	9	8
-MeshNode	-32	16	7	6
-MeshNode	-64	16	7	13
-MeshNode	-160	16	13	12
-MeshNode	-192	96	8	9
-MeshNode	-32	96	6	7
-MeshNode	-192	-32	14	13
-MeshNode	-32	-32	14	17
-MeshNode	-192	-128	16	18
-MeshNode	-32	-128	17	18
-MeshNode	-288	-128	16	18
-MeshNode	64	-128	17	18
-MeshNode	-288	-192	16	18
-MeshNode	64	-192	17	18
+MeshPose_Scale	2.38737			
+MeshNode	-687.563	687.563	1	0
+MeshNode	-381.979	687.563	0	3
+MeshNode	-152.792	687.563	0	4
+MeshNode	152.792	687.563	4	0
+MeshNode	-381.979	458.375	0	1
+MeshNode	-152.792	458.375	4	0
+MeshNode	-687.563	458.375	1	2
+MeshNode	152.792	458.375	4	6
+MeshNode	-687.563	229.188	8	1
+MeshNode	-381.979	229.188	10	9
+MeshNode	-152.792	229.188	5	7
+MeshNode	-381.979	343.781	2	1
+MeshNode	-152.792	343.781	5	4
+MeshNode	152.792	229.188	6	4
+MeshNode	-687.563	38.1979	8	9
+MeshNode	152.792	38.1979	6	7
+MeshNode	-458.375	38.1979	9	8
+MeshNode	-76.3958	38.1979	7	6
+MeshNode	-152.792	38.1979	7	13
+MeshNode	-381.979	38.1979	13	12
+MeshNode	-458.375	229.188	8	9
+MeshNode	-76.3958	229.188	6	7
+MeshNode	-458.375	-76.3958	14	13
+MeshNode	-76.3958	-76.3958	14	17
+MeshNode	-458.375	-305.583	16	18
+MeshNode	-76.3958	-305.583	17	18
+MeshNode	-687.563	-305.583	16	18
+MeshNode	152.792	-305.583	17	18
+MeshNode	-687.563	-458.375	16	18
+MeshNode	152.792	-458.375	17	18
 MeshPose_Node_End				
 MeshPose_Face_Start	44			
 MeshFace	0	6	1	

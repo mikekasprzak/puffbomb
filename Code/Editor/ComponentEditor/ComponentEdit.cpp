@@ -101,16 +101,7 @@ cComponentEdit::cComponentEdit() :
 	
 	LoadCompTextures();
 	
-	if( !TextureName.empty() )
-	{
-		Real TempTexWidth = 256;
-		Real TempTexHeight = 256;
-		
-		PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
-		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
-		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
-	}
+	UpdatePreview();
 
 
 	Real GridDepthValue = 0.5;
@@ -839,6 +830,7 @@ void cComponentEdit::SwitchComp()
 			CurTexPreview = 0;
 			
 			CurSelected.clear();
+			UpdatePreview();			
 			MeshGenerateUV();
 		}
 		else if( Button[ KEY_PLUS_PAD ].Pressed() )
@@ -862,8 +854,26 @@ void cComponentEdit::SwitchComp()
 			CurTexPreview = 0;
 
 			CurSelected.clear();
+			UpdatePreview();
 			MeshGenerateUV();
 		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cComponentEdit::UpdatePreview()
+{
+	if( !TextureName.empty() )
+	{
+		Real TempTexWidth = 256;
+		Real TempTexHeight = 256;
+		
+		TempTexWidth *= DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].TextureScale;
+		TempTexHeight *= DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].TextureScale;
+		
+		PreviewTexVertex[0] = Vector3D( -TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex[1] = Vector3D( TempTexWidth, -TempTexHeight, 0.0 );
+		PreviewTexVertex[2] = Vector3D( TempTexWidth, TempTexHeight, 0.0 );
+		PreviewTexVertex[3] = Vector3D( -TempTexWidth, TempTexHeight, 0.0 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

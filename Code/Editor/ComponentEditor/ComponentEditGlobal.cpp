@@ -402,6 +402,7 @@ void cComponentEdit::MeshSwitchAnim()
 		}
 		CurMeshFrame = 0;
 		CurSelected.clear();
+		UpdatePreview();
 		MeshGenerateUV();
 	}
 	else if( Button[ KEY_P ].Pressed() )
@@ -416,6 +417,7 @@ void cComponentEdit::MeshSwitchAnim()
 		}
 		CurMeshFrame = 0;
 		CurSelected.clear();
+		UpdatePreview();
 		MeshGenerateUV();
 	}
 }
@@ -438,6 +440,7 @@ void cComponentEdit::MeshSwitchFrame()
 			DynObj->Body = DynObj->AnimationSet->BodyPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
 			Pose = &DynObj->AnimationSet->BodyPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
 	
+			UpdatePreview();
 			MeshGenerateUV();
 			CurSelected.clear();
 		}
@@ -458,6 +461,7 @@ void cComponentEdit::MeshSwitchFrame()
 			DynObj->Body = DynObj->AnimationSet->BodyPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
 			Pose = &DynObj->AnimationSet->BodyPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].BodyPoseIndex ];
 			
+			UpdatePreview();
 			MeshGenerateUV();
 			CurSelected.clear();
 		}
