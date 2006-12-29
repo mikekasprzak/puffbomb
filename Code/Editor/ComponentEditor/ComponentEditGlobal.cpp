@@ -493,13 +493,16 @@ void cComponentEdit::ScaleAll()
 	}
 	if( EditEventFlags & flScale )
 	{
+		
+		Real Diff = Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+		
 		// Mesh Node //
 		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
 			{
 				Vector2D TempPos = DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos;
-				TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+				TempPos *= Diff;
 				
 				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos = TempPos;
 			}	
@@ -509,14 +512,14 @@ void cComponentEdit::ScaleAll()
 		for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
 		{
 			Vector2D TempPos = Pose->Node[ idx ].Pos;
-			TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+			TempPos *= Diff;
 			
 			DynObj->Body.SetPos( idx, TempPos );
 		}
 		
 		// Texture Preview //
 		Vector2D TempPos = Vector2D( PreviewTexVertex[2].x, PreviewTexVertex[2].y );
-		TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+		TempPos *= Diff;
 		
 		PreviewTexVertex[0] = Vector3D( -TempPos.x, -TempPos.y, 0.0 );
 		PreviewTexVertex[1] = Vector3D( TempPos.x, -TempPos.y, 0.0 );
@@ -528,9 +531,100 @@ void cComponentEdit::ScaleAll()
 		// Spheres //
 		for( size_t idx = 0; idx < DynObj->Body.SphereSize(); ++idx )
 		{
-			DynObj->Body.Sphere( idx ).Radius *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
+			DynObj->Body.Sphere( idx ).Radius *= Diff;
+		}
+	}
+
+	Real CurScale = Real::One;
+	bool ScaleButtonPressed = false;
+	bool IsDivide = false;
+
+	// Reset Scale //
+	if( Button[ KEY_Q ].Pressed() )
+	{
+		CurScale = DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].TextureScale;
+		ScaleButtonPressed = true;
+		IsDivide = true;
+	}
+	// Increase Scale //
+	else if( Button[ KEY_E ].Pressed() )
+	{
+		CurScale = Real( 2 );
+		ScaleButtonPressed = true;
+	}
+	// Decrease Scale //
+	else if( Button[ KEY_W ].Pressed() )
+	{
+		CurScale = Real( 0.50 );
+		ScaleButtonPressed = true;
+	}
+
+	if( ScaleButtonPressed )
+	{
+		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		{
+			for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
+			{
+				Vector2D TempPos = DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos;
+				if( IsDivide )
+				{
+					TempPos /= CurScale;
+				}
+				else
+				{
+					TempPos *= CurScale;
+				}
+				
+				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos = TempPos;
+			}	
+		}
+
+		// Body Node //
+		for( size_t idx = 0; idx < Pose->Node.size(); ++idx )
+		{
+			Vector2D TempPos = Pose->Node[ idx ].Pos;
+			if( IsDivide )
+			{
+				TempPos /= CurScale;
+			}
+			else
+			{
+				TempPos *= CurScale;
+			}
+			
+			DynObj->Body.SetPos( idx, TempPos );
 		}
 		
+		// Texture Preview //
+		Vector2D TempPos = Vector2D( PreviewTexVertex[2].x, PreviewTexVertex[2].y );
+		if( IsDivide )
+		{
+			TempPos /= CurScale;
+		}
+		else
+		{
+			TempPos *= CurScale;
+		}
+		
+		PreviewTexVertex[0] = Vector3D( -TempPos.x, -TempPos.y, 0.0 );
+		PreviewTexVertex[1] = Vector3D( TempPos.x, -TempPos.y, 0.0 );
+		PreviewTexVertex[2] = Vector3D( TempPos.x, TempPos.y, 0.0 );
+		PreviewTexVertex[3] = Vector3D( -TempPos.x, TempPos.y, 0.0 );
+
+		MeshGenerateUV();
+		
+		// Spheres //
+		for( size_t idx = 0; idx < DynObj->Body.SphereSize(); ++idx )
+		{
+			if( IsDivide )
+			{
+				DynObj->Body.Sphere( idx ).Radius /= CurScale;
+			}
+			else
+			{
+				DynObj->Body.Sphere( idx ).Radius *= CurScale;
+			}
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

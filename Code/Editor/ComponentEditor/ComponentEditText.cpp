@@ -709,6 +709,28 @@ void cComponentEdit::DisplayComponentInfo()
 			MyColor
 		);
 	}
+	
+	Temp.str(std::string());
+	
+	MyColor = Gfx::RGBA( 100, 255, 100, 255 );
+
+	cFonts::FlangeLight.Write(
+		"Scale",
+		Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 220 ), 0.0 ),
+		Real( 0.5 ),
+		MyColor
+	);
+	
+	Temp << DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].TextureScale;
+
+	cFonts::FlangeLight.Write(
+		Temp.str(),
+		Vector3D( Global::Left + Real( 270 ), Global::Top - Real( 220 ), 0.0 ),
+		Real( 0.5 ),
+		MyColor
+	);
+	
+	Temp.str(std::string());
 
 	int EqualNodeSizes = Pose->Node.size();
 	int EqualSphereSizes = Pose->Sphere.size();
