@@ -193,6 +193,11 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 		// Fatten the texture //
 		for ( int idx = 0; idx < 20; idx++ ) {
 			FattenFilter( Tex );
+			
+			/*if( WhiteTex.PixelSize != 0 )
+			{
+				FattenFilter( WhiteTex );
+			}*/
 		}
 			
 		FilterFlags ^= flFatten;
@@ -249,12 +254,18 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 		
 		memcpy( WhiteTex.Pixels, Tex.Pixels, WhiteTex.Width * WhiteTex.Height * WhiteTex.PixelSize );
 
-		for( int i = 0; i < 5; ++i )
+		for( int i = 0; i < 6; ++i )
 		{ 			
 			WhiteFilter( WhiteTex, 0 );
 			WhiteFilter( WhiteTex, 1 );
+			WhiteFilter( WhiteTex, 2 );
+		//	WhiteFilter( WhiteTex, 3 );
+		//	WhiteFilter( WhiteTex, 4 );
+		//	WhiteFilter( WhiteTex, 5 );
+		//	WhiteFilter( WhiteTex, 6 );
 		}
-		
+		//WhiteFilter( WhiteTex, 2 );
+			
 		FilterFlags ^= flWhite;
 		cout << "White filter applied" << endl;
 	}
@@ -493,50 +504,134 @@ void WhiteFilter( cTex& Tex, int SWhite )
 			{
 				unsigned int idx = ( ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) );
 
-				if( SWhite )
+				if( SWhite == 0 || SWhite >= 2 )
 				{
+					bool IsUp = false;
+					bool IsDown = false;
+
 					if( y != 0 ) // Add white below and check the upper pixel //
 					{
-						if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+						if( ( ( Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) )
 						{
-							Tex.Pixels[ idx ] = MaxColor;
-							Tex.Pixels[ idx + 1 ] = MaxColor;
-							Tex.Pixels[ idx + 2 ] = MaxColor;
-							Tex.Pixels[ idx + 3 ] = MaxColor;
+							if( Tex.Pixels[ idx+3 ] == 0 )
+							{
+								if( SWhite <= 2 )
+								{
+									Tex.Pixels[ idx ] = MaxColor;
+									Tex.Pixels[ idx + 1 ] = MaxColor;
+									Tex.Pixels[ idx + 2 ] = MaxColor;
+									Tex.Pixels[ idx + 3 ] = MaxColor;
+								}
+							}
+							else
+							{
+								IsUp = true;
+							}
 						}  
 					} 
 					if( y < Tex.Height - 2 ) // Add white above and check the lower pixel //
 					{
-						if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+						if( ( ( Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 3 ] ) == 255 ) )
 						{
-							Tex.Pixels[ idx ] = MaxColor;
-							Tex.Pixels[ idx + 1 ] = MaxColor;
-							Tex.Pixels[ idx + 2 ] = MaxColor;
-							Tex.Pixels[ idx + 3 ] = MaxColor;
+							if( Tex.Pixels[ idx+3 ] == 0 )
+							{
+								if( SWhite <= 2 )
+								{
+									Tex.Pixels[ idx ] = MaxColor;
+									Tex.Pixels[ idx + 1 ] = MaxColor;
+									Tex.Pixels[ idx + 2 ] = MaxColor;
+									Tex.Pixels[ idx + 3 ] = MaxColor;
+								}
+							}
+							else
+							{							
+								IsDown = true;
+							}
 						}  
 					}
+					if( IsUp && IsDown && Tex.Pixels[ idx + 3 ] == 255 )
+					{
+						if( x != 0 && SWhite == 5 )
+						{
+							Tex.Pixels[ idx - 4 + 0 ] = MaxColor;
+							Tex.Pixels[ idx - 4 + 1 ] = MaxColor;
+							Tex.Pixels[ idx - 4 + 2 ] = MaxColor;
+							Tex.Pixels[ idx - 4 + 3 ] = MaxColor;
+						}
+						if( x != Tex.Width - 2 && SWhite == 6 )
+						{
+							Tex.Pixels[ idx + 4 + 0 ] = MaxColor;
+							Tex.Pixels[ idx + 4 + 1 ] = MaxColor;
+							Tex.Pixels[ idx + 4 + 2 ] = MaxColor;
+							Tex.Pixels[ idx + 4 + 3 ] = MaxColor;
+						}
+					}
+				}
+				if( SWhite == 1 || SWhite >= 2 )
+				{
+					bool IsLeft = false;
+					bool IsRight = false;
+									
 					if( x != 0 ) // Add white to the right and check the left pixel //
 					{
-						if( ( ( Tex.Pixels[ idx - 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+						if( ( ( Tex.Pixels[ idx - 4 + 3 ] ) == 255 ) )
 						{
-							Tex.Pixels[ idx ] = MaxColor;
-							Tex.Pixels[ idx + 1 ] = MaxColor;
-							Tex.Pixels[ idx + 2 ] = MaxColor;
-							Tex.Pixels[ idx + 3 ] = MaxColor;
+							if( Tex.Pixels[ idx+3 ] == 0 )
+							{
+								if( SWhite <= 2 )
+								{
+									Tex.Pixels[ idx ] = MaxColor;
+									Tex.Pixels[ idx + 1 ] = MaxColor;
+									Tex.Pixels[ idx + 2 ] = MaxColor;
+									Tex.Pixels[ idx + 3 ] = MaxColor;
+								}
+							}
+							else
+							{
+								IsLeft = true;
+							}
 						}
 					}
 					if( x != Tex.Width - 2 ) // Add white to the left and check the right pixel //
 					{
-						if( ( ( Tex.Pixels[ idx + 4 + 3 ] ) == 255 ) && Tex.Pixels[ idx+3 ] == 0 )
+						if( ( ( Tex.Pixels[ idx + 4 + 3 ] ) == 255 ) )
 						{
-							Tex.Pixels[ idx ] = MaxColor;
-							Tex.Pixels[ idx + 1 ] = MaxColor;
-							Tex.Pixels[ idx + 2 ] = MaxColor;
-							Tex.Pixels[ idx + 3 ] = MaxColor;
+							if( Tex.Pixels[ idx+3 ] == 0 )
+							{
+								if( SWhite <= 2 )
+								{
+									Tex.Pixels[ idx ] = MaxColor;
+									Tex.Pixels[ idx + 1 ] = MaxColor;
+									Tex.Pixels[ idx + 2 ] = MaxColor;
+									Tex.Pixels[ idx + 3 ] = MaxColor;
+								}
+							}
+							else
+							{
+								IsRight = true;
+							}
 						}
 					}
+					if( IsLeft && IsRight && Tex.Pixels[ idx + 3 ] == 255 )
+					{
+						if( y != 0 && SWhite == 3 )
+						{
+							Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 0 ] = MaxColor;
+							Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 1 ] = MaxColor;
+							Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 2 ] = MaxColor;
+							Tex.Pixels[ idx - ( Tex.Width * Tex.PixelSize ) + 3 ] = MaxColor;
+						} 
+						if( y < Tex.Height - 2  && SWhite == 4 )
+						{
+							Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 0 ] = MaxColor;
+							Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 1 ] = MaxColor;
+							Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 2 ] = MaxColor;
+							Tex.Pixels[ idx + ( Tex.Width * Tex.PixelSize ) + 3 ] = MaxColor;
+						}
+					}
+					
 				}						
-				else
+			/*	else
 				{
 					// Angle ones //
 					if( y < Tex.Height - 2 && x != Tex.Width - 2 ) // upper left //
@@ -580,7 +675,7 @@ void WhiteFilter( cTex& Tex, int SWhite )
 							Tex.Pixels[ idx + 3 ] = MaxColor;
 						}  
 					}
-				}
+				}*/
 			}
 		}
 		
