@@ -28,13 +28,13 @@ void cClassicCursor::Step() {
 	// -- User Control -------------- //
 
 	if ( Selection == -1 ) {
-		Engine2D::cEngine2D::Current->Camera->MinZoom = Global::HudZoom * Real( 2 );
+		//Engine2D::cEngine2D::Current->Camera->MinZoom = Global::HudZoom * Real( 2 );
 		
 		// Update Cursor //
 		Pos += Input::Pad[0].Stick1 * Real(16);
 	}
 	else {
-		Engine2D::cEngine2D::Current->Camera->MinZoom = (Global::HudZoom * Real( 2 )) - Real( 500 );
+		//Engine2D::cEngine2D::Current->Camera->MinZoom = (Global::HudZoom * Real( 2 )) - Real( 500 );
 		
 		if ( TimeMode ) {
 			Bomb[ Selection ].Time += ((int)Input::Pad[0].Stick1.x);
