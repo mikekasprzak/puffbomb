@@ -4,21 +4,21 @@ LoopPoint	0
 Frame	0	0		
 Animation_End				
 BodyPose_Start				
-TotalMass	13			
+TotalMass	32.5			
 BodyPose_Node_Start	13			
-BodyNode	0	0	1	
-BodyNode	0	96	1	
-BodyNode	-48	80	1	
-BodyNode	48	80	1	
-BodyNode	-80	48	1	
-BodyNode	80	48	1	
-BodyNode	96	0	1	
-BodyNode	-96	0	1	
-BodyNode	-80	-48	1	
-BodyNode	80	-48	1	
-BodyNode	48	-80	1	
-BodyNode	-48	-80	1	
-BodyNode	0	-96	1	
+BodyNode	0	0	2.5	
+BodyNode	0	96	2.5	
+BodyNode	-48	80	2.5	
+BodyNode	48	80	2.5	
+BodyNode	-80	48	2.5	
+BodyNode	80	48	2.5	
+BodyNode	96	0	2.5	
+BodyNode	-96	0	2.5	
+BodyNode	-80	-48	2.5	
+BodyNode	80	-48	2.5	
+BodyNode	48	-80	2.5	
+BodyNode	-48	-80	2.5	
+BodyNode	0	-96	2.5	
 BodyPose_Node_End				
 BodyPose_Spring_Start	78			
 BodySpring	0	1	96	1
