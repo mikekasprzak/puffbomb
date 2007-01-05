@@ -391,10 +391,10 @@ int cMapEdit::SingleSelectDynFree()
 					if( TestDistance < LastDistance )
 					{
 						LastDistance = TestDistance;
-						if( CurSelComp != idx )
+						/*if( CurSelComp != idx )
 						{
-						//	CurSelected.clear();  // Not really sure what this was to accomplish //
-						}
+							CurSelected.clear();  // Not really sure what this was to accomplish //
+						}*/
 						
 						CurSelColl = CollIdx;
 						CurSelComp = idx;
