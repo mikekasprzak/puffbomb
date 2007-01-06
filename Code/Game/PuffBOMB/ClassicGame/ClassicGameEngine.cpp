@@ -333,11 +333,11 @@ void cClassicGameEngine::Draw() {
 
 	// Draw Points of interest tracking //
 	for ( size_t idx = 0; idx < PointsOfInterest.size(); idx++ ) {
-		ElementTracker( ArrowAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect(), true, -Real( 64 ) );
+		ElementTracker( ArrowAnimator, PointsOfInterest[ idx ]->BoundingRect.ToRect(), true, -Real( 48 ) );
 		
 		if( PointsOfInterestAnimators.size() == PointsOfInterest.size() )
 		{
-			ElementTracker( PointsOfInterestAnimators[ idx ], PointsOfInterest[ idx ]->BoundingRect.ToRect(), false, Real( 40 ) );
+			ElementTracker( PointsOfInterestAnimators[ idx ], PointsOfInterest[ idx ]->BoundingRect.ToRect(), false, Real( 32 ) );
 		}
 	}
 	
