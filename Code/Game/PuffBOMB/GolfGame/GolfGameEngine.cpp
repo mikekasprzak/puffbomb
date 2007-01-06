@@ -75,7 +75,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	PlayerAnimators.push_back( cAnimator( "TrackingCircleP3.anim" ) );
 	PlayerAnimators.push_back( cAnimator( "TrackingCircleP4.anim" ) );
 	
-	PointsOfInterestAnimators.push_back( cAnimator( "TrackingCircleEnd.anim" ) );
+	//PointsOfInterestAnimators.push_back( cAnimator( "TrackingCircleEnd.anim" ) );
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -250,6 +250,8 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 		case 7: {
 			Log( 10, "+ Point of Interest" );
 			PointsOfInterest.push_back( Sender );
+			// Temporary, until I have more associated graphics for points of interest //
+			PointsOfInterestAnimators.push_back( cAnimator( "TrackingCircleEnd.anim" ) );
 			
 			break;
 		};
