@@ -62,6 +62,10 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			return new Engine2D::cDynamicCollection( "2D/Rope/LargeRope.coll", Pos );
 			break;
 		}
+		case 135: {
+			return new Engine2D::cDynamicCollection( "2D/PendPlatform/PendPlatform.coll", Pos );
+			break;
+		}
 
 		
 		default: {
