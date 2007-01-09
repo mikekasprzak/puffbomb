@@ -108,7 +108,7 @@ void cSuperFlow::StateFlow()
 			case stMainMenu:
 			case stBackMainMenu:
 			{
-				CurClassicMap = 0;
+				CurClassicMap = 24;
 				CurGolfMap = 0;
 				
 				// Display the MainMenu screen //
