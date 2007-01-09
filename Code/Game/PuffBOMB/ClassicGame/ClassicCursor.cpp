@@ -12,6 +12,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 cClassicCursor::cClassicCursor() :
 	Selection( -1 ),
+	BombLimit( 5 ),
 	TimeMode( false ),
 	BombGraphic( "BlueBomb.anim" ),
 	BombTimer( "BombTimer.anim" ),
@@ -61,10 +62,13 @@ void cClassicCursor::Step() {
 		if ( Selection == -1 ) {
 			// If there isn't a bomb alread here //
 			if ( CanPlaceBombHere() ) {
-				// Add a bomb //
-				Bomb.push_back( cBombInfo( Pos ) );
-				Selection = Bomb.size() - 1;
-				TimeMode = false;
+				// As long as we have less than the maximum number of bombs for this level //
+				if ( Bomb.size() < BombLimit ) {
+					// Add a bomb //
+					Bomb.push_back( cBombInfo( Pos ) );
+					Selection = Bomb.size() - 1;
+					TimeMode = false;
+				}
 			}
 			// If there is //
 			else {

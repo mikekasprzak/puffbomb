@@ -34,7 +34,7 @@ public:
 	// Victory related variables //
 	bool LevelComplete;
 	int CharactersAtEndZones;
-	
+		
 	void FrameStart();
 	void FrameEnd();
 

@@ -18,6 +18,9 @@ public:
 	// Currently Selected Bomb //
 	int Selection;
 	
+	// Maximum number of bombs you can place in this level //
+	int BombLimit;
+	
 	// Boolean describing what edit mode you're in (Position or Time) //
 	bool TimeMode;
 

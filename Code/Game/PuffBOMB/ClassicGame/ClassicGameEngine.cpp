@@ -139,6 +139,12 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 			break;
 		};
 
+		case 3: {
+			Log( 10, "+ Max Bomb count recieved \"" << Sender->Argument << "\"" );
+			Cursor.BombLimit = Sender->Argument;
+			break;
+		};
+
 		// Points of Interest //
 		case 7: {
 			Log( 10, "+ Point of Interest" );
