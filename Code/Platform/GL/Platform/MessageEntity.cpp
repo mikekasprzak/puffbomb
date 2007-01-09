@@ -117,7 +117,8 @@ void cMessageEntity::Work()
 			FramesPast = 0;
 		}
 		
-		if ( ThisTime - LastTime >= MS ) {
+		if ( ThisTime - LastTime >= MS )
+		{
 			int Loops = (ThisTime - LastTime) / MS;
 			LastTime += Loops * MS;
 			FramesPast++;
