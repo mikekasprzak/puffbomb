@@ -425,11 +425,17 @@ void cMapEdit::SwitchMap()
 	{
 		if( !MapPath.empty() )
 		{
+			size_t LevelValue = 1;
+			if( Button[ KEY_LSHIFT ] )
+			{
+				LevelValue = 10;
+			}
+			
 			if( Button[ KEY_MINUS_PAD ].Pressed() )
 			{
-				if( CurMap > 0 )
+				if( CurMap >= LevelValue )
 				{
-					--CurMap;
+					CurMap -= LevelValue;
 				}
 				else
 				{
@@ -441,9 +447,9 @@ void cMapEdit::SwitchMap()
 			}
 			else if( Button[ KEY_PLUS_PAD ].Pressed() )
 			{
-				if( CurMap < MapPath.size() - 1 )
+				if( CurMap < MapPath.size() - LevelValue )
 				{
-					++CurMap;
+					CurMap += LevelValue;
 				}
 				else
 				{
