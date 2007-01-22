@@ -143,7 +143,7 @@ int main( int argc, char* argv[] ) {
 	// Create our Screen //
 	SDL_Surface* Surface = SetVideoMode();
 	
-	// Disable Vertical Sync //	
+	// Disable Vertical Sync //	 
 /*	{
 		typedef void (APIENTRY * WGLSWAPINTERVALEXT) ( int ) ;
 				

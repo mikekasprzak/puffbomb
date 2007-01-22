@@ -347,7 +347,7 @@ void cClassicGameEngine::Draw() {
 		}
 	}
 	
-#ifdef EDITOR
+/*#ifdef EDITOR
 	//	//  DISPLAYS FPS  //
 	std::stringstream Temp;
 	Temp << Global::FPS;
@@ -368,7 +368,7 @@ void cClassicGameEngine::Draw() {
 		Vector3D TempPos = Vector3D( Global::Right - Real( 545 ), Global::Top - Real( 45 ), 0.0 );
 	
 		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 200, 55, 255 ) );
-	}
+	}*/
 
 }
 // - ------------------------------------------------------------------------------------------ - //

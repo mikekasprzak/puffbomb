@@ -362,7 +362,7 @@ void cGolfGameEngine::Draw() {
 	}
 	
 	
-#ifdef EDITOR
+/*#ifdef EDITOR
 	{
 		//  DISPLAYS FPS  //
 		std::stringstream Temp;
@@ -373,7 +373,7 @@ void cGolfGameEngine::Draw() {
 	
 		cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
 	}
-#endif // EDITOR //
+#endif // EDITOR //*/
 
 	{
 		//  Display Stroke //
