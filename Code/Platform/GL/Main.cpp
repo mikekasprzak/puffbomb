@@ -165,7 +165,7 @@ int main( int argc, char* argv[] ) {
 	{
 		glCullFace( GL_BACK );
 		glFrontFace( GL_CCW );
-		// This enables backface culling //
+		// This enables backface culling // 
 		glEnable( GL_CULL_FACE );
 	
 		glEnable( GL_LINE_SMOOTH );
