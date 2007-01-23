@@ -74,8 +74,11 @@ cMapEdit::cMapEdit() :
 	// Loads the map file //
 	LoadMap();
 	
+	// Populate the MiniMapDynList //
+	MiniMapDynList.push_back( 128 ); // BubblePlant //
+	MiniMapDynList.push_back( 131 ); // TreeOne //
+	
 	CurMode = TILE_MODE;
-		
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::~cMapEdit()
@@ -121,12 +124,23 @@ void cMapEdit::Draw()
 			}
 		}
 	
-//		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
-//			if ( DynamicCollection[ idx ]->IsActive() ) { 
-//				DynamicCollection[ idx ]->Draw();
-//			}
-//		}
-		
+		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
+		{
+			bool isDrawn = false;
+			for( size_t idx2 = 0; idx2 < MiniMapDynList.size(); ++idx2 )
+			{
+				if( Map.DynamicObjectInstanceInfo[ idx ].Id == MiniMapDynList[ idx2 ] )
+				{
+					isDrawn = true;
+				}
+			}
+			if( isDrawn )
+			{
+				if ( DynamicCollection[ idx ]->IsActive() ) { 
+					DynamicCollection[ idx ]->Draw();
+				}
+			}
+		}
 	}
 	else
 	{

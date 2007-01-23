@@ -83,6 +83,10 @@ public:
 	Real CornerSize;
 	int ResizeCorner;
 	std::vector< std::string > ZoneDesc;
+		
+	// Mini Map //
+	// - -------------------------------------------------------------------------------------- - //
+	std::vector< int > MiniMapDynList;
 
 		
 public:
