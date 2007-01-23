@@ -55,6 +55,8 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	
 	PointsOfInterestAnimators.push_back( cAnimator( "TrackingCircleEnd.anim" ) );
 	
+	Gfx::DisableMouseDraw();
+	
 // 	Gfx::Rotate( Real( 45 ), Real( 0 ), Real( 0 ), Real( 20 ) );
 	
 //	PassiveObject.push_back( CreatePassiveInstance( 33, Vector2D( 0, 1000 ), 600 ) );

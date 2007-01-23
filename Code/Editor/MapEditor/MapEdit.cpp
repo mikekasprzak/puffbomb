@@ -9,6 +9,7 @@
 
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
+#include <Util/String.h>
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
@@ -109,25 +110,45 @@ void cMapEdit::Draw()
 	Gfx::EnableDepth();
 //	Gfx::SaturateBlend();
 
-	// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
-	for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-		StaticObjectInstance[ idx ].Draw();
-	}
-
-	for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
-		if ( DynamicCollection[ idx ]->IsActive() ) { 
-			DynamicCollection[ idx ]->Draw();
+	if( CurMode == MINI_MAP_MODE )
+	{
+		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+			
+			if( Map.StaticObjectInstanceInfo[ idx ].FileName.find( "Scene" ) == std::string::npos )
+			{
+				StaticObjectInstance[ idx ].Draw();
+			}
 		}
-	}
-
-	Gfx::DisableTex2D();
-
-	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
-		PassiveObject[ idx ]->DebugDraw();
-	}
 	
-	Gfx::EnableTex2D();
-
+//		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
+//			if ( DynamicCollection[ idx ]->IsActive() ) { 
+//				DynamicCollection[ idx ]->Draw();
+//			}
+//		}
+		
+	}
+	else
+	{
+		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+			StaticObjectInstance[ idx ].Draw();
+		}
+	
+		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
+			if ( DynamicCollection[ idx ]->IsActive() ) { 
+				DynamicCollection[ idx ]->Draw();
+			}
+		}
+	
+		Gfx::DisableTex2D();
+	
+		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+			PassiveObject[ idx ]->DebugDraw();
+		}
+		
+		Gfx::EnableTex2D();
+	}
 	// Draw selected //
 	Gfx::AddBlend();
 
@@ -161,7 +182,7 @@ void cMapEdit::Draw()
 	Gfx::DisableDepth();
 	Gfx::DisableTex2D();
 	
-	if( CurMode != ZONE_MODE )
+	if( CurMode != ZONE_MODE && CurMode != MINI_MAP_MODE )
 	{
 
 		// Draw Tiles //
@@ -219,7 +240,7 @@ void cMapEdit::Draw()
 	}
 	Gfx::SetLineWidth( 1.0 );
 
-	if( CurMode != ZONE_MODE )
+	if( CurMode != ZONE_MODE && CurMode != MINI_MAP_MODE )
 	{
 		DrawGrid( Camera, CurrentGridDepth, 40.0, true, GridDepth );
 		
@@ -487,10 +508,21 @@ void cMapEdit::SwitchMode()
 	{
 		CurMode = PASSIVE_OBJECT_MODE;
 	}
+	else if( Button[ KEY_0 ].Pressed() )
+	{
+		CurMode = MINI_MAP_MODE;
+		
+		Gfx::DisableMouseDraw();
+	}
 	
 	if( LastMode != CurMode )
 	{
 		CurSelected.clear();
+		
+		if( CurMode != MINI_MAP_MODE )
+		{
+			Gfx::EnableMouseDraw();
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -644,6 +676,11 @@ void cMapEdit::SaveMap()
 		}
 
 		IsSaved = true;
+		
+		// Needed to refresh the map before we generate the minimap image //
+		// Reason: when saving tiles it sorts before writing them //
+		// However this breaks the Layering for the editor //
+		LoadMap();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

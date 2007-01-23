@@ -132,6 +132,7 @@ cEdit::cEdit() :
 
 	CalcUVZoomOffset();
 
+	Gfx::EnableMouseDraw();
 }
 
 cEdit::~cEdit()

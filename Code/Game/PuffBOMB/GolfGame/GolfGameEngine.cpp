@@ -54,6 +54,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
  	DenseParticle.Clear();
  	SolidParticle.Clear();
  	
+ 	Gfx::DisableMouseDraw();
 	 	
  	// Add the start point (temporarily) //
 // 	StartPoint = CreatePassiveInstance( 5, Vector2D( 0, 0 ) );

@@ -28,6 +28,7 @@
 #define OBJECT_MODE 3
 #define FREE_OBJECT_MODE 4
 #define PASSIVE_OBJECT_MODE 5
+#define MINI_MAP_MODE 0
 // - ------------------------------------------------------------------------------------------ - //
 class cMapEdit : public cEdit {
 public:

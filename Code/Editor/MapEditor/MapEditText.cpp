@@ -217,6 +217,11 @@ void cMapEdit::DisplayMode()
 			);
 			break;
 		}
+		case MINI_MAP_MODE:
+		{
+			
+			break;
+		}
 		default:
 		{
 			break;	
@@ -226,36 +231,39 @@ void cMapEdit::DisplayMode()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::DisplayInfo()
 {
-	Real FontSize = 0.5;
-	int Color = Gfx::RGBA( 100, 100, 255, 255 );
-	Vector3D ModePos = Vector3D( Global::Left + Real( 20 ), Global::Top - Real( 30 ), 0.0 );
+	if( CurMode != MINI_MAP_MODE )
+	{
+		Real FontSize = 0.5;
+		int Color = Gfx::RGBA( 100, 100, 255, 255 );
+		Vector3D ModePos = Vector3D( Global::Left + Real( 20 ), Global::Top - Real( 30 ), 0.0 );
+		
+		cFonts::FlangeLight.Write(
+			"Map Editor",
+			ModePos,
+			FontSize,
+			Color
+		);
 	
-	cFonts::FlangeLight.Write(
-		"Map Editor",
-		ModePos,
-		FontSize,
-		Color
-	);
-
-	if( !IsSaved )
-	{
-		cFonts::FlangeLight.Write(
-			"*",
-			Vector3D( Global::Left + Real( 1 ), Global::Top - Real( 56 ), 0.0 ),
-			Real( 1.0 ),
-			Gfx::RGBA( 255, 255, 255, 255 )
-		);
-	}
-
-	// Map and Dir Name //
-	if( !MapPath.empty() )
-	{
-		cFonts::FlangeLight.Write(
-			MapPath[ CurMap ],
-			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 60 ), 0.0 ),
-			Real( 0.5 ),
-			Gfx::RGBA( 100, 255, 100, 255 )
-		);
+		if( !IsSaved )
+		{
+			cFonts::FlangeLight.Write(
+				"*",
+				Vector3D( Global::Left + Real( 1 ), Global::Top - Real( 56 ), 0.0 ),
+				Real( 1.0 ),
+				Gfx::RGBA( 255, 255, 255, 255 )
+			);
+		}
+	
+		// Map and Dir Name //
+		if( !MapPath.empty() )
+		{
+			cFonts::FlangeLight.Write(
+				MapPath[ CurMap ],
+				Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 60 ), 0.0 ),
+				Real( 0.5 ),
+				Gfx::RGBA( 100, 255, 100, 255 )
+			);
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
