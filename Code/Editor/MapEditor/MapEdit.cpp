@@ -527,6 +527,37 @@ void cMapEdit::SwitchMode()
 		CurMode = MINI_MAP_MODE;
 		
 		Gfx::DisableMouseDraw();
+		
+		Vector2D CameraCenter = Vector2D::Zero;
+		Vector2D P1 = Vector2D::Zero;
+		Vector2D P2 = Vector2D::Zero;
+		
+		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
+		{
+			if( Map.ZoneInstanceInfo[ idx ].Id == 1 )
+			{
+				CameraCenter = Map.ZoneInstanceInfo[ idx ].BoundingRect.Center();
+				
+				P1 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P1();
+				P2 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P2();
+			}
+		}
+		
+		Real XRatio = ( P2.x - P1.x ) / Real( 2 );
+		Real YRatio = ( P2.y - P1.y ) / Real( 2 ) ;
+		
+		XRatio /= Global::Right;
+		YRatio /= Global::Top;
+		
+		if( XRatio > YRatio )
+		{
+			Camera->Pos = Vector3D( CameraCenter.x, CameraCenter.y, XRatio * Global::HudZoom );
+		}	
+		else
+		{
+			Camera->Pos = Vector3D( CameraCenter.x, CameraCenter.y, YRatio * Global::HudZoom );
+		}
+		
 	}
 	
 	if( LastMode != CurMode )

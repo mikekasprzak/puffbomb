@@ -55,7 +55,56 @@ void cMapEdit::DisplayText()
 			FontSize,
 			Color
 		);
-	
+		
+		if( !CurSelected.empty() )
+		{
+			FontSize = 0.5;
+			Real XShift = 120;
+			Real YShift = 40;
+			Real XPos = 800;
+			
+			Color = Gfx::RGBA( 255, 255, 255, 255 );
+			std::stringstream Temp;
+			
+			// Displays X Pos //
+			// - ------------------------------------------------------------------------------ - //
+			cFonts::FlangeLight.Write(
+				"X",
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
+				FontSize,
+				Color
+			);
+			
+			Temp << StaticObjectInstance[ CurSelected[ 0 ] ].Pos.x;
+		
+			cFonts::FlangeLight.Write(
+				Temp.str(),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
+				FontSize,
+				Color
+			);
+			XPos += XShift;
+			Temp.str(std::string());
+				
+			// Displays Y Pos //
+			// - ------------------------------------------------------------------------------ - //
+			cFonts::FlangeLight.Write(
+				"Y",
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
+				FontSize,
+				Color
+			);
+			
+			Temp << StaticObjectInstance[ CurSelected[ 0 ] ].Pos.y;
+		
+			cFonts::FlangeLight.Write(
+				Temp.str(),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
+				FontSize,
+				Color
+			);
+		}	
+
 	}
 	else if( CurMode == ZONE_MODE )
 	{
