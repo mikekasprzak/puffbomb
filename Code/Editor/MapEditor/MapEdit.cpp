@@ -10,7 +10,9 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 #include <Util/String.h>
-
+// - ------------------------------------------------------------------------------------------ - //
+#include <iostream>
+#include <fstream>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -558,6 +560,7 @@ void cMapEdit::SwitchMode()
 			Camera->Pos = Vector3D( CameraCenter.x, CameraCenter.y, YRatio * Global::HudZoom );
 		}
 		
+		SaveScreenshot();
 	}
 	
 	if( LastMode != CurMode )
@@ -773,6 +776,25 @@ void cMapEdit::Reset()
 		Camera->View.y = Camera->Pos.y;
 		Camera->View.z = 0.0;
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMapEdit::SaveScreenshot()
+{
+	std::ofstream outfile ( "MiniMap.tx", std::ofstream::binary );
+
+	void* Pixels = Gfx::ScreenShot();
+
+	unsigned int PixelSize = 3;
+	unsigned int Width = Global::ScreenW;
+	unsigned int Height = Global::ScreenH;
+	
+	outfile.write( (char*)&PixelSize, sizeof( unsigned int ) );
+	outfile.write( (char*)&Width, sizeof( unsigned int ) );
+	outfile.write( (char*)&Height, sizeof( unsigned int ) );
+	
+	outfile.write( ( char* )Pixels, PixelSize * ( Width * Height ) );
+	outfile.close();
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 #endif // Editor //

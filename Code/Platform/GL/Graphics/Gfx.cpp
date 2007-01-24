@@ -4,6 +4,8 @@
 #include <GL/glu.h>
 
 #include <Graphics/Gfx.h>
+
+#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Gfx
 {
@@ -505,6 +507,23 @@ namespace Gfx
 	void DisableMouseDraw()
 	{
 		SDL_ShowCursor( SDL_DISABLE );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	void* ScreenShot()
+	{
+		void* Buffer = new unsigned char[ Global::ScreenW * Global::ScreenH * 3 ];
+
+		glReadPixels(
+			0,
+			0,
+			Global::ScreenW,
+			Global::ScreenH,
+			GL_RGB,
+			GL_BYTE,
+			Buffer
+		);
+		
+		return Buffer;
 	}
 
 

@@ -87,6 +87,7 @@ public:
 	// Mini Map //
 	// - -------------------------------------------------------------------------------------- - //
 	std::vector< int > MiniMapDynList;
+	void SaveScreenshot();
 
 		
 public:
