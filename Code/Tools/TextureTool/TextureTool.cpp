@@ -10,6 +10,7 @@
 
 #include <Util/ClassDesigner/Bits.h>
 #include <Util/String.h>
+#include <Util/LZMA.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
@@ -50,34 +51,56 @@ int main( int argc, char* argv[] ) {
 	// Must have 2 or more arguments //
 	if( argc < 3 )
 		return -1;
-
+	
 	// - -------------------------------------------------------------------------------------- - //
 	unsigned int FilterFlags = 0;
 
-	SDL_Surface* Image = IMG_Load( argv[1] );
-
-	std::ofstream outfile ( argv[2], ofstream::binary );
+	std::string InputFileName = argv[1];
 
 	cTex Tex;
 
-	Tex.Width = Image->w;
-	Tex.Height = Image->h;
+	std::ofstream outfile ( argv[2], ofstream::binary );
 
-	if( Image->flags & SDL_SRCALPHA )
+	char* Buffer;
+
+	if( String::LastExtension( InputFileName ) == ".tx" )
 	{
-		// RGBA Texture //
-		Tex.PixelSize = 4;
+		Buffer = LZMA::UnPack( InputFileName );
+		
+		unsigned int* tempPixelSize	= (unsigned int*)&Buffer[0];
+		Tex.PixelSize = *tempPixelSize;
+	
+		unsigned int* tempWidth	= (unsigned int*)&Buffer[4];
+		Tex.Width = *tempWidth;
+
+		unsigned int* tempHeight	= (unsigned int*)&Buffer[8];
+		Tex.Height = *tempHeight;
+
+		Tex.Pixels = (unsigned char*)&Buffer[12];
 	}
 	else
 	{
-		// RGB Texture //
-		Tex.PixelSize = 3;
-	}
-
-	Tex.Pixels = new unsigned char[ Tex.Width * Tex.Height * Tex.PixelSize ];
-	memcpy( Tex.Pixels, Image->pixels, Tex.Width * Tex.Height * Tex.PixelSize );
+		SDL_Surface* Image = IMG_Load( argv[1] );
+		
+		Tex.Width = Image->w;
+		Tex.Height = Image->h;
 	
-	SDL_FreeSurface( Image );
+		if( Image->flags & SDL_SRCALPHA )
+		{
+			// RGBA Texture //
+			Tex.PixelSize = 4;
+		}
+		else
+		{
+			// RGB Texture //
+			Tex.PixelSize = 3;
+		}
+	
+		Tex.Pixels = new unsigned char[ Tex.Width * Tex.Height * Tex.PixelSize ];
+		memcpy( Tex.Pixels, Image->pixels, Tex.Width * Tex.Height * Tex.PixelSize );
+		
+		SDL_FreeSurface( Image );
+	}
 	
 	WhiteTex.PixelSize = 0;
 	
@@ -115,8 +138,15 @@ int main( int argc, char* argv[] ) {
 	}
 	
 	outfile.close();
-	
-	delete[] Tex.Pixels;
+
+	if( String::LastExtension( InputFileName ) == ".tx" )
+	{
+		delete[] Buffer;
+	}
+	else
+	{
+		delete[] Tex.Pixels;
+	}
 	if( WhiteTex.Pixels != 0 )
 	{
 		delete[] WhiteTex.Pixels;

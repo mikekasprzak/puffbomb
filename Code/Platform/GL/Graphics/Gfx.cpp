@@ -5,7 +5,7 @@
 
 #include <Graphics/Gfx.h>
 
-#include <Global.h>
+//#include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Gfx
 {
@@ -508,9 +508,23 @@ namespace Gfx
 	{
 		SDL_ShowCursor( SDL_DISABLE );
 	}
+#ifdef EDITOR
 	// - -------------------------------------------------------------------------------------- - //
 	void* ScreenShot()
 	{
+		void* Buffer = new unsigned char[ 1920 * 1200 * 3 ];
+
+		glReadPixels(
+			0,
+			0,
+			1920,
+			1200,
+			GL_RGB,
+			GL_BYTE,
+			Buffer
+		);
+
+/*
 		void* Buffer = new unsigned char[ Global::ScreenW * Global::ScreenH * 3 ];
 
 		glReadPixels(
@@ -522,9 +536,11 @@ namespace Gfx
 			GL_BYTE,
 			Buffer
 		);
+*/
 		
 		return Buffer;
 	}
+#endif // Editor //
 
 
 // - ------------------------------------------------------------------------------------------ - //
