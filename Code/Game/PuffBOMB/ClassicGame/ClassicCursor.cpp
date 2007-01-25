@@ -99,6 +99,8 @@ void cClassicCursor::Step() {
 		else {
 			TimeMode = false;
 			
+			Selection = -1;
+			
 //			if ( !TimeMode ) {
 //				TimeMode = true;
 //			}
@@ -143,14 +145,14 @@ void cClassicCursor::Step() {
 			Bomb[ Selection ].Time = 47;
 	}
 	
-	// If Back Button Pressed (B) //
-	if ( Input::Pad[0].Button[ PAD_B ].Pressed() ) {
-		// Deselect, if you had a selection //
-		Selection = -1;
-	}
+//	// If Back Button Pressed (B) //
+//	if ( Input::Pad[0].Button[ PAD_B ].Pressed() ) {
+//		// Deselect, if you had a selection //
+//		Selection = -1;
+//	}
 
 	// If Delete Button Pressed (Y) //
-	if ( Input::Pad[0].Button[ PAD_BACK ].Pressed() ) {
+	if ( Input::Pad[0].Button[ PAD_B ].Pressed() ) {
 		// If you have a selection //
 		if ( Selection != -1 ) {
 			// Remove this bomb //
