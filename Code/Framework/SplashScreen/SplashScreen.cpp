@@ -6,9 +6,9 @@
 #include <Global.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-cSplashScreen::cSplashScreen() :
+cSplashScreen::cSplashScreen( std::string TextureName, int EndTime, Real Scale ) :
 	Color( 0 ),
-	Tex( "Textures/Menu/Sykhronics.pack.tx" )
+	Tex( TextureName )
 {
 	// Create Camera //
 	Camera = new cCamera(
@@ -28,11 +28,12 @@ cSplashScreen::cSplashScreen() :
 		Real( Global::ScreenH )						// Height
 	 );
 
-	int EndTime = 3600;
-	
 	Real HalfWidth = Tex.Width / 2;
 	Real HalfHeight = Tex.Height / 2;
-
+	
+	HalfWidth *= Scale;
+	HalfHeight *= Scale;
+	
 	TexVertex[0] = Vector3D( -HalfWidth, -HalfHeight, 0.0 );
 	TexVertex[1] = Vector3D( HalfWidth, -HalfHeight, 0.0 );
 	TexVertex[2] = Vector3D( HalfWidth, HalfHeight, 0.0 );

@@ -10,6 +10,8 @@
 #include <Graphics/Texture.h>
 #include <Geometry/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
+#include <string>
+// - ------------------------------------------------------------------------------------------ - //
 class cSplashScreen : public cMessageEntity { 
 private:
 	cCamera* Camera;
@@ -21,7 +23,7 @@ private:
 	cTexture Tex;
 	
 public:
-	cSplashScreen();
+	cSplashScreen( std::string TextureName, int EndTime = 3600, Real Scale = 1.0 );
 	~cSplashScreen();
 	
 	void Draw();

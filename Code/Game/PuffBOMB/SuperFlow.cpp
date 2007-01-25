@@ -99,7 +99,7 @@ void cSuperFlow::StateFlow()
 			{
 				// Display the Sykhronics spash screen //
 				{
-					cSplashScreen SplashScreen;
+					cSplashScreen SplashScreen( "Textures/Menu/Sykhronics.pack.tx" );
 				}
 				State = stMainMenu;
 				break;
@@ -110,7 +110,7 @@ void cSuperFlow::StateFlow()
 			{
 				CurClassicMap = 0;
 				CurGolfMap = 0;
-				
+			
 				// Display the MainMenu screen //
 				{
 					cMainMenu MainMenu;
@@ -122,6 +122,12 @@ void cSuperFlow::StateFlow()
 			// - ------------------------------------------------------------------------------ - //
 			case stClassicGame:
 			{
+				
+				if( CurClassicMap == 0 )
+				{
+					cSplashScreen SplashScreen( "Textures/Menu/ClassicControls.pack.tx", 10000, Real( 2.0 ) );
+				}
+								
 				// Start the game //	
 				int OldClassicMap = CurClassicMap;
 				{
@@ -151,7 +157,12 @@ void cSuperFlow::StateFlow()
 			case stGolfGame:
 			{
 			
-				// Start the game //	
+			if( CurGolfMap == 0 )
+			{
+				cSplashScreen SplashScreen( "Textures/Menu/TournamentControls.pack.tx", 10000, Real( 2.0 ) );
+			}
+			
+			// Start the game //	
 				int OldGolfMap = CurGolfMap;
 				{
 					cGolfGame Game( GolfPath + GolfMaps[ CurGolfMap ], Players );
