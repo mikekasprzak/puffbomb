@@ -123,10 +123,10 @@ void cSuperFlow::StateFlow()
 			case stClassicGame:
 			{
 				
-				if( CurClassicMap == 0 )
+/*				if( CurClassicMap == 0 )
 				{
 					cSplashScreen SplashScreen( "Textures/Menu/ClassicControls.pack.tx", 10000, Real( 2.0 ) );
-				}
+				}*/
 								
 				// Start the game //	
 				int OldClassicMap = CurClassicMap;
@@ -157,10 +157,10 @@ void cSuperFlow::StateFlow()
 			case stGolfGame:
 			{
 			
-			if( CurGolfMap == 0 )
+/*			if( CurGolfMap == 0 )
 			{
 				cSplashScreen SplashScreen( "Textures/Menu/TournamentControls.pack.tx", 10000, Real( 2.0 ) );
-			}
+			}*/
 			
 			// Start the game //	
 				int OldGolfMap = CurGolfMap;

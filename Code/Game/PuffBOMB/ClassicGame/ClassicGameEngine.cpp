@@ -26,7 +26,10 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false ),
 	LevelComplete( false ),
 	Score( 0 ),
-	ArrowAnimator( "TrackingArrow.anim" )
+	ArrowAnimator( "TrackingArrow.anim" ),
+	IsHelp( false ),
+	HelpTex( "Textures/Menu/ClassicControls.pack.tx" )
+//	HelpTex( TexturePool::Load( "ClassicControls.pack.tx" ) )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -69,6 +72,29 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 701 ), 1 ) );
 	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -400, 1301 ), 1 ) );
 	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -400, 700 ), 1 ) );*/
+	
+	//Real HalfWidth = HelpTex.Width / 2;
+	//Real HalfHeight = HelpTex.Height / 2;
+
+	Real HalfWidth = HelpTex.Width;
+	Real HalfHeight = HelpTex.Height;
+	
+	HelpTexVertex[0] = Vector3D( -HalfWidth, -HalfHeight, 0.0 );
+	HelpTexVertex[1] = Vector3D( HalfWidth, -HalfHeight, 0.0 );
+	HelpTexVertex[2] = Vector3D( HalfWidth, HalfHeight, 0.0 );
+	HelpTexVertex[3] = Vector3D( -HalfWidth, HalfHeight, 0.0 );
+
+	HelpTexUV[0] = Vector2D( 0.0, 1.0 );
+	HelpTexUV[1] = Vector2D( 1.0, 1.0 );
+	HelpTexUV[2] = Vector2D( 1.0, 0.0 );
+	HelpTexUV[3] = Vector2D( 0.0, 0.0 );
+
+	HelpTexIndices[0] = 0;
+	HelpTexIndices[1] = 1;
+	HelpTexIndices[2] = 2;
+	HelpTexIndices[3] = 3;
+
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -177,132 +203,145 @@ void cClassicGameEngine::FrameEnd() {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Step() {
-	FrameStart();
-	
-	// ------------------------------------------------------------------------------------------ //
-	
-	// When you push space, toggle activity //
-	if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[ PAD_X ].Pressed() ) {
-		GameActive = !GameActive;
-		
-		if ( GameActive ) {
-			// Add bombs here, 'cause they could be tweaked up until this point //
-			AddBombs();
-		}
-		else {
-			// Clear various lists, 'cause we're about to repopulate them //
-			CameraTracking.clear();
-			Impulse.clear();
-			AlwaysActivePassives.clear();
-			PointsOfInterest.clear();
-
-			// Reset here, to restore everything back to it's home position, before we edit //
-			ResetMap();
-		}
-	}
-
-	// temporary keys //
+	if( Input::Button[ KEY_F1 ].Pressed() )
 	{
-		// Toggle play //
-		if( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
-			GameActive = !GameActive;
-		}
-		
-		// When you push backspace, reload/reset the level //
-		if( Input::Button[ KEY_TAB ].Pressed() ) {
-			// Clear various lists, 'cause we're about to repopulate them //
-			CameraTracking.clear();
-			Impulse.clear();
-			AlwaysActivePassives.clear();
-			PointsOfInterest.clear();
-
-			// Reset here, to restore everything back to it's home position, before we edit //
-			ResetMap();
-			
-			// Add our bombs //
-			AddBombs();
-		}
+		IsHelp = !IsHelp;
 	}
 	
-	// Only step the engine whilst we are active //
-	if ( GameActive ) {
-		// Stuff my engine does before //
-		Camera->MinZoom = Global::HudZoom * Real( 2 );
-				
-		if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
-			Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+	if( IsHelp )
+	{
+		
+	}
+	else
+	{
+	
+		FrameStart();
+		
+		// ------------------------------------------------------------------------------------------ //
+		
+		// When you push space, toggle activity //
+		if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[ PAD_X ].Pressed() ) {
+			GameActive = !GameActive;
+			
+			if ( GameActive ) {
+				// Add bombs here, 'cause they could be tweaked up until this point //
+				AddBombs();
+			}
+			else {
+				// Clear various lists, 'cause we're about to repopulate them //
+				CameraTracking.clear();
+				Impulse.clear();
+				AlwaysActivePassives.clear();
+				PointsOfInterest.clear();
+	
+				// Reset here, to restore everything back to it's home position, before we edit //
+				ResetMap();
+			}
 		}
 	
-		// Hack to follow the hamster.  we need a way to identify the collection to follow //
-		if( CameraTracking.size() >= 1 )
+		// temporary keys //
 		{
-			Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
-			
-			for ( size_t idx = 1; idx < CameraTracking.size(); idx++ ) {
-				FollowRect += CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect();
+			// Toggle play //
+			if( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
+				GameActive = !GameActive;
 			}
 			
-			Camera->UpdateTarget( FollowRect.Center() );
+			// When you push backspace, reload/reset the level //
+			if( Input::Button[ KEY_TAB ].Pressed() ) {
+				// Clear various lists, 'cause we're about to repopulate them //
+				CameraTracking.clear();
+				Impulse.clear();
+				AlwaysActivePassives.clear();
+				PointsOfInterest.clear();
+	
+				// Reset here, to restore everything back to it's home position, before we edit //
+				ResetMap();
+				
+				// Add our bombs //
+				AddBombs();
+			}
 		}
 		
-		// Original Engine Step Stuff //
-		cEngine2D::Step();
+		// Only step the engine whilst we are active //
+		if ( GameActive ) {
+			// Stuff my engine does before //
+			Camera->MinZoom = Global::HudZoom * Real( 2 );
+					
+			if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
+				Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+			}
 		
-		if( Input::Button[ MOUSE_1 ] )
-		{
-			Vector2D BobPos = Vector2D(
-					Real( ( int( Input::Mouse.x * Real( Global::HudW ) ) )
-					- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
-					- ( Real(Global::HudW >> 1) ) )
-					* Real( Camera->Pos.z / Global::HudZoom ),
-					Real( ( int( -Input::Mouse.y * Real( Global::HudH ) ) )
-					+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom ) )
-					+ ( Global::HudH >> 1 ) )
-					* Real( Camera->Pos.z / Global::HudZoom )
-			);
-		
-			Engine2D::cEngine2D::Current->Impulse.push_back( 
-				Engine2D::cImpulse(
-					BobPos,
-					// Inner Radius, Intensity, Tangent //
-					Real( 0 ), Real( -2 ), Real( 0.5 ),
-					// Outer Radius, Intensity, Tangent //
-					Real( 512 ), Real( 0 ), Real( 0.1 )
-					)
+			// Hack to follow the hamster.  we need a way to identify the collection to follow //
+			if( CameraTracking.size() >= 1 )
+			{
+				Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
+				
+				for ( size_t idx = 1; idx < CameraTracking.size(); idx++ ) {
+					FollowRect += CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect();
+				}
+				
+				Camera->UpdateTarget( FollowRect.Center() );
+			}
+			
+			// Original Engine Step Stuff //
+			cEngine2D::Step();
+			
+			if( Input::Button[ MOUSE_1 ] )
+			{
+				Vector2D BobPos = Vector2D(
+						Real( ( int( Input::Mouse.x * Real( Global::HudW ) ) )
+						- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
+						- ( Real(Global::HudW >> 1) ) )
+						* Real( Camera->Pos.z / Global::HudZoom ),
+						Real( ( int( -Input::Mouse.y * Real( Global::HudH ) ) )
+						+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom ) )
+						+ ( Global::HudH >> 1 ) )
+						* Real( Camera->Pos.z / Global::HudZoom )
 				);
-		}
-
-		
-		// Stuff my engine does after //
-
-	}
-	// If the engine is not active, then we'r in edit mode //
-	else {
-		// Clear Impulses (passive hack) //
-		Impulse.clear();
-		
-		for ( size_t idx = 0; idx < AlwaysActivePassives.size(); idx++ ) {
-			AlwaysActivePassives[ idx ]->Work();
-		}
-
-
-//		if ( Cursor.Selection != -1 ) {
-//			Camera->Pos.z -= Real( 100 );
-//		}
-		
-		Cursor.Step();
-		
-		// Update Camera //
-		Camera->UpdateTarget( Cursor.Pos );
-	}
+			
+				Engine2D::cEngine2D::Current->Impulse.push_back( 
+					Engine2D::cImpulse(
+						BobPos,
+						// Inner Radius, Intensity, Tangent //
+						Real( 0 ), Real( -2 ), Real( 0.5 ),
+						// Outer Radius, Intensity, Tangent //
+						Real( 512 ), Real( 0 ), Real( 0.1 )
+						)
+					);
+			}
 	
-	// Run the Particle systems always in both active and non active modes of the game //
-	SolidParticle.Step();
-	DenseParticle.Step();
-
-	// ------------------------------------------------------------------------------------------ //
+			
+			// Stuff my engine does after //
 	
-	FrameEnd();
+		}
+		// If the engine is not active, then we'r in edit mode //
+		else {
+			// Clear Impulses (passive hack) //
+			Impulse.clear();
+			
+			for ( size_t idx = 0; idx < AlwaysActivePassives.size(); idx++ ) {
+				AlwaysActivePassives[ idx ]->Work();
+			}
+	
+	
+	//		if ( Cursor.Selection != -1 ) {
+	//			Camera->Pos.z -= Real( 100 );
+	//		}
+			
+			Cursor.Step();
+			
+			// Update Camera //
+			Camera->UpdateTarget( Cursor.Pos );
+		}
+		
+		// Run the Particle systems always in both active and non active modes of the game //
+		SolidParticle.Step();
+		DenseParticle.Step();
+	
+		// ------------------------------------------------------------------------------------------ //
+		
+		FrameEnd();
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::Draw() {
@@ -349,6 +388,18 @@ void cClassicGameEngine::Draw() {
 		}
 	}
 	
+	if( IsHelp )
+	{
+		Gfx::DrawQuads(
+			&HelpTexVertex[0],
+			&HelpTexUV[0],
+			HelpTexIndices,
+			4,
+			HelpTex.Id,
+			Gfx::White()
+		); 
+	}
+
 /*#ifdef EDITOR
 	//	//  DISPLAYS FPS  //
 	std::stringstream Temp;
