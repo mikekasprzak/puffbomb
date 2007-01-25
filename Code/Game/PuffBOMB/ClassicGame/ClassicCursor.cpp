@@ -211,27 +211,6 @@ void cClassicCursor::Step() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicCursor::Draw() {
-	Gfx::DisableTex2D();
-//	Gfx::DisableDepth();
-
-	// Draw the cursor //
-	if ( Selection == -1 ) {
-		if ( WhatBombIsHere() == -1 ) {
-			// A bomb is or isn't too close //
-			Gfx::Circle( Pos, Real(10), CanPlaceBombHere() ? Gfx::RGBA( 255, 255, 255, 255 ) : Gfx::RGBA( 255, 0, 0, 255 ) );
-		}
-		else {
-			// A bomb I can select //
-			Gfx::Circle( Pos, Real(10), Gfx::RGBA( 0, 255, 0, 255 ) );
-		}
-		
-		Gfx::Rect( Pos - Real(20), Pos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
-	}
-	else {
-		Gfx::Rect( Bomb[ Selection ].Pos - Real(50), Bomb[ Selection ].Pos + Real(50), TimeMode ? Gfx::RGBA( 0, 64, 255, 255 ) : Gfx::RGBA( 0, 255, 0, 255 ) );
-	}
-
-
 	Gfx::EnableTex2D();
 	
 	// Draw Bomb Graphics //
@@ -284,6 +263,25 @@ void cClassicCursor::Draw() {
 	}
 	
 	Gfx::DisableTex2D();
+	Gfx::DisableDepth();
+
+	// Draw the cursor //
+	if ( Selection == -1 ) {
+		if ( WhatBombIsHere() == -1 ) {
+			// A bomb is or isn't too close //
+			Gfx::Circle( Pos, Real(10), CanPlaceBombHere() ? Gfx::RGBA( 255, 255, 255, 255 ) : Gfx::RGBA( 255, 0, 0, 255 ) );
+		}
+		else {
+			// A bomb I can select //
+			Gfx::Circle( Pos, Real(10), Gfx::RGBA( 0, 255, 0, 255 ) );
+		}
+		
+		Gfx::Rect( Pos - Real(20), Pos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
+	}
+	else {
+		Gfx::Rect( Bomb[ Selection ].Pos - Real(50), Bomb[ Selection ].Pos + Real(50), TimeMode ? Gfx::RGBA( 0, 64, 255, 255 ) : Gfx::RGBA( 0, 255, 0, 255 ) );
+	}
+
 
 	// Draw Bomb Timers //
 //	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
@@ -291,7 +289,7 @@ void cClassicCursor::Draw() {
 //	}
 	
 	Gfx::EnableTex2D();
-//	Gfx::EnableDepth();
+	Gfx::EnableDepth();
 }
 // - ------------------------------------------------------------------------------------------ - //
 bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) const {
