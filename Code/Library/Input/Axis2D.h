@@ -59,6 +59,21 @@ namespace Input {
 			return Vector2D::Zero;
 		}
 		// - ---------------------------------------------------------------------------------- - //
+		inline const Vector2D& HarshKeyRepeat() const {
+			if ( _Digital.x != Real::Zero )
+				if ( _Digital.y != Real::Zero )
+					return Vector2D::Zero;
+			
+			if ( _KeyRepeat == 0 )
+				return _Digital;
+
+			if ( _KeyRepeat >= 31 )
+				if ( (_KeyRepeat & 7) == 0 )
+					return _Digital;
+			
+			return Vector2D::Zero;
+		}
+		// - ---------------------------------------------------------------------------------- - //
 
 		// - ---------------------------------------------------------------------------------- - //
 		inline operator const Vector2D& () {
@@ -88,6 +103,22 @@ namespace Input {
 		// - ---------------------------------------------------------------------------------- - //
 		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
 		inline int BitMaskKeyRepeat() const {
+			if ( _KeyRepeat == 0 )
+				return _BitMask;
+
+			if ( _KeyRepeat >= 31 )
+				if ( (_KeyRepeat & 7) == 0 )
+					return _BitMask;
+			
+			return 0;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMaskHarshKeyRepeat() const {
+			if ( _Digital.x != Real::Zero )
+				if ( _Digital.y != Real::Zero )
+					return 0;
+
 			if ( _KeyRepeat == 0 )
 				return _BitMask;
 
@@ -147,7 +178,7 @@ namespace Input {
 			}
 			else {
 				_KeyRepeat++;
-			}
+			}			
 		}
 		// - ---------------------------------------------------------------------------------- - //
 	};
