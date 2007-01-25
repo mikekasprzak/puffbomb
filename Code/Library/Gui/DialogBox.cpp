@@ -398,7 +398,7 @@ void cDialogBox::CheckActive()  // Shouldn't need this anymore //
 // - ------------------------------------------------------------------------------------------ - //
 void cDialogBox::SwitchFocus()
 {
-	if( Input::Button[ KEY_UP ].Pressed() || int( Input::Pad[0].Stick1.KeyRepeat().y ) == 1 || int( Input::Pad[0].DPad.KeyRepeat().y ) == 1 )
+	if( Input::Button[ KEY_UP ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == 1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == 1 )
 	{
 		// Swaps the animation to off before it changes to the next focus //
 		if( ActiveLabels[ Focus ] < 20000 && ActiveLabels[ Focus ] >= 10000 )
@@ -420,7 +420,7 @@ void cDialogBox::SwitchFocus()
 			AniLabel[ ActiveLabels[ Focus ] - 10000 ].SwapAnimation();
 		}
 	}
-	if( Input::Button[ KEY_DOWN ].Pressed() || int( Input::Pad[0].Stick1.KeyRepeat().y ) == -1 || int( Input::Pad[0].DPad.KeyRepeat().y ) == -1 )
+	if( Input::Button[ KEY_DOWN ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == -1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == -1 )
 	{
 		// Swaps the animation to off before it changes to the next focus //
 		if( ActiveLabels[ Focus ] < 20000 && ActiveLabels[ Focus ] >= 10000 )
