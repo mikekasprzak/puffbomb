@@ -13,6 +13,7 @@
 #include <Particle2D/DenseParticleFactory.h>
 
 #include <Framework/MessageEntity.h>
+#include <Graphics/TexturePool.h>
 // - ------------------------------------------------------------------------------------------ - //
 #ifdef EDITOR
 // For FPS test //
@@ -28,8 +29,7 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	Score( 0 ),
 	ArrowAnimator( "TrackingArrow.anim" ),
 	IsHelp( false ),
-	HelpTex( "Textures/Menu/ClassicControls.pack.tx" )
-//	HelpTex( TexturePool::Load( "ClassicControls.pack.tx" ) )
+	HelpTex( TexturePool.Load( "ClassicControls.pack.tx" ) )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -94,7 +94,6 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	HelpTexIndices[2] = 2;
 	HelpTexIndices[3] = 3;
 
-	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -208,13 +207,8 @@ void cClassicGameEngine::Step() {
 		IsHelp = !IsHelp;
 	}
 	
-	if( IsHelp )
+	if( !IsHelp )
 	{
-		
-	}
-	else
-	{
-	
 		FrameStart();
 		
 		// ------------------------------------------------------------------------------------------ //
@@ -388,18 +382,6 @@ void cClassicGameEngine::Draw() {
 		}
 	}
 	
-	if( IsHelp )
-	{
-		Gfx::DrawQuads(
-			&HelpTexVertex[0],
-			&HelpTexUV[0],
-			HelpTexIndices,
-			4,
-			HelpTex.Id,
-			Gfx::White()
-		); 
-	}
-
 /*#ifdef EDITOR
 	//	//  DISPLAYS FPS  //
 	std::stringstream Temp;
@@ -422,6 +404,18 @@ void cClassicGameEngine::Draw() {
 	
 		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 200, 55, 255 ) );
 	}*/
+
+	if( IsHelp )
+	{
+		Gfx::DrawQuads(
+			&HelpTexVertex[0],
+			&HelpTexUV[0],
+			HelpTexIndices,
+			4,
+			HelpTex.Id,
+			Gfx::White()
+		); 
+	}
 
 	{
 		Vector3D TempPos = Vector3D( Global::Left + Real( 100 ), Global::Bottom + Real( 15 ), 0.0 );

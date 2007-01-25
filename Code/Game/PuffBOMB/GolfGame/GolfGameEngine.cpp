@@ -24,7 +24,9 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	State( 1 ),
 	LevelComplete( false ),
 	HitBoundery( false ),
- 	ArrowAnimator( "TrackingArrow.anim" )
+ 	ArrowAnimator( "TrackingArrow.anim" ),
+ 	IsHelp( false ),
+	HelpTex( TexturePool.Load( "TournamentControls.pack.tx" ) )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -74,6 +76,27 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	PlayerAnimators.push_back( cAnimator( "TrackingCircleP4.anim" ) );
 	
 	//PointsOfInterestAnimators.push_back( cAnimator( "TrackingCircleEnd.anim" ) );
+	
+	//Real HalfWidth = HelpTex.Width / 2;
+	//Real HalfHeight = HelpTex.Height / 2;
+
+	Real HalfWidth = HelpTex.Width;
+	Real HalfHeight = HelpTex.Height;
+	
+	HelpTexVertex[0] = Vector3D( -HalfWidth, -HalfHeight, 0.0 );
+	HelpTexVertex[1] = Vector3D( HalfWidth, -HalfHeight, 0.0 );
+	HelpTexVertex[2] = Vector3D( HalfWidth, HalfHeight, 0.0 );
+	HelpTexVertex[3] = Vector3D( -HalfWidth, HalfHeight, 0.0 );
+
+	HelpTexUV[0] = Vector2D( 0.0, 1.0 );
+	HelpTexUV[1] = Vector2D( 1.0, 1.0 );
+	HelpTexUV[2] = Vector2D( 1.0, 0.0 );
+	HelpTexUV[3] = Vector2D( 0.0, 0.0 );
+
+	HelpTexIndices[0] = 0;
+	HelpTexIndices[1] = 1;
+	HelpTexIndices[2] = 2;
+	HelpTexIndices[3] = 3;
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -262,35 +285,43 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cGolfGameEngine::Step() {
-	// Stuff my engine does before //
-	HitBoundery = false;
-	
-	// Original Engine Step Stuff //
-	cEngine2D::Step();
-	
-	// Stuff my engine does after //
-	TurnBasedPlay();
-
-	// For all players, accumulate motion //	
-	for ( size_t idx = 0; idx < Player.size(); idx++ ) {
-		Player[ idx ]->AccumulateMotion();
+	if( Input::Button[ KEY_F1 ].Pressed() )
+	{
+		IsHelp = !IsHelp;
 	}
 	
-	// Step Particle Systems //
-	SolidParticle.Step();
-	DenseParticle.Step();
+	if( !IsHelp )
+	{
+		// Stuff my engine does before //
+		HitBoundery = false;
+		
+		// Original Engine Step Stuff //
+		cEngine2D::Step();
+		
+		// Stuff my engine does after //
+		TurnBasedPlay();
 	
-	if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
-		Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+		// For all players, accumulate motion //	
+		for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+			Player[ idx ]->AccumulateMotion();
+		}
+		
+		// Step Particle Systems //
+		SolidParticle.Step();
+		DenseParticle.Step();
+		
+		if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
+			Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+		}
+		else {
+			Camera->MinZoom = Global::HudZoom * Real( 2 );
+		}
+		
+		
+	//	PlayerAnimator.Step();
+	//	EndingAnimator.Step();
 	}
-	else {
-		Camera->MinZoom = Global::HudZoom * Real( 2 );
-	}
 	
-	
-//	PlayerAnimator.Step();
-//	EndingAnimator.Step();
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cGolfGameEngine::Draw() {
@@ -407,6 +438,18 @@ void cGolfGameEngine::Draw() {
 	}
 
 	// Help //	
+	if( IsHelp )
+	{
+		Gfx::DrawQuads(
+			&HelpTexVertex[0],
+			&HelpTexUV[0],
+			HelpTexIndices,
+			4,
+			HelpTex.Id,
+			Gfx::White()
+		); 
+	}
+
 	{
 		Vector3D TempPos = Vector3D( Global::Left + Real( 100 ), Global::Bottom + Real( 15 ), 0.0 );
 		cFonts::FlangeLight.Write( "F1 - Help", TempPos, Real( 0.75 ), Gfx::RGBA( 255, 255, 255, 155 ) );

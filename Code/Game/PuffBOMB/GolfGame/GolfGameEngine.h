@@ -52,6 +52,13 @@ public:
 	cAnimator ArrowAnimator;
 	std::vector < cAnimator > PlayerAnimators;
 	std::vector < cAnimator > PointsOfInterestAnimators;
+
+	bool IsHelp;
+	
+	Vector3D HelpTexVertex[ 4 ];
+	Vector2D HelpTexUV[ 4 ];
+	unsigned int HelpTexIndices[ 4 ];
+	cTexture HelpTex;	
 		
 public:
 	void TurnBasedPlay();
