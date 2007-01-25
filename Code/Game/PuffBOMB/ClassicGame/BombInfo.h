@@ -19,7 +19,7 @@ public:
 public:
 	cBombInfo( const Vector2D& _Pos = Vector2D::Zero ) :
 		Pos( _Pos ),
-		Time( 3 ),
+		Time( 0 ),
 		Placed( true )
 	{
 	}
