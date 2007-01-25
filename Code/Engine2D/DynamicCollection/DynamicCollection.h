@@ -19,9 +19,9 @@ public:
 	// Components of this object //
 	std::vector< cDynamicComponent > Component;
 	
-	#ifdef EDITOR
+	//#ifdef EDITOR
 	std::vector< std::string > ComponentName;
-	#endif // Editor //
+	//#endif // Editor //
 		
 	// Node Linkage in this object //
 	std::vector< cNodeLink > NodeLink;

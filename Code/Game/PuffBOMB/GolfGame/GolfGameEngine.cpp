@@ -12,13 +12,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Framework/MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
-#ifdef EDITOR
-// For FPS test //
-#include <Graphics/Gfx.h>
 #include <Font/Fonts.h>
+#include <Graphics/Gfx.h>
 #include <sstream>
-// ------------ //
-#endif // EDITOR //
+
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector< cPlayerInfo >& _Players ) :
 	StartPoint( 0 ),

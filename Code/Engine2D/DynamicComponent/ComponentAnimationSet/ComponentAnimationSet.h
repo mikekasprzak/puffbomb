@@ -24,9 +24,9 @@ public:
 	std::vector< cBody2DPose > BodyPose;
 	std::vector< TextureType > Texture;
 
-#ifdef EDITOR	
+//#ifdef EDITOR	
 	std::vector< cMesh2DPose > MeshPose;
-#endif // EDITOR //
+//#endif // EDITOR //
 
 public:
 	cComponentAnimationSet() {
@@ -41,11 +41,11 @@ public:
 	void LoadBinary( const std::string& FileName );
 	void SaveBinary( const std::string& CompFileName, const std::string& FinalFileName, const std::string& ArtDirectory, bool LittleEndian = true );
 
-#ifdef EDITOR	
+//#ifdef EDITOR	
 	// Functions for saving/loading the Text based Component format //
 	void LoadText( const std::string& FileName );
 	void SaveText( const std::string& FileName );
-#endif // EDITOR //
+//#endif // EDITOR //
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -184,11 +184,14 @@ void cSuperFlow::StateFlow()
 			// - ------------------------------------------------------------------------------ - //
 			case stEditor:
 			{
+				#ifdef EDITOR
 				// Creating Editor //
 				{
 					Log( LOG_HIGHEST_LEVEL, "Creating Editor..." );
 					cEditor Editor;
 				}
+				#endif // EDITOR //
+				
 				State = stMainMenu;
 				break;
 			}

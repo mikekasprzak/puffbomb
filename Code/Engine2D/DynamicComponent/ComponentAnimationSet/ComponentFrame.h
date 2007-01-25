@@ -20,6 +20,24 @@ public:
 	size_t TextureId[3];
 	cMesh2D Mesh;
 
+	size_t MeshPoseIndex;
+
+public:
+	cComponentFrame() :
+		Time( 1 ),
+		BodyPoseIndex( 0 ),
+		MeshPoseIndex( 0 )
+	{
+	}
+
+	cComponentFrame( size_t _BodyPoseIndex, size_t _MeshPoseIndex ) :
+		Time( 1 ),
+		BodyPoseIndex( _BodyPoseIndex ),
+		MeshPoseIndex( _MeshPoseIndex )
+	{
+	}	
+
+/*
 #ifdef EDITOR
 	size_t MeshPoseIndex;
 #endif // EDITOR //
@@ -44,6 +62,7 @@ public:
 	{
 	}	
 #endif // EDITOR //
+*/
 
 public:
 	inline void Draw( const cBody2D& Body, const int RenderPass = 0 ) {
