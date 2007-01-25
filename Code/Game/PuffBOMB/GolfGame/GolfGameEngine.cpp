@@ -289,6 +289,10 @@ void cGolfGameEngine::Step() {
 	{
 		IsHelp = !IsHelp;
 	}
+	else if( Input::Pad[0].Button[ PAD_START ].Pressed() )
+	{
+		cMessageEntity::Current->BreakLoop = true;
+	}
 	
 	if( !IsHelp )
 	{

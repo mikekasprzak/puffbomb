@@ -84,7 +84,7 @@ void cSplashScreen::Step()
 {
 	if( Input::Pad[ 0 ].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
 	{
-		cMessageEntity::Current->BreakLoop = true;	
+		cMessageEntity::Current->BreakLoop = true;
 	}
 	
 	if( Color < 255 )
