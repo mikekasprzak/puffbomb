@@ -78,12 +78,28 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 
 		Temp.str(std::string());
 
-		Temp << MyEngine->Player[ idx ]->Score;
+		Temp << MyEngine->Player[ idx ]->PickupScore;
 		TempString = Temp.str();
 
 		Form.DialogBox[ 0 ].TextLabel.push_back(
 			cTextLabel(
 				Vector2D( 360 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx + 1 ].Pos.y ),
+				true,
+				0, 
+				TempString,
+				0.5,
+				Gfx::White()
+			)
+		);
+
+		Temp.str(std::string());
+
+		Temp << MyEngine->Player[ idx ]->Score;
+		TempString = Temp.str();
+
+		Form.DialogBox[ 0 ].TextLabel.push_back(
+			cTextLabel(
+				Vector2D( 480 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx + 1 ].Pos.y ),
 				true,
 				0, 
 				TempString,

@@ -32,8 +32,11 @@ cPlayerSelect::cPlayerSelect()
 	 );
 	
 
+	#ifdef EDITOR
+	Form.Load( "2D/Menu/PlayerSelectEditor.form" );
+	#else
 	Form.Load( "2D/Menu/PlayerSelect.form" );
-	
+	#endif // EDITOR //
 	LastTime = GetTime();
 	
 	Gfx::DisableSmoothPolygon();
