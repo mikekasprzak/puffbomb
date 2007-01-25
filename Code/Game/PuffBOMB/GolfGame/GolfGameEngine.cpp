@@ -167,7 +167,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			// Find this players last drop position //
 			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 				if ( Sender == Player[ idx ]->MyObject ) {
-					Player[ idx ]->AddScore( 50 );
+					Player[ idx ]->AddPickupScore( 50 );
 					break;
 				}	
 			}
@@ -179,7 +179,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			// Find this players last drop position //
 			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 				if ( Sender == Player[ idx ]->MyObject ) {
-					Player[ idx ]->AddScore( 100 );
+					Player[ idx ]->AddPickupScore( 100 );
 					break;
 				}	
 			}
@@ -191,7 +191,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			// Find this players last drop position //
 			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 				if ( Sender == Player[ idx ]->MyObject ) {
-					Player[ idx ]->AddScore( 150 );
+					Player[ idx ]->AddPickupScore( 150 );
 					break;
 				}	
 			}
@@ -203,7 +203,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			// Find this players last drop position //
 			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 				if ( Sender == Player[ idx ]->MyObject ) {
-					Player[ idx ]->AddScore( 250 );
+					Player[ idx ]->AddPickupScore( 250 );
 					break;
 				}	
 			}
@@ -215,7 +215,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 			// Find this players last drop position //
 			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 				if ( Sender == Player[ idx ]->MyObject ) {
-					Player[ idx ]->AddScore( 500 );
+					Player[ idx ]->AddPickupScore( 500 );
 					break;
 				}	
 			}

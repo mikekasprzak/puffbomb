@@ -66,6 +66,18 @@ public:
 			InsignificantMotion++;
 		}
 	}
+
+	inline void AddPickupScore( const int _Value ) {
+		Score += _Value;
+		if ( Score < 0 ) {
+			Score = 0;
+		}
+
+		PickupScore += _Value;
+		if ( PickupScore < 0 ) {
+			PickupScore = 0;
+		}
+	}
 	
 	inline void AddScore( const int _Value ) {
 		Score += _Value;
