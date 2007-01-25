@@ -32,7 +32,12 @@ void cClassicCursor::Step() {
 		//Engine2D::cEngine2D::Current->Camera->MinZoom = Global::HudZoom * Real( 2 );
 		
 		// Update Cursor //
-		Pos += Input::Pad[0].Stick1 * Real(16);
+		if ( Input::Pad[0].Button[ PAD_R ] ) {
+			Pos += Input::Pad[0].Stick1 * Real(64);
+		}
+		else {
+			Pos += Input::Pad[0].Stick1 * Real(16);
+		}
 	}
 	else {
 		//Engine2D::cEngine2D::Current->Camera->MinZoom = (Global::HudZoom * Real( 2 )) - Real( 500 );
@@ -48,7 +53,12 @@ void cClassicCursor::Step() {
 		}
 		else {
 			// Update Bomb Pos //
-			Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(4);
+			if ( Input::Pad[0].Button[ PAD_R ] ) {
+				Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(16);
+			}
+			else {
+				Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(4);
+			}
 			PushMeOutOfOtherBombs( Selection );
 						
 			// Update Cursor //
@@ -145,7 +155,7 @@ void cClassicCursor::Step() {
 			}
 		}
 	}
-	
+		
 	// If there are bombs to select //
 	if ( Bomb.size() > 0 ) {
 		// Quick select Previous/Last Bomb //
@@ -167,24 +177,24 @@ void cClassicCursor::Step() {
 			Pos = Bomb[ Selection ].Pos;
 		}
 
-		// Quick select Next/First Bomb //
-		if ( Input::Pad[0].Button[ PAD_R ].Pressed() ) {
-			// If no selection //
-			if ( Selection == -1 ) {
-				Selection = 0;
-			}
-			// If a selection //
-			else {
-				Selection++;
-				// If this puts us under, loop around //
-				if ( Selection > (int)Bomb.size() - 1 ) {
-					Selection = 0;
-				}
-			}
-			
-			// Pull the cursor position from the now currently selected bomb //
-			Pos = Bomb[ Selection ].Pos;
-		}
+//		// Quick select Next/First Bomb //
+//		if ( Input::Pad[0].Button[ PAD_R ].Pressed() ) {
+//			// If no selection //
+//			if ( Selection == -1 ) {
+//				Selection = 0;
+//			}
+//			// If a selection //
+//			else {
+//				Selection++;
+//				// If this puts us under, loop around //
+//				if ( Selection > (int)Bomb.size() - 1 ) {
+//					Selection = 0;
+//				}
+//			}
+//			
+//			// Pull the cursor position from the now currently selected bomb //
+//			Pos = Bomb[ Selection ].Pos;
+//		}
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
