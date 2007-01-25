@@ -134,7 +134,7 @@ void cClassicCursor::Step() {
 //	}
 	
 	if ( Selection != -1 ) {
-		Bomb[ Selection ].Time += (int)Input::Pad[0].Trigger.Digital();
+		Bomb[ Selection ].Time += (int)Input::Pad[0].Trigger.KeyRepeat();
 			
 		if ( Bomb[ Selection ].Time < 0 )
 			Bomb[ Selection ].Time = 0;

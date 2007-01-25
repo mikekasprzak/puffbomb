@@ -7,6 +7,7 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
+#include <Util/ClassDesigner.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 namespace Input {
@@ -20,6 +21,16 @@ namespace Input {
 	
 		// Digital Interpretation //
 		Real _Digital;
+		int _BitMask;
+		int _LastBitMask;
+		
+		int _KeyRepeat;
+		
+		enum {
+			Left = bit0,
+			Right = bit1,
+		};
+		
 
 	public:
 		// - ---------------------------------------------------------------------------------- - //
@@ -35,6 +46,17 @@ namespace Input {
 			return (_Last - *this);
 		}
 		// - ---------------------------------------------------------------------------------- - //
+		inline const Real& KeyRepeat() const {
+			if ( _KeyRepeat == 0 )
+				return _Digital;
+
+			if ( _KeyRepeat >= 31 )
+				if ( (_KeyRepeat & 7) == 0 )
+					return _Digital;
+			
+			return Real::Zero;
+		}
+		// - ---------------------------------------------------------------------------------- - //
 
 		// - ---------------------------------------------------------------------------------- - //
 		inline operator Real () {
@@ -48,6 +70,35 @@ namespace Input {
 		}
 		// - ---------------------------------------------------------------------------------- - //
 
+		// - ---------------------------------------------------------------------------------- - //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMask() const {
+			return _BitMask;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMaskPressed() const {
+			return (_BitMask ^ _LastBitMask) & _BitMask;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMaskReleased() const {
+			return (_BitMask ^ _LastBitMask) & _LastBitMask;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMaskKeyRepeat() const {
+			if ( _KeyRepeat == 0 )
+				return _BitMask;
+
+			if ( _KeyRepeat >= 31 )
+				if ( (_KeyRepeat & 7) == 0 )
+					return _BitMask;
+			
+			return 0;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+
 	
 	public:
 		// - ---------------------------------------------------------------------------------- - //
@@ -57,6 +108,11 @@ namespace Input {
 		inline void Reset() {
 			Set( Real::Zero );
 			_Last = Real::Zero;
+			_Digital = Real::Zero;
+			
+			_BitMask = 0;
+			_LastBitMask = 0;
+			_KeyRepeat = 0;
 		}
 		// - ---------------------------------------------------------------------------------- - //		
 		inline void Update( Real NewState ) {
@@ -65,7 +121,27 @@ namespace Input {
 			
 			// Calculate the axis as digital (no analog smoothness) //
 			_Digital = ((this->Abs() > Real::Half )? Real::One : Real::Zero ) * this->Normal();
+
+			// Write a bitmask for input //
+			int ThisBitMask = 0;
 			
+			if ( _Digital == Real::One ) {
+				ThisBitMask |= bit0;
+			}
+			if ( _Digital == -Real::One ) {
+				ThisBitMask |= bit1;
+			}
+			
+			_LastBitMask = _BitMask;
+			_BitMask = ThisBitMask;
+
+			// Check for change //
+			if ( _LastBitMask != _BitMask ) {
+				_KeyRepeat = 0;
+			}
+			else {
+				_KeyRepeat++;
+			}			
 		}
 		// - ---------------------------------------------------------------------------------- - //
 	};
