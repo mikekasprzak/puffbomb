@@ -59,7 +59,8 @@ cSuperFlow::cSuperFlow() :
 	GolfPath( "Maps/Golf/" ),
 	Players( 4 ),
 	CurClassicMap( 0 ),
-	CurGolfMap( 0 )
+	CurGolfMap( 0 ),
+	CurrentStartPlayer( 0 )
 {
 	SetHudData();
 	
@@ -165,7 +166,7 @@ void cSuperFlow::StateFlow()
 			// Start the game //	
 				int OldGolfMap = CurGolfMap;
 				{
-					cGolfGame Game( GolfPath + GolfMaps[ CurGolfMap ], Players );
+					cGolfGame Game( GolfPath + GolfMaps[ CurGolfMap ], Players, CurrentStartPlayer );
 					
 					if( Game.Engine->LevelComplete ) // Re-add this if all the levels become beatable
 					{	
@@ -177,7 +178,14 @@ void cSuperFlow::StateFlow()
 						// Go te next map //
 						if( size_t( CurGolfMap ) < GolfMaps.size() - 1 )
 						{
+							// Play the next level //
 							CurGolfMap++;
+
+							// Let the next player shoot first //
+							CurrentStartPlayer++;
+							if ( CurrentStartPlayer >= Players.size() ) {
+								CurrentStartPlayer = 0;
+							}
 						}
 						cLevelEnd( Game.Engine );
 					}

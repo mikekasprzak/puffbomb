@@ -12,7 +12,7 @@ public:
 	cGolfGameEngine* Engine;
 
 public:
-	cGolfGame( const std::string& FileName, const std::vector< cPlayerInfo >& _Players = std::vector< cPlayerInfo >(4) );
+	cGolfGame( const std::string& FileName, const std::vector< cPlayerInfo >& _Players = std::vector< cPlayerInfo >(4), int _StartPlayer = 0 );
 	~cGolfGame();
 
 public:

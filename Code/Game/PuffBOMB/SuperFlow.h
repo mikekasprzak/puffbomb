@@ -19,9 +19,11 @@ public:
 	std::vector< std::string > GolfMaps;
 	
 	std::vector< cPlayerInfo > Players;
-			
+	
 	int CurClassicMap;
 	int CurGolfMap;
+	
+	int CurrentStartPlayer;
 		
 public:
 	cSuperFlow();

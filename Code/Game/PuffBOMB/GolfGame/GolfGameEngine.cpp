@@ -17,9 +17,9 @@
 #include <sstream>
 
 // - ------------------------------------------------------------------------------------------ - //
-cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector< cPlayerInfo >& _Players ) :
+cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector< cPlayerInfo >& _Players, int _StartPlayer ) :
 	StartPoint( 0 ),
-	CurrentPlayer( 0 ),
+	CurrentPlayer( _StartPlayer ),
 	BombGraphic( "GolfBomb.anim" ),
 	State( 1 ),
 	LevelComplete( false ),
