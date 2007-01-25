@@ -32,7 +32,7 @@ public:
 
 	void Draw( const Vector2D& Offset, int Color = Gfx::White() );
 	void Draw( const Vector2D& Offset, const Matrix2x2& Matrix, int Color = Gfx::White() );
-	void DrawQuad( const Vector2D& Offset, int Color = Gfx::White() );
+	void DrawQuad( const Vector2D& Offset, int Color = Gfx::White(), Real Scale = Real::One );
 	void DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix, int Color = Gfx::White() );
 
 };

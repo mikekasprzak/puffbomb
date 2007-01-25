@@ -14,10 +14,15 @@ namespace Input {
 // - ------------------------------------------------------------------------------------------ - //
 	class cAxis2D: public Vector2D {
 	private:
+		// 
 		//Vector2D _Current;
+		
 		Vector2D _Last;
 	
+		// Digital Interpretation //
 		Vector2D _Digital;
+		int _BitMask;
+		int _LastBitMask;
 	
 	public:
 		// - ---------------------------------------------------------------------------------- - //
@@ -70,6 +75,8 @@ namespace Input {
 			// Calculate the axis as digital (no analog smoothness) //
 			_Digital.x = ((x.Abs() > Real::Half )? Real::One : Real::Zero ) * x.Normal();
 			_Digital.y = ((y.Abs() > Real::Half )? Real::One : Real::Zero ) * y.Normal();
+				
+			//
 			
 		}
 		// - ---------------------------------------------------------------------------------- - //

@@ -243,7 +243,7 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix, int Color
 	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cAnimator::DrawQuad( const Vector2D& Offset, int Color )
+void cAnimator::DrawQuad( const Vector2D& Offset, int Color, Real Scale )
 {
 	if(  CurDrawFrame->Face.size() > 1 )
 	{
@@ -254,16 +254,16 @@ void cAnimator::DrawQuad( const Vector2D& Offset, int Color )
 	
 		unsigned int Indices[ IndicesSize ];
 			
-		Vertex[	0 ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos + Offset ).ToVector3D();
+		Vertex[	0 ] = ( ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.a ].Pos * Scale ) + Offset ).ToVector3D();
 		TexCoord[ 0 ] = CurDrawFrame->Face[ 0 ].UV.a;
 
-		Vertex[	1 ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos + Offset ).ToVector3D();
+		Vertex[	1 ] = ( ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.b ].Pos * Scale ) + Offset ).ToVector3D();
 		TexCoord[ 1 ] = CurDrawFrame->Face[ 0 ].UV.b;
 
-		Vertex[	2 ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos + Offset ).ToVector3D();
+		Vertex[	2 ] = ( ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 0 ].VertexIdx.c ].Pos * Scale ) + Offset ).ToVector3D();
 		TexCoord[ 2 ] = CurDrawFrame->Face[ 0 ].UV.c;
 
-		Vertex[	3 ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos + Offset ).ToVector3D();
+		Vertex[	3 ] = ( ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ 1 ].VertexIdx.c ].Pos * Scale ) + Offset ).ToVector3D();
 		TexCoord[ 3 ] = CurDrawFrame->Face[ 1 ].UV.c;
 		
 		for( size_t idx = 0; idx < IndicesSize; ++idx )
