@@ -408,8 +408,8 @@ void cGolfGameEngine::Draw() {
 
 	// Help //	
 	{
-		Vector3D TempPos = Vector3D( Global::Left + Real( 100 ), Global::Bottom + Real( 25 ), 0.0 );
-		cFonts::FlangeLight.Write( "F1 - Help", TempPos, Real( 1 ), Gfx::RGBA( 255, 255, 255, 255 ) );
+		Vector3D TempPos = Vector3D( Global::Left + Real( 100 ), Global::Bottom + Real( 15 ), 0.0 );
+		cFonts::FlangeLight.Write( "F1 - Help", TempPos, Real( 0.75 ), Gfx::RGBA( 255, 255, 255, 155 ) );
 	}
 	
 }
