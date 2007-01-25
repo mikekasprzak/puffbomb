@@ -1,14 +1,14 @@
-DialogPos		0	-	288
+DialogPos		0	-	298
 DialogPos		0	+	128
 
-DialogPos		0	+	288
+DialogPos		0	+	298
 DialogPos		0	-	154
 
 Focus			0
 Texture			DialogBox.tx
 CreateDialog
 
-TextLabel		100	-275
+TextLabel		170	-275
 IsPassive		0
 ActionID		0
 Text			Press A to continue.
