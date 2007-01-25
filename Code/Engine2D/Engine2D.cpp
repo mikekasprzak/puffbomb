@@ -279,6 +279,8 @@ void cEngine2D::Draw() {
 		}
 	}
 
+	Gfx::DisableDepth();
+	
 	// First Pass Passive Object Draw //
 	{
 		// Draw Passive Objects //
