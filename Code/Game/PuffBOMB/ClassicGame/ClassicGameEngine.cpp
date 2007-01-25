@@ -15,10 +15,10 @@
 #include <Framework/MessageEntity.h>
 #include <Graphics/TexturePool.h>
 // - ------------------------------------------------------------------------------------------ - //
-#ifdef EDITOR
-// For FPS test //
 #include <Graphics/Gfx.h>
 #include <Font/Fonts.h>
+#ifdef EDITOR
+// For FPS test //
 #include <sstream>
 // ------------ //
 #endif // EDITOR //
