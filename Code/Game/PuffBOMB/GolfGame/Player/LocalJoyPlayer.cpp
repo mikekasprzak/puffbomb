@@ -26,6 +26,9 @@ bool cLocalJoyPlayer::Control() {
 	else {
 		BombPos += MyJoy().Stick1 * Real( 5 );
 	}
+	
+	BombPos += MyJoy().DPad.KeyRepeat() * Real(1);
+	
 
 	// Constrain outside center //
 	if ( BombPos.Magnitude() < Real( 128 ) ) {

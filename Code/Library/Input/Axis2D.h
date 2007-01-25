@@ -7,6 +7,7 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Vector.h>
+#include <Util/ClassDesigner.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -23,6 +24,15 @@ namespace Input {
 		Vector2D _Digital;
 		int _BitMask;
 		int _LastBitMask;
+		
+		int _KeyRepeat;
+		
+		enum {
+			Left = bit0,
+			Right = bit1,
+			Down = bit2,
+			Up = bit3
+		};
 	
 	public:
 		// - ---------------------------------------------------------------------------------- - //
@@ -38,6 +48,17 @@ namespace Input {
 			return (_Last - *this);
 		}
 		// - ---------------------------------------------------------------------------------- - //
+		inline const Vector2D& KeyRepeat() const {
+			if ( _KeyRepeat == 0 )
+				return *this;
+
+			if ( _KeyRepeat >= 31 )
+				if ( (_KeyRepeat & 7) == 0 )
+					return *this;
+			
+			return Vector2D::Zero;
+		}
+		// - ---------------------------------------------------------------------------------- - //
 
 		// - ---------------------------------------------------------------------------------- - //
 		inline operator const Vector2D& () {
@@ -50,10 +71,30 @@ namespace Input {
 			return _Digital;
 		}
 		// - ---------------------------------------------------------------------------------- - //
-		inline int DigitalBitMask() const {
-			// Return the value of the axis as digital bitmask (bits for up,down,left and right) //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMask() const {
+			return _BitMask;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMaskPressed() const {
+			return (_BitMask ^ _LastBitMask) & _BitMask;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMaskReleased() const {
+			return (_BitMask ^ _LastBitMask) & _LastBitMask;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+		// Return the value of the axis as digital bitmask (bits for left,right,up,down) //
+		inline int BitMaskKeyRepeat() const {
+			if ( _KeyRepeat == 0 )
+				return _BitMask;
+
+			if ( _KeyRepeat >= 31 )
+				if ( (_KeyRepeat & 7) == 0 )
+					return _BitMask;
 			
-			// *note* - Create variations so you can get new presses and releases too //
 			return 0;
 		}
 		// - ---------------------------------------------------------------------------------- - //
@@ -66,6 +107,11 @@ namespace Input {
 		inline void Reset() {
 			Set( Vector2D::Zero );
 			_Last = Vector2D::Zero;
+			_Digital = Vector2D::Zero;
+			
+			_BitMask = 0;
+			_LastBitMask = 0;
+			_KeyRepeat = 0;
 		}
 		// - ---------------------------------------------------------------------------------- - //		
 		inline void Update( const Vector2D& NewState ) {
@@ -76,7 +122,33 @@ namespace Input {
 			_Digital.x = ((x.Abs() > Real::Half )? Real::One : Real::Zero ) * x.Normal();
 			_Digital.y = ((y.Abs() > Real::Half )? Real::One : Real::Zero ) * y.Normal();
 				
-			//
+			// Write a bitmask for input //
+			int ThisBitMask = 0;
+			
+			if ( _Digital.x == Real::One ) {
+				ThisBitMask |= bit0;
+			}
+			if ( _Digital.x == -Real::One ) {
+				ThisBitMask |= bit1;
+			}
+			if ( _Digital.y == Real::One ) {
+				ThisBitMask |= bit2;
+			}
+			if ( _Digital.y == -Real::One ) {
+				ThisBitMask |= bit3;
+			}
+			
+			_LastBitMask = _BitMask;
+			_BitMask = ThisBitMask;
+
+			// Check for change //
+			if ( _LastBitMask != _BitMask ) {
+				_KeyRepeat = 0;
+			}
+			else {
+				_KeyRepeat++;
+			}
+			
 			
 		}
 		// - ---------------------------------------------------------------------------------- - //
