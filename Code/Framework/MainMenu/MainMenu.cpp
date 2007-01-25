@@ -46,7 +46,11 @@ cMainMenu::cMainMenu()
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 	
+#ifdef EDITOR
+	Form.Load( "2D/Menu/MainMenuEditor.form" );
+#else
 	Form.Load( "2D/Menu/MainMenu.form" );
+#endif // EDITOR //
 	
 	LastTime = GetTime();
 	
