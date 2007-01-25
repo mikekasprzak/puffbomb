@@ -27,6 +27,8 @@ cClassicCursor::~cClassicCursor() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicCursor::Step() {
 	// -- User Control -------------- //
+	Engine2D::cEngine2D::Current->Camera->MinZoom = Global::HudZoom * Real( 2 );
+
 
 	if ( Selection == -1 ) {
 		//Engine2D::cEngine2D::Current->Camera->MinZoom = Global::HudZoom * Real( 2 );
@@ -42,16 +44,17 @@ void cClassicCursor::Step() {
 	else {
 		//Engine2D::cEngine2D::Current->Camera->MinZoom = (Global::HudZoom * Real( 2 )) - Real( 500 );
 		
-		if ( TimeMode ) {
-			Bomb[ Selection ].Time += ((int)Input::Pad[0].Stick1.x);
-				
-			if ( Bomb[ Selection ].Time < 0 )
-				Bomb[ Selection ].Time = 0;
-
-			if ( Bomb[ Selection ].Time > 47 )
-				Bomb[ Selection ].Time = 47;
-		}
-		else {
+//		if ( TimeMode ) {
+//			Bomb[ Selection ].Time += ((int)Input::Pad[0].Stick1.x);
+//				
+//			if ( Bomb[ Selection ].Time < 0 )
+//				Bomb[ Selection ].Time = 0;
+//
+//			if ( Bomb[ Selection ].Time > 47 )
+//				Bomb[ Selection ].Time = 47;
+//		}
+//		else
+		{
 			// Update Bomb Pos //
 			if ( Input::Pad[0].Button[ PAD_R ] ) {
 				Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(16);
@@ -101,37 +104,41 @@ void cClassicCursor::Step() {
 		}
 	}
 
-	// If Timer Button Pressed (X) //
-	if ( Input::Pad[0].Button[ PAD_X ].Pressed() ) {
-		// If you have no selection //
-		if ( Selection == -1 ) {
-			// If there isn't a bomb alread here //
-			if ( CanPlaceBombHere() ) {
-//				// Add a bomb //
-//				Bomb.push_back( cBombInfo( Pos ) );
-//				Selection = Bomb.size() - 1;
-//				TimeMode = true;
-			}
-			// If there is //
-			else {
-				Selection = WhatBombIsHere();
-				TimeMode = true;
-				if ( Selection != -1 ) {
-					Pos = Bomb[ Selection ].Pos;
-				}
-			}
-		}
-		else {
-			TimeMode = true;
-
-//			if ( !TimeMode ) {
-//				TimeMode = true;
+//	// If Timer Button Pressed (X) //
+//	if ( Input::Pad[0].Button[ PAD_X ].Pressed() ) {
+//		// If you have no selection //
+//		if ( Selection == -1 ) {
+//			// If there isn't a bomb alread here //
+//			if ( CanPlaceBombHere() ) {
+////				// Add a bomb //
+////				Bomb.push_back( cBombInfo( Pos ) );
+////				Selection = Bomb.size() - 1;
+////				TimeMode = true;
 //			}
+//			// If there is //
 //			else {
-//				Selection = -1;
+//				Selection = WhatBombIsHere();
+//				TimeMode = true;
+//				if ( Selection != -1 ) {
+//					Pos = Bomb[ Selection ].Pos;
+//				}
 //			}
-		}
+//		}
+//		else {
+//			TimeMode = true;
+//		}
+//	}
+	
+	if ( Selection != -1 ) {
+		Bomb[ Selection ].Time += (int)Input::Pad[0].Trigger.Digital();
+			
+		if ( Bomb[ Selection ].Time < 0 )
+			Bomb[ Selection ].Time = 0;
+
+		if ( Bomb[ Selection ].Time > 47 )
+			Bomb[ Selection ].Time = 47;
 	}
+	
 	// If Back Button Pressed (B) //
 	if ( Input::Pad[0].Button[ PAD_B ].Pressed() ) {
 		// Deselect, if you had a selection //
@@ -139,7 +146,7 @@ void cClassicCursor::Step() {
 	}
 
 	// If Delete Button Pressed (Y) //
-	if ( Input::Pad[0].Button[ PAD_Y ].Pressed() ) {
+	if ( Input::Pad[0].Button[ PAD_BACK ].Pressed() ) {
 		// If you have a selection //
 		if ( Selection != -1 ) {
 			// Remove this bomb //
@@ -155,6 +162,11 @@ void cClassicCursor::Step() {
 			}
 		}
 	}
+	
+	if( Input::Pad[ 0 ].Button[ PAD_Y ] ) { 
+		Engine2D::cEngine2D::Current->Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+	}
+
 		
 	// If there are bombs to select //
 	if ( Bomb.size() > 0 ) {

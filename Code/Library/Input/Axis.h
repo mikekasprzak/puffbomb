@@ -12,15 +12,19 @@
 namespace Input {
 
 // - ------------------------------------------------------------------------------------------ - //
-	class cAxis {
+	class cAxis: public Real {
 	private:
-		Real _Current;
+		//Real _Current;
+		
 		Real _Last;
 	
+		// Digital Interpretation //
+		Real _Digital;
+
 	public:
 		// - ---------------------------------------------------------------------------------- - //
 		inline const Real Current() const {
-			return _Current;
+			return *this;
 		}
 		// - ---------------------------------------------------------------------------------- - //
 		inline const Real Last() const {
@@ -28,7 +32,7 @@ namespace Input {
 		}
 		// - ---------------------------------------------------------------------------------- - //
 		inline const Real Diff() const {
-			return (_Last - _Current);
+			return (_Last - *this);
 		}
 		// - ---------------------------------------------------------------------------------- - //
 
@@ -37,6 +41,13 @@ namespace Input {
 			return Current();
 		}
 		// - ---------------------------------------------------------------------------------- - //
+
+		// - ---------------------------------------------------------------------------------- - //
+		inline const Real Digital() const {
+			return _Digital;
+		}
+		// - ---------------------------------------------------------------------------------- - //
+
 	
 	public:
 		// - ---------------------------------------------------------------------------------- - //
@@ -44,13 +55,17 @@ namespace Input {
 		}	
 		// - ---------------------------------------------------------------------------------- - //
 		inline void Reset() {
-			_Current = Real::Zero;
+			Set( Real::Zero );
 			_Last = Real::Zero;
 		}
 		// - ---------------------------------------------------------------------------------- - //		
 		inline void Update( Real NewState ) {
-			_Last = _Current;
-			_Current = NewState;
+			_Last = *this;
+			Set( NewState );
+			
+			// Calculate the axis as digital (no analog smoothness) //
+			_Digital = ((this->Abs() > Real::Half )? Real::One : Real::Zero ) * this->Normal();
+			
 		}
 		// - ---------------------------------------------------------------------------------- - //
 	};
