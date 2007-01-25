@@ -53,7 +53,7 @@ namespace Input {
 				return _Digital;
 
 			if ( _KeyRepeat >= 31 )
-				if ( (_KeyRepeat & 7) == 0 )
+				if ( (_KeyRepeat & 3) == 0 )
 					return _Digital;
 			
 			return Vector2D::Zero;
@@ -68,7 +68,7 @@ namespace Input {
 				return _Digital;
 
 			if ( _KeyRepeat >= 31 )
-				if ( (_KeyRepeat & 7) == 0 )
+				if ( (_KeyRepeat & 3) == 0 )
 					return _Digital;
 			
 			return Vector2D::Zero;
@@ -107,7 +107,7 @@ namespace Input {
 				return _BitMask;
 
 			if ( _KeyRepeat >= 31 )
-				if ( (_KeyRepeat & 7) == 0 )
+				if ( (_KeyRepeat & 3) == 0 )
 					return _BitMask;
 			
 			return 0;
@@ -123,7 +123,7 @@ namespace Input {
 				return _BitMask;
 
 			if ( _KeyRepeat >= 31 )
-				if ( (_KeyRepeat & 7) == 0 )
+				if ( (_KeyRepeat & 3) == 0 )
 					return _BitMask;
 			
 			return 0;
