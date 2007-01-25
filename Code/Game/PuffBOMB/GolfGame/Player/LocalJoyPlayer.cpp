@@ -20,7 +20,12 @@ cLocalJoyPlayer::~cLocalJoyPlayer() {
 // - ------------------------------------------------------------------------------------------ - //
 bool cLocalJoyPlayer::Control() {
 	// Cursor Control //
-	BombPos += MyJoy().Stick1 * Real( 5 );
+	if ( MyJoy().Button[ PAD_R ] ) {
+		BombPos += MyJoy().Stick1 * Real( 15 );
+	}
+	else {
+		BombPos += MyJoy().Stick1 * Real( 5 );
+	}
 
 	// Constrain outside center //
 	if ( BombPos.Magnitude() < Real( 128 ) ) {
