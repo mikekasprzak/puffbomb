@@ -1,14 +1,23 @@
 DialogPos		0	-	100
-DialogPos		0	+	128
+DialogPos		0	+	90
 
-DialogPos		0	+	100
+DialogPos		0	+	90
 DialogPos		0	-	100
 
-Focus			0
+Focus			1
 Texture			DialogBox.tx
 CreateDialog
 
-TextLabel		0	-75
+TextLabel		0	-180
+IsPassive		0
+ActionID		7
+Text			Back
+Scale			0.5
+Color			255	255	255
+Alpha			255
+EndText
+
+TextLabel		0	-30
 IsPassive		0
 ActionID		5
 Text			2 Players
@@ -17,7 +26,7 @@ Color			255	255	255
 Alpha			255
 EndText
 
-TextLabel		0	-125
+TextLabel		0	-80
 IsPassive		0
 ActionID		5
 Text			3 Players
@@ -26,19 +35,10 @@ Color			255	255	255
 Alpha			255
 EndText
 
-TextLabel		0	-175
+TextLabel		0	-130
 IsPassive		0
 ActionID		5
 Text			4 Players
-Scale			0.5
-Color			255	255	255
-Alpha			255
-EndText
-
-TextLabel		0	-225
-IsPassive		0
-ActionID		7
-Text			Back
 Scale			0.5
 Color			255	255	255
 Alpha			255
