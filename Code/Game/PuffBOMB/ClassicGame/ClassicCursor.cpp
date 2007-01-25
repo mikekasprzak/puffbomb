@@ -217,14 +217,15 @@ void cClassicCursor::Draw() {
 		//Gfx::Circle( Bomb[ idx ].Pos, Real(48), Gfx::RGBA( 255, 0, 0, 255 ) );
 		//BombGraphic.Step();
 		
-		Real MeterSize = Real::One;
+		Real MeterSize = Real( 0.7 );
 		if ( Selection != -1 ) {
 			if ( Selection == idx ) {
-				MeterSize = Real( 2 );
+				MeterSize = Real( 1.5 );
 			}
 		}
 		
-		BombGraphic.DrawQuad( Bomb[ idx ].Pos, Gfx::White(), MeterSize );
+		
+		BombGraphic.DrawQuad( Bomb[ idx ].Pos );
 		
 
 		Gfx::Color OverColor;
@@ -232,19 +233,19 @@ void cClassicCursor::Draw() {
 			
 		switch ( Bomb[ idx ].Time >> 4 ) {
 			case 0: {
-				OverColor = Gfx::RGBA( 0, 0, 255, 92 );
+				OverColor = Gfx::RGBA( 0, 0, 255, 142 );
 				UnderColor = Gfx::RGBA( 0, 0, 0, 0 );
-				break;				
+				break;
 			}
 			case 1: {
-				OverColor = Gfx::RGBA( 255, 255, 0, 92 );
-				UnderColor = Gfx::RGBA( 0, 0, 255, 92 );
-				break;				
+				OverColor = Gfx::RGBA( 255, 255, 0, 142 );
+				UnderColor = Gfx::RGBA( 0, 0, 255, 142 );
+				break;
 			}
 			case 2: {
-				OverColor = Gfx::RGBA( 0, 255, 0, 92 );
-				UnderColor = Gfx::RGBA( 255, 255, 0, 92 );
-				break;				
+				OverColor = Gfx::RGBA( 0, 255, 0, 142 );
+				UnderColor = Gfx::RGBA( 255, 255, 0, 142 );
+				break;
 			}
 		};
 			
@@ -257,7 +258,7 @@ void cClassicCursor::Draw() {
 		BombTimer.SetFrame( (Bomb[ idx ].Time) & 15 );
 		BombTimer.DrawQuad( Bomb[ idx ].Pos, OverColor, MeterSize );
 		
-		BombTab.DrawQuad( Bomb[ idx ].Pos );
+		//BombTab.DrawQuad( Bomb[ idx ].Pos, Gfx::White(), MeterSize );
 	}
 	
 	Gfx::DisableTex2D();
