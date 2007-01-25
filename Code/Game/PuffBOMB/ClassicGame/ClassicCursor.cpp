@@ -64,7 +64,7 @@ void cClassicCursor::Step() {
 			else {
 				Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(4);
 			}
-			Pos += Input::Pad[0].DPad.KeyRepeat() * Real(1);
+			Bomb[ Selection ].Pos += Input::Pad[0].DPad.KeyRepeat() * Real(1);
 			
 			PushMeOutOfOtherBombs( Selection );
 						
