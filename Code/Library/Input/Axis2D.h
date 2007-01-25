@@ -50,11 +50,11 @@ namespace Input {
 		// - ---------------------------------------------------------------------------------- - //
 		inline const Vector2D& KeyRepeat() const {
 			if ( _KeyRepeat == 0 )
-				return *this;
+				return _Digital;
 
 			if ( _KeyRepeat >= 31 )
 				if ( (_KeyRepeat & 7) == 0 )
-					return *this;
+					return _Digital;
 			
 			return Vector2D::Zero;
 		}
