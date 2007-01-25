@@ -21,7 +21,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	15.0
+Time	25.0
 
 Texture	EndArrow.tx
 
@@ -46,7 +46,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	15.0
+Time	10.0
 
 Texture	EndArrow.tx
 
@@ -71,7 +71,7 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
-Time	1.0
+Time	0.0
 
 Interpolate
 
