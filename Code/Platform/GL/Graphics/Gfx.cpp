@@ -512,6 +512,8 @@ namespace Gfx
 	// - -------------------------------------------------------------------------------------- - //
 	void* ScreenShot()
 	{
+		glColor4ub( 255, 255, 255, 255 );
+		
 		void* Buffer = new unsigned char[ 1920 * 1200 * 4 ];
 
 		glReadPixels(
@@ -520,7 +522,7 @@ namespace Gfx
 			1920,
 			1200,
 			GL_RGBA,
-			GL_BYTE,
+			GL_UNSIGNED_BYTE,
 			Buffer
 		);
 
