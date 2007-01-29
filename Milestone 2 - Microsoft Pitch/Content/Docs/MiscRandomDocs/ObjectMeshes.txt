@@ -1,0 +1,76 @@
+
+----------------------------------------------------------------------------------------------------
+
+** Root Commands **
+
+----------------------------------------------------------------------------------------------------
+
+Name: Root Node
+Type: Root
+
+Node	X	Y
+
+- X is the x position.  Right is positive, and Left is negative.
+- Y is the y position.  Up is positive, and Down is negative.
+- Root Nodes are the basic structure of all things in the engine.  Root nodes by themselves, are
+affected by the rules of gravity (i.e., go down).  Other constrants are required to make them
+useful.
+  
+     Y
+     |
+-X --+-- X
+     |
+    -Y
+----------------------------------------------------------------------------------------------------
+
+** Linked Commands **
+The following commands connect something to the last created node.  All these commands require a
+previous node instance.
+
+----------------------------------------------------------------------------------------------------
+
+Name: Sphere Constraint
+Type: Collision
+
+Sphere	RADIUS
+
+- RADIUS is the radius of the sphere to attach to the last node
+- Sphere's are the root of all collision detection in the engine.  If an object doesn't have any
+sphere's, it will fall through the map... which is bad.
+
+----------------------------------------------------------------------------------------------------
+
+Name: Spring Constraint
+Type: Structure
+
+Spring	ID_OFFSET
+
+- ID_OFFSET is a descripter number like -1 or +2.  This describes which node relative to this one to
+create a spring link with.  ID_OFFSET cannot be 0, or outside the range of possible nodes.
+- Spring's are the root of all structure for moving objects in the engine.  If you have multiple
+nodes, without springs or similar structure types connecting nodes, objects will not maintain a
+reasonable shape or even stay together.
+- Performance is affected by an object who's nodes are lost, as internel collision detection
+routines must test all areas covered by the area of an object.
+
+----------------------------------------------------------------------------------------------------
+
+Name: Stiff Link Constraint
+Type: Structure
+
+Stiff ID_OFFSET STIFF_OFFSET WIDTH
+
+- ID_OFFSET is a descripter number like -1 or +2.  This descirbes which node relative to this one to
+create a stiff link with.  ID_OFFSET cannot be 0, or outside the range of possible nodes.
+- STIFF_OFFSET is a descripter number like -1 or +2.  This describes which STIFF link near this one
+to chain to.  STIFF_OFFSET *CAN* be 0, and when it is, it means it has no STIFF link to chain to,
+and commonly means it's the last node on a chain.  STIFF_OFFSET cannot be outside the range of
+possible St
+- WIDTH is an approximation of how loose to make a STIFF link.  With a link approximately 32 tall,
+a WIDTH of 32 makes it loose enough to fall approximately to a 45 degree angle.  A width of 0 makes
+them perfectly stiff.
+- Stiff Link's are a sort of spring that's constrained to an angle.  They are heiarchical structural
+entities that allow you to creat heiarchy's or stiff bone structures.  The width gives a flexibility
+control, allowing you to construct flexible heiarchies
+
+----------------------------------------------------------------------------------------------------
