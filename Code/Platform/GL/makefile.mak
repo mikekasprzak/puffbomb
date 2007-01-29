@@ -29,7 +29,7 @@ export CompTextureToolArgs
 CODE_DIRS		:=	$(SYSTEM_TARGET) External Library $(ENGINE) Framework Game/JunkGame Game/$(GAME_TARGET)
 # - -------------------------------------------------------------------------------------------- - #
 CONTENT_DIRS	:=	$(GAME_TARGET)
-CONTENT_EXT		:=	.png .ogg .anim .font .form .mesh3d .comp .coll .map
+CONTENT_EXT		:=	.png .ogg .anim .font .form .mesh3d .comp .coll .map .pack.tx
 # - -------------------------------------------------------------------------------------------- - #
 
 
