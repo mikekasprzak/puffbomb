@@ -16,6 +16,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
+extern int GetTime();
+// - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::cMapEdit() :
@@ -30,7 +32,10 @@ cMapEdit::cMapEdit() :
 	CurPass( 0 ),
 	CurZone( 0 ),
 	CornerSize( 128 ),
-	ResizeCorner( 0 )
+	ResizeCorner( 0 ),
+	CaptureDelay( 200 ), // if the game is running below 20-30fps this number may need to be raised to 600 or more.
+	OffsetTime( 0 ),
+	MiniMapLastMode( 0 )
 {
 	Camera->Pos.z = Global::HudZoom * Real( 4 );
 
@@ -81,6 +86,7 @@ cMapEdit::cMapEdit() :
 	MiniMapDynList.push_back( 131 ); // TreeOne //
 	
 	CurMode = TILE_MODE;
+	LastMode = CurMode;
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMapEdit::~cMapEdit()
@@ -415,7 +421,46 @@ void cMapEdit::Step()
 		}
 		MovePass();
 	}
-	
+	else if( CurMode == MINI_MAP_MODE )
+	{
+
+		Vector2D CameraCenter = Vector2D::Zero;
+		Vector2D P1 = Vector2D::Zero;
+		Vector2D P2 = Vector2D::Zero;
+		
+		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
+		{
+			if( Map.ZoneInstanceInfo[ idx ].Id == 1 )
+			{
+				CameraCenter = Map.ZoneInstanceInfo[ idx ].BoundingRect.Center();
+				
+				P1 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P1();
+				P2 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P2();
+			}
+		}
+		
+		Real XRatio = ( P2.x - P1.x ) / Real( 2 );
+		Real YRatio = ( P2.y - P1.y ) / Real( 2 ) ;
+		
+		XRatio /= Global::Right;
+		YRatio /= Global::Top;
+		
+		if( XRatio > YRatio )
+		{
+			Camera->Pos = Vector3D( CameraCenter.x, CameraCenter.y, XRatio * Global::HudZoom );
+		}	
+		else
+		{
+			Camera->Pos = Vector3D( CameraCenter.x, CameraCenter.y, YRatio * Global::HudZoom );
+		}
+		
+		if( GetTime() > OffsetTime )
+		{
+			CurMode = MiniMapLastMode;
+			SaveScreenshot();
+		}
+	}
+		
 	SwitchMode();
 	SwitchMap();
 	
@@ -502,8 +547,6 @@ void cMapEdit::SwitchMap()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SwitchMode()
 {	
-	unsigned int LastMode = CurMode;
-
 	if( Button[ KEY_1 ].Pressed() )
 	{
 		CurMode = TILE_MODE;
@@ -528,7 +571,7 @@ void cMapEdit::SwitchMode()
 	{
 		CurMode = MINI_MAP_MODE;
 		
-		Gfx::DisableMouseDraw();
+/*		Gfx::DisableMouseDraw();
 		
 		Vector2D CameraCenter = Vector2D::Zero;
 		Vector2D P1 = Vector2D::Zero;
@@ -560,18 +603,27 @@ void cMapEdit::SwitchMode()
 			Camera->Pos = Vector3D( CameraCenter.x, CameraCenter.y, YRatio * Global::HudZoom );
 		}
 		
-		SaveScreenshot();
+		SaveScreenshot();*/
 	}
 	
 	if( LastMode != CurMode )
 	{
 		CurSelected.clear();
 		
-		if( CurMode != MINI_MAP_MODE )
+		if( CurMode == MINI_MAP_MODE )
+		{
+			Gfx::DisableMouseDraw();
+			MiniMapLastMode = LastMode;
+			OffsetTime = GetTime() + CaptureDelay;
+		}
+		else
 		{
 			Gfx::EnableMouseDraw();
 		}
+		
 	}
+	
+	LastMode = CurMode;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::ActiveAction()
@@ -729,6 +781,8 @@ void cMapEdit::SaveMap()
 		// Reason: when saving tiles it sorts before writing them //
 		// However this breaks the Layering for the editor //
 		LoadMap();
+		
+		CurMode = MINI_MAP_MODE;
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -780,6 +834,10 @@ void cMapEdit::Reset()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SaveScreenshot()
 {
+
+	Log( LOG_HIGHEST_LEVEL, "Writing " << "MiniMap.tx" );
+	
+	
 	std::ofstream outfile ( "MiniMap.tx", std::ofstream::binary );
 
 	void* Pixels = Gfx::ScreenShot();

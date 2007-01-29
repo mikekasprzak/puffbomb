@@ -88,7 +88,13 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	std::vector< int > MiniMapDynList;
 	void SaveScreenshot();
-
+	
+	size_t CaptureDelay;
+	size_t OffsetTime;
+	size_t MiniMapLastMode;
+	
+	size_t LastMode;
+	
 		
 public:
 	cMapEdit();
