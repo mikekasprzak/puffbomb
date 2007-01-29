@@ -251,6 +251,8 @@ void cClassicGameEngine::Step() {
 			if ( GameActive ) {
 				// Add bombs here, 'cause they could be tweaked up until this point //
 				AddBombs();
+				// Deselect the current bomb //
+				Cursor.Selection = -1;
 			}
 			else {
 				// Clear various lists, 'cause we're about to repopulate them //
