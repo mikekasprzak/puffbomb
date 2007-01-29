@@ -17,6 +17,7 @@ public:
 	cTexturePool() {
 		SearchPath.Add( "Textures" );
 		SearchPath.Add( "2D" );
+		SearchPath.Add( "Maps" );
 	}
 	~cTexturePool();
 

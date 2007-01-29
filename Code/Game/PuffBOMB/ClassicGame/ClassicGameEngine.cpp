@@ -29,8 +29,7 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	Score( 0 ),
 	ArrowAnimator( "TrackingArrow.anim" ),
 	IsHelp( false ),
-	HelpTex( TexturePool.Load( "ClassicControls.pack.tx" ) ),
-	MiniMapTex( TexturePool.Load( "MiniMap.tx" ) )
+	HelpTex( TexturePool.Load( "ClassicControls.pack.tx" ) )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -54,6 +53,13 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 
 	LoadMap( FileName );
 	
+	std::string MiniMapName = FileName.substr( 5, FileName.size() - 4 - 5 ) + ".tx";
+	
+	Log( 10, "FileName " << FileName );
+	Log( 10, "MiniMapName " << MiniMapName );
+	
+	MiniMapTex = TexturePool.Load( MiniMapName );
+
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 	
