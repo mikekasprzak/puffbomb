@@ -244,6 +244,13 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 	if( FilterFlags & flBlackKey )
 	{
 		BlackKeyFilter( Tex );
+		
+		// Fatten the texture //
+		for ( int idx = 0; idx < 4; idx++ )
+		{
+			FattenFilter( Tex );
+		}
+		
 		FilterFlags ^= flBlackKey;
 		cout << "Black Key filter applied" << endl;
 	}
