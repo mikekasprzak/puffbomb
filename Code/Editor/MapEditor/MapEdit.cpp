@@ -453,19 +453,19 @@ void cMapEdit::Step()
 		{
 			Camera->Pos = Vector3D( CameraCenter.x, CameraCenter.y, YRatio * Global::HudZoom );
 		}
-		
-		if( GetTime() > OffsetTime )
+
+		if( GetTime() > OffsetTime && IsSaved )
 		{
 			CurMode = MiniMapLastMode;
 			SaveScreenshot();
 		}
 	}
 		
+	SaveMap();
+
 	SwitchMode();
 	SwitchMap();
-	
-	SaveMap();
-	
+
 	Reset();
 
 	// Handles scrolling around the map
@@ -834,15 +834,20 @@ void cMapEdit::Reset()
 // - ------------------------------------------------------------------------------------------ - //
 void cMapEdit::SaveScreenshot()
 {
-
-	Log( LOG_HIGHEST_LEVEL, "Writing " << "MiniMap.tx" );
+	std::string DirPrefix = "../Data/Maps/";
 	
+	std::string MiniMapName = DirPrefix + MapPath[ CurMap ];
 	
-	std::ofstream outfile ( "MiniMap.tx", std::ofstream::binary );
+	MiniMapName = MiniMapName.substr( 0, MiniMapName.size() - 4 ) + ".blackkey.quarter.tx";
+	
+	Log( LOG_HIGHEST_LEVEL, "Writing " << MiniMapName );
+	
+	std::ofstream outfile ( MiniMapName.c_str(), std::ofstream::binary );
 
 	void* Pixels = Gfx::ScreenShot();
 
-	unsigned int PixelSize = 3;
+//	unsigned int PixelSize = 3;
+	unsigned int PixelSize = 4;
 	unsigned int Width = Global::ScreenW;
 	unsigned int Height = Global::ScreenH;
 	

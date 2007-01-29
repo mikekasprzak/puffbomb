@@ -512,6 +512,19 @@ namespace Gfx
 	// - -------------------------------------------------------------------------------------- - //
 	void* ScreenShot()
 	{
+		void* Buffer = new unsigned char[ 1920 * 1200 * 4 ];
+
+		glReadPixels(
+			0,
+			0,
+			1920,
+			1200,
+			GL_RGBA,
+			GL_BYTE,
+			Buffer
+		);
+
+/*
 		void* Buffer = new unsigned char[ 1920 * 1200 * 3 ];
 
 		glReadPixels(
@@ -524,7 +537,7 @@ namespace Gfx
 			Buffer
 		);
 
-/*
+
 		void* Buffer = new unsigned char[ Global::ScreenW * Global::ScreenH * 3 ];
 
 		glReadPixels(
