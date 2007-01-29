@@ -61,7 +61,12 @@ public:
 	Vector3D HelpTexVertex[ 4 ];
 	Vector2D HelpTexUV[ 4 ];
 	unsigned int HelpTexIndices[ 4 ];
-	cTexture HelpTex;	
+	cTexture HelpTex;
+	
+	Vector3D MiniMapTexVertex[ 4 ];
+	Vector2D MiniMapTexUV[ 4 ];
+	unsigned int MiniMapTexIndices[ 4 ];
+	cTexture MiniMapTex;
 	
 public:
 	void Step();
