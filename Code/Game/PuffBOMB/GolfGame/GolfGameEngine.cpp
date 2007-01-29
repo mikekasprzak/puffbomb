@@ -49,6 +49,10 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	SetActive();
 	 
  	LoadMap( FileName );
+ 
+	MiniMapName = FileName.substr( 5, FileName.size() - 4 - 5 ) + ".pack.tx";
+	
+	MiniMapTex = TexturePool.Load( MiniMapName );
  	
  	DenseParticle.Clear();
  	SolidParticle.Clear();
@@ -98,6 +102,28 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	HelpTexIndices[2] = 2;
 	HelpTexIndices[3] = 3;
 	
+	// MiniMap //
+	Real MiniMapWidth = 1920.0;
+	Real MiniMapHeight = 1200.0;
+	
+	MiniMapWidth /= Real( 4 ); 
+	MiniMapHeight /= Real( 4 );
+	
+	MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 );
+	MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 );
+	MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 );
+	MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 );
+
+	MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
+	MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
+	MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
+	MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
+
+	MiniMapTexIndices[0] = 0;
+	MiniMapTexIndices[1] = 1;
+	MiniMapTexIndices[2] = 2;
+	MiniMapTexIndices[3] = 3;	
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::~cGolfGameEngine() {
@@ -108,6 +134,8 @@ cGolfGameEngine::~cGolfGameEngine() {
 	for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 		delete Player[ idx ];
 	}
+	
+	TexturePool.Remove( MiniMapName );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -373,6 +401,21 @@ void cGolfGameEngine::Draw() {
 	Gfx::EnableDepth();
 
 	HudCamera->Update();
+
+	Gfx::PushMatrix();
+	{
+		Gfx::Translate( Vector2D( Global::Right, Global::Bottom ) );
+	
+		Gfx::DrawQuads(
+			&MiniMapTexVertex[0],
+			&MiniMapTexUV[0],
+			MiniMapTexIndices,
+			4,
+			MiniMapTex.Id,
+			Gfx::White()
+		); 
+	}
+	Gfx::PopMatrix();
 
 	// Draw player tracking //	
 	for( size_t idx = 0; idx < Player.size(); idx++ ) {

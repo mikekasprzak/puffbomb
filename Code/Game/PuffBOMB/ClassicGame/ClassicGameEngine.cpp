@@ -55,9 +55,6 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	
 	MiniMapName = FileName.substr( 5, FileName.size() - 4 - 5 ) + ".pack.tx";
 	
-	Log( 10, "FileName " << FileName );
-	Log( 10, "MiniMapName " << MiniMapName );
-	
 	MiniMapTex = TexturePool.Load( MiniMapName );
 
 	SolidParticle.Clear();
