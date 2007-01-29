@@ -31,6 +31,7 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex );
 void BlackenFilter( cTex& Tex );
 void FattenFilter( cTex& Tex );
 void HalfFilter( cTex& Tex );
+void BlackKeyFilter( cTex& Tex );
 void WhiteFilter( cTex& Tex, int SWhite );
 // - ------------------------------------------------------------------------------------------ - //
 //	FlagFilters
@@ -41,6 +42,7 @@ fl flQuarter 	= bit6;
 fl flEighth 	= bit7;
 fl flWhite	 	= bit8;
 
+fl flBlackKey	= bit15;
 fl flRGB 		= bit16;
 fl flRGBA 		= bit17;
 fl flBGR 		= bit18;
@@ -164,6 +166,11 @@ unsigned int Filters( const std::string PathFileName )
 		FilterFlags |= flFatten;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	if( String::HasAnyExtension( PathFileName, "blackkey" ) )
+	{
+		FilterFlags |= flBlackKey;
+	}
+	// - -------------------------------------------------------------------------------------- - //
 	if( String::HasAnyExtension( PathFileName, "half" ) )
 	{
 		FilterFlags |= flHalf;
@@ -232,6 +239,13 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 			
 		FilterFlags ^= flFatten;
 		cout << "Fatten filter applied" << endl;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	if( FilterFlags & flBlackKey )
+	{
+		BlackKeyFilter( Tex );
+		FilterFlags ^= flBlackKey;
+		cout << "Black Key filter applied" << endl;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	if( FilterFlags & flHalf )
@@ -495,6 +509,30 @@ void HalfFilter( cTex& Tex )
 			
 	Tex.Pixels = (unsigned char*)HalfedImage;
 	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void BlackKeyFilter( cTex& Tex )
+{
+	if( Tex.PixelSize == 4 )
+	{
+		for( size_t y = 0; y < Tex.Height; ++y )
+		{
+			for( size_t x = 0; x < Tex.Width; ++x )
+			{
+				unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
+				if( Tex.Pixels[ idx ] == 0 &&
+					Tex.Pixels[ idx + 1 ] == 0 &&
+					Tex.Pixels[ idx + 2 ] == 0 )
+				{
+					Tex.Pixels[ idx + 3 ] = 0;
+				}
+				else
+				{
+					Tex.Pixels[ idx + 3 ] = 255;
+				}
+			}
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void WhiteFilter( cTex& Tex, int SWhite )
