@@ -68,6 +68,8 @@ public:
 	unsigned int MiniMapTexIndices[ 4 ];
 	cTexture MiniMapTex;
 	
+	std::string MiniMapName;
+	
 public:
 	void Step();
 	void Draw();

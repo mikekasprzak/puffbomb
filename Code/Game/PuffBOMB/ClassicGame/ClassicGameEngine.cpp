@@ -53,7 +53,7 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 
 	LoadMap( FileName );
 	
-	std::string MiniMapName = FileName.substr( 5, FileName.size() - 4 - 5 ) + ".tx";
+	MiniMapName = FileName.substr( 5, FileName.size() - 4 - 5 ) + ".pack.tx";
 	
 	Log( 10, "FileName " << FileName );
 	Log( 10, "MiniMapName " << MiniMapName );
@@ -127,6 +127,8 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 cClassicGameEngine::~cClassicGameEngine() {
 	// Destroy my Custom Camera //
 	delete HudCamera;
+	
+	TexturePool.Remove( MiniMapName );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
