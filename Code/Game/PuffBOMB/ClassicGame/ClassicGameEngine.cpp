@@ -414,11 +414,16 @@ void cClassicGameEngine::Draw() {
 			ElementTracker( PointsOfInterestAnimators[ idx ], PointsOfInterest[ idx ]->BoundingRect.ToRect(), false, Real( 32 ) );
 		}
 	}
-
+	
+	
+	Gfx::DisableDepth();
+		
 	Gfx::PushMatrix();
 	{
 		Gfx::Translate( Vector2D( Global::Right, Global::Bottom ) );
-	
+		
+		Gfx::EnableTex2D();
+		
 		Gfx::DrawQuads(
 			&MiniMapTexVertex[0],
 			&MiniMapTexUV[0],
@@ -426,10 +431,47 @@ void cClassicGameEngine::Draw() {
 			4,
 			MiniMapTex.Id,
 			Gfx::White()
-		); 
+		);
+		
+		Gfx::DisableTex2D();
+		
+		Gfx::Rect( Vector2D( ( -Global::ScreenW ) / Real( 4 ), ( Global::ScreenH ) / Real( 4 ) ), Vector2D::Zero, Gfx::RGBA( 22, 255, 22, 255 ) );
+		
+		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / Real( 3.39424 );
+		
+		Gfx::Rect(
+			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / Real( 3.39424 ) / Real( 2 ) ),
+			Vector2D::Zero + Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / Real( 3.39424 ) / Real( 2 ),
+			Gfx::White()
+		);
+		
+		Gfx::Rect(
+			Vector2D(
+				-( Camera->ViewArea._P2.x - Camera->ViewArea._P1.x ) + Camera->Pos.x /*- Global::Right*/,
+				( Camera->ViewArea._P2.y - Camera->ViewArea._P1.y ) + Camera->Pos.y /*+ Global::Top */
+			) / Real( 4 ) / Real( 3.39424 ),
+			( Vector2D::Zero + Camera->Pos.ToVector2D() /*+ Vector2D( -Global::Right, Global::Top )*/ ) / Real( 4 ) / Real( 3.39424 ),
+			Gfx::RGBA( 22, 128, 255, 255 )
+		);
+
+
+/*
+
+		Gfx::Rect(
+			Vector2D(
+				-( Camera->ViewArea._P2.x - Camera->ViewArea._P1.x ) + Camera->Pos.x,
+				( Camera->ViewArea._P2.y - Camera->ViewArea._P1.y ) + Camera->Pos.y
+			) / Real( 4 ) / Real( 3.39424 ),
+			( Vector2D::Zero + Camera->Pos.ToVector2D() + Vector2D( -Global::Right, Global::Top ) ) / Real( 4 ) / Real( 3.39424 ),
+			Gfx::RGBA( 22, 128, 255, 255 )
+		);
+
+*/
+		
+		Gfx::EnableTex2D();
 	}
 	Gfx::PopMatrix();
-
+	
 	
 /*#ifdef EDITOR
 	//	//  DISPLAYS FPS  //
