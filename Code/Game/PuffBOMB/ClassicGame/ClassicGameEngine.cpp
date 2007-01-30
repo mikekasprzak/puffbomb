@@ -444,29 +444,18 @@ void cClassicGameEngine::Draw() {
 			Vector2D::Zero + Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / Real( 3.39424 ) / Real( 2 ),
 			Gfx::White()
 		);
+
+		Vector2D TempPos = Vector2D( Camera->Pos.x, Camera->Pos.y );
+		
+		TempPos.x -= Camera->CameraBounds._P2.x;
+		TempPos.y -= Camera->CameraBounds._P1.y;
 		
 		Gfx::Rect(
-			Vector2D(
-				( -( Camera->ViewArea._P2.x - Camera->ViewArea._P1.x ) + Camera->Pos.x - ( Global::Right + ( Global::Right / Real( Camera->Pos.z / Global::HudZoom ) ) ) ),
-				( Camera->ViewArea._P2.y - Camera->ViewArea._P1.y ) + Camera->Pos.y + Global::Top
-			) / Real( 4 ) / Real( 3.39424 ),
-			( Vector2D::Zero + Camera->Pos.ToVector2D() + Vector2D( -Global::Right - ( Global::Right / Real( Camera->Pos.z / Global::HudZoom ) ), Global::Top ) ) / Real( 4 ) / Real( 3.39424 ),
+			( Camera->ViewArea._P1 + TempPos + ( Vector2D( -Global::Right, Real::Zero ) / Real( 2 ) ) ) / Real( 4 ) / Real( 3.39424 ),
+			( Camera->ViewArea._P2 + TempPos + ( Vector2D( -Global::Right, Real::Zero ) / Real( 2 ) ) ) / Real( 4 ) / Real( 3.39424 ),
 			Gfx::RGBA( 22, 128, 255, 255 )
 		);
 
-
-/*
-
-		Gfx::Rect(
-			Vector2D(
-				-( Camera->ViewArea._P2.x - Camera->ViewArea._P1.x ) + Camera->Pos.x,
-				( Camera->ViewArea._P2.y - Camera->ViewArea._P1.y ) + Camera->Pos.y
-			) / Real( 4 ) / Real( 3.39424 ),
-			( Vector2D::Zero + Camera->Pos.ToVector2D() + Vector2D( -Global::Right, Global::Top ) ) / Real( 4 ) / Real( 3.39424 ),
-			Gfx::RGBA( 22, 128, 255, 255 )
-		);
-
-*/
 		
 		Gfx::EnableTex2D();
 	}
