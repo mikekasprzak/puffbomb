@@ -447,10 +447,10 @@ void cClassicGameEngine::Draw() {
 		
 		Gfx::Rect(
 			Vector2D(
-				-( Camera->ViewArea._P2.x - Camera->ViewArea._P1.x ) + Camera->Pos.x /*- Global::Right*/,
-				( Camera->ViewArea._P2.y - Camera->ViewArea._P1.y ) + Camera->Pos.y /*+ Global::Top */
+				( -( Camera->ViewArea._P2.x - Camera->ViewArea._P1.x ) + Camera->Pos.x - ( Global::Right + ( Global::Right / Real( Camera->Pos.z / Global::HudZoom ) ) ) ),
+				( Camera->ViewArea._P2.y - Camera->ViewArea._P1.y ) + Camera->Pos.y + Global::Top
 			) / Real( 4 ) / Real( 3.39424 ),
-			( Vector2D::Zero + Camera->Pos.ToVector2D() /*+ Vector2D( -Global::Right, Global::Top )*/ ) / Real( 4 ) / Real( 3.39424 ),
+			( Vector2D::Zero + Camera->Pos.ToVector2D() + Vector2D( -Global::Right - ( Global::Right / Real( Camera->Pos.z / Global::HudZoom ) ), Global::Top ) ) / Real( 4 ) / Real( 3.39424 ),
 			Gfx::RGBA( 22, 128, 255, 255 )
 		);
 
