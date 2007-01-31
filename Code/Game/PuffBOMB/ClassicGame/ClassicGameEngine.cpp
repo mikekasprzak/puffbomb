@@ -441,8 +441,11 @@ void cClassicGameEngine::Draw() {
 		Gfx::Rect(
 			( Camera->ViewArea._P1 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
 			( Camera->ViewArea._P2 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
-			Gfx::RGBA( 22, 128, 255, 255 )
+			Gfx::RGBA( 192, 192, 192, 255 )
 		);
+		
+		//Gfx::Circle( ( TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio, Real( 6 ), Gfx::RGBA( 192, 192, 192, 255 ) );
+		Gfx::Circle( ( Vector2D( Camera->Focus.x - Camera->CameraBounds._P2.x, Camera->Focus.y - Camera->CameraBounds._P1.y ) + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio, Real( 4 ), Gfx::RGBA( 192, 192, 192, 255 ) );
 		
 		Gfx::SetLineWidth( 1.0 );
 		
