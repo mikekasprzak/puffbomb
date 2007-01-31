@@ -428,7 +428,19 @@ void cGolfGameEngine::Draw() {
 	Gfx::PushMatrix();
 	{
 		Gfx::Translate( Vector2D( Global::Right, Global::Bottom ) );
+
+		Gfx::DisableTex2D();
 		
+		//Gfx::Rect( Vector2D( ( -1920 ) / Real( 4 ), ( 1200 ) / Real( 4 ) ), Vector2D::Zero, Gfx::RGBA( 22, 255, 22, 255 ) );
+		
+		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
+		
+		Gfx::RFilledRect(
+			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) ),
+			Vector2D::Zero + MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ),
+			Gfx::RGBA( 0, 0, 0, 80 )
+		);
+
 		Gfx::EnableTex2D();
 		
 		Gfx::DrawQuads(
@@ -441,30 +453,24 @@ void cGolfGameEngine::Draw() {
 		);
 		
 		Gfx::DisableTex2D();
-		
-		Gfx::Rect( Vector2D( ( -1920 ) / Real( 4 ), ( 1200 ) / Real( 4 ) ), Vector2D::Zero, Gfx::RGBA( 22, 255, 22, 255 ) );
-		
-		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
-		
-		Gfx::Rect(
-			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) ),
-			Vector2D::Zero + MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ),
-			Gfx::White()
-		);
 
 		Vector2D TempPos = Vector2D( Camera->Pos.x, Camera->Pos.y );
 		
 		TempPos.x -= Camera->CameraBounds._P2.x;
 		TempPos.y -= Camera->CameraBounds._P1.y;
 		
+		Gfx::SetLineWidth( 3.0 );
+
 		Gfx::Rect(
 			( Camera->ViewArea._P1 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
 			( Camera->ViewArea._P2 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
 			Gfx::RGBA( 22, 128, 255, 255 )
 		);
-
+		
+		Gfx::SetLineWidth( 1.0 );
 		
 		Gfx::EnableTex2D();
+
 	}
 	Gfx::PopMatrix();
 		
