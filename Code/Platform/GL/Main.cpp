@@ -38,7 +38,7 @@ SDL_Surface* SetVideoMode() {
 	// Get information about our video hardware // 
 	const SDL_VideoInfo* VideoInfo = SDL_GetVideoInfo();
 	
-	// In the incredibly unlikely case that we have no video hardware... // 
+	// In the incredibly unlikely case that we have no video hardware... //  
 	if ( !VideoInfo ) {
 	    Log( LOG_HIGHEST_LEVEL, "Video query failed: " << SDL_GetError() );
 	    QuitGame( 1 );

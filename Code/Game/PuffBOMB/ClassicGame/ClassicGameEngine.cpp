@@ -119,6 +119,36 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	MiniMapTexIndices[1] = 1;
 	MiniMapTexIndices[2] = 2;
 	MiniMapTexIndices[3] = 3;
+	
+	Vector2D CameraCenter = Vector2D::Zero;
+	Vector2D P1 = Vector2D::Zero;
+	Vector2D P2 = Vector2D::Zero;
+	
+	for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
+	{
+		if( Map.ZoneInstanceInfo[ idx ].Id == 1 )
+		{
+			CameraCenter = Map.ZoneInstanceInfo[ idx ].BoundingRect.Center();
+			
+			P1 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P1();
+			P2 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P2();
+		}
+	}
+	
+	MiniMapXRatio = ( P2.x - P1.x ) / Real( 2 );
+	MiniMapYRatio = ( P2.y - P1.y ) / Real( 2 );
+	
+	MiniMapXRatio /= ( 1920 / 2 );
+	MiniMapYRatio /= ( 1200 / 2 );
+
+	if( MiniMapXRatio > MiniMapYRatio )
+	{
+		MiniMapRatio = MiniMapXRatio;
+	}	
+	else
+	{
+		MiniMapRatio = MiniMapYRatio;
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -435,13 +465,13 @@ void cClassicGameEngine::Draw() {
 		
 		Gfx::DisableTex2D();
 		
-		Gfx::Rect( Vector2D( ( -Global::ScreenW ) / Real( 4 ), ( Global::ScreenH ) / Real( 4 ) ), Vector2D::Zero, Gfx::RGBA( 22, 255, 22, 255 ) );
+		Gfx::Rect( Vector2D( ( -1920 ) / Real( 4 ), ( 1200 ) / Real( 4 ) ), Vector2D::Zero, Gfx::RGBA( 22, 255, 22, 255 ) );
 		
-		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / Real( 3.39424 );
+		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
 		
-		Gfx::Rect(
-			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / Real( 3.39424 ) / Real( 2 ) ),
-			Vector2D::Zero + Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / Real( 3.39424 ) / Real( 2 ),
+		Gfx::Rect(  // FIX RIGHT THING!
+			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / MiniMapRatio / Real( 2 ) ),
+			Vector2D::Zero + Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / MiniMapRatio / Real( 2 ),
 			Gfx::White()
 		);
 
@@ -451,8 +481,8 @@ void cClassicGameEngine::Draw() {
 		TempPos.y -= Camera->CameraBounds._P1.y;
 		
 		Gfx::Rect(
-			( Camera->ViewArea._P1 + TempPos + ( Vector2D( -Global::Right, Real::Zero ) / Real( 2 ) ) ) / Real( 4 ) / Real( 3.39424 ),
-			( Camera->ViewArea._P2 + TempPos + ( Vector2D( -Global::Right, Real::Zero ) / Real( 2 ) ) ) / Real( 4 ) / Real( 3.39424 ),
+			( Camera->ViewArea._P1 + TempPos + ( Vector2D( -Global::Right, Real::Zero ) / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
+			( Camera->ViewArea._P2 + TempPos + ( Vector2D( -Global::Right, Real::Zero ) / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
 			Gfx::RGBA( 22, 128, 255, 255 )
 		);
 

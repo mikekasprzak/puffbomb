@@ -69,6 +69,9 @@ public:
 	cTexture MiniMapTex;
 	
 	std::string MiniMapName;
+	Real MiniMapXRatio;
+	Real MiniMapYRatio;
+	Real MiniMapRatio;	
 	
 public:
 	void Step();

@@ -824,6 +824,7 @@ void cMapEdit::SaveScreenshot()
 	
 	outfile.write( (char*)&PixelSize, sizeof( unsigned int ) );
 	outfile.write( (char*)&Width, sizeof( unsigned int ) );
+	
 	outfile.write( (char*)&Height, sizeof( unsigned int ) );
 	
 	outfile.write( ( char* )Pixels, PixelSize * ( Width * Height ) );
