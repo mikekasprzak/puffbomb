@@ -141,14 +141,21 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	MiniMapXRatio /= ( 1920 / 2 );
 	MiniMapYRatio /= ( 1200 / 2 );
 
+	MiniMapCenterShift = Vector2D( Real::Zero, Real::Zero );
+
 	if( MiniMapXRatio > MiniMapYRatio )
 	{
 		MiniMapRatio = MiniMapXRatio;
+	//	MiniMapCenterShift = Vector2D( -1920 * MiniMapXRatio + ( ( P2.x - P1.x ) ), Real::Zero );
 	}	
 	else
 	{
 		MiniMapRatio = MiniMapYRatio;
+		//MiniMapCenterShift = Vector2D( 1920 * MiniMapXRatio - ( ( P2.x - P1.x ) ), Real::Zero );
+		MiniMapCenterShift = Vector2D( ( -1920 * MiniMapRatio ) + ( P2.x - P1.x ), Real::Zero );
+	//	MiniMapCenterShift = Vector2D( 1920 - ( P2.x - P1.x ), Real::Zero );
 	}
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -469,9 +476,9 @@ void cClassicGameEngine::Draw() {
 		
 		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
 		
-		Gfx::Rect(  // FIX RIGHT THING!
-			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / MiniMapRatio / Real( 2 ) ),
-			Vector2D::Zero + Vector2D( -Global::Right, Real::Zero ) / Real( 4 ) / MiniMapRatio / Real( 2 ),
+		Gfx::Rect(
+			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) ),
+			Vector2D::Zero + MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ),
 			Gfx::White()
 		);
 
@@ -481,8 +488,8 @@ void cClassicGameEngine::Draw() {
 		TempPos.y -= Camera->CameraBounds._P1.y;
 		
 		Gfx::Rect(
-			( Camera->ViewArea._P1 + TempPos + ( Vector2D( -Global::Right, Real::Zero ) / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
-			( Camera->ViewArea._P2 + TempPos + ( Vector2D( -Global::Right, Real::Zero ) / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
+			( Camera->ViewArea._P1 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
+			( Camera->ViewArea._P2 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
 			Gfx::RGBA( 22, 128, 255, 255 )
 		);
 

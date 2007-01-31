@@ -71,7 +71,8 @@ public:
 	std::string MiniMapName;
 	Real MiniMapXRatio;
 	Real MiniMapYRatio;
-	Real MiniMapRatio;	
+	Real MiniMapRatio;
+	Vector2D MiniMapCenterShift;
 	
 public:
 	void Step();
