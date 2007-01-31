@@ -75,6 +75,8 @@ public:
 	Vector2D MiniMapCenterShift;
 	
 public:
+	void MiniMapInit();
+		
 	void Step();
 	void Draw();
 	

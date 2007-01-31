@@ -98,61 +98,10 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	HelpTexIndices[2] = 2;
 	HelpTexIndices[3] = 3;
 	
+	
 	// MiniMap //
-	Real MiniMapWidth = 1920.0;
-	Real MiniMapHeight = 1200.0;
-	
-	MiniMapWidth /= Real( 4 ); 
-	MiniMapHeight /= Real( 4 );
-	
-	MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 );
-	MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 );
-	MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 );
-	MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 );
+	MiniMapInit();
 
-	MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
-	MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
-	MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
-	MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
-
-	MiniMapTexIndices[0] = 0;
-	MiniMapTexIndices[1] = 1;
-	MiniMapTexIndices[2] = 2;
-	MiniMapTexIndices[3] = 3;
-	
-	Vector2D CameraCenter = Vector2D::Zero;
-	Vector2D P1 = Vector2D::Zero;
-	Vector2D P2 = Vector2D::Zero;
-	
-	for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
-	{
-		if( Map.ZoneInstanceInfo[ idx ].Id == 1 )
-		{
-			CameraCenter = Map.ZoneInstanceInfo[ idx ].BoundingRect.Center();
-			
-			P1 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P1();
-			P2 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P2();
-		}
-	}
-	
-	MiniMapXRatio = ( P2.x - P1.x ) / Real( 2 );
-	MiniMapYRatio = ( P2.y - P1.y ) / Real( 2 );
-	
-	MiniMapXRatio /= ( 1920 / 2 );
-	MiniMapYRatio /= ( 1200 / 2 );
-
-	MiniMapCenterShift = Vector2D( Real::Zero, Real::Zero );
-
-	if( MiniMapXRatio > MiniMapYRatio )
-	{
-		MiniMapRatio = MiniMapXRatio;
-		MiniMapCenterShift = Vector2D( Real::Zero, ( 1200 * MiniMapRatio ) - ( P2.y - P1.y ) );
-	}	
-	else
-	{
-		MiniMapRatio = MiniMapYRatio;
-		MiniMapCenterShift = Vector2D( ( -1920 * MiniMapRatio ) + ( P2.x - P1.x ), Real::Zero );
-	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -452,6 +401,7 @@ void cClassicGameEngine::Draw() {
 	
 	Gfx::DisableDepth();
 		
+	// Draw MiniMap and draw the view box //
 	Gfx::PushMatrix();
 	{
 		Gfx::Translate( Vector2D( Global::Right, Global::Bottom ) );
@@ -534,6 +484,64 @@ void cClassicGameEngine::Draw() {
 	{
 		Vector3D TempPos = Vector3D( Global::Left + Real( 100 ), Global::Bottom + Real( 15 ), 0.0 );
 		cFonts::FlangeLight.Write( "F1 - Help", TempPos, Real( 0.75 ), Gfx::RGBA( 255, 255, 255, 155 ) );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cClassicGameEngine::MiniMapInit()
+{
+	Real MiniMapWidth = 1920.0;
+	Real MiniMapHeight = 1200.0;
+	
+	MiniMapWidth /= Real( 4 ); 
+	MiniMapHeight /= Real( 4 );
+	
+	MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 );
+	MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 );
+	MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 );
+	MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 );
+
+	MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
+	MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
+	MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
+	MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
+
+	MiniMapTexIndices[0] = 0;
+	MiniMapTexIndices[1] = 1;
+	MiniMapTexIndices[2] = 2;
+	MiniMapTexIndices[3] = 3;
+	
+	Vector2D CameraCenter = Vector2D::Zero;
+	Vector2D P1 = Vector2D::Zero;
+	Vector2D P2 = Vector2D::Zero;
+	
+	for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
+	{
+		if( Map.ZoneInstanceInfo[ idx ].Id == 1 )
+		{
+			CameraCenter = Map.ZoneInstanceInfo[ idx ].BoundingRect.Center();
+			
+			P1 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P1();
+			P2 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P2();
+		}
+	}
+	
+	MiniMapXRatio = ( P2.x - P1.x ) / Real( 2 );
+	MiniMapYRatio = ( P2.y - P1.y ) / Real( 2 );
+	
+	MiniMapXRatio /= ( 1920 / 2 );
+	MiniMapYRatio /= ( 1200 / 2 );
+
+	MiniMapCenterShift = Vector2D( Real::Zero, Real::Zero );
+
+	if( MiniMapXRatio > MiniMapYRatio )
+	{
+		MiniMapRatio = MiniMapXRatio;
+		MiniMapCenterShift = Vector2D( Real::Zero, ( 1200 * MiniMapRatio ) - ( P2.y - P1.y ) );
+	}	
+	else
+	{
+		MiniMapRatio = MiniMapYRatio;
+		MiniMapCenterShift = Vector2D( ( -1920 * MiniMapRatio ) + ( P2.x - P1.x ), Real::Zero );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

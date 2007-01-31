@@ -124,6 +124,8 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	MiniMapTexIndices[2] = 2;
 	MiniMapTexIndices[3] = 3;	
 	
+	MiniMapInit();
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::~cGolfGameEngine() {
@@ -402,21 +404,6 @@ void cGolfGameEngine::Draw() {
 
 	HudCamera->Update();
 
-	Gfx::PushMatrix();
-	{
-		Gfx::Translate( Vector2D( Global::Right, Global::Bottom ) );
-	
-		Gfx::DrawQuads(
-			&MiniMapTexVertex[0],
-			&MiniMapTexUV[0],
-			MiniMapTexIndices,
-			4,
-			MiniMapTex.Id,
-			Gfx::White()
-		); 
-	}
-	Gfx::PopMatrix();
-
 	// Draw player tracking //	
 	for( size_t idx = 0; idx < Player.size(); idx++ ) {
 		// Only draw the player finder when I've actually made a shot //
@@ -437,6 +424,50 @@ void cGolfGameEngine::Draw() {
 		}
 	}
 	
+	// Draw MiniMap and draw the view box //
+	Gfx::PushMatrix();
+	{
+		Gfx::Translate( Vector2D( Global::Right, Global::Bottom ) );
+		
+		Gfx::EnableTex2D();
+		
+		Gfx::DrawQuads(
+			&MiniMapTexVertex[0],
+			&MiniMapTexUV[0],
+			MiniMapTexIndices,
+			4,
+			MiniMapTex.Id,
+			Gfx::White()
+		);
+		
+		Gfx::DisableTex2D();
+		
+		Gfx::Rect( Vector2D( ( -1920 ) / Real( 4 ), ( 1200 ) / Real( 4 ) ), Vector2D::Zero, Gfx::RGBA( 22, 255, 22, 255 ) );
+		
+		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
+		
+		Gfx::Rect(
+			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) ),
+			Vector2D::Zero + MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ),
+			Gfx::White()
+		);
+
+		Vector2D TempPos = Vector2D( Camera->Pos.x, Camera->Pos.y );
+		
+		TempPos.x -= Camera->CameraBounds._P2.x;
+		TempPos.y -= Camera->CameraBounds._P1.y;
+		
+		Gfx::Rect(
+			( Camera->ViewArea._P1 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
+			( Camera->ViewArea._P2 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
+			Gfx::RGBA( 22, 128, 255, 255 )
+		);
+
+		
+		Gfx::EnableTex2D();
+	}
+	Gfx::PopMatrix();
+		
 	
 /*#ifdef EDITOR
 	{
@@ -502,6 +533,64 @@ void cGolfGameEngine::Draw() {
 		cFonts::FlangeLight.Write( "F1 - Help", TempPos, Real( 0.75 ), Gfx::RGBA( 255, 255, 255, 155 ) );
 	}
 	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cGolfGameEngine::MiniMapInit()
+{
+	Real MiniMapWidth = 1920.0;
+	Real MiniMapHeight = 1200.0;
+	
+	MiniMapWidth /= Real( 4 ); 
+	MiniMapHeight /= Real( 4 );
+	
+	MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 );
+	MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 );
+	MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 );
+	MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 );
+
+	MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
+	MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
+	MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
+	MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
+
+	MiniMapTexIndices[0] = 0;
+	MiniMapTexIndices[1] = 1;
+	MiniMapTexIndices[2] = 2;
+	MiniMapTexIndices[3] = 3;
+	
+	Vector2D CameraCenter = Vector2D::Zero;
+	Vector2D P1 = Vector2D::Zero;
+	Vector2D P2 = Vector2D::Zero;
+	
+	for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); ++idx )
+	{
+		if( Map.ZoneInstanceInfo[ idx ].Id == 1 )
+		{
+			CameraCenter = Map.ZoneInstanceInfo[ idx ].BoundingRect.Center();
+			
+			P1 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P1();
+			P2 = Map.ZoneInstanceInfo[ idx ].BoundingRect.P2();
+		}
+	}
+	
+	MiniMapXRatio = ( P2.x - P1.x ) / Real( 2 );
+	MiniMapYRatio = ( P2.y - P1.y ) / Real( 2 );
+	
+	MiniMapXRatio /= ( 1920 / 2 );
+	MiniMapYRatio /= ( 1200 / 2 );
+
+	MiniMapCenterShift = Vector2D( Real::Zero, Real::Zero );
+
+	if( MiniMapXRatio > MiniMapYRatio )
+	{
+		MiniMapRatio = MiniMapXRatio;
+		MiniMapCenterShift = Vector2D( Real::Zero, ( 1200 * MiniMapRatio ) - ( P2.y - P1.y ) );
+	}	
+	else
+	{
+		MiniMapRatio = MiniMapYRatio;
+		MiniMapCenterShift = Vector2D( ( -1920 * MiniMapRatio ) + ( P2.x - P1.x ), Real::Zero );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 

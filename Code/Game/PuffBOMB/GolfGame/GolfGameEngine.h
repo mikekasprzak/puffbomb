@@ -66,6 +66,11 @@ public:
 	cTexture MiniMapTex;
 	
 	std::string MiniMapName;
+	Real MiniMapXRatio;
+	Real MiniMapYRatio;
+	Real MiniMapRatio;
+	Vector2D MiniMapCenterShift;
+
 		
 public:
 	void TurnBasedPlay();
@@ -77,6 +82,8 @@ public:
 public:
 	void Step();
 	void Draw();
+	
+	void MiniMapInit();
 
 	virtual int Message( int Msg, Engine2D::cDynamicCollection* Sender );
 	virtual int Message( int Msg, Engine2D::cPassiveObject* Sender );
