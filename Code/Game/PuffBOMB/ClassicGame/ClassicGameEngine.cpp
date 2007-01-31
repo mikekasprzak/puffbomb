@@ -146,16 +146,13 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	if( MiniMapXRatio > MiniMapYRatio )
 	{
 		MiniMapRatio = MiniMapXRatio;
-	//	MiniMapCenterShift = Vector2D( -1920 * MiniMapXRatio + ( ( P2.x - P1.x ) ), Real::Zero );
+		MiniMapCenterShift = Vector2D( Real::Zero, ( 1200 * MiniMapRatio ) - ( P2.y - P1.y ) );
 	}	
 	else
 	{
 		MiniMapRatio = MiniMapYRatio;
-		//MiniMapCenterShift = Vector2D( 1920 * MiniMapXRatio - ( ( P2.x - P1.x ) ), Real::Zero );
 		MiniMapCenterShift = Vector2D( ( -1920 * MiniMapRatio ) + ( P2.x - P1.x ), Real::Zero );
-	//	MiniMapCenterShift = Vector2D( 1920 - ( P2.x - P1.x ), Real::Zero );
 	}
-	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
