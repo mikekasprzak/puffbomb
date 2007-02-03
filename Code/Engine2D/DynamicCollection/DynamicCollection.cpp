@@ -88,6 +88,12 @@ void cDynamicCollection::Message( const cZone& ) {
 void cDynamicCollection::Message( const cImpulse& ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cDynamicCollection::CalcBoundingRect() {
+	for ( size_t idx = 0; idx < Component.size(); idx++ ) {
+		Component[ idx ].Body.CalcBoundingRect();
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

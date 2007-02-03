@@ -430,7 +430,7 @@ void cClassicGameEngine::Draw() {
 		);
 		
 		Gfx::DisableTex2D();
-
+		
 		Vector2D TempPos = Vector2D( Camera->Pos.x, Camera->Pos.y );
 		
 		TempPos.x -= Camera->CameraBounds._P2.x;
@@ -444,8 +444,20 @@ void cClassicGameEngine::Draw() {
 			Gfx::RGBA( 192, 192, 192, 255 )
 		);
 		
-		//Gfx::Circle( ( TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio, Real( 6 ), Gfx::RGBA( 192, 192, 192, 255 ) );
-		Gfx::Circle( ( Vector2D( Camera->Focus.x - Camera->CameraBounds._P2.x, Camera->Focus.y - Camera->CameraBounds._P1.y ) + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio, Real( 4 ), Gfx::RGBA( 192, 192, 192, 255 ) );
+		
+		for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+		{
+			if( Map.DynamicObjectInstanceInfo[ idx ].Id == 64 )
+			{
+				Vector2D CharPos = DynamicCollection[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect().Center();
+						
+				Gfx::Circle(
+					( Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) +
+						( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio, Real( 4 ),
+					Gfx::RGBA( 192, 192, 192, 255 )
+				);
+			}
+		}
 		
 		Gfx::SetLineWidth( 1.0 );
 		
@@ -565,7 +577,7 @@ void cClassicGameEngine::AddBombs() {
 	// 4 - 15 per second //
 	const int TimeScalar = 10;
 	
-	for ( int idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
+	for ( size_t idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
 		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, (Cursor.Bomb[ idx ].Time * TimeScalar) + 1 ) );
 	}
 }

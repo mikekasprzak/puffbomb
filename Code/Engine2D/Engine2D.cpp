@@ -413,6 +413,8 @@ void cEngine2D::ResetMap()
 						Map.DynamicObjectInstanceInfo[ idx ].Component[ idx2 ].NodePos[ idx3 ];					
 				}
 			}
+			
+			DynamicCollection.back()->CalcBoundingRect();
 		}
 	}
 	// Passive Object Part //

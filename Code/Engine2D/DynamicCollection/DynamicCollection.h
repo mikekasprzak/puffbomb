@@ -110,6 +110,8 @@ public:
 	void SaveBinary( const std::string& FileName, bool LittleEndian = true );
 		
 	void UpdateAnchors();
+	void CalcBoundingRect();
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //
