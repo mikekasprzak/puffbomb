@@ -5,17 +5,11 @@
 #define __Gui_DialogBox_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/TexturePool.h>
-#include <GL/gl.h>  // **Remove** //
-#include <GL/glu.h> // **Remove** //
 #include <vector>
 #include <string>
 // - ------------------------------------------------------------------------------------------ - //
 #include "TextLabel.h"
 #include "AniLabel.h"
-//#include "CheckLabel.h"
-//#include "ButtonLabel.h"
-//#include "ComboLabel.h"
-//#include "RadialLabel.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cDialogBox
 {
@@ -25,14 +19,6 @@ public:
 	std::vector< cTextLabel > TextLabel;
 	// Animation // 			10000 - 19999
 	std::vector< cAniLabel > AniLabel;
-	// Check Box // 			20000 - 29999
-//	std::vector< cCheckLabel > CheckLabel;
-	// Command Button // 		30000 - 39999
-//	std::vector< cButtonLabel > ButtonLabel;
-	// Combo Box // 			40000 - 49999
-//	std::vector< cComboLabel > ComboLabel;
-	// Radial Button // 		50000 - 59999
-//	std::vector< cRadialLabel > RadialLabel;
 
 	// Which labels can be selected by the controller and may have actions //
 	std::vector< int > ActiveLabels;

@@ -37,8 +37,7 @@ public:
 	}
 	void Draw()
 	{
-		glColor4ub( 255, 255, 255, 255 );
-		Animator.DrawQuad( Pos );
+		Animator.DrawQuad( Pos, Gfx::White() );
 	}
 	void SwapAnimation()
 	{
