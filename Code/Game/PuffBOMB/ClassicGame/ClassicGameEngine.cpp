@@ -411,8 +411,8 @@ void cClassicGameEngine::Draw() {
 		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
 		
 		Gfx::RFilledRect(
-			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) ),
-			Vector2D::Zero + MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ),
+			Vector2D( -CameraBounds.x, CameraBounds.y ) + MiniMapCenterShift,
+			Vector2D::Zero + MiniMapCenterShift,
 			Gfx::RGBA( 0, 0, 0, 80 )
 		);
 
@@ -433,13 +433,13 @@ void cClassicGameEngine::Draw() {
 		
 		TempPos.x -= Camera->CameraBounds._P2.x;
 		TempPos.y -= Camera->CameraBounds._P1.y;
-		
+				
 		Gfx::SetLineWidth( 3.0 );
 
 		// Draw the camerabounds on the minimap //
 		Gfx::Rect(
-			( Camera->ViewArea._P1 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
-			( Camera->ViewArea._P2 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
+			( Camera->ViewArea._P1 + TempPos ) / Real( 4 ) / MiniMapRatio + MiniMapCenterShift,
+			( Camera->ViewArea._P2 + TempPos ) / Real( 4 ) / MiniMapRatio + MiniMapCenterShift,
 			Gfx::RGBA( 192, 192, 192, 255 )
 		);
 		
@@ -452,8 +452,8 @@ void cClassicGameEngine::Draw() {
 				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
 				
 				Gfx::FilledRect(
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio + ( MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) ) - EndOffset,
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) - EndOffset,
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift - EndOffset,
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift - EndOffset,
 					Gfx::RGBA( 255, 255, 255, 80 )
 				);
 
@@ -468,8 +468,8 @@ void cClassicGameEngine::Draw() {
 				Vector2D CharPos = DynamicCollection[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect().Center();
 						
 				Gfx::Circle(
-					( Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) +
-						( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio, Real( 4 ),
+					Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio +
+						MiniMapCenterShift, Real( 4 ),
 					Gfx::RGBA( 192, 192, 192, 255 )
 				);
 			}
@@ -580,6 +580,8 @@ void cClassicGameEngine::MiniMapInit()
 		MiniMapRatio = MiniMapYRatio;
 		MiniMapCenterShift = Vector2D( ( -1920 * MiniMapRatio ) + ( P2.x - P1.x ), Real::Zero );
 	}
+	
+	MiniMapCenterShift = MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 

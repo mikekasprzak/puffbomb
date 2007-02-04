@@ -424,6 +424,8 @@ void cGolfGameEngine::Draw() {
 		}
 	}
 	
+	Gfx::DisableDepth();
+		
 	// Draw MiniMap and draw the view box //
 	Gfx::PushMatrix();
 	{
@@ -431,13 +433,11 @@ void cGolfGameEngine::Draw() {
 
 		Gfx::DisableTex2D();
 		
-		//Gfx::Rect( Vector2D( ( -1920 ) / Real( 4 ), ( 1200 ) / Real( 4 ) ), Vector2D::Zero, Gfx::RGBA( 22, 255, 22, 255 ) );
-		
 		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
 		
 		Gfx::RFilledRect(
-			Vector2D( -CameraBounds.x, CameraBounds.y ) + ( MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) ),
-			Vector2D::Zero + MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ),
+			Vector2D( -CameraBounds.x, CameraBounds.y ) + MiniMapCenterShift,
+			Vector2D::Zero + MiniMapCenterShift,
 			Gfx::RGBA( 0, 0, 0, 80 )
 		);
 
@@ -453,19 +453,52 @@ void cGolfGameEngine::Draw() {
 		);
 		
 		Gfx::DisableTex2D();
-
+		
 		Vector2D TempPos = Vector2D( Camera->Pos.x, Camera->Pos.y );
 		
 		TempPos.x -= Camera->CameraBounds._P2.x;
 		TempPos.y -= Camera->CameraBounds._P1.y;
-		
+				
 		Gfx::SetLineWidth( 3.0 );
 
+		// Draw the camerabounds on the minimap //
 		Gfx::Rect(
-			( Camera->ViewArea._P1 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
-			( Camera->ViewArea._P2 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
-			Gfx::RGBA( 22, 128, 255, 255 )
+			( Camera->ViewArea._P1 + TempPos ) / Real( 4 ) / MiniMapRatio + MiniMapCenterShift,
+			( Camera->ViewArea._P2 + TempPos ) / Real( 4 ) / MiniMapRatio + MiniMapCenterShift,
+			Gfx::RGBA( 192, 192, 192, 255 )
 		);
+		
+		// Draw the end zones on the minimap //
+		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); idx++ )
+		{
+			if( Map.ZoneInstanceInfo[ idx ].Id == 9 )
+			{
+				Vector2D EndBounds = ( ( Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() - Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() ) ) / Real( 4 ) / MiniMapRatio;
+				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
+				
+				Gfx::FilledRect(
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift - EndOffset,
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift - EndOffset,
+					Gfx::RGBA( 255, 255, 255, 80 )
+				);
+
+			}
+		}
+		
+/*		// Draw the characters on the minimap //
+		for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+		{
+			if( Map.DynamicObjectInstanceInfo[ idx ].Id == 64 )
+			{
+				Vector2D CharPos = DynamicCollection[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect().Center();
+						
+				Gfx::Circle(
+					Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio +
+						MiniMapCenterShift, Real( 4 ),
+					Gfx::RGBA( 192, 192, 192, 255 )
+				);
+			}
+		}*/
 		
 		Gfx::SetLineWidth( 1.0 );
 		
@@ -597,6 +630,8 @@ void cGolfGameEngine::MiniMapInit()
 		MiniMapRatio = MiniMapYRatio;
 		MiniMapCenterShift = Vector2D( ( -1920 * MiniMapRatio ) + ( P2.x - P1.x ), Real::Zero );
 	}
+	
+	MiniMapCenterShift = MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
