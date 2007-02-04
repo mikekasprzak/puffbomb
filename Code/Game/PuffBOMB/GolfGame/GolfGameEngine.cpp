@@ -441,6 +441,23 @@ void cGolfGameEngine::Draw() {
 			Gfx::RGBA( 0, 0, 0, 80 )
 		);
 
+		// Draw the end zones on the minimap //
+		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); idx++ )
+		{
+			if( Map.ZoneInstanceInfo[ idx ].Id == 9 )
+			{
+				Vector2D EndBounds = ( ( Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() - Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() ) ) / Real( 4 ) / MiniMapRatio;
+				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
+				
+				Gfx::FilledRect(
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio - EndOffset,
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio - EndOffset,
+					Gfx::RGBA( 255, 255, 255, 80 )
+				);
+
+			}
+		}
+
 		Gfx::EnableTex2D();
 		
 		Gfx::DrawQuads(
@@ -467,23 +484,6 @@ void cGolfGameEngine::Draw() {
 			( Camera->ViewArea._P2 + TempPos ) / Real( 4 ) / MiniMapRatio,
 			Gfx::RGBA( 192, 192, 192, 255 )
 		);
-		
-		// Draw the end zones on the minimap //
-		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); idx++ )
-		{
-			if( Map.ZoneInstanceInfo[ idx ].Id == 9 )
-			{
-				Vector2D EndBounds = ( ( Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() - Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() ) ) / Real( 4 ) / MiniMapRatio;
-				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
-				
-				Gfx::FilledRect(
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio - EndOffset,
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio - EndOffset,
-					Gfx::RGBA( 255, 255, 255, 80 )
-				);
-
-			}
-		}
 		
 		for( size_t idx = 0; idx < Player.size(); idx++ )
 		{
