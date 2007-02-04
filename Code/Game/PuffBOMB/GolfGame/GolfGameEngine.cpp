@@ -498,30 +498,7 @@ void cGolfGameEngine::Draw() {
 					Gfx::RGBA( 192, 192, 192, 255 )
 				);
 			}
-			
-			// Only draw the player finder when I've actually made a shot //
-			/*if ( (Player[ idx ]->Stroke != 0) && (!Player[ idx ]->Finished) )
-			{
-				ElementTracker( ArrowAnimator, Player[ idx ]->GetRect(), true, -Real( 48 ) );
-				
-				ElementTracker( PlayerAnimators[ idx ], Player[ idx ]->GetRect(), false, Real( 32 ) );
-			}*/
-		}	
-		
-/*		// Draw the characters on the minimap //
-		for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
-		{
-			if( Map.DynamicObjectInstanceInfo[ idx ].Id == 64 )
-			{
-				Vector2D CharPos = DynamicCollection[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect().Center();
-						
-				Gfx::Circle(
-					Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio +
-						MiniMapCenterShift, Real( 4 ),
-					Gfx::RGBA( 192, 192, 192, 255 )
-				);
-			}
-		}*/
+		}
 		
 		Gfx::SetLineWidth( 1.0 );
 		

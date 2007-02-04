@@ -411,6 +411,89 @@ void cClassicGameEngine::Draw() {
 		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
 		
 		Gfx::RFilledRect(
+			Vector2D( -CameraBounds.x, CameraBounds.y ),
+			Vector2D::Zero,
+			Gfx::RGBA( 0, 0, 0, 80 )
+		);
+
+		Gfx::EnableTex2D();
+		
+		Gfx::DrawQuads(
+			&MiniMapTexVertex[0],
+			&MiniMapTexUV[0],
+			MiniMapTexIndices,
+			4,
+			MiniMapTex.Id,
+			Gfx::White()
+		);
+		
+		Gfx::DisableTex2D();
+		
+		Vector2D TempPos = Vector2D( Camera->Pos.x, Camera->Pos.y );
+		
+		TempPos.x -= Camera->CameraBounds._P2.x;
+		TempPos.y -= Camera->CameraBounds._P1.y;
+				
+		Gfx::SetLineWidth( 3.0 );
+
+		// Draw the camerabounds on the minimap //
+		Gfx::Rect(
+			( Camera->ViewArea._P1 + TempPos ) / Real( 4 ) / MiniMapRatio,
+			( Camera->ViewArea._P2 + TempPos ) / Real( 4 ) / MiniMapRatio,
+			Gfx::RGBA( 192, 192, 192, 255 )
+		);
+		
+		// Draw the end zones on the minimap //
+		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); idx++ )
+		{
+			if( Map.ZoneInstanceInfo[ idx ].Id == 9 )
+			{
+				Vector2D EndBounds = ( ( Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() - Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() ) ) / Real( 4 ) / MiniMapRatio;
+				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
+				
+				Gfx::FilledRect(
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio - EndOffset,
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio - EndOffset,
+					Gfx::RGBA( 255, 255, 255, 80 )
+				);
+
+			}
+		}
+		
+		// Draw the characters on the minimap //
+		for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
+		{
+			if( Map.DynamicObjectInstanceInfo[ idx ].Id == 64 )
+			{
+				Vector2D CharPos = DynamicCollection[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect().Center();
+						
+				Gfx::Circle(
+					Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio, Real( 4 ),
+					Gfx::RGBA( 192, 192, 192, 255 )
+				);
+			}
+		}
+		
+		Gfx::SetLineWidth( 1.0 );
+		
+		Gfx::EnableTex2D();
+
+	}
+	Gfx::PopMatrix();
+		
+		
+	/*
+	
+		// Draw MiniMap and draw the view box //
+	Gfx::PushMatrix();
+	{
+		Gfx::Translate( Vector2D( Global::Right, Global::Bottom ) );
+
+		Gfx::DisableTex2D();
+		
+		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
+		
+		Gfx::RFilledRect(
 			Vector2D( -CameraBounds.x, CameraBounds.y ) + MiniMapCenterShift,
 			Vector2D::Zero + MiniMapCenterShift,
 			Gfx::RGBA( 0, 0, 0, 80 )
@@ -480,7 +563,7 @@ void cClassicGameEngine::Draw() {
 		Gfx::EnableTex2D();
 
 	}
-	Gfx::PopMatrix();
+	Gfx::PopMatrix();*/
 	
 	
 /*#ifdef EDITOR
@@ -526,27 +609,7 @@ void cClassicGameEngine::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::MiniMapInit()
 {
-	Real MiniMapWidth = 1920.0;
-	Real MiniMapHeight = 1200.0;
-	
-	MiniMapWidth /= Real( 4 ); 
-	MiniMapHeight /= Real( 4 );
-	
-	MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 );
-	MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 );
-	MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 );
-	MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 );
 
-	MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
-	MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
-	MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
-	MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
-
-	MiniMapTexIndices[0] = 0;
-	MiniMapTexIndices[1] = 1;
-	MiniMapTexIndices[2] = 2;
-	MiniMapTexIndices[3] = 3;
-	
 	Vector2D CameraCenter = Vector2D::Zero;
 	Vector2D P1 = Vector2D::Zero;
 	Vector2D P2 = Vector2D::Zero;
@@ -582,6 +645,28 @@ void cClassicGameEngine::MiniMapInit()
 	}
 	
 	MiniMapCenterShift = MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 );
+
+	Real MiniMapWidth = 1920.0;
+	Real MiniMapHeight = 1200.0;
+	
+	MiniMapWidth /= Real( 4 ); 
+	MiniMapHeight /= Real( 4 );
+	
+	MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 ) - MiniMapCenterShift.ToVector3D();
+	MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 ) - MiniMapCenterShift.ToVector3D();
+	MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 ) - MiniMapCenterShift.ToVector3D();
+	MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 ) - MiniMapCenterShift.ToVector3D();
+
+	MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
+	MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
+	MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
+	MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
+
+	MiniMapTexIndices[0] = 0;
+	MiniMapTexIndices[1] = 1;
+	MiniMapTexIndices[2] = 2;
+	MiniMapTexIndices[3] = 3;
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 
