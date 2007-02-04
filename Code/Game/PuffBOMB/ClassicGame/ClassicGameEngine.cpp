@@ -408,8 +408,6 @@ void cClassicGameEngine::Draw() {
 
 		Gfx::DisableTex2D();
 		
-		//Gfx::Rect( Vector2D( ( -1920 ) / Real( 4 ), ( 1200 ) / Real( 4 ) ), Vector2D::Zero, Gfx::RGBA( 22, 255, 22, 255 ) );
-		
 		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
 		
 		Gfx::RFilledRect(
@@ -438,13 +436,31 @@ void cClassicGameEngine::Draw() {
 		
 		Gfx::SetLineWidth( 3.0 );
 
+		// Draw the camerabounds on the minimap //
 		Gfx::Rect(
 			( Camera->ViewArea._P1 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
 			( Camera->ViewArea._P2 + TempPos + ( MiniMapCenterShift / Real( 2 ) ) ) / Real( 4 ) / MiniMapRatio,
 			Gfx::RGBA( 192, 192, 192, 255 )
 		);
 		
+		// Draw the end zones on the minimap //
+		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); idx++ )
+		{
+			if( Map.ZoneInstanceInfo[ idx ].Id == 9 )
+			{
+				Vector2D EndBounds = ( ( Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() - Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() ) ) / Real( 4 ) / MiniMapRatio;
+				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
+				
+				Gfx::FilledRect(
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio + ( MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) ) - EndOffset,
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 ) - EndOffset,
+					Gfx::RGBA( 255, 255, 255, 80 )
+				);
+
+			}
+		}
 		
+		// Draw the characters on the minimap //
 		for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
 		{
 			if( Map.DynamicObjectInstanceInfo[ idx ].Id == 64 )
