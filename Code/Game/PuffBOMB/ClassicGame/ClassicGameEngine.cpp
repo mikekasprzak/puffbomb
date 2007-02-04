@@ -609,7 +609,6 @@ void cClassicGameEngine::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::MiniMapInit()
 {
-
 	Vector2D CameraCenter = Vector2D::Zero;
 	Vector2D P1 = Vector2D::Zero;
 	Vector2D P2 = Vector2D::Zero;
@@ -666,7 +665,6 @@ void cClassicGameEngine::MiniMapInit()
 	MiniMapTexIndices[1] = 1;
 	MiniMapTexIndices[2] = 2;
 	MiniMapTexIndices[3] = 3;
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 

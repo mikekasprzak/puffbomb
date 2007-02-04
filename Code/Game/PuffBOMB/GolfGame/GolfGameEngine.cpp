@@ -436,8 +436,8 @@ void cGolfGameEngine::Draw() {
 		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
 		
 		Gfx::RFilledRect(
-			Vector2D( -CameraBounds.x, CameraBounds.y ) + MiniMapCenterShift,
-			Vector2D::Zero + MiniMapCenterShift,
+			Vector2D( -CameraBounds.x, CameraBounds.y ),
+			Vector2D::Zero,
 			Gfx::RGBA( 0, 0, 0, 80 )
 		);
 
@@ -463,8 +463,8 @@ void cGolfGameEngine::Draw() {
 
 		// Draw the camerabounds on the minimap //
 		Gfx::Rect(
-			( Camera->ViewArea._P1 + TempPos ) / Real( 4 ) / MiniMapRatio + MiniMapCenterShift,
-			( Camera->ViewArea._P2 + TempPos ) / Real( 4 ) / MiniMapRatio + MiniMapCenterShift,
+			( Camera->ViewArea._P1 + TempPos ) / Real( 4 ) / MiniMapRatio,
+			( Camera->ViewArea._P2 + TempPos ) / Real( 4 ) / MiniMapRatio,
 			Gfx::RGBA( 192, 192, 192, 255 )
 		);
 		
@@ -477,8 +477,8 @@ void cGolfGameEngine::Draw() {
 				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
 				
 				Gfx::FilledRect(
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift - EndOffset,
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift - EndOffset,
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio - EndOffset,
+					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio - EndOffset,
 					Gfx::RGBA( 255, 255, 255, 80 )
 				);
 
@@ -493,8 +493,7 @@ void cGolfGameEngine::Draw() {
 				Vector2D CharPos = Player[ idx ]->GetCenter();
 				
 				Gfx::Circle(
-					Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio +
-						MiniMapCenterShift, Real( 4 ),
+					Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio, Real( 4 ),
 					Gfx::RGBA( 192, 192, 192, 255 )
 				);
 			}
@@ -576,27 +575,6 @@ void cGolfGameEngine::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 void cGolfGameEngine::MiniMapInit()
 {
-	Real MiniMapWidth = 1920.0;
-	Real MiniMapHeight = 1200.0;
-	
-	MiniMapWidth /= Real( 4 ); 
-	MiniMapHeight /= Real( 4 );
-	
-	MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 );
-	MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 );
-	MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 );
-	MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 );
-
-	MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
-	MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
-	MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
-	MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
-
-	MiniMapTexIndices[0] = 0;
-	MiniMapTexIndices[1] = 1;
-	MiniMapTexIndices[2] = 2;
-	MiniMapTexIndices[3] = 3;
-	
 	Vector2D CameraCenter = Vector2D::Zero;
 	Vector2D P1 = Vector2D::Zero;
 	Vector2D P2 = Vector2D::Zero;
@@ -632,6 +610,27 @@ void cGolfGameEngine::MiniMapInit()
 	}
 	
 	MiniMapCenterShift = MiniMapCenterShift / Real( 4 ) / MiniMapRatio / Real( 2 );
+
+	Real MiniMapWidth = 1920.0;
+	Real MiniMapHeight = 1200.0;
+	
+	MiniMapWidth /= Real( 4 ); 
+	MiniMapHeight /= Real( 4 );
+	
+	MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 ) - MiniMapCenterShift.ToVector3D();
+	MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 ) - MiniMapCenterShift.ToVector3D();
+	MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 ) - MiniMapCenterShift.ToVector3D();
+	MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 ) - MiniMapCenterShift.ToVector3D();
+
+	MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
+	MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
+	MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
+	MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
+
+	MiniMapTexIndices[0] = 0;
+	MiniMapTexIndices[1] = 1;
+	MiniMapTexIndices[2] = 2;
+	MiniMapTexIndices[3] = 3;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
