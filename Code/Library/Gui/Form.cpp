@@ -178,17 +178,6 @@ void cForm::Load( const std::string &File )
 			}	
 			else if( Token == "EndText" )
 			{
-				/*DialogBox[ CurDialog ].TextLabel.push_back(
-					cTextLabel(
-						Vector2D( TempReals[ 0 ], TempReals[ 1 ] ),
-						bool( TempReals[ 2 ] ),
-						int( TempReals[ 3 ] ),
-						TempString,
-						TempReals[ 4 ],
-						Gfx::RGBA( TempReals[ 5 ], TempReals[ 6 ], TempReals[ 7 ], TempReals[ 8 ] ) 
-					)
-				);*/
-				
 				DialogBox[ CurDialog ].Labels.push_back(
 					new cTextLabel(
 						Vector2D( TempReals[ 0 ], TempReals[ 1 ] ),
@@ -206,13 +195,6 @@ void cForm::Load( const std::string &File )
 						DialogBox[ CurDialog ].Labels.size() - 1
 					);
 				}
-				/*
-				if( bool( TempReals[ 2 ] ) == false )
-				{
-					DialogBox[ CurDialog ].ActiveLabels.push_back(
-						DialogBox[ CurDialog ].TextLabel.size() - 1
-					);
-				}*/
 				
 				TempReals.clear();
 				TempString.clear();
@@ -247,18 +229,7 @@ void cForm::Load( const std::string &File )
 				TempReals.push_back( atof( Token.c_str() ) ); // 4
 			}	
 			else if( Token == "EndAni" )
-			{
-				/*DialogBox[ CurDialog ].AniLabel.push_back(
-					cAniLabel(
-						Vector2D( TempReals[ 0 ], TempReals[ 1 ] ),
-						bool( TempReals[ 2 ] ),
-						int( TempReals[ 3 ] ),
-						AnimationPool.Load( TempString ),
-						AnimationPool.Load( TempString2 ),
-						int( TempReals[ 4 ] )
-					)
-				);*/
-				
+			{				
 				DialogBox[ CurDialog ].Labels.push_back( 
 					new cAniLabel(
 						Vector2D( TempReals[ 0 ], TempReals[ 1 ] ),
@@ -276,16 +247,7 @@ void cForm::Load( const std::string &File )
 						( DialogBox[ CurDialog ].Labels.size() - 1 )
 					);
 				}
-				
-				/*
-				
-				if( bool( TempReals[ 2 ] ) == false )
-				{
-					DialogBox[ CurDialog ].ActiveLabels.push_back(
-						( DialogBox[ CurDialog ].AniLabel.size() - 1 ) + 10000
-					);
-				}*/
-				
+
 				TempReals.clear();
 				TempString.clear();
 				TempString2.clear();

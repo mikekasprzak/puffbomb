@@ -42,15 +42,6 @@ void cDialogBox::Step()
 	
 	if( IsLabelsVisable )
 	{
-		/*for( size_t idx = 0; idx < TextLabel.size(); ++idx )
-		{
-			TextLabel[ idx ].Step();
-		}
-		for( size_t idx = 0; idx < AniLabel.size(); ++idx )
-		{
-			AniLabel[ idx ].Step();
-		}*/
-		
 		for( size_t idx = 0; idx < Labels.size(); ++idx )
 		{
 			Labels[ idx ]->Step();
@@ -77,28 +68,7 @@ void cDialogBox::Draw()
 				Labels[ idx ]->Draw();
 			}
 		}
-	//	Log( 10, "Labels.size() " << Labels.size() );
-				
-		/*
-		if( ActiveLabels[ Focus ] < 10000 )
-		{
-			TextLabel[ ActiveLabels[ Focus ] ].SelDraw();
-		}
-
-		for( size_t idx = 0; idx < TextLabel.size(); ++idx )
-		{
-			if( ActiveLabels[ Focus ] != idx )
-			{	
-				TextLabel[ idx ].Draw();
-			}
-		}
-		for( size_t idx = 0; idx < AniLabel.size(); ++idx )
-		{
-			AniLabel[ idx ].Draw();
-		}
-		*/
 	}
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDialogBox::DrawBoxFrame()
@@ -285,75 +255,12 @@ void cDialogBox::DrawBoxFrame()
 	}
 }	
 // - ------------------------------------------------------------------------------------------ - //
-void cDialogBox::CheckActive()  // Shouldn't need this anymore //
-{
-	/*for( size_t idx = 0; idx < TextLabel.size(); ++idx )
-	{
-		if( TextLabel[ idx ].IsPassive == false )
-		{
-			ActiveLabels.push_back( idx );
-		}
-	}
-	for( size_t idx = 0; idx < AniLabel.size(); ++idx )
-	{
-		if( AniLabel[ idx ].IsPassive == false )
-		{
-			ActiveLabels.push_back( idx + 10000 );
-		}
-	}*/
-}
-// - ------------------------------------------------------------------------------------------ - //
 void cDialogBox::SwitchFocus()
 {
-	/*if( Input::Button[ KEY_UP ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == 1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == 1 )
-	{
-		// Swaps the animation to off before it changes to the next focus //
-		if( ActiveLabels[ Focus ] < 20000 && ActiveLabels[ Focus ] >= 10000 )
-		{
-			AniLabel[ ActiveLabels[ Focus ] - 10000 ].SwapAnimation();
-		}
-	
-		if( Focus > 0 )
-		{
-			--Focus;
-		}
-		else
-		{
-			Focus = ActiveLabels.size() - 1;	
-		}
-		// Swaps the animation to on before it changes to the next focus //
-		if( ActiveLabels[ Focus ] < 20000 && ActiveLabels[ Focus ] >= 10000 )
-		{
-			AniLabel[ ActiveLabels[ Focus ] - 10000 ].SwapAnimation();
-		}
-	}
-	if( Input::Button[ KEY_DOWN ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == -1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == -1 )
-	{
-		// Swaps the animation to off before it changes to the next focus //
-		if( ActiveLabels[ Focus ] < 20000 && ActiveLabels[ Focus ] >= 10000 )
-		{
-			AniLabel[ ActiveLabels[ Focus ] - 10000 ].SwapAnimation();
-		}
-		
-		if( Focus < int( ActiveLabels.size() - 1 ) )
-		{
-			++Focus;
-		}
-		else
-		{
-			Focus = 0;	
-		}
-		// Swaps the animation to on before it changes to the next focus //
-		if( ActiveLabels[ Focus ] < 20000 && ActiveLabels[ Focus ] >= 10000 )
-		{
-			AniLabel[ ActiveLabels[ Focus ] - 10000 ].SwapAnimation();
-		}
-	}*/
-	
 	if( Input::Button[ KEY_UP ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == 1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == 1 )
 	{
 		// Swaps the animation to off before it changes to the next focus //
-		//Labels[ ActiveLabels[ Focus ] ].SwapAnimation();
+		Labels[ ActiveLabels[ Focus ] ]->SelInit();
 		
 		if( Focus > 0 )
 		{
@@ -364,12 +271,12 @@ void cDialogBox::SwitchFocus()
 			Focus = ActiveLabels.size() - 1;	
 		}
 		// Swaps the animation to on the new focus //
-		//Labels[ ActiveLabels[ Focus ] ]->SwapAnimation();
+		Labels[ ActiveLabels[ Focus ] ]->SelInit();
 	}
 	if( Input::Button[ KEY_DOWN ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == -1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == -1 )
 	{
 		// Swaps the animation to off before it changes to the next focus //
-		//Labels[ ActiveLabels[ Focus ] ]->SwapAnimation();
+		Labels[ ActiveLabels[ Focus ] ]->SelInit();
 		
 		if( Focus < int( ActiveLabels.size() - 1 ) )
 		{
@@ -380,7 +287,7 @@ void cDialogBox::SwitchFocus()
 			Focus = 0;	
 		}
 		// Swaps the animation to on the new focus //
-		//Labels[ ActiveLabels[ Focus ] ]->SwapAnimation();
+		Labels[ ActiveLabels[ Focus ] ]->SelInit();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -389,18 +296,6 @@ void cDialogBox::Execute()
 	if( Input::Button[ KEY_ENTER ].Pressed() || Input::Pad[0].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
 	{
 		SuperFlowState = cActions::ExecuteAction( Labels[ ActiveLabels[ Focus ] ]->ActionID );
-				
-		/*
-		
-		if( ActiveLabels[ Focus ] < 10000 )
-		{
-			SuperFlowState = cActions::ExecuteAction( TextLabel[ ActiveLabels[ Focus ] ].ActionID );
-		}
-		else if( ActiveLabels[ Focus ] < 20000 )
-		{
-			SuperFlowState = cActions::ExecuteAction( AniLabel[ ActiveLabels[ Focus ] - 10000 ].ActionID );
-		}
-		*/
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

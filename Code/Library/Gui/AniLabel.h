@@ -47,7 +47,7 @@ public:
 	{
 		Animator.DrawQuad( Pos, Gfx::White() );
 	}
-	void SwapAnimation()
+	void SelInit()
 	{
 		if( Animator.Animation == PassiveAni )
 		{
