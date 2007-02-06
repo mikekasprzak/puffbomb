@@ -44,15 +44,15 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 	
 	Form.Load( "2D/Menu/LevelEnd.form" );
 	
-	/*for( size_t idx = 0; idx < MyEngine->Player.size(); ++idx )
+	for( size_t idx = 0; idx < MyEngine->Player.size(); ++idx )
 	{
 		std::stringstream Temp;
 		Temp << MyEngine->Player[ idx ]->Stroke;
 		std::string TempString = Temp.str();
 
-		Form.DialogBox[ 0 ].TextLabel.push_back(
-			cTextLabel(
-				Vector2D( 160 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx + 1 ].Pos.y ),
+		Form.DialogBox[ 0 ].Labels.push_back(
+			new cTextLabel(
+				Vector2D( 160 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -65,9 +65,9 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		Temp << MyEngine->Player[ idx ]->Bonus;
 		TempString = Temp.str();
 
-		Form.DialogBox[ 0 ].TextLabel.push_back(
-			cTextLabel(
-				Vector2D( 260 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx + 1 ].Pos.y ),
+		Form.DialogBox[ 0 ].Labels.push_back(
+			new cTextLabel(
+				Vector2D( 260 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -81,9 +81,9 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		Temp << MyEngine->Player[ idx ]->PickupScore;
 		TempString = Temp.str();
 
-		Form.DialogBox[ 0 ].TextLabel.push_back(
-			cTextLabel(
-				Vector2D( 360 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx + 1 ].Pos.y ),
+		Form.DialogBox[ 0 ].Labels.push_back(
+			new cTextLabel(
+				Vector2D( 360 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -97,9 +97,9 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		Temp << MyEngine->Player[ idx ]->Score;
 		TempString = Temp.str();
 
-		Form.DialogBox[ 0 ].TextLabel.push_back(
-			cTextLabel(
-				Vector2D( 480 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].TextLabel[ idx + 1 ].Pos.y ),
+		Form.DialogBox[ 0 ].Labels.push_back(
+			new cTextLabel(
+				Vector2D( 480 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -109,15 +109,15 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		);
 	}
 	
-	if( MyEngine->Player.size() < 4 )
+	/*if( MyEngine->Player.size() < 4 )
 	{
 		for( size_t idx = MyEngine->Player.size(); idx < 4; ++idx )
 		{
-			Form.DialogBox[ 0 ].TextLabel[ idx + 1 ].Text.clear();
+			Form.DialogBox[ 0 ].Labels[ idx + 1 ].Text.clear();
 		}
-	}
+	}*/
 	
-	*/
+	
 	
 	LastTime = GetTime();
 	
