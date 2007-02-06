@@ -30,12 +30,20 @@ public:
 		PassiveAni = &_Animation;
 		SelectAni = &_SelectAni;
 	}
+	~cAniLabel()
+	{
+		
+	}
 	
 	void Step()
 	{
 		Animator.Step();
 	}
 	void Draw()
+	{
+		Animator.DrawQuad( Pos, Gfx::White() );
+	}
+	void SelDraw()
 	{
 		Animator.DrawQuad( Pos, Gfx::White() );
 	}

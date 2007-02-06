@@ -22,13 +22,21 @@ public:
 	{
 		
 	}
-	void Step()
+	virtual ~cLabel()
+	{
+		
+	}	
+	virtual void Step()
 	{
 		
 	}
-	void Draw()
+	virtual void Draw()
 	{
 
+	}
+	virtual void SelDraw()
+	{
+		
 	}
 
 };

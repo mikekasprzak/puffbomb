@@ -35,7 +35,14 @@ public:
 	{
 		SelColor = Gfx::RGBA( 0, 192, 0, 255 );
 	}
+	~cTextLabel()
+	{
+		
+	}
+	void Step()
+	{
 
+	}
 	void Draw()
 	{
 		cFonts::FlangeLight.Write( Text, Pos, Scale, Color );
