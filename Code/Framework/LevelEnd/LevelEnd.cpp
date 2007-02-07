@@ -42,7 +42,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 	
-	Window.Load( "2D/Menu/LevelEnd.Window" );
+	Window.Load( "2D/Menu/LevelEnd.form" );
 	
 	for( size_t idx = 0; idx < MyEngine->Player.size(); ++idx )
 	{
