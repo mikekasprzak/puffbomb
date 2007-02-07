@@ -116,7 +116,7 @@ void cSuperFlow::StateFlow()
 				{
 					cMainMenu MainMenu;
 
-					State = MainMenu.Window.DialogBox[ 0 ].SuperFlowState;
+					State = MainMenu.Window.Form[ 0 ].SuperFlowState;
 				}
 				break;
 			}
@@ -221,14 +221,14 @@ void cSuperFlow::StateFlow()
 				{
 					cPlayerSelect PlayerSelect;
 					
-					if( PlayerSelect.Window.DialogBox[ 0 ].Focus <= 4 )
+					if( PlayerSelect.Window.Form[ 0 ].Focus <= 4 )
 					{
 						Players.clear();
 						
-						Players.resize( PlayerSelect.Window.DialogBox[ 0 ].Focus + 1 );
+						Players.resize( PlayerSelect.Window.Form[ 0 ].Focus + 1 );
 					}
 					
-					State = PlayerSelect.Window.DialogBox[ 0 ].SuperFlowState;
+					State = PlayerSelect.Window.Form[ 0 ].SuperFlowState;
 				}
 				break;
 			}
