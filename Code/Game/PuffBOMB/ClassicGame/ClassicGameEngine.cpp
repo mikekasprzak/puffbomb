@@ -17,11 +17,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/Gfx.h>
 #include <Font/Fonts.h>
-#ifdef EDITOR
-// For FPS test //
+
 #include <sstream>
-// ------------ //
-#endif // EDITOR //
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false ),
@@ -31,7 +28,7 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	IsHelp( false ),
 	HelpTex( TexturePool.Load( "ClassicControls.pack.tx" ) )
 {
-	// Create Camera //
+	// Camera for drawing the hud information //
 	HudCamera = new cCamera(
 		Vector3D( 0.0, 0.0, Global::HudZoom ),			// Pos
 		Vector3D( 0.0, 0.0, 0.0 ),						// View
@@ -47,67 +44,67 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 		Real( 0 ),										// Y
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )						// Height
-	 );
+		);
 
+	// Set this Engine to be the active engine //
 	SetActive();
 
+	// Load the requested map //
 	LoadMap( FileName );
 	
-	MiniMapName = FileName.substr( 5, FileName.size() - 4 - 5 ) + ".pack.tx";
 	
+	// Load the appropriate minimap for this level //
+	MiniMapName = FileName.substr( 5, FileName.size() - 4 - 5 ) + ".pack.tx";
 	MiniMapTex = TexturePool.Load( MiniMapName );
-
+	
+	
+	// Empty the particle systems //
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 	
+	
+	// Load the end of level flag animation/graphic for the tracking circles //
 	PointsOfInterestAnimators.push_back( cAnimator( "TrackingCircleEnd.anim" ) );
 	
+	
+	// Don't draw the mouse cursor //
 	Gfx::DisableMouseDraw();
 	
-// 	Gfx::Rotate( Real( 45 ), Real( 0 ), Real( 0 ), Real( 20 ) );
 	
-//	PassiveObject.push_back( CreatePassiveInstance( 33, Vector2D( 0, 1000 ), 600 ) );
-//	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 200, 1000 ), 20 ) );
-
-/*
-	PassiveObject.push_back( CreatePassiveInstance( 32, Vector2D( 0, 1000 ), 1 ) );
-
-	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 1300 ), 1 ) );
-	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( 400, 701 ), 1 ) );
-	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -400, 1301 ), 1 ) );
-	PassiveObject.push_back( CreatePassiveInstance( 1, Vector2D( -400, 700 ), 1 ) );*/
+	// Pop-up Help Menu Hack //
+	{
+		//Real HalfWidth = HelpTex.Width / 2;
+		//Real HalfHeight = HelpTex.Height / 2;
 	
-	//Real HalfWidth = HelpTex.Width / 2;
-	//Real HalfHeight = HelpTex.Height / 2;
-
-	Real HalfWidth = HelpTex.Width;
-	Real HalfHeight = HelpTex.Height;
+		Real HalfWidth = HelpTex.Width;
+		Real HalfHeight = HelpTex.Height;
+		
+		HelpTexVertex[0] = Vector3D( -HalfWidth, -HalfHeight, 0.0 );
+		HelpTexVertex[1] = Vector3D( HalfWidth, -HalfHeight, 0.0 );
+		HelpTexVertex[2] = Vector3D( HalfWidth, HalfHeight, 0.0 );
+		HelpTexVertex[3] = Vector3D( -HalfWidth, HalfHeight, 0.0 );
 	
-	HelpTexVertex[0] = Vector3D( -HalfWidth, -HalfHeight, 0.0 );
-	HelpTexVertex[1] = Vector3D( HalfWidth, -HalfHeight, 0.0 );
-	HelpTexVertex[2] = Vector3D( HalfWidth, HalfHeight, 0.0 );
-	HelpTexVertex[3] = Vector3D( -HalfWidth, HalfHeight, 0.0 );
-
-	HelpTexUV[0] = Vector2D( 0.0, 1.0 );
-	HelpTexUV[1] = Vector2D( 1.0, 1.0 );
-	HelpTexUV[2] = Vector2D( 1.0, 0.0 );
-	HelpTexUV[3] = Vector2D( 0.0, 0.0 );
-
-	HelpTexIndices[0] = 0;
-	HelpTexIndices[1] = 1;
-	HelpTexIndices[2] = 2;
-	HelpTexIndices[3] = 3;
+		HelpTexUV[0] = Vector2D( 0.0, 1.0 );
+		HelpTexUV[1] = Vector2D( 1.0, 1.0 );
+		HelpTexUV[2] = Vector2D( 1.0, 0.0 );
+		HelpTexUV[3] = Vector2D( 0.0, 0.0 );
+	
+		HelpTexIndices[0] = 0;
+		HelpTexIndices[1] = 1;
+		HelpTexIndices[2] = 2;
+		HelpTexIndices[3] = 3;
+	}	
 	
 	
 	// MiniMap //
 	MiniMapInit();
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
-	// Destroy my Custom Camera //
+	// Destroy the Camera for the hud //
 	delete HudCamera;
 	
+	// Explicitly remove the minimap from the texture pool, so to not waste memory anymore //
 	TexturePool.Remove( MiniMapName );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -589,6 +586,7 @@ void cClassicGameEngine::Draw() {
 		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 200, 55, 255 ) );
 	}*/
 
+	// Temporary Help Menu F1 popup //
 	if( IsHelp )
 	{
 		Gfx::DrawQuads(
@@ -600,9 +598,9 @@ void cClassicGameEngine::Draw() {
 			Gfx::White()
 		); 
 	}
-
+	else
 	{
-		Vector3D TempPos = Vector3D( Global::Left + Real( 100 ), Global::Bottom + Real( 15 ), 0.0 );
+		Vector3D TempPos = Vector3D( Real::Zero, Global::Bottom + Real( 15 ), 0.0 );
 		cFonts::FlangeLight.Write( "F1 - Help", TempPos, Real( 0.75 ), Gfx::RGBA( 255, 255, 255, 155 ) );
 	}
 }
