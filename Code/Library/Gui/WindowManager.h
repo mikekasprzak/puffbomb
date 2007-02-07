@@ -4,14 +4,14 @@
 #ifndef __Gui_WindowManager_H__
 #define __Gui_WindowManager_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "DialogBox.h"
+#include "Form.h"
 
 #include <string>
 // - ------------------------------------------------------------------------------------------ - //
 class cWindowManager
 {
 public:
-	std::vector< cDialogBox > DialogBox;	
+	std::vector< cForm > Form;	
 
 public:
 	void Step();

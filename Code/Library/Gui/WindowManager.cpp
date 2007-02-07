@@ -13,18 +13,18 @@ using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 void cWindowManager::Step()
 {
-	for( size_t idx = 0; idx < DialogBox.size(); ++idx )
+	for( size_t idx = 0; idx < Form.size(); ++idx )
 	{
-		DialogBox[ idx ].Step();
+		Form[ idx ].Step();
 	}
 
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cWindowManager::Draw()
 {
-	for( size_t idx = 0; idx < DialogBox.size(); ++idx )
+	for( size_t idx = 0; idx < Form.size(); ++idx )
 	{
-		DialogBox[ idx ].Draw();
+		Form[ idx ].Draw();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -109,7 +109,7 @@ void cWindowManager::Load( const std::string &File )
 			}
 			else if( Token == "CreateDialog" )
 			{
-				DialogBox.push_back( cDialogBox(
+				Form.push_back( cForm(
 					Vector2D( TempReals[ 0 ], TempReals[ 1 ] ),
 					Vector2D( TempReals[ 2 ], TempReals[ 3 ] ),
 					int( TempReals[ 4 ] ),
@@ -124,11 +124,11 @@ void cWindowManager::Load( const std::string &File )
 			{
 				Text >> Token;
 				
-				TempReals.push_back( atof( Token.c_str() ) + DialogBox[ CurDialog ].Pos.x ); // 0
+				TempReals.push_back( atof( Token.c_str() ) + Form[ CurDialog ].Pos.x ); // 0
 
 				Text >> Token;
 				
-				TempReals.push_back( atof( Token.c_str() ) + DialogBox[ CurDialog ].Pos.y ); // 1
+				TempReals.push_back( atof( Token.c_str() ) + Form[ CurDialog ].Pos.y ); // 1
 			}
 			// - ------------------------------------------------------------------------------ - //
 			// Shared //
@@ -178,7 +178,7 @@ void cWindowManager::Load( const std::string &File )
 			}	
 			else if( Token == "EndText" )
 			{
-				DialogBox[ CurDialog ].Labels.push_back(
+				Form[ CurDialog ].Labels.push_back(
 					new cTextLabel(
 						Vector2D( TempReals[ 0 ], TempReals[ 1 ] ),
 						bool( TempReals[ 2 ] ),
@@ -191,8 +191,8 @@ void cWindowManager::Load( const std::string &File )
 				
 				if( bool( TempReals[ 2 ] ) == false )
 				{
-					DialogBox[ CurDialog ].ActiveLabels.push_back(
-						DialogBox[ CurDialog ].Labels.size() - 1
+					Form[ CurDialog ].ActiveLabels.push_back(
+						Form[ CurDialog ].Labels.size() - 1
 					);
 				}
 				
@@ -204,11 +204,11 @@ void cWindowManager::Load( const std::string &File )
 			{
 				Text >> Token;
 				
-				TempReals.push_back( atof( Token.c_str() ) + DialogBox[ CurDialog ].Pos.x ); // 0
+				TempReals.push_back( atof( Token.c_str() ) + Form[ CurDialog ].Pos.x ); // 0
 
 				Text >> Token;
 				
-				TempReals.push_back( atof( Token.c_str() ) + DialogBox[ CurDialog ].Pos.y ); // 1
+				TempReals.push_back( atof( Token.c_str() ) + Form[ CurDialog ].Pos.y ); // 1
 			}
 			else if( Token == "Animation" )
 			{
@@ -230,7 +230,7 @@ void cWindowManager::Load( const std::string &File )
 			}	
 			else if( Token == "EndAni" )
 			{				
-				DialogBox[ CurDialog ].Labels.push_back( 
+				Form[ CurDialog ].Labels.push_back( 
 					new cAniLabel(
 						Vector2D( TempReals[ 0 ], TempReals[ 1 ] ),
 						bool( TempReals[ 2 ] ),
@@ -243,8 +243,8 @@ void cWindowManager::Load( const std::string &File )
 				
 				if( bool( TempReals[ 2 ] ) == false )
 				{
-					DialogBox[ CurDialog ].ActiveLabels.push_back(
-						( DialogBox[ CurDialog ].Labels.size() - 1 )
+					Form[ CurDialog ].ActiveLabels.push_back(
+						( Form[ CurDialog ].Labels.size() - 1 )
 					);
 				}
 
@@ -262,18 +262,18 @@ void cWindowManager::Load( const std::string &File )
 			{
 				Text >> Token;
 				
-				DialogBox[ CurDialog ].IsVisable = bool( atoi( Token.c_str() ) );
+				Form[ CurDialog ].IsVisable = bool( atoi( Token.c_str() ) );
 			}
 			else if( Token == "IsLabelsVisable" )
 			{
 				Text >> Token;
 				
-				DialogBox[ CurDialog ].IsLabelsVisable = bool( atoi( Token.c_str() ) );
+				Form[ CurDialog ].IsLabelsVisable = bool( atoi( Token.c_str() ) );
 			}
 
 		}
 	}
-	Log( LOG_HIGHEST_LEVEL, DialogBox.size() << " Dialog's Loaded" );
+	Log( LOG_HIGHEST_LEVEL, Form.size() << " Dialog's Loaded" );
 }
 // - ------------------------------------------------------------------------------------------ - //
 Real cWindowManager::Anchor( const std::string &AnchorName )

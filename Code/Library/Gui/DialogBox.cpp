@@ -1,12 +1,12 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DialogBox //
+// Form //
 // - ------------------------------------------------------------------------------------------ - //
-#include "DialogBox.h"
+#include "Form.h"
 #include <Gui/Actions.h>
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 // - ------------------------------------------------------------------------------------------ - //
-cDialogBox::cDialogBox() :
+cForm::cForm() :
 	Pos( Vector2D( 0, 0 ) ),
 	Size( Vector2D( 0, 0 ) ),
 	Focus( 0 ),
@@ -17,7 +17,7 @@ cDialogBox::cDialogBox() :
 	TextureID = TexturePool.Load( "DialogBox.tx" ).Id;
 }
 // - ------------------------------------------------------------------------------------------ - //
-cDialogBox::cDialogBox(
+cForm::cForm(
 	const Vector2D& _Pos,
 	const Vector2D& _Size,
 	const int _Focus,
@@ -34,7 +34,7 @@ cDialogBox::cDialogBox(
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDialogBox::Step()
+void cForm::Step()
 {
 	SwitchFocus();
 
@@ -49,7 +49,7 @@ void cDialogBox::Step()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDialogBox::Draw()
+void cForm::Draw()
 {
 	if( IsVisable )
 	{
@@ -71,7 +71,7 @@ void cDialogBox::Draw()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDialogBox::DrawBoxFrame()
+void cForm::DrawBoxFrame()
 {
 	if( IsVisable )
 	{
@@ -255,7 +255,7 @@ void cDialogBox::DrawBoxFrame()
 	}
 }	
 // - ------------------------------------------------------------------------------------------ - //
-void cDialogBox::SwitchFocus()
+void cForm::SwitchFocus()
 {
 	if( Input::Button[ KEY_UP ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == 1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == 1 )
 	{
@@ -291,7 +291,7 @@ void cDialogBox::SwitchFocus()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cDialogBox::Execute()
+void cForm::Execute()
 {
 	if( Input::Button[ KEY_ENTER ].Pressed() || Input::Pad[0].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
 	{

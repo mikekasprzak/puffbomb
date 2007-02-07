@@ -67,7 +67,7 @@ cMainMenu::~cMainMenu()
 // - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::ResetMenu()
 {
-	//Window.DialogBox[ 0 ].SuperFlowState = 1;
+	//Window.Form[ 0 ].SuperFlowState = 1;
 	//Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -105,7 +105,7 @@ void cMainMenu::Step()
 {
 	Window.Step();
 	
-	if( Window.DialogBox[ 0 ].SuperFlowState != 1 )
+	if( Window.Form[ 0 ].SuperFlowState != 1 )
 	{
 		BreakLoop = true;	
 	}

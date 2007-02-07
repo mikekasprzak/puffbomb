@@ -68,7 +68,7 @@ void cPlayerSelect::Step()
 {
 	Window.Step();
 	
-	if( Window.DialogBox[ 0 ].SuperFlowState != 1 )
+	if( Window.Form[ 0 ].SuperFlowState != 1 )
 	{
 		BreakLoop = true;	
 	}
