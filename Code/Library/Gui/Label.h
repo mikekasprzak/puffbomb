@@ -30,11 +30,12 @@ public:
 	{
 		
 	}
-	virtual void Draw()
+	virtual void Draw( const Vector2D& Offset = Vector2D::Zero )
 	{
 
 	}
-	virtual void SelDraw()
+	// Selected Draw //
+	virtual void SelDraw( const Vector2D& Offset = Vector2D::Zero )
 	{
 		
 	}

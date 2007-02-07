@@ -39,13 +39,14 @@ public:
 	{
 		Animator.Step();
 	}
-	void Draw()
+	void Draw( const Vector2D& Offset = Vector2D::Zero )
 	{
-		Animator.DrawQuad( Pos, Gfx::White() );
+		Animator.DrawQuad( Pos + Offset, Gfx::White() );
 	}
-	void SelDraw()
+	// Selected Draw //
+	void SelDraw( const Vector2D& Offset = Vector2D::Zero )
 	{
-		Animator.DrawQuad( Pos, Gfx::White() );
+		Animator.DrawQuad( Pos + Offset, Gfx::White() );
 	}
 	void SelInit()
 	{

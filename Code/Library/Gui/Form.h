@@ -28,10 +28,10 @@ public:
 	
 	int SuperFlowState;
 	
-	// A variable to determine if the Dialog Box its self can be seen //
+	// A variable to determine if the Form its self can be seen //
 	bool IsVisable;
 	
-	// A variable to determine if the Dialog Box labels can be seen //
+	// A variable to determine if the Form labels can be seen //
 	bool IsLabelsVisable;
 
 public:

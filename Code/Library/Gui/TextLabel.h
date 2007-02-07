@@ -43,14 +43,15 @@ public:
 	{
 
 	}
-	void Draw()
+	void Draw( const Vector2D& Offset = Vector2D::Zero )
 	{
-		cFonts::FlangeLight.Write( Text, Pos, Scale, Color );
+		cFonts::FlangeLight.Write( Text, Pos + Offset, Scale, Color );
 	}
 	
-	void SelDraw()
+	// Selected Draw //
+	void SelDraw( const Vector2D& Offset = Vector2D::Zero )
 	{
-		cFonts::FlangeLight.Write( Text, Pos, Scale, SelColor );
+		cFonts::FlangeLight.Write( Text, Pos + Offset, Scale, SelColor );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
