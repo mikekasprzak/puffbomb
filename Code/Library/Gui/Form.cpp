@@ -86,157 +86,157 @@ void cForm::DrawBoxFrame()
 		
 		// Draw the Box //
 		Vertex[	VertexIdx ] = Pos.ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.001, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.003, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector3D( Pos.x, Size.y, Real( 0.0 ) );
-		TexCoord[ VertexIdx ] = Vector2D( 0.001, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.003, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Size.ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.124, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.121, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector3D( Size.x, Pos.y, Real( 0.0 ) );
-		TexCoord[ VertexIdx ] = Vector2D( 0.124, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.121, 0.003 );
 		VertexIdx++;
 		
 		// Box Border //
 		// Left //
 		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Pos.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.254, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Size.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.254, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Pos.ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.003 );
 		VertexIdx++;
 		
 		// Right //
 		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Size.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.254, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Pos.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.254, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Size.ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.003 );
 		VertexIdx++;
 		
 		// Top //
 		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y + Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.254, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x, Pos.y + Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.254, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Pos.ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.003 );
 		VertexIdx++;
 
 		// Bottom //
 		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y - Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.254, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x, Size.y - Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.251, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.254, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Size.ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.374, 0.003 );
 		VertexIdx++;
 
 		// Top Right //
 		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Pos.y + Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y + Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x, Pos.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.497, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Pos.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.497, 0.003 );
 		VertexIdx++;
 
 		// Bottom Right //
 		Vertex[	VertexIdx ] = Vector2D( Size.x, Size.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.497, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x, Size.y - Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.497, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Size.y - Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Size.x + Real( 64 ), Size.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.121 );
 		VertexIdx++;
 		
 	
 		// Top Left //
 		Vertex[	VertexIdx ] = Vector2D( Pos.x, Pos.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.497, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x, Pos.y + Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.497, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Pos.y + Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Pos.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.121 );
 		VertexIdx++;
 
 		// Bottom Left //
 		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Size.y - Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.003 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y - Real( 64 ) ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.376, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x, Size.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.124 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.497, 0.121 );
 		VertexIdx++;
 		
 		Vertex[	VertexIdx ] = Vector2D( Pos.x - Real( 64 ), Size.y ).ToVector3D();
-		TexCoord[ VertexIdx ] = Vector2D( 0.499, 0.001 );
+		TexCoord[ VertexIdx ] = Vector2D( 0.497, 0.003 );
 		VertexIdx++;
 		
 		for( size_t idx = 0; idx < IndicesSize; ++idx )

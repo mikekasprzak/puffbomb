@@ -14,16 +14,23 @@
 class cForm
 {
 public:
+	// Elements inside the form //
 	std::vector< cLabel* > Labels;
 
 	// Which labels can be selected by the controller and may have actions //
 	std::vector< int > ActiveLabels;
 	
+	std::vector< int > DummyLabels;
+	
+	// Form position //
 	Vector2D Pos;
+	// Size of the form box //
 	Vector2D Size;
 	
-	unsigned int TextureID;
+	// For form border ( form box ) //
+	unsigned int TextureID; 
 	
+	// Currently selected active label //
 	int Focus;
 	
 	int SuperFlowState;

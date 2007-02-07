@@ -255,6 +255,22 @@ void cWindowManager::Load( const std::string &File )
 				TempReals.clear();
 				TempString.clear();
 				TempString2.clear();
+			}
+			else if( Token == "DummyLabel" )
+			{
+				Vector2D TempPos = Vector2D::Zero;
+				
+				Text >> Token;
+				
+				TempPos.x = atof( Token.c_str() );
+				
+				Text >> Token;
+				
+				TempPos.y = atof( Token.c_str() );
+				
+				Form[ CurDialog ].Labels.push_back(
+					new cLabel( TempPos, true, 0 )
+					);
 			}	
 			else if( Token == "EndDialog" )
 			{
