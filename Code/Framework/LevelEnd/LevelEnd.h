@@ -7,7 +7,7 @@
 #include <MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/Camera.h>
-#include <Gui/Form.h>
+#include <Gui/WindowManager.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Game/PuffBOMB/GolfGame/GolfGameEngine.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -15,7 +15,7 @@ class cLevelEnd : public cMessageEntity {
 private:
 	cCamera* Camera;
 public:
-	cForm Form;
+	cWindowManager Window;
 	
 	int LastTime;
 

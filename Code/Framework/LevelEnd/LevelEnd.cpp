@@ -42,7 +42,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 	
-	Form.Load( "2D/Menu/LevelEnd.form" );
+	Window.Load( "2D/Menu/LevelEnd.Window" );
 	
 	for( size_t idx = 0; idx < MyEngine->Player.size(); ++idx )
 	{
@@ -50,9 +50,9 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		Temp << MyEngine->Player[ idx ]->Stroke;
 		std::string TempString = Temp.str();
 
-		Form.DialogBox[ 0 ].Labels.push_back(
+		Window.DialogBox[ 0 ].Labels.push_back(
 			new cTextLabel(
-				Vector2D( 160 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
+				Vector2D( 160 + Window.DialogBox[ 0 ].Pos.x, Window.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -65,9 +65,9 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		Temp << MyEngine->Player[ idx ]->Bonus;
 		TempString = Temp.str();
 
-		Form.DialogBox[ 0 ].Labels.push_back(
+		Window.DialogBox[ 0 ].Labels.push_back(
 			new cTextLabel(
-				Vector2D( 260 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
+				Vector2D( 260 + Window.DialogBox[ 0 ].Pos.x, Window.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -81,9 +81,9 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		Temp << MyEngine->Player[ idx ]->PickupScore;
 		TempString = Temp.str();
 
-		Form.DialogBox[ 0 ].Labels.push_back(
+		Window.DialogBox[ 0 ].Labels.push_back(
 			new cTextLabel(
-				Vector2D( 360 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
+				Vector2D( 360 + Window.DialogBox[ 0 ].Pos.x, Window.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -97,9 +97,9 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 		Temp << MyEngine->Player[ idx ]->Score;
 		TempString = Temp.str();
 
-		Form.DialogBox[ 0 ].Labels.push_back(
+		Window.DialogBox[ 0 ].Labels.push_back(
 			new cTextLabel(
-				Vector2D( 480 + Form.DialogBox[ 0 ].Pos.x, Form.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
+				Vector2D( 480 + Window.DialogBox[ 0 ].Pos.x, Window.DialogBox[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -113,7 +113,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 	{
 		for( size_t idx = MyEngine->Player.size(); idx < 4; ++idx )
 		{
-			Form.DialogBox[ 0 ].Labels[ idx + 1 ].Text.clear();
+			Window.DialogBox[ 0 ].Labels[ idx + 1 ].Text.clear();
 		}
 	}*/
 	
@@ -152,7 +152,7 @@ void cLevelEnd::Draw()
 
 	Gfx::StandardBlend();
 
-	Form.Draw();
+	Window.Draw();
 	
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();	
@@ -165,7 +165,7 @@ void cLevelEnd::Step()
 		cMessageEntity::Current->BreakLoop = true;	
 	}
 	
-	Form.Step();
+	Window.Step();
 	
 	if( LastTime < GetTime() )
 	{

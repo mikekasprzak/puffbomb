@@ -47,10 +47,10 @@ cMainMenu::cMainMenu()
 	DenseParticle.Clear();
 	
 #ifdef EDITOR
-	Form.Load( "2D/Menu/MainMenuEditor.form" );
-//	Form.Load( "2D/Menu/Test.form" );
+	Window.Load( "2D/Menu/MainMenuEditor.form" );
+//	Window.Load( "2D/Menu/Test.form" );
 #else
-	Form.Load( "2D/Menu/MainMenu.form" );
+	Window.Load( "2D/Menu/MainMenu.form" );
 #endif // EDITOR //
 	
 	LastTime = GetTime();
@@ -67,7 +67,7 @@ cMainMenu::~cMainMenu()
 // - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::ResetMenu()
 {
-	//Form.DialogBox[ 0 ].SuperFlowState = 1;
+	//Window.DialogBox[ 0 ].SuperFlowState = 1;
 	//Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -83,7 +83,7 @@ void cMainMenu::Draw()
 
 	Gfx::StandardBlend();
 
-	Form.Draw();
+	Window.Draw();
 	
 #ifdef EDITOR
 	//	//  DISPLAYS FPS  //
@@ -103,9 +103,9 @@ void cMainMenu::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::Step()
 {
-	Form.Step();
+	Window.Step();
 	
-	if( Form.DialogBox[ 0 ].SuperFlowState != 1 )
+	if( Window.DialogBox[ 0 ].SuperFlowState != 1 )
 	{
 		BreakLoop = true;	
 	}
