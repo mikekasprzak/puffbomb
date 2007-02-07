@@ -1,26 +1,24 @@
 // - ------------------------------------------------------------------------------------------ - //
-// ClassicGame //
+// ClockHud //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Game_PuffBOMB_Classic_ClassicGame_H__
-#define __Game_PuffBOMB_Classic_ClassicGame_H__
+#ifndef __Game_PuffBOMB_Classic_ClockHud_H__
+#define __Game_PuffBOMB_Classic_ClockHud_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <string>
 
-#include <MessageEntity.h>
-#include "ClassicGameEngine.h"
 // - ------------------------------------------------------------------------------------------ - //
-class cClassicGame : public cMessageEntity { 
+class cClockHud  { 
 public:
-	cClassicGameEngine* Engine;
+	// ... //
+	
 
 public:
-	cClassicGame( const std::string& FileName );
-	~cClassicGame();
+	cClockHud();
+	~cClockHud();
 
 public:
 	void Step();
 	void Draw();
 };
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Game_PuffBOMB_Classic_ClassicGame_H__ // 
+#endif // __Game_PuffBOMB_Classic_ClockHud_H__ // 
 // - ------------------------------------------------------------------------------------------ - //
