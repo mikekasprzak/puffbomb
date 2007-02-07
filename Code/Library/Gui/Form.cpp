@@ -1,7 +1,7 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Form //
+// WindowManager //
 // - ------------------------------------------------------------------------------------------ - //
-#include "Form.h"
+#include "WindowManager.h"
 #include <Global.h>
 #include <Animation/AnimationPool.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -11,7 +11,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::Step()
+void cWindowManager::Step()
 {
 	for( size_t idx = 0; idx < DialogBox.size(); ++idx )
 	{
@@ -20,7 +20,7 @@ void cForm::Step()
 
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::Draw()
+void cWindowManager::Draw()
 {
 	for( size_t idx = 0; idx < DialogBox.size(); ++idx )
 	{
@@ -28,7 +28,7 @@ void cForm::Draw()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::Load( const std::string &File )
+void cWindowManager::Load( const std::string &File )
 {
 	char Line[1024];
 	
@@ -276,7 +276,7 @@ void cForm::Load( const std::string &File )
 	Log( LOG_HIGHEST_LEVEL, DialogBox.size() << " Dialog's Loaded" );
 }
 // - ------------------------------------------------------------------------------------------ - //
-Real cForm::Anchor( const std::string &AnchorName )
+Real cWindowManager::Anchor( const std::string &AnchorName )
 {
 	if( AnchorName == "Left" )
 	{

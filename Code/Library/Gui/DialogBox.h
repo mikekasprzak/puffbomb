@@ -14,12 +14,6 @@
 class cDialogBox
 {
 public:
-	// Displayable objects // 	Active	Label - Subtract the First Number of each to get the index
-	// Text // 					0 - 9999
-//	std::vector< cTextLabel > TextLabel;
-	// Animation // 			10000 - 19999
-//	std::vector< cAniLabel > AniLabel;
-	
 	std::vector< cLabel* > Labels;
 
 	// Which labels can be selected by the controller and may have actions //
