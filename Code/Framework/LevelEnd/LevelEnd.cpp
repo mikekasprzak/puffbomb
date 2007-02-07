@@ -52,7 +52,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 
 		Window.Form[ 0 ].Labels.push_back(
 			new cTextLabel(
-				Vector2D( 160 + Window.Form[ 0 ].Pos.x, Window.Form[ 0 ].Labels[ idx + 1 ]->Pos.y ),
+				Vector2D( 160 + Window.Form[ 0 ].Pos.x + Window.Form[ 0 ].Size.x, Window.Form[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -67,7 +67,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 
 		Window.Form[ 0 ].Labels.push_back(
 			new cTextLabel(
-				Vector2D( 260 + Window.Form[ 0 ].Pos.x, Window.Form[ 0 ].Labels[ idx + 1 ]->Pos.y ),
+				Vector2D( 260 + Window.Form[ 0 ].Pos.x + Window.Form[ 0 ].Size.x, Window.Form[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -83,7 +83,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 
 		Window.Form[ 0 ].Labels.push_back(
 			new cTextLabel(
-				Vector2D( 360 + Window.Form[ 0 ].Pos.x, Window.Form[ 0 ].Labels[ idx + 1 ]->Pos.y ),
+				Vector2D( 360 + Window.Form[ 0 ].Pos.x + Window.Form[ 0 ].Size.x, Window.Form[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
@@ -99,7 +99,7 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 
 		Window.Form[ 0 ].Labels.push_back(
 			new cTextLabel(
-				Vector2D( 480 + Window.Form[ 0 ].Pos.x, Window.Form[ 0 ].Labels[ idx + 1 ]->Pos.y ),
+				Vector2D( 480 + Window.Form[ 0 ].Pos.x + Window.Form[ 0 ].Size.x, Window.Form[ 0 ].Labels[ idx + 1 ]->Pos.y ),
 				true,
 				0, 
 				TempString,
