@@ -24,7 +24,7 @@ public:
 		cAnimation& _SelectAni,
 		const int _CurrentFrame
 		) :
-			cLabel( _Pos, _IsPassive, _ActionID )
+			cLabel( _Pos, _IsPassive, _ActionID, Gfx::RGBA( 255, 255, 255, 255 ), Gfx::RGBA( 255, 255, 255, 255 ) )
 	{
 		Animator.Set( &_Animation, _CurrentFrame );
 		PassiveAni = &_Animation;
@@ -39,14 +39,9 @@ public:
 	{
 		Animator.Step();
 	}
-	void Draw( const Vector2D& Offset = Vector2D::Zero )
+	void Draw( const Vector2D& Offset = Vector2D::Zero, const Gfx::Color _Color = Gfx::White() )
 	{
-		Animator.DrawQuad( Pos + Offset, Gfx::White() );
-	}
-	// Selected Draw //
-	void SelDraw( const Vector2D& Offset = Vector2D::Zero )
-	{
-		Animator.DrawQuad( Pos + Offset, Gfx::White() );
+		Animator.DrawQuad( Pos + Offset, _Color );
 	}
 	void SelInit()
 	{

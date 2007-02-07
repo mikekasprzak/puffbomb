@@ -14,9 +14,6 @@ class cTextLabel : public cLabel
 public:
 	std::string Text;
 	Real Scale;	
-	int Color;
-	
-	int SelColor;
 	
 public:
 	
@@ -28,12 +25,11 @@ public:
 		const Real _Scale,
 		const int _Color
 	) :
-		cLabel( _Pos, _IsPassive, _ActionID ),
+		cLabel( _Pos, _IsPassive, _ActionID, _Color, Gfx::RGBA( 55, 255, 55, 255 ) ),
 		Text( _Text ),
-		Scale( _Scale ),
-		Color( _Color )
+		Scale( _Scale )
 	{
-		SelColor = Gfx::RGBA( 55, 255, 55, 255 );
+		
 	}
 	~cTextLabel()
 	{
@@ -43,15 +39,9 @@ public:
 	{
 
 	}
-	void Draw( const Vector2D& Offset = Vector2D::Zero )
+	void Draw( const Vector2D& Offset = Vector2D::Zero, const Gfx::Color _Color = Gfx::White() )
 	{
-		cFonts::FlangeLight.Write( Text, Pos + Offset, Scale, Color );
-	}
-	
-	// Selected Draw //
-	void SelDraw( const Vector2D& Offset = Vector2D::Zero )
-	{
-		cFonts::FlangeLight.Write( Text, Pos + Offset, Scale, SelColor );
+		cFonts::FlangeLight.Write( Text, Pos + Offset, Scale, _Color );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //

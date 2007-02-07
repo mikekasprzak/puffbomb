@@ -276,7 +276,7 @@ void cWindowManager::Load( const std::string &File )
 			else if( Token == "EndDummy" )
 			{
 				Form[ CurDialog ].Labels.push_back(
-					new cLabel( Vector2D( TempReals[ 0 ], TempReals[ 1 ] ), true, 0 )
+					new cLabel( Vector2D( TempReals[ 0 ], TempReals[ 1 ] ), true, 0, Gfx::White(), Gfx::White() )
 					);
 					
 				Form[ CurDialog ].Labels.back()->Group = Group;

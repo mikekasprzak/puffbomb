@@ -61,7 +61,7 @@ void cForm::Draw()
 		// Remove the + + Vector2D( 6, 0 ) when you get sick of the selected offset thing?
 		if( Labels[ ActiveLabels[ Focus ] ]->IsVisible )
 		{
-			Labels[ ActiveLabels[ Focus ] ]->SelDraw( Pos + Vector2D( 6, 0 ) );
+			Labels[ ActiveLabels[ Focus ] ]->Draw( Pos + Vector2D( 6, 0 ), Labels[ ActiveLabels[ Focus ] ]->SelColor );
 		}
 		
 		for( size_t idx = 0; idx < Labels.size(); ++idx )
@@ -70,7 +70,8 @@ void cForm::Draw()
 			{
 				if( Labels[ idx ]->IsVisible )
 				{
-					Labels[ idx ]->Draw( Pos );
+					
+					Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );
 				}
 			}
 		}
