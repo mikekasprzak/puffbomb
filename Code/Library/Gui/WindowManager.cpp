@@ -37,6 +37,7 @@ void cWindowManager::Load( const std::string &File )
 	std::vector< Real > TempReals;
 	
 	int CurDialog = 0;
+	int Group = 0;
 	
 	std::string TempString;
 	std::string TempString2;
@@ -191,6 +192,8 @@ void cWindowManager::Load( const std::string &File )
 					)
 				);				
 				
+				Form[ CurDialog ].Labels.back()->Group = Group;
+				
 				if( bool( TempReals[ 2 ] ) == false )
 				{
 					Form[ CurDialog ].ActiveLabels.push_back(
@@ -198,6 +201,7 @@ void cWindowManager::Load( const std::string &File )
 					);
 				}
 				
+				Group = 0;
 				TempReals.clear();
 				TempString.clear();
 			}	
@@ -245,6 +249,8 @@ void cWindowManager::Load( const std::string &File )
 					)
 				);
 				
+				Form[ CurDialog ].Labels.back()->Group = Group;
+				
 				if( bool( TempReals[ 2 ] ) == false )
 				{
 					Form[ CurDialog ].ActiveLabels.push_back(
@@ -252,26 +258,37 @@ void cWindowManager::Load( const std::string &File )
 					);
 				}
 
+				Group = 0;
 				TempReals.clear();
 				TempString.clear();
 				TempString2.clear();
 			}
 			else if( Token == "DummyLabel" )
 			{
-				Vector2D TempPos = Vector2D::Zero;
-				
 				Text >> Token;
 				
-				TempPos.x = atof( Token.c_str() );
-				
+				TempReals.push_back( atof( Token.c_str() ) ); // 0
+
 				Text >> Token;
 				
-				TempPos.y = atof( Token.c_str() );
-				
+				TempReals.push_back( atof( Token.c_str() ) ); // 1
+			}
+			else if( Token == "EndDummy" )
+			{
 				Form[ CurDialog ].Labels.push_back(
-					new cLabel( TempPos, true, 0 )
+					new cLabel( Vector2D( TempReals[ 0 ], TempReals[ 1 ] ), true, 0 )
 					);
-			}	
+					
+				Form[ CurDialog ].Labels.back()->Group = Group;
+				
+				Group = 0;
+			}
+			else if( Token == "Group" )
+			{
+				Text >> Token;
+				
+				Group = atoi( Token.c_str() );
+			}
 			else if( Token == "EndDialog" )
 			{
 				++CurDialog;

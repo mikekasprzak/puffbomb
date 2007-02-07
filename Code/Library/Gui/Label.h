@@ -14,11 +14,14 @@ public:
 	bool IsPassive;
 	int ActionID;
 	
+	int Group;
+	
 public:
 	cLabel( const Vector2D& _Pos, const bool _IsPassive, const int _ActionID ) :
 		Pos( _Pos ),
 		IsPassive( _IsPassive ),
-		ActionID( _ActionID )
+		ActionID( _ActionID ),
+		Group( 0 )
 	{
 		
 	}
