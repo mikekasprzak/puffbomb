@@ -172,7 +172,8 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 			AlwaysActivePassives.push_back( Sender );
 			break;
 		};
-
+		
+		// Noted a bomb limit via a dummy Passive Object //
 		case 3: {
 			Log( 10, "+ Max Bomb count recieved \"" << Sender->Argument << "\"" );
 			Cursor.BombLimit = Sender->Argument;
@@ -586,6 +587,7 @@ void cClassicGameEngine::Draw() {
 		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 200, 55, 255 ) );
 	}*/
 
+
 	// Temporary Help Menu F1 popup //
 	if( IsHelp )
 	{
@@ -668,14 +670,15 @@ void cClassicGameEngine::MiniMapInit()
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::AddBombs() {
-	// 15 - 4 per second //
-	// 12 - 5 per second //
-	// 10 - 6 per second //
-	// 6 - 10 per second //
-	// 5 - 12 per second //
-	// 4 - 15 per second //
 	const int TimeScalar = 10;
+	// 15 = 4 ticks per second //
+	// 12 = 5 ticks per second //
+	// 10 = 6 ticks per second //
+	// 6 = 10 ticks per second //
+	// 5 = 12 ticks per second //
+	// 4 = 15 ticks per second //
 	
+	// Add every bomb //
 	for ( size_t idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
 		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, (Cursor.Bomb[ idx ].Time * TimeScalar) + 1 ) );
 	}

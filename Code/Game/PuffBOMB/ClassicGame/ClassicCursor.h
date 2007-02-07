@@ -20,9 +20,6 @@ public:
 	
 	// Maximum number of bombs you can place in this level //
 	int BombLimit;
-	
-	// Boolean describing what edit mode you're in (Position or Time) //
-	bool TimeMode;
 
 	// Vector of bomb information to be added //
 	std::vector< cBombInfo > Bomb;
