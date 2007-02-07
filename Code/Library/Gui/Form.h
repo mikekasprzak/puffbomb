@@ -61,6 +61,7 @@ public:
 	void Execute();
 
 	void GroupVisible( int Group, bool _Visible = true );
+	void GroupVisible( int Group, int Index, bool _Visible = true );
 
 };
 // - ------------------------------------------------------------------------------------------ - //

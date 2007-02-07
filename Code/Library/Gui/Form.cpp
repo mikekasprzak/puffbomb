@@ -316,3 +316,20 @@ void cForm::GroupVisible( int Group, bool _Visible )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cForm::GroupVisible( int Group, int Index, bool _Visible )
+{
+	int MyIndex = 0;
+	for( size_t idx = 0; idx < Labels.size(); ++idx )
+	{
+		if( Labels[ idx ]->Group == Group )
+		{
+			if( Index == MyIndex )
+			{
+				Labels[ idx ]->IsVisible = _Visible;
+				return;
+			}
+			MyIndex++;
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //

@@ -57,7 +57,7 @@ cMainMenu::cMainMenu()
 	
 	Gfx::DisableSmoothPolygon();
 	
-	//Window.Form[ 0 ].GroupVisible( 1, false );
+	//Window.Form[ 0 ].GroupVisible( 1, 1, false );
 	
 	Work();
 }
