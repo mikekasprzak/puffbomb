@@ -155,25 +155,6 @@ void cClassicCursor::Step() {
 				// Pull the cursor position from the now currently selected bomb //
 				Pos = Bomb[ Selection ].Pos;
 			}
-	
-//			// Quick select Next/First Bomb //
-//			if ( Input::Pad[0].Button[ PAD_R ].Pressed() ) {
-//				// If no selection //
-//				if ( Selection == -1 ) {
-//					Selection = 0;
-//				}
-//				// If a selection //
-//				else {
-//					Selection++;
-//					// If this puts us under, loop around //
-//					if ( Selection > (int)Bomb.size() - 1 ) {
-//						Selection = 0;
-//					}
-//				}
-//				
-//				// Pull the cursor position from the now currently selected bomb //
-//				Pos = Bomb[ Selection ].Pos;
-//			}
 		}
 	}
 }
