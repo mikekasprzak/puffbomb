@@ -11,8 +11,8 @@ cForm::cForm() :
 	Size( Vector2D( 0, 0 ) ),
 	Focus( 0 ),
 	SuperFlowState( 1 ),
-	IsVisable( true ),
-	IsLabelsVisable( true )
+	IsVisible( true ),
+	IsLabelsVisible( true )
 {
 	TextureID = TexturePool.Load( "DialogBox.tx" ).Id;
 }
@@ -28,8 +28,8 @@ cForm::cForm(
 		TextureID( TexturePool.Load( TextureLoc ).Id ),
 		Focus( _Focus ),
 		SuperFlowState( 1 ),
-		IsVisable( true ),
-		IsLabelsVisable( true )
+		IsVisible( true ),
+		IsLabelsVisible( true )
 {
 	
 }
@@ -40,7 +40,7 @@ void cForm::Step()
 
 	Execute();
 	
-	if( IsLabelsVisable )
+	if( IsLabelsVisible )
 	{
 		for( size_t idx = 0; idx < Labels.size(); ++idx )
 		{
@@ -51,21 +51,27 @@ void cForm::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cForm::Draw()
 {
-	if( IsVisable )
+	if( IsVisible )
 	{
 		DrawBoxFrame();
 	}
 	
-	if( IsLabelsVisable )
+	if( IsLabelsVisible )
 	{
 		// Remove the + + Vector2D( 6, 0 ) when you get sick of the selected offset thing?
-		Labels[ ActiveLabels[ Focus ] ]->SelDraw( Pos + Vector2D( 6, 0 ) );
+		if( Labels[ ActiveLabels[ Focus ] ]->IsVisible )
+		{
+			Labels[ ActiveLabels[ Focus ] ]->SelDraw( Pos + Vector2D( 6, 0 ) );
+		}
 		
 		for( size_t idx = 0; idx < Labels.size(); ++idx )
 		{
 			if( ActiveLabels[ Focus ] != idx )
-			{	
-				Labels[ idx ]->Draw( Pos );
+			{
+				if( Labels[ idx ]->IsVisible )
+				{
+					Labels[ idx ]->Draw( Pos );
+				}
 			}
 		}
 	}
@@ -73,7 +79,7 @@ void cForm::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cForm::DrawBoxFrame()
 {
-	if( IsVisable )
+	if( IsVisible )
 	{
 		unsigned int IndicesSize = 9 * 4;
 		
@@ -296,6 +302,17 @@ void cForm::Execute()
 	if( Input::Button[ KEY_ENTER ].Pressed() || Input::Pad[0].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
 	{
 		SuperFlowState = cActions::ExecuteAction( Labels[ ActiveLabels[ Focus ] ]->ActionID );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cForm::GroupVisible( int Group, bool _Visible )
+{
+	for( size_t idx = 0; idx < Labels.size(); ++idx )
+	{
+		if( Labels[ idx ]->Group == Group )
+		{
+			Labels[ idx ]->IsVisible = _Visible;
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

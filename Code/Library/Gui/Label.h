@@ -16,12 +16,15 @@ public:
 	
 	int Group;
 	
+	bool IsVisible;
+	
 public:
 	cLabel( const Vector2D& _Pos, const bool _IsPassive, const int _ActionID ) :
 		Pos( _Pos ),
 		IsPassive( _IsPassive ),
 		ActionID( _ActionID ),
-		Group( 0 )
+		Group( 0 ),
+		IsVisible( true )
 	{
 		
 	}

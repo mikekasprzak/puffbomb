@@ -282,6 +282,9 @@ void cWindowManager::Load( const std::string &File )
 				Form[ CurDialog ].Labels.back()->Group = Group;
 				
 				Group = 0;
+				TempReals.clear();
+				TempString.clear();
+				TempString2.clear();
 			}
 			else if( Token == "Group" )
 			{
@@ -295,17 +298,17 @@ void cWindowManager::Load( const std::string &File )
 			}
 			// - ------------------------------------------------------------------------------ - //
 			// Extra Features //
-			else if( Token == "IsVisable" )
+			else if( Token == "IsVisible" )
 			{
 				Text >> Token;
 				
-				Form[ CurDialog ].IsVisable = bool( atoi( Token.c_str() ) );
+				Form[ CurDialog ].IsVisible = bool( atoi( Token.c_str() ) );
 			}
-			else if( Token == "IsLabelsVisable" )
+			else if( Token == "IsLabelsVisible" )
 			{
 				Text >> Token;
 				
-				Form[ CurDialog ].IsLabelsVisable = bool( atoi( Token.c_str() ) );
+				Form[ CurDialog ].IsLabelsVisible = bool( atoi( Token.c_str() ) );
 			}
 
 		}

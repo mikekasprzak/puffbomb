@@ -36,10 +36,10 @@ public:
 	int SuperFlowState;
 	
 	// A variable to determine if the Form its self can be seen //
-	bool IsVisable;
+	bool IsVisible;
 	
 	// A variable to determine if the Form labels can be seen //
-	bool IsLabelsVisable;
+	bool IsLabelsVisible;
 
 public:
 	
@@ -59,6 +59,8 @@ public:
 	void CheckActive();
 	void SwitchFocus();
 	void Execute();
+
+	void GroupVisible( int Group, bool _Visible = true );
 
 };
 // - ------------------------------------------------------------------------------------------ - //
