@@ -50,6 +50,7 @@ void cAnimator::Step()
 		{
 			if( size_t( CurrentFrame ) < Animation->Frame.size() - 1 )
 			{
+				// Vertex Interpolation //
 				if( Animation->Frame[ CurrentFrame ].MyFrame.Vertex.size() ==
 					Animation->Frame[ CurrentFrame + 1 ].MyFrame.Vertex.size() )
 				{
@@ -62,7 +63,81 @@ void cAnimator::Step()
 						
 					}
 				}
+				// Color Interpolation //
+				int ColorIncrement = 0;
 				
+				int RedValue = 0;
+				int GreenValue = 0;
+				int BlueValue = 0;
+				int AlphaValue = 0;
+				
+				int Value1 = 0;
+				int Value2 = 0;
+				
+				Value1 = (Animation->Frame[ CurrentFrame + 1 ].MyFrame.Color) & 0xff;
+				Value2 = (Animation->Frame[ CurrentFrame ].MyFrame.Color) & 0xff;
+								
+				ColorIncrement = Real( Value1 - Value2 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() );
+				
+				RedValue = ( (InterpFrame.Color) & 0xff ) + ColorIncrement;
+
+				Value1 = (Animation->Frame[ CurrentFrame + 1 ].MyFrame.Color>>8) & 0xff;
+				Value2 = (Animation->Frame[ CurrentFrame ].MyFrame.Color>>8) & 0xff;
+				
+				ColorIncrement = Real( Value1 - Value2 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() );
+			
+				GreenValue = ( (InterpFrame.Color>>8) & 0xff ) + ColorIncrement;
+
+				Value1 = (Animation->Frame[ CurrentFrame + 1 ].MyFrame.Color>>16) & 0xff;
+				Value2 = (Animation->Frame[ CurrentFrame ].MyFrame.Color>>16) & 0xff;
+
+				ColorIncrement = Real( Value1 - Value2 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() );
+				
+				BlueValue = ( (InterpFrame.Color>>16) & 0xff ) + ColorIncrement;
+
+				Value1 = (Animation->Frame[ CurrentFrame + 1 ].MyFrame.Color>>24) & 0xff;
+				Value2 = (Animation->Frame[ CurrentFrame ].MyFrame.Color>>24) & 0xff;
+
+				ColorIncrement = Real( Value1 - Value2 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() );
+				
+				AlphaValue = ( (InterpFrame.Color>>24) & 0xff ) + ColorIncrement;
+				
+				if( RedValue > 255 )
+				{
+					RedValue = 255;	
+				}
+				if( GreenValue > 255 )
+				{
+					GreenValue = 255;	
+				}
+				if( BlueValue > 255 )
+				{
+					BlueValue = 255;	
+				}
+				if( AlphaValue > 255 )
+				{
+					AlphaValue = 255;	
+				}
+
+				if( RedValue < 0 )
+				{
+					RedValue = 0;	
+				}
+				if( GreenValue < 0 )
+				{
+					GreenValue = 0;	
+				}
+				if( BlueValue < 0 )
+				{
+					BlueValue = 0;	
+				}
+				if( AlphaValue < 0 )
+				{
+					AlphaValue = 0;	
+				}
+				
+				InterpFrame.Color = Gfx::RGBA( RedValue, GreenValue, BlueValue, AlphaValue );
+							
 			}
 		}
 		
@@ -77,7 +152,7 @@ void cAnimator::Step()
 				if( Animation->Interpolate )
 				{
 					InterpFrame = Animation->Frame[ CurrentFrame ].MyFrame;
-					
+						
 					CurDrawFrame = &InterpFrame;
 				}
 			}
@@ -107,7 +182,7 @@ void cAnimator::Draw( const Vector2D& Offset, int Color )
 {
 	if( !CurDrawFrame->Face.empty() )
 	{
-		if( Color != Gfx::White() )
+		if( size_t( Color ) != Gfx::White() )
 		{
 			CurDrawFrame->Color = Color;
 		}
@@ -157,7 +232,7 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix, int Color
 {
 	if( !CurDrawFrame->Face.empty() )
 	{
-		if( Color != Gfx::White() )
+		if( size_t( Color ) != Gfx::White() )
 		{
 			CurDrawFrame->Color = Color;
 		}
@@ -257,7 +332,7 @@ void cAnimator::DrawQuad( const Vector2D& Offset, int Color, Real Scale )
 {
 	if( CurDrawFrame->Face.size() > 1 )
 	{
-		if( Color != Gfx::White() )
+		if( size_t( Color ) != Gfx::White() )
 		{
 			CurDrawFrame->Color = Color;
 		}
@@ -301,7 +376,7 @@ void cAnimator::DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix, int C
 {
 	if( CurDrawFrame->Face.size() > 1 )
 	{
-		if( Color != Gfx::White() )
+		if( size_t( Color ) != Gfx::White() )
 		{
 			CurDrawFrame->Color = Color;
 		}

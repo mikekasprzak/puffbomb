@@ -21,6 +21,8 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
+Color 255 255 255 255
+
 Time	20.0
 
 Texture	EndArrow.tx
@@ -46,6 +48,8 @@ FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
 
+Color 255 255 255 55
+
 Time	20.0
 
 Texture	EndArrow.tx
@@ -70,6 +74,8 @@ FVc	3
 FUVa	0.0		0.0
 FUVb	1.0 	1.0
 FUVc	1.0		0.0
+
+Color 255 255 255 255
 
 Time	0.0
 
