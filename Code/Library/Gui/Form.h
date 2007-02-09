@@ -62,6 +62,11 @@ public:
 
 	void GroupVisible( int Group, bool _Visible = true );
 	void GroupVisible( int Group, int Index, bool _Visible = true );
+	
+	void GroupColor( int Group, Gfx::Color _Color );
+	void GroupColor( int Group, int Index, Gfx::Color _Color );
+	void GroupSelColor( int Group, Gfx::Color _Color );
+	void GroupSelColor( int Group, int Index, Gfx::Color _Color );
 
 };
 // - ------------------------------------------------------------------------------------------ - //
