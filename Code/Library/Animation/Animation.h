@@ -8,6 +8,8 @@
 #include <vector>
 #include <string>
 // - ------------------------------------------------------------------------------------------ - //
+#include <Graphics/Gfx.h>
+// - ------------------------------------------------------------------------------------------ - //
 class cAnimation
 {
 public:
@@ -28,7 +30,7 @@ public:
 			Time( _Time ),
 			MyFrame( _MyFrame )
 		{
-				
+			MyFrame.Color = Gfx::White();
 		}
 		
 		inline int& GetTime()

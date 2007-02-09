@@ -47,7 +47,8 @@ public:
 public:
 	std::vector< cVertex > Vertex;
 	std::vector< cFace > Face;
-
+	
+	unsigned int Color;
 	unsigned int TextureId;
 		
 public:

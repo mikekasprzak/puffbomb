@@ -107,6 +107,11 @@ void cAnimator::Draw( const Vector2D& Offset, int Color )
 {
 	if( !CurDrawFrame->Face.empty() )
 	{
+		if( Color != Gfx::White() )
+		{
+			CurDrawFrame->Color = Color;
+		}
+
 		unsigned int IndicesSize = CurDrawFrame->Face.size() * 3;
 		
 		Vector3D Vertex[ IndicesSize ];
@@ -143,7 +148,7 @@ void cAnimator::Draw( const Vector2D& Offset, int Color )
 			Indices,
 			IndicesSize,
 			CurDrawFrame->TextureId,
-			Color
+			CurDrawFrame->Color
 		);	
 	}	
 }
@@ -152,6 +157,11 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix, int Color
 {
 	if( !CurDrawFrame->Face.empty() )
 	{
+		if( Color != Gfx::White() )
+		{
+			CurDrawFrame->Color = Color;
+		}
+
 		unsigned int IndicesSize = CurDrawFrame->Face.size() * 3;
 		
 		Vector3D Vertex[ IndicesSize ];
@@ -188,7 +198,7 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix, int Color
 			Indices,
 			IndicesSize,
 			CurDrawFrame->TextureId,
-			Color
+			CurDrawFrame->Color
 		);	
 	}	
 	
@@ -245,8 +255,13 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix, int Color
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::DrawQuad( const Vector2D& Offset, int Color, Real Scale )
 {
-	if(  CurDrawFrame->Face.size() > 1 )
+	if( CurDrawFrame->Face.size() > 1 )
 	{
+		if( Color != Gfx::White() )
+		{
+			CurDrawFrame->Color = Color;
+		}
+
 		unsigned int IndicesSize = 4;
 		
 		Vector3D Vertex[ IndicesSize ];
@@ -277,7 +292,7 @@ void cAnimator::DrawQuad( const Vector2D& Offset, int Color, Real Scale )
 			Indices,
 			IndicesSize,
 			CurDrawFrame->TextureId,
-			Color
+			CurDrawFrame->Color
 		);	
 	}	
 }
@@ -286,6 +301,11 @@ void cAnimator::DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix, int C
 {
 	if( CurDrawFrame->Face.size() > 1 )
 	{
+		if( Color != Gfx::White() )
+		{
+			CurDrawFrame->Color = Color;
+		}
+		
 		unsigned int IndicesSize = 4;
 		
 		Vector3D Vertex[ IndicesSize ];
@@ -316,7 +336,7 @@ void cAnimator::DrawQuad( const Vector2D& Offset, const Matrix2x2& Matrix, int C
 			Indices,
 			IndicesSize,
 			CurDrawFrame->TextureId,
-			Color
+			CurDrawFrame->Color
 		);	
 	}
 }
