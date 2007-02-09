@@ -60,13 +60,16 @@ public:
 	void SwitchFocus();
 	void Execute();
 
-	void GroupVisible( int Group, bool _Visible = true );
-	void GroupVisible( int Group, int Index, bool _Visible = true );
+	void GroupPos( const int Group, const Vector2D& _Pos );
+	void GroupPos( const int Group, const int Index, const Vector2D& _Pos );
 	
-	void GroupColor( int Group, Gfx::Color _Color );
-	void GroupColor( int Group, int Index, Gfx::Color _Color );
-	void GroupSelColor( int Group, Gfx::Color _Color );
-	void GroupSelColor( int Group, int Index, Gfx::Color _Color );
+	void GroupVisible( const int Group, const bool _Visible = true );
+	void GroupVisible( const int Group, const int Index, const bool _Visible = true );
+	
+	void GroupColor( const int Group, const Gfx::Color _Color );
+	void GroupColor( const int Group, const int Index, const Gfx::Color _Color );
+	void GroupSelColor( const int Group, const Gfx::Color _Color );
+	void GroupSelColor( const int Group, const int Index, const Gfx::Color _Color );
 
 };
 // - ------------------------------------------------------------------------------------------ - //

@@ -47,8 +47,8 @@ cMainMenu::cMainMenu()
 	DenseParticle.Clear();
 	
 #ifdef EDITOR
-//	Window.Load( "2D/Menu/MainMenuEditor.form" );
-	Window.Load( "2D/Menu/Test.form" );
+	Window.Load( "2D/Menu/MainMenuEditor.form" );
+//	Window.Load( "2D/Menu/Test.form" );
 #else
 	Window.Load( "2D/Menu/MainMenu.form" );
 #endif // EDITOR //
@@ -58,7 +58,8 @@ cMainMenu::cMainMenu()
 	Gfx::DisableSmoothPolygon();
 	
 	//Window.Form[ 0 ].GroupVisible( 1, 1, false );
-	Window.Form[ 0 ].GroupColor( 1, 1, Gfx::RGBA( 255, 255, 0, 255 ) );
+	//Window.Form[ 0 ].GroupColor( 1, 1, Gfx::RGBA( 255, 255, 0, 255 ) );
+	//Window.Form[ 0 ].GroupPos( 1, Vector2D( 100, 0 ) );
 	
 	Work();
 }

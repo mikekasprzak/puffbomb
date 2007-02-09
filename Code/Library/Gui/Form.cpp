@@ -66,7 +66,7 @@ void cForm::Draw()
 		
 		for( size_t idx = 0; idx < Labels.size(); ++idx )
 		{
-			if( ActiveLabels[ Focus ] != idx )
+			if( size_t( ActiveLabels[ Focus ] ) != idx )
 			{
 				if( Labels[ idx ]->IsVisible )
 				{
@@ -306,7 +306,35 @@ void cForm::Execute()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::GroupVisible( int Group, bool _Visible )
+void cForm::GroupPos( const int Group, const Vector2D& _Pos )
+{
+	for( size_t idx = 0; idx < Labels.size(); ++idx )
+	{
+		if( Labels[ idx ]->Group == Group )
+		{
+			Labels[ idx ]->Pos += _Pos;
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cForm::GroupPos( const int Group, const int Index, const Vector2D& _Pos )
+{
+	int MyIndex = 0;
+	for( size_t idx = 0; idx < Labels.size(); ++idx )
+	{
+		if( Labels[ idx ]->Group == Group )
+		{
+			if( Index == MyIndex )
+			{
+				Labels[ idx ]->Pos += _Pos;
+				return;
+			}
+			MyIndex++;
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cForm::GroupVisible( const int Group, const bool _Visible )
 {
 	for( size_t idx = 0; idx < Labels.size(); ++idx )
 	{
@@ -317,7 +345,7 @@ void cForm::GroupVisible( int Group, bool _Visible )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::GroupVisible( int Group, int Index, bool _Visible )
+void cForm::GroupVisible( const int Group, const int Index, const bool _Visible )
 {
 	int MyIndex = 0;
 	for( size_t idx = 0; idx < Labels.size(); ++idx )
@@ -334,7 +362,7 @@ void cForm::GroupVisible( int Group, int Index, bool _Visible )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::GroupColor( int Group, Gfx::Color _Color )
+void cForm::GroupColor( const int Group, const Gfx::Color _Color )
 {
 	for( size_t idx = 0; idx < Labels.size(); ++idx )
 	{
@@ -345,7 +373,7 @@ void cForm::GroupColor( int Group, Gfx::Color _Color )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::GroupColor( int Group, int Index, Gfx::Color _Color )
+void cForm::GroupColor( const int Group, const int Index, const Gfx::Color _Color )
 {
 	int MyIndex = 0;
 	for( size_t idx = 0; idx < Labels.size(); ++idx )
@@ -362,7 +390,7 @@ void cForm::GroupColor( int Group, int Index, Gfx::Color _Color )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::GroupSelColor( int Group, Gfx::Color _Color )
+void cForm::GroupSelColor( const int Group, const Gfx::Color _Color )
 {
 	for( size_t idx = 0; idx < Labels.size(); ++idx )
 	{
@@ -373,7 +401,7 @@ void cForm::GroupSelColor( int Group, Gfx::Color _Color )
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::GroupSelColor( int Group, int Index, Gfx::Color _Color )
+void cForm::GroupSelColor( const int Group, const int Index, const Gfx::Color _Color )
 {
 	int MyIndex = 0;
 	for( size_t idx = 0; idx < Labels.size(); ++idx )
