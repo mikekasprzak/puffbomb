@@ -18,6 +18,8 @@ bool cAnimation::Load( const std::string& FileName )
 	ABCSet< int > TempVertIdx;
 	ABCSet< Vector2D > TempUV;
 	
+	int Color = Gfx::White();
+	
 	char Line[1024];
 
 	ifstream InFile( FileName.c_str() );
@@ -118,12 +120,36 @@ bool cAnimation::Load( const std::string& FileName )
 				Text >> Token;
 				TempFrame.TextureId = TexturePool.Load( Token ).Id;
 			}
+			else if( Token == "Color" )
+			{
+				int TempColorValues[ 4 ];
+				
+				Text >> Token;
+				
+				TempColorValues[ 0 ] = atoi( Token.c_str() );
+
+				Text >> Token;
+				
+				TempColorValues[ 1 ] = atoi( Token.c_str() );
+				
+				Text >> Token;
+				
+				TempColorValues[ 2 ] = atoi( Token.c_str() );
+			
+				Text >> Token;
+				
+				TempColorValues[ 3 ] = atoi( Token.c_str() );
+			
+				Color = Gfx::RGBA( TempColorValues[ 0 ], TempColorValues[ 1 ], TempColorValues[ 2 ], TempColorValues[ 3 ] );
+			}
 			else if( Token == "Time" )
 			{
 				Text >> Token;
-									
+				
 				Frame.push_back( cFrameInfo( Real( atoi( Token.c_str() ) ), cFrame( TempFrame ) ) );
 				
+				Frame.back().GetFrame().Color = Color;
+							
 				TempFrame.Vertex.clear();
 				TempFrame.Face.clear();
 			}
