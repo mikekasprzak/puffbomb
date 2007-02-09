@@ -13,8 +13,7 @@ IsPassive		0
 ActionID		2
 Text			Classic
 Scale			0.5
-Color			255	255	255
-Alpha			255
+Color			255	255	255 255
 EndText
 
 TextLabel		0	-65
@@ -22,8 +21,7 @@ IsPassive		0
 ActionID		6
 Text			Tournament
 Scale			0.5
-Color			255	255	255
-Alpha			255
+Color			255	255	255 255
 EndText
 
 TextLabel		0	-105
@@ -31,8 +29,7 @@ IsPassive		0
 ActionID		3
 Text			Editor
 Scale			0.5
-Color			255	255	255
-Alpha			255
+Color			255	255	255 255
 EndText
 
 TextLabel		0	-145
@@ -40,8 +37,7 @@ IsPassive		0
 ActionID		4
 Text			Splash Screen
 Scale			0.5
-Color			255	255	255
-Alpha			255
+Color			255	255	255 255
 EndText
 
 TextLabel		0	-185
@@ -49,8 +45,7 @@ IsPassive		0
 ActionID		1
 Text			Exit
 Scale			0.5
-Color			255	255	255
-Alpha			255
+Color			255	255	255 255
 EndText
 
 EndDialog

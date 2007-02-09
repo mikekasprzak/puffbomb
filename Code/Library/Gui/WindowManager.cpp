@@ -172,9 +172,6 @@ void cWindowManager::Load( const std::string &File )
 				
 				TempReals.push_back( atof( Token.c_str() ) ); // 7
 
-			}	
-			else if( Token == "Alpha" )
-			{
 				Text >> Token;
 				
 				TempReals.push_back( atof( Token.c_str() ) ); // 8
@@ -193,12 +190,10 @@ void cWindowManager::Load( const std::string &File )
 				
 				TempReals.push_back( atof( Token.c_str() ) ); // 11
 
-			}	
-			else if( Token == "SelAlpha" )
-			{
 				Text >> Token;
 				
 				TempReals.push_back( atof( Token.c_str() ) ); // 12
+
 			}	
 			else if( Token == "EndText" )
 			{
