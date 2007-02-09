@@ -179,6 +179,27 @@ void cWindowManager::Load( const std::string &File )
 				
 				TempReals.push_back( atof( Token.c_str() ) ); // 8
 			}	
+			else if( Token == "SelColor" )
+			{
+				Text >> Token;
+				
+				TempReals.push_back( atof( Token.c_str() ) ); // 9
+
+				Text >> Token;
+				
+				TempReals.push_back( atof( Token.c_str() ) ); // 10
+
+				Text >> Token;
+				
+				TempReals.push_back( atof( Token.c_str() ) ); // 11
+
+			}	
+			else if( Token == "SelAlpha" )
+			{
+				Text >> Token;
+				
+				TempReals.push_back( atof( Token.c_str() ) ); // 12
+			}	
 			else if( Token == "EndText" )
 			{
 				Form[ CurDialog ].Labels.push_back(
@@ -199,6 +220,11 @@ void cWindowManager::Load( const std::string &File )
 					Form[ CurDialog ].ActiveLabels.push_back(
 						Form[ CurDialog ].Labels.size() - 1
 					);
+				}
+				
+				if( TempReals.size() > 12 )
+				{
+					Form[ CurDialog ].Labels.back()->SelColor = Gfx::RGBA( TempReals[ 9 ], TempReals[ 10 ], TempReals[ 11 ], TempReals[ 12 ] );
 				}
 				
 				Group = 0;
@@ -256,6 +282,15 @@ void cWindowManager::Load( const std::string &File )
 					Form[ CurDialog ].ActiveLabels.push_back(
 						( Form[ CurDialog ].Labels.size() - 1 )
 					);
+				}
+				
+				if( TempReals.size() > 8 )
+				{
+					Form[ CurDialog ].Labels.back()->Color = Gfx::RGBA( TempReals[ 5 ], TempReals[ 6 ], TempReals[ 7 ], TempReals[ 8 ] );
+				}
+				if( TempReals.size() > 12 )
+				{
+					Form[ CurDialog ].Labels.back()->SelColor = Gfx::RGBA( TempReals[ 9 ], TempReals[ 10 ], TempReals[ 11 ], TempReals[ 12 ] );
 				}
 
 				Group = 0;
