@@ -17,7 +17,7 @@ Scale			0.5
 Color			155	155	255 255
 EndText
 
-
+// The Clock Border //
 AniLabel		0	0
 IsPassive		1
 ActionID		0
@@ -27,6 +27,7 @@ SelectAni		ClassicClockBorder.anim
 CurrentFrame	0
 EndAni
 
+// The Empty Backgrounds for Bomb icons //
 AniLabel		288	0
 IsPassive		1
 ActionID		0
@@ -69,6 +70,53 @@ ActionID		0
 Group			14
 Animation		ClassicBombBorder.anim
 SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+
+// The Foreground icons containing bombs //
+AniLabel		288	0
+IsPassive		1
+ActionID		0
+Group			10
+Animation		ClassicBombIcon.anim
+SelectAni		ClassicBombIcon.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		352	0
+IsPassive		1
+ActionID		0
+Group			11
+Animation		ClassicBombIcon.anim
+SelectAni		ClassicBombIcon.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		416	0
+IsPassive		1
+ActionID		0
+Group			12
+Animation		ClassicBombIcon.anim
+SelectAni		ClassicBombIcon.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		480	0
+IsPassive		1
+ActionID		0
+Group			13
+Animation		ClassicBombIcon.anim
+SelectAni		ClassicBombIcon.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		544	0
+IsPassive		1
+ActionID		0
+Group			14
+Animation		ClassicBombIcon.anim
+SelectAni		ClassicBombIcon.anim
 CurrentFrame	0
 EndAni
 
