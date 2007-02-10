@@ -1,0 +1,22 @@
+DialogPos		Left	+	0
+DialogPos		Bottom	+	0
+
+DialogPos		Left	+	0
+DialogPos		Bottom	+	0
+
+Focus			0
+Texture			ClassicHud.tx
+CreateDialog
+
+
+AniLabel		0	0
+IsPassive		0
+ActionID		0
+Group			0
+Animation		ClassicClockBorder.anim
+SelectAni		ClassicClockBorder.anim
+CurrentFrame	0
+EndAni
+
+IsVisible		0
+EndDialog
