@@ -8,15 +8,6 @@ Focus			0
 Texture			ClassicHud.tx
 CreateDialog
 
-// Dummy Text Label, so I don't select anything //
-TextLabel		0	0
-IsPassive		0
-ActionID		0
-Text			Richard is a loser!!  Best --:--
-Scale			0.5
-Color			155	155	255 255
-EndText
-
 
 // The Clock Border //
 AniLabel		0	0
@@ -45,36 +36,36 @@ ActionID		0
 Group			2
 Animation		ClassicClockDigits.anim
 SelectAni		ClassicClockDigits.anim
-CurrentFrame	1
+CurrentFrame	0
 EndAni
 
 // Colon //
-AniLabel		144	48
+AniLabel		136	48
 IsPassive		1
 ActionID		0
 Group			2
 Animation		ClassicClockDigits.anim
 SelectAni		ClassicClockDigits.anim
-CurrentFrame	2
+CurrentFrame	10
 EndAni
 
 // Digits (Frames) //
-AniLabel		192	48
+AniLabel		176	48
 IsPassive		1
 ActionID		0
 Group			2
 Animation		ClassicClockDigits.anim
 SelectAni		ClassicClockDigits.anim
-CurrentFrame	3
+CurrentFrame	0
 EndAni
 
-AniLabel		240	48
+AniLabel		224	48
 IsPassive		1
 ActionID		0
 Group			2
 Animation		ClassicClockDigits.anim
 SelectAni		ClassicClockDigits.anim
-CurrentFrame	4
+CurrentFrame	0
 EndAni
 
 
@@ -170,6 +161,16 @@ Animation		ClassicBombIcon.anim
 SelectAni		ClassicBombIcon.anim
 CurrentFrame	0
 EndAni
+
+
+// Best Time Display (Temp) //
+TextLabel		32	0
+IsPassive		1
+ActionID		0
+Text			Best Time:  --:--
+Scale			0.5
+Color			155	155	255 255
+EndText
 
 
 IsVisible		0
