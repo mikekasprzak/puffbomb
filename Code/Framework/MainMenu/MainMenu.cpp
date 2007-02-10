@@ -47,26 +47,26 @@ cMainMenu::cMainMenu()
 	DenseParticle.Clear();
 	
 #ifdef EDITOR
-	Window.Load( "2D/Menu/MainMenuEditor.form" );
-//	Window.Load( "2D/Menu/Test.form" );
+	Form.Load( "2D/Menu/MainMenuEditor.form" );
+//	Form.Load( "2D/Menu/Test.form" );
 #else
-	Window.Load( "2D/Menu/MainMenu.form" );
+	Form.Load( "2D/Menu/MainMenu.form" );
 #endif // EDITOR //
 	
 	LastTime = GetTime();
 	
 	Gfx::DisableSmoothPolygon();
 	
-	//Window.Form[ 0 ].GroupVisible( 1, 1, false );
-	//Window.Form[ 0 ].GroupColor( 1, 1, Gfx::RGBA( 255, 255, 0, 255 ) );
-	//Window.Form[ 0 ].GroupPos( 1, Vector2D( 100, 0 ) );
+	//Form.Form[ 0 ].GroupVisible( 1, 1, false );
+	//Form.Form[ 0 ].GroupColor( 1, 1, Gfx::RGBA( 255, 255, 0, 255 ) );
+	//Form.Form[ 0 ].GroupPos( 1, Vector2D( 100, 0 ) );
 /*	int bob = 5;
-	if( Window.Form[ 0 ].Labels[ bob ]->AniLabel() )
+	if( Form.Form[ 0 ].Labels[ bob ]->AniLabel() )
 	{
-		Window.Form[ 0 ].Labels[ bob ]->AniLabel()->PassiveAni = Window.Form[ 0 ].Labels[ bob ]->AniLabel()->SelectAni;
-		//Log( 10, "Window.Form[ 0 ].Labels[ bob ]->AniLabel()" );
+		Form.Form[ 0 ].Labels[ bob ]->AniLabel()->PassiveAni = Form.Form[ 0 ].Labels[ bob ]->AniLabel()->SelectAni;
+		//Log( 10, "Form.Form[ 0 ].Labels[ bob ]->AniLabel()" );
 	}*/
-	//Window.Form[ 1 ].Labels[ 0 ]->AniLabel()->Animator.IsActive = false;
+	//Form.Form[ 1 ].Labels[ 0 ]->AniLabel()->Animator.IsActive = false;
 		
 	Work();
 }
@@ -78,7 +78,7 @@ cMainMenu::~cMainMenu()
 // - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::ResetMenu()
 {
-	//Window.Form[ 0 ].SuperFlowState = 1;
+	//Form.Form[ 0 ].SuperFlowState = 1;
 	//Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -94,7 +94,7 @@ void cMainMenu::Draw()
 
 	Gfx::StandardBlend();
 
-	Window.Draw();
+	Form.Draw();
 	
 #ifdef EDITOR
 	//	//  DISPLAYS FPS  //
@@ -114,9 +114,9 @@ void cMainMenu::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cMainMenu::Step()
 {
-	Window.Step();
+	Form.Step();
 	
-	if( Window.Form[ 0 ].SuperFlowState != 1 )
+	if( Form.SuperFlowState != 1 )
 	{
 		BreakLoop = true;	
 	}

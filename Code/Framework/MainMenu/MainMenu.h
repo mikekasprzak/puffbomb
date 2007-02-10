@@ -7,13 +7,14 @@
 #include <MessageEntity.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/Camera.h>
-#include <Gui/WindowManager.h>
+#include <Gui/Form.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cMainMenu : public cMessageEntity { 
 private:
 	cCamera* Camera;
 public:
-	cWindowManager Window;
+//	cWindowManager Window;
+	cForm Form;
 	
 	int LastTime;
 

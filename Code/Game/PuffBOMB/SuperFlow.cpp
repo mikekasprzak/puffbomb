@@ -116,7 +116,7 @@ void cSuperFlow::StateFlow()
 				{
 					cMainMenu MainMenu;
 
-					State = MainMenu.Window.Form[ 0 ].SuperFlowState;
+					State = MainMenu.Form.SuperFlowState;
 				}
 				break;
 			}
@@ -183,7 +183,7 @@ void cSuperFlow::StateFlow()
 
 							// Let the next player shoot first //
 							CurrentStartPlayer++;
-							if ( CurrentStartPlayer >= Players.size() ) {
+							if ( size_t( CurrentStartPlayer ) >= Players.size() ) {
 								CurrentStartPlayer = 0;
 							}
 						}
