@@ -403,21 +403,30 @@ void cForm::Draw()
 	
 	if( IsLabelsVisible )
 	{
-		// Remove the + + Vector2D( 6, 0 ) when you get sick of the selected offset thing?
-		if( Labels[ ActiveLabels[ Focus ] ]->IsVisible )
+		if( !ActiveLabels.empty() )
 		{
-			Labels[ ActiveLabels[ Focus ] ]->Draw( Pos + Vector2D( 6, 0 ), Labels[ ActiveLabels[ Focus ] ]->SelColor );
+			// Remove the + + Vector2D( 6, 0 ) when you get sick of the selected offset thing?
+			if( Labels[ ActiveLabels[ Focus ] ]->IsVisible )
+			{
+				Labels[ ActiveLabels[ Focus ] ]->Draw( Pos + Vector2D( 6, 0 ), Labels[ ActiveLabels[ Focus ] ]->SelColor );
+			}
 		}
 		
 		for( size_t idx = 0; idx < Labels.size(); ++idx )
 		{
-			if( size_t( ActiveLabels[ Focus ] ) != idx )
+			if( !ActiveLabels.empty() )
 			{
-				if( Labels[ idx ]->IsVisible )
+				if( size_t( ActiveLabels[ Focus ] ) != idx )
 				{
-					
-					Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );
+					if( Labels[ idx ]->IsVisible )
+					{
+						Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );
+					}
 				}
+			}
+			else
+			{
+				Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );	
 			}
 		}
 	}
@@ -612,7 +621,10 @@ void cForm::SwitchFocus()
 	if( Input::Button[ KEY_UP ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == 1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == 1 )
 	{
 		// Swaps the animation to off before it changes to the next focus //
-		Labels[ ActiveLabels[ Focus ] ]->SelInit();
+		if( !ActiveLabels.empty() )
+		{
+			Labels[ ActiveLabels[ Focus ] ]->SelInit();
+		}
 		
 		if( Focus > 0 )
 		{
@@ -623,12 +635,18 @@ void cForm::SwitchFocus()
 			Focus = ActiveLabels.size() - 1;	
 		}
 		// Swaps the animation to on the new focus //
-		Labels[ ActiveLabels[ Focus ] ]->SelInit();
+		if( !ActiveLabels.empty() )
+		{
+			Labels[ ActiveLabels[ Focus ] ]->SelInit();
+		}
 	}
 	if( Input::Button[ KEY_DOWN ].Pressed() || int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == -1 || int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == -1 )
 	{
 		// Swaps the animation to off before it changes to the next focus //
-		Labels[ ActiveLabels[ Focus ] ]->SelInit();
+		if( !ActiveLabels.empty() )
+		{
+			Labels[ ActiveLabels[ Focus ] ]->SelInit();
+		}
 		
 		if( Focus < int( ActiveLabels.size() - 1 ) )
 		{
@@ -639,7 +657,10 @@ void cForm::SwitchFocus()
 			Focus = 0;	
 		}
 		// Swaps the animation to on the new focus //
-		Labels[ ActiveLabels[ Focus ] ]->SelInit();
+		if( !ActiveLabels.empty() )
+		{
+			Labels[ ActiveLabels[ Focus ] ]->SelInit();
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -647,7 +668,10 @@ void cForm::Execute()
 {
 	if( Input::Button[ KEY_ENTER ].Pressed() || Input::Pad[0].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
 	{
-		SuperFlowState = cActions::ExecuteAction( Labels[ ActiveLabels[ Focus ] ]->ActionID );
+		if( !ActiveLabels.empty() )
+		{
+			SuperFlowState = cActions::ExecuteAction( Labels[ ActiveLabels[ Focus ] ]->ActionID );
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

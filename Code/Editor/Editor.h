@@ -32,7 +32,7 @@ public:
 	cMapEdit* MapEdit;
 	cCollectionEdit* CollectionEdit;
 	cComponentEdit* ComponentEdit;
-//	cAnimationEdit* AnimationEdit;
+	cAnimationEdit* AnimationEdit;
 
 public:	
 	void Step();

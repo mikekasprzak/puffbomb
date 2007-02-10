@@ -48,7 +48,7 @@ cMainMenu::cMainMenu()
 	
 #ifdef EDITOR
 	Form.Load( "2D/Menu/MainMenuEditor.form" );
-//	Form.Load( "2D/Menu/Test.form" );
+//	Form.Load( "2D/Menu/Test2.form" );
 #else
 	Form.Load( "2D/Menu/MainMenu.form" );
 #endif // EDITOR //

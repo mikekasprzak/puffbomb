@@ -13,7 +13,6 @@ class cMainMenu : public cMessageEntity {
 private:
 	cCamera* Camera;
 public:
-//	cWindowManager Window;
 	cForm Form;
 	
 	int LastTime;

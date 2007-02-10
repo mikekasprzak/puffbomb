@@ -47,11 +47,12 @@ void cEditor::FreeEditorMemory()
 		Log( LOG_HIGHEST_LEVEL, "Delete Component Editor" );
 		delete ComponentEdit;
 	}
-/*	else if( CurEditor == ANIMATION_EDITOR )
+	else if( LastEditor == ANIMATION_EDITOR )
 	{
-		
+		Log( LOG_HIGHEST_LEVEL, "Delete Animation Editor" );
+		delete AnimationEdit;
 	}
-	*/
+	
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cEditor::Step()
@@ -70,7 +71,7 @@ void cEditor::Step()
 	}
 	else if( CurEditor == ANIMATION_EDITOR )
 	{
-//		AnimationEdit->Step();
+		AnimationEdit->Step();
 	}
 	
 	if( Button[ KEY_F5 ].Pressed() )
@@ -89,13 +90,14 @@ void cEditor::Step()
 			CollectionEdit = new cCollectionEdit();
 		}
 	}
-/*	else if( Button[ KEY_F7 ].Pressed() )
+	else if( Button[ KEY_F7 ].Pressed() )
 	{
 		if( CurEditor != ANIMATION_EDITOR )
 		{
 			CurEditor = ANIMATION_EDITOR;
+			AnimationEdit = new cAnimationEdit();
 		}
-	}*/
+	}
 	else if( Button[ KEY_F8 ].Pressed() )
 	{
 		if( CurEditor != COMPONENT_EDITOR )
@@ -128,7 +130,7 @@ void cEditor::Draw()
 	}
 	else if( CurEditor == ANIMATION_EDITOR )
 	{
-//		AnimationEdit->Draw();
+		AnimationEdit->Draw();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
