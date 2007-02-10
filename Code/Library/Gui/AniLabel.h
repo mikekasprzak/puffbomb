@@ -54,6 +54,11 @@ public:
 			Animator.Set( PassiveAni, 0 );
 		}
 	}
+	virtual cAniLabel* AniLabel()
+	{
+		return this;
+	}
+
 };
 // - ------------------------------------------------------------------------------------------ - //
 

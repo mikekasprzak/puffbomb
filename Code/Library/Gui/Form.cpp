@@ -306,6 +306,22 @@ void cForm::Execute()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+cLabel& cForm::Group( const int GroupIdx, const int Index )
+{
+	int MyIndex = 0;
+	for( size_t idx = 0; idx < Labels.size(); ++idx )
+	{
+		if( Labels[ idx ]->Group == GroupIdx )
+		{
+			if( Index == MyIndex )
+			{
+				return *Labels[ idx ];
+			}
+			MyIndex++;
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cForm::GroupPos( const int Group, const Vector2D& _Pos )
 {
 	for( size_t idx = 0; idx < Labels.size(); ++idx )
