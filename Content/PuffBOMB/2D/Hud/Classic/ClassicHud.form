@@ -8,15 +8,70 @@ Focus			0
 Texture			ClassicHud.tx
 CreateDialog
 
+// Dummy Text Label, so I don't select anything //
+TextLabel		0	0
+IsPassive		0
+ActionID		0
+Text			Richard is a loser!!  Best --:--
+Scale			0.5
+Color			155	155	255 255
+EndText
+
 
 AniLabel		0	0
-IsPassive		0
+IsPassive		1
 ActionID		0
 Group			0
 Animation		ClassicClockBorder.anim
 SelectAni		ClassicClockBorder.anim
 CurrentFrame	0
 EndAni
+
+AniLabel		288	0
+IsPassive		1
+ActionID		0
+Group			10
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		352	0
+IsPassive		1
+ActionID		0
+Group			11
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		416	0
+IsPassive		1
+ActionID		0
+Group			12
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		480	0
+IsPassive		1
+ActionID		0
+Group			13
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		544	0
+IsPassive		1
+ActionID		0
+Group			14
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
 
 IsVisible		0
 EndDialog
