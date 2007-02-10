@@ -45,19 +45,22 @@ public:
 	
 	int LoopPoint;
 	bool Interpolate;
-	std::vector< cFrameInfo > Frame;	
+	bool IsActive;
+	std::vector< cFrameInfo > Frame;
 
 public:
 	cAnimation() :
 	LoopPoint( 0 ),
-	Interpolate( false )
+	Interpolate( false ),
+	IsActive( true )
 	{
 		Frame.push_back( cFrameInfo() );
 	}
 	
 	inline cAnimation( const std::string& FileName ) :
 		LoopPoint( 0 ),
-		Interpolate( false )
+		Interpolate( false ),
+		IsActive( true )
 	{
 		Load( FileName );	
 	}

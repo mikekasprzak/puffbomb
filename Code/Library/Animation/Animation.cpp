@@ -162,8 +162,13 @@ bool cAnimation::Load( const std::string& FileName )
 			{
 				Interpolate = true;
 			}
+			else if( Token == "NotActive" )
+			{
+				IsActive = false;
+			}
 		}
 	}
+	
 	return true;
 }
 // - ------------------------------------------------------------------------------------------ - //

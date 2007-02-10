@@ -22,9 +22,9 @@ cAnimator::cAnimator( const std::string& AnimationName ) :
 	Animation( &AnimationPool.Load( AnimationName ) ),
 	CurrentFrame( 0 ),
 	Time( 0 ),
-	CurDrawFrame( &Animation->Frame[ CurrentFrame ].MyFrame ),
-	IsActive( true )
+	CurDrawFrame( &Animation->Frame[ CurrentFrame ].MyFrame )
 {
+	IsActive = Animation->IsActive;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
@@ -32,6 +32,7 @@ void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
 	Animation = _Animation;
 	CurrentFrame = _CurrentFrame;
 	Time = 0;
+	IsActive = Animation->IsActive;
 	
 	CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
 }
@@ -40,6 +41,7 @@ void cAnimator::SetFrame( const int _CurrentFrame )
 {
 	CurrentFrame = _CurrentFrame;
 	Time = 0;
+	IsActive = Animation->IsActive;
 	
 	CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
 }
