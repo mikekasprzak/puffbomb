@@ -33,9 +33,9 @@ cPlayerSelect::cPlayerSelect()
 	
 
 	#ifdef EDITOR
-	Window.Load( "2D/Menu/PlayerSelectEditor.form" );
+	Form.Load( "2D/Menu/PlayerSelectEditor.form" );
 	#else
-	Window.Load( "2D/Menu/PlayerSelect.form" );
+	Form.Load( "2D/Menu/PlayerSelect.form" );
 	#endif // EDITOR //
 	LastTime = GetTime();
 	
@@ -58,7 +58,7 @@ void cPlayerSelect::Draw()
 
 	Gfx::StandardBlend();
 
-	Window.Draw();
+	Form.Draw();
 	
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();	
@@ -66,9 +66,9 @@ void cPlayerSelect::Draw()
 // - ------------------------------------------------------------------------------------------ - //
 void cPlayerSelect::Step()
 {
-	Window.Step();
+	Form.Step();
 	
-	if( Window.Form[ 0 ].SuperFlowState != 1 )
+	if( Form.SuperFlowState != 1 )
 	{
 		BreakLoop = true;	
 	}

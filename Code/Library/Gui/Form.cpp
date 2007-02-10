@@ -139,12 +139,10 @@ void cForm::Load( const std::string &File )
 			{
 				Text >> Token;
 				
-//				TempReals.push_back( atof( Token.c_str() ) + Form[ CurDialog ].Pos.x ); // 0
 				TempReals.push_back( atof( Token.c_str() ) ); // 0
 
 				Text >> Token;
 				
-//				TempReals.push_back( atof( Token.c_str() ) + Form[ CurDialog ].Pos.y ); // 1
 				TempReals.push_back( atof( Token.c_str() ) ); // 1
 			}
 			// - ------------------------------------------------------------------------------ - //
@@ -245,12 +243,10 @@ void cForm::Load( const std::string &File )
 			{
 				Text >> Token;
 				
-//				TempReals.push_back( atof( Token.c_str() ) + Form[ CurDialog ].Pos.x ); // 0
 				TempReals.push_back( atof( Token.c_str() ) ); // 0
 
 				Text >> Token;
 				
-//				TempReals.push_back( atof( Token.c_str() ) + Form[ CurDialog ].Pos.y ); // 1
 				TempReals.push_back( atof( Token.c_str() ) ); // 1
 			}
 			else if( Token == "Animation" )
