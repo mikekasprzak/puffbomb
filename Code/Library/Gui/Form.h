@@ -44,6 +44,7 @@ public:
 public:
 	
 	cForm();
+	cForm( const std::string &File );
 	cForm(
 		const Vector2D& _Pos,
 		const Vector2D& _Size,

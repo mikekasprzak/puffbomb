@@ -17,6 +17,7 @@ Scale			0.5
 Color			155	155	255 255
 EndText
 
+
 // The Clock Border //
 AniLabel		0	0
 IsPassive		1
@@ -26,6 +27,56 @@ Animation		ClassicClockBorder.anim
 SelectAni		ClassicClockBorder.anim
 CurrentFrame	0
 EndAni
+
+
+// Digits (Seconds) //
+AniLabel		48	48
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		96	48
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	1
+EndAni
+
+// Colon //
+AniLabel		144	48
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	2
+EndAni
+
+// Digits (Frames) //
+AniLabel		192	48
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	3
+EndAni
+
+AniLabel		240	48
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	4
+EndAni
+
 
 // The Empty Backgrounds for Bomb icons //
 AniLabel		288	0

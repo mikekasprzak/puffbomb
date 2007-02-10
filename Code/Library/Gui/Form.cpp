@@ -22,7 +22,22 @@ cForm::cForm() :
 	IsVisible( true ),
 	IsLabelsVisible( true )
 {
+	// Legacy //
 	TextureID = TexturePool.Load( "DialogBox.tx" ).Id;
+}
+// - ------------------------------------------------------------------------------------------ - //
+cForm::cForm( const std::string& File ) :
+	Pos( Vector2D( 0, 0 ) ),
+	Size( Vector2D( 0, 0 ) ),
+	Focus( 0 ),
+	SuperFlowState( 1 ),
+	IsVisible( true ),
+	IsLabelsVisible( true )
+{
+	// Legacy //
+	TextureID = TexturePool.Load( "DialogBox.tx" ).Id;
+	
+	Load( File );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cForm::cForm(

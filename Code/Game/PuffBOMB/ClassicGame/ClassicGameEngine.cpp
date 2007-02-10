@@ -22,6 +22,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false ),
+	Hud( "2D/Hud/Classic/ClassicHud.form" ),
+	//Hud( "2D/Menu/Test.form" ),
 	LevelComplete( false ),
 	Score( 0 ),
 	ArrowAnimator( "TrackingArrow.anim" ),
@@ -218,6 +220,8 @@ void cClassicGameEngine::Step() {
 	{
 		cMessageEntity::Current->BreakLoop = true;
 	}
+
+	Hud.Step();
 
 	if( !IsHelp )
 	{
@@ -478,90 +482,6 @@ void cClassicGameEngine::Draw() {
 
 	}
 	Gfx::PopMatrix();
-		
-		
-	/*
-	
-		// Draw MiniMap and draw the view box //
-	Gfx::PushMatrix();
-	{
-		Gfx::Translate( Vector2D( Global::Right, Global::Bottom ) );
-
-		Gfx::DisableTex2D();
-		
-		Vector2D CameraBounds = ( ( Camera->CameraBounds._P2 - Camera->CameraBounds._P1 ) ) / Real( 4 ) / MiniMapRatio;
-		
-		Gfx::RFilledRect(
-			Vector2D( -CameraBounds.x, CameraBounds.y ) + MiniMapCenterShift,
-			Vector2D::Zero + MiniMapCenterShift,
-			Gfx::RGBA( 0, 0, 0, 80 )
-		);
-
-		Gfx::EnableTex2D();
-		
-		Gfx::DrawQuads(
-			&MiniMapTexVertex[0],
-			&MiniMapTexUV[0],
-			MiniMapTexIndices,
-			4,
-			MiniMapTex.Id,
-			Gfx::White()
-		);
-		
-		Gfx::DisableTex2D();
-		
-		Vector2D TempPos = Vector2D( Camera->Pos.x, Camera->Pos.y );
-		
-		TempPos.x -= Camera->CameraBounds._P2.x;
-		TempPos.y -= Camera->CameraBounds._P1.y;
-				
-		Gfx::SetLineWidth( 3.0 );
-
-		// Draw the camerabounds on the minimap //
-		Gfx::Rect(
-			( Camera->ViewArea._P1 + TempPos ) / Real( 4 ) / MiniMapRatio + MiniMapCenterShift,
-			( Camera->ViewArea._P2 + TempPos ) / Real( 4 ) / MiniMapRatio + MiniMapCenterShift,
-			Gfx::RGBA( 192, 192, 192, 255 )
-		);
-		
-		// Draw the end zones on the minimap //
-		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); idx++ )
-		{
-			if( Map.ZoneInstanceInfo[ idx ].Id == 9 )
-			{
-				Vector2D EndBounds = ( ( Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() - Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() ) ) / Real( 4 ) / MiniMapRatio;
-				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
-				
-				Gfx::FilledRect(
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift - EndOffset,
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio + MiniMapCenterShift - EndOffset,
-					Gfx::RGBA( 255, 255, 255, 80 )
-				);
-
-			}
-		}
-		
-		// Draw the characters on the minimap //
-		for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); idx++ )
-		{
-			if( Map.DynamicObjectInstanceInfo[ idx ].Id == 64 )
-			{
-				Vector2D CharPos = DynamicCollection[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect().Center();
-						
-				Gfx::Circle(
-					Vector2D( CharPos.x - Camera->CameraBounds._P2.x, CharPos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio +
-						MiniMapCenterShift, Real( 4 ),
-					Gfx::RGBA( 192, 192, 192, 255 )
-				);
-			}
-		}
-		
-		Gfx::SetLineWidth( 1.0 );
-		
-		Gfx::EnableTex2D();
-
-	}
-	Gfx::PopMatrix();*/
 	
 	
 /*#ifdef EDITOR
@@ -587,6 +507,8 @@ void cClassicGameEngine::Draw() {
 		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 200, 55, 255 ) );
 	}*/
 
+
+	Hud.Draw();
 
 	// Temporary Help Menu F1 popup //
 	if( IsHelp )

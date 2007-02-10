@@ -11,6 +11,8 @@
 #include <Graphics/Texture.h>
 #include <Animation/Animator.h>
 
+#include <Gui/Form.h>
+
 #include "ClassicCursor.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cClassicGameEngine : public Engine2D::cEngine2D { 
@@ -27,6 +29,9 @@ public:
 
 	// Our notable things to point out //
 	std::vector< Engine2D::cPassiveObject* > PointsOfInterest;
+
+
+	cForm Hud;
 
 public:
 	void AddBombs();
