@@ -47,8 +47,8 @@ cMainMenu::cMainMenu()
 	DenseParticle.Clear();
 	
 #ifdef EDITOR
-//	Window.Load( "2D/Menu/MainMenuEditor.form" );
-	Window.Load( "2D/Menu/Test.form" );
+	Window.Load( "2D/Menu/MainMenuEditor.form" );
+//	Window.Load( "2D/Menu/Test.form" );
 #else
 	Window.Load( "2D/Menu/MainMenu.form" );
 #endif // EDITOR //
@@ -66,6 +66,7 @@ cMainMenu::cMainMenu()
 		Window.Form[ 0 ].Labels[ bob ]->AniLabel()->PassiveAni = Window.Form[ 0 ].Labels[ bob ]->AniLabel()->SelectAni;
 		//Log( 10, "Window.Form[ 0 ].Labels[ bob ]->AniLabel()" );
 	}*/
+	//Window.Form[ 1 ].Labels[ 0 ]->AniLabel()->Animator.IsActive = false;
 		
 	Work();
 }

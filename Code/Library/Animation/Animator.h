@@ -20,6 +20,8 @@ public:
 	
 	cFrame* CurDrawFrame;
 	
+	bool IsActive;
+	
 public:
 	cAnimator();
 	cAnimator( const std::string& AnimationName );
