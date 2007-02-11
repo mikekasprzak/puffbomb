@@ -76,7 +76,7 @@ void cClockHud::AddBomb() {
 	// If the bomb adding operation was successful //
 	if ( OldBombCount != BombCount ) {
 		// Trigger a bomb addition animation //
-		Hud.Group( 10 + OldBombCount, 1 ).AniLabel()->Animator.Set( &AnimationPool.Load( "ClassicBombIconIn.anim" ), 0 );
+		Hud.Group( 10 + OldBombCount, 1 ).AniLabel()->Animator.Set( &AnimationPool.Load( "ClassicBombIconIn.anim" ), -1 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -93,7 +93,7 @@ void cClockHud::RemoveBomb() {
 	// If the bomb adding operation was successful //
 	if ( OldBombCount != BombCount ) {
 		// Trigger a bomb removal animation //
-		Hud.Group( 10 + BombCount, 1 ).AniLabel()->Animator.Set( &AnimationPool.Load( "ClassicBombIconOut.anim" ), 0 );
+		Hud.Group( 10 + BombCount, 1 ).AniLabel()->Animator.Set( &AnimationPool.Load( "ClassicBombIconOut.anim" ), -1 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

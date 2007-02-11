@@ -30,8 +30,15 @@ cAnimator::cAnimator( const std::string& AnimationName ) :
 void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
 {
 	Animation = _Animation;
-	CurrentFrame = _CurrentFrame;
-	Time = 1;
+	// "-1" means perform an animation inversion //
+	if ( _CurrentFrame == -1 ) {
+		Time = Animation->Frame[ CurrentFrame ].GetTime() + 1 - Time;
+		CurrentFrame = Animation->Frame.size() - 1 - CurrentFrame;
+	}
+	else {
+		CurrentFrame = _CurrentFrame;
+		Time = 1;
+	}
 	IsActive = Animation->IsActive;
 	
 	CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
