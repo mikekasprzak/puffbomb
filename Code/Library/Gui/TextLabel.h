@@ -43,6 +43,12 @@ public:
 	{
 		cFonts::FlangeLight.Write( Text, Pos + Offset, Scale, _Color );
 	}
+	
+	virtual cTextLabel* TextLabel()
+	{
+		return this;
+	}
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 

@@ -177,6 +177,7 @@ EndText
 TextLabel		200	0
 IsPassive		1
 ActionID		0
+Group			4
 Text			--:--
 Scale			0.5
 Color			255	255	255 255
