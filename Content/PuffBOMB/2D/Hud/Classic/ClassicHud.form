@@ -139,8 +139,8 @@ AniLabel		416	0
 IsPassive		1
 ActionID		0
 Group			12
-Animation		ClassicBombIconOutTest.anim
-SelectAni		ClassicBombIconOutTest.anim
+Animation		ClassicBombIcon.anim
+SelectAni		ClassicBombIcon.anim
 CurrentFrame	0
 EndAni
 
@@ -148,8 +148,8 @@ AniLabel		480	0
 IsPassive		1
 ActionID		0
 Group			13
-Animation		ClassicBombIconOut.anim
-SelectAni		ClassicBombIconOut.anim
+Animation		ClassicBombIcon.anim
+SelectAni		ClassicBombIcon.anim
 CurrentFrame	0
 EndAni
 
@@ -157,8 +157,8 @@ AniLabel		544	0
 IsPassive		1
 ActionID		0
 Group			14
-Animation		ClassicBombIconIn.anim
-SelectAni		ClassicBombIconIn.anim
+Animation		ClassicBombIcon.anim
+SelectAni		ClassicBombIcon.anim
 CurrentFrame	0
 EndAni
 

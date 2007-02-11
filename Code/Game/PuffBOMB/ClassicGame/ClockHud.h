@@ -22,7 +22,9 @@ public:
 	// Clock of the best time //
 	int BestClock;
 
-
+	// The number of bombs //
+	int MaxBombCount;
+	int BombCount;
 	
 public:
 	cClockHud();
@@ -32,6 +34,8 @@ public:
 	void StartActionMode();
 	void StartEditMode();
 	void StartActiveFlicker();
+
+	void SetBombs( const int _Count );
 
 public:
 	void Step();

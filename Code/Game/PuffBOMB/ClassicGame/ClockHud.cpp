@@ -16,7 +16,7 @@ cClockHud::cClockHud( ) :
 	FlickerClock( Global::FrameRate >> 1 ),
 	BestClock( 0 )
 {
-	
+	SetBombs( 4 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClockHud::~cClockHud() {
@@ -31,7 +31,7 @@ void cClockHud::StartActionMode() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClockHud::StartEditMode() {
-	// Start Off //
+	// Start with : off //
 	FlickerClock = Global::FrameRate >> 1;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -40,6 +40,24 @@ void cClockHud::StartEditMode() {
 void cClockHud::StartActiveFlicker() {
 	FrameClockActive = false;
 	FlickerClock = 0;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+void cClockHud::SetBombs( const int _Count ) {
+	// Set bomb numbers //
+	MaxBombCount = _Count;
+	BombCount = MaxBombCount;
+	
+	// Show all sockets for visible bombs //
+	for ( size_t idx = 0; idx < MaxBombCount; idx++ ) {
+		Hud.GroupVisible( 10 + idx, true );
+	}
+
+	// Hide all sockets of invisible bombs //
+	for ( size_t idx = MaxBombCount; idx < 5; idx++ ) {
+		Hud.GroupVisible( 10 + idx, false );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 
