@@ -163,15 +163,26 @@ CurrentFrame	0
 EndAni
 
 
-// Best Time Display (Temp) //
+// Best Time Text Display //
 TextLabel		32	0
 IsPassive		1
 ActionID		0
-Text			Best Time:  --:--
+Text			Best Time:
 Scale			0.5
 Color			155	155	255 255
 EndText
 
 
+// Best Time Clock Display //
+TextLabel		200	0
+IsPassive		1
+ActionID		0
+Text			--:--
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+
+// Shut off the legacy border feature //
 IsVisible		0
 EndDialog
