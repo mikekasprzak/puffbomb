@@ -62,7 +62,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 // 	PassiveObject.push_back( StartPoint );
  	
  	// Add Players //
- 	for ( int idx = 0; idx < _Players.size(); idx++ ) {
+ 	for ( size_t idx = 0; idx < _Players.size(); idx++ ) {
  		Engine2D::cDynamicCollection* MyCol = CreateCollectionInstance( 64, StartPoint->Pos );
  		AddCollection( MyCol );
  		Player.push_back( new cLocalJoyPlayer( MyCol ) );
@@ -322,6 +322,8 @@ void cGolfGameEngine::Step() {
 		cMessageEntity::Current->BreakLoop = true;
 	}
 	
+	//ScoreHud.Step();
+	
 	if( !IsHelp )
 	{
 		// Stuff my engine does before //
@@ -550,6 +552,9 @@ void cGolfGameEngine::Draw() {
 	
 		cFonts::FlangeLight.Write( TempString, TempPos, Real( 0.5 ), Gfx::RGBA( 50, 100, 255, 255 ) );
 	}
+	
+
+	//ScoreHud.Draw();
 
 	// Help //	
 	if( IsHelp )
@@ -565,7 +570,7 @@ void cGolfGameEngine::Draw() {
 	}
 
 	{
-		Vector3D TempPos = Vector3D( Global::Left + Real( 100 ), Global::Bottom + Real( 15 ), 0.0 );
+		Vector3D TempPos = Vector3D( Real::Zero, Global::Bottom + Real( 15 ), 0.0 );
 		cFonts::FlangeLight.Write( "F1 - Help", TempPos, Real( 0.75 ), Gfx::RGBA( 255, 255, 255, 155 ) );
 	}
 	
@@ -744,7 +749,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 							PlayersDone++;
 						}
 					}
-					if ( PlayersDone == Player.size() ) {
+					if ( PlayersDone == (int)Player.size() ) {
 						LevelComplete = true;
 						cMessageEntity::Current->BreakLoop = true;
 

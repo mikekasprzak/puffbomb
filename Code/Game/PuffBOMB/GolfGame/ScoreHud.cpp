@@ -11,7 +11,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 cScoreHud::cScoreHud( ) :
 	Engine( dynamic_cast<cGolfGameEngine*>(Engine2D::cEngine2D::Current) ),
-	Hud( "2D/Hud/Tournament/ScoreHud.form" )
+	//Hud( "2D/Hud/Tournament/ScoreHud.form" )
+	Hud( "2D/Hud/Classic/ClockHud.form" )
 {
 
 }

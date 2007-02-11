@@ -11,6 +11,8 @@
 
 #include "Player/Player.h"
 #include "Player/PlayerInfo.h"
+
+#include "ScoreHud.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cGolfGameEngine : public Engine2D::cEngine2D { 
 public:
@@ -40,6 +42,8 @@ public:
 	
 	// Engine State //
 	int State;
+
+	//cScoreHud ScoreHud;
 
 public:
 	// Victory related variables //
