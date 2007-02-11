@@ -56,7 +56,7 @@ void cClockHud::SetBombs( const int _Count ) {
 	}
 
 	// Hide all sockets of invisible bombs //
-	for ( int idx = MaxBombCount; idx < 5; idx++ ) {
+	for ( int idx = MaxBombCount; idx < 10; idx++ ) {
 		Hud.GroupVisible( 10 + idx, false );
 	}
 }

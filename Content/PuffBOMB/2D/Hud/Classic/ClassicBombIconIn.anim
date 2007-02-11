@@ -23,7 +23,7 @@ FUVb	1.0 	0.5
 FUVc	1.0		0.25
 
 Color	255 255 255 0
-Time	8
+Time	2
 
 
 // Inbetween //
@@ -51,7 +51,7 @@ FUVb	1.0 	0.5
 FUVc	1.0		0.25
 
 Color	255 255 255 128
-Time	6
+Time	4
 
 // Inbetween //
 Texture	ClassicHud.tx
@@ -78,7 +78,7 @@ FUVb	1.0 	0.5
 FUVc	1.0		0.25
 
 Color	255 255 255 192
-Time	4
+Time	6
 
 // Inbetween //
 Texture	ClassicHud.tx
@@ -105,7 +105,7 @@ FUVb	1.0 	0.5
 FUVc	1.0		0.25
 
 Color	255 255 255 255
-Time	2
+Time	8
 
 
 // Faded In //
@@ -133,7 +133,7 @@ FUVb	1.0 	0.5
 FUVc	1.0		0.25
 
 Color	255 255 255 255
-Time	60
+Time	0
 
 
 
