@@ -22,6 +22,10 @@ public:
 	~cClockHud();
 
 public:
+	void StartActionMode();
+	void StartEditMode();
+
+public:
 	void Step();
 	void Draw();
 };

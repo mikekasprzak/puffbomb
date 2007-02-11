@@ -233,6 +233,9 @@ void cClassicGameEngine::Step() {
 				AddBombs();
 				// Deselect the current bomb //
 				Cursor.Selection = -1;
+				
+				// Tell the clock hud the mode has changed //
+				ClockHud.StartActionMode();
 			}
 			else {
 				// Clear various lists, 'cause we're about to repopulate them //
@@ -243,6 +246,9 @@ void cClassicGameEngine::Step() {
 	
 				// Reset here, to restore everything back to it's home position, before we edit //
 				ResetMap();
+
+				// Tell the clock hud the mode has changed //
+				ClockHud.StartEditMode();
 			}
 		}
 	
