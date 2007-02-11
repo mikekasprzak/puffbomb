@@ -12,7 +12,7 @@
 cAnimator::cAnimator() :
 	Animation( 0 ),
 	CurrentFrame( 0 ),
-	Time( 0 ),
+	Time( 1 ),
 	IsActive( true )
 {
 	
@@ -21,7 +21,7 @@ cAnimator::cAnimator() :
 cAnimator::cAnimator( const std::string& AnimationName ) :
 	Animation( &AnimationPool.Load( AnimationName ) ),
 	CurrentFrame( 0 ),
-	Time( 0 ),
+	Time( 1 ),
 	CurDrawFrame( &Animation->Frame[ CurrentFrame ].MyFrame )
 {
 	IsActive = Animation->IsActive;
@@ -31,7 +31,7 @@ void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
 {
 	Animation = _Animation;
 	CurrentFrame = _CurrentFrame;
-	Time = 0;
+	Time = 1;
 	IsActive = Animation->IsActive;
 	
 	CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
@@ -40,7 +40,7 @@ void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
 void cAnimator::SetFrame( const int _CurrentFrame )
 {
 	CurrentFrame = _CurrentFrame;
-	Time = 0;
+	Time = 1;
 	IsActive = Animation->IsActive;
 	
 	CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
@@ -65,7 +65,7 @@ void cAnimator::Step()
 							InterpFrame.Vertex[ idx ].Pos
 							 += ( Animation->Frame[ CurrentFrame + 1 ].MyFrame.Vertex[ idx ].Pos -
 								Animation->Frame[ CurrentFrame ].MyFrame.Vertex[ idx ].Pos ) *
-								( Real( 1 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() + 1 ) );
+								( Real( 1 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() ) );
 							
 						}
 					}
@@ -171,9 +171,9 @@ void cAnimator::Step()
 					
 					CurDrawFrame = &Animation->Frame[ CurrentFrame ].MyFrame;
 				}
-				Time = 0;
+				Time = 1;
 			}
-			if( Time == 0 )
+			if( Time == 1 )
 			{
 				if( Animation->Interpolate )
 				{
