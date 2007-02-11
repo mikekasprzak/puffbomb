@@ -14,7 +14,14 @@ private:
 public:
 	cForm Hud;
 
+	// Clock used for action mode frame counting //
 	int FrameClock;
+	bool FrameClockActive;
+	// Clock used to make the : and numbers (on win) flicker //
+	int FlickerClock;
+	// Clock of the best time //
+	int BestClock;
+
 
 	
 public:
@@ -24,6 +31,7 @@ public:
 public:
 	void StartActionMode();
 	void StartEditMode();
+	void StartActiveFlicker();
 
 public:
 	void Step();
