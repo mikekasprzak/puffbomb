@@ -32,8 +32,8 @@ void cAnimator::Set( cAnimation* _Animation, const int _CurrentFrame )
 	Animation = _Animation;
 	// "-1" means perform an animation inversion //
 	if ( _CurrentFrame == -1 ) {
-		Time = Animation->Frame[ CurrentFrame ].GetTime() + 1 - Time;
 		CurrentFrame = Animation->Frame.size() - 1 - CurrentFrame;
+		Time = Animation->Frame[ CurrentFrame ].GetTime() - Time + 1;
 	}
 	else {
 		CurrentFrame = _CurrentFrame;
