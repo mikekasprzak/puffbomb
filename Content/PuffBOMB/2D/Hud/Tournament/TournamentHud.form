@@ -48,7 +48,7 @@ EndAni
 
 
 // Player Border Outlines //
-AniLabel		0	500
+AniLabel		0	300
 IsPassive		1
 ActionID		0
 Group			20
@@ -57,7 +57,7 @@ SelectAni		TournamentPlayerBorderOutline.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		0	532
+AniLabel		0	332
 IsPassive		1
 ActionID		0
 Group			21
@@ -66,7 +66,7 @@ SelectAni		TournamentPlayerBorderOutline.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		0	564
+AniLabel		0	364
 IsPassive		1
 ActionID		0
 Group			22
@@ -75,7 +75,7 @@ SelectAni		TournamentPlayerBorderOutline.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		0	596
+AniLabel		0	396
 IsPassive		1
 ActionID		0
 Group			23
@@ -200,7 +200,7 @@ EndText
 
 
 // Player Border //
-AniLabel		0	500
+AniLabel		0	300
 IsPassive		1
 ActionID		0
 Group			20
@@ -209,7 +209,7 @@ SelectAni		TournamentPlayer4Border.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		0	532
+AniLabel		0	332
 IsPassive		1
 ActionID		0
 Group			21
@@ -218,7 +218,7 @@ SelectAni		TournamentPlayer3Border.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		0	564
+AniLabel		0	364
 IsPassive		1
 ActionID		0
 Group			22
@@ -227,7 +227,7 @@ SelectAni		TournamentPlayer2Border.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		0	596
+AniLabel		0	396
 IsPassive		1
 ActionID		0
 Group			23
