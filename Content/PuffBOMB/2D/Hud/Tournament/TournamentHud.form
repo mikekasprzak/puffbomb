@@ -19,6 +19,7 @@ SelectAni		TournamentBorder.anim
 CurrentFrame	0
 EndAni
 
+
 // Shut off the legacy border feature //
 IsVisible		0
 EndDialog
