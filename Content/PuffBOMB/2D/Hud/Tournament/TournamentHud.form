@@ -47,6 +47,44 @@ CurrentFrame	0
 EndAni
 
 
+// Player Border Outlines //
+AniLabel		0	500
+IsPassive		1
+ActionID		0
+Group			20
+Animation		TournamentPlayerBorderOutline.anim
+SelectAni		TournamentPlayerBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	532
+IsPassive		1
+ActionID		0
+Group			21
+Animation		TournamentPlayerBorderOutline.anim
+SelectAni		TournamentPlayerBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	564
+IsPassive		1
+ActionID		0
+Group			22
+Animation		TournamentPlayerBorderOutline.anim
+SelectAni		TournamentPlayerBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	596
+IsPassive		1
+ActionID		0
+Group			23
+Animation		TournamentPlayerBorderOutline.anim
+SelectAni		TournamentPlayerBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+
 // Full Border //
 AniLabel		0	0
 IsPassive		1
@@ -160,6 +198,43 @@ Scale			0.5
 Color			255	255	255 255
 EndText
 
+
+// Player Border //
+AniLabel		0	500
+IsPassive		1
+ActionID		0
+Group			20
+Animation		TournamentPlayer4Border.anim
+SelectAni		TournamentPlayer4Border.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	532
+IsPassive		1
+ActionID		0
+Group			21
+Animation		TournamentPlayer3Border.anim
+SelectAni		TournamentPlayer3Border.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	564
+IsPassive		1
+ActionID		0
+Group			22
+Animation		TournamentPlayer2Border.anim
+SelectAni		TournamentPlayer2Border.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	596
+IsPassive		1
+ActionID		0
+Group			23
+Animation		TournamentPlayer1Border.anim
+SelectAni		TournamentPlayer1Border.anim
+CurrentFrame	0
+EndAni
 
 // Shut off the legacy border feature //
 IsVisible		0
