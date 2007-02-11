@@ -11,7 +11,8 @@
 class cClockHud  { 
 public:
 	cForm Hud;
-
+	class cClassicGameEngine* Engine;
+	
 public:
 	cClockHud();
 	~cClockHud();

@@ -46,9 +46,6 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 		Real( Global::ScreenH )						// Height
 		);
 
-	// Set this Engine to be the active engine //
-	SetActive();
-
 	// Load the requested map //
 	LoadMap( FileName );
 	

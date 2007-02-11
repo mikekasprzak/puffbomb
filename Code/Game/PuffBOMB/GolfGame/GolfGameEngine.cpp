@@ -46,8 +46,6 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 		Real( Global::ScreenH )						// Height
 		);
 	 
-	SetActive();
-	 
  	LoadMap( FileName );
  
 	MiniMapName = FileName.substr( 5, FileName.size() - 4 - 5 ) + ".pack.tx";

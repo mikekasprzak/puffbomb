@@ -37,7 +37,10 @@ cEngine2D::cEngine2D() :
 		Real( Global::ScreenW ),						// Width
 		Real( Global::ScreenH )							// Height
 	 );
-	 	 
+	
+	// Set this Engine to be the active engine //
+	SetActive();
+	
  //	Gfx::SaturateBlend();
 	Gfx::StandardBlend();
 }
