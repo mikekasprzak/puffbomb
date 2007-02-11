@@ -11,9 +11,11 @@
 class cClockHud  { 
 private:
 	class cClassicGameEngine* Engine;
-
 public:
 	cForm Hud;
+
+	int FrameClock;
+
 	
 public:
 	cClockHud();

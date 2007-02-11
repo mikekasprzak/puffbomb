@@ -69,8 +69,8 @@ public:
 	void GroupPos( const int Group, const Vector2D& _Pos );
 	void GroupPos( const int Group, const int Index, const Vector2D& _Pos );
 	
-	void GroupVisible( const int Group, const bool _Visible = true );
-	void GroupVisible( const int Group, const int Index, const bool _Visible = true );
+	void GroupVisible( const int Group, const bool _Visible );
+	void GroupVisible( const int Group, const int Index, const bool _Visible );
 	
 	void GroupColor( const int Group, const Gfx::Color _Color );
 	void GroupColor( const int Group, const int Index, const Gfx::Color _Color );

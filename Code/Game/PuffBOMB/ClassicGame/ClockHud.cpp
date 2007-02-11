@@ -8,9 +8,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 cClockHud::cClockHud( ) :
 	Engine( dynamic_cast<cClassicGameEngine*>(Engine2D::cEngine2D::Current) ),
-	Hud( "2D/Hud/Classic/ClassicHud.form" )
+	Hud( "2D/Hud/Classic/ClassicHud.form" ),
+	FrameClock( 0 )
 {
-	//Engine = dynamic_cast<cClassicGameEngine*>(Engine2D::cEngine2D::Current);
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClockHud::~cClockHud() {
@@ -22,12 +23,24 @@ cClockHud::~cClockHud() {
 void cClockHud::Step() {
 	// Action Mode //
 	if ( Engine->GameActive ) {
+		// Show Clock Colon //
+		Hud.GroupVisible( 2, 2, true );
 		
 	}
 	// Edit Mode //
 	else {
-		//Hud
+		// Flash Clock Colon //
+		Hud.GroupVisible( 2, 2, ((FrameClock >> 5) & 1) == 0 );
+		
+		//Hud.Labels[ 3 ]->Visible = false;
+		
+//		for ( size_t idx = 0; idx < Hud.Labels.size(); idx++ ) {
+//			Log( 10, idx << " ' " << Hud.Labels[ idx ]->Group );
+//		}
 	}
+	
+	// Step forward the frame clock //
+	FrameClock++;
 	
 	Hud.Step();
 }

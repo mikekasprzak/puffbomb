@@ -19,8 +19,7 @@ public:
 	Gfx::Color SelColor;
 	
 	int Group;
-	
-	bool IsVisible;
+	bool Visible;
 	
 public:
 	cLabel( const Vector2D& _Pos, const bool _IsPassive, const int _ActionID, Gfx::Color _Color, Gfx::Color _SelColor ) :
@@ -30,7 +29,7 @@ public:
 		Color( _Color ),
 		SelColor( _SelColor ),
 		Group( 0 ),
-		IsVisible( true )
+		Visible( true )
 	{
 		
 	}

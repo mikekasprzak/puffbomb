@@ -421,7 +421,7 @@ void cForm::Draw()
 		if( !ActiveLabels.empty() )
 		{
 			// Remove the + + Vector2D( 6, 0 ) when you get sick of the selected offset thing?
-			if( Labels[ ActiveLabels[ Focus ] ]->IsVisible )
+			if( Labels[ ActiveLabels[ Focus ] ]->Visible )
 			{
 				Labels[ ActiveLabels[ Focus ] ]->Draw( Pos + Vector2D( 6, 0 ), Labels[ ActiveLabels[ Focus ] ]->SelColor );
 			}
@@ -433,7 +433,7 @@ void cForm::Draw()
 			{
 				if( size_t( ActiveLabels[ Focus ] ) != idx )
 				{
-					if( Labels[ idx ]->IsVisible )
+					if( Labels[ idx ]->Visible )
 					{
 						Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );
 					}
@@ -441,7 +441,9 @@ void cForm::Draw()
 			}
 			else
 			{
-				Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );	
+				if( Labels[ idx ]->Visible ) {
+					Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );	
+				}
 			}
 		}
 	}
@@ -740,7 +742,7 @@ void cForm::GroupVisible( const int Group, const bool _Visible )
 	{
 		if( Labels[ idx ]->Group == Group )
 		{
-			Labels[ idx ]->IsVisible = _Visible;
+			Labels[ idx ]->Visible = _Visible;
 		}
 	}
 }
@@ -754,7 +756,7 @@ void cForm::GroupVisible( const int Group, const int Index, const bool _Visible 
 		{
 			if( Index == MyIndex )
 			{
-				Labels[ idx ]->IsVisible = _Visible;
+				Labels[ idx ]->Visible = _Visible;
 				return;
 			}
 			MyIndex++;
