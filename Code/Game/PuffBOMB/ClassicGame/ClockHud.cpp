@@ -18,6 +18,7 @@ cClockHud::cClockHud( ) :
 	BestClock( 0 )
 {
 	SetBombs( 5 );
+	DecodeBestClock();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClockHud::~cClockHud() {
@@ -95,6 +96,25 @@ void cClockHud::RemoveBomb() {
 		// Trigger a bomb removal animation //
 		Hud.Group( 10 + BombCount, 1 ).AniLabel()->Animator.Set( &AnimationPool.Load( "ClassicBombIconOut.anim" ), -1 );
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+void cClockHud::DecodeBestClock() {
+	char ClockDisplay[] = "--:--";
+	
+	if ( BestClock > 0 ) {
+		// Calculate time digits //
+		int Frames = BestClock % Global::FrameRate;
+		int Seconds = BestClock / Global::FrameRate;
+
+		ClockDisplay[0] = '0' + (Seconds / 10);
+		ClockDisplay[1] = '0' + (Seconds % 10);
+		ClockDisplay[3] = '0' + (Frames / 10);
+		ClockDisplay[4] = '0' + (Frames % 10);
+	}
+	
+	Hud.Group( 4, 0 ).TextLabel()->Text = ClockDisplay;
 }
 // - ------------------------------------------------------------------------------------------ - //
 

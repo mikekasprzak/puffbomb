@@ -38,6 +38,8 @@ public:
 	void SetBombs( const int _Count );
 	void AddBomb();
 	void RemoveBomb();
+	
+	void DecodeBestClock();
 
 public:
 	void Step();
