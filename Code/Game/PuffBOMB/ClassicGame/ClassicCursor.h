@@ -11,6 +11,9 @@
 #include "BombInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cClassicCursor { 
+private:
+	class cClassicGameEngine* Engine;
+
 public:
 	// Position of the cursor //
 	Vector2D Pos;
@@ -30,7 +33,7 @@ public:
 public:
 	cClassicCursor();
 	~cClassicCursor();
-	
+		
 public:
 	void Step();
 	void Draw();

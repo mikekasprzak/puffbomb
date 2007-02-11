@@ -1,6 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "ClassicCursor.h"
 // - ------------------------------------------------------------------------------------------ - //
+#include "ClassicGameEngine.h"
+// - ------------------------------------------------------------------------------------------ - //
 #include <Input/Input.h>
 #include <Graphics/Gfx.h>
 
@@ -11,6 +13,7 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 cClassicCursor::cClassicCursor() :
+	Engine( dynamic_cast<cClassicGameEngine*>(Engine2D::cEngine2D::Current) ),
 	Selection( -1 ),
 	BombLimit( 5 ),
 	BombGraphic( "BlueBomb.anim" ),
@@ -29,11 +32,11 @@ void cClassicCursor::Step() {
 	{
 		// Zoom the camera //
 		if( Input::Pad[ 0 ].Button[ PAD_Y ] ) { 
-			Engine2D::cEngine2D::Current->Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+			Engine->Camera->MinZoom = Global::HudZoom * Real( 3.5 );
 		}
 		// Don't Zoom the camera //
 		else {
-			Engine2D::cEngine2D::Current->Camera->MinZoom = Global::HudZoom * Real( 2 );
+			Engine->Camera->MinZoom = Global::HudZoom * Real( 2 );
 		}
 	}
 

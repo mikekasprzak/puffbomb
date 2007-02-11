@@ -7,9 +7,10 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 cClockHud::cClockHud( ) :
+	Engine( dynamic_cast<cClassicGameEngine*>(Engine2D::cEngine2D::Current) ),
 	Hud( "2D/Hud/Classic/ClassicHud.form" )
 {
-	Engine = dynamic_cast<cClassicGameEngine*>(Engine2D::cEngine2D::Current);
+	//Engine = dynamic_cast<cClassicGameEngine*>(Engine2D::cEngine2D::Current);
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClockHud::~cClockHud() {
@@ -19,9 +20,14 @@ cClockHud::~cClockHud() {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClockHud::Step() {
-	
-	
-	
+	// Action Mode //
+	if ( Engine->GameActive ) {
+		
+	}
+	// Edit Mode //
+	else {
+		//Hud
+	}
 	
 	Hud.Step();
 }

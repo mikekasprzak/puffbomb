@@ -9,9 +9,11 @@
 #include <Gui/Form.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cClockHud  { 
+private:
+	class cClassicGameEngine* Engine;
+
 public:
 	cForm Hud;
-	class cClassicGameEngine* Engine;
 	
 public:
 	cClockHud();
