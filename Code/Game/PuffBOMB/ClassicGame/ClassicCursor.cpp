@@ -102,6 +102,9 @@ void cClassicCursor::Step() {
 						// Add a bomb //
 						Bomb.push_back( cBombInfo( Pos ) );
 						Selection = Bomb.size() - 1;
+						
+						// Remove a Bomb from the hud //
+						Engine->ClockHud.RemoveBomb();
 					}
 				}
 				// If there is //
@@ -124,6 +127,9 @@ void cClassicCursor::Step() {
 				// Remove this bomb //
 				Bomb.erase( Bomb.begin() + Selection );
 				Selection = -1;
+				
+				// Add a Bomb to the hud //
+				Engine->ClockHud.AddBomb();				
 			}
 			// Or make a selection if there's a bomb that can be selected here //
 			else {

@@ -23,7 +23,34 @@ FUVb	1.0 	0.5
 FUVc	1.0		0.25
 
 Color	255 255 255 255
-Time	15
+Time	2
+
+// Inbetween //
+Texture	ClassicHud.tx
+
+Vertex	0	144
+Vertex	0	16
+Vertex	96	16
+Vertex	96	144
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.8125	0.25
+FUVb	0.8125	0.5
+FUVc	1.0		0.5
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.8125	0.25
+FUVb	1.0 	0.5
+FUVc	1.0		0.25
+
+Color	255 255 255 255
+Time	4
 
 // Inbetween //
 Texture	ClassicHud.tx
@@ -49,8 +76,35 @@ FUVa	0.8125	0.25
 FUVb	1.0 	0.5
 FUVc	1.0		0.25
 
-Color	255 255 255 255
-Time	15
+Color	255 255 255 192
+Time	6
+
+// Inbetween //
+Texture	ClassicHud.tx
+
+Vertex	0	176
+Vertex	0	48
+Vertex	96	48
+Vertex	96	176
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.8125	0.25
+FUVb	0.8125	0.5
+FUVc	1.0		0.5
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.8125	0.25
+FUVb	1.0 	0.5
+FUVc	1.0		0.25
+
+Color	255 255 255 128
+Time	8
 
 // Faded out //
 Texture	ClassicHud.tx
@@ -82,4 +136,4 @@ Time	60
 
 // Animation Properties //
 Interpolate
-LoopPoint 2
+LoopPoint 4

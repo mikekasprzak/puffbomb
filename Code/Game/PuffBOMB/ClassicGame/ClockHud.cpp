@@ -1,5 +1,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
+#include <Animation/AnimationPool.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "ClockHud.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -16,7 +17,7 @@ cClockHud::cClockHud( ) :
 	FlickerClock( Global::FrameRate >> 1 ),
 	BestClock( 0 )
 {
-	SetBombs( 4 );
+	SetBombs( 5 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClockHud::~cClockHud() {
@@ -50,12 +51,12 @@ void cClockHud::SetBombs( const int _Count ) {
 	BombCount = MaxBombCount;
 	
 	// Show all sockets for visible bombs //
-	for ( size_t idx = 0; idx < MaxBombCount; idx++ ) {
+	for ( int idx = 0; idx < MaxBombCount; idx++ ) {
 		Hud.GroupVisible( 10 + idx, true );
 	}
 
 	// Hide all sockets of invisible bombs //
-	for ( size_t idx = MaxBombCount; idx < 5; idx++ ) {
+	for ( int idx = MaxBombCount; idx < 5; idx++ ) {
 		Hud.GroupVisible( 10 + idx, false );
 	}
 }
@@ -75,6 +76,7 @@ void cClockHud::AddBomb() {
 	// If the bomb adding operation was successful //
 	if ( OldBombCount != BombCount ) {
 		// Trigger a bomb addition animation //
+		Hud.Group( 10 + OldBombCount, 1 ).AniLabel()->Animator.Set( &AnimationPool.Load( "ClassicBombIconIn.anim" ), 0 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -91,6 +93,7 @@ void cClockHud::RemoveBomb() {
 	// If the bomb adding operation was successful //
 	if ( OldBombCount != BombCount ) {
 		// Trigger a bomb removal animation //
+		Hud.Group( 10 + BombCount, 1 ).AniLabel()->Animator.Set( &AnimationPool.Load( "ClassicBombIconOut.anim" ), 0 );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
