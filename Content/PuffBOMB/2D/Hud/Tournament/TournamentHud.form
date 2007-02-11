@@ -9,13 +9,78 @@ Texture			TournamentHud.tx
 CreateDialog
 
 
-// The Score Border //
+// Full Border Outline //
 AniLabel		0	0
 IsPassive		1
 ActionID		0
-Group			0
-Animation		TournamentBorder.anim
-SelectAni		TournamentBorder.anim
+Group			10
+Animation		TournamentFullBorderOutline.anim
+SelectAni		TournamentFullBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	32
+IsPassive		1
+ActionID		0
+Group			11
+Animation		TournamentFullBorderOutline.anim
+SelectAni		TournamentFullBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	64
+IsPassive		1
+ActionID		0
+Group			12
+Animation		TournamentFullBorderOutline.anim
+SelectAni		TournamentFullBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	96
+IsPassive		1
+ActionID		0
+Group			13
+Animation		TournamentFullBorderOutline.anim
+SelectAni		TournamentFullBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+
+// Full Border //
+AniLabel		0	0
+IsPassive		1
+ActionID		0
+Group			10
+Animation		TournamentFullBorder.anim
+SelectAni		TournamentFullBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	32
+IsPassive		1
+ActionID		0
+Group			11
+Animation		TournamentFullBorder.anim
+SelectAni		TournamentFullBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	64
+IsPassive		1
+ActionID		0
+Group			12
+Animation		TournamentFullBorder.anim
+SelectAni		TournamentFullBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	96
+IsPassive		1
+ActionID		0
+Group			13
+Animation		TournamentFullBorder.anim
+SelectAni		TournamentFullBorder.anim
 CurrentFrame	0
 EndAni
 
