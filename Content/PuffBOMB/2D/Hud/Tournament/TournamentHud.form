@@ -1,0 +1,24 @@
+DialogPos		Left	+	0
+DialogPos		Bottom	+	0
+
+DialogPos		Left	+	0
+DialogPos		Bottom	+	0
+
+Focus			0
+Texture			TournamentHud.tx
+CreateDialog
+
+
+// The Score Border //
+AniLabel		0	0
+IsPassive		1
+ActionID		0
+Group			0
+Animation		TournamentBorder.anim
+SelectAni		TournamentBorder.anim
+CurrentFrame	0
+EndAni
+
+// Shut off the legacy border feature //
+IsVisible		0
+EndDialog
