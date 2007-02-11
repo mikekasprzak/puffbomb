@@ -24,6 +24,7 @@ namespace Global {
 	
 	extern int FrameClock;
 	extern int FPS;
+	extern int FrameRate;
 		
 	extern Real HudZoom;
 	

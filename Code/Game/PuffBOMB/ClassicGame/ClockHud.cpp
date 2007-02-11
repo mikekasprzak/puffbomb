@@ -1,4 +1,6 @@
 // - ------------------------------------------------------------------------------------------ - //
+#include <Global.h>
+// - ------------------------------------------------------------------------------------------ - //
 #include "ClockHud.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include "ClassicGameEngine.h"
@@ -30,7 +32,7 @@ void cClockHud::Step() {
 	// Edit Mode //
 	else {
 		// Flash Clock Colon //
-		Hud.GroupVisible( 2, 2, ((FrameClock >> 5) & 1) == 0 );
+		Hud.GroupVisible( 2, 2, ((FrameClock / (Global::FrameRate >> 1) ) & 1) == 0 );
 		
 		//Hud.Labels[ 3 ]->Visible = false;
 		

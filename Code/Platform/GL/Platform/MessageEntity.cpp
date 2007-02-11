@@ -99,7 +99,7 @@ void cMessageEntity::Work()
 		MessageLoop();
 
 		// A whole bunch of complicated crap to give us a flexible framerate //			
-		int FPS = 60;
+		int FPS = Global::FrameRate;
 		int MS = 1000 / FPS;
 		
 		int ThisTime = GetTime();
