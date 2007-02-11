@@ -65,7 +65,7 @@ void cAnimator::Step()
 							InterpFrame.Vertex[ idx ].Pos
 							 += ( Animation->Frame[ CurrentFrame + 1 ].MyFrame.Vertex[ idx ].Pos -
 								Animation->Frame[ CurrentFrame ].MyFrame.Vertex[ idx ].Pos ) *
-								( Real( 1 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() ) );
+								( Real( 1 ) / Real( Animation->Frame[ CurrentFrame ].GetTime() + 1 ) );
 							
 						}
 					}
@@ -143,7 +143,10 @@ void cAnimator::Step()
 					}
 					
 					InterpFrame.Color = Gfx::RGBA( RedValue, GreenValue, BlueValue, AlphaValue );
-								
+						
+//					Log( 10, "ColorIncrement " << ColorIncrement );
+//					Log( 10, "AlphaValue " << AlphaValue );
+							
 				}
 			}
 			
@@ -283,56 +286,6 @@ void cAnimator::Draw( const Vector2D& Offset, const Matrix2x2& Matrix, int Color
 			CurDrawFrame->Color
 		);	
 	}	
-	
-/*	if( !CurDrawFrame->Face.empty() )
-	{
-		unsigned int IndicesSize = CurDrawFrame->Face.size() * 3;
-		
-		Vector3D Vertex[ IndicesSize ];
-		Vector2D TexCoord[ IndicesSize ];
-	
-		unsigned int Indices[ IndicesSize ];
-		
-		int VertexIdx = 0;
-		
-		for( size_t idx = 0; idx < CurDrawFrame->Face.size(); ++idx )
-		{
-			
-			Vertex[	VertexIdx ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.a ].Pos.ToMatrix2x1() * Matrix ) + Offset ).ToVector3D();
-			TexCoord[ VertexIdx ] = CurDrawFrame->Face[ idx ].UV.a;
-			VertexIdx++;
-
-			Vertex[	VertexIdx ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.c ].Pos.ToMatrix2x1() * Matrix ) + Offset ).ToVector3D();
-			TexCoord[ VertexIdx ] = CurDrawFrame->Face[ idx ].UV.b;
-			VertexIdx++;
-
-			Vertex[	VertexIdx ] = ( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.b ].Pos.ToMatrix2x1() * Matrix ) + Offset ).ToVector3D();
-			TexCoord[ VertexIdx ] = CurDrawFrame->Face[ idx ].UV.c;
-			VertexIdx++;
-		}		
-				
-		Gfx::DrawPolygons(
-			Vertex,
-			TexCoord,
-			Indices,
-			IndicesSize,
-			CurDrawFrame->TextureId
-		);	
-	}	
-	*/
-/*	glBindTexture( GL_TEXTURE_2D, CurDrawFrame->TextureId );
-
-	for( size_t idx = 0; idx < CurDrawFrame->Face.size(); ++idx )
-	{
-		gfx::Face(
-			( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.a ].Pos.ToMatrix2x1() * Matrix ) + Offset,
-			( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.c ].Pos.ToMatrix2x1() * Matrix ) + Offset,
-			( CurDrawFrame->Vertex[ CurDrawFrame->Face[ idx ].VertexIdx.b ].Pos.ToMatrix2x1() * Matrix ) + Offset,
-			CurDrawFrame->Face[ idx ].UV.a,
-			CurDrawFrame->Face[ idx ].UV.b,
-			CurDrawFrame->Face[ idx ].UV.c
-		);
-	}*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cAnimator::DrawQuad( const Vector2D& Offset, int Color, Real Scale )
