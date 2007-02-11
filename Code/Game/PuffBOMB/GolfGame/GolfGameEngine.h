@@ -43,7 +43,7 @@ public:
 	// Engine State //
 	int State;
 
-	//cScoreHud ScoreHud;
+	cScoreHud ScoreHud;
 
 public:
 	// Victory related variables //

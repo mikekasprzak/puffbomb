@@ -322,7 +322,7 @@ void cGolfGameEngine::Step() {
 		cMessageEntity::Current->BreakLoop = true;
 	}
 	
-	//ScoreHud.Step();
+	ScoreHud.Step();
 	
 	if( !IsHelp )
 	{
@@ -554,7 +554,7 @@ void cGolfGameEngine::Draw() {
 	}
 	
 
-	//ScoreHud.Draw();
+	ScoreHud.Draw();
 
 	// Help //	
 	if( IsHelp )
