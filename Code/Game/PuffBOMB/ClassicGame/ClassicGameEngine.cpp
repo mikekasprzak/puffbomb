@@ -22,8 +22,6 @@
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false ),
-	Hud( "2D/Hud/Classic/ClassicHud.form" ),
-	//Hud( "2D/Menu/Test.form" ),
 	LevelComplete( false ),
 	Score( 0 ),
 	ArrowAnimator( "TrackingArrow.anim" ),
@@ -221,7 +219,7 @@ void cClassicGameEngine::Step() {
 		cMessageEntity::Current->BreakLoop = true;
 	}
 
-	Hud.Step();
+	ClockHud.Step();
 
 	if( !IsHelp )
 	{
@@ -508,7 +506,7 @@ void cClassicGameEngine::Draw() {
 	}*/
 
 
-	Hud.Draw();
+	ClockHud.Draw();
 
 	// Temporary Help Menu F1 popup //
 	if( IsHelp )
