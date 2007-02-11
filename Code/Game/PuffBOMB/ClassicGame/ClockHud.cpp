@@ -13,7 +13,7 @@ cClockHud::cClockHud( ) :
 	Hud( "2D/Hud/Classic/ClassicHud.form" ),
 	FrameClock( 0 ),
 	FrameClockActive( true ),
-	FlickerClock( 0 ),
+	FlickerClock( Global::FrameRate >> 1 ),
 	BestClock( 0 )
 {
 	
@@ -31,7 +31,8 @@ void cClockHud::StartActionMode() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClockHud::StartEditMode() {
-	FlickerClock = 0;
+	// Start Off //
+	FlickerClock = Global::FrameRate >> 1;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
