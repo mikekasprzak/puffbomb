@@ -139,8 +139,8 @@ AniLabel		416	0
 IsPassive		1
 ActionID		0
 Group			12
-Animation		ClassicBombIcon.anim
-SelectAni		ClassicBombIcon.anim
+Animation		ClassicBombIconOutTest.anim
+SelectAni		ClassicBombIconOutTest.anim
 CurrentFrame	0
 EndAni
 

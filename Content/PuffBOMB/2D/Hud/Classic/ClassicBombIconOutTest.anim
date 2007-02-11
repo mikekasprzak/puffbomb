@@ -23,34 +23,8 @@ FUVb	1.0 	0.5
 FUVc	1.0		0.25
 
 Color	255 255 255 255
-Time	10
+Time	30
 
-// Inbetween //
-Texture	ClassicHud.tx
-
-Vertex	0	144
-Vertex	0	16
-Vertex	96	16
-Vertex	96	144
-
-FVa	0
-FVb	1
-FVc	2
-
-FUVa	0.8125	0.25
-FUVb	0.8125	0.5
-FUVc	1.0		0.5
-
-FVa	0
-FVb	2
-FVc	3
-
-FUVa	0.8125	0.25
-FUVb	1.0 	0.5
-FUVc	1.0		0.25
-
-Color	255 255 255 255
-Time	20
 
 // Faded out //
 Texture	ClassicHud.tx
