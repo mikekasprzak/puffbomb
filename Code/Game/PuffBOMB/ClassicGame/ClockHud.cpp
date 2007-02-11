@@ -62,6 +62,41 @@ void cClockHud::SetBombs( const int _Count ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+void cClockHud::AddBomb() {
+	int OldBombCount = BombCount;
+	
+	// Add a bomb //
+	BombCount++;
+	
+	// Clip BombCount to Max //
+	if ( BombCount > MaxBombCount )
+		BombCount = MaxBombCount;
+	
+	// If the bomb adding operation was successful //
+	if ( OldBombCount != BombCount ) {
+		// Trigger a bomb addition animation //
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cClockHud::RemoveBomb() {
+	int OldBombCount = BombCount;
+	
+	// Add a bomb //
+	BombCount--;
+	
+	// Clip BombCount to Max //
+	if ( BombCount < 0 )
+		BombCount = 0;
+	
+	// If the bomb adding operation was successful //
+	if ( OldBombCount != BombCount ) {
+		// Trigger a bomb removal animation //
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
 void cClockHud::Step() {
 	// Action Mode //
 	if ( Engine->GameActive ) {

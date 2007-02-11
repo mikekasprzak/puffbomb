@@ -36,6 +36,8 @@ public:
 	void StartActiveFlicker();
 
 	void SetBombs( const int _Count );
+	void AddBomb();
+	void RemoveBomb();
 
 public:
 	void Step();
