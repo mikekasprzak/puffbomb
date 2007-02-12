@@ -13,7 +13,8 @@ class cTextLabel : public cLabel
 {
 public:
 	std::string Text;
-	Real Scale;	
+	Real Scale;
+	int Align;
 	
 public:
 	
@@ -23,11 +24,13 @@ public:
 		const int _ActionID, 
 		const std::string& _Text,
 		const Real _Scale,
-		const int _Color
+		const int _Color,
+		const int _Align
 	) :
 		cLabel( _Pos, _IsPassive, _ActionID, _Color, Gfx::RGBA( 55, 255, 55, 255 ) ),
 		Text( _Text ),
-		Scale( _Scale )
+		Scale( _Scale ),
+		Align( _Align )
 	{
 		
 	}
@@ -41,7 +44,7 @@ public:
 	}
 	void Draw( const Vector2D& Offset = Vector2D::Zero, const Gfx::Color _Color = Gfx::White() )
 	{
-		cFonts::FlangeLight.Write( Text, Pos + Offset, Scale, _Color );
+		cFonts::FlangeLight.Write( Text, Pos + Offset, Scale, _Color, Align );
 	}
 	
 	virtual cTextLabel* TextLabel()

@@ -57,7 +57,8 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 				0, 
 				TempString,
 				0.5,
-				Gfx::White()
+				Gfx::White(),
+				LEFT_ALIGN
 			)
 		);
 		Temp.str(std::string());
@@ -72,7 +73,8 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 				0, 
 				TempString,
 				0.5,
-				Gfx::White()
+				Gfx::White(),
+				LEFT_ALIGN
 			)
 		);
 
@@ -88,7 +90,8 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 				0, 
 				TempString,
 				0.5,
-				Gfx::White()
+				Gfx::White(),
+				LEFT_ALIGN
 			)
 		);
 
@@ -104,7 +107,8 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 				0, 
 				TempString,
 				0.5,
-				Gfx::White()
+				Gfx::White(),
+				LEFT_ALIGN
 			)
 		);
 	}

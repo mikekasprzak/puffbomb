@@ -70,6 +70,8 @@ void cForm::Load( const std::string &File )
 	std::string TempString;
 	std::string TempString2;
 	
+	int Align = 0;
+	
 	while( !InFile.eof() )
 	{
 		// Read a line from the file //
@@ -221,7 +223,24 @@ void cForm::Load( const std::string &File )
 				
 				TempReals.push_back( atof( Token.c_str() ) ); // 12
 
-			}	
+			}
+			else if( Token == "Align" )
+			{
+				Text >> Token;
+				
+				if( Token == "Left" )
+				{
+					Align = 0;
+				}
+				else if( Token == "Right" )
+				{
+					Align = 1;
+				}
+				else if( Token == "Center" )
+				{
+					Align = 2;
+				}
+			}
 			else if( Token == "EndText" )
 			{
 				Labels.push_back(
@@ -231,7 +250,8 @@ void cForm::Load( const std::string &File )
 						int( TempReals[ 3 ] ),
 						TempString,
 						TempReals[ 4 ],
-						Gfx::RGBA( TempReals[ 5 ], TempReals[ 6 ], TempReals[ 7 ], TempReals[ 8 ] ) 
+						Gfx::RGBA( TempReals[ 5 ], TempReals[ 6 ], TempReals[ 7 ], TempReals[ 8 ] ),
+						Align
 					)
 				);				
 				
@@ -250,6 +270,7 @@ void cForm::Load( const std::string &File )
 				}
 				
 				Group = 0;
+				Align = 0;
 				TempReals.clear();
 				TempString.clear();
 			}	
