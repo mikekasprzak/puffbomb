@@ -9,6 +9,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Block.h"
 // - ------------------------------------------------------------------------------------------ - //
+// Alignments //
+#define LEFT_ALIGN		0
+#define RIGHT_ALIGN		1
+#define CENTER_ALIGN	2
+// - ------------------------------------------------------------------------------------------ - //
 class cFont
 {
 public:
@@ -22,10 +27,10 @@ public:
 	size_t TextureWidth;
 	size_t TextureHeight;
 		
-	void Load( std::string &File );
+	void Load( const std::string &File );
 	cCharacter& FindCharacter( int CharacterIdx );
-	void Write( const std::string &Text, Vector3D Pos, const Real Size, const int Color );
-	void Write( const std::string &Text, Vector2D Pos, const Real Size, const int Color );
+	void Write( const std::string &Text, Vector3D Pos, const Real Size, const int Color, const int Alignment = LEFT_ALIGN );
+	void Write( const std::string &Text, const Vector2D Pos, const Real Size, const int Color, const int Alignment = LEFT_ALIGN );
 };
 
 // - ------------------------------------------------------------------------------------------ - //

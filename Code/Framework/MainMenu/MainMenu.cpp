@@ -107,6 +107,9 @@ void cMainMenu::Draw()
 	cFonts::FlangeLight.Write( TempString, TempPos, Real( 1.0 ), Gfx::RGBA( 0, 200, 0, 255 ) );
 	// -------------- //
 #endif // EDITOR //
+
+//	TempPos = Vector3D( Global::Left + Real( 200 ), Global::Top - Real( 200 ), 0.0 );
+//	cFonts::FlangeLight.Write( "Hello", TempPos, Real( 0.5 ), Gfx::RGBA( 200, 200, 0, 255 ), RIGHT_ALIGN );
 	
 	Gfx::DisableTex2D();
 	Gfx::DisableBlend();	

@@ -18,7 +18,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
-void cFont::Load( string &File )
+void cFont::Load( const string &File )
 {
 	char Line[1024];
 	
@@ -122,7 +122,7 @@ cCharacter& cFont::FindCharacter( int CharacterIdx )
 	return cCharacter::Dummy;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const int Color )
+void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const int Color, const int Alignment )
 {
 	unsigned int IndicesSize = Text.size() * 4;
 	
@@ -134,12 +134,38 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 	unsigned int TextureID; 
 	
 	unsigned int VertIdx = 0;
+	if( Alignment == LEFT_ALIGN )
+	{
+		
+	}
+	else
+	{
+		Real Offset = Real::Zero;
+		
+		for( size_t idx = 0; idx < Text.size(); ++idx )
+		{
+			cCharacter& TempChar = FindCharacter( Text[idx] );
+			
+			Offset -= TempChar.LeftKerning - TempChar.UVa.x;
+			
+			Vector2D UV = TempChar.UVb - TempChar.UVa;
+			
+			Offset += TempChar.RightKerning - TempChar.UVb.x;
+	
+			Offset += ( UV.x * Size ) + Real( 1.0 );
+		}
+		
+		if( Alignment == CENTER_ALIGN )
+		{
+			Offset /= Real( 2 );
+		}
+		
+		Pos.x -= Offset;
+	}
 	
 	for( size_t idx = 0; idx < Text.size(); ++idx )
 	{
 		cCharacter& TempChar = FindCharacter( Text[idx] );
-		
-		//glBindTexture( GL_TEXTURE_2D, TempChar.Texture );
 		
 		TextureID = TempChar.Texture;
 		
@@ -153,7 +179,6 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 		Vector3D c = Pos + Vector3D( UV.x * Size, UV.y * Size, Real( 0.0 ) );
 		Vector3D d = Pos + Vector3D( UV.x * Size, Real( 0.0 ), Real( 0.0 ) );
 
-		//gfx::Quad( b, Pos, d, c, TempChar.UVa, TempChar.UVb );
 // - ------------------------------------------------------------------------------------------ - //
 		Vertex[ VertIdx ] = b;
 		Vertex[ VertIdx + 1 ] = Pos;
@@ -188,6 +213,7 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 		Pos.x += ( UV.x * Size ) + Real( 1.0 );
 		
 		VertIdx += 4;
+// - ------------------------------------------------------------------------------------------ - //
 	}
 
 	for( size_t idx = Text.size(); idx < IndicesSize; ++idx )
@@ -209,8 +235,8 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cFont::Write( const std::string &Text, Vector2D Pos, const Real Size, const int Color )
+void cFont::Write( const std::string &Text, const Vector2D Pos, const Real Size, const int Color, const int Alignment )
 {
-	Write( Text, Vector3D( Pos.x, Pos.y, 0.0 ), Size, Color );
+	Write( Text, Vector3D( Pos.x, Pos.y, 0.0 ), Size, Color, Alignment );
 }
 // - ------------------------------------------------------------------------------------------ - //
