@@ -16,7 +16,7 @@ cMenuManager::cMenuManager() :
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 	//	Load( "2D/Menu/MainMenu.form" );
 		Load( "2D/Menu/MainMenuEditor.form" );
-		Load( "2D/Menu/PlayerSelectEditor.form" );
+		Load( "2D/Menu/PlayerSelect.form" );
 	#else
 		Load( "2D/Menu/MainMenu.form" );
 		Load( "2D/Menu/PlayerSelect.form" );
