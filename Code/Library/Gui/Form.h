@@ -64,7 +64,7 @@ public:
 	void CheckActive();
 	void SwitchFocus();
 	void Execute();
-
+	
 	cLabel& Group( const int GroupIdx, const int Index );
 	
 	void GroupPos( const int Group, const Vector2D& _Pos );

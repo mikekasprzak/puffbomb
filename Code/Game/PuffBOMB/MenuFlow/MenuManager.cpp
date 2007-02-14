@@ -48,6 +48,8 @@ void cMenuManager::Draw()
 			if( CurForm < Form.size() )
 			{
 				Form[ CurForm ].Draw();
+
+				//Form[ LastForm ].FormAlpha *= Real( 0.65 );
 			}
 			
 			CurZOffset *= Real( 0.75 );
@@ -61,9 +63,12 @@ void cMenuManager::Draw()
 			if( LastForm < Form.size() )
 			{
 				Form[ LastForm ].Draw();
+				
+				Form[ LastForm ].FormAlpha *= Real( 0.65 );
 			}
 			
 			LastZOffset *= Real( 0.75 );
+			
 			
 		}
 		Gfx::PopMatrix();
@@ -94,6 +99,15 @@ void cMenuManager::Step()
 			TransTime = GetTime() + 250;
 			CurZOffset = Real( 800.0 );
 			LastZOffset = Real( 800.0 );
+			
+			if( LastForm < Form.size() )
+			{
+				Form[ LastForm ].FormAlpha = 192;
+			}
+			if( CurForm < Form.size() )
+			{
+				Form[ CurForm ].FormAlpha = 192;
+			}
 			
 			LastForm = CurForm;
 
