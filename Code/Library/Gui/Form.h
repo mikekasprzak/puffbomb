@@ -58,7 +58,7 @@ public:
 	
 	void Step();
 	
-	void Draw();
+	void Draw( int _OverloadAlpha = 255 );
 	void DrawBoxFrame();
 
 	void CheckActive();

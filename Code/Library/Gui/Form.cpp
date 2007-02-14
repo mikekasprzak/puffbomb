@@ -433,7 +433,7 @@ void cForm::Step()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cForm::Draw()
+void cForm::Draw( int _OverloadAlpha )
 {
 	if( IsVisible )
 	{
@@ -447,7 +447,15 @@ void cForm::Draw()
 			// Remove the + + Vector2D( 6, 0 ) when you get sick of the selected offset thing?
 			if( Labels[ ActiveLabels[ Focus ] ]->Visible )
 			{
-				Labels[ ActiveLabels[ Focus ] ]->Draw( Pos + Vector2D( 6, 0 ), Labels[ ActiveLabels[ Focus ] ]->SelColor );
+				if( _OverloadAlpha != 255 )
+				{
+					int TempColor = ( Labels[ ActiveLabels[ Focus ] ]->SelColor & 0xffffff ) | ( _OverloadAlpha << 24 );
+					Labels[ ActiveLabels[ Focus ] ]->Draw( Pos + Vector2D( 6, 0 ), TempColor );
+				}
+				else
+				{
+					Labels[ ActiveLabels[ Focus ] ]->Draw( Pos + Vector2D( 6, 0 ), Labels[ ActiveLabels[ Focus ] ]->SelColor );
+				}
 			}
 		}
 		
@@ -459,14 +467,31 @@ void cForm::Draw()
 				{
 					if( Labels[ idx ]->Visible )
 					{
-						Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );
+						if( _OverloadAlpha != 255 )
+						{
+							int TempColor = ( Labels[ idx ]->Color & 0xffffff ) | ( _OverloadAlpha << 24 );
+							Labels[ idx ]->Draw( Pos, TempColor );
+						}
+						else
+						{
+							Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );
+						}
 					}
 				}
 			}
 			else
 			{
-				if( Labels[ idx ]->Visible ) {
-					Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );	
+				if( Labels[ idx ]->Visible )
+				{
+					if( _OverloadAlpha != 255 )
+					{
+						int TempColor = ( Labels[ idx ]->Color & 0xffffff ) | ( _OverloadAlpha << 24 );
+						Labels[ idx ]->Draw( Pos, TempColor );
+					}
+					else
+					{
+						Labels[ idx ]->Draw( Pos, Labels[ idx ]->Color );
+					}	
 				}
 			}
 		}

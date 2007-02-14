@@ -12,7 +12,7 @@ cMenuManager::cMenuManager() :
 	LastForm( 0 ),
 	SuperFlowState( 1 ),
 	TransTime( 0 ),
-	LastZOffset( 800.0 ),
+	LastZOffset( 400.0 ),
 	CurZOffset( 800.0 )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
@@ -58,11 +58,11 @@ void cMenuManager::Draw()
 		
 		Gfx::PushMatrix();
 		{
-			Gfx::Translate( Vector3D( 0, 0, -LastZOffset + Real( 800.0 ) ) );
+			Gfx::Translate( Vector3D( 0, 0, -LastZOffset + Real( 400.0 ) ) );
 			
 			if( LastForm < Form.size() )
 			{
-				Form[ LastForm ].Draw();
+				Form[ LastForm ].Draw( Form[ LastForm ].FormAlpha );
 				
 				Form[ LastForm ].FormAlpha *= Real( 0.65 );
 			}
@@ -98,7 +98,7 @@ void cMenuManager::Step()
 		{
 			TransTime = GetTime() + 250;
 			CurZOffset = Real( 800.0 );
-			LastZOffset = Real( 800.0 );
+			LastZOffset = Real( 400.0 );
 			
 			if( LastForm < Form.size() )
 			{
