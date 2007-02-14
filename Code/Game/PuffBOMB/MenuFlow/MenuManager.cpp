@@ -2,12 +2,18 @@
 #include "MenuManager.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include <Input/Input.h>
+#include <Graphics/Gfx.h>
+// - ------------------------------------------------------------------------------------------ - //
+extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
 cMenuManager::cMenuManager() :
 	BreakLoop( false ),
 	CurForm( 0 ),
 	LastForm( 0 ),
-	SuperFlowState( 1 )
+	SuperFlowState( 1 ),
+	TransTime( 0 ),
+	LastZOffset( 800.0 ),
+	CurZOffset( 800.0 )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
@@ -33,9 +39,42 @@ cMenuManager::~cMenuManager()
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuManager::Draw()
 {
-	if( CurForm < Form.size() )
+	if( TransTime > GetTime() )
 	{
-		Form[ CurForm ].Draw();
+		Gfx::PushMatrix();
+		{
+			Gfx::Translate( Vector3D( 0, 0, -CurZOffset ) );
+			
+			if( CurForm < Form.size() )
+			{
+				Form[ CurForm ].Draw();
+			}
+			
+			CurZOffset *= Real( 0.75 );
+		}
+		Gfx::PopMatrix();
+		
+		Gfx::PushMatrix();
+		{
+			Gfx::Translate( Vector3D( 0, 0, -LastZOffset + Real( 800.0 ) ) );
+			
+			if( LastForm < Form.size() )
+			{
+				Form[ LastForm ].Draw();
+			}
+			
+			LastZOffset *= Real( 0.75 );
+			
+		}
+		Gfx::PopMatrix();
+	}
+	else
+	{
+		if( CurForm < Form.size() )
+		{
+			Form[ CurForm ].Draw();
+		}
+
 	}
 	
 /*	for( size_t idx = 0; idx < Form.size(); ++idx )
@@ -52,6 +91,12 @@ void cMenuManager::Step()
 
 		if( Input::Button[ KEY_ENTER ].Pressed() || Input::Pad[0].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
 		{
+			TransTime = GetTime() + 250;
+			CurZOffset = Real( 800.0 );
+			LastZOffset = Real( 800.0 );
+			
+			LastForm = CurForm;
+
 			switch( Form[ CurForm ].SuperFlowState )
 			{
 				case 2:	// Classic Mode Start //
@@ -119,7 +164,6 @@ void cMenuManager::Step()
 				break;	
 				}
 			}
-			LastForm = CurForm;
 		}
 	}
 	

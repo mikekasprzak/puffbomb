@@ -16,7 +16,11 @@ public:
 	unsigned int CurForm;
 	unsigned int LastForm;
 	
-	unsigned int SuperFlowState;	
+	unsigned int SuperFlowState;
+	
+	int TransTime;
+	Real LastZOffset;
+	Real CurZOffset;
 	
 public:
 	cMenuManager();

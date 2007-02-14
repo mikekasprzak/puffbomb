@@ -37,6 +37,7 @@ public:
 	
 	// A variable to determine if the Form its self can be seen //
 	bool IsVisible;
+	int FormAlpha;
 	
 	// A variable to determine if the Form labels can be seen //
 	bool IsLabelsVisible;

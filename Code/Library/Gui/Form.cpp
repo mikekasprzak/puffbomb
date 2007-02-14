@@ -20,6 +20,7 @@ cForm::cForm() :
 	Focus( 0 ),
 	SuperFlowState( 1 ),
 	IsVisible( true ),
+	FormAlpha( 192 ),
 	IsLabelsVisible( true )
 {
 	// Legacy //
@@ -32,6 +33,7 @@ cForm::cForm( const std::string& File ) :
 	Focus( 0 ),
 	SuperFlowState( 1 ),
 	IsVisible( true ),
+	FormAlpha( 192 ),
 	IsLabelsVisible( true )
 {
 	// Legacy //
@@ -52,6 +54,7 @@ cForm::cForm(
 		Focus( _Focus ),
 		SuperFlowState( 1 ),
 		IsVisible( true ),
+		FormAlpha( 192 ),
 		IsLabelsVisible( true )
 {
 	
@@ -649,7 +652,7 @@ void cForm::DrawBoxFrame()
 			Indices,
 			IndicesSize,
 			TextureID,
-			Gfx::RGBA( 255, 255, 255, 192 )
+			Gfx::RGBA( 255, 255, 255, FormAlpha )
 		);	
 	}
 }	

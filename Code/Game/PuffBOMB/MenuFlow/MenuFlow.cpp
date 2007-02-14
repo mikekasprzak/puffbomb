@@ -22,12 +22,6 @@ void cMenuFlow::Draw() {
 void cMenuFlow::Step() {
 	Engine->Step();
 	
-	// Temp hack to make the menus work like before //
-/*	if( Engine->MenuManager.Form[ Engine->MenuManager.CurForm ].SuperFlowState != 1 )
-	{
-		BreakLoop = true;	
-	}*/
-	
 	if( Engine->MenuManager.BreakLoop )
 	{
 		BreakLoop = true;
