@@ -9,7 +9,12 @@ cMenuManager::cMenuManager() :
 	LastForm( 0 ),
 	SuperFlowState( 1 )
 {
+	//	Load( "2D/Menu/MainMenuUnregistered.form" );
+
+
 	#ifdef EDITOR
+	//	Load( "2D/Menu/MainMenuUnregistered.form" );
+	//	Load( "2D/Menu/MainMenu.form" );
 		Load( "2D/Menu/MainMenuEditor.form" );
 		Load( "2D/Menu/PlayerSelectEditor.form" );
 	#else
@@ -101,6 +106,11 @@ void cMenuManager::Step()
 				case 10: // Help & Options Form //
 				{
 					CurForm = 2;
+				break;	
+				}
+				case 11: // Unlock Full Version Form //
+				{
+					CurForm = 0;
 				break;	
 				}
 				default:

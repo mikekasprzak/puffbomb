@@ -55,8 +55,8 @@ EndText
 
 TextLabel		260	-275
 IsPassive		0
-ActionID		3
-Text			Editor
+ActionID		11
+Text			Unlock Full Game
 Scale			0.5
 Align			Right
 Color			255	255	255 255
