@@ -1,0 +1,56 @@
+DialogPos		0	-	225
+DialogPos		0	+	115
+
+DialogPos		0	+	225
+DialogPos		0	-	115
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		430	-25
+IsPassive		0
+ActionID		0
+Text			How to play Classic Mode
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		430	-75
+IsPassive		0
+ActionID		0
+Text			How to play Tournament Mode
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		430	-125
+IsPassive		0
+ActionID		0
+Text			Sound Volume
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		430	-175
+IsPassive		0
+ActionID		0
+Text			Music Volume
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		430	-225
+IsPassive		0
+ActionID		7
+Text			Back
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+EndDialog

@@ -9,6 +9,15 @@ cMenuManager::cMenuManager() :
 	LastForm( 0 ),
 	SuperFlowState( 1 )
 {
+	#ifdef EDITOR
+		Load( "2D/Menu/MainMenuEditor.form" );
+		Load( "2D/Menu/PlayerSelectEditor.form" );
+	#else
+		Load( "2D/Menu/MainMenu.form" );
+		Load( "2D/Menu/PlayerSelect.form" );
+	#endif // EDITOR //
+
+	Load( "2D/Menu/HelpOptions.form" );
 
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -77,6 +86,21 @@ void cMenuManager::Step()
 				case 7: // Main Menu Form //
 				{
 					CurForm = 0;
+				break;	
+				}
+				case 8: // Leaderboard Form //
+				{
+					CurForm = 0;
+				break;	
+				}
+				case 9: // Achievements Form //
+				{
+					CurForm = 0;
+				break;	
+				}
+				case 10: // Help & Options Form //
+				{
+					CurForm = 2;
 				break;	
 				}
 				default:
