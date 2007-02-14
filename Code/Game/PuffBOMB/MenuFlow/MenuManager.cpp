@@ -1,30 +1,38 @@
 // - ------------------------------------------------------------------------------------------ - //
-#include "MenuFlow.h"
+#include "MenuManager.h"
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cMenuFlow::cMenuFlow( const std::string& FileName ) {
-	// Creating Engine //
-	Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-	Engine = new cMenuFlowEngine( FileName );
-	
-	Work();
+cMenuManager::cMenuManager() :
+	CurForm( 0 ),
+	LastForm( 0 )
+{
+
 }
 // - ------------------------------------------------------------------------------------------ - //
-cMenuFlow::~cMenuFlow() {
-	delete Engine;
+cMenuManager::~cMenuManager()
+{
+
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cMenuFlow::Draw() {
-	Engine->Draw();
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cMenuFlow::Step() {
-	Engine->Step();
-	
-	if( Engine->MenuManager.Form[ Engine->MenuManager.CurForm ].SuperFlowState != 1 )
+void cMenuManager::Draw()
+{
+	if( CurForm < Form.size() )
 	{
-		BreakLoop = true;	
+		Form[ CurForm ].Draw();
+	}
+	
+/*	for( size_t idx = 0; idx < Form.size(); ++idx )
+	{
+		
+	} */
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMenuManager::Step()
+{
+	if( CurForm < Form.size() )
+	{
+		Form[ CurForm ].Step();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

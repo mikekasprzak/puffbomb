@@ -9,7 +9,7 @@
 #include <Engine2D.h>
 #include <Animation/Animator.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Gui/Form.h>
+#include "MenuManager.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cMenuFlowEngine : public Engine2D::cEngine2D { 
 public:
@@ -17,7 +17,7 @@ public:
 	cCamera *HudCamera;
 
 public:
-	cForm Form;
+	cMenuManager MenuManager;
 
 	// Start point //
 	Engine2D::cPassiveObject* StartPoint;

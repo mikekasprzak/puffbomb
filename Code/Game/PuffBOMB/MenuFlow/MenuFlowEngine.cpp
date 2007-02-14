@@ -37,10 +37,10 @@ cMenuFlowEngine::cMenuFlowEngine( const std::string& FileName )
  	LoadMap( FileName );
  
 	#ifdef EDITOR
-		Form.Load( "2D/Menu/MainMenuEditor.form" );
+		MenuManager.Load( "2D/Menu/MainMenuEditor.form" );
 	//	Form.Load( "2D/Menu/Test2.form" );
 	#else
-		Form.Load( "2D/Menu/MainMenu.form" );
+		MenuManager.Load( "2D/Menu/MainMenu.form" );
 	#endif // EDITOR //
  
 	DenseParticle.Clear();
@@ -64,13 +64,13 @@ void cMenuFlowEngine::Step() {
 	SolidParticle.Step();
 	DenseParticle.Step();
 
-	// Form //
-	Form.Step();
+	// MenuManger (Forms) //
+	MenuManager.Step();
 	
-	if( Form.SuperFlowState != 1 )
-	{
+//	if( Form.SuperFlowState != 1 )
+//	{
 //		BreakLoop = true;	
-	}
+//	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuFlowEngine::Draw() {
@@ -104,7 +104,7 @@ void cMenuFlowEngine::Draw() {
 		
 		Gfx::EnableTex2D();
 
-		Form.Draw();
+		MenuManager.Draw();
 		
 		Gfx::DisableTex2D();
 	}

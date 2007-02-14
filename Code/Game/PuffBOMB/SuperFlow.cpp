@@ -114,17 +114,17 @@ void cSuperFlow::StateFlow()
 				CurGolfMap = 0;
 			
 				// Display the MainMenu screen //
-				{
+			/*	{
 					cMainMenu MainMenu;
 
 					State = MainMenu.Form.SuperFlowState;
-				}
-			/*	{
+				}*/
+				{
 					cMenuFlow MenuFlow( "Maps/Classic/Level01.map" );
 					
-					State = MenuFlow.Engine->Form.SuperFlowState;
+					State = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].SuperFlowState;
 				}
-			*/	
+				
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //
