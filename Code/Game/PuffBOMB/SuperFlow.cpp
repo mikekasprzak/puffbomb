@@ -122,7 +122,8 @@ void cSuperFlow::StateFlow()
 				{
 					cMenuFlow MenuFlow( "Maps/Classic/Level01.map" );
 					
-					State = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].SuperFlowState;
+					//State = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].SuperFlowState;
+					State = MenuFlow.Engine->MenuManager.SuperFlowState;
 				}
 				
 				break;

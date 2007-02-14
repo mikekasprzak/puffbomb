@@ -38,9 +38,11 @@ cMenuFlowEngine::cMenuFlowEngine( const std::string& FileName )
  
 	#ifdef EDITOR
 		MenuManager.Load( "2D/Menu/MainMenuEditor.form" );
+		MenuManager.Load( "2D/Menu/PlayerSelectEditor.form" );
 	//	Form.Load( "2D/Menu/Test2.form" );
 	#else
 		MenuManager.Load( "2D/Menu/MainMenu.form" );
+		MenuManager.Load( "2D/Menu/PlayerSelect.form" );
 	#endif // EDITOR //
  
 	DenseParticle.Clear();

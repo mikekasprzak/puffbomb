@@ -11,8 +11,12 @@
 class cMenuManager : public cWindowManager
 {
 public:
+	bool BreakLoop;
+	
 	unsigned int CurForm;
 	unsigned int LastForm;
+	
+	unsigned int SuperFlowState;	
 	
 public:
 	cMenuManager();
