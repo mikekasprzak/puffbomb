@@ -17,6 +17,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "ClassicGame/ClassicGame.h"
 #include "GolfGame/GolfGame.h"
+#include "MenuFlow/MenuFlow.h"
 
 #include <MainMenu/MainMenu.h>
 #include <PlayerSelect/PlayerSelect.h>
@@ -118,6 +119,12 @@ void cSuperFlow::StateFlow()
 
 					State = MainMenu.Form.SuperFlowState;
 				}
+			/*	{
+					cMenuFlow MenuFlow( "Maps/Classic/Level01.map" );
+					
+					State = MenuFlow.Engine->Form.SuperFlowState;
+				}
+			*/	
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //
