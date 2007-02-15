@@ -21,7 +21,7 @@ EndAni
 
 
 // Digits (Seconds) //
-AniLabel		48	48
+AniLabel		48	40
 IsPassive		1
 ActionID		0
 Group			2
@@ -30,7 +30,7 @@ SelectAni		ClassicClockDigits.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		96	48
+AniLabel		96	40
 IsPassive		1
 ActionID		0
 Group			2
@@ -40,7 +40,7 @@ CurrentFrame	0
 EndAni
 
 // Colon //
-AniLabel		136	48
+AniLabel		136	40
 IsPassive		1
 ActionID		0
 Group			2
@@ -50,7 +50,7 @@ CurrentFrame	10
 EndAni
 
 // Digits (Frames) //
-AniLabel		176	48
+AniLabel		176	40
 IsPassive		1
 ActionID		0
 Group			2
@@ -59,7 +59,7 @@ SelectAni		ClassicClockDigits.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		224	48
+AniLabel		224	40
 IsPassive		1
 ActionID		0
 Group			2
