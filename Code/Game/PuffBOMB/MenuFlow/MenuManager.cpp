@@ -48,8 +48,6 @@ void cMenuManager::Draw()
 			if( CurForm < Form.size() )
 			{
 				Form[ CurForm ].Draw();
-
-				//Form[ LastForm ].FormAlpha *= Real( 0.65 );
 			}
 			
 			CurZOffset *= Real( 0.75 );
@@ -81,11 +79,6 @@ void cMenuManager::Draw()
 		}
 
 	}
-	
-/*	for( size_t idx = 0; idx < Form.size(); ++idx )
-	{
-		
-	} */
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuManager::Step()
@@ -108,9 +101,9 @@ void cMenuManager::Step()
 			{
 				Form[ CurForm ].FormAlpha = 192;
 			}
-			
-			LastForm = CurForm;
 
+			LastForm = CurForm;
+			
 			switch( Form[ CurForm ].SuperFlowState )
 			{
 				case 2:	// Classic Mode Start //
@@ -178,6 +171,12 @@ void cMenuManager::Step()
 				break;	
 				}
 			}
+			// Stops the fade in and out effect from happening //
+			if( CurForm == LastForm )
+			{
+				TransTime = GetTime();
+			}
+
 		}
 	}
 	
