@@ -1,7 +1,4 @@
 // - ------------------------------------------------------------------------------------------ - //
-//#include <gl/gl.h>
-//#include <gl/glu.h>
-
 #include "Camera.h"
 
 #include <Graphics/Gfx.h>

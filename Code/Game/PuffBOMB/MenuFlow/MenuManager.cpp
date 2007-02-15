@@ -86,9 +86,24 @@ void cMenuManager::Step()
 	if( CurForm < Form.size() )
 	{
 		Form[ CurForm ].Step();
-
-		if( Input::Button[ KEY_ENTER ].Pressed() || Input::Pad[0].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
+	
+		bool BackPressed = false;
+		
+		if( Input::Button[ KEY_BACKSPACE ].Pressed() || Input::Pad[0].Button[ PAD_B ].Pressed() )
 		{
+			if( Form[ CurForm ].BackID != -1 )
+			{
+				Form[ CurForm ].SuperFlowState = Form[ CurForm ].BackID;
+				BackPressed = true;
+		 	}
+		}
+
+		if( Input::Button[ KEY_ENTER ].Pressed()
+			|| Input::Pad[0].Button[ PAD_A ].Pressed()
+			|| Input::Pad[0].Button[ PAD_START ].Pressed()
+			|| BackPressed )
+		{
+		
 			TransTime = GetTime() + 250;
 			CurZOffset = Real( 800.0 );
 			LastZOffset = Real( 400.0 );
@@ -177,34 +192,6 @@ void cMenuManager::Step()
 				TransTime = GetTime();
 			}
 
-		}
-		if( Input::Button[ KEY_BACKSPACE ].Pressed() || Input::Pad[0].Button[ PAD_B ].Pressed() )
-		{
-			// Fix this to properly go back rather then just back 1 form // !!!
-			
-			TransTime = GetTime() + 250;
-			CurZOffset = Real( 800.0 );
-			LastZOffset = Real( 400.0 );
-			
-			if( LastForm < Form.size() )
-			{
-				Form[ LastForm ].FormAlpha = 192;
-			}
-			if( CurForm < Form.size() )
-			{
-				Form[ CurForm ].FormAlpha = 192;
-			}
-			
-			int TempForm = CurForm;
-			
-			CurForm = LastForm;
-			LastForm = TempForm;
-						
-			// Stops the fade in and out effect from happening //
-			if( CurForm == LastForm )
-			{
-				TransTime = GetTime();
-			}
 		}
 	}
 	

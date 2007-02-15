@@ -41,6 +41,8 @@ public:
 	
 	// A variable to determine if the Form labels can be seen //
 	bool IsLabelsVisible;
+	
+	int BackID;
 
 public:
 	

@@ -21,7 +21,8 @@ cForm::cForm() :
 	SuperFlowState( 1 ),
 	IsVisible( true ),
 	FormAlpha( 192 ),
-	IsLabelsVisible( true )
+	IsLabelsVisible( true ),
+	BackID( -1 )
 {
 	// Legacy //
 	TextureID = TexturePool.Load( "DialogBox.tx" ).Id;
@@ -34,7 +35,8 @@ cForm::cForm( const std::string& File ) :
 	SuperFlowState( 1 ),
 	IsVisible( true ),
 	FormAlpha( 192 ),
-	IsLabelsVisible( true )
+	IsLabelsVisible( true ),
+	BackID( -1 )
 {
 	// Legacy //
 	TextureID = TexturePool.Load( "DialogBox.tx" ).Id;
@@ -55,7 +57,8 @@ cForm::cForm(
 		SuperFlowState( 1 ),
 		IsVisible( true ),
 		FormAlpha( 192 ),
-		IsLabelsVisible( true )
+		IsLabelsVisible( true ),
+		BackID( -1 )
 {
 	
 }
@@ -244,6 +247,11 @@ void cForm::Load( const std::string &File )
 					Align = 2;
 				}
 			}
+			else if( Token == "BackID" )
+			{
+				Text >> Token;
+				BackID = atoi( Token.c_str() );
+			}	
 			else if( Token == "EndText" )
 			{
 				Labels.push_back(

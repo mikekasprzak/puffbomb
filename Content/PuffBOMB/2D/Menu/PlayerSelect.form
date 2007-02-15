@@ -44,4 +44,6 @@ Align			Right
 Color			255	255	255 255
 EndText
 
+BackID 7
+
 EndDialog
