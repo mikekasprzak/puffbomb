@@ -178,6 +178,34 @@ void cMenuManager::Step()
 			}
 
 		}
+		if( Input::Button[ KEY_BACKSPACE ].Pressed() || Input::Pad[0].Button[ PAD_B ].Pressed() )
+		{
+			// Fix this to properly go back rather then just back 1 form // !!!
+			
+			TransTime = GetTime() + 250;
+			CurZOffset = Real( 800.0 );
+			LastZOffset = Real( 400.0 );
+			
+			if( LastForm < Form.size() )
+			{
+				Form[ LastForm ].FormAlpha = 192;
+			}
+			if( CurForm < Form.size() )
+			{
+				Form[ CurForm ].FormAlpha = 192;
+			}
+			
+			int TempForm = CurForm;
+			
+			CurForm = LastForm;
+			LastForm = TempForm;
+						
+			// Stops the fade in and out effect from happening //
+			if( CurForm == LastForm )
+			{
+				TransTime = GetTime();
+			}
+		}
 	}
 	
 }
