@@ -65,7 +65,7 @@ EndText
 TextLabel		260	-325
 IsPassive		0
 ActionID		1
-Text			Return to Arcade
+Text			Exit
 Scale			0.5
 Align			Right
 Color			255	255	255 255
