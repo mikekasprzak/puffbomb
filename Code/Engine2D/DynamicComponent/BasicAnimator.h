@@ -83,7 +83,7 @@ public:
 	// Set the current animation to another one //
 	void SetAnimation( const int AnimationNumber, const Real& _PlayBackRate = Real::One ) {
 		// Assert if the requested animation doesn't exist //
-		Assert( AnimationNumber >= (int)AnimationSet->Animation.size(),
+		Assert( (AnimationNumber < 0) || (AnimationNumber >= (int)AnimationSet->Animation.size()),
 			"Animation " << AnimationNumber << " Requested, but doesn't exist!"
 			);
 
@@ -107,7 +107,7 @@ public:
 	// Set's the animation mode to/for an Arcing animation (an animation controlled by a scalar) //
 	void SetArcingAnimation( const int AnimationNumber ) {
 		// Assert if the requested animation doesn't exist //
-		Assert( AnimationNumber >= (int)AnimationSet->Animation.size(),
+		Assert( (AnimationNumber < 0) || (AnimationNumber >= (int)AnimationSet->Animation.size()),
 			"Arcing Animation " << AnimationNumber << " Requested, but doesn't exist!"
 			);
 		
