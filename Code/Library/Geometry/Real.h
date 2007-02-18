@@ -4,7 +4,7 @@
 #ifndef __Geometry_Real_H__
 #define __Geometry_Real_H__
 // - ------------------------------------------------------------------------------------------ - //
-
+// Todo: 
 // - ------------------------------------------------------------------------------------------ - //
 #include <cmath>
 // - ------------------------------------------------------------------------------------------ - //
@@ -151,8 +151,10 @@ public:
 		Real Temp( *this );
 		if ( Data > Zero )
 			Data = One;
-		else if ( Data < Zero )
+		else if ( Data < Zero ) {
 			Data = -One;
+			Temp = -Temp;
+		}
 		else
 			Data = Zero;
 		return Temp;
@@ -189,17 +191,17 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Limiting Functions //
 	// - -------------------------------------------------------------------------------------- - //
-	inline Real Min( const Real& _Vs ) const {
+	inline const Real Min( const Real& _Vs ) const {
 		Real Number = *this;
 		if ( Number > _Vs )
-			Number = _Vs;
+			return _Vs;
 		return Number;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline Real Max( const Real& _Vs ) const {
+	inline const Real Max( const Real& _Vs ) const {
 		Real Number = *this;
 		if ( Number < _Vs )
-			Number = _Vs;
+			return _Vs;
 		return Number;
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -214,6 +216,39 @@ public:
 			*this = _Vs;
 		return *this;
 	}	
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
+	inline const Real Range( const Real& _Min, const Real& _Max ) const {
+		Real Number = *this;
+		// Min //
+		if ( Number < _Min )
+			return _Min;
+		// Max //
+		if ( Number > _Max )
+			return _Max;
+		return Number;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline Real& RangeClamp( const Real& _Min, const Real& _Max ) {
+		// Min //
+		if ( *this < _Min )
+			*this = _Min;
+		// Max //
+		if ( *this > _Max )
+			*this = _Max;
+		return *this;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline const bool InRange( const Real& _Min, const Real& _Max ) const {
+		// Min //
+		if ( *this < _Min )
+			return false;
+		// Max //
+		if ( *this > _Max )
+			return false;
+		return true;
+	}
 	// - -------------------------------------------------------------------------------------- - //
 
 	// - -------------------------------------------------------------------------------------- - //

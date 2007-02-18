@@ -7,6 +7,7 @@
 // Todo: 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
+#include <Geometry/Integer.h>
 #include <Geometry/Real.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "AnimationFlags.h"
@@ -83,8 +84,9 @@ public:
 	// Set the current animation to another one //
 	void SetAnimation( const int AnimationNumber, const Real& _PlayBackRate = Real::One ) {
 		// Assert if the requested animation doesn't exist //
-		Assert( (AnimationNumber < 0) || (AnimationNumber >= (int)AnimationSet->Animation.size()),
-			"Animation " << AnimationNumber << " Requested, but doesn't exist!"
+		Assert( !Integer(AnimationNumber).InRange( 0, AnimationSet->Animation.size() ),
+			"Animation " << AnimationNumber << " of " << AnimationSet->Animation.size() <<
+			" requested, but doesn't exist!"
 			);
 
 		// Set the animation as requested //
@@ -107,8 +109,9 @@ public:
 	// Set's the animation mode to/for an Arcing animation (an animation controlled by a scalar) //
 	void SetArcingAnimation( const int AnimationNumber ) {
 		// Assert if the requested animation doesn't exist //
-		Assert( (AnimationNumber < 0) || (AnimationNumber >= (int)AnimationSet->Animation.size()),
-			"Arcing Animation " << AnimationNumber << " Requested, but doesn't exist!"
+		Assert( !Integer(AnimationNumber).InRange( 0, AnimationSet->Animation.size() ),
+			"Arcing Animation " << AnimationNumber << " of " << AnimationSet->Animation.size() <<
+			" requested, but doesn't exist!"
 			);
 		
 		// Set the animation as requested //
