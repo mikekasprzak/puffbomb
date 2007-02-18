@@ -11,9 +11,10 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include "Body2D/Body2D.h"
-#include "ComponentAnimationSet/ComponentAnimationSet.h"
+//#include "ComponentAnimationSet/ComponentAnimationSet.h"
 #include "ComponentFlags.h"
-#include "AnimationFlags.h"
+//#include "AnimationFlags.h"
+#include "DynamicComponentAnimator.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -22,20 +23,23 @@ public:
 	// Who our parent is //
 	class cDynamicCollection* Parent;
 
-public:
-	// Parts of a component //
-	cComponentAnimationSet* AnimationSet;
+	// Our Animator //
+	cDynamicComponentAnimator Animator;
 
-public:
-	int CurrentAnimation;
-	int CurrentFrame;
-	Real CurrentFrameTime;
-
-	// The rate at which to play back the animation //
-	Real PlayBackRate;
-	
-	// Flags for monitoring aspects of the animation (looping) //
-	cAnimationFlags AnimationFlags;
+//public:
+//	// Parts of a component //
+//	cComponentAnimationSet* AnimationSet;
+//
+//public:
+//	int CurrentAnimation;
+//	int CurrentFrame;
+//	Real CurrentFrameTime;
+//
+//	// The rate at which to play back the animation //
+//	Real PlayBackRate;
+//	
+//	// Flags for monitoring aspects of the animation (looping) //
+//	cAnimationFlags AnimationFlags;
 
 public:
 	cBody2D Body;

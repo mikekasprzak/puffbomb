@@ -12,14 +12,14 @@ using namespace Input;
 int cComponentEdit::MeshSingleSelectNode()
 {
 	int LastIdx = -1;
-	if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+	if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 	{
 		Real LastDistance = NodeRadius;
 		Real TestDistance = NodeRadius;
 	
-		for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
+		for( size_t idx = 0; idx < DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
 		{
-			TestDistance = ( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos - CurMousePos ).Magnitude();
+			TestDistance = ( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos - CurMousePos ).Magnitude();
 			if( TestDistance < Real( NodeRadius ) )
 			{
 				if( TestDistance < LastDistance )
@@ -37,14 +37,14 @@ void cComponentEdit::MeshSelectNode()
 {
 	if( Button[ MOUSE_1 ].Released() )
 	{
-		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			// Group add-select //
 			if( Button[ KEY_LSHIFT ] || Button[ KEY_RSHIFT ] )
 			{
-				for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
+				for( size_t idx = 0; idx < DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
 				{
-					if( WithinBox( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 					{
 						bool CurSelectedTest = false;
 						for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -81,9 +81,9 @@ void cComponentEdit::MeshSelectNode()
 			// Group de-select //
 			else if( Button[ KEY_LCTRL ] || Button[ KEY_RCTRL ] )
 			{
-				for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
+				for( size_t idx = 0; idx < DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
 				{
-					if( WithinBox( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 					{
 						for( size_t i = 0; i < CurSelected.size(); ++i )
 						{
@@ -128,9 +128,9 @@ void cComponentEdit::MeshSelectNode()
 			{
 				CurSelected.clear();
 				
-				for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
+				for( size_t idx = 0; idx < DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
 				{
-					if( WithinBox( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
+					if( WithinBox( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ].Pos, CurMousePos, OldMousePos ) )
 					{
 						CurSelected.push_back( idx );
 					}
@@ -153,7 +153,7 @@ void cComponentEdit::MeshMoveNode()
 {
 	if( Button[ MOUSE_1 ].Pressed() )
 	{
-		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 
 			if( !Button[ KEY_LCTRL ] || !Button[ KEY_RCTRL ] )
@@ -180,7 +180,7 @@ void cComponentEdit::MeshMoveNode()
 	}
 	if( Button[ MOUSE_1 ].Released() )
 	{
-		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 	
 			isGroupMove = false;
@@ -192,7 +192,7 @@ void cComponentEdit::MeshMoveNode()
 	
 				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 				{
-					CalcSnapToGrid( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos, CurrentGridDepth, UVGridDepth );
+					CalcSnapToGrid( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos, CurrentGridDepth, UVGridDepth );
 				}
 				SnapToGrid = false;
 				ActiveAction();
@@ -205,19 +205,19 @@ void cComponentEdit::MeshMoveNode()
 	}
 	if( isGroupMove )
 	{
-		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 	
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
 				
-				Real TempX = DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos.x;
+				Real TempX = DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos.x;
 				TempX -= OldMousePos.x - CurMousePos.x;
 				
-				Real TempY = DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos.y;
+				Real TempY = DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos.y;
 				TempY -= OldMousePos.y - CurMousePos.y;
 				
-				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos = Vector2D( TempX, TempY );
+				DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos = Vector2D( TempX, TempY );
 			}
 			OldMousePos = CurMousePos;
 		}
@@ -228,7 +228,7 @@ void cComponentEdit::MeshAddNode()
 {
 	if( Button[ KEY_0_PAD ].Pressed() || Button[ KEY_A ].Pressed() /* || isPaste == true */ )
 	{
-		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			CurSelected.clear();
 	
@@ -272,9 +272,9 @@ void cComponentEdit::MeshAddNode()
 	
 				CalcSnapToGrid( TempPos, CurrentGridDepth, UVGridDepth );
 			}
-			DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.push_back( Engine2D::cMeshPoseNode( TempPos, PivotIdx, HandleIdx ) );
+			DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.push_back( Engine2D::cMeshPoseNode( TempPos, PivotIdx, HandleIdx ) );
 	
-			CurSelected.push_back( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size() - 1 );
+			CurSelected.push_back( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size() - 1 );
 	
 			ActiveAction();
 		}
@@ -283,7 +283,7 @@ void cComponentEdit::MeshAddNode()
 // - ------------------------------------------------------------------------------------------ - //
 void cComponentEdit::MeshDeleteNode()
 {
-	if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() && !CurSelected.empty() )
+	if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() && !CurSelected.empty() )
 	{
 		if( Button[ KEY_DELETE ].Pressed() )
 		{
@@ -293,7 +293,7 @@ void cComponentEdit::MeshDeleteNode()
 			EditEventFlags &= ~flDelete;
 			
 			std::vector< Engine2D::cMeshPoseNode > tempVec;
-			for( size_t idx = 0; idx < DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
+			for( size_t idx = 0; idx < DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.size(); ++idx )
 			{
 				bool isDelete = false;
 				for( size_t i = 0; i < CurSelected.size(); ++i )
@@ -305,11 +305,11 @@ void cComponentEdit::MeshDeleteNode()
 				}
 				if( !isDelete )
 				{
-					tempVec.push_back( DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ] );
+					tempVec.push_back( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ idx ] );
 				}
 
 			}
-			DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.swap( tempVec );
+			DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node.swap( tempVec );
 
 			CurSelected.clear();
 		}
@@ -337,14 +337,14 @@ void cComponentEdit::MeshDeleteNode()
 	}
 	if( EditEventFlags & flScale )
 	{
-		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 			{
-				Vector2D TempPos = DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos;
+				Vector2D TempPos = DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos;
 				TempPos *= Real( Real( 1 ) - ( Mouse.Diff().x * Real( 2 ) ) );
 				
-				DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos = TempPos;
+				DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[idx] ].Pos = TempPos;
 			}	
 		}
 	}
@@ -354,14 +354,14 @@ void cComponentEdit::MeshSetPivot()
 {
 	if( Button[ MOUSE_1 ].Pressed() )
 	{
-		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			int temp = BodySingleSelectNode();
 			if( temp != -1 )
 			{
 				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 				{
-					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ idx ] ].PivotIndex = temp;
+					DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ idx ] ].PivotIndex = temp;
 				}
 				ActiveAction();
 			}
@@ -382,14 +382,14 @@ void cComponentEdit::MeshSetHandle()
 {
 	if( Button[ MOUSE_2 ].Pressed() )
 	{
-		if( !DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
+		if( !DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame.empty() )
 		{
 			int temp = BodySingleSelectNode();
 			if( temp != -1 )
 			{
 				for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 				{
-					DynObj->AnimationSet->MeshPose[ DynObj->AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ idx ] ].HandleIndex = temp;
+					DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].Node[ CurSelected[ idx ] ].HandleIndex = temp;
 				}
 				ActiveAction();
 			}

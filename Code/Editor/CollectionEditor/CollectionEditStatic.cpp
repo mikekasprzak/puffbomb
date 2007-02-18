@@ -261,7 +261,7 @@ void cCollectionEdit::StaticDelete()
 					}
 					else
 					{
-						//delete Collection.Component[ idx ].AnimationSet; // removed because animationsets are now part of a pool.
+						//delete Collection.Component[ idx ].Animator.AnimationSet; // removed because animationsets are now part of a pool.
 					}
 				}
 				Collection.Component.swap( tempVec );

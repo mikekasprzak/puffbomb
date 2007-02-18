@@ -38,13 +38,13 @@ void cDynamicCollection::LoadBinary( const std::string& FileName, const Vector2D
 			Log( 1, "ComponentName " << TmpString1 << TmpString2 );
 
 			Component[ idx ] = Engine2D::cDynamicComponent( this, TmpString1 + TmpString2, Offset );
-			//Component[ idx ].AnimationSet->LoadBinary( TmpString1 + TmpString2 );
+			//Component[ idx ].Animator.AnimationSet->LoadBinary( TmpString1 + TmpString2 );
 
 			#ifdef EDITOR
 			ComponentName.push_back( TmpString2 );
 			#endif // Editor //
 			
-			//Component[ idx ].Body = Component[ idx ].AnimationSet->BodyPose[ 0 ];
+			//Component[ idx ].Body = Component[ idx ].Animator.AnimationSet->BodyPose[ 0 ];
 			
 			size_t NodeSize = In.Read();
 			for( size_t idx2 = 0; idx2 < NodeSize; ++idx2 )

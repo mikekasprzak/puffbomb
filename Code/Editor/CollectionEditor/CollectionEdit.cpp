@@ -289,7 +289,7 @@ void cCollectionEdit::UpdateColl()
 	{
 		/*for( size_t idx = 0; idx < Collection.Component.size(); ++idx )
 		{
-			delete Collection.Component[ idx ].AnimationSet;
+			delete Collection.Component[ idx ].Animator.AnimationSet;
 		}*/
 		Collection.Component.clear();
 		Collection.ComponentName.clear();
