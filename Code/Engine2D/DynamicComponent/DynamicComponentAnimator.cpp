@@ -21,6 +21,8 @@ cDynamicComponentAnimator::cDynamicComponentAnimator( cComponentAnimationSet* _A
 // - ------------------------------------------------------------------------------------------ - //
 cBody2DPose* cDynamicComponentAnimator::GetPose() const {
 	// Todo: Assert bounds check CurrentAnimation and CurrentFrame //
+//	Assert( ,
+//		"CurrentFrame out of bounds!" );
 	
 	return &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];
 }

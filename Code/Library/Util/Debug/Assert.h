@@ -12,17 +12,24 @@
 // - ------------------------------------------------------------------------------------------ - //
 #ifndef NDEBUG
 
+// __func__ is general purpose //
+// __PRETTY_FUNCTION__ is GCC only //
+
 // Assertion //
 #define Assert( ___TEST, ___STR ) \
 	if ( ___TEST ) \
-		std::cout << "Assert Error: " << ___STR << std::endl;
+		std::cout << "Assert Error: " << ___STR << std::endl << \
+			"   Line: " << __LINE__ << "  File: " << __FILE__ << std::endl << \
+			"   Func: " << __PRETTY_FUNCTION__ << std::endl;
 //	if ( HARSH_ASSERTS )
 //		;
 
 // Warnings //
 #define Warning( ___TEST, ___STR ) \
 	if ( ___TEST ) \
-		std::cout << "Warning: " << ___STR << std::endl;
+		std::cout << "Warning: " << ___STR << std::endl << \
+			"   Line: " << __LINE__ << "  File: " << __FILE__ << std::endl << \
+			"   Func: " << __PRETTY_FUNCTION__ << std::endl;
 
 #else // NDEBUG //
 #define Assert( ... ) ;

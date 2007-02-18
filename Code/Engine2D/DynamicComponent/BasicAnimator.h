@@ -4,7 +4,7 @@
 #ifndef __Engine2D_BasicAnimator_H__
 #define __Engine2D_BasicAnimator_H__
 // - ------------------------------------------------------------------------------------------ - //
-// Todo: Replace tests in the set function with asserts
+// Todo: 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 #include <Geometry/Real.h>
