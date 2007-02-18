@@ -37,6 +37,8 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Move the currently visible animation stuffs forward a frame //
 	void Step();
+	
+	// Accessory functions for acquiring the Body Pose of an animation //
 	cBody2DPose* GetPose() const;
 	cBody2DPose* GetPose( const int _Animation, const int _Frame ) const;
 
@@ -45,17 +47,18 @@ public:
 	// Set the current animation to another one //
 	void SetAnimation( const int AnimationNumber, const Real& _PlayBackRate = Real::One );
 	
+	// - -------------------------------------------------------------------------------------- - //
+	// Arcing animations are animations that change frames based on a scalar with values 0-1 //
+	// - -------------------------------------------------------------------------------------- - //
 	// Set's the animation mode to/for an Arcing animation (an animation controlled by a scalar) //
 	void SetArcingAnimation( const int AnimationNumber );
 	// Call this every work frame to update the currently displayed frame //
 	void SetArc( const Real& Arc );
 	
-		
 public:	
 	// - -------------------------------------------------------------------------------------- - //
 	// Draw object Mesh transformed by Body //
 	void Draw( cBody2D _Body, const int RenderPass = 0 );
-
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

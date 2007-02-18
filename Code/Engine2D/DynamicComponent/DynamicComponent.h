@@ -45,9 +45,13 @@ public:
 	// Move the currently visible animation stuffs forward a frame //
 	void StepAnimation();
 
+	// - -------------------------------------------------------------------------------------- - //
 	// Set the current animation to another one //
 	void SetAnimation( const int AnimationNumber, const Real& _PlayBackRate = Real::One );
 	
+	// - -------------------------------------------------------------------------------------- - //
+	// Arcing animations are animations that change frames based on a scalar with values 0-1 //
+	// - -------------------------------------------------------------------------------------- - //
 	// Set's the animation mode to/for an Arcing animation (an animation controlled by a scalar) //
 	void SetArcingAnimation( const int AnimationNumber );
 	// Call this every work frame to update the currently displayed frame //
