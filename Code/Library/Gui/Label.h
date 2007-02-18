@@ -41,7 +41,7 @@ public:
 	{
 		
 	}
-	virtual void Draw( const Vector2D& Offset = Vector2D::Zero, const Gfx::Color _Color = Gfx::White() )
+	virtual void Draw( const Vector2D& /*Offset*/ = Vector2D::Zero, const Gfx::Color /*_Color*/ = Gfx::White() )
 	{
 
 	}

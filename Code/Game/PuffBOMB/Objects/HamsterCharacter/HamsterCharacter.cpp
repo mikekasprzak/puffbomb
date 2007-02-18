@@ -34,7 +34,7 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cPassiveObject* const Sender 
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const Sender ) {
+int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const /*Sender*/ ) {
 	switch ( Msg ) {
 		// Impact //
 		case 1: {
@@ -53,7 +53,7 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const Sen
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cHamsterCharacter::Message( const Engine2D::cImpulse& Sender ) {
+void cHamsterCharacter::Message( const Engine2D::cImpulse& /*Sender*/ ) {
 	Component[ 0 ].SetAnimation( 1 );
 }
 // - ------------------------------------------------------------------------------------------ - //

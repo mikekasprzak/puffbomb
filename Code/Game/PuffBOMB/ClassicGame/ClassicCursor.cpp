@@ -98,7 +98,7 @@ void cClassicCursor::Step() {
 				// If there isn't a bomb alread here //
 				if ( CanPlaceBombHere() ) {
 					// As long as we have less than the maximum number of bombs for this level //
-					if ( Bomb.size() < BombLimit ) {
+					if ( BombLimit > (int)Bomb.size() ) {
 						// Add a bomb //
 						Bomb.push_back( cBombInfo( Pos ) );
 						Selection = Bomb.size() - 1;
@@ -178,7 +178,7 @@ void cClassicCursor::Draw() {
 		
 		Real MeterSize = Real( 0.7 );
 		if ( Selection != -1 ) {
-			if ( Selection == idx ) {
+			if ( Selection == (int)idx ) {
 				MeterSize = Real( 1.5 );
 			}
 		}
@@ -187,8 +187,8 @@ void cClassicCursor::Draw() {
 		BombGraphic.DrawQuad( Bomb[ idx ].Pos );
 		
 
-		Gfx::Color OverColor;
-		Gfx::Color UnderColor;
+		Gfx::Color OverColor = 0;
+		Gfx::Color UnderColor = 0;
 			
 		switch ( Bomb[ idx ].Time >> 4 ) {
 			case 0: {
@@ -276,7 +276,7 @@ int cClassicCursor::WhatBombIsHere( const Vector2D& _Pos ) const {
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicCursor::PushMeOutOfOtherBombs( const int _Selection ) {
 	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
-		if ( idx == _Selection )
+		if ( _Selection == (int)idx )
 			continue;
 			
 		Vector2D BombDiff = Bomb[ idx ].Pos - Bomb[ _Selection ].Pos;

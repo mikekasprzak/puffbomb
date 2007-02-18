@@ -82,12 +82,13 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Set the current animation to another one //
 	void SetAnimation( const int AnimationNumber, const Real& _PlayBackRate = Real::One ) {
+		// Assert if the requested animation doesn't exist //
+		Assert( AnimationNumber >= (int)AnimationSet->Animation.size(),
+			"Animation " << AnimationNumber << " Requested, but doesn't exist!"
+			);
+
 		// Set the animation as requested //
-		if ( AnimationNumber < (int)AnimationSet->Animation.size() )
-			CurrentAnimation = AnimationNumber;
-		else {
-			Log( 10, "Error!  Animation " << AnimationNumber << " Requested, but doesn't exist!" );
-		}
+		CurrentAnimation = AnimationNumber;
 		
 		// Set internal animator variables //
 		PlayBackRate = _PlayBackRate;
@@ -105,12 +106,13 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Set's the animation mode to/for an Arcing animation (an animation controlled by a scalar) //
 	void SetArcingAnimation( const int AnimationNumber ) {
+		// Assert if the requested animation doesn't exist //
+		Assert( AnimationNumber >= (int)AnimationSet->Animation.size(),
+			"Arcing Animation " << AnimationNumber << " Requested, but doesn't exist!"
+			);
+		
 		// Set the animation as requested //
-		if ( AnimationNumber < (int)AnimationSet->Animation.size() )
-			CurrentAnimation = AnimationNumber;
-		else {
-			Log( 10, "Error!  Arcing Animation " << AnimationNumber << " Requested, but doesn't exist!" );
-		}
+		CurrentAnimation = AnimationNumber;
 		
 		// Set internal animator variables //
 		PlayBackRate = Real::Zero;
