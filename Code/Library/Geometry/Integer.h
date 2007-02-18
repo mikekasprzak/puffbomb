@@ -193,7 +193,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	
 	// - -------------------------------------------------------------------------------------- - //
-	// Range Testing: Inclusive Bottom, Exclusive Top (normal use: 0-7, ok if not 7+ or -1-) //
+	// Range Testing: Inclusive Bottom and Top //
 	// - -------------------------------------------------------------------------------------- - //
 	inline const Integer Range( const Integer& _Min, const Integer& _Max ) const {
 		Integer Number = *this;
@@ -201,7 +201,7 @@ public:
 		if ( Number < _Min )
 			return _Min;
 		// Max //
-		if ( Number >= _Max )
+		if ( Number > _Max )
 			return _Max - 1;
 		return Number;
 	}
@@ -211,45 +211,12 @@ public:
 		if ( *this < _Min )
 			*this = _Min;
 		// Max //
-		if ( *this >= _Max )
+		if ( *this > _Max )
 			*this = _Max - 1;
 		return *this;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	inline const bool InRange( const Integer& _Min, const Integer& _Max ) const {
-		// Min //
-		if ( *this < _Min )
-			return false;
-		// Max //
-		if ( *this >= _Max )
-			return false;
-		return true;
-	}
-	// - -------------------------------------------------------------------------------------- - //
-	// Range Testing: Inclusive Top and Bottom //
-	// - -------------------------------------------------------------------------------------- - //
-	inline const Integer RangeInc( const Integer& _Min, const Integer& _Max ) const {
-		Integer Number = *this;
-		// Min //
-		if ( Number < _Min )
-			return _Min;
-		// Max //
-		if ( Number > _Max )
-			return _Max;
-		return Number;
-	}
-	// - -------------------------------------------------------------------------------------- - //
-	inline Integer& RangeClampInc( const Integer& _Min, const Integer& _Max ) {
-		// Min //
-		if ( *this < _Min )
-			*this = _Min;
-		// Max //
-		if ( *this > _Max )
-			*this = _Max;
-		return *this;
-	}
-	// - -------------------------------------------------------------------------------------- - //
-	inline const bool InRangeInc( const Integer& _Min, const Integer& _Max ) const {
 		// Min //
 		if ( *this < _Min )
 			return false;

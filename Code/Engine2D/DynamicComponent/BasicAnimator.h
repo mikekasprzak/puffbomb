@@ -27,7 +27,7 @@ public:
 	Real CurrentFrameTime;
 
 	// The rate at which to play back the animation //
-	Real PlayBackRate;
+	Real PlaybackRate;
 	
 	// Flags for monitoring aspects of the animation (looping) //
 	cAnimationFlags AnimationFlags;
@@ -46,7 +46,7 @@ public:
 		CurrentAnimation( 0 ),
 		CurrentFrame( 0 ),
 		CurrentFrameTime( Real::Zero ),
-		PlayBackRate( Real::One )
+		PlaybackRate( Real::One )
 	{
 	}
 
@@ -57,24 +57,24 @@ public:
 		// Make sure we actually have an associated animation set //
 		if ( AnimationSet ) {
 			// Step our current frame time forward by our rate of playback //
-			CurrentFrameTime += PlayBackRate;
+			CurrentFrameTime += PlaybackRate;
 			
 			// If our current frame time breaks the hold length of the current frame //
-			if ( CurrentFrameTime >= Real( AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Time ) ) {
+			if ( CurrentFrameTime >= Real( GetFrameHoldTime() ) ) {
 				// Step to the next frame //
 				CurrentFrame++;
 				
 				// If our frame hits the end //
-				if ( CurrentFrame >= (int)AnimationSet->Animation[ CurrentAnimation ].Frame.size() ) {
+				if ( CurrentFrame >= GetFrameCount() ) {
 					// Set frame to the loop point //
-					CurrentFrame = AnimationSet->Animation[ CurrentAnimation ].LoopPoint;
+					CurrentFrame = GetLoopPoint();
 					
 					// Set looped flag //
 					AnimationFlags.SetLooped();
 				}
 	
 				// Offset the Current Frame Time by the hold of the previous, to correctly accumulate //
-				CurrentFrameTime -= Real( AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Time );
+				CurrentFrameTime -= Real( GetFrameHoldTime() );
 			}
 		}	
 	}
@@ -82,10 +82,10 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Set the current animation to another one //
-	void SetAnimation( const int AnimationNumber, const Real& _PlayBackRate = Real::One ) {
+	void SetAnimation( const int& AnimationNumber, const Real& _PlaybackRate = Real::One ) {
 		// Assert if the requested animation doesn't exist //
-		Assert( !Integer(AnimationNumber).InRange( 0, AnimationSet->Animation.size() ),
-			"Animation " << AnimationNumber << " of " << AnimationSet->Animation.size() <<
+		Assert( !Integer(AnimationNumber).InRange( 0, GetLastAnimation() ),
+			"Animation " << AnimationNumber << " of " << GetLastAnimation() <<
 			" requested, but doesn't exist!"
 			);
 
@@ -93,12 +93,111 @@ public:
 		CurrentAnimation = AnimationNumber;
 		
 		// Set internal animator variables //
-		PlayBackRate = _PlayBackRate;
-		CurrentFrame = 0;
+		SetPlaybackRate( _PlaybackRate );
+		SetFrame( 0 );
 		CurrentFrameTime = Real::Zero;
 		
 		// Clear Flags //
 		AnimationFlags.Clear();
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Set the current animation to another one, that doesn't animate //
+	void SetStaticAnimation( const int& AnimationNumber ) {
+		SetAnimation( AnimationNumber, Real::Zero );
+	}	
+	// - -------------------------------------------------------------------------------------- - //
+	// Get the current animation //
+	inline const int& GetAnimation() const {
+		return CurrentAnimation;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get last animation //
+	inline const int GetLastAnimation() const {
+		return AnimationSet->Animation.size() - 1;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get animation count //
+	inline const int GetAnimationCount() const {
+		return AnimationSet->Animation.size();
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
+	// Set the current frame //
+	inline void SetFrame( const int& _Frame = 0 ) {
+		Assert( !Integer(_Frame).InRange( 0, GetLastFrame() ),
+			"Frame outside range!  " << _Frame << " of " << GetLastFrame()
+			);
+
+		CurrentFrame = _Frame;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get the current frame //
+	inline const int& GetFrame() const {
+		return CurrentFrame;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
+	// Get last frame //
+	inline const int GetLastFrame() const {
+		return AnimationSet->Animation[ CurrentAnimation ].Frame.size() - 1;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get last frame //
+	inline const int GetLastFrame( const int& _Animation ) const {
+		return AnimationSet->Animation[ _Animation ].Frame.size() - 1;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
+	// Get frame count //
+	inline const int GetFrameCount() const {
+		return AnimationSet->Animation[ CurrentAnimation ].Frame.size();
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get frame count //
+	inline const int GetFrameCount( const int& _Animation ) const {
+		return AnimationSet->Animation[ _Animation ].Frame.size();
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
+	// Set the current animation Play Back Rate //
+	void SetPlaybackRate( const Real& _PlaybackRate = Real::One ) {
+		Assert( _PlaybackRate < Real::Zero,
+			"Playback rate can't be negative!  " << _PlaybackRate
+			);
+
+		PlaybackRate = _PlaybackRate;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline const int& GetPlaybackRate() const {
+		return PlaybackRate;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
+	// Get loop point //
+	inline const int GetLoopPoint() const {
+		return AnimationSet->Animation[ CurrentAnimation ].LoopPoint;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get loop point //
+	inline const int GetLoopPoint( const int& _Animation ) const {
+		return AnimationSet->Animation[ _Animation ].LoopPoint;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
+	// - -------------------------------------------------------------------------------------- - //
+	// Get frame hold time //
+	inline const int GetFrameHoldTime() const {
+		return AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Time;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Get frame hold time //
+	inline const int GetFrameHoldTime( const int& _Animation, const int& _Frame ) const {
+		return AnimationSet->Animation[ _Animation ].Frame[ _Frame ].Time;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 
@@ -107,33 +206,18 @@ public:
 	// Arcing animations are animations that change frames based on a scalar with values 0-1 //
 	// - -------------------------------------------------------------------------------------- - //
 	// Set's the animation mode to/for an Arcing animation (an animation controlled by a scalar) //
-	void SetArcingAnimation( const int AnimationNumber ) {
-		// Assert if the requested animation doesn't exist //
-		Assert( !Integer(AnimationNumber).InRange( 0, AnimationSet->Animation.size() ),
-			"Arcing Animation " << AnimationNumber << " of " << AnimationSet->Animation.size() <<
-			" requested, but doesn't exist!"
-			);
-		
-		// Set the animation as requested //
-		CurrentAnimation = AnimationNumber;
-		
-		// Set internal animator variables //
-		PlayBackRate = Real::Zero;
-		CurrentFrame = 0;
-		CurrentFrameTime = Real::Zero;
-		
-		// Clear Flags //
-		AnimationFlags.Clear();
+	inline void SetArcingAnimation( const int& AnimationNumber ) {
+		SetAnimation( AnimationNumber, Real::Zero );
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Call this every work frame to update the currently displayed frame //
-	void SetArc( const Real& Arc ) {
-		CurrentFrame = (int)( Arc * Real( AnimationSet->Animation[ CurrentAnimation ].Frame.size() ) );
+	inline void SetArc( const Real& Arc ) {
+		CurrentFrame = (int)( Arc * Real( GetFrameCount() ) );
 	
 		// If too big //
-		if ( CurrentFrame >= (int)AnimationSet->Animation[ CurrentAnimation ].Frame.size() ) {
+		if ( CurrentFrame > GetLastFrame() ) {
 			// Clip to the end //
-			CurrentFrame = AnimationSet->Animation[ CurrentAnimation ].Frame.size() - 1;
+			CurrentFrame = GetLastFrame();
 		}
 		// If too small //
 		else if ( CurrentFrame < 0 ) {
