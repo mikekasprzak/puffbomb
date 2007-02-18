@@ -4,6 +4,8 @@
 #ifndef __Engine2D_BasicAnimator_H__
 #define __Engine2D_BasicAnimator_H__
 // - ------------------------------------------------------------------------------------------ - //
+// Todo: Replace tests in the set function with asserts
+// - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 #include <Geometry/Real.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -18,6 +20,7 @@ public:
 	AnimationSetType* AnimationSet;
 
 public:
+	// Variables for playback //
 	int CurrentAnimation;
 	int CurrentFrame;
 	Real CurrentFrameTime;
@@ -30,11 +33,13 @@ public:
 
 
 public:
+	// No argument constructor //
 	cBasicAnimator() :
 		AnimationSet( 0 )
 	{
 	}
 	
+	// With an animation set from a pool as an arugment //
 	cBasicAnimator( AnimationSetType* _AnimationSet ) :
 		AnimationSet( _AnimationSet ),
 		CurrentAnimation( 0 ),
