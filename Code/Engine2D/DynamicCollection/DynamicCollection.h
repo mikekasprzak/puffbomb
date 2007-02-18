@@ -17,17 +17,17 @@ namespace Engine2D {
 class cDynamicCollection {
 public:
 	// Components of this object //
-	std::vector< cDynamicComponent > Component;
-	
-	//#ifdef EDITOR
-	std::vector< std::string > ComponentName;
-	//#endif // Editor //
-		
+	std::vector< cDynamicComponent > Component;	
 	// Node Linkage in this object //
 	std::vector< cNodeLink > NodeLink;
 	// Anchoring (locking) points in this object //
 	std::vector< cNodeAnchor > NodeAnchor;
 
+
+	//#ifdef EDITOR
+	std::vector< std::string > ComponentName;
+	//#endif // Editor //
+		
 public:
 	cDynamicCollection() {
 	}
