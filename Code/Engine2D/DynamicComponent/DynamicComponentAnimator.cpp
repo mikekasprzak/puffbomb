@@ -8,7 +8,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicComponentAnimator::cDynamicComponentAnimator( )
+cDynamicComponentAnimator::cDynamicComponentAnimator( ) :
+	AnimationSet( 0 )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -50,10 +51,21 @@ void cDynamicComponentAnimator::Step() {
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
-cBody2DPose* cDynamicComponentAnimator::GetPose() {
-	return &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];
 
+// - ------------------------------------------------------------------------------------------ - //
+cBody2DPose* cDynamicComponentAnimator::GetPose() const {
+	// Todo: Assert bounds check CurrentAnimation and CurrentFrame //
+	
+	return &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];
 }
+// - ------------------------------------------------------------------------------------------ - //
+cBody2DPose* cDynamicComponentAnimator::GetPose( const int _Animation, const int _Frame ) const {
+	// Todo: Assert bounds check _Animation and _Frame //
+
+	return &AnimationSet->BodyPose[ AnimationSet->Animation[ _Animation ].Frame[ _Frame ].BodyPoseIndex ];
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponentAnimator::SetAnimation( const int AnimationNumber, const Real& _PlayBackRate ) {
 	// Set the animation as requested //

@@ -4,16 +4,14 @@
 #ifndef __Engine2D_DynamicComponent_DynamicComponent_H__
 #define __Engine2D_DynamicComponent_DynamicComponent_H__
 // - ------------------------------------------------------------------------------------------ - //
-// Todo: Isolate the Animation stuff
+// Todo: 
 // - ------------------------------------------------------------------------------------------ - //
 #include <map>
 #include <string>
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include "Body2D/Body2D.h"
-//#include "ComponentAnimationSet/ComponentAnimationSet.h"
 #include "ComponentFlags.h"
-//#include "AnimationFlags.h"
 #include "DynamicComponentAnimator.h"
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
@@ -23,31 +21,15 @@ public:
 	// Who our parent is //
 	class cDynamicCollection* Parent;
 
-	// Our Animator //
+public:
+	// Animator, to display animations and update the body //
 	cDynamicComponentAnimator Animator;
 
-//public:
-//	// Parts of a component //
-//	cComponentAnimationSet* AnimationSet;
-//
-//public:
-//	int CurrentAnimation;
-//	int CurrentFrame;
-//	Real CurrentFrameTime;
-//
-//	// The rate at which to play back the animation //
-//	Real PlayBackRate;
-//	
-//	// Flags for monitoring aspects of the animation (looping) //
-//	cAnimationFlags AnimationFlags;
-
-public:
+	// Body, to interact with physics //
 	cBody2D Body;
 	
-	// Activity State Flags //
-	//cStateFlags State;
+	// Flags, to analize what's occured //
 	cComponentFlags Flags;
-
 
 public:
 	cDynamicComponent();
@@ -55,7 +37,7 @@ public:
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	// Do physics as a self sustaining object //
+	// Do physics as a self sustaining object (Go to Body.Step() for new systems) //
 	void Step();
 
 public:
@@ -71,13 +53,10 @@ public:
 	// Call this every work frame to update the currently displayed frame //
 	void SetArc( const Real& Arc );
 	
-		
 public:	
 	// - -------------------------------------------------------------------------------------- - //
 	// Draw object Mesh transformed by Body //
 	void Draw( const int RenderPass = 0 );
-
-public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Debug Drawing //
 	void DrawBody( const bool Selected = false ) const;

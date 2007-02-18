@@ -37,7 +37,8 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Move the currently visible animation stuffs forward a frame //
 	void Step();
-	cBody2DPose* GetPose();
+	cBody2DPose* GetPose() const;
+	cBody2DPose* GetPose( const int _Animation, const int _Frame ) const;
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
