@@ -13,14 +13,14 @@ cDynamicComponentAnimator::cDynamicComponentAnimator( ) :
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
-cDynamicComponentAnimator::cDynamicComponentAnimator( cComponentAnimationSet* _AnimationSet ) :
+cDynamicComponentAnimator::cDynamicComponentAnimator( cComponentAnimationSet* const _AnimationSet ) :
 	cBasicAnimator< cComponentAnimationSet >( _AnimationSet )
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cBody2DPose* cDynamicComponentAnimator::GetPose() const {
+cBody2DPose* const cDynamicComponentAnimator::GetPose() const {
 	// Current Animation Bounds Checking //
 	Assert( !Integer(CurrentAnimation).InRange( 0, GetLastAnimation() ),
 		"CurrentAnimation out of bounds!  " << CurrentAnimation << " of " << GetLastAnimation()
@@ -35,7 +35,7 @@ cBody2DPose* cDynamicComponentAnimator::GetPose() const {
 	return &AnimationSet->BodyPose[ AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].BodyPoseIndex ];
 }
 // - ------------------------------------------------------------------------------------------ - //
-cBody2DPose* cDynamicComponentAnimator::GetPose( const int _Animation, const int _Frame ) const {
+cBody2DPose* const cDynamicComponentAnimator::GetPose( const int _Animation, const int _Frame ) const {
 	// _Animation Bounds Checking //
 	Assert( !Integer(_Animation).InRange( 0, GetLastAnimation() ),
 		"_Animation out of bounds!  " << _Animation << " of " << GetLastAnimation()
@@ -52,7 +52,7 @@ cBody2DPose* cDynamicComponentAnimator::GetPose( const int _Animation, const int
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cDynamicComponentAnimator::Draw( cBody2D _Body, const int RenderPass ) {
+void cDynamicComponentAnimator::Draw( cBody2D& _Body, const int RenderPass ) {
 	// Make sure we actually have an associated animation set //
 	if ( AnimationSet ) {
 		AnimationSet->Animation[ CurrentAnimation ].Frame[ CurrentFrame ].Draw( _Body, RenderPass );

@@ -41,7 +41,7 @@ public:
 	}
 	
 	// With an animation set from a pool as an arugment //
-	cBasicAnimator( AnimationSetType* _AnimationSet ) :
+	cBasicAnimator( AnimationSetType* const _AnimationSet ) :
 		AnimationSet( _AnimationSet ),
 		CurrentAnimation( 0 ),
 		CurrentFrame( 0 ),
