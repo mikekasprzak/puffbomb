@@ -124,6 +124,9 @@ void cSuperFlow::StateFlow()
 					
 					//State = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].SuperFlowState;
 					State = MenuFlow.Engine->MenuManager.SuperFlowState;
+					
+					CurClassicMap = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].Focus;
+					//CurGolfMap = 0;
 				}
 				
 				break;

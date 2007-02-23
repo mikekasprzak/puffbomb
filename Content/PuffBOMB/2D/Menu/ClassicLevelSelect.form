@@ -1,41 +1,59 @@
 DialogPos		Left	+	100
-DialogPos		0	+	90
+DialogPos		Top	-	100
 
-DialogPos		Left	+	260
-DialogPos		0	-	90
+DialogPos		Left	+	440
+DialogPos		Top	-	380
 
 Focus			0
 Texture			DialogBox.tx
 CreateDialog
 
-TextLabel		140	-25
+TextLabel		160	-50
 IsPassive		0
 ActionID		2
-Text			Level
+Text			Level 01
 Scale			0.5
 Align			Right
 Color			255	255	255 255
 EndText
 
-TextLabel		140	-75
+TextLabel		160	-125
 IsPassive		0
-ActionID		0
-Text			Best Time
+ActionID		2
+Text			Level 02
 Scale			0.5
 Align			Right
 Color			255	255	255 255
 EndText
 
-TextLabel		140	-125
+TextLabel		160	-200
 IsPassive		0
-ActionID		0
-Text			Perogi
+ActionID		2
+Text			Level 03
 Scale			0.5
 Align			Right
 Color			255	255	255 255
 EndText
 
-TextLabel		140	-175
+TextLabel		160	-275
+IsPassive		0
+ActionID		2
+Text			Level 04
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		160	-350
+IsPassive		0
+ActionID		2
+Text			Level 05
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		160	-425
 IsPassive		0
 ActionID		7
 Text			Back
@@ -43,6 +61,43 @@ Scale			0.5
 Align			Right
 Color			255	255	255 255
 EndText
+
+AniLabel		225	-40
+IsPassive		1
+ActionID		0
+Animation		ColoredAlternativeIcon.anim
+SelectAni		ColoredAlternativeIcon.anim
+CurrentFrame	0
+Color			255	255	255 255
+EndAni
+
+AniLabel		300	-40
+IsPassive		1
+ActionID		0
+Animation		ColoredAlternativeIcon.anim
+SelectAni		ColoredAlternativeIcon.anim
+CurrentFrame	0
+Color			255	255	255 255
+EndAni
+
+AniLabel		225	-115
+IsPassive		1
+ActionID		0
+Animation		ColoredAlternativeIcon.anim
+SelectAni		ColoredAlternativeIcon.anim
+CurrentFrame	0
+Color			128	128	128 128
+EndAni
+
+AniLabel		300	-115
+IsPassive		1
+ActionID		0
+Animation		ColoredAlternativeIcon.anim
+SelectAni		ColoredAlternativeIcon.anim
+CurrentFrame	0
+Color			128	128	128 128
+EndAni
+
 
 BackID 7
 
