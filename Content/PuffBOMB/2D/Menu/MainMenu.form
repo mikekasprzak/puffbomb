@@ -10,7 +10,7 @@ CreateDialog
 
 TextLabel		260	-25
 IsPassive		0
-ActionID		2
+ActionID		12
 Text			Classic Mode
 Scale			0.5
 Align			Right

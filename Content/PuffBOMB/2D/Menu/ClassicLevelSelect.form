@@ -1,0 +1,49 @@
+DialogPos		Left	+	100
+DialogPos		0	+	90
+
+DialogPos		Left	+	260
+DialogPos		0	-	90
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		140	-25
+IsPassive		0
+ActionID		2
+Text			Level
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		140	-75
+IsPassive		0
+ActionID		0
+Text			Best Time
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		140	-125
+IsPassive		0
+ActionID		0
+Text			Perogi
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		140	-175
+IsPassive		0
+ActionID		7
+Text			Back
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+BackID 7
+
+EndDialog

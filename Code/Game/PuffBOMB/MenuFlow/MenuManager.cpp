@@ -29,6 +29,7 @@ cMenuManager::cMenuManager() :
 	#endif // EDITOR //
 
 	Load( "2D/Menu/HelpOptions.form" );
+	Load( "2D/Menu/ClassicLevelSelect.form" );
 
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -43,6 +44,9 @@ void cMenuManager::Draw()
 	{
 		Gfx::PushMatrix();
 		{
+//			Vector2D FormPos = Form[ LastForm ].Size + Form[ LastForm ].Pos;
+
+//			Gfx::Translate( Vector3D( FormPos.x, FormPos.y, -CurZOffset ) );
 			Gfx::Translate( Vector3D( 0, 0, -CurZOffset ) );
 			
 			if( CurForm < Form.size() )
@@ -56,6 +60,9 @@ void cMenuManager::Draw()
 		
 		Gfx::PushMatrix();
 		{
+//			Vector2D FormPos = Form[ LastForm ].Size + Form[ LastForm ].Pos;
+			
+//			Gfx::Translate( Vector3D( FormPos.x, FormPos.y, -LastZOffset + Real( 400.0 ) ) );
 			Gfx::Translate( Vector3D( 0, 0, -LastZOffset + Real( 400.0 ) ) );
 			
 			if( LastForm < Form.size() )
@@ -104,7 +111,7 @@ void cMenuManager::Step()
 			|| BackPressed )
 		{
 		
-			TransTime = GetTime() + 250;
+			TransTime = GetTime() + 350;
 			CurZOffset = Real( 800.0 );
 			LastZOffset = Real( 400.0 );
 			
@@ -178,6 +185,16 @@ void cMenuManager::Step()
 				case 11: // Unlock Full Version Form //
 				{
 					CurForm = 0;
+				break;	
+				}
+				case 12: // Classic Level Select Form //
+				{
+					CurForm = 3;
+				break;	
+				}
+				case 13: // Golf Level Select Form //
+				{
+					CurForm = 4;
 				break;	
 				}
 				default:
