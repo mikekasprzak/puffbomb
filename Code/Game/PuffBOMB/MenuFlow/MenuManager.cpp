@@ -51,7 +51,8 @@ void cMenuManager::Draw()
 			
 			if( CurForm < Form.size() )
 			{
-				Form[ CurForm ].Draw();
+//				Form[ CurForm ].Draw();
+				Form[ CurForm ].Draw( 254 ); // To fix the disappearing Animation problem //
 			}
 			
 			CurZOffset *= Real( 0.75 );
@@ -69,7 +70,8 @@ void cMenuManager::Draw()
 			{
 				Form[ LastForm ].Draw( Form[ LastForm ].FormAlpha );
 				
-				Form[ LastForm ].FormAlpha *= Real( 0.65 );
+//				Form[ LastForm ].FormAlpha *= Real( 0.65 );
+				Form[ LastForm ].FormAlpha = int( Form[ LastForm ].FormAlpha * Real( 0.65 ) );
 			}
 			
 			LastZOffset *= Real( 0.75 );

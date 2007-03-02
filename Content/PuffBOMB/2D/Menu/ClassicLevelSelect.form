@@ -2,7 +2,7 @@ DialogPos		Left	+	100
 DialogPos		Top		-	100
 
 DialogPos		Left	+	480
-DialogPos		Top		-	400
+DialogPos		Bottom	+	100
 
 Focus			0
 Texture			DialogBox.tx

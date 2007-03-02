@@ -479,6 +479,8 @@ void cForm::Draw( int _OverloadAlpha )
 						{
 							int TempColor = ( Labels[ idx ]->Color & 0xffffff ) | ( _OverloadAlpha << 24 );
 							Labels[ idx ]->Draw( Pos, TempColor );
+
+//							Labels[ idx ]->Draw( Pos );
 						}
 						else
 						{

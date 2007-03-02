@@ -39,7 +39,7 @@ SDL_Surface* SetVideoMode() {
 	// Get information about our video hardware // 
 	const SDL_VideoInfo* VideoInfo = SDL_GetVideoInfo();
 	
-	// In the incredibly unlikely case that we have no video hardware... // 
+	// In the incredibly unlikely case that we have no video hardware... //  
 	if ( !VideoInfo ) {
 	    Log( LOG_HIGHEST_LEVEL, "Video query failed: " << SDL_GetError() );
 	    QuitGame( 1 );
@@ -50,7 +50,7 @@ SDL_Surface* SetVideoMode() {
 	int VideoFlags = SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_HWPALETTE; // SDL_FULLSCREEN | SDL_RESIZABLE
 #else // WINDOWED //
 	int VideoFlags = SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_HWPALETTE | SDL_FULLSCREEN; // SDL_FULLSCREEN | SDL_RESIZABLE  
-#endif // WINDOWED //
+#endif // WINDOWED // 
 	
 	// Depeding on if our hardware supports a hardware framebuffer //
     if ( VideoInfo->hw_available )
