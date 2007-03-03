@@ -13,6 +13,7 @@ class cClassicSaveData
 public:
 	std::vector< cMapData > MapData;
 
+public:
 	cClassicSaveData()
 	{
 		
@@ -25,6 +26,7 @@ public:
 	void Load(); // Load Bin //
 	void Save(); // Save Bin //
 	void GenerateSaveData();
+	void FindMaps();
 		
 };
 // - ------------------------------------------------------------------------------------------ - //

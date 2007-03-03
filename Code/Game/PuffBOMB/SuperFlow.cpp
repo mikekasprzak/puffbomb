@@ -20,9 +20,10 @@
 #include "MenuFlow/MenuFlow.h"
 
 #include <MainMenu/MainMenu.h>
-#include <PlayerSelect/PlayerSelect.h>
+//#include <PlayerSelect/PlayerSelect.h>
 #include <LevelEnd/LevelEnd.h>
 
+#include "ClassicSaveData.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -121,11 +122,20 @@ void cSuperFlow::StateFlow()
 				}*/
 				{
 					cMenuFlow MenuFlow( "Maps/Classic/Level01.map" );
-					
+
 					//State = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].SuperFlowState;
 					State = MenuFlow.Engine->MenuManager.SuperFlowState;
 					
-					CurClassicMap = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].Focus;
+					if( State == stClassicGame )
+					{
+						CurClassicMap = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].Focus;
+					}
+					else if( State == stGolfGame )
+					{	
+						// Give the MenuFlow a Players variable and save the focus grab for the golf level //
+						Players.resize( MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.LastForm ].Focus + 1 );
+					}
+					
 					//CurGolfMap = 0;
 				}
 				
@@ -174,7 +184,7 @@ void cSuperFlow::StateFlow()
 				cSplashScreen SplashScreen( "Textures/Menu/TournamentControls.pack.tx", 10000, Real( 2.0 ) );
 			}*/
 			
-			// Start the game //	
+			// Start the game //
 				int OldGolfMap = CurGolfMap;
 				{
 					cGolfGame Game( GolfPath + GolfMaps[ CurGolfMap ], Players, CurrentStartPlayer );
@@ -226,7 +236,7 @@ void cSuperFlow::StateFlow()
 				break;
 			}
 			// - ------------------------------------------------------------------------------ - //
-			case stGolfPlayers:
+			/*case stGolfPlayers:
 			{
 				// Display the Player Select screen //
 				{
@@ -242,7 +252,7 @@ void cSuperFlow::StateFlow()
 					State = PlayerSelect.Form.SuperFlowState;
 				}
 				break;
-			}
+			}*/
 			// - ------------------------------------------------------------------------------ - //
 			default:
 			{
