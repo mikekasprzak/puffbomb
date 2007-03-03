@@ -3,6 +3,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Input/Input.h>
 #include <Graphics/Gfx.h>
+#include <Util/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
@@ -32,9 +33,7 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	Load( "2D/Menu/HelpOptions.form" );					// 2
 	Load( "2D/Menu/ClassicLevelSelect.form" );			// 3
 	
-	//ClassicSaveData
-	
-	
+	UpdateClassicLevelSelect();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMenuManager::~cMenuManager()
@@ -216,6 +215,16 @@ void cMenuManager::Step()
 			}
 
 		}
+	}
+	
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMenuManager::UpdateClassicLevelSelect()
+{
+		
+	if( Form.back().Labels[ 0 ]->TextLabel() )
+	{
+		Form.back().Labels[ 0 ]->TextLabel()->Text = String::BaseName( ClassicSaveData->MapData[ 0 ].MapName );
 	}
 	
 }

@@ -31,6 +31,10 @@ public:
 public:
 	void Step();
 	void Draw();
+
+public:
+	void UpdateClassicLevelSelect();
+	
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // MenuManager // 

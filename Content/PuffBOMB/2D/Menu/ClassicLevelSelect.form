@@ -8,43 +8,52 @@ Focus			0
 Texture			DialogBox.tx
 CreateDialog
 
-TextLabel		200	-50
+TextLabel		200	-100
 IsPassive		0
 ActionID		2
-Text			Level 01
+Text			?????????
 Scale			0.5
 Align			Right
 Color			255	255	255 255
 EndText
 
-TextLabel		200	-125
+TextLabel		200	-175
 IsPassive		0
 ActionID		2
-Text			Level 02
+Text			?????????
 Scale			0.5
 Align			Right
 Color			255	255	255 255
 EndText
 
-TextLabel		200	-200
+TextLabel		200	-250
 IsPassive		0
 ActionID		2
-Text			Level 03
+Text			?????????
 Scale			0.5
 Align			Right
 Color			255	255	255 255
 EndText
 
-TextLabel		200	-275
+TextLabel		200	-325
 IsPassive		0
 ActionID		2
-Text			Level 04
+Text			?????????
 Scale			0.5
 Align			Right
 Color			255	255	255 255
 EndText
 
-AniLabel		40	-265
+TextLabel		200	-400
+IsPassive		0
+ActionID		2
+Text			?????????
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+AniLabel		40	-315
 IsPassive		1
 ActionID		0
 Animation		ColoredAlternativeIcon.anim
@@ -53,7 +62,7 @@ CurrentFrame	0
 Color			255	255	255 255
 EndAni
 
-AniLabel		265	-40
+AniLabel		265	-90
 IsPassive		1
 ActionID		0
 Animation		ColoredAlternativeIcon.anim
@@ -62,7 +71,7 @@ CurrentFrame	0
 Color			255	255	255 255
 EndAni
 
-AniLabel		340	-40
+AniLabel		340	-90
 IsPassive		1
 ActionID		0
 Animation		ColoredAlternativeIcon.anim
@@ -71,7 +80,7 @@ CurrentFrame	0
 Color			255	255	255 255
 EndAni
 
-AniLabel		265	-115
+AniLabel		265	-165
 IsPassive		1
 ActionID		0
 Animation		ColoredAlternativeIcon.anim
@@ -80,7 +89,7 @@ CurrentFrame	0
 Color			255	255	255 255
 EndAni
 
-AniLabel		340	-115
+AniLabel		340	-165
 IsPassive		1
 ActionID		0
 Animation		ColoredAlternativeIcon.anim
