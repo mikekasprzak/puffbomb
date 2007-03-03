@@ -14,7 +14,8 @@
 #include <Graphics/Gfx.h>
 #include <sstream>
 // - ------------------------------------------------------------------------------------------ - //
-cMenuFlowEngine::cMenuFlowEngine( const std::string& FileName )
+cMenuFlowEngine::cMenuFlowEngine( const std::string& FileName, cClassicSaveData* _ClassicSaveData ) :
+	MenuManager( _ClassicSaveData )
 {
 	// Create Camera //
 	HudCamera = new cCamera(
@@ -39,7 +40,7 @@ cMenuFlowEngine::cMenuFlowEngine( const std::string& FileName )
 	DenseParticle.Clear();
  	SolidParticle.Clear();
  	
- 	Gfx::DisableMouseDraw();
+ 	Gfx::DisableMouseDraw(); 	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMenuFlowEngine::~cMenuFlowEngine() {

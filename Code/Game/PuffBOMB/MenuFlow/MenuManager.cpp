@@ -6,7 +6,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
-cMenuManager::cMenuManager() :
+cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
+	ClassicSaveData( _ClassicSaveData ),
 	BreakLoop( false ),
 	CurForm( 0 ),
 	LastForm( 0 ),
@@ -21,16 +22,19 @@ cMenuManager::cMenuManager() :
 	#ifdef EDITOR
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 	//	Load( "2D/Menu/MainMenu.form" );
-		Load( "2D/Menu/MainMenuEditor.form" );
-		Load( "2D/Menu/PlayerSelect.form" );
+		Load( "2D/Menu/MainMenuEditor.form" );			// 0
+		Load( "2D/Menu/PlayerSelect.form" );			// 1
 	#else
-		Load( "2D/Menu/MainMenu.form" );
-		Load( "2D/Menu/PlayerSelect.form" );
+		Load( "2D/Menu/MainMenu.form" );				// 0
+		Load( "2D/Menu/PlayerSelect.form" );			// 1
 	#endif // EDITOR //
 
-	Load( "2D/Menu/HelpOptions.form" );
-	Load( "2D/Menu/ClassicLevelSelect.form" );
-
+	Load( "2D/Menu/HelpOptions.form" );					// 2
+	Load( "2D/Menu/ClassicLevelSelect.form" );			// 3
+	
+	//ClassicSaveData
+	
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMenuManager::~cMenuManager()

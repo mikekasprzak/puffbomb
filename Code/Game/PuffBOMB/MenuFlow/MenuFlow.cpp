@@ -3,10 +3,10 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cMenuFlow::cMenuFlow( const std::string& FileName ) {
+cMenuFlow::cMenuFlow( const std::string& FileName, cClassicSaveData* _ClassicSaveData ) {
 	// Creating Engine //
 	Log( LOG_HIGHEST_LEVEL, "Creating Engine..." );
-	Engine = new cMenuFlowEngine( FileName );
+	Engine = new cMenuFlowEngine( FileName, _ClassicSaveData );
 	
 	Work();
 }

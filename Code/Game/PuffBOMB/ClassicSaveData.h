@@ -16,7 +16,7 @@ public:
 public:
 	cClassicSaveData()
 	{
-		
+		Load();
 	}
 	~cClassicSaveData()
 	{

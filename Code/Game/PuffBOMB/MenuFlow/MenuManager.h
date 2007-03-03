@@ -6,11 +6,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Gui/WindowManager.h>
 // - ------------------------------------------------------------------------------------------ - //
-
+#include <ClassicSaveData.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cMenuManager : public cWindowManager
 {
 public:
+	cClassicSaveData* ClassicSaveData;
+
 	bool BreakLoop;
 	
 	unsigned int CurForm;
@@ -23,7 +25,7 @@ public:
 	Real CurZOffset;
 	
 public:
-	cMenuManager();
+	cMenuManager( cClassicSaveData* _ClassicSaveData );
 	~cMenuManager();
 
 public:

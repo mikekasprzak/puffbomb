@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "GolfGame/Player/PlayerInfo.h"
+#include "ClassicSaveData.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cSuperFlow { 
 public:
@@ -24,6 +25,8 @@ public:
 	int CurGolfMap;
 	
 	int CurrentStartPlayer;
+	
+	cClassicSaveData ClassicSaveData;
 		
 public:
 	cSuperFlow();

@@ -6,13 +6,14 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <MessageEntity.h>
 #include "MenuFlowEngine.h"
+#include <ClassicSaveData.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cMenuFlow : public cMessageEntity { 
 public:
 	cMenuFlowEngine* Engine;
 
 public:
-	cMenuFlow( const std::string& FileName );
+	cMenuFlow( const std::string& FileName, cClassicSaveData* _ClassicSaveData );
 	~cMenuFlow();
 
 public:

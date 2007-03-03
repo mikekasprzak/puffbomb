@@ -8,6 +8,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Engine2D.h>
 #include <Animation/Animator.h>
+#include <ClassicSaveData.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "MenuManager.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -26,7 +27,7 @@ public:
 	int State;
 
 public:
-	cMenuFlowEngine( const std::string& FileName );
+	cMenuFlowEngine( const std::string& FileName, cClassicSaveData* _ClassicSaveData );
 	~cMenuFlowEngine();
 	
 public:

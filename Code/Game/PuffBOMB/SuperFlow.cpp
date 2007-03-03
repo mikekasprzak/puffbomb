@@ -23,7 +23,6 @@
 //#include <PlayerSelect/PlayerSelect.h>
 #include <LevelEnd/LevelEnd.h>
 
-#include "ClassicSaveData.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -83,6 +82,7 @@ cSuperFlow::cSuperFlow() :
 
 	FXLibrary::InitAnims();
 
+	
 	StateFlow(); // This must be the last thing in the constructor //
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -121,7 +121,7 @@ void cSuperFlow::StateFlow()
 					State = MainMenu.Form.SuperFlowState;
 				}*/
 				{
-					cMenuFlow MenuFlow( "Maps/Classic/Level01.map" );
+					cMenuFlow MenuFlow( "Maps/Classic/Level01.map", &ClassicSaveData );
 
 					//State = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].SuperFlowState;
 					State = MenuFlow.Engine->MenuManager.SuperFlowState;
