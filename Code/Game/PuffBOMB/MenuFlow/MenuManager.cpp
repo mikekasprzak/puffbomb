@@ -15,7 +15,8 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	SuperFlowState( 1 ),
 	TransTime( 0 ),
 	LastZOffset( 400.0 ),
-	CurZOffset( 800.0 )
+	CurZOffset( 800.0 ),
+	CurLevelPivot( 4 )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
@@ -221,11 +222,45 @@ void cMenuManager::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuManager::UpdateClassicLevelSelect()
 {
-		
-	if( Form.back().Labels[ 0 ]->TextLabel() )
+	if( ClassicSaveData->MapData.size() > 2 )
 	{
-		Form.back().Labels[ 0 ]->TextLabel()->Text = String::BaseName( ClassicSaveData->MapData[ 0 ].MapName );
-	}
+		size_t FormLabelSize = Form.back().Labels.size();
 	
+		for( size_t idx = 0; idx < FormLabelSize; ++idx )
+		{
+			if( Form.back().Labels[ idx ]->TextLabel() )
+			{
+				Form.back().Labels[ idx ]->TextLabel()->Text = String::BaseName( ClassicSaveData->MapData[ idx + CurLevelPivot ].MapName );
+			}
+		}
+		
+		for( size_t idx = FormLabelSize; idx < ClassicSaveData->MapData.size() - CurLevelPivot; ++idx )
+		{
+			cTextLabel* TempLabel = Form.back().Labels.back()->TextLabel();
+			
+			// set passive to true and set the color to grey if the level is locked?? //
+			Form.back().Labels.push_back(
+				new cTextLabel(
+					Vector2D( TempLabel->Pos.x, TempLabel->Pos.y - Real( 75 ) ),
+					TempLabel->IsPassive,
+					TempLabel->ActionID,
+					String::BaseName( ClassicSaveData->MapData[ idx + CurLevelPivot ].MapName ),
+					TempLabel->Scale,
+					Gfx::RGBA( 255, 255, 255, 255 ),
+					TempLabel->Align
+				)
+			);
+			
+			if( !TempLabel->IsPassive )
+			{
+				Form.back().ActiveLabels.push_back( Form.back().Labels.size() - 1 );
+			}
+			
+			if( Form.back().Labels.back()->TextLabel()->Pos.y < ( Form.back().Size.y * Real( 2 ) + Real( 150 ) ) )
+			{
+				break;	
+			}			
+		}		
+	}	
 }
 // - ------------------------------------------------------------------------------------------ - //

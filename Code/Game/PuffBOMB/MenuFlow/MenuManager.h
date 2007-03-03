@@ -24,6 +24,8 @@ public:
 	Real LastZOffset;
 	Real CurZOffset;
 	
+	int CurLevelPivot;
+	
 public:
 	cMenuManager( cClassicSaveData* _ClassicSaveData );
 	~cMenuManager();
