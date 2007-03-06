@@ -4,6 +4,7 @@
 #include <Input/Input.h>
 #include <Graphics/Gfx.h>
 #include <Util/String.h>
+#include <Animation/AnimationPool.h>
 // - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
@@ -225,18 +226,78 @@ void cMenuManager::UpdateClassicLevelSelect()
 	if( ClassicSaveData->MapData.size() > 2 )
 	{
 		size_t FormLabelSize = Form.back().Labels.size();
-	
+
+		size_t LastTextLabelIdx = Form.back().Labels.size() - 1;
+			
 		for( size_t idx = 0; idx < FormLabelSize; ++idx )
 		{
 			if( Form.back().Labels[ idx ]->TextLabel() )
 			{
 				Form.back().Labels[ idx ]->TextLabel()->Text = String::BaseName( ClassicSaveData->MapData[ idx + CurLevelPivot ].MapName );
 			}
+			
+			if( ClassicSaveData->MapData[ idx + CurLevelPivot ].NormalCompleted )
+			{
+				// Place the Completed animation to the right level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 265 ), Form.back().Labels[ idx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "ColoredCompletedIcon.anim" ),
+						AnimationPool.Load( "ColoredCompletedIcon.anim" ),
+						0
+					)
+				);
+			}
+			else
+			{
+				// Place the gray Completed animation to the right level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 265 ), Form.back().Labels[ idx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "GrayCompletedIcon.anim" ),
+						AnimationPool.Load( "GrayCompletedIcon.anim" ),
+						0
+					)
+				);
+			}
+
+			if( ClassicSaveData->MapData[ idx + CurLevelPivot ].AlternateCompleted )
+			{
+				// Place the alternate completed animation to the right level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 340 ), Form.back().Labels[ idx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "ColoredAlternativeIcon.anim" ),
+						AnimationPool.Load( "ColoredAlternativeIcon.anim" ),
+						0
+					)
+				);
+			}
+			else
+			{
+				// Place the gray alternate completed animation to the right level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 340 ), Form.back().Labels[ idx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "GrayAlternativeIcon.anim" ),
+						AnimationPool.Load( "GrayAlternativeIcon.anim" ),
+						0
+					)
+				);
+			}			
 		}
 		
 		for( size_t idx = FormLabelSize; idx < ClassicSaveData->MapData.size() - CurLevelPivot; ++idx )
 		{
-			cTextLabel* TempLabel = Form.back().Labels.back()->TextLabel();
+			cTextLabel* TempLabel = Form.back().Labels[ LastTextLabelIdx ]->TextLabel();
 			
 			// Push back the text label //
 			Form.back().Labels.push_back(
@@ -256,22 +317,91 @@ void cMenuManager::UpdateClassicLevelSelect()
 				Form.back().ActiveLabels.push_back( Form.back().Labels.size() - 1 );
 			}
 			
+			LastTextLabelIdx = Form.back().Labels.size() - 1;
+						
 			if( ClassicSaveData->MapData[ idx + CurLevelPivot ].Locked )
 			{
-				// Set the Color to grey if the Label is locked and the SelColor to red //
+				// Set the Color to gray if the Label is locked and the SelColor to red //
 				Form.back().Labels.back()->TextLabel()->Color = Gfx::RGBA( 128, 128, 128, 255 );
 				Form.back().Labels.back()->TextLabel()->SelColor = Gfx::RGBA( 255, 64, 64, 255 );
 					
-				// Place the Locked Icon to the left of the grey level name //
-								
-
+				// Place the Locked animation to the left of the gray level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 40 ), Form.back().Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "ColoredLockedIcon.anim" ),
+						AnimationPool.Load( "ColoredLockedIcon.anim" ),
+						0
+					)
+				);
 			}
 			
-			if( Form.back().Labels.back()->TextLabel()->Pos.y < ( Form.back().Size.y * Real( 2 ) + Real( 150 ) ) )
+			if( ClassicSaveData->MapData[ idx + CurLevelPivot ].NormalCompleted )
+			{
+				// Place the Completed animation to the right level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 265 ), Form.back().Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "ColoredCompletedIcon.anim" ),
+						AnimationPool.Load( "ColoredCompletedIcon.anim" ),
+						0
+					)
+				);
+			}
+			else
+			{
+				// Place the gray Completed animation to the right level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 265 ), Form.back().Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "GrayCompletedIcon.anim" ),
+						AnimationPool.Load( "GrayCompletedIcon.anim" ),
+						0
+					)
+				);
+			}
+
+			if( ClassicSaveData->MapData[ idx + CurLevelPivot ].AlternateCompleted )
+			{
+				// Place the alternate completed animation to the right level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 340 ), Form.back().Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "ColoredAlternativeIcon.anim" ),
+						AnimationPool.Load( "ColoredAlternativeIcon.anim" ),
+						0
+					)
+				);
+			}
+			else
+			{
+				// Place the gray alternate completed animation to the right level name //
+				Form.back().Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 340 ), Form.back().Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+						false,
+						0,
+						AnimationPool.Load( "GrayAlternativeIcon.anim" ),
+						AnimationPool.Load( "GrayAlternativeIcon.anim" ),
+						0
+					)
+				);
+			}
+
+			
+			if( Form.back().Labels[ LastTextLabelIdx ]->TextLabel()->Pos.y < ( Form.back().Size.y * Real( 2 ) + Real( 150 ) ) )
 			{
 				break;	
 			}			
-		}		
+		}
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //

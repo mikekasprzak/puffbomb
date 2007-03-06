@@ -8,30 +8,30 @@ Focus			0
 Texture			DialogBox.tx
 CreateDialog
 
-TextLabel		200	-100
+TextLabel		100	-100
 IsPassive		0
 ActionID		2
 Text			?????????
 Scale			0.5
-Align			Right
+Align			Left
 Color			255	255	255 255
 EndText
 
-TextLabel		200	-175
+TextLabel		100	-175
 IsPassive		0
 ActionID		2
 Text			?????????
 Scale			0.5
-Align			Right
+Align			Left
 Color			255	255	255 255
 EndText
 
-TextLabel		200	-250
+TextLabel		100	-250
 IsPassive		0
 ActionID		2
 Text			?????????
 Scale			0.5
-Align			Right
+Align			Left
 Color			255	255	255 255
 EndText
 
