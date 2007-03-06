@@ -13,7 +13,13 @@ cWindowManager::cWindowManager()
 // - ------------------------------------------------------------------------------------------ - //
 cWindowManager::~cWindowManager()
 {
-	
+	for( size_t idx = 0; idx < Form.size(); ++idx )
+	{
+		for( size_t idx2 = 0; idx2 < Form[ idx ].Labels.size(); ++idx2 )
+		{
+			delete Form[ idx ].Labels[ idx2 ];
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cWindowManager::Load( const std::string& FileName )

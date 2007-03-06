@@ -55,6 +55,8 @@ public:
 		const std::string& TextureLoc
 	);
 	
+	~cForm();
+	
 	void Load( const std::string &File );
 	Real Anchor( const std::string &AnchorName );
 	
