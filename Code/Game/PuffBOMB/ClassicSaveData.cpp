@@ -39,5 +39,6 @@ void cClassicSaveData::FindMaps()
 			MapData.push_back( cMapData( MapDirCache.File[idx] ) );
 		}
 	}
+
 }
 // - ------------------------------------------------------------------------------------------ - //

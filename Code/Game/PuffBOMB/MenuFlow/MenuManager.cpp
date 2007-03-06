@@ -6,6 +6,8 @@
 #include <Util/String.h>
 #include <Animation/AnimationPool.h>
 // - ------------------------------------------------------------------------------------------ - //
+#include <Global.h>
+// - ------------------------------------------------------------------------------------------ - //
 extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
 cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
@@ -291,7 +293,32 @@ void cMenuManager::UpdateClassicLevelSelect()
 				break;	
 			}			
 		}
-	}	
+		
+		// Place the up arrow at the top //
+		Form.back()->Labels.push_back( 
+			new cAniLabel(
+				Vector2D( Real( 190 ), Real( -30 ) ),
+				false,
+				0,
+				AnimationPool.Load( "ColoredLessArrow.anim" ),
+				AnimationPool.Load( "ColoredLessArrow.anim" ),
+				0
+			)
+		);
+
+		// Place the down arrow at the bottom //
+		Form.back()->Labels.push_back( 
+			new cAniLabel(
+				Vector2D( Real( 190 ), ( Form.back()->Size.y * Real( 2 ) ) + Real( 30 ) ),
+				false,
+				0,
+				AnimationPool.Load( "ColoredMoreArrow.anim" ),
+				AnimationPool.Load( "ColoredMoreArrow.anim" ),
+				0
+			)
+		);
+	}
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
