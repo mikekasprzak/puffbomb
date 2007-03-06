@@ -36,6 +36,7 @@ public:
 
 public:
 	void UpdateClassicLevelSelect();
+	void CompletedTest( size_t idx, size_t LastTextLabelIdx );
 	
 };
 // - ------------------------------------------------------------------------------------------ - //
