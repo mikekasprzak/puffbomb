@@ -16,7 +16,7 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	TransTime( 0 ),
 	LastZOffset( 400.0 ),
 	CurZOffset( 800.0 ),
-	CurLevelPivot( 4 )
+	CurLevelPivot( 0 )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
@@ -238,7 +238,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 		{
 			cTextLabel* TempLabel = Form.back().Labels.back()->TextLabel();
 			
-			// set passive to true and set the color to grey if the level is locked?? //
+			// Push back the text label //
 			Form.back().Labels.push_back(
 				new cTextLabel(
 					Vector2D( TempLabel->Pos.x, TempLabel->Pos.y - Real( 75 ) ),
@@ -254,6 +254,17 @@ void cMenuManager::UpdateClassicLevelSelect()
 			if( !TempLabel->IsPassive )
 			{
 				Form.back().ActiveLabels.push_back( Form.back().Labels.size() - 1 );
+			}
+			
+			if( ClassicSaveData->MapData[ idx + CurLevelPivot ].Locked )
+			{
+				// Set the Color to grey if the Label is locked and the SelColor to red //
+				Form.back().Labels.back()->TextLabel()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+				Form.back().Labels.back()->TextLabel()->SelColor = Gfx::RGBA( 255, 64, 64, 255 );
+					
+				// Place the Locked Icon to the left of the grey level name //
+								
+
 			}
 			
 			if( Form.back().Labels.back()->TextLabel()->Pos.y < ( Form.back().Size.y * Real( 2 ) + Real( 150 ) ) )
