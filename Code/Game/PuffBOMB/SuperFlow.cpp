@@ -115,28 +115,20 @@ void cSuperFlow::StateFlow()
 				CurGolfMap = 0;
 			
 				// Display the MainMenu screen //
-			/*	{
-					cMainMenu MainMenu;
-
-					State = MainMenu.Form.SuperFlowState;
-				}*/
 				{
 					cMenuFlow MenuFlow( "Maps/Classic/Level01.map", &ClassicSaveData );
 
-					//State = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].SuperFlowState;
 					State = MenuFlow.Engine->MenuManager.SuperFlowState;
 					
 					if( State == stClassicGame )
 					{
-						CurClassicMap = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ].Focus;
+						CurClassicMap = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ]->Focus;
 					}
 					else if( State == stGolfGame )
 					{	
 						// Give the MenuFlow a Players variable and save the focus grab for the golf level //
-						Players.resize( MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.LastForm ].Focus + 1 );
+						Players.resize( MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.LastForm ]->Focus + 1 );
 					}
-					
-					//CurGolfMap = 0;
 				}
 				
 				break;
@@ -145,11 +137,6 @@ void cSuperFlow::StateFlow()
 			case stClassicGame:
 			{
 				
-/*				if( CurClassicMap == 0 )
-				{
-					cSplashScreen SplashScreen( "Textures/Menu/ClassicControls.pack.tx", 10000, Real( 2.0 ) );
-				}*/
-								
 				// Start the game //	
 				int OldClassicMap = CurClassicMap;
 				{
@@ -178,11 +165,6 @@ void cSuperFlow::StateFlow()
 			// - ------------------------------------------------------------------------------ - //
 			case stGolfGame:
 			{
-			
-/*			if( CurGolfMap == 0 )
-			{
-				cSplashScreen SplashScreen( "Textures/Menu/TournamentControls.pack.tx", 10000, Real( 2.0 ) );
-			}*/
 			
 			// Start the game //
 				int OldGolfMap = CurGolfMap;

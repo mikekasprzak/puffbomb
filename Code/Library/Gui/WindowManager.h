@@ -12,7 +12,7 @@
 class cWindowManager
 {
 public:
-	std::vector< cForm > Form;	
+	std::vector< cForm* > Form;	
 	
 public:
 	cWindowManager();

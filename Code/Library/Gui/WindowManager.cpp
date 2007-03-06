@@ -13,18 +13,16 @@ cWindowManager::cWindowManager()
 // - ------------------------------------------------------------------------------------------ - //
 cWindowManager::~cWindowManager()
 {
+	Log( 10, "Deleting Window Manager" );
+
 	for( size_t idx = 0; idx < Form.size(); ++idx )
 	{
-		for( size_t idx2 = 0; idx2 < Form[ idx ].Labels.size(); ++idx2 )
-		{
-			delete Form[ idx ].Labels[ idx2 ];
-		}
+		delete Form[ idx ];
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cWindowManager::Load( const std::string& FileName )
 {
-	Form.push_back( cForm() );
-	Form.back().Load( FileName );
+	Form.push_back( new cForm( FileName ) );
 }
 // - ------------------------------------------------------------------------------------------ - //
