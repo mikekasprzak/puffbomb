@@ -19,7 +19,7 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	TransTime( 0 ),
 	LastZOffset( 400.0 ),
 	CurZOffset( 800.0 ),
-	CurLevelPivot( 4 )
+	CurLevelPivot( 0 )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
@@ -370,6 +370,29 @@ void cMenuManager::UpdateClassicLevelSelect()
 			);
 			// If there is no grey arrow just do this //
 			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+		}
+		
+		
+		if( Form.back()->Labels[ 0 ]->TextLabel() )
+		{
+			if( ClassicSaveData->MapData[ CurLevelPivot ].Locked )
+			{
+				// Set the Color to grey if the Label is locked and the SelColor to red //
+				Form.back()->Labels[ 0 ]->TextLabel()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+				Form.back()->Labels[ 0 ]->TextLabel()->SelColor = Gfx::RGBA( 255, 64, 64, 255 );
+					
+				// Place the Locked animation to the left of the grey level name //
+				Form.back()->Labels.push_back( 
+					new cAniLabel(
+						Vector2D( Real( 40 ), Form.back()->Labels[ 0 ]->Pos.y + Real( 10 ) ),
+						true,
+						0,
+						AnimationPool.Load( "ColoredLockedIcon.anim" ),
+						AnimationPool.Load( "ColoredLockedIcon.anim" ),
+						0
+					)
+				);
+			}
 		}
 	}
 }
