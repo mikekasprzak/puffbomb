@@ -269,15 +269,15 @@ void cMenuManager::UpdateClassicLevelSelect()
 						
 			if( ClassicSaveData->MapData[ idx + CurLevelPivot ].Locked )
 			{
-				// Set the Color to gray if the Label is locked and the SelColor to red //
+				// Set the Color to grey if the Label is locked and the SelColor to red //
 				Form.back()->Labels.back()->TextLabel()->Color = Gfx::RGBA( 128, 128, 128, 255 );
 				Form.back()->Labels.back()->TextLabel()->SelColor = Gfx::RGBA( 255, 64, 64, 255 );
 					
-				// Place the Locked animation to the left of the gray level name //
+				// Place the Locked animation to the left of the grey level name //
 				Form.back()->Labels.push_back( 
 					new cAniLabel(
 						Vector2D( Real( 40 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
-						false,
+						true,
 						0,
 						AnimationPool.Load( "ColoredLockedIcon.anim" ),
 						AnimationPool.Load( "ColoredLockedIcon.anim" ),
@@ -290,22 +290,45 @@ void cMenuManager::UpdateClassicLevelSelect()
 			
 			if( Form.back()->Labels[ LastTextLabelIdx ]->TextLabel()->Pos.y < ( Form.back()->Size.y * Real( 2 ) + Real( 150 ) ) )
 			{
-				break;	
+				break;
 			}			
 		}
 		
 		// Place the up arrow at the top //
-		Form.back()->Labels.push_back( 
-			new cAniLabel(
-				Vector2D( Real( 190 ), Real( -30 ) ),
-				false,
-				0,
-				AnimationPool.Load( "ColoredLessArrow.anim" ),
-				AnimationPool.Load( "ColoredLessArrow.anim" ),
-				0
-			)
-		);
+		if( CurLevelPivot != 0 )
+		{
+			Form.back()->Labels.push_back( 
+				new cAniLabel(
+					Vector2D( Real( 190 ), Real( -30 ) ),
+					false,
+					0,
+					AnimationPool.Load( "ColoredLessArrow.anim" ),
+					AnimationPool.Load( "ColoredLessArrow.anim" ),
+					0
+				)
+			);
+			// If there is no animation for selecting do this //
+			Form.back()->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );				
+		}
+		else
+		{
+			Form.back()->Labels.push_back( 
+				new cAniLabel(
+					Vector2D( Real( 190 ), Real( -30 ) ),
+					true,
+					0,
+					AnimationPool.Load( "GreyLessArrow.anim" ),
+					AnimationPool.Load( "GreyLessArrow.anim" ),
+					0
+				)
+			);
+			// If there is no grey arrow just do this //
+			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+		}
 
+//		Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+//		Form.back()->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );
+		
 		// Place the down arrow at the bottom //
 		Form.back()->Labels.push_back( 
 			new cAniLabel(
@@ -329,7 +352,7 @@ void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
 		Form.back()->Labels.push_back( 
 			new cAniLabel(
 				Vector2D( Real( 265 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
-				false,
+				true,
 				0,
 				AnimationPool.Load( "ColoredCompletedIcon.anim" ),
 				AnimationPool.Load( "ColoredCompletedIcon.anim" ),
@@ -339,14 +362,14 @@ void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
 	}
 	else
 	{
-		// Place the gray Completed animation to the right level name //
+		// Place the grey Completed animation to the right level name //
 		Form.back()->Labels.push_back( 
 			new cAniLabel(
 				Vector2D( Real( 265 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
-				false,
+				true,
 				0,
-				AnimationPool.Load( "GrayCompletedIcon.anim" ),
-				AnimationPool.Load( "GrayCompletedIcon.anim" ),
+				AnimationPool.Load( "GreyCompletedIcon.anim" ),
+				AnimationPool.Load( "GreyCompletedIcon.anim" ),
 				0
 			)
 		);
@@ -358,7 +381,7 @@ void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
 		Form.back()->Labels.push_back( 
 			new cAniLabel(
 				Vector2D( Real( 340 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
-				false,
+				true,
 				0,
 				AnimationPool.Load( "ColoredAlternativeIcon.anim" ),
 				AnimationPool.Load( "ColoredAlternativeIcon.anim" ),
@@ -368,14 +391,14 @@ void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
 	}
 	else
 	{
-		// Place the gray alternate completed animation to the right level name //
+		// Place the grey alternate completed animation to the right level name //
 		Form.back()->Labels.push_back( 
 			new cAniLabel(
 				Vector2D( Real( 340 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
-				false,
+				true,
 				0,
-				AnimationPool.Load( "GrayAlternativeIcon.anim" ),
-				AnimationPool.Load( "GrayAlternativeIcon.anim" ),
+				AnimationPool.Load( "GreyAlternativeIcon.anim" ),
+				AnimationPool.Load( "GreyAlternativeIcon.anim" ),
 				0
 			)
 		);
