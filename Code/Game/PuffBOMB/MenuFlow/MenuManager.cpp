@@ -19,7 +19,7 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	TransTime( 0 ),
 	LastZOffset( 400.0 ),
 	CurZOffset( 800.0 ),
-	CurLevelPivot( 0 )
+	CurLevelPivot( 4 )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
@@ -207,6 +207,16 @@ void cMenuManager::Step()
 					CurForm = 4;
 				break;	
 				}
+				case 14: // Classic Previous Page Level Select //
+				{
+					CurForm = 3;
+				break;	
+				}
+				case 15: // Classic Next Page Level Select //
+				{
+					CurForm = 3;
+				break;	
+				}
 				default:
 				{
 				
@@ -240,7 +250,6 @@ void cMenuManager::UpdateClassicLevelSelect()
 			}
 			
 			CompletedTest( idx, idx );
-		
 		}
 		
 		for( size_t idx = FormLabelSize; idx < ClassicSaveData->MapData.size() - CurLevelPivot; ++idx )
