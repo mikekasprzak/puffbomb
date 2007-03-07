@@ -293,7 +293,41 @@ void cMenuManager::UpdateClassicLevelSelect()
 				break;
 			}			
 		}
-		
+		// Place the down arrow at the bottom //
+		if( CurLevelPivot != 100 ) // Calc the number somehow
+		{
+			Form.back()->Labels.push_back( 
+				new cAniLabel(
+					Vector2D( Real( 190 ), ( Form.back()->Size.y * Real( 2 ) ) + Real( 30 ) ),
+					false,
+					0,
+					AnimationPool.Load( "ColoredMoreArrow.anim" ),
+					AnimationPool.Load( "ColoredMoreArrow.anim" ),
+					0
+				)
+			);
+			// If there is no animation for selecting do this //
+			Form.back()->Labels.back()->Color = Gfx::RGBA( 255, 255, 255, 254 );
+			Form.back()->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );
+			
+			Form.back()->ActiveLabels.push_back( Form.back()->Labels.size() - 1 );		
+		}
+		else
+		{
+			Form.back()->Labels.push_back( 
+				new cAniLabel(
+					Vector2D( Real( 190 ), ( Form.back()->Size.y * Real( 2 ) ) + Real( 30 ) ),
+					true,
+					0,
+					AnimationPool.Load( "GreyMoreArrow.anim" ),
+					AnimationPool.Load( "GreyMoreArrow.anim" ),
+					0
+				)
+			);
+			// If there is no grey arrow just do this //
+			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+		}
+			
 		// Place the up arrow at the top //
 		if( CurLevelPivot != 0 )
 		{
@@ -308,7 +342,10 @@ void cMenuManager::UpdateClassicLevelSelect()
 				)
 			);
 			// If there is no animation for selecting do this //
-			Form.back()->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );				
+			Form.back()->Labels.back()->Color = Gfx::RGBA( 255, 255, 255, 254 );
+			Form.back()->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );
+			
+			Form.back()->ActiveLabels.push_back( Form.back()->Labels.size() - 1 );		
 		}
 		else
 		{
@@ -325,23 +362,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 			// If there is no grey arrow just do this //
 			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );
 		}
-
-//		Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );
-//		Form.back()->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );
-		
-		// Place the down arrow at the bottom //
-		Form.back()->Labels.push_back( 
-			new cAniLabel(
-				Vector2D( Real( 190 ), ( Form.back()->Size.y * Real( 2 ) ) + Real( 30 ) ),
-				false,
-				0,
-				AnimationPool.Load( "ColoredMoreArrow.anim" ),
-				AnimationPool.Load( "ColoredMoreArrow.anim" ),
-				0
-			)
-		);
 	}
-
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
