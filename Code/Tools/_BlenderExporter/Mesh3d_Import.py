@@ -45,14 +45,17 @@ def read(filename):
         name = filename.split('\\')[-1].split('/')[-1]
         mesh = Blender.NMesh.New( name ) # create a new mesh
         # parse the file
+        state = 0
+        
         file = open(filename, 'r')
         for line in file.readlines():
                 words = line.split()
                 if len(words) == 0 or words[0].startswith('#'):
                         pass
-                elif words[0] == 'v':
-                        x, y, z = float(words[1]), float(words[2]), float(words[3])
-                        mesh.verts.append(Blender.NMesh.Vert(x, y, z))
+                elif words[0] == 'Vertices':
+                        state = 0
+                elif words[0] == 'TextureCoord':
+                        state = 1
                 elif words[0] == 'f':
                         faceVertList = []
                         for faceIdx in words[1:]:
@@ -60,6 +63,9 @@ def read(filename):
                                 faceVertList.append(faceVert)
                         newFace = Blender.NMesh.Face(faceVertList)
                         mesh.addFace(newFace)
+                elif state == 0:
+                        x, y, z = float(words[0]), float(words[1]), float(words[2])
+                        mesh.verts.append(Blender.NMesh.Vert(x, y, z))
         
         # link the mesh to a new object
         ob = Blender.Object.New('Mesh', name) # Mesh must be spelled just this--it is a specific type
