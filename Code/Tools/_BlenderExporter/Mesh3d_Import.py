@@ -1,7 +1,7 @@
 #!BPY
 
 """
-Name: 'PuffBOMB (.mesh3d)'
+Name: 'PuffBOMB (.mesh3d)...'
 Blender: 232
 Group: 'Import'
 Tooltip: 'Import a PuffBOMB mesh3d File'
@@ -38,56 +38,41 @@ This script imports our internal PuffBOMB Hammer engine .mesh3d files
 #
 # ***** END GPL LICENCE BLOCK *****
 
-import Blender, meshtools
+import Blender
 
-# ================================
-# === Read SLP Triangle Format ===
-# ================================
 def read(filename):
-	#start = time.clock()
-	file = open(filename, "rb")
-
-	raw = []
-	for line in file.xreadlines():
-		data = line.split()
-		if data[0] == "vertex":
-			vert = map(float, data[1:])
-			raw.append(vert)
-	
-	tri = []
-	for i in xrange(0, len(raw), 3):
-		tri.append(raw[i] + raw[i+1] + raw[i+2])
-
-	#$import pprint; pprint.pprint(tri)
-
-	# Collect data from RAW format
-	faces = []
-	for line in tri:
-		f1, f2, f3, f4, f5, f6, f7, f8, f9 = line
-		faces.append([(f1, f2, f3), (f4, f5, f6), (f7, f8, f9)])
-
-	# Generate verts and faces lists, without duplicates
-	verts = []
-	coords = {}
-	index = 0
-	for i in xrange(len(faces)):
-		for j in xrange(len(faces[i])):
-			vertex = faces[i][j]
-			if not coords.has_key(vertex):
-				coords[vertex] = index
-				index += 1
-				verts.append(vertex)
-			faces[i][j] = coords[vertex]
-
-	objname = Blender.sys.splitext(Blender.sys.basename(filename))[0]
-
-	meshtools.create_mesh(verts, faces, objname)
-	Blender.Window.DrawProgressBar(1.0, '')  # clear progressbar
-	file.close()
-	#end = time.clock()
-	#seconds = " in %.2f %s" % (end-start, "seconds")
-	message = "Successfully imported " + Blender.sys.basename(filename)# + seconds
-	meshtools.print_boxed(message)
+        Blender.Window.WaitCursor(1)
+        name = filename.split('\\')[-1].split('/')[-1]
+        mesh = Blender.NMesh.New( name ) # create a new mesh
+        # parse the file
+        file = open(filename, 'r')
+        for line in file.readlines():
+                words = line.split()
+                if len(words) == 0 or words[0].startswith('#'):
+                        pass
+                elif words[0] == 'v':
+                        x, y, z = float(words[1]), float(words[2]), float(words[3])
+                        mesh.verts.append(Blender.NMesh.Vert(x, y, z))
+                elif words[0] == 'f':
+                        faceVertList = []
+                        for faceIdx in words[1:]:
+                                faceVert = mesh.verts[int(faceIdx)-1]
+                                faceVertList.append(faceVert)
+                        newFace = Blender.NMesh.Face(faceVertList)
+                        mesh.addFace(newFace)
+        
+        # link the mesh to a new object
+        ob = Blender.Object.New('Mesh', name) # Mesh must be spelled just this--it is a specific type
+        ob.link(mesh) # tell the object to use the mesh we just made
+        scn = Blender.Scene.GetCurrent()
+        for o in scn.getChildren(): 
+                o.sel = 0
+        
+        scn.link(ob) # link the object to the current scene
+        ob.sel= 1
+        ob.Layers = scn.Layers
+        Blender.Window.WaitCursor(0)
+        Blender.Window.RedrawAll()
 
 def fs_callback(filename):
 	read(filename)
