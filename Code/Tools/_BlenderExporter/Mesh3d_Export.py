@@ -4,25 +4,18 @@
 Name: 'PuffBOMB (.mesh3d)...'
 Blender: 232
 Group: 'Export'
-Tooltip: 'Save a PuffBOMB mesh3d File'
+Tooltip: 'Export a PuffBOMB mesh3d File'
 """
 
-__author__ = "Campbell Barton, Jiri Hnidek"
-__url__ = ["blender", "elysiun"]
+__author__ = "Richard Kasprzak"
+__url__ = ["blender", "blender"]
 __version__ = "1.0"
 
 __bpydoc__ = """\
-This script is an exporter to OBJ file format.
-
-Usage:
-
-Run this script from "File->Export" menu to export all meshes.
+This script exports our internal PuffBOMB Hammer engine .mesh3d files
 """
 
 
-# --------------------------------------------------------------------------
-# OBJ Export v0.9b by Campbell Barton (AKA Ideasman)
-# --------------------------------------------------------------------------
 # ***** BEGIN GPL LICENSE BLOCK *****
 #
 # This program is free software; you can redistribute it and/or
@@ -42,12 +35,6 @@ Run this script from "File->Export" menu to export all meshes.
 # ***** END GPL LICENCE BLOCK *****
 # --------------------------------------------------------------------------
 
-#==================================================#
-# New name based on old with a different extension #
-#==================================================#
-#def newFName(ext):
-#	return Get('filename')[: -len(Get('filename').split('.', -1)[-1]) ] + 'model'
-
 def newFName(ext):
 	return Get('filename') + '.mesh3d'
 
@@ -60,14 +47,10 @@ def fixName(name):
 
 
 
-
 from Blender import *
-#import Blender, meshtools
 
 global MTL_DICT
 
-# A Dict of Materials
-# (material.name, image.name):matname_imagename # matname_imagename has gaps removed.
 MTL_DICT = {} 
 
 def save_obj(filename):
@@ -85,10 +68,6 @@ def save_obj(filename):
 	###################################################################################
 
 	file = open(filename, "w")
-	###################################################################################
-	#file.write('# Blender MTL File: %s\n' % Get('filename').split('\\')[-1].split('/')[-1])
-	#file.write('# Material Count: %i\n' % len(MTL_DICT))
-	###################################################################################
 	
 	for key, mtl_mat_name in MTL_DICT.iteritems():
 		
@@ -147,22 +126,6 @@ def save_obj(filename):
 	
 	###################################################################################
 	
-	
-	
-	
-	# Write Header
-	# file.write('# Blender OBJ File: %s\n' % (Get('filename').split('/')[-1].split('\\')[-1] ))
-	# file.write('# www.blender.org\n')
-
-	# Tell the obj file what material file to use.
-	# mtlfilename = '%s.mtl' % '.'.join(filename.split('.')[:-1])
-	# file.write('mtllib %s\n' % ( mtlfilename.split('\\')[-1].split('/')[-1] ))
-
-	# Initialize totals, these are updated each object
-	
-	
-###	mesh = Blender.NMesh.GetRaw(meshname)
-
 	
 	totverts = 1
 	totuvco = 0
@@ -291,13 +254,13 @@ def save_obj(filename):
 			elif key[0] == None and key[1] == None:
 				# Write a null material, since we know the context has changed.
 				#file.write('usemtl (null)\n') # mat, image
-				file.write('\n#--------------------Faces UVCoords Normal---------------------#\n')
+				file.write('\n#--------------------Faces UVCoords Normal Colour--------------#\n')
 				file.write('FUN\n')
 				
 			else:
 				#try: # Faster to try then 2x dict lookups.
 					
-					#file.write('\n#--------------------Faces UVCoords Normal---------------------#\n')
+					#file.write('\n#--------------------Faces UVCoords Normal Colour--------------#\n')
 					#file.write('FUN\n')
 
 					# We have the material, just need to write the context switch,
@@ -322,7 +285,7 @@ def save_obj(filename):
 					file.write('\n#-------------------------Texture Name-------------------------#\nTextureName\n%s\n' % tmp_matname) # mat, image
 						##tmp_matname = MTL_DICT[key] = '%s_%s' % (fixName(key[0]), fixName(key[1]))
 						##file.write('usemtl %s\n' % tmp_matname) # mat, image
-				file.write('\n#--------------------Faces UVCoords Normal---------------------#\n')
+				file.write('\n#--------------------Faces UVCoords Normal Colour--------------#\n')
 				file.write('FUN\n')
 
 			contextMat = key
@@ -484,33 +447,6 @@ def save_obj(filename):
 				  tlb,\
 				  tlc, fcolc)) # vert, uv, normal
 
-#				file.write( '%d %d %d  \t' % (\
-#				  fla,\
-#				  slb,\
-#				  flc)) # vert, uv, normal	
-#				file.write( '%d %d %d  \t' % (\
-#				  sla,\
-#				  flb,\
-#				  slc)) # vert, uv, normal	
-#				file.write( '%d %d %d  \t' % (\
-#				  tla,\
-#				  folb,\
-#				  tlc)) # vert, uv, normal	
-#				file.write('\n')
-#				
-#				file.write( '%d %d %d  \t' % (\
-#				  fola,\
-#				  tlb,\
-#				  folc)) # vert, uv, normal
-#				file.write( '%d %d %d  \t' % (\
-#				  fla,\
-#				  slb,\
-#				  flc)) # vert, uv, normal	
-#				file.write( '%d %d %d  \t' % (\
-#				  tla,\
-#				  folb,\
-#				  folc)) # vert, uv, normal
-
 				file.write('\n')
 			else:
 				file.write( '%d %d %d %i  \t' % (\
@@ -545,7 +481,7 @@ def save_obj(filename):
 	
 	print "obj export time: %.2f" % (sys.time() - time1)
 
-Window.FileSelector(save_obj, 'Export Phiz MODEL', newFName('model'))
+Window.FileSelector(save_obj, 'Export Mesh3D', newFName('mesh3d'))
 
 '''
 TIME = sys.time()
