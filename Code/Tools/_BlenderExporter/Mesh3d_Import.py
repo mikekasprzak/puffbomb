@@ -56,16 +56,36 @@ def read(filename):
                         state = 0
                 elif words[0] == 'TextureCoord':
                         state = 1
-                elif words[0] == 'f':
-                        faceVertList = []
-                        for faceIdx in words[1:]:
-                                faceVert = mesh.verts[int(faceIdx)-1]
-                                faceVertList.append(faceVert)
-                        newFace = Blender.NMesh.Face(faceVertList)
-                        mesh.addFace(newFace)
+                elif words[0] == 'VertexNormal':
+                        state = 2
+                elif words[0] == 'TextureName':
+                        state = 3
+                elif words[0] == 'FUN':
+                        state = 4
+                elif words[0] == 'Used':
+                        state = 5
+#                elif words[0] == 'f':
+#                        faceVertList = []
+#                        for faceIdx in words[1:]:
+#                                faceVert = mesh.verts[int(faceIdx)-1]
+#                                faceVertList.append(faceVert)
+#                        newFace = Blender.NMesh.Face(faceVertList)
+#                        mesh.addFace(newFace)
                 elif state == 0:
                         x, y, z = float(words[0]), float(words[1]), float(words[2])
                         mesh.verts.append(Blender.NMesh.Vert(x, y, z))
+                elif state == 4:
+                        faceVertList = []
+                        va, vb, vc = int(words[0]), int(words[4]), int(words[8])
+                        faceVert = mesh.verts[va]
+                        faceVertList.append(faceVert)
+                        faceVert = mesh.verts[vb]
+                        faceVertList.append(faceVert)
+                        faceVert = mesh.verts[vc]
+                        faceVertList.append(faceVert)
+                                
+                        newFace = Blender.NMesh.Face(faceVertList)
+                        mesh.addFace(newFace)
         
         # link the mesh to a new object
         ob = Blender.Object.New('Mesh', name) # Mesh must be spelled just this--it is a specific type
