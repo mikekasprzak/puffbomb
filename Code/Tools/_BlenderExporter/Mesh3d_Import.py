@@ -41,6 +41,9 @@ This script imports our internal PuffBOMB Hammer engine .mesh3d files
 import Blender
 
 def read(filename):
+        globalUVCoords = []
+        globalNormals = []
+
         Blender.Window.WaitCursor(1)
         name = filename.split('\\')[-1].split('/')[-1]
         mesh = Blender.NMesh.New( name ) # create a new mesh
@@ -64,16 +67,23 @@ def read(filename):
                         state = 4
                 elif words[0] == 'Used':
                         state = 5
-#                elif words[0] == 'f':
-#                        faceVertList = []
-#                        for faceIdx in words[1:]:
-#                                faceVert = mesh.verts[int(faceIdx)-1]
-#                                faceVertList.append(faceVert)
-#                        newFace = Blender.NMesh.Face(faceVertList)
-#                        mesh.addFace(newFace)
                 elif state == 0:
                         x, y, z = float(words[0]), float(words[1]), float(words[2])
                         mesh.verts.append(Blender.NMesh.Vert(x, y, z))
+                elif state == 1:
+                        globalUVCoords.append(float(words[0]))
+                        globalUVCoords.append(float(words[1]))
+                        globalUVCoords.append(float(words[2]))
+#                        a, b, c = float(words[0]), float(words[1]), float(words[2])
+#                        mesh.verts.append(Blender.NMesh.Vert(x, y, z))
+                elif state == 2:
+                        globalNormals.append(float(words[0]))
+                        globalNormals.append(float(words[1]))
+                        globalNormals.append(float(words[2]))
+
+
+#                        x, y, z = float(words[0]), float(words[1]), float(words[2])
+#                        mesh.verts.append(Blender.NMesh.Vert(x, y, z))
                 elif state == 4:
                         faceVertList = []
                         va, vb, vc = int(words[0]), int(words[4]), int(words[8])
@@ -83,9 +93,30 @@ def read(filename):
                         faceVertList.append(faceVert)
                         faceVert = mesh.verts[vc]
                         faceVertList.append(faceVert)
-                                
+
                         newFace = Blender.NMesh.Face(faceVertList)
                         mesh.addFace(newFace)
+
+                        mesh.hasVertexColours(True)
+#                        print int(words[3]) & 0xff
+#                        print ( int(words[3]) >> 8 ) & 0xff
+#                        print ( int(words[3]) >> 16 ) & 0xff
+#                        print ( int(words[3]) >> 24 ) & 0xff
+                       
+                        mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[3]) & 0xff,( int(words[3]) >> 8 ) & 0xff, ( int(words[3]) >> 16 ) & 0xff, ( int(words[3]) >> 24 ) & 0xff  ))
+                        mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[7]) & 0xff,( int(words[7]) >> 8 ) & 0xff, ( int(words[7]) >> 16 ) & 0xff, ( int(words[7]) >> 24 ) & 0xff  ))
+                        mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[11]) & 0xff,( int(words[11]) >> 8 ) & 0xff, ( int(words[11]) >> 16 ) & 0xff, ( int(words[11]) >> 24 ) & 0xff  ))
+                        
+                        
+#                        UVList = []
+#                        uva, uvb, uvc = int(words[1]), int(words[5]), int(words[9])
+#                        TempUV = mesh.verts[va]
+#                        UVList.append(TempUV)
+#                        TempUV = mesh.verts[vb]
+#                        UVList.append(TempUV)
+#                        TempUV = mesh.verts[vc]
+#                        UVList.append(TempUV)
+                                
         
         # link the mesh to a new object
         ob = Blender.Object.New('Mesh', name) # Mesh must be spelled just this--it is a specific type
