@@ -41,7 +41,8 @@ This script imports our internal PuffBOMB Hammer engine .mesh3d files
 import Blender
 
 def read(filename):
-        globalUVCoords = []
+        globalUVCoordsA = []
+        globalUVCoordsB = []
         globalNormals = []
 
         Blender.Window.WaitCursor(1)
@@ -71,11 +72,9 @@ def read(filename):
                         x, y, z = float(words[0]), float(words[1]), float(words[2])
                         mesh.verts.append(Blender.NMesh.Vert(x, y, z))
                 elif state == 1:
-                        globalUVCoords.append(float(words[0]))
-                        globalUVCoords.append(float(words[1]))
-                        globalUVCoords.append(float(words[2]))
-#                        a, b, c = float(words[0]), float(words[1]), float(words[2])
-#                        mesh.verts.append(Blender.NMesh.Vert(x, y, z))
+                        globalUVCoordsA.append(float(words[0]))
+                        globalUVCoordsB.append(float(words[1]))
+                        #globalUVCoords.append(float(words[2]))
                 elif state == 2:
                         globalNormals.append(float(words[0]))
                         globalNormals.append(float(words[1]))
@@ -85,6 +84,8 @@ def read(filename):
 #                        x, y, z = float(words[0]), float(words[1]), float(words[2])
 #                        mesh.verts.append(Blender.NMesh.Vert(x, y, z))
                 elif state == 4:
+############################# Vertex ##############################
+
                         faceVertList = []
                         va, vb, vc = int(words[0]), int(words[4]), int(words[8])
                         faceVert = mesh.verts[va]
@@ -97,16 +98,25 @@ def read(filename):
                         newFace = Blender.NMesh.Face(faceVertList)
                         mesh.addFace(newFace)
 
+########################### UV Coords #############################
+                        if len( globalUVCoordsA ) > 0:
+                            mesh.hasFaceUV(True)
+                            
+                            UVList = []
+                            
+                            mesh.faces[int( len(mesh.faces) ) - 1].uv.append( ( globalUVCoordsA[ int(words[1]) ], globalUVCoordsB[ int(words[1]) ] ) )
+                            mesh.faces[int( len(mesh.faces) ) - 1].uv.append( ( globalUVCoordsA[ int(words[5]) ], globalUVCoordsB[ int(words[5]) ] ) )
+                            mesh.faces[int( len(mesh.faces) ) - 1].uv.append( ( globalUVCoordsA[ int(words[9]) ], globalUVCoordsB[ int(words[9]) ] ) )
+                            
+############################ Normals ##############################
+
+######################## Vertex Colours ###########################
+
                         mesh.hasVertexColours(True)
-#                        print int(words[3]) & 0xff
-#                        print ( int(words[3]) >> 8 ) & 0xff
-#                        print ( int(words[3]) >> 16 ) & 0xff
-#                        print ( int(words[3]) >> 24 ) & 0xff
                        
                         mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[3]) & 0xff,( int(words[3]) >> 8 ) & 0xff, ( int(words[3]) >> 16 ) & 0xff, ( int(words[3]) >> 24 ) & 0xff  ))
                         mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[7]) & 0xff,( int(words[7]) >> 8 ) & 0xff, ( int(words[7]) >> 16 ) & 0xff, ( int(words[7]) >> 24 ) & 0xff  ))
                         mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[11]) & 0xff,( int(words[11]) >> 8 ) & 0xff, ( int(words[11]) >> 16 ) & 0xff, ( int(words[11]) >> 24 ) & 0xff  ))
-                        
                         
 #                        UVList = []
 #                        uva, uvb, uvc = int(words[1]), int(words[5]), int(words[9])
