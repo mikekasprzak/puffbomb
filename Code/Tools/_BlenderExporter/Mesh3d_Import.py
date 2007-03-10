@@ -44,6 +44,8 @@ def read(filename):
         globalUVCoordsA = []
         globalUVCoordsB = []
         globalNormals = []
+        
+        FileName = ''
 
         Blender.Window.WaitCursor(1)
         name = filename.split('\\')[-1].split('/')[-1]
@@ -79,10 +81,8 @@ def read(filename):
                         globalNormals.append(float(words[0]))
                         globalNormals.append(float(words[1]))
                         globalNormals.append(float(words[2]))
-
-
-#                        x, y, z = float(words[0]), float(words[1]), float(words[2])
-#                        mesh.verts.append(Blender.NMesh.Vert(x, y, z))
+                elif state == 3:
+                        FileName = words[0]
                 elif state == 4:
 ############################# Vertex ##############################
 
@@ -108,6 +108,11 @@ def read(filename):
                             mesh.faces[int( len(mesh.faces) ) - 1].uv.append( ( globalUVCoordsA[ int(words[5]) ], globalUVCoordsB[ int(words[5]) ] ) )
                             mesh.faces[int( len(mesh.faces) ) - 1].uv.append( ( globalUVCoordsA[ int(words[9]) ], globalUVCoordsB[ int(words[9]) ] ) )
                             
+                        #### This loads the images however since we don't maintain the path it doesn't work correctly ####
+                        #    PathFileName = 'C:\\' + FileName
+                        #    mesh.faces[int( len(mesh.faces) ) - 1].image = Blender.Image.Load( PathFileName )
+                        ####                            
+                          
 ############################ Normals ##############################
 
 ######################## Vertex Colours ###########################
@@ -117,16 +122,7 @@ def read(filename):
                         mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[3]) & 0xff,( int(words[3]) >> 8 ) & 0xff, ( int(words[3]) >> 16 ) & 0xff, ( int(words[3]) >> 24 ) & 0xff  ))
                         mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[7]) & 0xff,( int(words[7]) >> 8 ) & 0xff, ( int(words[7]) >> 16 ) & 0xff, ( int(words[7]) >> 24 ) & 0xff  ))
                         mesh.faces[int( len(mesh.faces) ) - 1].col.append(Blender.NMesh.Col( int(words[11]) & 0xff,( int(words[11]) >> 8 ) & 0xff, ( int(words[11]) >> 16 ) & 0xff, ( int(words[11]) >> 24 ) & 0xff  ))
-                        
-#                        UVList = []
-#                        uva, uvb, uvc = int(words[1]), int(words[5]), int(words[9])
-#                        TempUV = mesh.verts[va]
-#                        UVList.append(TempUV)
-#                        TempUV = mesh.verts[vb]
-#                        UVList.append(TempUV)
-#                        TempUV = mesh.verts[vc]
-#                        UVList.append(TempUV)
-                                
+                               
         
         # link the mesh to a new object
         ob = Blender.Object.New('Mesh', name) # Mesh must be spelled just this--it is a specific type
