@@ -47,6 +47,8 @@ def read(filename):
         globalNormalsB = []
         globalNormalsC = []
         
+        PropertyList = []
+        
         FileName = ''
 
         Blender.Window.WaitCursor(1)
@@ -71,6 +73,10 @@ def read(filename):
                 elif words[0] == 'FUN':
                         state = 4
                 elif words[0] == 'Used':
+                        PropertyList.append( words[0] )
+                        state = 5
+                elif words[0] == 'NoCollision':
+                        PropertyList.append( words[0] )
                         state = 5
                 elif state == 0:
                         x, y, z = float(words[0]), float(words[1]), float(words[2])
@@ -132,6 +138,16 @@ def read(filename):
         # link the mesh to a new object
         ob = Blender.Object.New('Mesh', name) # Mesh must be spelled just this--it is a specific type
         ob.link(mesh) # tell the object to use the mesh we just made
+
+        idx = 0        
+        for bob in PropertyList:
+                ob.addProperty( PropertyList[ idx ], 0, 'INT' )
+                idx+=1
+
+#        for idx in PropertyList:
+#                ob.addProperty( PropertyList[ int( idx ) ], 0, 'INT' )
+
+        
         scn = Blender.Scene.GetCurrent()
         for o in scn.getChildren(): 
                 o.sel = 0
