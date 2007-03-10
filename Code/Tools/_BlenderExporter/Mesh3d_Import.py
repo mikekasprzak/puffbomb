@@ -43,7 +43,9 @@ import Blender
 def read(filename):
         globalUVCoordsA = []
         globalUVCoordsB = []
-        globalNormals = []
+        globalNormalsA = []
+        globalNormalsB = []
+        globalNormalsC = []
         
         FileName = ''
 
@@ -78,9 +80,9 @@ def read(filename):
                         globalUVCoordsB.append(float(words[1]))
                         #globalUVCoords.append(float(words[2]))
                 elif state == 2:
-                        globalNormals.append(float(words[0]))
-                        globalNormals.append(float(words[1]))
-                        globalNormals.append(float(words[2]))
+                        globalNormalsA.append(float(words[0]))
+                        globalNormalsB.append(float(words[1]))
+                        globalNormalsC.append(float(words[2]))
                 elif state == 3:
                         FileName = words[0]
                 elif state == 4:
@@ -102,8 +104,6 @@ def read(filename):
                         if len( globalUVCoordsA ) > 0:
                             mesh.hasFaceUV(True)
                             
-                            UVList = []
-                            
                             mesh.faces[int( len(mesh.faces) ) - 1].uv.append( ( globalUVCoordsA[ int(words[1]) ], globalUVCoordsB[ int(words[1]) ] ) )
                             mesh.faces[int( len(mesh.faces) ) - 1].uv.append( ( globalUVCoordsA[ int(words[5]) ], globalUVCoordsB[ int(words[5]) ] ) )
                             mesh.faces[int( len(mesh.faces) ) - 1].uv.append( ( globalUVCoordsA[ int(words[9]) ], globalUVCoordsB[ int(words[9]) ] ) )
@@ -114,6 +114,11 @@ def read(filename):
                         ####                            
                           
 ############################ Normals ##############################
+                        if len( globalNormalsA ) > 0:
+                            
+                            mesh.faces[int( len(mesh.faces) ) - 1].no.append( ( globalNormalsA[ int(words[2]) ], globalNormalsB[ int(words[2]) ], globalNormalsC[ int(words[2]) ] ) )
+                            mesh.faces[int( len(mesh.faces) ) - 1].no.append( ( globalNormalsA[ int(words[6]) ], globalNormalsB[ int(words[6]) ], globalNormalsC[ int(words[6]) ] ) )
+                            mesh.faces[int( len(mesh.faces) ) - 1].no.append( ( globalNormalsA[ int(words[10]) ], globalNormalsB[ int(words[10]) ], globalNormalsC[ int(words[10]) ] ) )
 
 ######################## Vertex Colours ###########################
 
