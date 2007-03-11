@@ -72,6 +72,8 @@ void cModel::clear()
 // - ------------------------------------------------------------------------------------------ - //
 void cModel::Load( const std::string& FileName )
 {
+//	std::cout << "HAAA 1" << std::endl;
+	
 	char Line[1024];
 	
 	PathName = FileName;
@@ -343,6 +345,9 @@ void cModel::Load( const std::string& FileName )
 	myObject.clear();
 
 //	Log( LOG_HIGHEST_LEVEL, "Finished Loading Model File" );
+
+//	std::cout << "HAAA 2" << std::endl;
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 #include <algorithm>
@@ -356,7 +361,6 @@ bool compare_vert(const cModel::cObject &a, const cModel::cObject &b)
 void cModel::SaveBin( char* NewName )
 {
 	std::sort( Object.begin(), Object.end(), compare_vert );
-		
 
 /*	
 	std::string NewName = String::DirectorySlash( PathName )
@@ -390,6 +394,8 @@ void cModel::SaveBin( char* NewName )
 		}
 	}
 
+//	if( !TextureCoord.empty() )
+
 	for( size_t obj = 0; obj < Object.size(); ++obj )
 	{
 //		unsigned int LookupSize = Object[obj].Group.size();
@@ -407,23 +413,7 @@ void cModel::SaveBin( char* NewName )
 				)
 			{
 				bool IsDupe = false;
-/*				ABCSet< float > TempVertex = ABCSet< float >(
-						Object[obj].Vertex[Object[obj].Group[lookup].Face[idx].Vertex.a].x,
-						Object[obj].Vertex[Object[obj].Group[lookup].Face[idx].Vertex.a].y,
-						-Object[obj].Vertex[Object[obj].Group[lookup].Face[idx].Vertex.a].z
-					);
-				ABCSet< float > TempVertexNormal = ABCSet< float >(
-						VertexNormal[Object[obj].Group[lookup].Face[idx].Normal.a].x,
-						VertexNormal[Object[obj].Group[lookup].Face[idx].Normal.a].y,
-						VertexNormal[Object[obj].Group[lookup].Face[idx].Normal.a].z
-					);
-				unsigned int TempVertexColor = Object[obj].Group[lookup].Face[idx].VertColor.a;
-				ABSet< float > TempTextureCoord = ABSet< float >(
-						TextureCoord[Object[obj].Group[lookup].Face[idx].UV.a].x,
-						TextureCoord[Object[obj].Group[lookup].Face[idx].UV.a].y
-					);
-					*/
-					
+
 				ABCSet< float > TempVertex = ABCSet< float >(
 						Object[obj].Vertex[Object[obj].Group[lookup].Face[idx].Vertex.a].a,
 						Object[obj].Vertex[Object[obj].Group[lookup].Face[idx].Vertex.a].b,
@@ -435,10 +425,16 @@ void cModel::SaveBin( char* NewName )
 						VertexNormal[Object[obj].Group[lookup].Face[idx].Normal.a].c
 					);
 				unsigned int TempVertexColor = Object[obj].Group[lookup].Face[idx].VertColor.a;
-				ABSet< float > TempTextureCoord = ABSet< float >(
-						TextureCoord[Object[obj].Group[lookup].Face[idx].UV.a].a,
-						TextureCoord[Object[obj].Group[lookup].Face[idx].UV.a].b
-					);
+				ABSet< float > TempTextureCoord;
+				if( !TextureCoord.empty() )
+				{
+					TempTextureCoord = ABSet< float >(
+							TextureCoord[Object[obj].Group[lookup].Face[idx].UV.a].a,
+							TextureCoord[Object[obj].Group[lookup].Face[idx].UV.a].b
+						);
+				}
+
+
 				for( size_t DupeIdx = 0; DupeIdx < TempMesh3d.Indicies.size(); ++DupeIdx )
 				{
 					if( TempMesh3d.Vertex[ TempMesh3d.Indicies[ DupeIdx ] ] == TempVertex )
@@ -447,7 +443,16 @@ void cModel::SaveBin( char* NewName )
 						{
 							if( TempMesh3d.VertexColor[ TempMesh3d.Indicies[ DupeIdx ] ] == TempVertexColor )
 							{
-								if( TempMesh3d.TextureCoord[ TempMesh3d.Indicies[ DupeIdx ] ] == TempTextureCoord )
+								if( !TextureCoord.empty() )
+								{
+									if( TempMesh3d.TextureCoord[ TempMesh3d.Indicies[ DupeIdx ] ] == TempTextureCoord )
+									{
+										IsDupe = true;
+										TempMesh3d.Indicies.push_back( TempMesh3d.Indicies[ DupeIdx ] );
+										break;
+									}
+								}
+								else
 								{
 									IsDupe = true;
 									TempMesh3d.Indicies.push_back( TempMesh3d.Indicies[ DupeIdx ] );
@@ -457,12 +462,16 @@ void cModel::SaveBin( char* NewName )
 						}
 					}
 				}
+
 				if( !IsDupe )
 				{
 					TempMesh3d.Vertex.push_back( TempVertex	);
 					TempMesh3d.VertexNormal.push_back( TempVertexNormal	);
 					TempMesh3d.VertexColor.push_back( TempVertexColor );
-					TempMesh3d.TextureCoord.push_back( TempTextureCoord );
+					if( !TextureCoord.empty() )
+					{
+						TempMesh3d.TextureCoord.push_back( TempTextureCoord );
+					}
 					
 					TempMesh3d.Indicies.push_back( IndiciesIdx );
 					IndiciesIdx++;
@@ -480,10 +489,15 @@ void cModel::SaveBin( char* NewName )
 						VertexNormal[Object[obj].Group[lookup].Face[idx].Normal.b].c
 					);
 				TempVertexColor = Object[obj].Group[lookup].Face[idx].VertColor.b;
-				TempTextureCoord = ABSet< float >(
-						TextureCoord[Object[obj].Group[lookup].Face[idx].UV.b].a,
-						TextureCoord[Object[obj].Group[lookup].Face[idx].UV.b].b
-					);
+				
+				if( !TextureCoord.empty() )
+				{
+					TempTextureCoord = ABSet< float >(
+							TextureCoord[Object[obj].Group[lookup].Face[idx].UV.b].a,
+							TextureCoord[Object[obj].Group[lookup].Face[idx].UV.b].b
+						);
+				}
+
 				for( size_t DupeIdx = 0; DupeIdx < TempMesh3d.Indicies.size(); ++DupeIdx )
 				{
 					if( TempMesh3d.Vertex[ TempMesh3d.Indicies[ DupeIdx ] ] == TempVertex )
@@ -492,7 +506,16 @@ void cModel::SaveBin( char* NewName )
 						{
 							if( TempMesh3d.VertexColor[ TempMesh3d.Indicies[ DupeIdx ] ] == TempVertexColor )
 							{
-								if( TempMesh3d.TextureCoord[ TempMesh3d.Indicies[ DupeIdx ] ] == TempTextureCoord )
+								if( !TextureCoord.empty() )
+								{
+									if( TempMesh3d.TextureCoord[ TempMesh3d.Indicies[ DupeIdx ] ] == TempTextureCoord )
+									{
+										IsDupe = true;
+										TempMesh3d.Indicies.push_back( TempMesh3d.Indicies[ DupeIdx ] );
+										break;
+									}
+								}
+								else
 								{
 									IsDupe = true;
 									TempMesh3d.Indicies.push_back( TempMesh3d.Indicies[ DupeIdx ] );
@@ -502,12 +525,16 @@ void cModel::SaveBin( char* NewName )
 						}
 					}
 				}
+
 				if( !IsDupe )
 				{
 					TempMesh3d.Vertex.push_back( TempVertex	);
 					TempMesh3d.VertexNormal.push_back( TempVertexNormal	);
 					TempMesh3d.VertexColor.push_back( TempVertexColor );
-					TempMesh3d.TextureCoord.push_back( TempTextureCoord );
+					if( !TextureCoord.empty() )
+					{
+						TempMesh3d.TextureCoord.push_back( TempTextureCoord );
+					}
 					
 					TempMesh3d.Indicies.push_back( IndiciesIdx );
 					IndiciesIdx++;
@@ -525,10 +552,13 @@ void cModel::SaveBin( char* NewName )
 						VertexNormal[Object[obj].Group[lookup].Face[idx].Normal.c].c
 					);
 				TempVertexColor = Object[obj].Group[lookup].Face[idx].VertColor.c;
-				TempTextureCoord = ABSet< float >(
-						TextureCoord[Object[obj].Group[lookup].Face[idx].UV.c].a,
-						TextureCoord[Object[obj].Group[lookup].Face[idx].UV.c].b
-					);
+				if( !TextureCoord.empty() )
+				{
+					TempTextureCoord = ABSet< float >(
+							TextureCoord[Object[obj].Group[lookup].Face[idx].UV.c].a,
+							TextureCoord[Object[obj].Group[lookup].Face[idx].UV.c].b
+						);
+				}
 
 				for( size_t DupeIdx = 0; DupeIdx < TempMesh3d.Indicies.size(); ++DupeIdx )
 				{
@@ -538,11 +568,20 @@ void cModel::SaveBin( char* NewName )
 						{
 							if( TempMesh3d.VertexColor[ TempMesh3d.Indicies[ DupeIdx ] ] == TempVertexColor )
 							{
-								if( TempMesh3d.TextureCoord[ TempMesh3d.Indicies[ DupeIdx ] ] == TempTextureCoord )
+								if( !TextureCoord.empty() )
+								{
+									if( TempMesh3d.TextureCoord[ TempMesh3d.Indicies[ DupeIdx ] ] == TempTextureCoord )
+									{
+										IsDupe = true;
+										TempMesh3d.Indicies.push_back( TempMesh3d.Indicies[ DupeIdx ] );
+										break;
+									}
+								}
+								else
 								{
 									IsDupe = true;
 									TempMesh3d.Indicies.push_back( TempMesh3d.Indicies[ DupeIdx ] );
-									break;
+									break;	
 								}
 							}
 						}
@@ -553,7 +592,10 @@ void cModel::SaveBin( char* NewName )
 					TempMesh3d.Vertex.push_back( TempVertex	);
 					TempMesh3d.VertexNormal.push_back( TempVertexNormal	);
 					TempMesh3d.VertexColor.push_back( TempVertexColor );
-					TempMesh3d.TextureCoord.push_back( TempTextureCoord );
+					if( !TextureCoord.empty() )
+					{
+						TempMesh3d.TextureCoord.push_back( TempTextureCoord );
+					}
 					
 					TempMesh3d.Indicies.push_back( IndiciesIdx );
 					IndiciesIdx++;
@@ -578,8 +620,11 @@ void cModel::SaveBin( char* NewName )
 			// Texture Coords //
 			unsigned int TextCoordSize = TempMesh3d.TextureCoord.size();
 			outfile.write( (char*)&TextCoordSize, sizeof( unsigned int ) );
-	
-			outfile.write( (char*)&TempMesh3d.TextureCoord[0], sizeof( ABSet< float > ) * TempMesh3d.TextureCoord.size() );
+			
+			if( !TextureCoord.empty() )
+			{
+				outfile.write( (char*)&TempMesh3d.TextureCoord[0], sizeof( ABSet< float > ) * TempMesh3d.TextureCoord.size() );
+			}
 			// Indicies //
 			unsigned int IndiciesSize = TempMesh3d.Indicies.size();
 			outfile.write( (char*)&IndiciesSize, sizeof( unsigned int ) );
@@ -613,7 +658,6 @@ void cModel::SaveBin( char* NewName )
 		}
 	}
 
-	
 	outfile.close();
 	
 	// - -------------------------------------------------------------------------------------- - //
