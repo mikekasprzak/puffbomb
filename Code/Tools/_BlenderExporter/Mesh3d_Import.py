@@ -50,6 +50,8 @@ def read(filename):
         PropertyList = []
         
         FileName = ''
+        
+        FirstMesh = True
 
         Blender.Window.WaitCursor(1)
         name = filename.split('\\')[-1].split('/')[-1]
@@ -64,6 +66,28 @@ def read(filename):
                         pass
                 elif words[0] == 'Vertices':
                         state = 0
+                        if FirstMesh == False:
+
+                                ob = Blender.Object.New('Mesh', name) # Mesh must be spelled just this--it is a specific type
+                                ob.link(mesh) # tell the object to use the mesh we just made
+
+                                idx = 0        
+                                for bob in PropertyList:
+                                        ob.addProperty( PropertyList[ idx ], 0, 'INT' )
+                                        idx+=1
+
+                                scn = Blender.Scene.GetCurrent()
+                                for o in scn.getChildren(): 
+                                        o.sel = 0
+        
+                                scn.link(ob) # link the object to the current scene
+                                ob.sel= 1
+                                ob.Layers = scn.Layers 
+                                
+                                PropertyList = []
+                                mesh = Blender.NMesh.New( name )
+                                
+                        FirstMesh = False
                 elif words[0] == 'TextureCoord':
                         state = 1
                 elif words[0] == 'VertexNormal':
@@ -144,10 +168,6 @@ def read(filename):
                 ob.addProperty( PropertyList[ idx ], 0, 'INT' )
                 idx+=1
 
-#        for idx in PropertyList:
-#                ob.addProperty( PropertyList[ int( idx ) ], 0, 'INT' )
-
-        
         scn = Blender.Scene.GetCurrent()
         for o in scn.getChildren(): 
                 o.sel = 0
