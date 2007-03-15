@@ -116,7 +116,7 @@ void cSuperFlow::StateFlow()
 			
 				// Display the MainMenu screen //
 				{
-					cMenuFlow MenuFlow( "Maps/Classic/Level01.map", &ClassicSaveData );
+					cMenuFlow MenuFlow( "Maps/Classic/Level05.map", &ClassicSaveData );
 
 					State = MenuFlow.Engine->MenuManager.SuperFlowState;
 					
