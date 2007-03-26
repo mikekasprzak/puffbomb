@@ -122,7 +122,8 @@ void cMessageEntity::Work()
 			LastTime += Loops * MSPerFrame;
 			FramesPast++;
 			// Step the engine //
-			for ( int idx = 0; idx < Loops; idx ++ ) // This makes the game twitch // could be that 60 doesn't devide perfectly into 1000 //
+			//for ( int idx = 0; idx < Loops; idx ++ ) // This makes the game twitch // could be that 60 doesn't devide perfectly into 1000 //
+			for ( int idx = 0; idx < 2; idx ++ )
 			{
 				// Update controls //
 				Input::Update();
