@@ -2,7 +2,7 @@
 SYSTEM_TARGET	:=	Platform/$(PLATFORM)
 BINARY_TARGET	:=	$(GAME_TARGET).exe
 # - -------------------------------------------------------------------------------------------- - #
-
+ 
 # - -------------------------------------------------------------------------------------------- - #
 INCLUDE_DIRS	+=	Code/$(SYSTEM_TARGET) Code/$(ENGINE) Code/Framework Code/Library Code/External Code \
 					/usr/local/include Code/Game/JunkGame Code/Game/$(GAME_TARGET)

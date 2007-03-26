@@ -13,7 +13,7 @@ export MakeDir			:=	mkdir -p
 export ChangeDir		:=	cd
 export Remove			:=	rm -fr
 export Touch			:=	touch
-
+ 
 export Echo				:=	echo -en
 # - -------------------------------------------------------------------------------------------- - #
 export TextureTool		:=	$(BUILT_TOOLS)/TextureTool/TextureTool.exe
