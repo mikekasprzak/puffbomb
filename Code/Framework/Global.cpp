@@ -20,7 +20,7 @@ namespace Global {
 	
 	int FrameClock;
 	int FPS;
-	int FrameRate = 60;
+	int FrameRate = 100;
 		
 	Real HudZoom = 1302.5;
 	

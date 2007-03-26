@@ -99,8 +99,7 @@ void cMessageEntity::Work()
 		MessageLoop();
 
 		// A whole bunch of complicated crap to give us a flexible framerate //			
-		int FPS = Global::FrameRate;
-		int MS = 1000 / FPS;
+		int MSPerFrame = 1000 / Global::FrameRate;
 		
 		int ThisTime = GetTime();
 
@@ -117,13 +116,13 @@ void cMessageEntity::Work()
 			FramesPast = 0;
 		}
 		
-		if ( ThisTime - LastTime >= MS )
+		if ( ThisTime - LastTime >= MSPerFrame )
 		{
-			int Loops = (ThisTime - LastTime) / MS;
-			LastTime += Loops * MS;
+			int Loops = (ThisTime - LastTime) / MSPerFrame;
+			LastTime += Loops * MSPerFrame;
 			FramesPast++;
 			// Step the engine //
-	//		for ( int idx = 0; idx < Loops; idx ++ ) // This makes the game twitch // could be that 60 doesn't devide perfectly into 1000 //
+			for ( int idx = 0; idx < Loops; idx ++ ) // This makes the game twitch // could be that 60 doesn't devide perfectly into 1000 //
 			{
 				// Update controls //
 				Input::Update();
