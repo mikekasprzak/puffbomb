@@ -58,10 +58,10 @@ void cMessageEntity::MessageLoop() {
 // - ------------------------------------------------------------------------------------------ - //
 void cMessageEntity::GlobalInput()
 {
-	if( Input::Button[ KEY_F10 ].Pressed() ) {
+	if( Input::Button[ KEY_F10 ] ) {
 	    Global::Shutdown = true;
 	}
-	if ( Input::Button[ KEY_ESC ].Pressed()  ) {
+	if ( Input::Button[ KEY_ESC ] ) {
 	    BreakLoop = true;
 	}
 	
