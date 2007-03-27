@@ -82,6 +82,14 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsOne/ForegroundRockOne.coll", Pos );
 			break;
 		}
+		case 140: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsOne/ForegroundRockTwo.coll", Pos );
+			break;
+		}
+		case 141: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsOne/ForegroundRockThree.coll", Pos );
+			break;
+		}
 
 		
 		default: {
