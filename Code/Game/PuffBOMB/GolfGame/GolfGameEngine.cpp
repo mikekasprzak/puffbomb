@@ -696,7 +696,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 					Engine2D::cImpulse MyImpulse(
 							BombPos,
 							// Inner Radius, Intensity, Tangent //
-							Real( 0 ), Real( 30 ), Real( 0 ),
+							Real( 0 ), Real( 18 ), Real( 0 ),
 							// Outer Radius, Intensity, Tangent //
 							Real( 512 ), Real( 0 ), Real( 0 )
 							);
