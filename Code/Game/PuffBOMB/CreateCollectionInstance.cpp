@@ -66,6 +66,14 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			return new Engine2D::cDynamicCollection( "2D/PendPlatform/PendPlatform.coll", Pos );
 			break;
 		}
+		case 136: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsOne/ForegroundPinecone.coll", Pos );
+			break;
+		}
+		case 137: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsOne/ForegroundTree.coll", Pos );
+			break;
+		}
 
 		
 		default: {
