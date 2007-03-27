@@ -9,12 +9,12 @@ Animation_End
 Animation_Start	4			
 LoopPoint	0			
 Frame	0	0		
-Frame	1	0		
+Frame	0	0		
 Frame	0	0		
 Frame	0	0		
 Animation_End				
 BodyPose_Start				
-TotalMass	2			
+TotalMass	2.5			
 BodyPose_Node_Start	5			
 BodyNode	-40	-48	0.5	
 BodyNode	56	-48	0.5	
@@ -103,7 +103,7 @@ MeshFace	8	10	9
 MeshPose_Face_End				
 MeshPose_End				
 MeshPose_Start				
-MeshPose_Node_Start	16			
+MeshPose_Node_Start	12			
 MeshPose_Scale	1			
 MeshNode	-32	192	3	2
 MeshNode	-80	-112	0	1
@@ -117,10 +117,6 @@ MeshNode	-96	-64	2	0
 MeshNode	112	-32	2	1
 MeshNode	32	-128	1	0
 MeshNode	64	192	4	3
-MeshNode	-16	48	3	2
-MeshNode	-16	48	3	2
-MeshNode	-16	48	3	2
-MeshNode	-16	48	3	2
 MeshPose_Node_End				
 MeshPose_Face_Start	12			
 MeshFace	0	6	7	
