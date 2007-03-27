@@ -52,13 +52,11 @@ public:
 			for ( size_t idx2 = 0; idx2 < Mesh[idx].Vertex->Size(); idx2++ ) {
 				P1 = (*Mesh[idx].Vertex)[idx2].Min( P1 );
 				P2 = (*Mesh[idx].Vertex)[idx2].Max( P2 );
-
 			}
 		}
 		
 		BoundingRect = RectType::Pair( P1, P2 );
 	}
-	
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -17,8 +17,7 @@ cEngine2D::cEngine2D() :
 	ShowCollectionDebug( false ),
 	ShowStaticDebug( false ),
 	ShowPassiveDebug( false ),
-	ShowZoneDebug( false ),
-	RotateCounter( 90 )
+	ShowZoneDebug( false )
 {
 	// Create Camera //
 	Camera = new cCamera(
@@ -259,12 +258,12 @@ void cEngine2D::Draw() {
 	// --------------- Engine ------------------------- //
 	Camera->Update();
 	// - -------------------------------------------------------------------------------------- - //
-	// Richard's Rotate effect //
-	if( RotateCounter != 0 ) {
-		Gfx::Rotate( Real( RotateCounter ), -Real( 1.0 ), Real( 1.0 ), Real( 1.0 ) );
-			
-		RotateCounter -= 9;
-	}
+//	// Richard's Rotate effect (Initially set to 90) //
+//	if( RotateCounter != 0 ) {
+//		Gfx::Rotate( Real( RotateCounter ), -Real( 1.0 ), Real( 1.0 ), Real( 1.0 ) );
+//			
+//		RotateCounter -= 9;
+//	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
@@ -275,15 +274,15 @@ void cEngine2D::Draw() {
 	Gfx::EnableBlend();
 	Gfx::EnableDepth();
 	
-	// First Pass StaticObject Draw //
+	// First Pass Back StaticObject Draw //
 	{
 		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
-		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-			StaticObjectInstance[ idx ].Draw();
+		for ( size_t idx = 0; idx < BackStaticObject.size(); ++idx ) {
+			BackStaticObject[ idx ]->Draw();
 		}
-	}
+	}		
 
-	// First Pass Component Draw //
+	// First Pass Component Draw (White) //
 //	{
 //		Gfx::PushMatrix();
 //		Gfx::Translate( Real::Zero, Real::Zero, -Real( 2.05 ) );
@@ -357,6 +356,14 @@ void cEngine2D::Draw() {
 
 	Gfx::EnableDepth();
 	Gfx::EnableTex2D();
+		
+	// First Pass Front StaticObject Draw //
+	{
+		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+		for ( size_t idx = 0; idx < FrontStaticObject.size(); ++idx ) {
+			FrontStaticObject[ idx ]->Draw();
+		}
+	}		
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::LoadMap( const std::string MapName )
@@ -378,6 +385,16 @@ void cEngine2D::LoadMap( const std::string MapName )
 //					Map.StaticObjectInstanceInfo[ idx ].Arg
 				)
 			);
+		}
+		
+		// Sort static objects in to fronts and backs //
+		for ( int idx = 0; idx < StaticObjectInstance.size(); idx++ ) {
+			if ( StaticObjectInstance[ idx ].GetFrontPolygonZ() >= Real::Zero ) {
+				FrontStaticObject.push_back( &StaticObjectInstance[ idx ] );
+			}
+			else {
+				BackStaticObject.push_back( &StaticObjectInstance[ idx ] );				
+			}
 		}
 	}
 	

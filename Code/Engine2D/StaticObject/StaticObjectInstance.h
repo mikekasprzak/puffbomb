@@ -46,6 +46,11 @@ public:
 		
 		Object->Body.DrawBoundingRect( false, Pos );
 	}
+	
+	inline Real GetFrontPolygonZ() {
+		// Get the front Z of the bounding rectangle.  Adding zero, 'cause Z offset would be 0. //
+		return Object->BoundingRect.P2().z + Real::Zero;
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

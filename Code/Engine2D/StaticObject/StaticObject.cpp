@@ -63,6 +63,8 @@ void cStaticObject::Load( const std::string& FileName )
 	}
 	
 	Log( LOG_MESH_INFO, "Finished Loading Mesh3d Binary File = " << FileName );
+	
+	CalcBoundingRect();
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

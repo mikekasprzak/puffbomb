@@ -37,14 +37,16 @@ public:
 
 	// Partitioning //
 	std::vector< cDynamicComponent* > DynamicComponent;
+		
+	// Graphical Sorting //
+	std::vector< cStaticObjectInstance* > BackStaticObject;
+	std::vector< cStaticObjectInstance* > FrontStaticObject;	
 
 	// A collection of impulse forces to apply to dynamic objects //
 	std::vector< cImpulse > Impulse;
 
 public:
 	cCamera *Camera;
-
-	int RotateCounter;
 
 public:
 	cEngine2D();
