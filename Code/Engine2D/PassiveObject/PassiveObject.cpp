@@ -39,8 +39,6 @@ bool cPassiveObject::Work() {
 void cPassiveObject::Draw() {
 	// Draw the animation //
 	if( Animator.Animation ) {
-		Animator.Step();
-		
 		Animator.DrawQuad( Pos );
 	}
 }

@@ -57,12 +57,18 @@ public:
 		
 	}
 
-public:	
-	void Draw();
-	void DebugDraw() const;
-	
+public:
 	virtual bool Work();
 
+	inline void StepAnimation() {
+		if( Animator.Animation ) {
+			Animator.Step();
+		}
+	}
+	void Draw();
+	void DebugDraw() const;
+
+public:
 	inline bool IsActive() {
 		return Active;
 	}

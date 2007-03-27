@@ -277,7 +277,7 @@ void cClassicGameEngine::Step() {
 		
 		// Only step the engine whilst we are active //
 		if ( GameActive ) {
-			// Stuff my engine does before //
+			// Stuff my engine does before ------------------------------------------------------ //
 			Camera->MinZoom = Global::HudZoom * Real( 2 );
 					
 			if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
@@ -296,13 +296,11 @@ void cClassicGameEngine::Step() {
 				Camera->UpdateTarget( FollowRect.Center() );
 			}
 			
-			// Original Engine Step Stuff //
-			for ( int idx = 0; idx < 2; idx++ ) {
-				cEngine2D::Step();
-			}
-			
-			if( Input::Button[ MOUSE_1 ] )
-			{
+			// Engine Step ---------------------------------------------------------------------- //
+			cEngine2D::Step();
+
+			// Stuff my engine does after ------------------------------------------------------- //			
+			if( Input::Button[ MOUSE_1 ] ) {
 				Vector2D BobPos = Vector2D(
 						Real( ( int( Input::Mouse.x * Real( Global::HudW ) ) )
 						- ( -Camera->Pos.x / Real( Camera->Pos.z / Global::HudZoom ) )
@@ -312,7 +310,7 @@ void cClassicGameEngine::Step() {
 						+ ( Camera->Pos.y / Real( Camera->Pos.z / Global::HudZoom ) )
 						+ ( Global::HudH >> 1 ) )
 						* Real( Camera->Pos.z / Global::HudZoom )
-				);
+					);
 			
 				Engine2D::cEngine2D::Current->Impulse.push_back( 
 					Engine2D::cImpulse(
@@ -323,11 +321,8 @@ void cClassicGameEngine::Step() {
 						Real( 512 ), Real( 0 ), Real( 0.1 )
 						)
 					);
-			}
-	
-			
-			// Stuff my engine does after //
-	
+			}			
+			// ---------------------------------------------------------------------------------- //
 		}
 		// If the engine is not active, then we'r in edit mode //
 		else {
@@ -353,7 +348,7 @@ void cClassicGameEngine::Step() {
 		SolidParticle.Step();
 		DenseParticle.Step();
 	
-		// ------------------------------------------------------------------------------------------ //
+		// -------------------------------------------------------------------------------------- //
 		
 		FrameEnd();
 	}

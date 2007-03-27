@@ -79,7 +79,7 @@ int cEngine2D::Message( int, cPassiveObject* ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-void cEngine2D::Step() {	
+void cEngine2D::StepPhysics() {	
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
 	Physics.SetActive();
@@ -195,15 +195,39 @@ void cEngine2D::Step() {
 			}
 		}
 	}
-	
-	// - -------------------------------------------------------------------------------------- - //
-	// Particle Systems //
-//	FlatParticle.Step();
-//	AdditiveParticle.Step();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::StepAnimation() {
+	// Step static object animations //
+	//for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+	//	StaticObjectInstance[ idx ].StepAnimation();
+	//}
 
-	// - -------------------------------------------------------------------------------------- - //
-	// Other //
-//	Form.Step();
+	// Step Component animations //
+	for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+		if ( DynamicComponent[ idx ]->IsActive() ) {
+			// Step it's internal Animation system //
+			DynamicComponent[ idx ]->StepAnimation();
+		}
+	}
+
+	// Step Passive Object Animations //
+	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+		if ( PassiveObject[ idx ]->IsActive() ) { 
+			// Step it's internal Animation system //
+			PassiveObject[ idx ]->StepAnimation();
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::Step() {
+	// Physics and General Engine //
+	for ( int idx = 0; idx < 2; idx++ ) {
+		StepPhysics();
+	}
+	
+	// Animation system stepping //
+	StepAnimation();
 	
 	// - -------------------------------------------------------------------------------------- - //
 	// Debug Info //
@@ -266,9 +290,6 @@ void cEngine2D::Draw() {
 		// Draw Objects //
 		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
 			if ( DynamicComponent[ idx ]->IsActive() ) {
-				// Step it's internal Animation system //
-				DynamicComponent[ idx ]->StepAnimation();
-
 				DynamicComponent[ idx ]->Draw( 0 );
 			}
 		}

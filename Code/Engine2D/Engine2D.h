@@ -53,6 +53,8 @@ public:
 public:
 	// Move and Display Everything //
 	void Step();
+	void StepPhysics();
+	void StepAnimation();
 	void Draw();
 	void LoadMap( const std::string MapName );
 	void ResetMap();
