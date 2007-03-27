@@ -93,7 +93,7 @@ void cEngine2D::Step() {
 			DynamicComponent[ idx ]->Body.Step();
 			
 			// Step it's internal Animation system //
-			DynamicComponent[ idx ]->StepAnimation();
+			//DynamicComponent[ idx ]->StepAnimation();
 			
 			// Apply Impulses //
 			for ( size_t idx2 = 0; idx2 < Impulse.size(); idx2++ ) {
@@ -265,7 +265,10 @@ void cEngine2D::Draw() {
 		Gfx::Translate( Real::Zero, Real::Zero, -Real( 2.05 ) );
 		// Draw Objects //
 		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-			if ( DynamicComponent[ idx ]->IsActive() ) { 
+			if ( DynamicComponent[ idx ]->IsActive() ) {
+				// Step it's internal Animation system //
+				DynamicComponent[ idx ]->StepAnimation();
+
 				DynamicComponent[ idx ]->Draw( 0 );
 			}
 		}

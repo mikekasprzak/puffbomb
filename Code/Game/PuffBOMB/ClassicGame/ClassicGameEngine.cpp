@@ -297,7 +297,9 @@ void cClassicGameEngine::Step() {
 			}
 			
 			// Original Engine Step Stuff //
-			cEngine2D::Step();
+			for ( int idx = 0; idx < 2; idx++ ) {
+				cEngine2D::Step();
+			}
 			
 			if( Input::Button[ MOUSE_1 ] )
 			{
