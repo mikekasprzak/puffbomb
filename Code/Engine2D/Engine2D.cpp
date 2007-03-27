@@ -76,12 +76,19 @@ int cEngine2D::Message( int, cPassiveObject* ) {
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
-
+void cEngine2D::PhysicsStart() {
+}
+// - ------------------------------------------------------------------------------------------ - //	
+void cEngine2D::PhysicsEnd() {
+}
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::StepPhysics() {	
 	// Set my Engine and Physics instance to be the active ones //
 	SetActive();
 	Physics.SetActive();
+	
+	// Overloaded code that occurs no matter how many times we step //
+	PhysicsStart();
 
 	// Physics Stage 1 -------------------------------------- //
 	// Step all the physics for all objects //
@@ -194,6 +201,9 @@ void cEngine2D::StepPhysics() {
 			}
 		}
 	}
+	
+	// Overloaded code that occurs no matter how many times we step //
+	PhysicsEnd();	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::StepAnimation() {

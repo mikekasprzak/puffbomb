@@ -23,6 +23,7 @@
 cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	GameActive( false ),
 	LevelComplete( false ),
+	CharactersAtEndZones( 0 ),
 	Score( 0 ),
 	ArrowAnimator( "TrackingArrow.anim" ),
 	IsHelp( false ),
@@ -193,7 +194,7 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::FrameStart() {
-	CharactersAtEndZones = 0;	
+	//CharactersAtEndZones = 0;	
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::FrameEnd() {
@@ -203,6 +204,13 @@ void cClassicGameEngine::FrameEnd() {
 			cMessageEntity::Current->BreakLoop = true;
 		}
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cClassicGameEngine::PhysicsStart() {
+	CharactersAtEndZones = 0;
+}
+// - ------------------------------------------------------------------------------------------ - //	
+void cClassicGameEngine::PhysicsEnd() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 

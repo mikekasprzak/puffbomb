@@ -87,6 +87,10 @@ public:
 	void Step();
 	void Draw();
 	
+	virtual void PhysicsStart();
+	virtual void PhysicsEnd();
+	
+	
 	void MiniMapInit();
 
 	virtual int Message( int Msg, Engine2D::cDynamicCollection* Sender );

@@ -60,6 +60,10 @@ public:
 	void Draw();
 	void LoadMap( const std::string MapName );
 	void ResetMap();
+	
+	// Overloadable calls that get called at the top and bottom of a physics loop //
+	virtual void PhysicsStart();
+	virtual void PhysicsEnd();
 
 	// Reset game back to a neutral state //
 	void Reset();

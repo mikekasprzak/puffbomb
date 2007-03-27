@@ -83,6 +83,9 @@ public:
 	void Step();
 	void Draw();
 	
+	virtual void PhysicsStart();
+	virtual void PhysicsEnd();
+	
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Messanging //
