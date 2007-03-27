@@ -100,6 +100,10 @@ void cMessageEntity::Work()
 
 		// A whole bunch of complicated crap to give us a flexible framerate //			
 		int MSPerFrame = 1000 / Global::FrameRate;
+			
+		if ( Input::Button[ KEY_TAB ] ) {
+			MSPerFrame = 1000 / 8;
+		}
 		
 		int ThisTime = GetTime();
 

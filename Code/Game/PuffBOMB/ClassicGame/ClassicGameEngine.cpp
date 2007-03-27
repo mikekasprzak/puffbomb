@@ -252,29 +252,6 @@ void cClassicGameEngine::Step() {
 				ClockHud.StartEditMode();
 			}
 		}
-	
-		// temporary keys //
-		{
-			// Toggle play //
-			if( Input::Button[ KEY_BACKSPACE ].Pressed() ) {
-				GameActive = !GameActive;
-			}
-			
-			// When you push backspace, reload/reset the level //
-			if( Input::Button[ KEY_TAB ].Pressed() ) {
-				// Clear various lists, 'cause we're about to repopulate them //
-				CameraTracking.clear();
-				Impulse.clear();
-				AlwaysActivePassives.clear();
-				PointsOfInterest.clear();
-	
-				// Reset here, to restore everything back to it's home position, before we edit //
-				ResetMap();
-				
-				// Add our bombs //
-				AddBombs();
-			}
-		}
 		
 		// Only step the engine whilst we are active //
 		if ( GameActive ) {
