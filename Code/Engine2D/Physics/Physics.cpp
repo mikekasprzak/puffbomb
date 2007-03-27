@@ -14,7 +14,7 @@ cPhysics::cPhysics() :
 	SurfaceFriction( 0.94 ), //( 0.795 ),
 	ObjectFriction( 0.8f ),
 	OperationFlags( 0 ),
-	RelaxationSteps( 1 )
+	RelaxationSteps( 2 )
 {
 	// Use normal gravity //
 	NormalGravity();
