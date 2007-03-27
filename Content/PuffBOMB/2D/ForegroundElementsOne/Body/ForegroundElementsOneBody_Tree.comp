@@ -4,87 +4,117 @@ LoopPoint	0
 Frame	0	0		
 Animation_End				
 BodyPose_Start				
-TotalMass	4.5			
-BodyPose_Node_Start	9			
-BodyNode	-214.634	318.408	0.5	
-BodyNode	-216.611	189.721	0.5	
-BodyNode	-209.445	63.2404	0.5	
-BodyNode	-320.182	-32.0182	0.5	
-BodyNode	-64.0365	-32.0182	0.5	
-BodyNode	-224	-176	0.5	
-BodyNode	-212.777	398.485	0.5	
-BodyNode	-208	-96	0.5	
-BodyNode	-176	-176	0.5	
+TotalMass	7			
+BodyPose_Node_Start	13			
+BodyNode	-185.142	301.876	0.5	
+BodyNode	-248.972	301.876	0.5	
+BodyNode	-264.06	211.278	0.5	
+BodyNode	-168.313	211.278	0.5	
+BodyNode	-267.346	95.2616	0.5	
+BodyNode	-159.578	95.7469	0.5	
+BodyNode	-307.4	-18.3289	0.5	
+BodyNode	-100.71	-7.65357	0.5	
+BodyNode	-222.484	-152.785	1	
+BodyNode	-183.774	-152.476	1	
+BodyNode	-240.646	-84.6968	0.5	
+BodyNode	-170.993	-84.9613	0.5	
+BodyNode	-214.334	367.371	0.5	
 BodyPose_Node_End				
-BodyPose_Spring_Start	25			
-BodySpring	0	1	128.702	1
-BodySpring	0	2	255.22	1
-BodySpring	0	3	365.977	1
-BodySpring	0	4	381.416	1
-BodySpring	0	6	80.0985	1
-BodySpring	1	2	126.683	1
-BodySpring	1	3	244.735	1
-BodySpring	1	4	269.16	1
-BodySpring	1	6	208.799	1
-BodySpring	2	3	146.072	1
-BodySpring	2	4	173.833	1
-BodySpring	2	6	335.261	1
-BodySpring	3	4	256.146	1
-BodySpring	3	6	443.699	1
-BodySpring	4	6	455.474	1
-BodySpring	5	7	81.5843	1
-BodySpring	7	2	159.247	1
-BodySpring	7	3	129.145	1
-BodySpring	7	4	157.541	1
-BodySpring	5	8	48	1
-BodySpring	7	8	86.1626	1
-BodySpring	3	5	173.152	1
-BodySpring	5	4	215.219	1
-BodySpring	8	3	203.763	1
-BodySpring	8	4	182.391	1
+BodyPose_Spring_Start	30			
+BodySpring	0	1	63.8304	1
+BodySpring	0	12	71.706	1
+BodySpring	1	12	74.0906	1
+BodySpring	1	2	91.8463	1
+BodySpring	0	3	92.1483	1
+BodySpring	2	4	116.062	1
+BodySpring	3	5	115.86	1
+BodySpring	6	4	120.446	1
+BodySpring	5	7	118.984	1
+BodySpring	6	10	94.1315	1
+BodySpring	7	11	104.48	1
+BodySpring	6	7	206.966	1
+BodySpring	4	5	107.768	1
+BodySpring	2	3	95.7476	1
+BodySpring	10	11	69.6541	1
+BodySpring	8	10	70.4688	1
+BodySpring	9	11	68.714	1
+BodySpring	8	9	38.7112	1
+BodySpring	8	6	159.025	1
+BodySpring	7	8	189.452	1
+BodySpring	9	7	166.953	1
+BodySpring	9	6	182.425	1
+BodySpring	9	10	88.4785	1
+BodySpring	8	11	85.1552	1
+BodySpring	6	5	186.72	1
+BodySpring	4	7	195.855	1
+BodySpring	4	3	152.536	1
+BodySpring	5	2	155.768	1
+BodySpring	2	0	120.151	1
+BodySpring	3	1	121.301	1
 BodyPose_Spring_End				
-BodyPose_Sphere_Start	9			
-BodySphere	0	68.0365		
-BodySphere	1	113.062		
-BodySphere	3	86.049		
-BodySphere	4	74.0422		
-BodySphere	5	37.0296		
-BodySphere	6	28		
-BodySphere	2	153		
-BodySphere	7	51		
-BodySphere	8	37		
+BodyPose_Sphere_Start	13			
+BodySphere	0	53.8576		
+BodySphere	1	53.8576		
+BodySphere	2	67.8207		
+BodySphere	3	67.8207		
+BodySphere	4	99.7364		
+BodySphere	5	99.7364		
+BodySphere	6	105.721		
+BodySphere	7	103.726		
+BodySphere	8	33.9104		
+BodySphere	9	33.9104		
+BodySphere	10	57.8471		
+BodySphere	11	57.8471		
+BodySphere	12	47.8734		
 BodyPose_Sphere_End				
 BodyPose_End				
 MeshPose_Start				
-MeshPose_Node_Start	14			
-MeshPose_Scale	2.00114			
-MeshNode	96.0547	-96.0547	4	5
-MeshNode	64.0365	64.0365	4	2
-MeshNode	-512	-96	3	5
-MeshNode	-480.273	32.0182	3	2
-MeshNode	-416.237	192.109	1	3
-MeshNode	0	192.109	1	4
-MeshNode	-384.219	288.164	0	1
-MeshNode	-64.0365	288.164	0	1
-MeshNode	-320.182	480.273	0	1
-MeshNode	-128.073	480.273	0	1
-MeshNode	-512	-160	3	5
-MeshNode	96	-160	4	8
-MeshNode	-512	-256	3	5
-MeshNode	96	-256	4	8
+MeshPose_Node_Start	20			
+MeshPose_Scale	2.00011			
+MeshNode	-207.452	-255.325	9	8
+MeshNode	-95.7469	-255.325	9	8
+MeshNode	-319.156	-255.325	8	9
+MeshNode	-510.65	-127.663	10	8
+MeshNode	-207.452	-127.663	9	8
+MeshNode	79.7891	-127.663	11	9
+MeshNode	-478.735	0	6	4
+MeshNode	-207.452	0	7	6
+MeshNode	79.7891	0	7	5
+MeshNode	0	127.663	7	3
+MeshNode	-207.452	127.663	5	4
+MeshNode	-414.903	127.663	4	2
+MeshNode	-382.988	255.325	2	1
+MeshNode	-207.452	255.325	3	2
+MeshNode	-63.8313	255.325	3	0
+MeshNode	-351.072	351.072	1	12
+MeshNode	-95.7469	351.072	0	12
+MeshNode	-207.452	351.072	1	0
+MeshNode	-319.156	478.735	12	1
+MeshNode	-127.663	478.735	12	0
 MeshPose_Node_End				
-MeshPose_Face_Start	12			
+MeshPose_Face_Start	23			
 MeshFace	2	0	3	
-MeshFace	3	0	1	
-MeshFace	4	3	1	
+MeshFace	3	0	4	
+MeshFace	0	1	4	
 MeshFace	4	1	5	
-MeshFace	6	4	5	
-MeshFace	6	5	7	
-MeshFace	6	7	8	
-MeshFace	8	7	9	
-MeshFace	2	10	11	
-MeshFace	2	11	0	
-MeshFace	10	12	13	
-MeshFace	10	13	11	
+MeshFace	3	4	6	
+MeshFace	7	6	4	
+MeshFace	4	5	7	
+MeshFace	7	5	8	
+MeshFace	6	7	11	
+MeshFace	10	11	7	
+MeshFace	7	8	10	
+MeshFace	9	10	8	
+MeshFace	11	10	12	
+MeshFace	12	10	13	
+MeshFace	10	9	13	
+MeshFace	13	9	14	
+MeshFace	12	13	15	
+MeshFace	15	13	17	
+MeshFace	13	14	17	
+MeshFace	16	17	14	
+MeshFace	15	17	18	
+MeshFace	17	16	19	
+MeshFace	18	17	19	
 MeshPose_Face_End				
 MeshPose_End				
