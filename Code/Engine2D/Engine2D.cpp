@@ -284,17 +284,17 @@ void cEngine2D::Draw() {
 	}
 
 	// First Pass Component Draw //
-	{
-		Gfx::PushMatrix();
-		Gfx::Translate( Real::Zero, Real::Zero, -Real( 2.05 ) );
-		// Draw Objects //
-		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
-			if ( DynamicComponent[ idx ]->IsActive() ) {
-				DynamicComponent[ idx ]->Draw( 0 );
-			}
-		}
-		Gfx::PopMatrix();
-	}
+//	{
+//		Gfx::PushMatrix();
+//		Gfx::Translate( Real::Zero, Real::Zero, -Real( 2.05 ) );
+//		// Draw Objects //
+//		for ( size_t idx = 0; idx < DynamicComponent.size(); ++idx ) {
+//			if ( DynamicComponent[ idx ]->IsActive() ) {
+//				DynamicComponent[ idx ]->Draw( 0 );
+//			}
+//		}
+//		Gfx::PopMatrix();
+//	}
 
 	// Second Pass Component Draw //
 	{
