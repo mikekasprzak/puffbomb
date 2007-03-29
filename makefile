@@ -8,7 +8,7 @@ else
 ifeq "$(PLATFORM)" "TestSuite"
 ARGS		:=	-j$(THREADS) -f Code/$(PLATFORM)/makefile.mak -k --no-print-directory
 else
-ARGS		:=	-j$(THREADS) -f Code/Platform/$(PLATFORM)/makefile.mak --no-print-directory
+ARGS		:=	-j$(THREADS) -f Code/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
 endif
 endif
 # - -------------------------------------------------------------------------------------------- - #
