@@ -1,5 +1,5 @@
 # - -------------------------------------------------------------------------------------------- - #
-include Code/Tools/_ToolChain/tools.mak
+include Code/Makefiles/tools.mak
 # - -------------------------------------------------------------------------------------------- - #
 SEARCH_DIR		:=	Output/PuffBOMB/GL/Data/Maps
 TARGET_DIR		:=	Content/PuffBOMB/Maps

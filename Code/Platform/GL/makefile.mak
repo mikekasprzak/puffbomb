@@ -7,7 +7,7 @@
 include config.mak
 include Code/Game/$(GAME_TARGET)/Makefiles/game.mak
 # - -------------------------------------------------------------------------------------------- - #
-ToolChain		:=	Code/Tools/_ToolChain
+ToolChain		:=	Code/Makefiles
 # - -------------------------------------------------------------------------------------------- - #
 # Include the platform configuration ----------------------------------------------------------- - #
 include $(ToolChain)/$(PLATFORM)/platform.mak
