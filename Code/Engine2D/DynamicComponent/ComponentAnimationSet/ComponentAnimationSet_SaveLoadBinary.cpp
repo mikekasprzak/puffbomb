@@ -179,6 +179,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 	// Extract the base name from the output file, to know what we're going to call what we write to //
 	string WorkingBaseName = String::DirectorySlash( CompFileName ) + String::BaseName( CompFileName );
 	string FinalBaseName = String::DirectorySlash( FinalFileName ) + String::BaseName( FinalFileName );
+	string FinalTextureBaseName = String::DirectorySlash( FinalFileName ) + String::BaseName( String::Directory( FinalFileName ) );
 	
 	// Acquire art assets, and description of animation timings //
 	cAnimationGenerator Art( ArtDirectory );
@@ -199,7 +200,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 			// Compress //
 			OutScript << getenv("Compress") << " " <<
 				WorkingBaseName << idx << ".tx " <<
-				FinalBaseName << idx << ".pack.tx" <<
+				FinalTextureBaseName << idx << ".pack.tx" <<
 				endl;
 		}
 		
@@ -353,8 +354,9 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 				//Out.Write( Art.ImagePool[ idx ].FileName.c_str(), Art.ImagePool[ idx ].FileName.size() + 1 );
 				
 				// Write new filename //
-				string FileString = PrePreFolder + "/" + PreFolder + "/" + String::BaseName( CompFileName );
-				
+				//string FileString = PrePreFolder + "/" + PreFolder + "/" + String::BaseName( CompFileName );
+				string FileString = PrePreFolder + "/" + PreFolder + "/" + String::BaseName( String::Directory( FinalFileName ) );
+					
 				stringstream ImageIndex;
 				ImageIndex << idx;
 				
