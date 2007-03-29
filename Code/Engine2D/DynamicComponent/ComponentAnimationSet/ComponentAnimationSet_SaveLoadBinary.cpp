@@ -214,9 +214,13 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 			// Generate an active body from the pose //
 			cBody2D TempBody( BodyPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].BodyPoseIndex ] );
 			
+			Vector2D TextureSize( Real( Art.ImagePool[ Art.Animation[ AnimIndex ].Frame[ FrameIndex ].ImageIndex ].Image->w ), 
+										 Real( Art.ImagePool[ Art.Animation[ AnimIndex ].Frame[ FrameIndex ].ImageIndex ].Image->h )
+										);
+			
 			// Calculate the Mesh from the mesh pose and a body //
 			Animation[ AnimIndex ].Frame[ FrameIndex ].Mesh = 
-				cMesh2D( MeshPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].MeshPoseIndex ], TempBody );
+				cMesh2D( MeshPose[ Animation[ AnimIndex ].Frame[ FrameIndex ].MeshPoseIndex ], TempBody, TextureSize );
 		}
 	}
 	

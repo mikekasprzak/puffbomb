@@ -34,7 +34,7 @@ public:
 	{
 	}
 	
-	cMesh2D( const class cMesh2DPose& _Pose, const class cBody2D& Body, Vector2D TextureSize = Vector2D( 512, 512 ) );
+	cMesh2D( const class cMesh2DPose& _Pose, const class cBody2D& Body, Vector2D TextureSize );
 	
 public:
 	void Draw( const class cBody2D& Body, const cTexture::IdType& Texture ) const;
