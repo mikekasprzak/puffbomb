@@ -189,6 +189,18 @@ void cFont::Write( const std::string &Text, Vector3D Pos, const Real Size, const
 		Vector2D UVb = Vector2D::Zero;
 		if( TextureWidth != 0 && TextureHeight != 0 )
 		{
+			if( TextureWidth != 512 )  // because the font code is not based on UV coords (should be fixed later) //
+			{
+				Real TempWidthScale = Real( 512 ) / Real( TextureWidth );
+				TextureWidth = Real( TextureWidth ) * TempWidthScale;
+			}
+			
+			if( TextureHeight != 512 )  // because the font code is not based on UV coords (should be fixed later) //
+			{
+				Real TempHeightScale = Real( 512 ) / Real( TextureHeight );
+				TextureHeight = Real( TextureHeight ) * TempHeightScale;
+			}
+			
 			UVa.x = TempChar.UVa.x / Real( TextureWidth );
 			UVb.x = TempChar.UVb.x / Real( TextureWidth );
 			UVa.y = TempChar.UVa.y / Real( TextureHeight );
