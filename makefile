@@ -2,19 +2,12 @@
 -include config.mak
 -include Code/Game/$(GAME_TARGET)/Makefiles/game.mak
 # - -------------------------------------------------------------------------------------------- - #
-ifeq "$(PLATFORM)" "Tools"
-ARGS		:=	-j$(THREADS) -f Code/$(PLATFORM)/makefile.mak -k --no-print-directory
-else
-ifeq "$(PLATFORM)" "TestSuite"
-ARGS		:=	-j$(THREADS) -f Code/$(PLATFORM)/makefile.mak -k --no-print-directory
-else
 ARGS		:=	-j$(THREADS) -f Code/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
-endif
-endif
 # - -------------------------------------------------------------------------------------------- - #
 
 # - -------------------------------------------------------------------------------------------- - #
 normal: config.mak
+	@make update $(ARGS)
 	@make $(ARGS)
 # - -------------------------------------------------------------------------------------------- - #
 all: config.mak
@@ -25,7 +18,6 @@ run: config.mak
 # - -------------------------------------------------------------------------------------------- - #
 update: config.mak
 	@make update $(ARGS)
-	@make $(ARGS)
 # - -------------------------------------------------------------------------------------------- - #
 clean: config.mak
 	@make clean $(ARGS)
