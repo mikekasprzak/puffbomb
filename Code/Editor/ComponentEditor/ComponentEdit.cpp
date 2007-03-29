@@ -864,8 +864,11 @@ void cComponentEdit::UpdatePreview()
 {
 	if( !TextureName.empty() )
 	{
-		Real TempTexWidth = 256;
-		Real TempTexHeight = 256;
+//		Real TempTexWidth = 256;
+//		Real TempTexHeight = 256;
+
+		Real TempTexWidth = AnimationGenerator->ImagePool[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ].Image->w / 2;
+		Real TempTexHeight = AnimationGenerator->ImagePool[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ].Image->h / 2;
 		
 		TempTexWidth *= DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].TextureScale;
 		TempTexHeight *= DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].TextureScale;

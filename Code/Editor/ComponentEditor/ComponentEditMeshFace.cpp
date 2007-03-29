@@ -167,13 +167,18 @@ void cComponentEdit::MeshGenerateUV()
 	{
 		DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Time = 1;
 		
+		Vector2D TextureSize = Vector2D( Real( AnimationGenerator->ImagePool[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ].Image->w ), 
+										 Real( AnimationGenerator->ImagePool[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ].Image->h )
+										);
+		
 		// Determine Scale //
-		Real MeshScale = PreviewTexVertex[2].x / Real( 256 );
+		//Real MeshScale = PreviewTexVertex[2].x / Real( 256 );
+		Real MeshScale = PreviewTexVertex[2].x / ( TextureSize.x / Real( 2 ) );
 		
 		DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ].TextureScale = MeshScale;
 
 		DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].Mesh =
-			Engine2D::cMesh2D( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj->Body );
+			Engine2D::cMesh2D( DynObj->Animator.AnimationSet->MeshPose[ DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].MeshPoseIndex ], DynObj->Body, TextureSize );
 				
 		DynObj->Animator.AnimationSet->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].TextureId[0] = TextureID[ AnimationGenerator->Animation[ CurMeshAnim ].Frame[ CurMeshFrame ].ImageIndex ];
 	}

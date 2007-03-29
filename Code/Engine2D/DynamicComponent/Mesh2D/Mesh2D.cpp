@@ -10,7 +10,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
-cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body ) {
+cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body, Vector2D TextureSize ) {
 	// Resize vertices and UV's for manipulation //
 	Vertex.resize( _Pose.Node.size() );
 	UV.resize( _Pose.Node.size() );
@@ -49,11 +49,22 @@ cMesh2D::cMesh2D( const cMesh2DPose& _Pose, const cBody2D& Body ) {
 	//	Real SizeScalar = Real::One / Real( 512 ); // ** Hack, until magic numbers //
 
 		// Generate the UV //
-		Vector2D Offset( Real( -256 ) * _Pose.TextureScale, Real( -256 ) * _Pose.TextureScale );	// ** Hack, until magic numbers //
-		Real SizeScalar = Real::One / ( Real( 512 ) * _Pose.TextureScale ); // ** Hack, until magic numbers //
+		//Vector2D Offset( Real( -256 ) * _Pose.TextureScale, Real( -256 ) * _Pose.TextureScale );	// ** Hack, until magic numbers //
+		//Real SizeScalar = Real::One / ( Real( 512 ) * _Pose.TextureScale ); // ** Hack, until magic numbers //
 
-		UV[ idx ] = (_Pose.Node[ idx ].Pos - Offset) * SizeScalar;
+		// Generate the UV //
+		Vector2D Offset( Real( -( TextureSize.x / Real( 2 ) ) ) * _Pose.TextureScale, Real( -( TextureSize.y / Real( 2 ) ) ) * _Pose.TextureScale );
+		Vector2D SizeScalar;
+		SizeScalar.x = Real::One / ( TextureSize.x * _Pose.TextureScale );
+		SizeScalar.y = Real::One / ( TextureSize.y * _Pose.TextureScale );
+
+
+		UV[ idx ].x = (_Pose.Node[ idx ].Pos - Offset).x * SizeScalar.x;
+		UV[ idx ].y = (_Pose.Node[ idx ].Pos - Offset).y * SizeScalar.y;
+		
+		// To correct an orientation bug //
 		UV[ idx ].y *=  Real( -1 );
+
 	}
 
 
