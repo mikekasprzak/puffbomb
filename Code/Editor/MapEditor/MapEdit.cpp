@@ -707,8 +707,45 @@ void cMapEdit::SaveMap()
 	{
 		if( !MapPath.empty() )
 		{
-			
 			// Static Object Part //
+			
+			// Bubble sort the Static objects based on the File Name //
+			for( size_t i = 0; i < StaticObjectInstance.size(); ++i )
+			{
+				for( size_t idx = 0; idx < Map.StaticObjectInstanceInfo.size() - 1; ++idx )
+				{
+					if( Map.StaticObjectInstanceInfo[ idx ].FileName > Map.StaticObjectInstanceInfo[ idx + 1 ].FileName )
+					{
+						Engine2D::cStaticObjectInstanceInfo TempSOII = Map.StaticObjectInstanceInfo[ idx ];
+						Map.StaticObjectInstanceInfo[ idx ] = Map.StaticObjectInstanceInfo[ idx + 1 ];
+						Map.StaticObjectInstanceInfo[ idx + 1 ] = TempSOII;
+						
+						Engine2D::cStaticObject* TempSOI = StaticObjectInstance[ idx ].Object;
+						StaticObjectInstance[ idx ].Object = StaticObjectInstance[ idx + 1 ].Object;
+						StaticObjectInstance[ idx + 1 ].Object = TempSOI;
+						
+					}
+				}
+			}
+
+			// Bubble sort the Static objects based on the Z value //
+			for( size_t i = 0; i < StaticObjectInstance.size(); ++i )
+			{
+				for( size_t idx = 0; idx < Map.StaticObjectInstanceInfo.size() - 1; ++idx )
+				{
+					if( StaticObjectInstance[ idx ].Object->BoundingRect.P2().z > StaticObjectInstance[ idx + 1 ].Object->BoundingRect.P2().z )
+					{
+						Engine2D::cStaticObjectInstanceInfo TempSOII = Map.StaticObjectInstanceInfo[ idx ];
+						Map.StaticObjectInstanceInfo[ idx ] = Map.StaticObjectInstanceInfo[ idx + 1 ];
+						Map.StaticObjectInstanceInfo[ idx + 1 ] = TempSOII;
+						
+						Engine2D::cStaticObject* TempSOI = StaticObjectInstance[ idx ].Object;
+						StaticObjectInstance[ idx ].Object = StaticObjectInstance[ idx + 1 ].Object;
+						StaticObjectInstance[ idx + 1 ].Object = TempSOI;
+						
+					}
+				}
+			}
 			
 			// Dynamic Object Part //
 			for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); ++idx )

@@ -143,10 +143,10 @@ void cMap::LoadBinary( const std::string FileName )
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
-bool compare_staticobj(const cStaticObjectInstanceInfo &a, const cStaticObjectInstanceInfo &b) 
-{
-    return a.FileName > b.FileName;
-}
+//bool compare_staticobj(const cStaticObjectInstanceInfo &a, const cStaticObjectInstanceInfo &b) 
+//{
+//    return a.FileName > b.FileName;
+//}
 // - ------------------------------------------------------------------------------------------ - //
 void cMap::SaveBinary( const std::string FileName )
 {
@@ -159,7 +159,9 @@ void cMap::SaveBinary( const std::string FileName )
 			std::vector< cStaticObjectInstanceInfo > TempSOII;
 			
 			TempSOII = StaticObjectInstanceInfo;
-			std::sort( TempSOII.begin(), TempSOII.end(), compare_staticobj );
+			
+			// FileName sort should run this before the z sort //
+			//std::sort( TempSOII.begin(), TempSOII.end(), compare_staticobj );
 			
 			Out.Write( TempSOII.size() );
 			
