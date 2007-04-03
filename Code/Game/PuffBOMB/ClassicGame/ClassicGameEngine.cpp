@@ -577,7 +577,7 @@ void cClassicGameEngine::MiniMapInit()
 
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::AddBombs() {
-	const int TimeScalar = 10;
+	const int TimeScalar = 20;
 	// 15 = 4 ticks per second //
 	// 12 = 5 ticks per second //
 	// 10 = 6 ticks per second //
