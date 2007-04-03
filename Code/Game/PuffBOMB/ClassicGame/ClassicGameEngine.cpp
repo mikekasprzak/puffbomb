@@ -587,7 +587,7 @@ void cClassicGameEngine::AddBombs() {
 	
 	// Add every bomb //
 	for ( size_t idx = 0; idx < Cursor.Bomb.size(); idx++ ) {
-		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, (Cursor.Bomb[ idx ].Time * TimeScalar) + 1 ) );
+		PassiveObject.push_back( CreatePassiveInstance( 2, Cursor.Bomb[ idx ].Pos, (Cursor.Bomb[ idx ].Time * TimeScalar) + 1 + 120 ) );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
