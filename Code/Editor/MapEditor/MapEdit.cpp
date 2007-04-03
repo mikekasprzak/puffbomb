@@ -84,6 +84,16 @@ cMapEdit::cMapEdit() :
 	// Populate the MiniMapDynList //
 	MiniMapDynList.push_back( 128 ); // BubblePlant //
 	MiniMapDynList.push_back( 131 ); // TreeOne //
+	MiniMapDynList.push_back( 137 ); // ForegroundTree //
+	MiniMapDynList.push_back( 142 ); // ForegroundSunflower //
+	MiniMapDynList.push_back( 143 ); // ForegroundMushroomOne //
+	MiniMapDynList.push_back( 144 ); // ForegroundPlatformOne //
+	MiniMapDynList.push_back( 145 ); // ForegroundPlatformTwo //
+	MiniMapDynList.push_back( 146 ); // ForegroundRockPlatform //
+	MiniMapDynList.push_back( 147 ); // ForegroundBerryBush //
+	MiniMapDynList.push_back( 148 ); // ForegroundTreeStumpOne //
+	MiniMapDynList.push_back( 149 ); // ForegroundTreeStumpTwo //
+	MiniMapDynList.push_back( 150 ); // ForegroundMushroomTwo //
 	
 	CurMode = TILE_MODE;
 	LastMode = CurMode;
@@ -124,14 +134,23 @@ void cMapEdit::Draw()
 	if( CurMode == MINI_MAP_MODE )
 	{
 		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
-		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-			
-			if( Map.StaticObjectInstanceInfo[ idx ].FileName.find( "Scene" ) == std::string::npos )
-			{
-				StaticObjectInstance[ idx ].Draw();
-			}
-		}
+		//for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx )
+		//{
+						
+			//if( Map.StaticObjectInstanceInfo[ idx ].FileName.find( "Scene" ) == std::string::npos )
+			//{
+			//	StaticObjectInstance[ idx ].Draw();
+			//}
+		//}
 	
+		// First Pass Back StaticObject Draw //
+		{
+			// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+			for ( size_t idx = 0; idx < BackStaticObject.size(); ++idx ) {
+				BackStaticObject[ idx ]->Draw();
+			}
+		}		
+
 		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx )
 		{
 			bool isDrawn = false;
@@ -149,19 +168,43 @@ void cMapEdit::Draw()
 				}
 			}
 		}
+		
+		// First Pass Front StaticObject Draw //
+		{
+			// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+			for ( size_t idx = 0; idx < FrontStaticObject.size(); ++idx ) {
+				FrontStaticObject[ idx ]->Draw();
+			}
+		}	
 	}
 	else
 	{
 		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
-		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-			StaticObjectInstance[ idx ].Draw();
-		}
+//		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+//			StaticObjectInstance[ idx ].Draw();
+//		}
+
+		// First Pass Back StaticObject Draw //
+		{
+			// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+			for ( size_t idx = 0; idx < BackStaticObject.size(); ++idx ) {
+				BackStaticObject[ idx ]->Draw();
+			}
+		}		
 	
 		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
 			if ( DynamicCollection[ idx ]->IsActive() ) { 
 				DynamicCollection[ idx ]->Draw();
 			}
 		}
+
+		// First Pass Front StaticObject Draw //
+		{
+			// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+			for ( size_t idx = 0; idx < FrontStaticObject.size(); ++idx ) {
+				FrontStaticObject[ idx ]->Draw();
+			}
+		}	
 	
 		Gfx::DisableTex2D();
 	
@@ -463,6 +506,19 @@ void cMapEdit::Step()
 		{
 			CurMode = MiniMapLastMode;
 			SaveScreenshot();
+			
+			FrontStaticObject.clear();
+			BackStaticObject.clear();
+			
+			// Sort static objects in to fronts and backs //
+			for ( int idx = 0; idx < StaticObjectInstance.size(); idx++ ) {
+				if ( StaticObjectInstance[ idx ].GetFrontPolygonZ() >= Real::Zero ) {
+					FrontStaticObject.push_back( &StaticObjectInstance[ idx ] );
+				}
+				else {
+					BackStaticObject.push_back( &StaticObjectInstance[ idx ] );				
+				}
+			}
 		}
 	}
 		
@@ -624,6 +680,20 @@ void cMapEdit::LoadMap()
 			Map.StaticObjectInstanceInfo[ idx ].Layer = CurLayer;
 
 		}
+			
+		FrontStaticObject.clear();
+		BackStaticObject.clear();
+		
+		// Sort static objects in to fronts and backs //
+		for ( int idx = 0; idx < StaticObjectInstance.size(); idx++ ) {
+			if ( StaticObjectInstance[ idx ].GetFrontPolygonZ() >= Real::Zero ) {
+				FrontStaticObject.push_back( &StaticObjectInstance[ idx ] );
+			}
+			else {
+				BackStaticObject.push_back( &StaticObjectInstance[ idx ] );				
+			}
+		}
+		
 	}
 	
 	// Dynamic Object part //
@@ -747,6 +817,7 @@ void cMapEdit::SaveMap()
 				}
 			}
 			
+			
 			// Dynamic Object Part //
 			for( size_t idx = 0; idx < Map.DynamicObjectInstanceInfo.size(); ++idx )
 			{
@@ -791,6 +862,24 @@ void cMapEdit::SaveMap()
 		LoadMap();
 		
 		CurMode = MINI_MAP_MODE;
+		
+		FrontStaticObject.clear();
+		BackStaticObject.clear();
+		
+		// Sort static objects in to fronts and backs //
+		for ( int idx = 0; idx < StaticObjectInstance.size(); idx++ )
+		{
+			if( Map.StaticObjectInstanceInfo[ idx ].FileName.find( "Scene" ) == std::string::npos )
+			{
+				if ( StaticObjectInstance[ idx ].GetFrontPolygonZ() >= Real::Zero ) {
+					FrontStaticObject.push_back( &StaticObjectInstance[ idx ] );
+				}
+				else {
+					BackStaticObject.push_back( &StaticObjectInstance[ idx ] );				
+				}
+			}
+		}
+		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

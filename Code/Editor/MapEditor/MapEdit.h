@@ -41,6 +41,10 @@ public:
 	std::vector< Engine2D::cPassiveObject* > PassiveObject;
 	std::vector< Engine2D::cZone > Zone;
 
+	// Graphical Sorting //
+	std::vector< Engine2D::cStaticObjectInstance* > BackStaticObject;
+	std::vector< Engine2D::cStaticObjectInstance* > FrontStaticObject;	
+
 	std::string MapBaseDirName;
 	std::vector< std::string > MapPath;
 	size_t CurMap;
