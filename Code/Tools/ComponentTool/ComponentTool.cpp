@@ -30,19 +30,19 @@ int main( int argc, char* argv[] ) {
 
 	// - -------------------------------------------------------------------------------------- - //
 	
-	string ComponentFile( argv[ 1 ] );
+	string ComponentFile( String::SystemSlash( argv[ 1 ] ) );
 	string ArtFolder = String::Directory( ComponentFile );
 	
-	string TargetComp( argv[ 2 ] );
-	string FinalFileName( argv[ 3 ] );
+	string TargetComp( String::SystemSlash( argv[ 2 ] ) );
+	string FinalFileName( String::SystemSlash( argv[ 3 ] ) );
 
 	// - -------------------------------------------------------------------------------------- - //
 
 	// Verify command line arguments are ok //
-	cout << ComponentFile << endl;	
-//	cout << ArtFolder << endl;
-//	cout << TargetComp << endl;
-	cout << getenv("HOME") << endl;
+	cout << ".COMP: " << ComponentFile << endl;	
+	cout << "ART DIR: " << ArtFolder << endl;
+	cout << "BIN.COMP: " << TargetComp << endl;
+	cout << "HOME: " << getenv("HOME") << endl;
 
 	// - -------------------------------------------------------------------------------------- - //
 
