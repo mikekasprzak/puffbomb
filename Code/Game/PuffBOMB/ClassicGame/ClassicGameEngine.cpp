@@ -264,7 +264,8 @@ void cClassicGameEngine::Step() {
 		// Only step the engine whilst we are active //
 		if ( GameActive ) {
 			// Stuff my engine does before ------------------------------------------------------ //
-			Camera->MinZoom = Global::HudZoom * Real( 2 );
+			//Camera->MinZoom = Global::HudZoom * Real( 2 );
+			Camera->MinZoom = Global::HudZoom * Real( 2.5 );
 					
 			if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
 				Camera->MinZoom = Global::HudZoom * Real( 3.5 );

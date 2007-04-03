@@ -357,7 +357,7 @@ void cGolfGameEngine::Step() {
 			Camera->MinZoom = Global::HudZoom * Real( 3.5 );
 		}
 		else {
-			Camera->MinZoom = Global::HudZoom * Real( 2 );
+			Camera->MinZoom = Global::HudZoom * Real( 2.5 );
 		}
 		
 		

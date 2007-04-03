@@ -36,7 +36,7 @@ void cClassicCursor::Step() {
 		}
 		// Don't Zoom the camera //
 		else {
-			Engine->Camera->MinZoom = Global::HudZoom * Real( 2 );
+			Engine->Camera->MinZoom = Global::HudZoom * Real( 2.5 );
 		}
 	}
 

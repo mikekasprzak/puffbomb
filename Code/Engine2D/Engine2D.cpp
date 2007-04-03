@@ -21,14 +21,14 @@ cEngine2D::cEngine2D() :
 {
 	// Create Camera //
 	Camera = new cCamera(
-		Vector3D( 0.0, 0.0, Global::HudZoom * Real( 2 ) ),			// Pos
+		Vector3D( 0.0, 0.0, Global::HudZoom * Real( 2.5 ) ),			// Pos
 		Vector3D( 0.0, 0.0, 0.0 ),						// View
 		Vector3D( 0.0, 1.0, 0.0 ),						// Up
 		45.0,											// Field of View
 		Global::AspectRatio,							// Aspect Ratio
 		1000.0,											// NearClip
 		100000.0,										// FarClip
-		Global::HudZoom * Real( 2 ),					// MinZoom
+		Global::HudZoom * Real( 2.5 ),					// MinZoom
 		Global::HudZoom * Real( 8 ),					// MaxZoom
 		Global::HudZoom,								// HudZoom
 		Real( 0 ),										// X
