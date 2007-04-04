@@ -60,7 +60,7 @@ public:
 public:
 	virtual bool Work();
 
-	inline void StepAnimation() {
+	virtual void StepAnimation() {
 		if( Animator.Animation ) {
 			Animator.Step();
 		}

@@ -20,6 +20,7 @@ public:
 	}
 
 public:
+	virtual void StepAnimation();
 	virtual bool Work();
 	virtual void Draw();
 

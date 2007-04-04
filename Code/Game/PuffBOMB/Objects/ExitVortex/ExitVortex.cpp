@@ -29,10 +29,17 @@
 //	return 0;
 //}
 // - ------------------------------------------------------------------------------------------ - //
+void cExitVortex::StepAnimation() {
+	if( Animator.Animation ) {
+		Animator.Step();
+	}
+	
+	if( Face.Animation ) {
+		Face.Step();
+	}	
+}
+// - ------------------------------------------------------------------------------------------ - //
 bool cExitVortex::Work() {
-	//RotationClock += Real( 0.001 );
-	
-	
 	// Step pulse rate timer //
 	
 	// On pulse match, impulse //
