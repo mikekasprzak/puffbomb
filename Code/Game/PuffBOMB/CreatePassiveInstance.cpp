@@ -60,6 +60,7 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 		case 7: {
 			Engine2D::cPassiveObject* MyObj = new Engine2D::cPassiveObject( "EndArrow.anim", Pos );
 			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 1, MyObj );
 				Engine2D::cEngine2D::Current->Message( 7, MyObj );
 			}
 			return MyObj;

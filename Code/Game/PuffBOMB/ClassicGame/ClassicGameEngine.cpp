@@ -322,6 +322,7 @@ void cClassicGameEngine::Step() {
 						
 			for ( size_t idx = 0; idx < AlwaysActivePassives.size(); idx++ ) {
 				AlwaysActivePassives[ idx ]->Work();
+				AlwaysActivePassives[ idx ]->StepAnimation();
 			}
 	
 	
