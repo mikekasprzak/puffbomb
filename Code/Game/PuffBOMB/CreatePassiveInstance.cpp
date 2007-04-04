@@ -11,16 +11,17 @@
 #include <Objects/Pickup/Pickup.h>
 #include <Objects/RainGenerator/RainGenerator.h>
 #include <Objects/DripGenerator/DripGenerator.h>
+#include <Objects/ExitVortex/ExitVortex.h>
 // - ------------------------------------------------------------------------------------------ - //
 Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
 		case 1: {
-			cDistortion* MyDistortion = new cDistortion( Pos );
+			cExitVortex* MyVortex = new cExitVortex( Pos );
 			if ( Engine2D::cEngine2D::Current ) {
-				Engine2D::cEngine2D::Current->Message( 1, MyDistortion );
+				Engine2D::cEngine2D::Current->Message( 1, MyVortex );
 			}
-			return MyDistortion;
+			return MyVortex;
 			break;
 		}
 
@@ -62,6 +63,14 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 				Engine2D::cEngine2D::Current->Message( 7, MyObj );
 			}
 			return MyObj;
+			break;
+		}
+		case 9: {
+			cDistortion* MyDistortion = new cDistortion( Pos );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 1, MyDistortion );
+			}
+			return MyDistortion;
 			break;
 		}
 
