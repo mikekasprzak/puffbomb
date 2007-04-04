@@ -180,17 +180,17 @@ void cMapEdit::Draw()
 	else
 	{
 		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
-//		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-//			StaticObjectInstance[ idx ].Draw();
-//		}
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+			StaticObjectInstance[ idx ].Draw();
+		}
 
-		// First Pass Back StaticObject Draw //
+/*		// First Pass Back StaticObject Draw //
 		{
 			// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
 			for ( size_t idx = 0; idx < BackStaticObject.size(); ++idx ) {
 				BackStaticObject[ idx ]->Draw();
 			}
-		}		
+		}		*/
 	
 		for ( size_t idx = 0; idx < DynamicCollection.size(); ++idx ) {
 			if ( DynamicCollection[ idx ]->IsActive() ) { 
@@ -198,13 +198,13 @@ void cMapEdit::Draw()
 			}
 		}
 
-		// First Pass Front StaticObject Draw //
+/*		// First Pass Front StaticObject Draw //
 		{
 			// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
 			for ( size_t idx = 0; idx < FrontStaticObject.size(); ++idx ) {
 				FrontStaticObject[ idx ]->Draw();
 			}
-		}	
+		}	*/
 	
 		Gfx::DisableTex2D();
 	
@@ -507,7 +507,7 @@ void cMapEdit::Step()
 			CurMode = MiniMapLastMode;
 			SaveScreenshot();
 			
-			FrontStaticObject.clear();
+			/*FrontStaticObject.clear();
 			BackStaticObject.clear();
 			
 			// Sort static objects in to fronts and backs //
@@ -518,7 +518,7 @@ void cMapEdit::Step()
 				else {
 					BackStaticObject.push_back( &StaticObjectInstance[ idx ] );				
 				}
-			}
+			}*/
 		}
 	}
 		
@@ -681,7 +681,7 @@ void cMapEdit::LoadMap()
 
 		}
 			
-		FrontStaticObject.clear();
+		/*FrontStaticObject.clear();
 		BackStaticObject.clear();
 		
 		// Sort static objects in to fronts and backs //
@@ -692,7 +692,7 @@ void cMapEdit::LoadMap()
 			else {
 				BackStaticObject.push_back( &StaticObjectInstance[ idx ] );				
 			}
-		}
+		}*/
 		
 	}
 	
