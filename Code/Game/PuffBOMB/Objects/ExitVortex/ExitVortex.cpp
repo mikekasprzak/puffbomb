@@ -54,7 +54,7 @@ void cExitVortex::Draw() {
 	// Draw the animation //
 	if( Animator.Animation ) {
 		Animator.DrawQuad( Pos, Matrix2x2::Rotate( CommonClock ) );
-		Animator.DrawQuad( Pos, Matrix2x2::RotateScale( -CommonClock, Real( 0.8 ) ) );
+		Animator.DrawQuad( Pos, Matrix2x2::RotateScale( (CommonClock + Real( 0.0625 )), Real( 0.8 ) ) );
 		Animator.DrawQuad( Pos, Matrix2x2::RotateScale( (CommonClock + Real( 0.0625 )) * Real( 2 ), Real( 0.7 ) ) );
 	}
 }
