@@ -5,15 +5,15 @@
 #define __Engine2D_Engine_ExitVortex_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Geometry/Real.h>
-#include <PassiveObject/PassiveObject.h>
+#include <PassiveObject/PassiveCommonClockObject.h>
 // - ------------------------------------------------------------------------------------------ - //
-class cExitVortex: public Engine2D::cPassiveObject {
+class cExitVortex: public Engine2D::cPassiveCommonClockObject {
 public:
-	Real RotationClock;
+	//Real RotationClock;
 
 public:
 	cExitVortex( const Vector2D& _Pos ) :
-		cPassiveObject( "LargeVortex.anim", _Pos )
+		cPassiveCommonClockObject( "LargeVortex.anim", _Pos )
 	{
 		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 32, 32 ), _Pos + Vector2D( 32, 32 ) );
 	}

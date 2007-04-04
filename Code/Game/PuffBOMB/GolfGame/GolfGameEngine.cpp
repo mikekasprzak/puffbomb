@@ -3,6 +3,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "CreateCollectionInstance.h"
 #include "CreatePassiveInstance.h"
+
+#include <Engine2D/PassiveObject/PassiveCommonClockObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "Player/LocalJoyPlayer.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -337,6 +339,9 @@ void cGolfGameEngine::Step() {
 	{
 		// Stuff my engine does before //
 		HitBoundery = false;
+		
+		// Step the common clock of passive objects //
+		Engine2D::cPassiveCommonClockObject::StepClock();	
 		
 		// Original Engine Step Stuff //
 		cEngine2D::Step();

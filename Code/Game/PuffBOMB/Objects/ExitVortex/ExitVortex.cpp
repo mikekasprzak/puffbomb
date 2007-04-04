@@ -30,7 +30,7 @@
 //}
 // - ------------------------------------------------------------------------------------------ - //
 bool cExitVortex::Work() {
-	RotationClock += Real( 0.001 );
+	//RotationClock += Real( 0.001 );
 	
 	
 	// Step pulse rate timer //
@@ -41,7 +41,7 @@ bool cExitVortex::Work() {
 		Engine2D::cImpulse(
 			Pos,
 			// Inner Radius, Intensity, Tangent //
-			Real( 0 ), Real( -.5 ), Real( 0.3 ),
+			Real( 0 ), Real( -0.5 ), Real( 0.3 ),
 			// Outer Radius, Intensity, Tangent //
 			Real( 512 ), Real( 0 ), Real( 0.1 )
 			)
@@ -53,8 +53,9 @@ bool cExitVortex::Work() {
 void cExitVortex::Draw() {
 	// Draw the animation //
 	if( Animator.Animation ) {
-		Animator.DrawQuad( Pos, Matrix2x2::Rotate( RotationClock ) );
-		Animator.DrawQuad( Pos, Matrix2x2::RotateScale( -RotationClock, Real( 0.8 ) ) );
+		Animator.DrawQuad( Pos, Matrix2x2::Rotate( CommonClock ) );
+		Animator.DrawQuad( Pos, Matrix2x2::RotateScale( -CommonClock, Real( 0.8 ) ) );
+		Animator.DrawQuad( Pos, Matrix2x2::RotateScale( (CommonClock + Real( 0.0625 )) * Real( 2 ), Real( 0.7 ) ) );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

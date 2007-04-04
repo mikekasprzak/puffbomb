@@ -219,7 +219,7 @@ void cEngine2D::StepAnimation() {
 			DynamicComponent[ idx ]->StepAnimation();
 		}
 	}
-
+	
 	// Step Passive Object Animations //
 	for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
 		if ( PassiveObject[ idx ]->IsActive() ) { 
@@ -227,16 +227,6 @@ void cEngine2D::StepAnimation() {
 			PassiveObject[ idx ]->StepAnimation();
 		}
 	}
-}
-// - ------------------------------------------------------------------------------------------ - //
-void cEngine2D::Step() {
-	// Physics and General Engine //
-	for ( int idx = 0; idx < 2; idx++ ) {
-		StepPhysics();
-	}
-	
-	// Animation system stepping //
-	StepAnimation();
 	
 	// - -------------------------------------------------------------------------------------- - //
 	// Debug Info //
@@ -262,6 +252,16 @@ void cEngine2D::Step() {
 	if ( Input::Button[ KEY_6 ].Pressed() ) {
 		ShowZoneDebug = !ShowZoneDebug;
 	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cEngine2D::Step() {
+	// Physics and General Engine //
+	for ( int idx = 0; idx < 2; idx++ ) {
+		StepPhysics();
+	}
+	
+	// Animation system stepping //
+	StepAnimation();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::Draw() {

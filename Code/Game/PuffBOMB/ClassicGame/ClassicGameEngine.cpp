@@ -3,6 +3,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "CreateCollectionInstance.h"
 #include "CreatePassiveInstance.h"
+
+
+#include <Engine2D/PassiveObject/PassiveCommonClockObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 #include <Input/Input.h>
@@ -232,6 +235,8 @@ void cClassicGameEngine::Step() {
 		FrameStart();
 		
 		// ------------------------------------------------------------------------------------------ //
+		// Step the common clock of passive objects //
+		Engine2D::cPassiveCommonClockObject::StepClock();	
 		
 		// When you push space, toggle activity //
 		if( Input::Button[ KEY_SPACE ].Pressed() || Input::Pad[0].Button[ PAD_X ].Pressed() ) {
@@ -315,7 +320,7 @@ void cClassicGameEngine::Step() {
 		else {
 			// Clear Impulses (passive hack) //
 			Impulse.clear();
-			
+						
 			for ( size_t idx = 0; idx < AlwaysActivePassives.size(); idx++ ) {
 				AlwaysActivePassives[ idx ]->Work();
 			}
