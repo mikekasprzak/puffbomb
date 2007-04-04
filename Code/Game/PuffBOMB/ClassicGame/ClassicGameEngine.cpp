@@ -4,7 +4,6 @@
 #include "CreateCollectionInstance.h"
 #include "CreatePassiveInstance.h"
 
-
 #include <Engine2D/PassiveObject/PassiveCommonClockObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 
