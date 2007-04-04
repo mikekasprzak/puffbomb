@@ -185,6 +185,18 @@ public:
 		return Matrix;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Creates an orientation matrix from a vector //
+	inline static const Matrix2x2 Orientation( const Vector2D& Vec ) {
+		Matrix2x2 Matrix(
+			Vec.x,
+			Vec.y,
+			-Vec.Tangent().x,
+			Vec.Tangent().y
+			);		
+		
+		return Matrix;
+	}
+	// - -------------------------------------------------------------------------------------- - //
 };
 // - ------------------------------------------------------------------------------------------ - //
 
