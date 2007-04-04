@@ -1,9 +1,9 @@
 Texture	Vortex.tx
 
-Vertex	-128.0	128.0
-Vertex	-128.0	-128.0
-Vertex	128.0	-128.0
-Vertex	128.0	128.0
+Vertex	-512.0	512.0
+Vertex	-512.0	-512.0
+Vertex	512.0	-512.0
+Vertex	512.0	512.0
 
 FVa	0
 FVb	1

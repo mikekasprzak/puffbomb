@@ -2,6 +2,7 @@
 // ExitVortex //
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
+#include <Geometry/Matrix.h>
 
 #include "ExitVortex.h"
 #include <Engine2D.h>
@@ -29,6 +30,9 @@
 //}
 // - ------------------------------------------------------------------------------------------ - //
 bool cExitVortex::Work() {
+	RotationClock += Real( 0.001 );
+	
+	
 	// Step pulse rate timer //
 	
 	// On pulse match, impulse //
@@ -44,5 +48,13 @@ bool cExitVortex::Work() {
 		);
 	
 	return true;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cExitVortex::Draw() {
+	// Draw the animation //
+	if( Animator.Animation ) {
+		Animator.DrawQuad( Pos, Matrix2x2::Rotate( RotationClock ) );
+		Animator.DrawQuad( Pos, Matrix2x2::RotateScale( -RotationClock, Real( 0.8 ) ) );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //

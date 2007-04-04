@@ -65,7 +65,7 @@ public:
 			Animator.Step();
 		}
 	}
-	void Draw();
+	virtual void Draw();
 	void DebugDraw() const;
 
 public:

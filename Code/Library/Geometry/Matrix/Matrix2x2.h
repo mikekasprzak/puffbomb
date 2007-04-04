@@ -132,11 +132,57 @@ public:
 	// Regular Functions //
 	// - -------------------------------------------------------------------------------------- - //
 	// Creates a scaling Matrix from a vector //
-	inline void Expand( const Vector2D& _Vs ) {
-		Array[ 0 ] = _Vs.x;
-		Array[ 1 ] = Real::Zero;
-		Array[ 2 ] = Real::Zero;
-		Array[ 3 ] = _Vs.y;
+	inline static const Matrix2x2 Scale( const Vector2D& _Vs ) {
+		Matrix2x2 Matrix(
+			_Vs.x,
+			Real::Zero,
+			Real::Zero,
+			_Vs.y
+			);
+		
+		return Matrix;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Creates a scaling matrix from a scalar //
+	inline static const Matrix2x2 Scale( const Real& Scalar ) {
+		Matrix2x2 Matrix(
+			Scalar,
+			Real::Zero,
+			Real::Zero,
+			Scalar
+			);	
+		
+		return Matrix;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Creates a rotation matrix from a given angle //
+	inline static const Matrix2x2 Rotate( const Real& Angle ) {
+		Real AngleCos = Angle.Cos();
+		Real AngleSin = Angle.Sin();
+		
+		Matrix2x2 Matrix(
+			AngleCos,
+			AngleSin,
+			-AngleSin,
+			AngleCos
+			);		
+		
+		return Matrix;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Creates a rotation and scaling matrix from a given angle and scalar //
+	inline static const Matrix2x2 RotateScale( const Real& Angle, const Real& Scalar ) {
+		Real AngleCos = Angle.Cos();
+		Real AngleSin = Angle.Sin();
+		
+		Matrix2x2 Matrix(
+			AngleCos * Scalar,
+			AngleSin * Scalar,
+			-AngleSin * Scalar,
+			AngleCos * Scalar
+			);		
+		
+		return Matrix;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 };

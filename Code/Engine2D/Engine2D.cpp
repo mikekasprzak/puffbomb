@@ -291,6 +291,16 @@ void cEngine2D::Draw() {
 			BackStaticObject[ idx ]->Draw();
 		}
 	}		
+	
+	// First Pass Passive Object Draw //
+	{
+		// Draw Passive Objects //
+		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+			if ( PassiveObject[ idx ]->IsActive() ) { 
+				PassiveObject[ idx ]->Draw();
+			}
+		}
+	}
 
 	// First Pass Component Draw (White) //
 //	{
@@ -315,17 +325,17 @@ void cEngine2D::Draw() {
 		}
 	}
 
-	Gfx::DisableDepth();
+//	Gfx::DisableDepth();
 	
-	// First Pass Passive Object Draw //
-	{
-		// Draw Passive Objects //
-		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
-			if ( PassiveObject[ idx ]->IsActive() ) { 
-				PassiveObject[ idx ]->Draw();
-			}
-		}
-	}
+//	// First Pass Passive Object Draw //
+//	{
+//		// Draw Passive Objects //
+//		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+//			if ( PassiveObject[ idx ]->IsActive() ) { 
+//				PassiveObject[ idx ]->Draw();
+//			}
+//		}
+//	}
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Draw Debug Information //

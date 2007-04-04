@@ -4,21 +4,23 @@
 #ifndef __Engine2D_Engine_ExitVortex_H__
 #define __Engine2D_Engine_ExitVortex_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include <Geometry/Real.h>
 #include <PassiveObject/PassiveObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cExitVortex: public Engine2D::cPassiveObject {
 public:
-	// ??? //
+	Real RotationClock;
 
 public:
 	cExitVortex( const Vector2D& _Pos ) :
-		cPassiveObject( _Pos )
+		cPassiveObject( "LargeVortex.anim", _Pos )
 	{
 		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 32, 32 ), _Pos + Vector2D( 32, 32 ) );
 	}
 
-public:	
+public:
 	virtual bool Work();
+	virtual void Draw();
 
 public:
 	// Messanging //
