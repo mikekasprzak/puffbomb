@@ -291,16 +291,6 @@ void cEngine2D::Draw() {
 			BackStaticObject[ idx ]->Draw();
 		}
 	}		
-	
-	// First Pass Passive Object Draw //
-	{
-		// Draw Passive Objects //
-		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
-			if ( PassiveObject[ idx ]->IsActive() ) { 
-				PassiveObject[ idx ]->Draw();
-			}
-		}
-	}
 
 	// First Pass Component Draw (White) //
 //	{
@@ -383,7 +373,22 @@ void cEngine2D::Draw() {
 		for ( size_t idx = 0; idx < FrontStaticObject.size(); ++idx ) {
 			FrontStaticObject[ idx ]->Draw();
 		}
-	}		
+	}
+	
+	Gfx::DisableDepth();
+	
+	// First Pass Passive Object Draw //
+	{
+		// Draw Passive Objects //
+		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+			if ( PassiveObject[ idx ]->IsActive() ) { 
+				PassiveObject[ idx ]->Draw();
+			}
+		}
+	}
+	
+	Gfx::EnableDepth();
+	Gfx::EnableTex2D();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::LoadMap( const std::string MapName )
