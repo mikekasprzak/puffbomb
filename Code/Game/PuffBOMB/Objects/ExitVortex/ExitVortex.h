@@ -9,11 +9,12 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cExitVortex: public Engine2D::cPassiveCommonClockObject {
 public:
-	//Real RotationClock;
+	cAnimator Face;
 
 public:
 	cExitVortex( const Vector2D& _Pos ) :
-		cPassiveCommonClockObject( "LargeVortex.anim", _Pos )
+		cPassiveCommonClockObject( "LargeVortex.anim", _Pos ),
+		Face( "VortexEyes.anim" )
 	{
 		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 32, 32 ), _Pos + Vector2D( 32, 32 ) );
 	}
