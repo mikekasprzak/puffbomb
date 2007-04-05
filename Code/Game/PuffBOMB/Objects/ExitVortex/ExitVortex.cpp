@@ -48,9 +48,9 @@ bool cExitVortex::Work() {
 		Engine2D::cImpulse(
 			Pos,
 			// Inner Radius, Intensity, Tangent //
-			Real( 0 ), Real( -0.5 ), Real( 0.3 ),
+			Real( 0 ), Real( -0.4 ), Real( -0.0 ),
 			// Outer Radius, Intensity, Tangent //
-			Real( 512 ), Real( 0 ), Real( 0.1 )
+			Real( 512 ), Real( 0 ), Real( -0.0 )
 			)
 		);
 	
