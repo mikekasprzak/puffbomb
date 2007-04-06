@@ -2,11 +2,13 @@
 #include <cstdio>
 #include <cstdlib>
 
-#define GL_GLEXT_PROTOTYPES 1
+//#define GL_GLEXT_PROTOTYPES 1
+
+#include <SDL/SDL.h>
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glext.h>
-#include <SDL/SDL.h>
 // ---------------------------------------------------------------------------------------------- //
 using namespace std;
 // ---------------------------------------------------------------------------------------------- //
@@ -34,6 +36,8 @@ void QuitGame( int ReturnCode ) {
 bool IsActive = true;
 bool IsSplitScreen = false;
 // ---------------------------------------------------------------------------------------------- //
+
+PFNGLCOMPRESSEDTEXIMAGE2DARBPROC glCompressedTexImage2DARB;
 
 SDL_Surface* SetVideoMode() {
 	// Get information about our video hardware //   
@@ -144,6 +148,13 @@ int main( int argc, char* argv[] ) {
 	// Create our Screen //
 	SDL_Surface* Surface = SetVideoMode();
 	
+	
+	glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DARBPROC)SDL_GL_GetProcAddress("glCompressedTexImage2DARB");
+
+    if( !glCompressedTexImage2DARB )
+    {
+        Log( LOG_HIGHEST_LEVEL, "One or more ARB_texture_compression functions were not found!!!!" );
+    }
 	// Disable Vertical Sync //	 
 /*	{
 		typedef void (APIENTRY * WGLSWAPINTERVALEXT) ( int ) ;

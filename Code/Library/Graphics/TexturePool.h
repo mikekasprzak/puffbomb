@@ -14,13 +14,16 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cTexturePool : public cPool< cTexture > {
 public:
-	cTexturePool() {
+	cTexturePool();
+	~cTexturePool();
+	
+	void AddSearchPaths()
+	{
 		SearchPath.Add( "Textures" );
 		SearchPath.Add( "2D" );
 		SearchPath.Add( "Maps" );
 	}
-	~cTexturePool();
-
+	
 public:
 //	inline unsigned int Load( const std::string _FileName ) {
 //		return (cPool< cTexture >::Load( _FileName )).Id;
