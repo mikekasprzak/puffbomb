@@ -26,7 +26,8 @@ public:
 #endif // EDITOR //
 public:
 	void Load( const std::string& _FileName );
-
+	
+	void LoadCompressedTexture( const char* Buffer );
 public:
 	cTexture()
 	{
