@@ -168,7 +168,7 @@ DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
     else
         bufferSize = ddsd->dwLinearSize;
   
-    pDDSImageData->pixels = (unsigned char*)&Buffer[4 + sizeof(DDSURFACEDESC2) ];
+    pDDSImageData->pixels = (unsigned char*)&Buffer[ 4 + sizeof(DDSURFACEDESC2) ];
 
     pDDSImageData->width      = ddsd->dwWidth;
     pDDSImageData->height     = ddsd->dwHeight;

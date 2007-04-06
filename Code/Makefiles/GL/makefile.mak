@@ -89,7 +89,7 @@ PLATFORM_CONTENT:=	$(subst .blend.mesh3d,.bin.pack.mesh3d,$(PLATFORM_CONTENT))
 PLATFORM_CONTENT:=	$(filter-out $(foreach DIR,$(CONTENT_DIRS),$(shell $(PatternTool) $(DIR) .Id)),$(PLATFORM_CONTENT))
 
 # Target Texture files from PNG to TX ---------------------------------------------------------- - #
-PLATFORM_CONTENT:=	$(subst .png,.pack.tx,$(PLATFORM_CONTENT))
+PLATFORM_CONTENT:=	$(subst .png,.pack.dds.tx,$(PLATFORM_CONTENT))
 
 # Target Component and Collection files -------------------------------------------------------- - #
 PLATFORM_CONTENT:=	$(subst .comp,.bin.comp,$(PLATFORM_CONTENT))
@@ -192,9 +192,13 @@ $(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3D
 	$(Compress) $(DATA_DIR)/$*.bin.mesh3d $@
 # - -------------------------------------------------------------------------------------------- - #
 # Textures ------------------------------------------------------------------------------------- - #
-$(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
-	$(TextureTool) $< $(DATA_DIR)/$*.tx $(TextureToolArgs)
-	$(Compress) $(DATA_DIR)/$*.tx $@
+$(RELEASE_DIR)/%.pack.dds.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
+	$(NVTextureTool) -bc2 $< $(DATA_DIR)/$*.dds.tx
+	$(Compress) $(DATA_DIR)/$*.dds.tx $@
+# - -------------------------------------------------------------------------------------------- - #
+#$(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
+#	$(TextureTool) $< $(DATA_DIR)/$*.tx $(TextureToolArgs)
+#	$(Compress) $(DATA_DIR)/$*.tx $@
 # - -------------------------------------------------------------------------------------------- - #
 # Components ----------------------------------------------------------------------------------- - #
 $(RELEASE_DIR)/%.bin.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_DEPEND)

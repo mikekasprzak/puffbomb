@@ -8,6 +8,7 @@ export TreeTool			:=	Tools/TreeTool
 export PatternTool		:=	Tools/PatternTool
 export Run				:=	sh Tools/run
 export Compress			:=	Tools/lzma e
+export NVTextureTool	:=	Tools/NVTextureTool/NVCompress
 
 export MakeDir			:=	mkdir -p
 export ChangeDir		:=	cd
