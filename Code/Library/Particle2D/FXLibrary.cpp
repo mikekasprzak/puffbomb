@@ -319,6 +319,77 @@ void FXLibrary::Pickup( const Vector2D& Pos, const int Points )
 	}
 
 }
+
+// - ------------------------------------------------------------------------------------------ - //
+void FXLibrary::EnterVortex( const Vector2D& Pos, const int Points )
+{
+	int MaxSteps = 16;
+
+	int AdditiveParticles = DenseParticle.Allocate( MaxSteps, true );
+	
+	if( AdditiveParticles == -1 )
+	{
+		return;
+	}
+	cAnimation& StarParticle = AnimationPool.Load( "StarParticle.anim" );
+	
+	for( int idx = 0; idx < MaxSteps; idx++ )
+	{
+		Real StepAsRadian = (Real( idx ) / Real( MaxSteps )) * (Real( 2 ) * Real::Pi);
+
+		Vector2D Point( sin( StepAsRadian ), cos( StepAsRadian ) );
+		
+		Vector2D Velocity = Point * Real( 5 );
+		
+		Real LifeTime = Real(50);
+
+		DenseParticle.Add(
+			Pos, 		// Pos //
+			Velocity,	// Velocity //
+			Vector2D::Zero,  			// Acceleration //
+			Vector2D::Zero,		// Drift //
+			int( LifeTime ), 	// Life //
+			StarParticle,		// Animation //
+			255,						// Alpha //
+			40,							// Fade // What time to start fading //
+			AdditiveParticles
+		);
+	}
+	
+	if ( Points == 0 ) {
+		return;
+	}
+	
+	std::stringstream Temp;
+	Temp << Points;
+	std::string TempString = Temp.str();
+	
+	int NumberParticles = DenseParticle.Allocate( TempString.size(), false );
+	
+	if( NumberParticles == -1 )
+	{
+		return;
+	}
+	
+	Vector2D Acceleration = Vector2D::Zero;
+	Acceleration.y = Real( 0.05 );
+	
+	for( int idx = 0; idx < TempString.size(); idx++ )
+	{
+		DenseParticle.Add(
+			Vector2D( Pos.x + Real( 38 * idx ) - ( ( Real( 38 * ( TempString.size() - 1 ) ) ) / Real( 2 ) ), Pos.y ), 		// Pos //
+			Vector2D::Zero,	// Velocity //
+			Acceleration,  			// Acceleration //
+			Vector2D::Zero,		// Drift //
+			90, 	// Life //
+			*Number[ TempString[ idx ] - '0' ],		// Animation //
+			255,						// Alpha //
+			40,							// Fade // What time to start fading //
+			NumberParticles
+		);
+	}
+
+}
 // - ------------------------------------------------------------------------------------------ - //
 void FXLibrary::CrazyTest( const Vector2D& Pos )
 {

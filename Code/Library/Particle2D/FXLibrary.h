@@ -29,6 +29,8 @@ public:
 	static void Rain( const Vector2D& Pos, const int Density = 20 );
 	static void Drip( const Vector2D& Pos, const int Density = 8 );
 	static void OutlineTest( const Vector2D& Pos );
+	
+	static void EnterVortex( const Vector2D& Pos, const int Points = 0 );
 };
 // - ------------------------------------------------------------------------------------------ - //
 

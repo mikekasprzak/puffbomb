@@ -9,6 +9,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cHamsterCharacter: public Engine2D::cDynamicCollection {
 public:
+	// Constants for referencing the indices of the collision spheres in the character //
+	static const int MiddleIndex = 0;
+	
+	static const int TopLeftIndex = 1;
+	static const int TopRightIndex = 2;
+	static const int BottomLeftIndex = 3;
+	static const int BottomRightIndex = 4;
 
 public:
 	cHamsterCharacter( const Vector2D& _Pos ) :

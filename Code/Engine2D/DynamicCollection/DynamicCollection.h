@@ -73,7 +73,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Query if this object is, at all, enabled //
 	inline bool IsActive() const {
-		for ( int idx = 0; idx < Component.size(); idx++ ) {
+		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
 			if ( Component[ idx ].IsActive() ) {
 				return true;
 			}

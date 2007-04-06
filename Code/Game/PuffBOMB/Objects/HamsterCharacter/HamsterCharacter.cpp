@@ -93,6 +93,7 @@ void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 bool cHamsterCharacter::Work() {
+	// This it a hack that takes advantage of the engine, so to allow me to spawn safely in multi //
 	// If I have became an Object Sensor //
 	if ( Component[ 0 ].Body.Flags.ObjectSensor() ) {
 		// If I have no contact with other objects //

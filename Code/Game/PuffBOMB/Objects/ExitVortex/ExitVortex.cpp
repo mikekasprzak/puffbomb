@@ -17,7 +17,7 @@ int cExitVortex::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 			//Engine2D::cEngine2D::Current->Message( 10 + Variant, this );
 			
 			Sender->SetInactive();
-			FXLibrary::Pickup( Sender->Body.BoundingRect.Center(), 1 );
+			FXLibrary::EnterVortex( Sender->Body.BoundingRect.Center(), 0 );
 			
 			break;
 		};
