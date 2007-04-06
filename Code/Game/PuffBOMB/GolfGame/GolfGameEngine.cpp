@@ -71,7 +71,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
  		Player.back()->MyLastDropPos = StartPoint->Pos;
  		Player.back()->BombPos = (StartPoint->Pos - PointsOfInterest[ 0 ]->Pos).Normal() * Real( 256 );
  		Player.back()->Score = _Players[ idx ].Score;
- 		MyCol->Deactivate();
+ 		MyCol->SetInactive();
  	}
  	
  	PlayerAnimators.push_back( cAnimator( "TrackingCircleP1.anim" ) );
@@ -147,7 +147,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 		// I am at the end of the level //
 		case 2: {
 			//CharacterAtEndZone++;
-			Sender->Deactivate();
+			Sender->SetInactive();
 
 			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 				if ( Sender == Player[ idx ]->MyObject ) {
@@ -169,7 +169,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 				Player[ CurrentPlayer ]->AddStroke();
 			}
 			// Deactivate this player, to dissapear and stop moving //
-			Sender->Deactivate();
+			Sender->SetInactive();
 			
 			// Find this players last drop position //
 			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
@@ -195,7 +195,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 				// We went out of bounds, add a stroke //
 				Player[ CurrentPlayer ]->AddStroke();
 			}
-			Sender->Deactivate();
+			Sender->SetInactive();
 			Sender->SetPos( FindNearestDrop( *Sender ) );
 
 			// Make us an ObjectSensor, until we decide not to be //
@@ -669,7 +669,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 				
 				if ( !Player[ CurrentPlayer ]->Finished ) {
 					// Activate the character, if not already activated //
-					Player[ CurrentPlayer ]->MyObject->Activate();
+					Player[ CurrentPlayer ]->MyObject->SetActive();
 
 					// Make us an ObjectSensor, until we decide not to be //
 					if ( Player[ CurrentPlayer ]->Spawned ) {

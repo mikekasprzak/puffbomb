@@ -69,15 +69,15 @@ public:
 	void DebugDraw() const;
 
 public:
-	inline bool IsActive() {
+	inline bool IsActive() const {
 		return Active;
 	}
 	
-	inline void Activate() {
+	inline void SetActive() {
 		Active = true;
 	}
 
-	inline void Deactivate() {
+	inline void SetInactive() {
 		Active = false;
 	}
 

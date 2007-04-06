@@ -16,7 +16,7 @@ public:
 		cPassiveCommonClockObject( "LargeVortex.anim", _Pos ),
 		Face( "VortexEyes.anim" )
 	{
-		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 32, 32 ), _Pos + Vector2D( 32, 32 ) );
+		BoundingRect = Engine2D::cPhysics::BoundingRectType::Pair( _Pos - Vector2D( 4, 4 ), _Pos + Vector2D( 4, 4 ) );
 	}
 
 public:
@@ -26,7 +26,7 @@ public:
 
 public:
 	// Messanging //
-	//virtual int Message( int Msg, cDynamicComponent* const Sender );
+	virtual int Message( int Msg, Engine2D::cDynamicComponent* const Sender );
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Engine2D_Engine_ExitVortex_H__ //

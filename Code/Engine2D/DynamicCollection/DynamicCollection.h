@@ -72,17 +72,22 @@ public:
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Query if this object is, at all, enabled //
-	inline bool IsActive() {
-		return Component[ 0 ].IsActive() != 0;
+	inline bool IsActive() const {
+		for ( int idx = 0; idx < Component.size(); idx++ ) {
+			if ( Component[ idx ].IsActive() ) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
-	void Activate() {
+	inline void SetActive() {
 		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
 			Component[ idx ].Flags.SetActive();
 		}
 	}
 
-	void Deactivate() {
+	inline void SetInactive() {
 		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
 			Component[ idx ].Flags.ResetActive();
 		}

@@ -50,7 +50,7 @@ bool cBasicBomb::Work() {
 				)
 			);
 		
-		Deactivate();
+		SetInactive();
 	}
 	
 	return true;

@@ -60,7 +60,7 @@ int cPickup::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 // - ------------------------------------------------------------------------------------------ - //
 bool cPickup::Work() {
 	if ( Collected ) {
-		Deactivate();
+		SetInactive();
 		return false;
 	}
 	return true;

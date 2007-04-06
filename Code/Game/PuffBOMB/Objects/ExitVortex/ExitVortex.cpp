@@ -6,28 +6,29 @@
 
 #include "ExitVortex.h"
 #include <Engine2D.h>
+
+#include <Particle2D/FXLibrary.h>
 // - ------------------------------------------------------------------------------------------ - //
-//int cExitVortex::Message( int Msg, cDynamicComponent* const Sender ) {
-//	switch ( Id ) {
-//		// Camera Boundary //
-//		case 1: {
-//			
-//		}
-//
-//		// Level Boundary //
-//		case 2: {
-//			
-//		}
-//		
-//		// ??? //
-//		case 3: {
-//			if ( _Vs.Body.Pose->Sphere.size() ) {
-//				// Uhh //	
-//			}
-//		}
-//	};
-//	return 0;
-//}
+int cExitVortex::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
+	switch ( Msg ) {
+		// Impact //
+		case 1: {
+			//Log( 10, "Teenage mundane samurai rodents!" );
+			//Engine2D::cEngine2D::Current->Message( 10 + Variant, this );
+			
+			Sender->SetInactive();
+			FXLibrary::Pickup( Sender->Body.BoundingRect.Center(), 1 );
+			
+			break;
+		};
+		// Who am I? //
+		case 2: {
+			return 20;
+			break;
+		};
+	};
+	return 0;
+}
 // - ------------------------------------------------------------------------------------------ - //
 void cExitVortex::StepAnimation() {
 	if( Animator.Animation ) {
@@ -50,7 +51,7 @@ bool cExitVortex::Work() {
 			// Inner Radius, Intensity, Tangent //
 			Real( 0 ), Real( -0.4 ), Real( -0.0 ),
 			// Outer Radius, Intensity, Tangent //
-			Real( 512 ), Real( 0 ), Real( -0.0 )
+			Real( 512+64 ), Real( 0 ), Real( -0.0 )
 			)
 		);
 	

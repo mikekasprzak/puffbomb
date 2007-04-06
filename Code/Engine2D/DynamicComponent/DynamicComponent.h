@@ -71,6 +71,14 @@ public:
 	inline bool IsActive() const {
 		return Flags.Active();
 	}
+	
+	inline void SetActive() {
+		Flags.SetActive();
+	}
+
+	inline void SetInactive() {
+		Flags.ResetActive();
+	}	
 
 public:
 	// - -------------------------------------------------------------------------------------- - //
