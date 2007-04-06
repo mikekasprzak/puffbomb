@@ -127,6 +127,35 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			break;
 		}
 
+		case 158: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsFour/ForegroundPotOne.coll", Pos );
+			break;
+		}
+		case 159: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsFour/ForegroundPotTwo.coll", Pos );
+			break;
+		}
+		case 160: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsFour/ForegroundPotThree.coll", Pos );
+			break;
+		}
+		case 161: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsFour/ForegroundPotFour.coll", Pos );
+			break;
+		}
+		case 162: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsFour/ForegroundPotFive.coll", Pos );
+			break;
+		}
+		case 163: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsFour/ForegroundPotSix.coll", Pos );
+			break;
+		}
+		case 164: {
+			return new Engine2D::cDynamicCollection( "2D/ForegroundElementsFour/ForegroundPotSeven.coll", Pos );
+			break;
+		}
+
 		
 		default: {
 			// No object with Id requested found, so return a null object //
