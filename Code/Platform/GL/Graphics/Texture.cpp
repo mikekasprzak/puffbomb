@@ -125,15 +125,10 @@ DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
 	// Get the surface descriptor
 	ddsd = (DDSURFACEDESC2*)&Buffer[4];
 
-
-	Log( 10, "AAA  " << " ****" );
-	
 	pDDSImageData = (DDS_IMAGE_DATA*)&Buffer[4 + sizeof(DDSURFACEDESC2)];
 	
     // This .dds loader supports the loading of compressed formats DXT1, DXT3 
     // and DXT5.
-
-	Log( 10, "BBB  " << " ****" );
 
     switch( ddsd->ddpfPixelFormat.dwFourCC )
     {
@@ -159,9 +154,6 @@ DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
 			Log( 10, "The DDS file doesn't appear to be compressed using DXT1, DXT3, or DXT5!" );
 			return NULL;
 	}
-
-	Log( 10, "CCC  " << " ****" );
-
     // How big will the buffer need to be to load all of the pixel data 
     // including mip-maps?
 
@@ -171,32 +163,21 @@ DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
     	return NULL;
     }
 
-	Log( 10, "DDD  " << " ****" );
-
     if( ddsd->dwMipMapCount > 1 )
         bufferSize = ddsd->dwLinearSize * factor;
     else
         bufferSize = ddsd->dwLinearSize;
-
-	Log( 10, "EEE  " << " ****" );
-   
-    pDDSImageData->pixels = (unsigned char*)&Buffer[4 + sizeof(DDSURFACEDESC2) + sizeof(DDS_IMAGE_DATA)];
-
-	Log( 10, "FFF  " << " ****" );
+  
+    pDDSImageData->pixels = (unsigned char*)&Buffer[4 + sizeof(DDSURFACEDESC2) ];
 
     pDDSImageData->width      = ddsd->dwWidth;
     pDDSImageData->height     = ddsd->dwHeight;
     pDDSImageData->numMipMaps = ddsd->dwMipMapCount;
 
-	Log( 10, "GGG  " << " ****" );
-
     if( ddsd->ddpfPixelFormat.dwFourCC == FOURCC_DXT1 )
         pDDSImageData->components = 3;
     else
         pDDSImageData->components = 4;
-
-	Log( 10, "JJJJ  " << " **** " << pDDSImageData->components );
-
 
     return pDDSImageData;
 }
@@ -206,8 +187,6 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	// NOTE: Unlike "lena.bmp", "lena.dds" actually contains its own mip-map 
 	// levels, which are also compressed.
 	DDS_IMAGE_DATA *pDDSImageData = loadDDSTextureFile( Buffer );
-
-	Log( 10, "1  " << " ****" );
 	
 	if( pDDSImageData != NULL )
 	{
@@ -216,8 +195,6 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	    
 	    Height = nHeight;
 	    Width = nWidth;
-
-	Log( 10, "2  " << " ****" );
 
 	    int nNumMipMaps = pDDSImageData->numMipMaps;
 	
@@ -228,8 +205,6 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	    else
 	        nBlockSize = 16;
 	
-	Log( 10, "3  " << " ****" );
-
 	    glGenTextures( 1, &Id );
 	    glBindTexture( GL_TEXTURE_2D, Id );
 	
@@ -239,35 +214,14 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	    int nSize;
 	    int nOffset = 0;
 
-	Log( 10, "4 Mipmaps  " << " **** " << nNumMipMaps );
-	
 	    // Load the mip-map levels
 	
 	    for( int i = 0; i < nNumMipMaps; ++i )
 	    {
-	    	Log( 10, "HAAA  " << " **** " << i );
-	    	
 	        if( nWidth  == 0 ) nWidth  = 1;
 	        if( nHeight == 0 ) nHeight = 1;
 
-	    	Log( 10, "ssss  " << " **** " << i );
-	
 	        nSize = ((nWidth+3)/4) * ((nHeight+3)/4) * nBlockSize;
-			
-		
-	    	Log( 10, "www  " << " **** " << i );
-			
-			Log( 10, "pDDSImageData->format  " << " **** " << pDDSImageData->format );
-	
-			Log( 10, "nWidth  " << " **** " << nWidth );
-	
-			Log( 10, "nHeight  " << " **** " << nHeight );
-	
-			Log( 10, "nSize  " << " **** " << nSize );
-	
-			Log( 10, "pDDSImageData->pixels  " << " **** " << pDDSImageData->pixels );
-	
-			Log( 10, "nOffset  " << " **** " << nOffset );
 			
 			extern PFNGLCOMPRESSEDTEXIMAGE2DARBPROC glCompressedTexImage2DARB;
 			
@@ -280,24 +234,14 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	                                   nSize,
 	                                   pDDSImageData->pixels + nOffset );
 
-
-	    	Log( 10, "ggdg  " << " **** " << i );
-	
 	        nOffset += nSize;
-
-	    	Log( 10, "jjjj  " << " **** " << i );
 	
 	        // Half the image size for the next mip-map level...
 	        nWidth  = (nWidth  / 2);
 	        nHeight = (nHeight / 2);
-
-	    	Log( 10, "ytyty  " << " **** " << i );
 	    }
 	}
 
-
-	Log( 10, "5  " << " ****" );
-	
 /*	if( pDDSImageData != NULL )
 	{
 		if( pDDSImageData->pixels != NULL )
