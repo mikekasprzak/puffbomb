@@ -29,16 +29,19 @@ public:
 	
 	void LoadCompressedTexture( const char* Buffer );
 public:
-	cTexture()
+	cTexture() :
+		Id( 0 ),
+		WhiteId( 0 )
 	{
-		
+
 	}
 	
 	cTexture( const std::string& _FileName ) :
 		PixelSize( 0 ),
 		Width( 0 ),
 		Height( 0 ),
-		Id( 0 )
+		Id( 0 ),
+		WhiteId( 0 )
 	{
 		Load( _FileName );
 	}

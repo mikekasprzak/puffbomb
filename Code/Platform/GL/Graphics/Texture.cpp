@@ -52,6 +52,8 @@ void cTexture::Load( const std::string& _FileName )
 			
 			glGenTextures( 1, &Id );
 			glBindTexture( GL_TEXTURE_2D, Id );
+			
+			//Log( LOG_HIGHEST_LEVEL, "Loaded Texture Id ( Texture Pool ( .tx ) ) " );
 		
 	//		Log( LOG_HIGHEST_LEVEL, "PixelSize = " << PixelSize );
 	//		Log( LOG_HIGHEST_LEVEL, "Width = " << Width );
@@ -80,12 +82,16 @@ void cTexture::Load( const std::string& _FileName )
 				       GL_UNSIGNED_BYTE, Pixels );
 			}
 			
+			
+			// Loads White border //
 			unsigned int* HasWhite = (unsigned int*)&Buffer[ ( PixelSize * Width * Height ) + 12 ];
 	
 			if( *HasWhite == 4 )
 			{
 				glGenTextures( 1, &WhiteId );
 				glBindTexture( GL_TEXTURE_2D, WhiteId );
+				
+				//Log( LOG_HIGHEST_LEVEL, "Loaded White Texture Id ( Texture Pool ( .tx ) ) " );
 				
 				WhitePixels = (unsigned char*)&Buffer[ ( PixelSize * Width * Height ) + 16 ];
 				
@@ -207,7 +213,9 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	
 	    glGenTextures( 1, &Id );
 	    glBindTexture( GL_TEXTURE_2D, Id );
-	
+		
+		//Log( LOG_HIGHEST_LEVEL, "Loaded Texture Id ( Texture Pool ( .dds.tx ) ) " );
+		
 	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 	
