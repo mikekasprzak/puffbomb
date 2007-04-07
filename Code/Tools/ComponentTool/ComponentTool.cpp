@@ -7,6 +7,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <SDL/SDL_image.h>
 #include <SDL/SDL.h>
+#include <GL/gl.h>
+#include <GL/glext.h>
 
 #include <Util/ClassDesigner.h>
 #include <Util/String.h>
@@ -20,6 +22,8 @@ extern void QuitGame( int ReturnCode );
 void QuitGame( int ReturnCode ) {
     exit( ReturnCode );
 }
+// - ------------------------------------------------------------------------------------------ - //
+PFNGLCOMPRESSEDTEXIMAGE2DARBPROC glCompressedTexImage2DARB;
 // - ------------------------------------------------------------------------------------------ - //
 int main( int argc, char* argv[] ) {
 	// - -------------------------------------------------------------------------------------- - //
@@ -43,6 +47,13 @@ int main( int argc, char* argv[] ) {
 	cout << "ART DIR: " << ArtFolder << endl;
 	cout << "BIN.COMP: " << TargetComp << endl;
 	cout << "HOME: " << getenv("HOME") << endl;
+
+//	glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DARBPROC)SDL_GL_GetProcAddress("glCompressedTexImage2DARB");
+//
+//    if( !glCompressedTexImage2DARB )
+//    {
+//        Log( LOG_HIGHEST_LEVEL, "One or more ARB_texture_compression functions were not found!!!!" );
+//    }
 
 	// - -------------------------------------------------------------------------------------- - //
 

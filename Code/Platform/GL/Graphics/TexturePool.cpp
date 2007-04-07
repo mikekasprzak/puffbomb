@@ -37,7 +37,7 @@ cTexturePool::cTexturePool()
 {
 	AddSearchPaths();
   
-	char *ext = (char*)glGetString( GL_EXTENSIONS );
+//	char *ext = (char*)glGetString( GL_EXTENSIONS );
 
 //	glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DARBPROC)wglGetProcAddress("glCompressedTexImage2DARB");
 

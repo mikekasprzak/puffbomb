@@ -7,6 +7,7 @@
 #include <Util/String.h>
 #include <Util/LZMA.h>
 // - ------------------------------------------------------------------------------------------ - //
+//#define GL_GLEXT_PROTOTYPES 1
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glext.h>
@@ -29,16 +30,19 @@ void cTexture::Load( const std::string& _FileName )
 	FileName = _FileName;
 #endif // EDITOR //
 
+	Log( 10, "Attempting to load Texture" );
+
+	// Validate it's a texture by checking end extension //
 	if( String::LastExtension( _FileName ) == ".tx" )
 	{
+		// Decompress the loaded data //
 		char* Buffer = LZMA::UnPack( _FileName );
-		
-		if( String::HasExtension( _FileName, ".dds" ) )
-		{
+	
+		// Hack for determining if the texture is S3TC compressed //
+		if( String::HasExtension( _FileName, ".dds" ) ){
 			LoadCompressedTexture( Buffer );
 		}
-		else
-		{
+		else {
 			unsigned int* tempPixelSize	= (unsigned int*)&Buffer[0];
 			PixelSize = *tempPixelSize;
 		
@@ -59,55 +63,84 @@ void cTexture::Load( const std::string& _FileName )
 	//		Log( LOG_HIGHEST_LEVEL, "Width = " << Width );
 	//		Log( LOG_HIGHEST_LEVEL, "Height = " << Height );
 			
-			if( PixelSize == 4 )
-			{
+			if( PixelSize == 4 ) {
 				// Make it an Alpha Texture //
-			    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, Width,
-				  Height, 0, GL_RGBA,
-				  GL_UNSIGNED_BYTE, Pixels );
+			    glTexImage2D(
+			    	GL_TEXTURE_2D,
+			    	0,
+			    	GL_RGBA8,
+			    	Width,
+					Height,
+					0,
+					GL_RGBA,
+					GL_UNSIGNED_BYTE,
+					Pixels
+					);
 		
-				gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA8, Width,
-				      Height, GL_RGBA,
-				       GL_UNSIGNED_BYTE, Pixels );
+				gluBuild2DMipmaps(
+					GL_TEXTURE_2D,
+					GL_RGBA8,
+					Width,
+					Height,
+					GL_RGBA,
+					GL_UNSIGNED_BYTE,
+					Pixels
+					);
 			}
-			else
-			{
+			else {
 				// No Alpha in this Texture //
-			    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB8, Width,
-				  Height, 0, GL_RGB,
-				  GL_UNSIGNED_BYTE, Pixels );
+			    glTexImage2D(
+			    	GL_TEXTURE_2D,
+			    	0,
+			    	GL_RGB8,
+			    	Width,
+					Height,
+					0,
+					GL_RGB,
+					GL_UNSIGNED_BYTE,
+					Pixels
+					);
 		
-				gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB8, Width,
-				      Height, GL_RGB,
-				       GL_UNSIGNED_BYTE, Pixels );
+				gluBuild2DMipmaps(
+					GL_TEXTURE_2D,
+					GL_RGB8,
+					Width,
+					Height,
+					GL_RGB,
+				    GL_UNSIGNED_BYTE,
+				    Pixels
+				    );
 			}
 			
 			
-			// Loads White border //
-			unsigned int* HasWhite = (unsigned int*)&Buffer[ ( PixelSize * Width * Height ) + 12 ];
-	
-			if( *HasWhite == 4 )
-			{
-				glGenTextures( 1, &WhiteId );
-				glBindTexture( GL_TEXTURE_2D, WhiteId );
-				
-				//Log( LOG_HIGHEST_LEVEL, "Loaded White Texture Id ( Texture Pool ( .tx ) ) " );
-				
-				WhitePixels = (unsigned char*)&Buffer[ ( PixelSize * Width * Height ) + 16 ];
-				
-				// Make it an Alpha Texture //
-			    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, Width,
-				  Height, 0, GL_RGBA,
-				  GL_UNSIGNED_BYTE, WhitePixels );
-		
-				gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA8, Width,
-			      Height, GL_RGBA,
-			       GL_UNSIGNED_BYTE, WhitePixels );
-			}
+//			// Loads White border //
+//			unsigned int* HasWhite = (unsigned int*)&Buffer[ ( PixelSize * Width * Height ) + 12 ];
+//	
+//			if( *HasWhite == 4 )
+//			{
+//				glGenTextures( 1, &WhiteId );
+//				glBindTexture( GL_TEXTURE_2D, WhiteId );
+//				
+//				//Log( LOG_HIGHEST_LEVEL, "Loaded White Texture Id ( Texture Pool ( .tx ) ) " );
+//				
+//				WhitePixels = (unsigned char*)&Buffer[ ( PixelSize * Width * Height ) + 16 ];
+//				
+//				// Make it an Alpha Texture //
+//			    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, Width,
+//				  Height, 0, GL_RGBA,
+//				  GL_UNSIGNED_BYTE, WhitePixels );
+//		
+//				gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA8, Width,
+//			      Height, GL_RGBA,
+//			       GL_UNSIGNED_BYTE, WhitePixels );
+//			}
 		}
 		
 		delete[] Buffer;
 	}
+	
+	Log( 10, "Texture Loaded" );
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
@@ -179,9 +212,6 @@ DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
     else
         bufferSize = ddsd->dwLinearSize;
 
-   	Log( 10, "sizeof(DDSURFACEDESC2) " << sizeof(DDSURFACEDESC2) );
-   	Log( 10, "sizeof(DDS_IMAGE_DATA) " << sizeof(DDS_IMAGE_DATA) );
-  
     pDDSImageData->pixels = (unsigned char*)&Buffer[ 4 + sizeof(DDSURFACEDESC2) ];
 
     pDDSImageData->width      = ddsd->dwWidth;

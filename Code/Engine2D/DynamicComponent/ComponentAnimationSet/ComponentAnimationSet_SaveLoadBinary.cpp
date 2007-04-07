@@ -192,15 +192,24 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 		
 		for ( size_t idx = 0; idx < Art.ImagePool.size(); idx++ ) {
 			// PNG to TX //
-			OutScript << getenv("TextureTool") << " " <<
+//			OutScript << getenv("TextureTool") << " " <<
+//				Art.Directory << "/" << Art.ImagePool[ idx ].FileName << " " << 
+//				WorkingBaseName << idx << ".tx " <<
+//				getenv("CompTextureToolArgs") << endl;
+//			// Compress //
+//			OutScript << getenv("Compress") << " " <<
+//				WorkingBaseName << idx << ".tx " <<
+//				FinalTextureBaseName << idx << ".pack.tx" <<
+//				endl;
+
+			OutScript << getenv("NVTextureTool") << " -bc2 " << /*getenv("NVTextureToolArgs") <<*/
 				Art.Directory << "/" << Art.ImagePool[ idx ].FileName << " " << 
-				WorkingBaseName << idx << ".tx " <<
-				getenv("CompTextureToolArgs") << endl;
+				WorkingBaseName << idx << ".dds.tx "  << endl;
 			
 			// Compress //
 			OutScript << getenv("Compress") << " " <<
-				WorkingBaseName << idx << ".tx " <<
-				FinalTextureBaseName << idx << ".pack.tx" <<
+				WorkingBaseName << idx << ".dds.tx " <<
+				FinalTextureBaseName << idx << ".pack.dds.tx" <<
 				endl;
 		}
 		
