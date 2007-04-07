@@ -130,8 +130,13 @@ DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
 
 	// Get the surface descriptor
 	ddsd = (DDSURFACEDESC2*)&Buffer[4];
+	
+	//pDDSImageData = (DDS_IMAGE_DATA*)&Buffer[4 + sizeof(DDSURFACEDESC2)];
+	//pDDSImageData = (DDS_IMAGE_DATA*)&Buffer[4 + sizeof(DDSURFACEDESC2)];
+	
+	pDDSImageData = (DDS_IMAGE_DATA*) malloc(sizeof(DDS_IMAGE_DATA));
 
-	pDDSImageData = (DDS_IMAGE_DATA*)&Buffer[4 + sizeof(DDSURFACEDESC2)];
+    memset( pDDSImageData, 0, sizeof(DDS_IMAGE_DATA) );
 	
     // This .dds loader supports the loading of compressed formats DXT1, DXT3 
     // and DXT5.
@@ -173,6 +178,9 @@ DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
         bufferSize = ddsd->dwLinearSize * factor;
     else
         bufferSize = ddsd->dwLinearSize;
+
+   	Log( 10, "sizeof(DDSURFACEDESC2) " << sizeof(DDSURFACEDESC2) );
+   	Log( 10, "sizeof(DDS_IMAGE_DATA) " << sizeof(DDS_IMAGE_DATA) );
   
     pDDSImageData->pixels = (unsigned char*)&Buffer[ 4 + sizeof(DDSURFACEDESC2) ];
 
@@ -250,12 +258,9 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	    }
 	}
 
-/*	if( pDDSImageData != NULL )
-	{
-		if( pDDSImageData->pixels != NULL )
-			free( pDDSImageData->pixels );
-		
+	if( pDDSImageData != NULL )
+	{		
 		free( pDDSImageData );
-	}*/
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
