@@ -35,15 +35,10 @@ GL_CompressedTexImage2DARB_Func glCompressedTexImage2DARB = 0;
 // - ------------------------------------------------------------------------------------------ - //
 cTexturePool::cTexturePool()
 {
-		Log( LOG_HIGHEST_LEVEL,	"-fUCK" );
 	AddSearchPaths();
- 		Log( LOG_HIGHEST_LEVEL,	"-111" );
-   
+  
 	char *ext = (char*)glGetString( GL_EXTENSIONS );
-		Log( LOG_HIGHEST_LEVEL,	"-222" );
-	
 
-	Log( LOG_HIGHEST_LEVEL,	"-33333" );
 //	glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DARBPROC)wglGetProcAddress("glCompressedTexImage2DARB");
 
 /*	glCompressedTexImage2DARB_PTR = (PFNGLCOMPRESSEDTEXIMAGE2DARBPROC)SDL_GL_GetProcAddress("glCompressedTexImage2DARB");
@@ -69,6 +64,23 @@ cTexturePool::~cTexturePool()
 			Log( LOG_HIGHEST_LEVEL, "Deleted Texture WhiteId ( Texture Pool ) " );
 		}
 	}
+	Pool.clear();
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cTexturePool::Kill()
+{
+	for( std::map<std::string,cTexture>::iterator it = Pool.begin(); it != Pool.end(); ++it )
+	{
+		glDeleteTextures( 1, &it->second.Id );
+		Log( LOG_HIGHEST_LEVEL, "Deleted Texture Id ( Texture Pool ) " );
+		
+		if( it->second.WhiteId != 0 )
+		{
+			glDeleteTextures( 1, &it->second.WhiteId );
+			Log( LOG_HIGHEST_LEVEL, "Deleted Texture WhiteId ( Texture Pool ) " );
+		}
+	}
+	Pool.clear();
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cTexturePool::Remove( const std::string& _FileName )

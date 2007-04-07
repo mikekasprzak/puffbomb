@@ -54,6 +54,9 @@ public:
 			return 0;	
 		}
 	}
+	// ******************* Explicit kill function for broken destructor ********************** //
+	void Kill();
+	
 	// - -------------------------------------------------------------------------------------- - //
 	// Remove Texture from the pool //
 	void Remove( const std::string& _FileName );

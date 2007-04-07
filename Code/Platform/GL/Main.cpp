@@ -27,7 +27,7 @@ using namespace std;
 extern void QuitGame( int ReturnCode );
 // ---------------------------------------------------------------------------------------------- //
 void QuitGame( int ReturnCode ) {
-	TexturePool.~cTexturePool();
+	TexturePool.Kill();
 	
 	Log( 101, "Shutting down..." );
     SDL_Quit();
