@@ -152,7 +152,7 @@ int main( int argc, char* argv[] ) {
 	
 	// Create our Screen //
 	SDL_Surface* Surface = SetVideoMode();
-	
+		
 	
 	glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DARBPROC)SDL_GL_GetProcAddress("glCompressedTexImage2DARB");
 
