@@ -105,15 +105,15 @@ MeshPose_End
 MeshPose_Start				
 MeshPose_Node_Start	12			
 MeshPose_Scale	1			
-MeshNode	-128	192	3	2
+MeshNode	-160	192	3	2
 MeshNode	-96	-128	0	1
 MeshNode	96	-128	1	0
 MeshNode	128	192	4	3
 MeshNode	128	64	2	4
 MeshNode	64	64	2	4
-MeshNode	-128	96	3	2
+MeshNode	-160	96	3	2
 MeshNode	0	64	2	3
-MeshNode	-128	-64	2	0
+MeshNode	-160	-64	2	0
 MeshNode	128	-32	2	1
 MeshNode	32	-128	1	0
 MeshNode	64	192	4	3
