@@ -12,6 +12,8 @@
 #include <Util/String.h>
 #include <Util/LZMA.h>
 // - ------------------------------------------------------------------------------------------ - //
+#include "pngwriter.h"
+// - ------------------------------------------------------------------------------------------ - //
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 class cTex
@@ -47,7 +49,7 @@ fl flRGB 		= bit16;
 fl flRGBA 		= bit17;
 fl flBGR 		= bit18;
 fl flBGRA 		= bit19;
-fl flDXT 		= bit20;
+//fl flDXT 		= bit20;
 // - ------------------------------------------------------------------------------------------ - //
 int main( int argc, char* argv[] ) {
 	// Must have 2 or more arguments //
@@ -58,10 +60,9 @@ int main( int argc, char* argv[] ) {
 	unsigned int FilterFlags = 0;
 
 	std::string InputFileName = argv[1];
+	std::string OutputFileName = argv[2];
 
 	cTex Tex;
-
-	std::ofstream outfile ( argv[2], ofstream::binary );
 
 	char* Buffer;
 
@@ -127,19 +128,28 @@ int main( int argc, char* argv[] ) {
 	ApplyFilters( FilterFlags, Tex );
 	
 	// - -------------------------------------------------------------------------------------- - //
-	outfile.write( (char*)&Tex.PixelSize, sizeof( unsigned int ) );
-	outfile.write( (char*)&Tex.Width, sizeof( unsigned int ) );
-	outfile.write( (char*)&Tex.Height, sizeof( unsigned int ) );
-	
-	outfile.write( ( char* )Tex.Pixels, Tex.PixelSize * ( Tex.Width * Tex.Height ) );
-	
-	outfile.write( (char*)&WhiteTex.PixelSize, sizeof( unsigned int ) );
-	if( WhiteTex.PixelSize != 0 )
+	if( String::LastExtension( OutputFileName ) == ".png" )
 	{
-		outfile.write( ( char* )WhiteTex.Pixels, WhiteTex.PixelSize * ( WhiteTex.Width * WhiteTex.Height ) );	
+		
 	}
-	
-	outfile.close();
+	else
+	{
+		std::ofstream outfile ( argv[2], ofstream::binary );
+		
+		outfile.write( (char*)&Tex.PixelSize, sizeof( unsigned int ) );
+		outfile.write( (char*)&Tex.Width, sizeof( unsigned int ) );
+		outfile.write( (char*)&Tex.Height, sizeof( unsigned int ) );
+		
+		outfile.write( ( char* )Tex.Pixels, Tex.PixelSize * ( Tex.Width * Tex.Height ) );
+		
+		outfile.write( (char*)&WhiteTex.PixelSize, sizeof( unsigned int ) );
+		if( WhiteTex.PixelSize != 0 )
+		{
+			outfile.write( ( char* )WhiteTex.Pixels, WhiteTex.PixelSize * ( WhiteTex.Width * WhiteTex.Height ) );	
+		}
+		
+		outfile.close();
+	}
 
 	if( String::LastExtension( InputFileName ) == ".tx" )
 	{
@@ -204,10 +214,10 @@ unsigned int Filters( const std::string PathFileName )
 		FilterFlags |= flBGR;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	if( String::HasAnyExtension( PathFileName, "dxt" ) )
+	/*if( String::HasAnyExtension( PathFileName, "dxt" ) )
 	{
 		FilterFlags |= flDXT;
-	}
+	}*/
 	// - -------------------------------------------------------------------------------------- - //
 	if( String::HasAnyExtension( PathFileName, "white" ) )
 	{
@@ -288,12 +298,12 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 		cout << "BGR filter applied" << endl;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	if( FilterFlags & flDXT )
+	/*if( FilterFlags & flDXT )
 	{
 	
 		FilterFlags ^= flDXT;
 		cout << "DXT filter applied" << endl;
-	}
+	}*/
 	// - -------------------------------------------------------------------------------------- - //
 	if( FilterFlags & flWhite )
 	{
