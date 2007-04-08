@@ -260,7 +260,7 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
 
 //Constructor for double levels, char * filename
 /////////////////////////////////////////////////////////////////////////
-pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
+pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename, int BitDepth )
 {
    width_ = x;
    height_ = y;

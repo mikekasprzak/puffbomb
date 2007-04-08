@@ -188,7 +188,7 @@ class pngwriter
    pngwriter();   
    pngwriter(const pngwriter &rhs);
    pngwriter(int width, int height, int backgroundcolour, char * filename);   
-   pngwriter(int width, int height, double backgroundcolour, char * filename);    
+   pngwriter(int width, int height, double backgroundcolour, char * filename, int BitDepth = 8 );    
    pngwriter(int width, int height, int backgroundcolour, const char * filename);   
    pngwriter(int width, int height, double backgroundcolour, const char * filename);    
 

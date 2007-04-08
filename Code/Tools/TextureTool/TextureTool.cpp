@@ -130,10 +130,10 @@ int main( int argc, char* argv[] ) {
 	// - -------------------------------------------------------------------------------------- - //
 	if( String::LastExtension( OutputFileName ) == ".png" )
 	{
-		pngwriter image( (unsigned int)Tex.Width, (unsigned int)Tex.Height, 1.0, argv[2] );
-		
 		if( Tex.PixelSize == 4 )
 		{
+			pngwriter image( (unsigned int)Tex.Width, (unsigned int)Tex.Height, 1.0, argv[2], 32 );
+
 			size_t ImageY = Tex.Height;
 			
 			for( size_t y = 0; y < Tex.Height; ++y )
@@ -141,36 +141,33 @@ int main( int argc, char* argv[] ) {
 				for( size_t x = 0; x < Tex.Width; ++x )
 				{
 					unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
-					/*if ( (Tex.Pixels[ idx + 3 ] & 0xff) == 0 ) {
-						Tex.Pixels[ idx ] = 0;
-						Tex.Pixels[ idx + 1] = 0;
-						Tex.Pixels[ idx + 2] = 0;
-					}*/
-					
-					//double Red = double( Tex.Pixels[ idx + 0 ] ) / double ( 255 );
-					//double Green = double( Tex.Pixels[ idx + 1 ] ) / double ( 255 );
-					//double Blue = double( Tex.Pixels[ idx + 2 ] ) / double ( 255 );
-					//double Alpha = double( Tex.Pixels[ idx + 3 ] ) / double ( 255 );
-					
-					//image.plot_blend( x + 1, ImageY, Alpha, Red, Green, Blue );
-					
-					
+
 					image.plot( x + 1, ImageY, Tex.Pixels[ idx + 0 ] * 255, Tex.Pixels[ idx + 1 ] * 255, Tex.Pixels[ idx + 2 ] * 255, Tex.Pixels[ idx + 3 ] * 255 );
-//					image.plot_blend( x + 1, ImageY, Alpha, 1.0, 0.0, 0.0 );
-					
-					//image.plot_blend( x + 1, y + 1, 1.0, 1.0, 0.5, 0.5 );
-					
 				}
 				--ImageY;
 			}
-		}
-		else
-		{
 			
+			image.close();
 		}
-		
-		
-		image.close();
+		else if( Tex.PixelSize == 3 )
+		{
+			pngwriter image( (unsigned int)Tex.Width, (unsigned int)Tex.Height, 1.0, argv[2], 8 );
+
+			size_t ImageY = Tex.Height;
+			
+			for( size_t y = 0; y < Tex.Height; ++y )
+			{
+				for( size_t x = 0; x < Tex.Width; ++x )
+				{
+					unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
+
+					image.plot( x + 1, ImageY, Tex.Pixels[ idx + 0 ] * 255, Tex.Pixels[ idx + 1 ] * 255, Tex.Pixels[ idx + 2 ] * 255 );
+				}
+				--ImageY;
+			}
+			
+			image.close();
+		}
 	}
 	else
 	{
