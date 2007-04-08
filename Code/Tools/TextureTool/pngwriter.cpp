@@ -301,7 +301,11 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
 
    int kkkk;
 
-   bit_depth_ = 16; //Default bit depth for new images
+//   bit_depth_ = 16; //Default bit depth for new images
+//   bit_depth_ = 8; //Default bit depth for new images
+   bit_depth_ = 32; //Default bit depth for new images
+// WTF //  
+ 
    colortype_=2;
    screengamma_ = 2.2;
 
@@ -598,7 +602,7 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
 }
 
 ///////////////////////////////////////////////////////////////
-void pngwriter::plot(int x, int y, int red, int green, int blue)
+void pngwriter::plot(int x, int y, int red, int green, int blue, int alpha )
 {
    int tempindex;
 
@@ -663,6 +667,27 @@ void pngwriter::plot(int x, int y, int red, int green, int blue)
 	     graph_[height_-y][tempindex+2] = (char)(floor(((double)blue)/257.0));
 
 	  };
+	/*
+	 if(!( (height_-y >-1) && (height_-y <height_) && (6*(x-1) >-1) && (6*(x-1)+5<6*width_) ))
+	 {
+	 std::cerr << " PNGwriter::plot-- Plotting out of range! " << y << "   " << x << std::endl;
+	 }
+	 */
+     }
+	if((bit_depth_ == 32))
+     {
+	//	 if( (height_-y >-1) && (height_-y <height_) && (3*(x-1) >-1) && (3*(x-1)+5<3*width_) )
+	if( (y<height_+1) && (y>0) && (x>0) && (x<width_+1) )
+	  {
+	     //	     graph_[height_-y][3*(x-1) + i] where i goes from 0 to 2
+	     tempindex = 4*x-4;
+	     graph_[height_-y][tempindex] = (char)(floor(((double)red)/257.0));
+	     graph_[height_-y][tempindex+1] = (char)(floor(((double)green)/257.0));
+	     graph_[height_-y][tempindex+2] = (char)(floor(((double)blue)/257.0));
+	     graph_[height_-y][tempindex+3] = (char)(floor(((double)alpha)/257.0));
+
+	  };
+// MY ADDITION ! WTF //
 
 	/*
 	 if(!( (height_-y >-1) && (height_-y <height_) && (6*(x-1) >-1) && (6*(x-1)+5<6*width_) ))
@@ -671,6 +696,7 @@ void pngwriter::plot(int x, int y, int red, int green, int blue)
 	 }
 	 */
      }
+     
 };
 
 void pngwriter::plot(int x, int y, double red, double green, double blue)
@@ -735,6 +761,32 @@ int pngwriter::read(int x, int y, int colour)
 		  return temp1*256;
 	       }
 	  }
+	if(bit_depth_ == 32)
+	  {
+	     temp2=3*(x-1);
+	     if(colour == 1)
+	       {
+		  temp1 = graph_[height_-y][temp2];
+		  return temp1*256;
+	       }
+
+	     if(colour == 2)
+	       {
+		  temp1 =  graph_[height_-y][temp2+1];
+		  return temp1*256;
+	       }
+
+	     if(colour == 3)
+	       {
+		  temp1 =  graph_[height_-y][temp2+2];
+		  return temp1*256;
+	       }
+	     if(colour == 4)
+	       {
+		  temp1 =  graph_[height_-y][temp2+3];
+		  return temp1*256;
+	       }
+	  }
      }
    else
      {
@@ -767,6 +819,15 @@ int pngwriter::read(int xxx, int yyy)
 	     temp4 =  int((temp1+temp2+temp3)/3.0);
 	  }
 	else if(bit_depth_ == 8)
+	  {
+	     //	temp1 = graph_[height_-yyy][3*(xxx-1)];
+	     temp5 = 3*xxx;
+	     temp1 = graph_[height_-yyy][temp5-3];
+	     temp2 =  graph_[height_-yyy][temp5-2];
+	     temp3 =  graph_[height_-yyy][temp5-1];
+	     temp4 =  int((temp1+temp2+temp3)/3.0);
+	  }
+	else if(bit_depth_ == 32)
 	  {
 	     //	temp1 = graph_[height_-yyy][3*(xxx-1)];
 	     temp5 = 3*xxx;
@@ -826,6 +887,19 @@ void pngwriter::clear()
      }
 
    if(bit_depth_==8)
+     {
+	for(pen = 0; pen<width_;pen++)
+	  {
+	     for(pencil = 0; pencil<height_;pencil++)
+	       {
+		  tempindex=3*pen;
+		  graph_[pencil][tempindex] = 0;
+		  graph_[pencil][tempindex+1] = 0;
+		  graph_[pencil][tempindex+2] = 0;
+	       }
+	  }
+     }
+   if(bit_depth_==32)
      {
 	for(pen = 0; pen<width_;pen++)
 	  {
@@ -962,9 +1036,21 @@ void pngwriter::close()
 	png_set_compression_level(png_ptr, PNGWRITER_DEFAULT_COMPRESSION);
      }
 
-   png_set_IHDR(png_ptr, info_ptr, width_, height_,
-		bit_depth_, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
+	if( bit_depth_ == 32 )
+	{
+		png_set_IHDR(png_ptr, info_ptr, width_, height_,
+		8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE,
 		PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+	
+	}
+	else
+	{
+	   png_set_IHDR(png_ptr, info_ptr, width_, height_,
+			bit_depth_, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
+			PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+		
+	}
+
 
    if(filegamma_ < 1.0e-1)
      {
@@ -1277,7 +1363,7 @@ void pngwriter::readfromfile(char * name)
 	png_set_gray_to_rgb(png_ptr);
      }
 
-   if((bit_depth_ !=16)&&(bit_depth_ !=8))
+   if((bit_depth_ !=16)&&(bit_depth_ !=8)&&(bit_depth_ !=32))
      {
 	std::cerr << " PNGwriter::readfromfile() - WARNING **: Input file is of unsupported type (bad bit_depth). Output will be unpredictable.\n";
      }

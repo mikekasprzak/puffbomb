@@ -218,7 +218,8 @@ class pngwriter
     * to plot plot(x, y, 1.0,-0.2,3.7) will set the green coefficient to 0 and the red coefficient
     * to 1.0.
     * */
-   void  plot(int x, int y, int red, int green, int blue); 
+//   void  plot(int x, int y, int red, int green, int blue); 
+   void  plot(int x, int y, int red, int green, int blue, int alpha = 255 ); 
    void  plot(int x, int y, double red, double green, double blue); 
                                                           
    /* Plot HSV
