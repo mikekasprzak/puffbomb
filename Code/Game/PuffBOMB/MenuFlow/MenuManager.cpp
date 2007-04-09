@@ -23,8 +23,6 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
-Log( 10, "BAAA" );
-
 	#ifdef EDITOR
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 	//	Load( "2D/Menu/MainMenu.form" );
