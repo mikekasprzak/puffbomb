@@ -57,7 +57,8 @@ pngwriter::pngwriter()
    height_ = 250;
    backgroundcolour_ = 65535;
    compressionlevel_ = -2;
-   filegamma_ = 0.5;
+//   filegamma_ = 0.5;
+   filegamma_ = 0.0;
 
    strcpy(textauthor_, "PNGwriter Author: Paul Blackburn");
    strcpy(textdescription_, "http://pngwriter.sourceforge.net/");
@@ -117,6 +118,7 @@ pngwriter::pngwriter(const pngwriter &rhs)
    backgroundcolour_ = rhs.backgroundcolour_;
    compressionlevel_ = rhs.compressionlevel_;
    filegamma_ = rhs.filegamma_;
+	filegamma_ = 0.0;
 
    filename_ = new char[strlen(rhs.filename_)+1];
    textauthor_ = new char[strlen(rhs.textauthor_)+1];
@@ -181,7 +183,8 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
    height_ = y;
    backgroundcolour_ = backgroundcolour;
    compressionlevel_ = -2;
-   filegamma_ = 0.5;
+ //  filegamma_ = 0.5;
+	filegamma_ = 0.0;
 
    textauthor_ = new char[255];
    textdescription_ = new char[255];
@@ -265,7 +268,9 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename, int
    width_ = x;
    height_ = y;
    compressionlevel_ = -2;
-   filegamma_ = 0.6;
+//   filegamma_ = 0.6;
+	filegamma_ = 0.0;
+
    backgroundcolour_ = int(backgroundcolour*65535);
 
    textauthor_ = new char[255];
@@ -369,7 +374,8 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
    height_ = y;
    backgroundcolour_ = backgroundcolour;
    compressionlevel_ = -2;
-   filegamma_ = 0.6;
+//   filegamma_ = 0.6;
+	filegamma_ = 0.0;
 
    textauthor_ = new char[255];
    textdescription_ = new char[255];
@@ -454,7 +460,8 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filenam
    height_ = y;
    compressionlevel_ = -2;
    backgroundcolour_ = int(backgroundcolour*65535);
-   filegamma_ = 0.6;
+//   filegamma_ = 0.6;
+	filegamma_ = 0.0;
 
    textauthor_ = new char[255];
    textdescription_ = new char[255];
@@ -618,6 +625,10 @@ void pngwriter::plot(int x, int y, int red, int green, int blue, int alpha )
      {
 	blue = 65535;
      }
+   if(alpha > 65535)
+     {
+	alpha = 65535;
+     }
 
    if(red < 0)
      {
@@ -630,6 +641,10 @@ void pngwriter::plot(int x, int y, int red, int green, int blue, int alpha )
    if(blue < 0)
      {
 	blue = 0;
+     }
+   if(alpha < 0)
+     {
+	alpha = 0;
      }
 
    if((bit_depth_ == 16))
@@ -1065,7 +1080,7 @@ void pngwriter::close()
 	}
 
 
-   if(filegamma_ < 1.0e-1)
+/*   if(filegamma_ < 1.0e-1)
      {
 	filegamma_ = 0.7;
      }
@@ -1094,7 +1109,7 @@ void pngwriter::close()
    text_ptr[4].text = textsoftware_;
    text_ptr[4].compression = PNG_TEXT_COMPRESSION_NONE;
    png_set_text(png_ptr, info_ptr, text_ptr, 5);
-
+*/
    png_write_info(png_ptr, info_ptr);
    png_write_image(png_ptr, graph_);
    png_write_end(png_ptr, info_ptr);
