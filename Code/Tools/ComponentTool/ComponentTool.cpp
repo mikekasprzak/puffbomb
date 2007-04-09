@@ -46,7 +46,7 @@ int main( int argc, char* argv[] ) {
 	cout << ".COMP: " << ComponentFile << endl;	
 	cout << "ART DIR: " << ArtFolder << endl;
 	cout << "BIN.COMP: " << TargetComp << endl;
-	cout << "HOME: " << getenv("HOME") << endl;
+	//cout << "HOME: " << getenv("HOME") << endl;
 
 //	glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DARBPROC)SDL_GL_GetProcAddress("glCompressedTexImage2DARB");
 //

@@ -202,8 +202,13 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 //				FinalTextureBaseName << idx << ".pack.tx" <<
 //				endl;
 
-			OutScript << getenv("NVTextureTool") << " -bc2 " << /*getenv("NVTextureToolArgs") <<*/
+			OutScript << getenv("TextureTool") << " " <<
 				Art.Directory << "/" << Art.ImagePool[ idx ].FileName << " " << 
+				WorkingBaseName << idx << ".png " <<
+				getenv("CompTextureToolArgs") << endl;
+
+			OutScript << getenv("NVTextureTool") << " -bc2 " << /*getenv("NVTextureToolArgs") <<*/
+				WorkingBaseName << idx << ".png " << 
 				WorkingBaseName << idx << ".dds.tx "  << endl;
 			
 			// Compress //
@@ -211,6 +216,17 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 				WorkingBaseName << idx << ".dds.tx " <<
 				FinalTextureBaseName << idx << ".pack.dds.tx" <<
 				endl;
+
+//
+//			OutScript << getenv("NVTextureTool") << " -bc2 " << /*getenv("NVTextureToolArgs") <<*/
+//				Art.Directory << "/" << Art.ImagePool[ idx ].FileName << " " << 
+//				WorkingBaseName << idx << ".dds.tx "  << endl;
+//			
+//			// Compress //
+//			OutScript << getenv("Compress") << " " <<
+//				WorkingBaseName << idx << ".dds.tx " <<
+//				FinalTextureBaseName << idx << ".pack.dds.tx" <<
+//				endl;
 		}
 		
 		OutScript.close();
