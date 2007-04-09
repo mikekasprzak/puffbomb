@@ -74,15 +74,15 @@ BodyPose_End
 MeshPose_Start				
 MeshPose_Node_Start	12			
 MeshPose_Scale	1			
-MeshNode	-128	160	3	2
+MeshNode	-160	160	3	2
 MeshNode	0	-160	0	1
 MeshNode	128	-64	1	0
 MeshNode	128	128	4	3
 MeshNode	128	32	4	2
 MeshNode	32	64	2	4
-MeshNode	-128	0	2	3
+MeshNode	-160	0	2	3
 MeshNode	-16	80	2	3
-MeshNode	-96	-128	2	0
+MeshNode	-128	-128	2	0
 MeshNode	128	0	2	1
 MeshNode	64	-128	1	0
 MeshNode	32	160	3	4
