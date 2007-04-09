@@ -662,9 +662,15 @@ void pngwriter::plot(int x, int y, int red, int green, int blue, int alpha )
 	  {
 	     //	     graph_[height_-y][3*(x-1) + i] where i goes from 0 to 2
 	     tempindex = 3*x-3;
+	     graph_[height_-y][tempindex] = (char)(floor(((double)red)/255.0));
+	     graph_[height_-y][tempindex+1] = (char)(floor(((double)green)/255.0));
+	     graph_[height_-y][tempindex+2] = (char)(floor(((double)blue)/255.0));
+/*
 	     graph_[height_-y][tempindex] = (char)(floor(((double)red)/257.0));
 	     graph_[height_-y][tempindex+1] = (char)(floor(((double)green)/257.0));
 	     graph_[height_-y][tempindex+2] = (char)(floor(((double)blue)/257.0));
+
+*/
 
 	  };
 	/*
@@ -681,10 +687,17 @@ void pngwriter::plot(int x, int y, int red, int green, int blue, int alpha )
 	  {
 	     //	     graph_[height_-y][3*(x-1) + i] where i goes from 0 to 2
 	     tempindex = 4*x-4;
+	     graph_[height_-y][tempindex] = (char)(floor(((double)red)/255.0));
+	     graph_[height_-y][tempindex+1] = (char)(floor(((double)green)/255.0));
+	     graph_[height_-y][tempindex+2] = (char)(floor(((double)blue)/255.0));
+	     graph_[height_-y][tempindex+3] = (char)(floor(((double)alpha)/255.0));
+
+/*
 	     graph_[height_-y][tempindex] = (char)(floor(((double)red)/257.0));
 	     graph_[height_-y][tempindex+1] = (char)(floor(((double)green)/257.0));
 	     graph_[height_-y][tempindex+2] = (char)(floor(((double)blue)/257.0));
 	     graph_[height_-y][tempindex+3] = (char)(floor(((double)alpha)/257.0));
+*/
 
 	  };
 // MY ADDITION ! WTF //
