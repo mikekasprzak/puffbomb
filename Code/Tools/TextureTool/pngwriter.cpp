@@ -303,7 +303,7 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename, int
 
 //   bit_depth_ = 16; //Default bit depth for new images
 //   bit_depth_ = 8; //Default bit depth for new images
-   bit_depth_ = 32; //Default bit depth for new images
+   bit_depth_ = BitDepth; //Default bit depth for new images
 // WTF //  
  
    colortype_=2;
