@@ -21,21 +21,32 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cPassiveObject* const Sender 
 					Engine2D::cEngine2D::Current->Message( SubMsg, this );
 					break;
 				};
-				// Exit Vortex //
-				case 20: {
-					// Disappear //
-					//SetInactive();
-					// Increment victory scoring //
-					
-					// Create some sort of disappearing effect //
-					break;
-				};
+//				// Exit Vortex //
+//				case 20: {
+//					// Disappear //
+//					SetInactive();
+//					// Increment victory scoring //
+//					
+//					// Create some sort of disappearing effect //
+//					FXLibrary::EnterVortex( Component[ 0 ].Body.BoundingRect.Center(), 1 );
+//					
+//					break;
+//				};
 			};
 			
 			break;
 		}
 		// Who Are You? //
 		case 2: {
+			// Check who is asking //
+			switch( int SubMsg = Sender->Message( 2, (Engine2D::cDynamicComponent*)this ) ) {
+				// Exit Vortex //
+				case 20: {
+					// I am a collectable character //
+					return 22;
+					break;
+				};
+			};
 			return 0;
 			break;
 		}

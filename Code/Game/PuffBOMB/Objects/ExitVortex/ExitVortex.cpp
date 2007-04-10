@@ -13,16 +13,27 @@ int cExitVortex::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 	switch ( Msg ) {
 		// Impact //
 		case 1: {
-			//Log( 10, "Teenage mundane samurai rodents!" );
-			//Engine2D::cEngine2D::Current->Message( 10 + Variant, this );
-			
-			Sender->SetInactive();
-			FXLibrary::EnterVortex( Sender->Body.BoundingRect.Center(), 0 );
-			
+			// Check who it is //
+			switch( int SubMsg = Sender->Parent->Message( 2, (Engine2D::cPassiveObject*)this ) ) {
+				// An object that is collectable //
+				case 21: {
+					Sender->SetInactive();
+					FXLibrary::EnterVortex( Sender->Body.BoundingRect.Center(), 0 );
+					break;
+				};
+				// An object that is a collectable requirement //
+				case 22: {
+					Sender->SetInactive();
+					Engine2D::cEngine2D::Current->Message( 2, this );
+					FXLibrary::EnterVortex( Sender->Body.BoundingRect.Center(), 1 );
+					break;
+				};
+			};
 			break;
 		};
 		// Who am I? //
 		case 2: {
+			
 			return 20;
 			break;
 		};

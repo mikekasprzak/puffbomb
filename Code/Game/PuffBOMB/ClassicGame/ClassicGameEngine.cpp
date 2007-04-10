@@ -173,6 +173,12 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 			break;
 		};
 		
+		// I am at the end of the level, or rather I represent someone who is //
+		case 2: {
+			CharactersAtEndZones++;
+			break;
+		};
+				
 		// Noted a bomb limit via a dummy Passive Object //
 		case 3: {
 			Log( 10, "+ Max Bomb count recieved \"" << Sender->Argument << "\"" );
@@ -209,7 +215,7 @@ void cClassicGameEngine::FrameEnd() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::PhysicsStart() {
-	CharactersAtEndZones = 0;
+	//CharactersAtEndZones = 0;
 }
 // - ------------------------------------------------------------------------------------------ - //	
 void cClassicGameEngine::PhysicsEnd() {
