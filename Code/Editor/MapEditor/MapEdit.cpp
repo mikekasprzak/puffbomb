@@ -94,6 +94,13 @@ cMapEdit::cMapEdit() :
 	MiniMapDynList.push_back( 148 ); // ForegroundTreeStumpOne //
 	MiniMapDynList.push_back( 149 ); // ForegroundTreeStumpTwo //
 	MiniMapDynList.push_back( 150 ); // ForegroundMushroomTwo //
+	MiniMapDynList.push_back( 151 ); // ForegroundCactusOne //
+	MiniMapDynList.push_back( 152 ); // ForegroundCactusTwo //
+	MiniMapDynList.push_back( 153 ); // ForegroundCactusThree //
+	MiniMapDynList.push_back( 154 ); // ForegroundCactusFour //
+	MiniMapDynList.push_back( 155 ); // ForegroundCactusFive //
+	MiniMapDynList.push_back( 156 ); // ForegroundCactusSix //
+	MiniMapDynList.push_back( 157 ); // ForegroundCactusSeven //
 	
 	CurMode = TILE_MODE;
 	LastMode = CurMode;
