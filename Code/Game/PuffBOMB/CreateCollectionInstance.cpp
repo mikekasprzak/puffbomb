@@ -160,6 +160,10 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			return new cDynamicVortexCollection( "2D/ForegroundElementsThree/ForegroundCactusSix.coll", Pos );
 			break;
 		}
+		case 157: {
+			return new cDynamicVortexCollection( "2D/ForegroundElementsThree/ForegroundCactusSeven.coll", Pos );
+			break;
+		}
 
 		case 158: {
 			return new cDynamicVortexCollection( "2D/ForegroundElementsFour/ForegroundPotOne.coll", Pos );
