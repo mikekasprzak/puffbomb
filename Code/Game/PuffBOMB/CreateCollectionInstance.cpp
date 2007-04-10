@@ -8,6 +8,7 @@
 #include "DynamicComponent/ComponentAnimationSet/ComponentAnimationSetPool.h"
 
 #include "Objects/HamsterCharacter/HamsterCharacter.h"
+#include "Objects/HamsterCharacter/MultiplayerHamsterCharacter.h"
 #include "Objects/DynamicVortexCollection/DynamicVortexCollection.h"
 // - ------------------------------------------------------------------------------------------ - //
 Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
@@ -34,7 +35,15 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			return NewChar;
 			break;
 		}
-		
+		case 65: {
+			cMultiplayerHamsterCharacter* NewChar = new cMultiplayerHamsterCharacter( Pos );
+			if ( Engine2D::cEngine2D::Current ) {
+				Engine2D::cEngine2D::Current->Message( 1, NewChar );
+			}
+			return NewChar;
+			break;
+		}
+				
 		case 128: {
 			return new cDynamicVortexCollection( "2D/BubblePlant/BubblePlant.coll", Pos );
 			break;

@@ -65,7 +65,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
  	
  	// Add Players //
  	for ( size_t idx = 0; idx < _Players.size(); idx++ ) {
- 		Engine2D::cDynamicCollection* MyCol = CreateCollectionInstance( 64, StartPoint->Pos );
+ 		Engine2D::cDynamicCollection* MyCol = CreateCollectionInstance( 65, StartPoint->Pos );
  		AddCollection( MyCol );
  		Player.push_back( new cLocalJoyPlayer( MyCol ) );
  		Player.back()->MyLastDropPos = StartPoint->Pos;

@@ -28,6 +28,10 @@ int cExitVortex::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
 					FXLibrary::EnterVortex( Sender->Body.BoundingRect.Center(), 1 );
 					break;
 				};
+				// The object will clean itself up //
+				case 23: {
+					break;
+				};
 			};
 			break;
 		};
