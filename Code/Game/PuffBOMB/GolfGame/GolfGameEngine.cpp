@@ -281,6 +281,21 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 // - ------------------------------------------------------------------------------------------ - //
 int cGolfGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 	switch ( Msg ) {
+//		// I am at the end of the level, or I represent someone who is //
+//		case 2: {
+//			//CharacterAtEndZone++;
+//			Sender->SetInactive();
+//
+//			for ( size_t idx = 0; idx < Player.size(); idx++ ) {
+//				if ( Sender == Player[ idx ]->MyObject ) {
+//					Player[ idx ]->Finished = true;
+//					break;
+//				}	
+//			}
+//
+//			break;
+//		};		
+//		
 		// Golf Start //
 		case 5: {
 			Log( 10, "+ Golf Start" );
