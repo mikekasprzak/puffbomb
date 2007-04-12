@@ -254,11 +254,11 @@ Animation_End
 BodyPose_Start				
 TotalMass	2			
 BodyPose_Node_Start	5			
-BodyNode	-8.00317	0	0.5	
-BodyNode	-48.019	-64.0254	0.5	
-BodyNode	32.0126	-64.0254	0.5	
-BodyNode	-48.019	64.0254	0.5	
-BodyNode	32.0126	64.0254	0.5	
+BodyNode	-8.00317	0	0.4	
+BodyNode	-48.019	-64.0254	0.4	
+BodyNode	32.0126	-64.0254	0.4	
+BodyNode	-48.019	64.0254	0.4	
+BodyNode	32.0126	64.0254	0.4	
 BodyPose_Node_End				
 BodyPose_Spring_Start	10			
 BodySpring	0	1	75.5018	1

@@ -1,9 +1,0 @@
-// Golf Hamster Character //
-TotalMass	2
-
-Control 4
-
-// Sphere //
-Node	0	0
-Weight	1
-Sphere	64
