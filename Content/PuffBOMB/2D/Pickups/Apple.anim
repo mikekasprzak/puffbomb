@@ -1,9 +1,9 @@
-Texture	Cherry5.tx
+Texture	Fruit/Apple.tx
 
-Vertex	-96.0	96.0
-Vertex	-96.0	-96.0
-Vertex	96.0	-96.0
-Vertex	96.0	96.0
+Vertex	-108.0	108.0
+Vertex	-108.0	-108.0
+Vertex	108.0	-108.0
+Vertex	108.0	108.0
 
 FVa	0
 FVb	1

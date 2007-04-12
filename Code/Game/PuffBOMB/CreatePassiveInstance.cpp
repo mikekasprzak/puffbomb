@@ -80,19 +80,19 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 			break;
 		}
 		case 11: {
-			return new cPickup( "Cherry2.anim", Pos, Id - 10 );
+			return new cPickup( "Apple.anim", Pos, Id - 10 );
 			break;
 		}
 		case 12: {
-			return new cPickup( "Cherry3.anim", Pos, Id - 10 );
+			return new cPickup( "Banana.anim", Pos, Id - 10 );
 			break;
 		}
 		case 13: {
-			return new cPickup( "Cherry4.anim", Pos, Id - 10 );
+			return new cPickup( "Plum.anim", Pos, Id - 10 );
 			break;
 		}
 		case 14: {
-			return new cPickup( "Cherry5.anim", Pos, Id - 10 );
+			return new cPickup( "Raspberry.anim", Pos, Id - 10 );
 			break;
 		}
 
