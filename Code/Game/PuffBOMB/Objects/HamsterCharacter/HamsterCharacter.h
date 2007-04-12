@@ -19,7 +19,7 @@ public:
 
 public:
 	cHamsterCharacter( const Vector2D& _Pos ) :
-		cDynamicCollection( "2D/UglyHamster/UglyHamster.coll", _Pos )
+		cDynamicCollection( "2D/NewHamster/NewHamster.coll", _Pos )
 	{
 		
 	}
