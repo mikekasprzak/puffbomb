@@ -265,6 +265,7 @@ void cClassicGameEngine::Step() {
 	
 				// Reset here, to restore everything back to it's home position, before we edit //
 				ResetMap();
+				CharactersAtEndZones = 0;
 
 				// Tell the clock hud the mode has changed //
 				ClockHud.StartEditMode();
