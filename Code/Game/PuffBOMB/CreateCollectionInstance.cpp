@@ -14,18 +14,7 @@
 Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
-		case 1: {
-			return new cDynamicVortexCollection( "2D/Hamster/Hamster.coll", Pos );
-			break;
-		}
-		case 2: {
-			return new cDynamicVortexCollection( "2D/HighFive/HighFive.coll", Pos );
-			break;
-		}
-		case 3: {
-			return new cDynamicVortexCollection( "2D/Phatastic/Phatastic.coll", Pos );
-			break;
-		}
+
 
 		case 64: {
 			cHamsterCharacter* NewChar = new cHamsterCharacter( Pos );
@@ -44,38 +33,6 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 			break;
 		}
 				
-		case 128: {
-			return new cDynamicVortexCollection( "2D/BubblePlant/BubblePlant.coll", Pos );
-			break;
-		}	
-		case 129: {
-			return new cDynamicVortexCollection( "2D/Bridge/Bridge.coll", Pos );
-			break;
-		}
-		case 130: {
-			return new cDynamicVortexCollection( "2D/Phatastic/PhatBridge.coll", Pos );
-			break;
-		}
-		case 131: {
-			return new cDynamicVortexCollection( "2D/TreeOne/TreeOne.coll", Pos );
-			break;
-		}
-		case 132: {
-			return new cDynamicVortexCollection( "2D/PurpleRock/PurpleRockBody.coll", Pos );
-			break;
-		}
-		case 133: {
-			return new cDynamicVortexCollection( "2D/Rope/SmallRope.coll", Pos );
-			break;
-		}
-		case 134: {
-			return new cDynamicVortexCollection( "2D/Rope/LargeRope.coll", Pos );
-			break;
-		}
-		case 135: {
-			return new cDynamicVortexCollection( "2D/PendPlatform/PendPlatform.coll", Pos );
-			break;
-		}
 		case 136: {
 			return new cDynamicVortexCollection( "2D/ForegroundElementsOne/ForegroundPinecone.coll", Pos );
 			break;
