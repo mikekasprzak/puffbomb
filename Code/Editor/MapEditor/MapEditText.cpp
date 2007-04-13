@@ -14,7 +14,7 @@ void cMapEdit::DisplayText()
 	if( CurMode == TILE_MODE )
 	{
 		Real FontSize = 0.5;
-		int Color = Gfx::RGBA( 255, 100, 100, 255 );
+		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		
 		std::stringstream Temp;
 	
@@ -115,7 +115,59 @@ void cMapEdit::DisplayText()
 	}
 	else if( CurMode == OBJECT_MODE )
 	{
+		Real FontSize = 0.5;
+		int Color = Gfx::RGBA( 255, 255, 255, 255 );
 		
+		std::stringstream Temp;
+	
+		// Displays the current layer //
+		// - ---------------------------------------------------------------------------------- - //
+		cFonts::FlangeLight.Write(
+			"Current ID",
+			Vector3D( Global::Left + Real( 6 ), Global::Top - Real( 90 ), 0.0 ),
+			FontSize,
+			Color
+		);
+		
+		Temp << ActiveDyns[ CurDyn ];
+	
+		cFonts::FlangeLight.Write(
+			Temp.str(),
+			Vector3D( Global::Left + Real( 150 ), Global::Top - Real( 90 ), 0.0 ),
+			FontSize,
+			Color
+		);
+
+		
+		if( !CurSelected.empty() )
+		{
+			Real XShift = 120;
+			Real YShift = 40;
+			Real XPos = 800;
+			
+			Temp.str(std::string());
+		
+			// Displays Id //
+			// - ------------------------------------------------------------------------------ - //
+			cFonts::FlangeLight.Write(
+				"Obj ID",
+				Vector3D( Global::Left + XPos, Global::Bottom + YShift, 0.0 ),
+				FontSize,
+				Color
+			);
+			
+			Temp << Map.DynamicObjectInstanceInfo[ CurSelected[ 0 ] ].Id;
+		
+			cFonts::FlangeLight.Write(
+				Temp.str(),
+				Vector3D( Global::Left + XPos, Global::Bottom + Real( 6 ), 0.0 ),
+				FontSize,
+				Color
+			);
+			XPos += XShift;
+			Temp.str(std::string());
+		}
+
 	}
 	else if( CurMode == FREE_OBJECT_MODE )
 	{

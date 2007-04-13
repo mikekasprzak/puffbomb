@@ -82,8 +82,6 @@ cMapEdit::cMapEdit() :
 	LoadMap();
 	
 	// Populate the MiniMapDynList //
-	MiniMapDynList.push_back( 128 ); // BubblePlant //
-	MiniMapDynList.push_back( 131 ); // TreeOne //
 	MiniMapDynList.push_back( 137 ); // ForegroundTree //
 	MiniMapDynList.push_back( 142 ); // ForegroundSunflower //
 	MiniMapDynList.push_back( 143 ); // ForegroundMushroomOne //
