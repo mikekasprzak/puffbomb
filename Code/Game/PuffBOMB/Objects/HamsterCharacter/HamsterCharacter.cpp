@@ -183,52 +183,56 @@ bool cHamsterCharacter::Work() {
 	
 	// Animations that activate when the body impacts something //
 	{
-		// Center and any of the sides dictates a reaction animation //
-		if ( ImpactMask & bit4 ) {
-			switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
-				// Corners Only //
-				case (bit0): {
-					Comp.SetAnimation( 14 );
-					break;
-				};
-				case (bit1): {
-					Comp.SetAnimation( 14 );
-					break;
-				};
-				case (bit2): {
-					Comp.SetAnimation( 18 );
-					break;
-				};
-				case (bit3): {
-					Comp.SetAnimation( 18 );
-					break;
-				};
-			};
-		};
-		
 		if ( HasBeenBlownUp ) {
-			switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
-				// Top //
-				case (bit0|bit1): {
-					Comp.SetAnimation( 6 );
-					break;
+			// Center and any of the sides dictates a reaction animation //
+			//if ( ImpactMask & bit4 )
+			{
+				switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
+					// Corners Only //
+					case (bit0): {
+						Comp.SetAnimation( 14 );
+						break;
+					};
+					case (bit1): {
+						Comp.SetAnimation( 14 );
+						break;
+					};
+					case (bit2): {
+						Comp.SetAnimation( 18 );
+						break;
+					};
+					case (bit3): {
+						Comp.SetAnimation( 18 );
+						break;
+					};
 				};
-				// Left //
-				case (bit0|bit2): {
-					Comp.SetAnimation( 4 );
-					break;
-				};					
-				// Bottom //
-				case (bit2|bit3): {
-					Comp.SetAnimation( 2 );
-					break;
-				};
-				// Right //
-				case (bit1|bit3): {
-					Comp.SetAnimation( 8 );
-					break;
-				};							
 			};
+		
+			// Only do these after you've come to rest //
+			if ( Body.Nodes.Motion < Real( 0.2 ) ) {
+				switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
+					// Top //
+					case (bit0|bit1): {
+						Comp.SetAnimation( 6 );
+						break;
+					};
+					// Left //
+					case (bit0|bit2): {
+						Comp.SetAnimation( 4 );
+						break;
+					};					
+					// Bottom //
+					case (bit2|bit3): {
+						Comp.SetAnimation( 2 );
+						break;
+					};
+					// Right //
+					case (bit1|bit3): {
+						Comp.SetAnimation( 8 );
+						break;
+					};							
+				};
+			}
 		}
 	}
 			
