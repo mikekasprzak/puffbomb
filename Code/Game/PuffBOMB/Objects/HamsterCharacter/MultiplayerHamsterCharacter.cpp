@@ -23,7 +23,7 @@ int cMultiplayerHamsterCharacter::Message( int Msg, Engine2D::cPassiveObject* co
 					Engine2D::cEngine2D::Current->Message( 2, this );
 					
 					// Create some sort of disappearing effect //
-					FXLibrary::EnterVortex( Component[ 0 ].Body.BoundingRect.Center(), 1 );
+					FXLibrary::EnterVortex( Component[ 0 ].Body.BoundingRect.Center(), 0 );
 						
 					// Nothing more to do here, end! //
 					return 0;
