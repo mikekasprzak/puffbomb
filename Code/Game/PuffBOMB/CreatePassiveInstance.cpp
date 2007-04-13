@@ -31,6 +31,7 @@ Engine2D::cPassiveObject* CreatePassiveInstance( const unsigned int Id, const Ve
 		}
 
 		case 3: {
+			// Bomb restriction //
 			Engine2D::cPassiveObject* MyObj = new Engine2D::cPassiveObject( Pos, Argument );
 			if ( Engine2D::cEngine2D::Current ) {
 				Engine2D::cEngine2D::Current->Message( 3, MyObj );
