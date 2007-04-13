@@ -186,7 +186,7 @@ bool cHamsterCharacter::Work() {
 		if ( HasBeenBlownUp ) {
 			// Center and any of the sides dictates a reaction animation //
 			//if ( ImpactMask & bit4 )
-			{
+			if ( Body.Nodes.Motion >= Real( 5 ) ) {
 				switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
 					// Corners Only //
 					case (bit0): {
