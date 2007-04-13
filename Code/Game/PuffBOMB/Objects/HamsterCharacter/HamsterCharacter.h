@@ -18,11 +18,13 @@ public:
 	static const int BottomRightIndex = 2;
 
 	bool HasBeenBlownUp;
+	bool HasJustBlownUp;
 
 public:
 	cHamsterCharacter( const Vector2D& _Pos ) :
 		cDynamicCollection( "2D/NewHamster/NewHamster.coll", _Pos ),
-		HasBeenBlownUp( false )
+		HasBeenBlownUp( false ),
+		HasJustBlownUp( false )
 	{
 		
 	}

@@ -75,9 +75,12 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const /*S
 
 // - ------------------------------------------------------------------------------------------ - //
 void cHamsterCharacter::Message( const Engine2D::cImpulse& /*Sender*/ ) {
+	// Impulses come from vortecies and bombs //
+	
 	// Set a bomb shock animation (30-37) //
 	Component[ 0 ].SetAnimation( 30 );
 	HasBeenBlownUp = true;
+	HasJustBlownUp = true;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
@@ -107,7 +110,7 @@ void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
 // - ------------------------------------------------------------------------------------------ - //
 bool cHamsterCharacter::Work() {
 	Engine2D::cDynamicComponent& Comp = Component[ 0 ];
-	Engine2D::cBody2D& Body = Comp.Body;
+	Engine2D::cBody2D& Body = Component[ 0 ].Body;
 	
 	// This it a hack that takes advantage of the engine, so to allow me to spawn safely in multi //
 	// If I have became an Object Sensor //
@@ -183,31 +186,31 @@ bool cHamsterCharacter::Work() {
 	
 	// Animations that activate when the body impacts something //
 	{
-		if ( HasBeenBlownUp ) {
-			// Center and any of the sides dictates a reaction animation //
-			//if ( ImpactMask & bit4 )
-			if ( Body.Nodes.Motion >= Real( 5 ) ) {
-				switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
-					// Corners Only //
-					case (bit0): {
-						Comp.SetAnimation( 14 );
-						break;
-					};
-					case (bit1): {
-						Comp.SetAnimation( 14 );
-						break;
-					};
-					case (bit2): {
-						Comp.SetAnimation( 18 );
-						break;
-					};
-					case (bit3): {
-						Comp.SetAnimation( 18 );
-						break;
-					};
+		// Center and any of the sides dictates a reaction animation //
+		//if ( ImpactMask & bit4 )
+		if ( Body.Nodes.Motion >= Real( 5 ) ) {
+			switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
+				// Corners Only //
+				case (bit0): {
+					Comp.SetAnimation( 14 );
+					break;
+				};
+				case (bit1): {
+					Comp.SetAnimation( 14 );
+					break;
+				};
+				case (bit2): {
+					Comp.SetAnimation( 18 );
+					break;
+				};
+				case (bit3): {
+					Comp.SetAnimation( 18 );
+					break;
 				};
 			};
-		
+		};
+			
+		if ( HasBeenBlownUp && !HasJustBlownUp  ) {
 			// Only do these after you've come to rest //
 			if ( Body.Nodes.Motion < Real( 0.2 ) ) {
 				switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
@@ -235,6 +238,8 @@ bool cHamsterCharacter::Work() {
 			}
 		}
 	}
+	
+	HasJustBlownUp = false;
 			
 	// - -------------------------------------------------------------------------------------- - //
 	return true;
