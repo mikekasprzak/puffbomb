@@ -75,7 +75,7 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const /*S
 
 // - ------------------------------------------------------------------------------------------ - //
 void cHamsterCharacter::Message( const Engine2D::cImpulse& /*Sender*/ ) {
-	Component[ 0 ].SetAnimation( 1 );
+	Component[ 0 ].SetAnimation( 10 );
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
