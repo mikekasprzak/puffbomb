@@ -12,14 +12,17 @@ public:
 	// Constants for referencing the indices of the collision spheres in the character //
 	static const int MiddleIndex = 0;
 	
-	static const int TopLeftIndex = 1;
-	static const int TopRightIndex = 2;
-	static const int BottomLeftIndex = 3;
-	static const int BottomRightIndex = 4;
+	static const int TopLeftIndex = 3;
+	static const int TopRightIndex = 4;
+	static const int BottomLeftIndex = 1;
+	static const int BottomRightIndex = 2;
+
+	bool HasBeenBlownUp;
 
 public:
 	cHamsterCharacter( const Vector2D& _Pos ) :
-		cDynamicCollection( "2D/NewHamster/NewHamster.coll", _Pos )
+		cDynamicCollection( "2D/NewHamster/NewHamster.coll", _Pos ),
+		HasBeenBlownUp( false )
 	{
 		
 	}

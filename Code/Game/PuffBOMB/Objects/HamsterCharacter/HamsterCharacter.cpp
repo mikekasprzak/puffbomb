@@ -75,7 +75,9 @@ int cHamsterCharacter::Message( int Msg, Engine2D::cDynamicCollection* const /*S
 
 // - ------------------------------------------------------------------------------------------ - //
 void cHamsterCharacter::Message( const Engine2D::cImpulse& /*Sender*/ ) {
-	Component[ 0 ].SetAnimation( 10 );
+	// Set a bomb shock animation (30-37) //
+	Component[ 0 ].SetAnimation( 30 );
+	HasBeenBlownUp = true;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
@@ -104,16 +106,133 @@ void cHamsterCharacter::Message( const Engine2D::cZone& Sender ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 bool cHamsterCharacter::Work() {
+	Engine2D::cDynamicComponent& Comp = Component[ 0 ];
+	Engine2D::cBody2D& Body = Comp.Body;
+	
 	// This it a hack that takes advantage of the engine, so to allow me to spawn safely in multi //
 	// If I have became an Object Sensor //
-	if ( Component[ 0 ].Body.Flags.ObjectSensor() ) {
+	if ( Body.Flags.ObjectSensor() ) {
 		// If I have no contact with other objects //
-		if ( !Component[ 0 ].Body.CollisionFlags.Object() ) {
+		if ( !Body.CollisionFlags.Object() ) {
 			// I no longer need to be an Object Sensor //
-			Component[ 0 ].Body.Flags.ResetObjectSensor();
+			Body.Flags.ResetObjectSensor();
 		}
 	}
 	
+	// - -------------------------------------------------------------------------------------- - //
+	// Process animation changes based on situations! //
+	// - -------------------------------------------------------------------------------------- - //
+	// Animation changes that occur after an animation has looped //
+	if ( Comp.Animator.AnimationFlags.Looped() ) {
+		// If we were in a shock animation, and it's now ended, switch to an in flight //
+		if ( Comp.Animator.CurrentAnimation >= 30 ) {
+			if ( Comp.Animator.CurrentAnimation <= 37 ) {
+				Comp.SetAnimation( 10 );
+			}
+		}
+		
+		// If we were in a hit animation, and it's now ended, switch back to in flight //
+		if ( Comp.Animator.CurrentAnimation >= 14 ) {
+			if ( Comp.Animator.CurrentAnimation <= 21 ) {
+				Comp.SetAnimation( 10 );
+			}
+		}		
+	}
+	
+	
+	// Poll Impact potential //
+	int ImpactMask = 0;
+	
+	// Animations as they affect me when *I AM* an ObjectSensor (I.e. ignore object reactions) //
+	if ( Body.Flags.ObjectSensor() ) {
+		if ( Body.SphereFlags[ TopLeftIndex ].Object() ) {
+			ImpactMask |= bit0;
+		}
+		if ( Body.SphereFlags[ TopRightIndex ].Object() ) {
+			ImpactMask |= bit1;
+		}
+		if ( Body.SphereFlags[ BottomLeftIndex ].Object() ) {
+			ImpactMask |= bit2;
+		}
+		if ( Body.SphereFlags[ BottomRightIndex ].Object() ) {
+			ImpactMask |= bit3;
+		}
+		if ( Body.SphereFlags[ MiddleIndex ].Object() ) {
+			ImpactMask |= bit4;
+		}
+	}
+	
+	{
+		if ( Body.SphereFlags[ TopLeftIndex ].Scenery() ) {
+			ImpactMask |= bit0;
+		}
+		if ( Body.SphereFlags[ TopRightIndex ].Scenery() ) {
+			ImpactMask |= bit1;
+		}
+		if ( Body.SphereFlags[ BottomLeftIndex ].Scenery() ) {
+			ImpactMask |= bit2;
+		}
+		if ( Body.SphereFlags[ BottomRightIndex ].Scenery() ) {
+			ImpactMask |= bit3;
+		}
+		if ( Body.SphereFlags[ MiddleIndex ].Scenery() ) {
+			ImpactMask |= bit4;
+		}
+	}
+	
+	
+	// Animations that activate when the body impacts something //
+	{
+		// Center and any of the sides dictates a reaction animation //
+		if ( ImpactMask & bit4 ) {
+			switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
+				// Corners Only //
+				case (bit0): {
+					Comp.SetAnimation( 14 );
+					break;
+				};
+				case (bit1): {
+					Comp.SetAnimation( 14 );
+					break;
+				};
+				case (bit2): {
+					Comp.SetAnimation( 18 );
+					break;
+				};
+				case (bit3): {
+					Comp.SetAnimation( 18 );
+					break;
+				};
+			};
+		};
+		
+		if ( HasBeenBlownUp ) {
+			switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
+				// Top //
+				case (bit0|bit1): {
+					Comp.SetAnimation( 6 );
+					break;
+				};
+				// Left //
+				case (bit0|bit2): {
+					Comp.SetAnimation( 4 );
+					break;
+				};					
+				// Bottom //
+				case (bit2|bit3): {
+					Comp.SetAnimation( 2 );
+					break;
+				};
+				// Right //
+				case (bit1|bit3): {
+					Comp.SetAnimation( 8 );
+					break;
+				};							
+			};
+		}
+	}
+			
+	// - -------------------------------------------------------------------------------------- - //
 	return true;
 }
 // - ------------------------------------------------------------------------------------------ - //
