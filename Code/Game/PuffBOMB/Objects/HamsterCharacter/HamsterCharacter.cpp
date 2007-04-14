@@ -144,7 +144,17 @@ bool cHamsterCharacter::Work() {
 	
 	// If you've moved, note it //
 	if ( Body.Nodes.Motion > Real( 2 ) ) {
-		HasMoved = true;
+		if ( !HasMoved ) {
+			Comp.SetAnimation( 10 );
+			HasMoved = true;
+		}
+	}
+	
+	// If you're in flight, scale the animation speed by how fast you're moving //
+	if ( Comp.Animator.CurrentAnimation >= 10 ) {
+		if ( Comp.Animator.CurrentAnimation <= 13 ) {
+			Comp.Animator.SetPlaybackRate( Body.Nodes.Motion / Real( 6 ) );
+		}
 	}
 	
 	// Poll Impact potential //
@@ -193,7 +203,7 @@ bool cHamsterCharacter::Work() {
 		// Center and any of the sides dictates a reaction animation //
 		//if ( ImpactMask & bit4 )
 		if ( Body.Nodes.Motion >= Real( 5 ) ) {
-			switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
+			switch ( ImpactMask & (bit0|bit1|bit2|bit3|bit4) ) {
 				// Corners Only //
 				case (bit0): {
 					Comp.SetAnimation( 14 );
@@ -211,6 +221,10 @@ bool cHamsterCharacter::Work() {
 					Comp.SetAnimation( 18 );
 					break;
 				};
+				case (bit4): {
+					Comp.SetAnimation( 18 );
+					break;
+				};				
 			};
 		};
 			
