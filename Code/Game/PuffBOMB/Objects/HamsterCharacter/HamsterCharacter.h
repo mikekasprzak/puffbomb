@@ -22,7 +22,7 @@ public:
 
 public:
 	cHamsterCharacter( const Vector2D& _Pos ) :
-		cDynamicCollection( "2D/NewHamster/NewHamster.coll", _Pos ),
+		cDynamicCollection( "2D/NewHamster-half/NewHamster-half.coll", _Pos ),
 		HasBeenBlownUp( false ),
 		HasJustBlownUp( false )
 	{
