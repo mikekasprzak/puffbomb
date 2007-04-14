@@ -19,12 +19,14 @@ public:
 
 	bool HasBeenBlownUp;
 	bool HasJustBlownUp;
+	bool HasMoved;
 
 public:
 	cHamsterCharacter( const Vector2D& _Pos ) :
 		cDynamicCollection( "2D/NewHamster-half/NewHamster-half.coll", _Pos ),
 		HasBeenBlownUp( false ),
-		HasJustBlownUp( false )
+		HasJustBlownUp( false ),
+		HasMoved( false )
 	{
 		
 	}

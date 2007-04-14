@@ -142,6 +142,10 @@ bool cHamsterCharacter::Work() {
 		}		
 	}
 	
+	// If you've moved, note it //
+	if ( Body.Nodes.Motion > Real( 2 ) ) {
+		HasMoved = true;
+	}
 	
 	// Poll Impact potential //
 	int ImpactMask = 0;
@@ -210,7 +214,7 @@ bool cHamsterCharacter::Work() {
 			};
 		};
 			
-		if ( HasBeenBlownUp && !HasJustBlownUp  ) {
+		if ( HasMoved && !HasJustBlownUp  ) {
 			// Only do these after you've come to rest //
 			if ( Body.Nodes.Motion < Real( 0.2 ) ) {
 				switch ( ImpactMask & (bit0|bit1|bit2|bit3) ) {
