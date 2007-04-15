@@ -26,33 +26,6 @@ Align			Right
 Color			255	255	255 255
 EndText
 
-TextLabel		260	-125
-IsPassive		0
-ActionID		8
-Text			Leaderboard
-Scale			0.5
-Align			Right
-Color			255	255	255 255
-EndText
-
-TextLabel		260	-175
-IsPassive		0
-ActionID		9
-Text			Achievements
-Scale			0.5
-Align			Right
-Color			255	255	255 255
-EndText
-
-TextLabel		260	-225
-IsPassive		0
-ActionID		10
-Text			Help & Options
-Scale			0.5
-Align			Right
-Color			255	255	255 255
-EndText
-
 TextLabel		260	-275
 IsPassive		0
 ActionID		1
