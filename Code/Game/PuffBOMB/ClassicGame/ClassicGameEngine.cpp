@@ -183,7 +183,9 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 		case 3: {
 			Log( 10, "+ Max Bomb count recieved \"" << Sender->Argument << "\"" );
 			Cursor.BombLimit = Sender->Argument;
-			ClockHud.SetBombs( Cursor.BombLimit );
+			if ( ClockHud.MaxBombCount != Cursor.BombLimit ) {
+				ClockHud.SetBombs( Cursor.BombLimit );
+			}
 			break;
 		};
 
