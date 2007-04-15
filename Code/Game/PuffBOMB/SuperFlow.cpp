@@ -22,6 +22,7 @@
 #include <MainMenu/MainMenu.h>
 //#include <PlayerSelect/PlayerSelect.h>
 #include <LevelEnd/LevelEnd.h>
+#include <ClassicLevelEnd/ClassicLevelEnd.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -147,7 +148,7 @@ void cSuperFlow::StateFlow()
 						{
 							CurClassicMap++;
 						}
-						//cLevelEnd( Game.Engine );
+						cClassicLevelEnd( Game.Engine );
 					}
 				}
 				if( OldClassicMap == CurClassicMap )

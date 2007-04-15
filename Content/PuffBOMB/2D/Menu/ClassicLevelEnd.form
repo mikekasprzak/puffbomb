@@ -1,0 +1,19 @@
+DialogPos		0	-	150
+DialogPos		0	+	128
+
+DialogPos		0	+	150
+DialogPos		0	-	154
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		20	-275
+IsPassive		0
+ActionID		0
+Text			Press A to continue.
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+EndDialog

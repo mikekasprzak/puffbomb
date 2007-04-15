@@ -1,5 +1,5 @@
 // - ------------------------------------------------------------------------------------------ - //
-#include "LevelEnd.h"
+#include "ClassicLevelEnd.h"
 // - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -18,7 +18,7 @@ extern int GetTime();
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
+cClassicLevelEnd::cClassicLevelEnd( cClassicGameEngine* _MyEngine ) :
 	MyEngine( _MyEngine )
 {
 	// Create Camera //
@@ -42,110 +42,29 @@ cLevelEnd::cLevelEnd( cGolfGameEngine* _MyEngine ) :
 	SolidParticle.Clear();
 	DenseParticle.Clear();
 	
-	Form.Load( "2D/Menu/LevelEnd.form" );
-	
-	for( size_t idx = 0; idx < MyEngine->Player.size(); ++idx )
-	{
-		std::stringstream Temp;
-		Temp << MyEngine->Player[ idx ]->Stroke;
-		std::string TempString = Temp.str();
+	Form.Load( "2D/Menu/ClassicLevelEnd.form" );
 
-		Form.Labels.push_back(
-			new cTextLabel(
-				Vector2D( 160 + Form.Pos.x + Form.Size.x, Form.Labels[ idx + 1 ]->Pos.y ),
-				true,
-				0, 
-				TempString,
-				0.5,
-				Gfx::White(),
-				LEFT_ALIGN
-			)
-		);
-		Temp.str(std::string());
-
-		Temp << MyEngine->Player[ idx ]->Bonus;
-		TempString = Temp.str();
-
-		Form.Labels.push_back(
-			new cTextLabel(
-				Vector2D( 260 + Form.Pos.x + Form.Size.x, Form.Labels[ idx + 1 ]->Pos.y ),
-				true,
-				0, 
-				TempString,
-				0.5,
-				Gfx::White(),
-				LEFT_ALIGN
-			)
-		);
-
-		Temp.str(std::string());
-
-		Temp << MyEngine->Player[ idx ]->PickupScore;
-		TempString = Temp.str();
-
-		Form.Labels.push_back(
-			new cTextLabel(
-				Vector2D( 360 + Form.Pos.x + Form.Size.x, Form.Labels[ idx + 1 ]->Pos.y ),
-				true,
-				0, 
-				TempString,
-				0.5,
-				Gfx::White(),
-				LEFT_ALIGN
-			)
-		);
-
-		Temp.str(std::string());
-
-		Temp << MyEngine->Player[ idx ]->Score;
-		TempString = Temp.str();
-
-		Form.Labels.push_back(
-			new cTextLabel(
-				Vector2D( 480 + Form.Pos.x + Form.Size.x, Form.Labels[ idx + 1 ]->Pos.y ),
-				true,
-				0, 
-				TempString,
-				0.5,
-				Gfx::White(),
-				LEFT_ALIGN
-			)
-		);
-	}
-	
-	/*if( MyEngine->Player.size() < 4 )
-	{
-		for( size_t idx = MyEngine->Player.size(); idx < 4; ++idx )
-		{
-			Form.Labels[ idx + 1 ].Text.clear();
-		}
-	}*/
-	
-	
-	
-	//LastTime = GetTime();
-	
 	Gfx::DisableSmoothPolygon();
 	
 	Work();
 }
 // - ------------------------------------------------------------------------------------------ - //
-cLevelEnd::~cLevelEnd()
+cClassicLevelEnd::~cClassicLevelEnd()
 {
 	delete Camera;
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cLevelEnd::ResetMenu()
+void cClassicLevelEnd::ResetMenu()
 {
 
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cLevelEnd::Draw()
+void cClassicLevelEnd::Draw()
 {
 	MyEngine->Camera->Update();
 	
 	MyEngine->Draw();
-	
+
 	Camera->Update();
 
 	Gfx::EnableTex2D();
@@ -162,7 +81,7 @@ void cLevelEnd::Draw()
 	Gfx::DisableBlend();	
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cLevelEnd::Step()
+void cClassicLevelEnd::Step()
 {
 	if( Input::Pad[ 0 ].Button[ PAD_A ].Pressed() || Input::Pad[0].Button[ PAD_START ].Pressed() )
 	{
