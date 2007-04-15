@@ -183,6 +183,8 @@ int cClassicGameEngine::Message( int Msg, Engine2D::cPassiveObject* Sender ) {
 		case 3: {
 			Log( 10, "+ Max Bomb count recieved \"" << Sender->Argument << "\"" );
 			Cursor.BombLimit = Sender->Argument;
+			// We do this test because this happens every time the level resets //
+			// If we remove this, the 2 systems (active bombs and such) get out of sync //
 			if ( ClockHud.MaxBombCount != Cursor.BombLimit ) {
 				ClockHud.SetBombs( Cursor.BombLimit );
 			}
