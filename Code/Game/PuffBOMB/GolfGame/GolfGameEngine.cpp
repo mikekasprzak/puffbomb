@@ -678,6 +678,11 @@ void cGolfGameEngine::TurnBasedPlay() {
 			};
 			case 2: {
 				// Stage 2 - Activate Players (if not activated) ------------------------------ - //
+				if ( !Player[ CurrentPlayer ]->Finished ) {
+					// Since we're about to take action, add a stroke //
+					Player[ CurrentPlayer ]->AddStroke();
+				}
+
 				if ( Player[ CurrentPlayer ]->Stroke == 10 ) {
 					Player[ CurrentPlayer ]->Finished = true;
 				}
@@ -694,7 +699,7 @@ void cGolfGameEngine::TurnBasedPlay() {
 					
 					
 					// Since we're about to take action, add a stroke //
-					Player[ CurrentPlayer ]->AddStroke();
+					//Player[ CurrentPlayer ]->AddStroke();
 
 					
 					// Gather input //
@@ -797,6 +802,10 @@ void cGolfGameEngine::TurnBasedPlay() {
 							Player[ idx ]->Bonus = (5 - (Player[ idx ]->Stroke - LowestStroke)) * 100;
 							if ( Player[ idx ]->Bonus < 0 )
 								Player[ idx ]->Bonus = 0;
+							
+							if ( Player[ idx ]->Stroke == 10 ) {
+								Player[ idx ]->Bonus = 0;
+							}
 								
 							Player[ idx ]->Score += Player[ idx ]->Bonus;
 						}
