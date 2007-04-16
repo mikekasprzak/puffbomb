@@ -1,0 +1,326 @@
+// 0 //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.375
+FUVb	0.0		0.5625
+FUVc	0.125	0.5625
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.375
+FUVb	0.125 	0.5625
+FUVc	0.125	0.375
+
+Time	60
+
+
+// 1 //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.125	0.375
+FUVb	0.125	0.5625
+FUVc	0.25	0.5625
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.125	0.375
+FUVb	0.25 	0.5625
+FUVc	0.25	0.375
+
+Time	60
+
+
+// 2 //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.25	0.375
+FUVb	0.25	0.5625
+FUVc	0.375	0.5625
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.25	0.375
+FUVb	0.375 	0.5625
+FUVc	0.375	0.375
+
+Time	60
+
+
+// 3 //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.375	0.375
+FUVb	0.375	0.5625
+FUVc	0.5		0.5625
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.375	0.375
+FUVb	0.5 	0.5625
+FUVc	0.5		0.375
+
+Time	60
+
+
+// 4 //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.5625
+FUVb	0.0		0.75
+FUVc	0.125	0.75
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.5625
+FUVb	0.125 	0.75
+FUVc	0.125	0.5625
+
+Time	60
+
+
+// 5 //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.125	0.5625
+FUVb	0.125	0.75
+FUVc	0.25	0.75
+                
+FVa	0           
+FVb	2           
+FVc	3           
+                
+FUVa	0.125	0.5625
+FUVb	0.25 	0.75
+FUVc	0.25	0.5625
+
+Time	60
+
+
+// 6 //
+Texture	ClassicHud.tx
+                
+Vertex	0	96  
+Vertex	0	0   
+Vertex	64	0   
+Vertex	64	96  
+                
+FVa	0           
+FVb	1           
+FVc	2           
+                
+FUVa	0.25	0.5625
+FUVb	0.25	0.75
+FUVc	0.375	0.75
+                
+FVa	0           
+FVb	2           
+FVc	3           
+                
+FUVa	0.25	0.5625
+FUVb	0.375 	0.75
+FUVc	0.375	0.5625
+                
+Time	60      
+                
+                
+// 7 //         
+Texture	ClassicHud.tx
+                
+Vertex	0	96  
+Vertex	0	0   
+Vertex	64	0   
+Vertex	64	96  
+                
+FVa	0           
+FVb	1           
+FVc	2           
+                
+FUVa	0.375	0.5625
+FUVb	0.375	0.75
+FUVc	0.5		0.75
+                
+FVa	0           
+FVb	2           
+FVc	3           
+                
+FUVa	0.375	0.5625
+FUVb	0.5 	0.75
+FUVc	0.5		0.5625
+                
+Time	60      
+
+
+// 8 //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.5		0.5625
+FUVb	0.5		0.75
+FUVc	0.625	0.75
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.5		0.5625
+FUVb	0.625 	0.75
+FUVc	0.625	0.5625
+
+Time	60
+
+
+// 9 //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.625	0.5625
+FUVb	0.625	0.75
+FUVc	0.75	0.75
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.625	0.5625
+FUVb	0.75 	0.75
+FUVc	0.75	0.5625
+
+Time	60
+
+
+// : //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.75	0.5625
+FUVb	0.75	0.75
+FUVc	0.875	0.75
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.75	0.5625
+FUVb	0.875 	0.75
+FUVc	0.875	0.5625
+
+Time	60
+
+
+// - //
+Texture	ClassicHud.tx
+
+Vertex	0	96
+Vertex	0	0
+Vertex	64	0
+Vertex	64	96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.875	0.5625
+FUVb	0.875	0.75
+FUVc	1.0		0.75
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.875	0.5625
+FUVb	1.0 	0.75
+FUVc	1.0		0.5625
+
+Time	60
+
+
+NotActive
+LoopPoint 0

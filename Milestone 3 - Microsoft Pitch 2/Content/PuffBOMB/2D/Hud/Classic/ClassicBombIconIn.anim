@@ -1,0 +1,142 @@
+// Faded out //
+Texture	ClassicHud.tx
+
+Vertex	0	192
+Vertex	0	64
+Vertex	96	64
+Vertex	96	192
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.8125	0.25
+FUVb	0.8125	0.5
+FUVc	1.0		0.5
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.8125	0.25
+FUVb	1.0 	0.5
+FUVc	1.0		0.25
+
+Color	255 255 255 0
+Time	2
+
+
+// Inbetween //
+Texture	ClassicHud.tx
+
+Vertex	0	176
+Vertex	0	48
+Vertex	96	48
+Vertex	96	176
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.8125	0.25
+FUVb	0.8125	0.5
+FUVc	1.0		0.5
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.8125	0.25
+FUVb	1.0 	0.5
+FUVc	1.0		0.25
+
+Color	255 255 255 128
+Time	4
+
+// Inbetween //
+Texture	ClassicHud.tx
+
+Vertex	0	160
+Vertex	0	32
+Vertex	96	32
+Vertex	96	160
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.8125	0.25
+FUVb	0.8125	0.5
+FUVc	1.0		0.5
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.8125	0.25
+FUVb	1.0 	0.5
+FUVc	1.0		0.25
+
+Color	255 255 255 192
+Time	6
+
+// Inbetween //
+Texture	ClassicHud.tx
+
+Vertex	0	144
+Vertex	0	16
+Vertex	96	16
+Vertex	96	144
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.8125	0.25
+FUVb	0.8125	0.5
+FUVc	1.0		0.5
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.8125	0.25
+FUVb	1.0 	0.5
+FUVc	1.0		0.25
+
+Color	255 255 255 255
+Time	8
+
+
+// Faded In //
+Texture	ClassicHud.tx
+
+Vertex	0	128
+Vertex	0	0
+Vertex	96	0
+Vertex	96	128
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.8125	0.25
+FUVb	0.8125	0.5
+FUVc	1.0		0.5
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.8125	0.25
+FUVb	1.0 	0.5
+FUVc	1.0		0.25
+
+Color	255 255 255 255
+Time	0
+
+
+
+// Animation Properties //
+Interpolate
+LoopPoint 4

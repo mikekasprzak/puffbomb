@@ -1,0 +1,29 @@
+
+Sketch frame roughs on a layer in the center. (thin pen?)
+
+If you need to find the right pose arangement, do pose roughs off to the left or right.
+
+If relative to the first frame, make the first frame a static whiteboard.
+
+Make a floor static whiteboard guide as well.
+
+---
+
+- Verify that the flash exporter of ToonBoom omits unused drawings.  Else, we're going to have to
+do more research.
+** Yes.
+
+- Find more information about the SWF file format.  Cleary it is a simple binary format, but a spec
+would be nice.
+** Okay, it's complex, but there are libraries out there.  Moho uses them... I think.
+
+- Find a library for loading/importing SWF files
+** Haven't found one yet.  Ming used by moho is an exporter..
+
+- Find a Vector Rendering Library that can antialias vectors
+** Antigrain - http://www.antigrain.com/
+
+- Or find an app that can read and render SWF
+** Flirt (http://flirt.sf.net/) is an SWF rendering library.  It's a buggy renderer, but could be a
+foundation for a reader.
+

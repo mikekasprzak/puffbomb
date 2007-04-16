@@ -1,0 +1,8 @@
+This is a modified version of the ai2obj.py script.
+
+origonally this importer converted all the pieces of a .ai file into a single object
+
+now it seperates everything into its own object. and attempts to open all the objects when its done.
+
+what you need to do because of a bug with blender is once you have converted the .ai file into tons of little .obj files is to
+close blender and open the first .0.OOO.obj file and it should open them all correctly

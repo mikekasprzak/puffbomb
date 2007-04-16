@@ -1,0 +1,29 @@
+Texture	TournamentHud.tx
+
+Vertex	0		96
+Vertex	0		0
+Vertex	192		0
+Vertex	192		96
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.375
+FUVb	0.0		0.5625
+FUVc	0.375	0.5625
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.375
+FUVb	0.375 	0.5625
+FUVc	0.375	0.375
+
+Time	0
+
+
+
+// Animation Properties //
+LoopPoint 0

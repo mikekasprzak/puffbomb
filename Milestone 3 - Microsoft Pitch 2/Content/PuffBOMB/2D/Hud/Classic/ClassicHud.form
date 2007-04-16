@@ -1,0 +1,189 @@
+DialogPos		Left	+	0
+DialogPos		Bottom	+	0
+
+DialogPos		Left	+	0
+DialogPos		Bottom	+	0
+
+Focus			0
+Texture			ClassicHud.tx
+CreateDialog
+
+
+// The Clock Border //
+AniLabel		0	0
+IsPassive		1
+ActionID		0
+Group			0
+Animation		ClassicClockBorder.anim
+SelectAni		ClassicClockBorder.anim
+CurrentFrame	0
+EndAni
+
+
+// Digits (Seconds) //
+AniLabel		48	40
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		96	40
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	0
+EndAni
+
+// Colon //
+AniLabel		136	40
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	10
+EndAni
+
+// Digits (Frames) //
+AniLabel		176	40
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		224	40
+IsPassive		1
+ActionID		0
+Group			2
+Animation		ClassicClockDigits.anim
+SelectAni		ClassicClockDigits.anim
+CurrentFrame	0
+EndAni
+
+
+// The Empty Backgrounds for Bomb icons //
+AniLabel		288	0
+IsPassive		1
+ActionID		0
+Group			10
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		352	0
+IsPassive		1
+ActionID		0
+Group			11
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		416	0
+IsPassive		1
+ActionID		0
+Group			12
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		480	0
+IsPassive		1
+ActionID		0
+Group			13
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		544	0
+IsPassive		1
+ActionID		0
+Group			14
+Animation		ClassicBombBorder.anim
+SelectAni		ClassicBombBorder.anim
+CurrentFrame	0
+EndAni
+
+
+// The Foreground icons containing bombs //
+AniLabel		288	0
+IsPassive		1
+ActionID		0
+Group			10
+Animation		ClassicBombIconIn.anim
+SelectAni		ClassicBombIconIn.anim
+CurrentFrame	4
+EndAni
+
+AniLabel		352	0
+IsPassive		1
+ActionID		0
+Group			11
+Animation		ClassicBombIconIn.anim
+SelectAni		ClassicBombIconIn.anim
+CurrentFrame	4
+EndAni
+
+AniLabel		416	0
+IsPassive		1
+ActionID		0
+Group			12
+Animation		ClassicBombIconIn.anim
+SelectAni		ClassicBombIconIn.anim
+CurrentFrame	4
+EndAni
+
+AniLabel		480	0
+IsPassive		1
+ActionID		0
+Group			13
+Animation		ClassicBombIconIn.anim
+SelectAni		ClassicBombIconIn.anim
+CurrentFrame	4
+EndAni
+
+AniLabel		544	0
+IsPassive		1
+ActionID		0
+Group			14
+Animation		ClassicBombIconIn.anim
+SelectAni		ClassicBombIconIn.anim
+CurrentFrame	4
+EndAni
+
+
+// Best Time Text Display //
+TextLabel		32	0
+IsPassive		1
+ActionID		0
+Text			Best Time:
+Scale			0.5
+Color			155	155	255 255
+EndText
+
+
+// Best Time Clock Display //
+TextLabel		200	0
+IsPassive		1
+ActionID		0
+Group			4
+Text			--:--
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+
+// Shut off the legacy border feature //
+IsVisible		0
+EndDialog

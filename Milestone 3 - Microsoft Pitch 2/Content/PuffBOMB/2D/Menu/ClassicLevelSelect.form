@@ -1,0 +1,22 @@
+DialogPos		Left	+	100
+DialogPos		Top		-	100
+
+DialogPos		Left	+	480
+DialogPos		Bottom	+	100
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		100	-100
+IsPassive		0
+ActionID		2
+Text			?????????
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+BackID 7
+
+EndDialog

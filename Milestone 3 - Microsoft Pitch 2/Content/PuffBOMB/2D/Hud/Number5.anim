@@ -1,0 +1,28 @@
+Texture	ShadedParticles.tx
+
+Vertex	-32.0	32.0
+Vertex	-32.0	-32.0
+Vertex	32.0	-32.0
+Vertex	32.0	32.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.625	0.125
+FUVb	0.625	0.25
+FUVc	0.75	0.25
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.625	0.125
+FUVb	0.75	0.25
+FUVc	0.75	0.125
+
+Color 55 55 255 255
+
+Time	1000.0
+
+LoopPoint 0

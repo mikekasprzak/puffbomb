@@ -1,0 +1,46 @@
+
+Makefile
+- Start using new makefile
+- Add new frontend makefile
+- Add settings/config makefile (local, not committed)
+  - Pull this makefile from some defaults folder
+- Make the executable from the new location runable
+  - content is found in a funny location, i.e. src/content/etc...
+- Content
+  - Add static/hardcoded content copying to the makefile
+  - Add the processes for a PNG file
+  - Create an association for PNG files with it's tool needed to process them.  That way, if the
+    tool changes, then the assets get re-converted. 'cause you never know if something vital changed
+Upgrade Texture Pool
+- Need a defined Texture Structure
+  - It neends to be capable of identifying properties of the texture
+    - Uncompressed RGB, RGBA
+    - Paletted
+    - Texture Compression
+- After, then it's a simple matter using a cPool
+Binary Compression Entity
+- A means to load binary files
+- A means to uncompress binary files
+- Entities can then use the uncompressed binary data to do things with
+
+Texture Format
+- 
+
+Property adding via directory structure!
+- So I can flag a directory, including all files in it with certain options, like reducing image
+  size 50%.  This is important for working with ToonBoom, as I'd likely want to generate a larger
+  animation than I'm using (to save me from re-exporting).
+
+Animation generating via directory structure
+- Looking in a directory at all the frames contained within
+- Finding duplicates, and marking them as such
+- Animation framerate (12fps, 24fps) in directory name extensions
+- Generating an anim file that respects them
+
+On invocation of "make update", search for and delete all ".d" files that no longer have an
+associated .cpp or .c file
+
+Have changes to config.mak force a make clean/rebuild all code?  No, 'cause it's mean to richard. ;)
+
+Make relationship between original default file, and your local copy?  No, 'cause it'll destroy your
+custom settings.
