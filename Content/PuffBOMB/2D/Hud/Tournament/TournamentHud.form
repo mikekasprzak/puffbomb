@@ -200,21 +200,12 @@ EndText
 
 
 // Player Border //
-AniLabel		0	0
+AniLabel		0	96
 IsPassive		1
 ActionID		0
-Group			20
-Animation		TournamentPlayer4Border.anim
-SelectAni		TournamentPlayer4Border.anim
-CurrentFrame	0
-EndAni
-
-AniLabel		0	32
-IsPassive		1
-ActionID		0
-Group			21
-Animation		TournamentPlayer3Border.anim
-SelectAni		TournamentPlayer3Border.anim
+Group			23
+Animation		TournamentPlayer1Border.anim
+SelectAni		TournamentPlayer1Border.anim
 CurrentFrame	0
 EndAni
 
@@ -227,14 +218,24 @@ SelectAni		TournamentPlayer2Border.anim
 CurrentFrame	0
 EndAni
 
-AniLabel		0	96
+AniLabel		0	32
 IsPassive		1
 ActionID		0
-Group			23
-Animation		TournamentPlayer1Border.anim
-SelectAni		TournamentPlayer1Border.anim
+Group			21
+Animation		TournamentPlayer3Border.anim
+SelectAni		TournamentPlayer3Border.anim
 CurrentFrame	0
 EndAni
+
+AniLabel		0	0
+IsPassive		1
+ActionID		0
+Group			20
+Animation		TournamentPlayer4Border.anim
+SelectAni		TournamentPlayer4Border.anim
+CurrentFrame	0
+EndAni
+
 
 
 // Shut off the legacy border feature //

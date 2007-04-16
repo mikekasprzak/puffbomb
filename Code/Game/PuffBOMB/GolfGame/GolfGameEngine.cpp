@@ -166,7 +166,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 				HitBoundery = true;
 
 				// We went out of bounds, add a stroke //
-				Player[ CurrentPlayer ]->AddStroke();
+				//Player[ CurrentPlayer ]->AddStroke();
 			}
 			// Deactivate this player, to dissapear and stop moving //
 			Sender->SetInactive();
@@ -193,7 +193,7 @@ int cGolfGameEngine::Message( int Msg, Engine2D::cDynamicCollection* Sender ) {
 				HitBoundery = true;
 
 				// We went out of bounds, add a stroke //
-				Player[ CurrentPlayer ]->AddStroke();
+				//Player[ CurrentPlayer ]->AddStroke();
 			}
 			Sender->SetInactive();
 			Sender->SetPos( FindNearestDrop( *Sender ) );
