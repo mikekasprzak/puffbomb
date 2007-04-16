@@ -222,6 +222,8 @@ void cClassicCursor::Draw() {
 	
 	Gfx::DisableTex2D();
 	Gfx::DisableDepth();
+	
+	Gfx::SetLineWidth( 2 );
 
 	// Draw the cursor //
 	if ( Selection == -1 ) {
@@ -233,13 +235,24 @@ void cClassicCursor::Draw() {
 			// A bomb I can select //
 			Gfx::Circle( Pos, Real(10), Gfx::RGBA( 0, 255, 0, 255 ) );
 		}
-		
+
+		// Thick Black outline //
+		Gfx::SetLineWidth( 4 );	
+		Gfx::Rect( Pos - Real(20), Pos + Real(20), Gfx::RGBA( 0, 0, 0, 255 ) );
+
+		Gfx::SetLineWidth( 2 );		
 		Gfx::Rect( Pos - Real(20), Pos + Real(20), Gfx::RGBA( 255, 255, 255, 255 ) );
 	}
 	else {
+		Gfx::SetLineWidth( 4 );
+		Gfx::Rect( Bomb[ Selection ].Pos - Real(50), Bomb[ Selection ].Pos + Real(50), Gfx::RGBA( 0, 0, 0, 255 ) );
+
+
+		Gfx::SetLineWidth( 2 );
 		Gfx::Rect( Bomb[ Selection ].Pos - Real(50), Bomb[ Selection ].Pos + Real(50), Gfx::RGBA( 0, 255, 0, 255 ) );
 	}
 
+	Gfx::SetLineWidth( 1 );
 
 	// Draw Bomb Timers //
 //	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
