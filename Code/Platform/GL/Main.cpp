@@ -45,7 +45,7 @@ PFNGLCOMPRESSEDTEXIMAGE2DARBPROC glCompressedTexImage2DARB = 0;
 
 // ---------------------------------------------------------------------------------------------- //
 SDL_Surface* SetVideoMode() {
-	// Get information about our video hardware //   
+	// Get information about our video hardware //    
 	const SDL_VideoInfo* VideoInfo = SDL_GetVideoInfo();
 	
 	// In the incredibly unlikely case that we have no video hardware... //  

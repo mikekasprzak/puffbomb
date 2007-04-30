@@ -19,7 +19,8 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	TransTime( 0 ),
 	LastZOffset( 400.0 ),
 	CurZOffset( 800.0 ),
-	CurLevelPivot( 0 )
+	CurLevelPivot( 0 ),
+	LevelsPerPage( 0 )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
@@ -36,7 +37,6 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	Load( "2D/Menu/HelpOptions.form" );					// 2
 	Load( "2D/Menu/ClassicLevelSelect.form" );			// 3
 	
-	UpdateClassicLevelSelect();
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMenuManager::~cMenuManager()
@@ -197,6 +197,7 @@ void cMenuManager::Step()
 				}
 				case 12: // Classic Level Select Form //
 				{
+					UpdateClassicLevelSelect();
 					CurForm = 3;
 				break;	
 				}
@@ -207,11 +208,13 @@ void cMenuManager::Step()
 				}
 				case 14: // Classic Previous Page Level Select //
 				{
+					UpdateClassicLevelSelect();
 					CurForm = 3;
 				break;	
 				}
 				case 15: // Classic Next Page Level Select //
 				{
+					UpdateClassicLevelSelect();
 					CurForm = 3;
 				break;	
 				}
@@ -236,6 +239,8 @@ void cMenuManager::UpdateClassicLevelSelect()
 {
 	if( ClassicSaveData->MapData.size() > 2 )
 	{
+		LevelsPerPage = 1;
+		
 		size_t FormLabelSize = Form.back()->Labels.size();
 
 		size_t LastTextLabelIdx = Form.back()->Labels.size() - 1;
@@ -252,6 +257,8 @@ void cMenuManager::UpdateClassicLevelSelect()
 		
 		for( size_t idx = FormLabelSize; idx < ClassicSaveData->MapData.size() - CurLevelPivot; ++idx )
 		{
+			LevelsPerPage++;
+			
 			cTextLabel* TempLabel = Form.back()->Labels[ LastTextLabelIdx ]->TextLabel();
 			
 			// Push back the text label //
@@ -301,7 +308,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 			}			
 		}
 		// Place the down arrow at the bottom //
-		if( CurLevelPivot != 100 ) // Calc the number somehow
+		if( LevelsPerPage + CurLevelPivot < ClassicSaveData->MapData.size() )
 		{
 			Form.back()->Labels.push_back( 
 				new cAniLabel(
