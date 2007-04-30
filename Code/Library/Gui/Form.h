@@ -56,6 +56,7 @@ public:
 	);
 	
 	~cForm();
+	void Clear();
 	
 	void Load( const std::string &File );
 	Real Anchor( const std::string &AnchorName );

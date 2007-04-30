@@ -20,7 +20,8 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	LastZOffset( 400.0 ),
 	CurZOffset( 800.0 ),
 	CurLevelPivot( 0 ),
-	LevelsPerPage( 0 )
+	LevelsPerPage( 0 ),
+	LevelsOnPage( 0 )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
@@ -197,6 +198,9 @@ void cMenuManager::Step()
 				}
 				case 12: // Classic Level Select Form //
 				{
+					Form[ 3 ]->Clear();
+					Form[ 3 ]->Load( "2D/Menu/ClassicLevelSelect.form" );
+					
 					UpdateClassicLevelSelect();
 					CurForm = 3;
 				break;	
@@ -208,12 +212,23 @@ void cMenuManager::Step()
 				}
 				case 14: // Classic Previous Page Level Select //
 				{
+					Form[ 3 ]->Clear();
+					Form[ 3 ]->Load( "2D/Menu/ClassicLevelSelect.form" );
+
+					CurLevelPivot -= LevelsPerPage;
+															
 					UpdateClassicLevelSelect();
 					CurForm = 3;
 				break;	
 				}
 				case 15: // Classic Next Page Level Select //
 				{
+					Form[ 3 ]->Clear();
+					Form[ 3 ]->Load( "2D/Menu/ClassicLevelSelect.form" );
+
+					CurLevelPivot += LevelsOnPage;
+					LevelsPerPage = LevelsOnPage;
+					
 					UpdateClassicLevelSelect();
 					CurForm = 3;
 				break;	
@@ -239,7 +254,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 {
 	if( ClassicSaveData->MapData.size() > 2 )
 	{
-		LevelsPerPage = 1;
+		LevelsOnPage = 1;
 		
 		size_t FormLabelSize = Form.back()->Labels.size();
 
@@ -257,7 +272,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 		
 		for( size_t idx = FormLabelSize; idx < ClassicSaveData->MapData.size() - CurLevelPivot; ++idx )
 		{
-			LevelsPerPage++;
+			LevelsOnPage++;
 			
 			cTextLabel* TempLabel = Form.back()->Labels[ LastTextLabelIdx ]->TextLabel();
 			
@@ -308,13 +323,13 @@ void cMenuManager::UpdateClassicLevelSelect()
 			}			
 		}
 		// Place the down arrow at the bottom //
-		if( LevelsPerPage + CurLevelPivot < ClassicSaveData->MapData.size() )
+		if( LevelsOnPage + CurLevelPivot < ClassicSaveData->MapData.size() )
 		{
 			Form.back()->Labels.push_back( 
 				new cAniLabel(
 					Vector2D( Real( 190 ), ( Form.back()->Size.y * Real( 2 ) ) + Real( 30 ) ),
 					false,
-					0,
+					15,
 					AnimationPool.Load( "ColoredMoreArrow.anim" ),
 					AnimationPool.Load( "ColoredMoreArrow.anim" ),
 					0
@@ -328,7 +343,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 		}
 		else
 		{
-			Form.back()->Labels.push_back( 
+/*			Form.back()->Labels.push_back( 
 				new cAniLabel(
 					Vector2D( Real( 190 ), ( Form.back()->Size.y * Real( 2 ) ) + Real( 30 ) ),
 					true,
@@ -339,7 +354,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 				)
 			);
 			// If there is no grey arrow just do this //
-			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );*/
 		}
 			
 		// Place the up arrow at the top //
@@ -349,7 +364,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 				new cAniLabel(
 					Vector2D( Real( 190 ), Real( -30 ) ),
 					false,
-					0,
+					14,
 					AnimationPool.Load( "ColoredLessArrow.anim" ),
 					AnimationPool.Load( "ColoredLessArrow.anim" ),
 					0
@@ -363,7 +378,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 		}
 		else
 		{
-			Form.back()->Labels.push_back( 
+/*			Form.back()->Labels.push_back( 
 				new cAniLabel(
 					Vector2D( Real( 190 ), Real( -30 ) ),
 					true,
@@ -374,7 +389,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 				)
 			);
 			// If there is no grey arrow just do this //
-			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );*/
 		}
 		
 		

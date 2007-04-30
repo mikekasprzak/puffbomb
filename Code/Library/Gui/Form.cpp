@@ -72,6 +72,18 @@ cForm::~cForm()
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cForm::Clear()
+{
+	Log( 10, "Clearing Labels in Form" );
+	for( size_t idx = 0; idx < Labels.size(); ++idx )
+	{
+		delete Labels[ idx ];
+	}
+	Labels.clear();
+	ActiveLabels.clear();
+	DummyLabels.clear();
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cForm::Load( const std::string &File )
 {
 	char Line[1024];

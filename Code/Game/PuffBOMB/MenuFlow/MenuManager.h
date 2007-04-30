@@ -26,6 +26,7 @@ public:
 	
 	int CurLevelPivot;
 	int LevelsPerPage;
+	int LevelsOnPage;
 	
 public:
 	cMenuManager( cClassicSaveData* _ClassicSaveData );
