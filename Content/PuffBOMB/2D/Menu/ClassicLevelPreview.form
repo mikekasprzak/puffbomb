@@ -1,0 +1,88 @@
+DialogPos		Right	-	800
+DialogPos		Bottom	+	600
+
+DialogPos		Right	-	100
+DialogPos		Bottom	+	100
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		240	-400
+IsPassive		1
+ActionID		0
+Text			--:--
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+TextLabel		240	-460
+IsPassive		1
+ActionID		0
+Text			--:--
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+TextLabel		580	-400
+IsPassive		1
+ActionID		0
+Text			????
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+TextLabel		580	-460
+IsPassive		1
+ActionID		0
+Text			????
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+TextLabel		0	-400
+IsPassive		1
+ActionID		0
+Text			Best Time:
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+TextLabel		0	-460
+IsPassive		1
+ActionID		0
+Text			Alternate Time:
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+TextLabel		340	-400
+IsPassive		1
+ActionID		0
+Text			World Ranking:
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+TextLabel		340	-460
+IsPassive		1
+ActionID		0
+Text			World Ranking:
+Scale			0.5
+Align			Left
+Color			255	255	255 255
+EndText
+
+
+
+
+BackID 7
+
+EndDialog

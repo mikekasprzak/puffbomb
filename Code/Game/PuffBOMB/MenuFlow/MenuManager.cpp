@@ -38,7 +38,7 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	Load( "2D/Menu/HelpOptions.form" );					// 2
 	Load( "2D/Menu/ClassicLevelSelect.form" );			// 3
 
-	Load( "2D/Menu/HelpOptions.form" );					// 4
+	Load( "2D/Menu/ClassicLevelPreview.form" );			// 4
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -53,15 +53,15 @@ void cMenuManager::Draw()
 	{
 		Gfx::PushMatrix();
 		{
-//			Vector2D FormPos = Form[ LastForm ].Size + Form[ LastForm ].Pos;
-
-//			Gfx::Translate( Vector3D( FormPos.x, FormPos.y, -CurZOffset ) );
 			Gfx::Translate( Vector3D( 0, 0, -CurZOffset ) );
 			
 			if( CurForm < Form.size() )
 			{
-//				Form[ CurForm ].Draw();
 				Form[ CurForm ]->Draw( 254 ); // To fix the disappearing Animation problem //
+				if( CurForm == 3 )
+				{
+					Form[ CurForm + 1 ]->Draw( 254 );
+				}	
 			}
 			
 			CurZOffset *= Real( 0.75 );
@@ -70,21 +70,16 @@ void cMenuManager::Draw()
 		
 		Gfx::PushMatrix();
 		{
-//			Vector2D FormPos = Form[ LastForm ].Size + Form[ LastForm ].Pos;
-			
-//			Gfx::Translate( Vector3D( FormPos.x, FormPos.y, -LastZOffset + Real( 400.0 ) ) );
 			Gfx::Translate( Vector3D( 0, 0, -LastZOffset + Real( 400.0 ) ) );
 			
 			if( LastForm < Form.size() )
 			{
 				Form[ LastForm ]->Draw( Form[ LastForm ]->FormAlpha );
 				
-//				Form[ LastForm ].FormAlpha *= Real( 0.65 );
 				Form[ LastForm ]->FormAlpha = int( Form[ LastForm ]->FormAlpha * Real( 0.65 ) );
 			}
 			
 			LastZOffset *= Real( 0.75 );
-			
 			
 		}
 		Gfx::PopMatrix();
@@ -94,6 +89,10 @@ void cMenuManager::Draw()
 		if( CurForm < Form.size() )
 		{
 			Form[ CurForm ]->Draw();
+			if( CurForm == 3 )
+			{
+				Form[ CurForm + 1 ]->Draw();
+			}			
 		}
 
 	}
