@@ -37,6 +37,8 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 
 	Load( "2D/Menu/HelpOptions.form" );					// 2
 	Load( "2D/Menu/ClassicLevelSelect.form" );			// 3
+
+	Load( "2D/Menu/HelpOptions.form" );					// 4
 	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -256,15 +258,15 @@ void cMenuManager::UpdateClassicLevelSelect()
 	{
 		LevelsOnPage = 1;
 		
-		size_t FormLabelSize = Form.back()->Labels.size();
+		size_t FormLabelSize = Form[ 3 ]->Labels.size();
 
-		size_t LastTextLabelIdx = Form.back()->Labels.size() - 1;
+		size_t LastTextLabelIdx = Form[ 3 ]->Labels.size() - 1;
 			
 		for( size_t idx = 0; idx < FormLabelSize; ++idx )
 		{
-			if( Form.back()->Labels[ idx ]->TextLabel() )
+			if( Form[ 3 ]->Labels[ idx ]->TextLabel() )
 			{
-				Form.back()->Labels[ idx ]->TextLabel()->Text = String::BaseName( ClassicSaveData->MapData[ idx + CurLevelPivot ].MapName );
+				Form[ 3 ]->Labels[ idx ]->TextLabel()->Text = String::BaseName( ClassicSaveData->MapData[ idx + CurLevelPivot ].MapName );
 			}
 			
 			CompletedTest( idx, idx );
@@ -274,10 +276,10 @@ void cMenuManager::UpdateClassicLevelSelect()
 		{
 			LevelsOnPage++;
 			
-			cTextLabel* TempLabel = Form.back()->Labels[ LastTextLabelIdx ]->TextLabel();
+			cTextLabel* TempLabel = Form[ 3 ]->Labels[ LastTextLabelIdx ]->TextLabel();
 			
 			// Push back the text label //
-			Form.back()->Labels.push_back(
+			Form[ 3 ]->Labels.push_back(
 				new cTextLabel(
 					Vector2D( TempLabel->Pos.x, TempLabel->Pos.y - Real( 75 ) ),
 					TempLabel->IsPassive,
@@ -291,21 +293,21 @@ void cMenuManager::UpdateClassicLevelSelect()
 			
 			if( !TempLabel->IsPassive )
 			{
-				Form.back()->ActiveLabels.push_back( Form.back()->Labels.size() - 1 );
+				Form[ 3 ]->ActiveLabels.push_back( Form[ 3 ]->Labels.size() - 1 );
 			}
 			
-			LastTextLabelIdx = Form.back()->Labels.size() - 1;
+			LastTextLabelIdx = Form[ 3 ]->Labels.size() - 1;
 						
 			if( ClassicSaveData->MapData[ idx + CurLevelPivot ].Locked )
 			{
 				// Set the Color to grey if the Label is locked and the SelColor to red //
-				Form.back()->Labels.back()->TextLabel()->Color = Gfx::RGBA( 128, 128, 128, 255 );
-				Form.back()->Labels.back()->TextLabel()->SelColor = Gfx::RGBA( 255, 64, 64, 255 );
+				Form[ 3 ]->Labels.back()->TextLabel()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+				Form[ 3 ]->Labels.back()->TextLabel()->SelColor = Gfx::RGBA( 255, 64, 64, 255 );
 					
 				// Place the Locked animation to the left of the grey level name //
-				Form.back()->Labels.push_back( 
+				Form[ 3 ]->Labels.push_back( 
 					new cAniLabel(
-						Vector2D( Real( 40 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+						Vector2D( Real( 40 ), Form[ 3 ]->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
 						true,
 						0,
 						AnimationPool.Load( "ColoredLockedIcon.anim" ),
@@ -317,7 +319,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 			
 			CompletedTest( idx, LastTextLabelIdx );
 			
-			if( Form.back()->Labels[ LastTextLabelIdx ]->TextLabel()->Pos.y < ( Form.back()->Size.y * Real( 2 ) + Real( 150 ) ) )
+			if( Form[ 3 ]->Labels[ LastTextLabelIdx ]->TextLabel()->Pos.y < ( Form[ 3 ]->Size.y * Real( 2 ) + Real( 150 ) ) )
 			{
 				break;
 			}			
@@ -325,9 +327,9 @@ void cMenuManager::UpdateClassicLevelSelect()
 		// Place the down arrow at the bottom //
 		if( LevelsOnPage + CurLevelPivot < ClassicSaveData->MapData.size() )
 		{
-			Form.back()->Labels.push_back( 
+			Form[ 3 ]->Labels.push_back( 
 				new cAniLabel(
-					Vector2D( Real( 190 ), ( Form.back()->Size.y * Real( 2 ) ) + Real( 30 ) ),
+					Vector2D( Real( 190 ), ( Form[ 3 ]->Size.y * Real( 2 ) ) + Real( 30 ) ),
 					false,
 					15,
 					AnimationPool.Load( "ColoredMoreArrow.anim" ),
@@ -336,16 +338,16 @@ void cMenuManager::UpdateClassicLevelSelect()
 				)
 			);
 			// If there is no animation for selecting do this //
-			Form.back()->Labels.back()->Color = Gfx::RGBA( 255, 255, 255, 254 );
-			Form.back()->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );
+			Form[ 3 ]->Labels.back()->Color = Gfx::RGBA( 255, 255, 255, 254 );
+			Form[ 3 ]->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );
 			
-			Form.back()->ActiveLabels.push_back( Form.back()->Labels.size() - 1 );		
+			Form[ 3 ]->ActiveLabels.push_back( Form[ 3 ]->Labels.size() - 1 );		
 		}
 		else
 		{
-/*			Form.back()->Labels.push_back( 
+/*			Form[ 3 ]->Labels.push_back( 
 				new cAniLabel(
-					Vector2D( Real( 190 ), ( Form.back()->Size.y * Real( 2 ) ) + Real( 30 ) ),
+					Vector2D( Real( 190 ), ( Form[ 3 ]->Size.y * Real( 2 ) ) + Real( 30 ) ),
 					true,
 					0,
 					AnimationPool.Load( "GreyMoreArrow.anim" ),
@@ -354,13 +356,13 @@ void cMenuManager::UpdateClassicLevelSelect()
 				)
 			);
 			// If there is no grey arrow just do this //
-			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );*/
+			Form[ 3 ]->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );*/
 		}
 			
 		// Place the up arrow at the top //
 		if( CurLevelPivot != 0 )
 		{
-			Form.back()->Labels.push_back( 
+			Form[ 3 ]->Labels.push_back( 
 				new cAniLabel(
 					Vector2D( Real( 190 ), Real( -30 ) ),
 					false,
@@ -371,14 +373,14 @@ void cMenuManager::UpdateClassicLevelSelect()
 				)
 			);
 			// If there is no animation for selecting do this //
-			Form.back()->Labels.back()->Color = Gfx::RGBA( 255, 255, 255, 254 );
-			Form.back()->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );
+			Form[ 3 ]->Labels.back()->Color = Gfx::RGBA( 255, 255, 255, 254 );
+			Form[ 3 ]->Labels.back()->SelColor = Gfx::RGBA( 64, 255, 64, 255 );
 			
-			Form.back()->ActiveLabels.push_back( Form.back()->Labels.size() - 1 );		
+			Form[ 3 ]->ActiveLabels.push_back( Form[ 3 ]->Labels.size() - 1 );		
 		}
 		else
 		{
-/*			Form.back()->Labels.push_back( 
+/*			Form[ 3 ]->Labels.push_back( 
 				new cAniLabel(
 					Vector2D( Real( 190 ), Real( -30 ) ),
 					true,
@@ -389,22 +391,22 @@ void cMenuManager::UpdateClassicLevelSelect()
 				)
 			);
 			// If there is no grey arrow just do this //
-			Form.back()->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );*/
+			Form[ 3 ]->Labels.back()->Color = Gfx::RGBA( 128, 128, 128, 255 );*/
 		}
 		
 		
-		if( Form.back()->Labels[ 0 ]->TextLabel() )
+		if( Form[ 3 ]->Labels[ 0 ]->TextLabel() )
 		{
 			if( ClassicSaveData->MapData[ CurLevelPivot ].Locked )
 			{
 				// Set the Color to grey if the Label is locked and the SelColor to red //
-				Form.back()->Labels[ 0 ]->TextLabel()->Color = Gfx::RGBA( 128, 128, 128, 255 );
-				Form.back()->Labels[ 0 ]->TextLabel()->SelColor = Gfx::RGBA( 255, 64, 64, 255 );
+				Form[ 3 ]->Labels[ 0 ]->TextLabel()->Color = Gfx::RGBA( 128, 128, 128, 255 );
+				Form[ 3 ]->Labels[ 0 ]->TextLabel()->SelColor = Gfx::RGBA( 255, 64, 64, 255 );
 					
 				// Place the Locked animation to the left of the grey level name //
-				Form.back()->Labels.push_back( 
+				Form[ 3 ]->Labels.push_back( 
 					new cAniLabel(
-						Vector2D( Real( 40 ), Form.back()->Labels[ 0 ]->Pos.y + Real( 10 ) ),
+						Vector2D( Real( 40 ), Form[ 3 ]->Labels[ 0 ]->Pos.y + Real( 10 ) ),
 						true,
 						0,
 						AnimationPool.Load( "ColoredLockedIcon.anim" ),
@@ -422,9 +424,9 @@ void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
 	if( ClassicSaveData->MapData[ idx + CurLevelPivot ].NormalCompleted )
 	{
 		// Place the Completed animation to the right level name //
-		Form.back()->Labels.push_back( 
+		Form[ 3 ]->Labels.push_back( 
 			new cAniLabel(
-				Vector2D( Real( 265 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+				Vector2D( Real( 265 ), Form[ 3 ]->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
 				true,
 				0,
 				AnimationPool.Load( "ColoredCompletedIcon.anim" ),
@@ -436,9 +438,9 @@ void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
 	else
 	{
 		// Place the grey Completed animation to the right level name //
-		Form.back()->Labels.push_back( 
+		Form[ 3 ]->Labels.push_back( 
 			new cAniLabel(
-				Vector2D( Real( 265 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+				Vector2D( Real( 265 ), Form[ 3 ]->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
 				true,
 				0,
 				AnimationPool.Load( "GreyCompletedIcon.anim" ),
@@ -451,9 +453,9 @@ void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
 	if( ClassicSaveData->MapData[ idx + CurLevelPivot ].AlternateCompleted )
 	{
 		// Place the alternate completed animation to the right level name //
-		Form.back()->Labels.push_back( 
+		Form[ 3 ]->Labels.push_back( 
 			new cAniLabel(
-				Vector2D( Real( 340 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+				Vector2D( Real( 340 ), Form[ 3 ]->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
 				true,
 				0,
 				AnimationPool.Load( "ColoredAlternativeIcon.anim" ),
@@ -465,9 +467,9 @@ void cMenuManager::CompletedTest( size_t idx, size_t LastTextLabelIdx )
 	else
 	{
 		// Place the grey alternate completed animation to the right level name //
-		Form.back()->Labels.push_back( 
+		Form[ 3 ]->Labels.push_back( 
 			new cAniLabel(
-				Vector2D( Real( 340 ), Form.back()->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
+				Vector2D( Real( 340 ), Form[ 3 ]->Labels[ LastTextLabelIdx ]->Pos.y + Real( 10 ) ),
 				true,
 				0,
 				AnimationPool.Load( "GreyAlternativeIcon.anim" ),
