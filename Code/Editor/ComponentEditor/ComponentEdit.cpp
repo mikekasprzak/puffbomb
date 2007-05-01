@@ -378,6 +378,7 @@ void cComponentEdit::PreviewDraw()
 
 	// Draw the Body2D debug information //	
 	DynObj->Body.DrawNodes();
+	DynObj->Body.DrawAngleCrosses();
 	DynObj->Body.DrawSpheres();
 	DynObj->Body.DrawSprings();
 		

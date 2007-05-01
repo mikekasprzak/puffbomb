@@ -66,6 +66,7 @@ void cDynamicComponent::DrawBody( const bool /*Selected*/ ) const {
 	// Draw the debug body information //
 	Body.DrawSpheres();
 	Body.DrawSprings();
+	Body.DrawAngleCrosses();
 	Body.DrawNodes();
 	
 	Body.DrawBoundingRect();

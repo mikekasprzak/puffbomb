@@ -46,6 +46,25 @@ void cBody2D::DrawSpring( const size_t Index, const bool Selected ) const {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+void cBody2D::DrawAngleCross( const size_t Index, const bool Selected ) const {
+	const cAngleCross& MyAngleCross = Pose->AngleCross[ Index ];
+	const Vector2D& PointPivot = Nodes.Pos( MyAngleCross.IndexPivot );
+	const Vector2D& PointA = Nodes.Pos( MyAngleCross.IndexA );
+	const Vector2D& PointB = Nodes.Pos( MyAngleCross.IndexB );
+	
+	Gfx::Rect(
+		PointPivot - Vector2D( 4, 4 ),
+		PointPivot + Vector2D( 4, 4 ),		
+		Selected ? Gfx::RGBA(255, 64, 64, 192) : Gfx::RGBA(192, 64, 64, 128)
+		);
+	
+//	Gfx::Circle(
+//		Pos,
+//		Real( 4 ),
+//		Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192))
+//		);
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DrawSphere( const size_t Index, const bool Selected ) const {
 	const cSphere& MySphere = Pose->Sphere[ Index ];
 	const Vector2D& Pos = Nodes.Pos( MySphere.Index );
@@ -137,6 +156,27 @@ void cBody2D::DrawSpheres( const std::vector< size_t >& SelectionVector ) const 
 		
 		// Draw our Sphere //
 		DrawSphere( idx, Selected );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::DrawAngleCrosses( const std::vector< size_t >& SelectionVector ) const {
+	// Convert our pose parts in to something local //
+	std::vector< cAngleCross >& AngleCross = Pose->AngleCross;
+
+	// For every AngleCross constraint //
+	for ( size_t idx = 0; idx < AngleCross.size(); idx++ ) {
+		bool Selected = false;
+		
+		// Search for this index on the selection list //
+		for ( size_t idx2 = 0; idx2 < SelectionVector.size(); idx2++ ) {
+			if ( SelectionVector[ idx2 ] == idx ) {
+				Selected = true;
+				break;
+			}
+		}
+		
+		// Draw our AngleCross constraint //
+		DrawAngleCross( idx, Selected );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

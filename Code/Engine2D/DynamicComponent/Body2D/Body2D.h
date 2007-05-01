@@ -131,10 +131,12 @@ public:
 	void DrawNode( const size_t Index, const bool Selected = false ) const;
 	void DrawSpring( const size_t Index, const bool Selected = false ) const;
 	void DrawSphere( const size_t Index, const bool Selected = false ) const;
+	void DrawAngleCross( const size_t Index, const bool Selected = false ) const;
 
 	void DrawNodes( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	void DrawSprings( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	void DrawSpheres( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
+	void DrawAngleCrosses( const std::vector< size_t >& SelectionVector = std::vector< size_t >() ) const;
 	
 	void DrawBoundingRect( const bool Selected = false ) const;
 	// - -------------------------------------------------------------------------------------- - //
