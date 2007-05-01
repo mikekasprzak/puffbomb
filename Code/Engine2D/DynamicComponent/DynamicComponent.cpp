@@ -30,7 +30,7 @@ void cDynamicComponent::Step() {
 	// Physics relaxation loop //
 	for ( int NodeSteps = 0; NodeSteps < cPhysics::Current->RelaxationSteps; NodeSteps++ ) {
 		// Update all Springs //
-		Body.StepSprings();
+		Body.StepInternalConstraints();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

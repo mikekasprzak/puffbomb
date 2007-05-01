@@ -38,8 +38,10 @@ public:
 		) :
 		IndexA( _IndexA ),
 		IndexB( _IndexB ),
-		IndexP( _IndexP )
+		IndexP( _IndexP ),
+		AngleType( false )
 	{
+		// *NOTE*: The Angle Type needs to be correctly populated before you use step! //
 	}
 	
 public:

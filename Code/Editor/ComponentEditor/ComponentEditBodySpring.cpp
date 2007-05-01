@@ -21,7 +21,7 @@ void cComponentEdit::BodyAddSpring()
 				}
 			}
 			ActiveAction();
-			DynObj->Body.CalculateSpringLength();
+			DynObj->Body.CalculateInternalConstraints();
 		}
 	}
 }

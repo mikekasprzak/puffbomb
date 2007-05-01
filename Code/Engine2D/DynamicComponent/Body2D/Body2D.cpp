@@ -17,13 +17,27 @@ void cBody2D::Step() {
 	CalcBoundingRect();
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::StepSprings() {
-	// Convert our pose parts in to something local //
-	std::vector< cSpring >& Spring = Pose->Spring;
+void cBody2D::StepInternalConstraints() {
+	// Spring Constraints //
+	{
+		// Convert our pose parts in to something local //
+		std::vector< cSpring >& Spring = Pose->Spring;
+		
+		// Solve all springs in the component //
+		for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
+			Spring[ idx ].Step( Nodes );
+		}
+	}
 	
-	// Solve all springs in the component //
-	for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
-		Spring[ idx ].Step( Nodes );
+	// AngleCross Constraints //
+	{
+		// Convert our pose parts in to something local //
+		std::vector< cAngleCross >& AngleCross = Pose->AngleCross;
+		
+		// Solve all AngleCross constraints in the component //
+		for ( size_t idx = 0; idx < AngleCross.size(); idx++ ) {
+			AngleCross[ idx ].Step( Nodes );
+		}
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -68,17 +82,31 @@ void cBody2D::GrowBoundingRectBySphere( const size_t _Index ) {
 		);
 }
 // - ------------------------------------------------------------------------------------------ - //
-void cBody2D::CalculateSpringLength() {
-	// Convert our pose parts in to something local //
-	std::vector< cSpring >& Spring = Pose->Spring;
-
-	// For all springs, calculate their length //
-	for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
-		// *** Make this use local nodes instead of my nodes!!! *** //
-		
-		// If it's an auto length spring //
-		//if ()
-		Spring[ idx ].CalcLength( Nodes );
+void cBody2D::CalculateInternalConstraints() {
+	// Spring Constraints //
+	{
+		// Convert our pose parts in to something local //
+		std::vector< cSpring >& Spring = Pose->Spring;
+	
+		// For all springs, calculate their length //
+		for ( size_t idx = 0; idx < Spring.size(); idx++ ) {
+			// *** Make this use local nodes instead of my nodes!!! *** //
+			
+			// If it's an auto length spring //
+			//if ()
+			Spring[ idx ].CalcLength( Nodes );
+		}
+	}
+	
+	// AngleCross Constraints //
+	{
+		// Convert our pose parts in to something local //
+		std::vector< cAngleCross >& AngleCross = Pose->AngleCross;
+			
+		// For all springs, calculate their length //
+		for ( size_t idx = 0; idx < AngleCross.size(); idx++ ) {
+			AngleCross[ idx ].CalcMyAngleType( Nodes );
+		}		
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

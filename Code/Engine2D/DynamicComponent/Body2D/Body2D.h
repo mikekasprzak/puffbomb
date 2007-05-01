@@ -110,11 +110,11 @@ public:
 	// Step the nodes in the body. //
 	// Unlike cDynamicComponent/Collection, this is not a self sufficent physics system. //
 	void Step();
-	// Step the springs in the body. //
-	void StepSprings();
+	// Step constraints that affect the internal body (springs, anglecross, angles, ...). //
+	void StepInternalConstraints();
 	
 	// Calculate the length of all springs (given their current positions) //
-	void CalculateSpringLength();
+	void CalculateInternalConstraints();
 
 public:	
 	// - -------------------------------------------------------------------------------------- - //

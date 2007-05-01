@@ -122,7 +122,7 @@ void cEngine2D::StepPhysics() {
 
 			// Update all Springs //
 			for ( size_t idx2 = 0; idx2 < DynamicCollection[ idx ]->Component.size(); idx2++ ) {
-				DynamicCollection[ idx ]->Component[ idx2 ].Body.StepSprings();
+				DynamicCollection[ idx ]->Component[ idx2 ].Body.StepInternalConstraints();
 			}
 		}
 

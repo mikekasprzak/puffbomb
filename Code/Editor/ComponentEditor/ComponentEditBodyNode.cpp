@@ -188,12 +188,12 @@ void cComponentEdit::BodyMoveNode()
 				
 			}
 			SnapToGrid = false;
-			DynObj->Body.CalculateSpringLength();
+			DynObj->Body.CalculateInternalConstraints();
 			ActiveAction();
 		}
 		else
 		{
-			DynObj->Body.CalculateSpringLength();
+			DynObj->Body.CalculateInternalConstraints();
 			ActiveAction();
 		}
 	}
@@ -284,7 +284,7 @@ void cComponentEdit::BodyDeleteNode()
 		else if( ( EditEventFlags & flScale ) )
 		{
 			EditEventFlags &= ~flScale;
-			DynObj->Body.CalculateSpringLength();
+			DynObj->Body.CalculateInternalConstraints();
 		}
 	}
 	if( Button[ MOUSE_1 ].Pressed() && EditEventFlags & flScale )
@@ -293,7 +293,7 @@ void cComponentEdit::BodyDeleteNode()
 		CurMousePos = CalcMousePos();
 		OldMousePos = CurMousePos;
 		
-		DynObj->Body.CalculateSpringLength();		
+		DynObj->Body.CalculateInternalConstraints();		
 	}
 	if( EditEventFlags & flScale )
 	{

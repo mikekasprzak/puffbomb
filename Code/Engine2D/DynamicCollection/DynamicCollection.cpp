@@ -22,7 +22,7 @@ void cDynamicCollection::Step() {
 		
 		// Update all Springs //
 		for ( size_t idx = 0; idx < Component.size(); idx++ ) {
-			Component[ idx ].Body.StepSprings();
+			Component[ idx ].Body.StepInternalConstraints();
 		}
 
 		// Solve collisions between components //

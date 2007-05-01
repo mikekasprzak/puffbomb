@@ -480,7 +480,7 @@ void cComponentEdit::ScaleAll()
 		{
 			EditEventFlags &= ~flScale;
 
-			DynObj->Body.CalculateSpringLength();
+			DynObj->Body.CalculateInternalConstraints();
 		}
 	}
 	if( Button[ MOUSE_1 ].Pressed() && EditEventFlags & flScale )
@@ -489,7 +489,7 @@ void cComponentEdit::ScaleAll()
 		CurMousePos = CalcMousePos();
 		OldMousePos = CurMousePos;
 		
-		DynObj->Body.CalculateSpringLength();
+		DynObj->Body.CalculateInternalConstraints();
 	}
 	if( EditEventFlags & flScale )
 	{
