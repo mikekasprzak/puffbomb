@@ -338,10 +338,10 @@ void cMenuManager::UpdateMiniMap()
 		MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 );
 		MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 );
 	
-		MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
-		MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
-		MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
-		MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
+		MiniMapTexUV[0] = Vector2D( 0.01, 0.01 );
+		MiniMapTexUV[1] = Vector2D( 0.99, 0.01 );
+		MiniMapTexUV[2] = Vector2D( 0.99, 0.99 );
+		MiniMapTexUV[3] = Vector2D( 0.01, 0.99 );
 	
 		MiniMapTexIndices[0] = 0;
 		MiniMapTexIndices[1] = 1;
