@@ -10,11 +10,13 @@
 #include "Objects/HamsterCharacter/HamsterCharacter.h"
 #include "Objects/HamsterCharacter/MultiplayerHamsterCharacter.h"
 #include "Objects/DynamicVortexCollection/DynamicVortexCollection.h"
+
+#include "Objects/VacuumObject/VacuumObject.h"
 // - ------------------------------------------------------------------------------------------ - //
 Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
-
+		
 
 		case 64: {
 			cHamsterCharacter* NewChar = new cHamsterCharacter( Pos );
@@ -30,6 +32,11 @@ Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, c
 				Engine2D::cEngine2D::Current->Message( 1, NewChar );
 			}
 			return NewChar;
+			break;
+		}
+		
+		case 80: {
+			return new cVacuumObject( Pos );
 			break;
 		}
 				
