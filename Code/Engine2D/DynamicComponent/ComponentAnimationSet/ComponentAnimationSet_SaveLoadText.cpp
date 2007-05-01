@@ -109,7 +109,20 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 				if ( Obj.Instruction[ idx ].Command == "IgnoreMinimum" ) {
 					BodyPose.back().Spring.back().Flags.SetIgnoreMinimum();
 				}
+				
+				// ------ AngleCross ------------------------- //
+				// If an AngleCross constraint, add an AngleCross constraint //
+				if ( Obj.Instruction[ idx ].Command == "BodyAngleCross" ) {
+					BodyPose.back().AngleCross.push_back(
+						cAngleCross(
+							atoi( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
+							atoi( Obj.Instruction[ idx ].Arg[ 1 ].c_str() ),
+							atof( Obj.Instruction[ idx ].Arg[ 2 ].c_str() )
+							)
+						);
+				}
 
+				
 				// ------ Sphere ------------------------- //
 				// If a Sphere, add a Sphere //
 				if ( Obj.Instruction[ idx ].Command == "BodySphere" ) {
@@ -272,6 +285,30 @@ void cComponentAnimationSet::SaveText( const std::string& FileName ) {
 
 			// Write Node SubSection footer //
 			Obj.Append( "BodyPose_Spring_End" );
+		}
+
+		// AngleCross SubSection //
+		{
+			// Write AngleCross SubSection header //
+			Obj.Append( "BodyPose_AngleCross_Start", BodyPose[ idx ].AngleCross.size() );
+
+			// For Every AngleCross constraint //
+			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].AngleCross.size(); idx2++ ) {
+				Obj.Append(
+					"BodyAngleCross",
+					BodyPose[ idx ].Spring[ idx2 ].IndexP,
+					BodyPose[ idx ].Spring[ idx2 ].IndexA,
+					BodyPose[ idx ].Spring[ idx2 ].IndexB
+					);
+				
+				// Write extra commands for flags //
+//				if ( BodyPose[ idx ].Spring[ idx2 ].Flags.ManualLength() ) {
+//					Obj.Append( "ManualLength" );
+//				}
+			}
+
+			// Write Node SubSection footer //
+			Obj.Append( "BodyPose_AngleCross_End" );
 		}
 
 		// Sphere SubSection //

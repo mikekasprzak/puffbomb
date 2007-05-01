@@ -17,11 +17,10 @@ namespace Engine2D {
 class cAngleCross {
 public:	
 	// Indices for our formulaic parts //
-	size_t IndexA, IndexB, IndexP;
+	size_t IndexP, IndexA, IndexB;
 
 	// 2 types of angles we care about. Acute and Obtuse.  This is the type we are. //
 	bool AngleType;
-
 
 	// Flags //
 	//cAngleCrossFlags Flags;
@@ -32,13 +31,13 @@ public:
 	}
 	
 	inline cAngleCross( 
+		const size_t _IndexP,
 		const size_t _IndexA,
-		const size_t _IndexB,
-		const size_t _IndexP
+		const size_t _IndexB
 		) :
+		IndexP( _IndexP ),
 		IndexA( _IndexA ),
 		IndexB( _IndexB ),
-		IndexP( _IndexP ),
 		AngleType( false )
 	{
 		// *NOTE*: The Angle Type needs to be correctly populated before you use step! //
