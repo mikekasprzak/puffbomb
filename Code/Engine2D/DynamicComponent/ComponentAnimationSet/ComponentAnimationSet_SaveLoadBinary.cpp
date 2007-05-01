@@ -118,6 +118,15 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				In.Read( BodyPose[ idx ].Spring[ idx2 ].Flags );
 			}
 
+			// Write AngleCross constraints //
+			BodyPose[ idx ].AngleCross.resize( In.Read() );
+			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].AngleCross.size(); idx2++ ) {
+				// Write //
+				In.Read( BodyPose[ idx ].AngleCross[ idx2 ].IndexPivot );
+				In.Read( BodyPose[ idx ].AngleCross[ idx2 ].IndexA );
+				In.Read( BodyPose[ idx ].AngleCross[ idx2 ].IndexB );
+			}
+
 			// Write Spheres //
 			BodyPose[ idx ].Sphere.resize( In.Read() );
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Sphere.size(); idx2++ ) {
@@ -361,7 +370,15 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 					Out.Write( BodyPose[ idx ].Spring[ idx2 ].Strength );
 					Out.Write( BodyPose[ idx ].Spring[ idx2 ].Flags );
 				}
-
+				
+				// Write AngleCross constraints //
+				Out.Write( BodyPose[ idx ].AngleCross.size() );
+				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].AngleCross.size(); idx2++ ) {
+					Out.Write( BodyPose[ idx ].AngleCross[ idx2 ].IndexPivot );
+					Out.Write( BodyPose[ idx ].AngleCross[ idx2 ].IndexA );
+					Out.Write( BodyPose[ idx ].AngleCross[ idx2 ].IndexB );
+				}
+				
 				// Write Spheres //
 				Out.Write( BodyPose[ idx ].Sphere.size() );
 				for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Sphere.size(); idx2++ ) {

@@ -17,7 +17,7 @@ namespace Engine2D {
 class cAngleCross {
 public:	
 	// Indices for our formulaic parts //
-	size_t IndexP, IndexA, IndexB;
+	size_t IndexPivot, IndexA, IndexB;
 
 	// 2 types of angles we care about. Acute and Obtuse.  This is the type we are. //
 	bool AngleType;
@@ -31,11 +31,11 @@ public:
 	}
 	
 	inline cAngleCross( 
-		const size_t _IndexP,
+		const size_t _IndexPivot,
 		const size_t _IndexA,
 		const size_t _IndexB
 		) :
-		IndexP( _IndexP ),
+		IndexPivot( _IndexPivot ),
 		IndexA( _IndexA ),
 		IndexB( _IndexB ),
 		AngleType( false )
@@ -46,8 +46,8 @@ public:
 public:
 	// Calculate the type of angle we are //
 	inline bool CalcAngleType( cDynamicNodes& Node ) const {
-		Vector2D PA = Node.Pos( IndexA ) - Node.Pos( IndexP );
-		Vector2D PB = Node.Pos( IndexB ) - Node.Pos( IndexP );
+		Vector2D PA = Node.Pos( IndexA ) - Node.Pos( IndexPivot );
+		Vector2D PB = Node.Pos( IndexB ) - Node.Pos( IndexPivot );
 		Real AngleType = PA.Tangent() * PB;
 		
 		// True if acute //
@@ -66,12 +66,12 @@ public:
 	inline void Step( cDynamicNodes& Node ) {
 		// If the angle type has changed, then project on to the plane between Points A and B //
 		if ( AngleType != CalcAngleType( Node ) ) {
-			Vector2D PA = Node.Pos( IndexA ) - Node.Pos( IndexP );
+			Vector2D PA = Node.Pos( IndexA ) - Node.Pos( IndexPivot );
 			Vector2D AB = Node.Pos( IndexB ) - Node.Pos( IndexA );
 			
 			Vector2D ABTanNorm = AB.Tangent().Normal();
 			
-			Node.Pos( IndexP ) += (ABTanNorm * PA) * ABTanNorm;
+			Node.Pos( IndexPivot ) += (ABTanNorm * PA) * ABTanNorm;
 		}
 	}
 };

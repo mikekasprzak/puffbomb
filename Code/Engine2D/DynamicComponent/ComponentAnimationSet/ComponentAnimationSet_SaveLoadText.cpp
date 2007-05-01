@@ -296,9 +296,9 @@ void cComponentAnimationSet::SaveText( const std::string& FileName ) {
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].AngleCross.size(); idx2++ ) {
 				Obj.Append(
 					"BodyAngleCross",
-					BodyPose[ idx ].Spring[ idx2 ].IndexP,
-					BodyPose[ idx ].Spring[ idx2 ].IndexA,
-					BodyPose[ idx ].Spring[ idx2 ].IndexB
+					BodyPose[ idx ].AngleCross[ idx2 ].IndexPivot,
+					BodyPose[ idx ].AngleCross[ idx2 ].IndexA,
+					BodyPose[ idx ].AngleCross[ idx2 ].IndexB
 					);
 				
 				// Write extra commands for flags //
