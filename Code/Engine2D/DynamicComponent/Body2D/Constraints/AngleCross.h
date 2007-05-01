@@ -63,48 +63,15 @@ public:
 
 public:	
 	inline void Step( cDynamicNodes& Node ) {
-		
-		return;
-//		// Standard Verlet with masses //
-//		Vector2D Ray = Node.Pos( IndexB ) - Node.Pos( IndexA );
-//		Real RayLength = Ray.Magnitude();
-//		
-//		Real Dividend = (RayLength - Length);
-//
-//		// Disabling of Minimum and Maximum constraining //
-//		if ( Flags.IgnoreMinimum() ) {
-//			if ( Dividend <= Real::Zero ) {
-//				return;
-//			}
-//		}	
-//		if ( Flags.IgnoreMaximum() ) {
-//			if ( Dividend > Real::Zero ) {
-//				return;
-//			}
-//		}
-//		
-//		// Calculate the weighted push based on masses //
-//		Real Divisor = (RayLength * (Node.InvMass( IndexA ) + Node.InvMass( IndexB )));
-//		if ( Divisor.IsZero() )
-//			return;
-//		Real Diff = Dividend / Divisor;
-//		
-//		// Solve the AngleCross //
-//		Node.Pos( IndexA ) += Node.InvMass( IndexA ) * Ray * Diff * Strength;
-//		Node.Pos( IndexB ) -= Node.InvMass( IndexB ) * Ray * Diff * Strength;		
-//
-//
-////		// Optimized Verlet with Square Root Approximation //
-////		Vector2D Ray = Node.Pos( IndexB ) - Node.Pos( IndexA );
-////		Real RadiusSumSquared = Length * Length;
-////		
-////		// That .5 is part of the square root approximation, not a scalar! //
-////		Real Divisor = ( (Ray * Ray) + (RadiusSumSquared) );
-////		Ray *= (RadiusSumSquared) / Divisor - Real( 0.5f );
-////		
-////		// A scalar here (or the line above) causes the segments to stretch more //
-////		Node.Pos( IndexA ) -= Ray;// * Real( .16 );
-////		Node.Pos( IndexB ) += Ray;// * Real( .16 );
+		// If the angle type has changed, then project on to the plane between Points A and B //
+		if ( AngleType != CalcAngleType( Node ) ) {
+			Vector2D PA = Node.Pos( IndexA ) - Node.Pos( IndexP );
+			Vector2D AB = Node.Pos( IndexB ) - Node.Pos( IndexA );
+			
+			Vector2D ABTanNorm = AB.Tangent().Normal();
+			
+			Node.Pos( IndexP ) += (ABTanNorm * PA) * ABTanNorm;
+		}
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
