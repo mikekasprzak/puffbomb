@@ -8,7 +8,7 @@ Focus			0
 Texture			DialogBox.tx
 CreateDialog
 
-TextLabel		240	-400
+TextLabel		260	-400
 IsPassive		1
 ActionID		0
 Text			--:--
@@ -17,7 +17,7 @@ Align			Left
 Color			255	255	255 255
 EndText
 
-TextLabel		240	-460
+TextLabel		260	-460
 IsPassive		1
 ActionID		0
 Text			--:--
@@ -44,7 +44,7 @@ Align			Left
 Color			255	255	255 255
 EndText
 
-TextLabel		0	-400
+TextLabel		20	-400
 IsPassive		1
 ActionID		0
 Text			Best Time:
@@ -53,7 +53,7 @@ Align			Left
 Color			255	255	255 255
 EndText
 
-TextLabel		0	-460
+TextLabel		20	-460
 IsPassive		1
 ActionID		0
 Text			Alternate Time:
@@ -79,9 +79,6 @@ Scale			0.5
 Align			Left
 Color			255	255	255 255
 EndText
-
-
-
 
 BackID 7
 

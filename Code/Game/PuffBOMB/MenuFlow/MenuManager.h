@@ -28,6 +28,12 @@ public:
 	int LevelsPerPage;
 	int LevelsOnPage;
 	
+	Vector3D MiniMapTexVertex[ 4 ];
+	Vector2D MiniMapTexUV[ 4 ];
+	unsigned int MiniMapTexIndices[ 4 ];
+	cTexture MiniMapTex;
+	std::string MiniMapName;
+
 public:
 	cMenuManager( cClassicSaveData* _ClassicSaveData );
 	~cMenuManager();
@@ -37,6 +43,8 @@ public:
 	void Draw();
 
 public:
+	void UpdateMiniMap();
+	
 	void UpdateClassicLevelSelect();
 	void CompletedTest( size_t idx, size_t LastTextLabelIdx );
 	

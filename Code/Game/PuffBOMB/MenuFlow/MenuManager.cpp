@@ -21,7 +21,8 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	CurZOffset( 800.0 ),
 	CurLevelPivot( 0 ),
 	LevelsPerPage( 0 ),
-	LevelsOnPage( 0 )
+	LevelsOnPage( 0 ),
+	MiniMapName( "" )
 {
 	//	Load( "2D/Menu/MainMenuUnregistered.form" );
 
@@ -39,7 +40,7 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 	Load( "2D/Menu/ClassicLevelSelect.form" );			// 3
 
 	Load( "2D/Menu/ClassicLevelPreview.form" );			// 4
-	
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMenuManager::~cMenuManager()
@@ -61,13 +62,35 @@ void cMenuManager::Draw()
 				if( CurForm == 3 )
 				{
 					Form[ CurForm + 1 ]->Draw( 254 );
+					
+					// Draw Minimap //
+					Gfx::PushMatrix();
+					{
+						Gfx::Translate( Vector2D( Global::Right - Real( 300 ), Global::Bottom + Real( 280 ) ) );
+					
+						Gfx::EnableTex2D();
+				
+						Gfx::DrawQuads(
+							&MiniMapTexVertex[0],
+							&MiniMapTexUV[0],
+							MiniMapTexIndices,
+							4,
+							MiniMapTex.Id,
+							Gfx::White()
+						);
+						
+						Gfx::DisableTex2D();
+					}
+					Gfx::PopMatrix();
 				}	
 			}
 			
 			CurZOffset *= Real( 0.75 );
 		}
 		Gfx::PopMatrix();
-		
+			
+		Gfx::EnableTex2D();
+			
 		Gfx::PushMatrix();
 		{
 			Gfx::Translate( Vector3D( 0, 0, -LastZOffset + Real( 400.0 ) ) );
@@ -92,6 +115,26 @@ void cMenuManager::Draw()
 			if( CurForm == 3 )
 			{
 				Form[ CurForm + 1 ]->Draw();
+					
+				// Draw Minimap //
+				Gfx::PushMatrix();
+				{
+					Gfx::Translate( Vector2D( Global::Right - Real( 300 ), Global::Bottom + Real( 280 ) ) );
+				
+					Gfx::EnableTex2D();
+			
+					Gfx::DrawQuads(
+						&MiniMapTexVertex[0],
+						&MiniMapTexUV[0],
+						MiniMapTexIndices,
+						4,
+						MiniMapTex.Id,
+						Gfx::White()
+					);
+					
+					Gfx::DisableTex2D();
+				}
+				Gfx::PopMatrix();
 			}			
 		}
 
@@ -114,7 +157,7 @@ void cMenuManager::Step()
 				BackPressed = true;
 		 	}
 		}
-
+		
 		if( Input::Button[ KEY_ENTER ].Pressed()
 			|| Input::Pad[0].Button[ PAD_A ].Pressed()
 			|| Input::Pad[0].Button[ PAD_START ].Pressed()
@@ -248,7 +291,63 @@ void cMenuManager::Step()
 
 		}
 	}
+	if( CurForm == 3 )
+	{
+		if( Input::Button[ KEY_UP ].Pressed()
+			|| Input::Button[ KEY_DOWN ].Pressed()
+			|| int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == 1
+			|| int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == 1
+			|| int( Input::Pad[0].Stick1.HarshKeyRepeat().y ) == -1 
+			|| int( Input::Pad[0].DPad.HarshKeyRepeat().y ) == -1
+			)
+		{
+			UpdateMiniMap();
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cMenuManager::UpdateMiniMap()
+{
 	
+	Log( LOG_HIGHEST_LEVEL, "Form[ CurForm ]->Focus: " << Form[ CurForm ]->Focus );
+	Log( LOG_HIGHEST_LEVEL, "LevelsOnPage: " << LevelsOnPage );
+	
+	if( Form[ CurForm ]->Focus + CurLevelPivot < ClassicSaveData->MapData.size() &&
+		Form[ CurForm ]->Focus < LevelsOnPage )
+	{
+
+		// Explicitly remove the minimap from the texture pool //
+		if( MiniMapName != "" )
+		{
+			TexturePool.Remove( MiniMapName );
+		}
+
+		// Load the appropriate minimap for this level //
+		MiniMapName = "Classic/" + String::BaseName( ClassicSaveData->MapData[ Form[ CurForm ]->Focus + CurLevelPivot ].MapName ) + ".pack.tx";
+		
+		MiniMapTex = TexturePool.Load( MiniMapName );
+		
+		Real MiniMapWidth = 1920.0;
+		Real MiniMapHeight = 1200.0;
+		
+		MiniMapWidth /= Real( 4 ); 
+		MiniMapHeight /= Real( 4 );
+		
+		MiniMapTexVertex[0] = Vector3D( -MiniMapWidth, Real::Zero, 0.0 );
+		MiniMapTexVertex[1] = Vector3D( Real::Zero, Real::Zero, 0.0 );
+		MiniMapTexVertex[2] = Vector3D( Real::Zero, MiniMapHeight, 0.0 );
+		MiniMapTexVertex[3] = Vector3D( -MiniMapWidth, MiniMapHeight, 0.0 );
+	
+		MiniMapTexUV[0] = Vector2D( 0.0, 0.0 );
+		MiniMapTexUV[1] = Vector2D( 1.0, 0.0 );
+		MiniMapTexUV[2] = Vector2D( 1.0, 1.0 );
+		MiniMapTexUV[3] = Vector2D( 0.0, 1.0 );
+	
+		MiniMapTexIndices[0] = 0;
+		MiniMapTexIndices[1] = 1;
+		MiniMapTexIndices[2] = 2;
+		MiniMapTexIndices[3] = 3;
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuManager::UpdateClassicLevelSelect()
@@ -415,6 +514,8 @@ void cMenuManager::UpdateClassicLevelSelect()
 				);
 			}
 		}
+		
+		UpdateMiniMap();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
