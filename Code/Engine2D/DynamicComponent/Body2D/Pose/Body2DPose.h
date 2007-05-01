@@ -12,6 +12,7 @@
 #include "BodyPoseNode.h"
 #include <DynamicComponent/Body2D/Constraints/Spring.h>
 #include <DynamicComponent/Body2D/Constraints/Sphere.h>
+#include <DynamicComponent/Body2D/Constraints/AngleCross.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -20,6 +21,7 @@ public:
 	std::vector< cBodyPoseNode > Node;
 	std::vector< cSpring > Spring;
 	std::vector< cSphere > Sphere;
+	std::vector< cAngleCross > AngleCross;
 		
 	Real TotalMass;
 	
