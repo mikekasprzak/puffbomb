@@ -200,6 +200,32 @@ public:
 		return Point;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Contract a rectangle (like how a selection contract or expand works in PSP/Photoshop) //
+	inline const RectType Contract( const Real& Value ) {
+		RectType NewRect = *this;
+		
+		// TODO: Make this function validate/clip the modifier so it doesn't go negative //
+		//       And be sure it correctly handle's the deformation centering (no more deformation on 0) //
+		
+		
+		NewRect._P1 += Vector2D( Value, Value );
+		NewRect._Shape -= Vector2D( Value, Value );
+		NewRect._Shape -= Vector2D( Value, Value );
+		
+		return NewRect;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Expand a rectangle (like how a selection contract or expand works in PSP/Photoshop) //
+	inline const RectType Expand( const Real& Value ) {
+		RectType NewRect = *this;
+		
+		NewRect._P1 -= Vector2D( Value, Value );
+		NewRect._Shape += Vector2D( Value, Value );
+		NewRect._Shape += Vector2D( Value, Value );
+		
+		return NewRect;
+	}
+	// - -------------------------------------------------------------------------------------- - //
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Adding vectors to offset the position of a rectangle //

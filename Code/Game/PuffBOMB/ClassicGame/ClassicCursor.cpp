@@ -74,7 +74,7 @@ void cClassicCursor::Step() {
 			Pos += Input::Pad[0].DPad.KeyRepeat() * Real(1);
 				
 			// Push us inside the view rectangle //
-			
+			Pos = Engine->Camera->CameraBounds.Contract( Real(64) ).ClosestPoint( Pos );
 		}
 		// With a bomb selected //
 		else {
@@ -89,6 +89,7 @@ void cClassicCursor::Step() {
 			Bomb[ Selection ].Pos += Input::Pad[0].DPad.KeyRepeat() * Real(1);
 
 			// Push us inside the view rectangle //
+			Bomb[ Selection ].Pos = Engine->Camera->CameraBounds.Contract( Real(64) ).ClosestPoint( Bomb[ Selection ].Pos );
 
 			// Make us not enter other bombs //
 			PushMeOutOfOtherBombs( Selection );

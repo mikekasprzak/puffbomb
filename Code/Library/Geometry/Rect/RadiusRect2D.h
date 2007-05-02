@@ -205,6 +205,27 @@ public:
 	
 		return Point;
 	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Contract a rectangle (like how a selection contract or expand works in PSP/Photoshop) //
+	inline const RectType Contract( const Real& Value ) {
+		RectType NewRect = *this;
+		
+		NewRect._HalfShape -= Vector2D( Value, Value );
+		
+		NewRect._HalfShape.x.MinClamp( Real::Zero );
+		NewRect._HalfShape.y.MinClamp( Real::Zero );
+		
+		return NewRect;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Expand a rectangle (like how a selection contract or expand works in PSP/Photoshop) //
+	inline const RectType Expand( const Real& Value ) {
+		RectType NewRect = *this;
+		
+		NewRect._HalfShape += Vector2D( Value, Value );
+		
+		return NewRect;
+	}
 	// - -------------------------------------------------------------------------------------- - //	
 public:
 	// - -------------------------------------------------------------------------------------- - //
