@@ -14,6 +14,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 cClassicCursor::cClassicCursor() :
 	Engine( dynamic_cast<cClassicGameEngine*>(Engine2D::cEngine2D::Current) ),
+	Accelerator( 0 ),
+	SpeedScalar( Real::Zero ),
 	Selection( -1 ),
 	BombLimit( 5 ),
 	BombGraphic( "BlueBomb.anim" ),
@@ -41,31 +43,54 @@ void cClassicCursor::Step() {
 	}
 
 
+
 	// Cursor/Bomb Motion (Left Stick and DPad) //
 	{
+		// Acceleration of the stick //
+		if ( Input::Pad[0].Stick1.Manhattan() > Real( 0.1 ) ) {
+			if ( Accelerator < 60*3 ) {
+				// If above acceleration threshold //
+				if ( Accelerator > 30*1 ) {
+					SpeedScalar += 0.035;
+				}
+				Accelerator++;
+			}
+		}
+		else {
+			Accelerator = 0;
+			SpeedScalar = Real::One;
+		}
+		
 		// With no bomb selection //
 		if ( Selection == -1 ) {
-			// Update Cursor //
+			// Update Cursor (Analog) //
 			if ( Input::Pad[0].Button[ PAD_R ] ) {
 				Pos += Input::Pad[0].Stick1 * Real(64);
 			}
 			else {
-				Pos += Input::Pad[0].Stick1 * Real(16);
+				Pos += Input::Pad[0].Stick1 * Real(12) * SpeedScalar;
 			}
-			
+			// Update Cursor (Digital DPAD) //
 			Pos += Input::Pad[0].DPad.KeyRepeat() * Real(1);
+				
+			// Push us inside the view rectangle //
+			
 		}
 		// With a bomb selected //
 		else {
-			// Update Bomb Pos //
+			// Update Bomb Pos (Analog) //
 			if ( Input::Pad[0].Button[ PAD_R ] ) {
-				Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(16);
+				Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(12) * SpeedScalar;
 			}
 			else {
-				Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(4);
+				Bomb[ Selection ].Pos += Input::Pad[0].Stick1 * Real(4) * SpeedScalar;
 			}
+			// Update Bomb Pos (Digital DPAD) //
 			Bomb[ Selection ].Pos += Input::Pad[0].DPad.KeyRepeat() * Real(1);
-			
+
+			// Push us inside the view rectangle //
+
+			// Make us not enter other bombs //
 			PushMeOutOfOtherBombs( Selection );
 						
 			// Update Cursor //

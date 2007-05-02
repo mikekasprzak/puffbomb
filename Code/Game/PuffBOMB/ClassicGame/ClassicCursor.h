@@ -18,6 +18,10 @@ public:
 	// Position of the cursor //
 	Vector2D Pos;
 	
+	// Parts for the Stick Accelerator //
+	int Accelerator;
+	Real SpeedScalar;
+	
 	// Currently Selected Bomb //
 	int Selection;
 	
