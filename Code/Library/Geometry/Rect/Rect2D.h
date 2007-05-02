@@ -204,13 +204,12 @@ public:
 	inline const RectType Contract( const Real& Value ) {
 		RectType NewRect = *this;
 		
-		// TODO: Make this function validate/clip the modifier so it doesn't go negative //
-		//       And be sure it correctly handle's the deformation centering (no more deformation on 0) //
+		Vector2D Deformation( Value + Value, Value + Value );
+		Deformation.x.MinClamp( NewRect._Shape.x );
+		Deformation.y.MinClamp( NewRect._Shape.y );
 		
-		
-		NewRect._P1 += Vector2D( Value, Value );
-		NewRect._Shape -= Vector2D( Value, Value );
-		NewRect._Shape -= Vector2D( Value, Value );
+		NewRect._P1 += Deformation * Real::Half;
+		NewRect._Shape -= Deformation;
 		
 		return NewRect;
 	}
