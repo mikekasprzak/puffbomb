@@ -48,6 +48,8 @@ public:
 	
 	PairRect2D CameraBounds;
 	PairRect2D ViewArea;
+	
+	bool IsZoomedOut;
 
 public:
 	cCamera(

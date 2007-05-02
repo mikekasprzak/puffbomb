@@ -38,7 +38,8 @@ cCamera::cCamera(
 		Low( Vector2D( 0, 0 ) ),
 		High( Vector2D( 0, 0 ) ),
 		CameraBounds( Vector2D( -10000, -10000 ), Vector2D( 20000, 20000 ) ),
-		ViewArea( Vector2D( -10, -10 ), Vector2D( 20, 20 ) )
+		ViewArea( Vector2D( -10, -10 ), Vector2D( 20, 20 ) ),
+		IsZoomedOut( false )
 {
 
 	Gfx::Viewport( XPos, YPos, Width, Height );
@@ -51,6 +52,14 @@ cCamera::cCamera(
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cCamera::GetPos()
 {
+	MinZoom = Real( 2.5 ) * HudZoom;
+
+	if( IsZoomedOut )
+	{
+//		MinZoom = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / Real( ViewArea._P2.x - ViewArea._P1.x ) ) * MinZoom;
+		MinZoom = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / Real( 4800 ) ) * MinZoom;
+	}
+
 	// Gets the position of the tracker //
 	Low = Focus;
 	High = Focus;

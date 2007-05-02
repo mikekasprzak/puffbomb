@@ -374,10 +374,14 @@ void cGolfGameEngine::Step() {
 		DenseParticle.Step();
 		
 		if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
-			Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+			//Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+			//Camera->MinZoom = ( ( Camera->CameraBounds.P2().x - Camera->CameraBounds.P1().x ) / Real( 4800 ) ) * Camera->MinZoom;
+			Camera->IsZoomedOut = true;
+
 		}
 		else {
-			Camera->MinZoom = Global::HudZoom * Real( 2.5 );
+			//Camera->MinZoom = Global::HudZoom * Real( 2.5 );
+			Camera->IsZoomedOut = false;
 		}
 		
 		

@@ -280,10 +280,14 @@ void cClassicGameEngine::Step() {
 		if ( GameActive ) {
 			// Stuff my engine does before ------------------------------------------------------ //
 			//Camera->MinZoom = Global::HudZoom * Real( 2 );
-			Camera->MinZoom = Global::HudZoom * Real( 2.5 );
+			//Camera->MinZoom = Global::HudZoom * Real( 2.5 );
+			Camera->IsZoomedOut = false;
 					
 			if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
-				Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+				//Camera->MinZoom = Global::HudZoom * Real( 3.5 );
+				//Camera->MinZoom = ( ( Camera->CameraBounds.P2().x - Camera->CameraBounds.P1().x ) / Real( 4800 ) ) * Camera->MinZoom;
+				Camera->IsZoomedOut = true;
+
 			}
 		
 			// Hack to follow the hamster.  we need a way to identify the collection to follow //
