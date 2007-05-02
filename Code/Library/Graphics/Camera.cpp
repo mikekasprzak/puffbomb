@@ -47,7 +47,10 @@ cCamera::cCamera(
 	Gfx::LoadIdentity();
 	Gfx::Perspective( FovY, Aspect, NearClip, FarClip );
 	Gfx::ModelMatrixMode();
-
+	
+	GetPos();
+	
+	DefaultXViewArea = Real( ViewArea._P2.x - ViewArea._P1.x );
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cCamera::GetPos()
@@ -56,8 +59,17 @@ Vector2D cCamera::GetPos()
 
 	if( IsZoomedOut )
 	{
-//		MinZoom = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / Real( ViewArea._P2.x - ViewArea._P1.x ) ) * MinZoom;
-		MinZoom = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / Real( 4800 ) ) * MinZoom;
+		// Do the Calculation for Y as well as X !! //
+//		Log( LOG_HIGHEST_LEVEL, "Real( ViewArea._P2.x - ViewArea._P1.x ): " << Real( ViewArea._P2.x - ViewArea._P1.x ) );
+//		Log( LOG_HIGHEST_LEVEL, "DefaultXViewArea: " << DefaultXViewArea );
+		MinZoom = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / DefaultXViewArea ) * MinZoom;
+//		MinZoom = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / Real( 4800 ) ) * MinZoom;
+		
+		// To Limit the Max Zoom out //
+		/*if( MinZoom > HudZoom * Real( 3.5 ) )
+		{
+			MinZoom = Real( 3.5 ) * HudZoom;
+		}*/
 	}
 
 	// Gets the position of the tracker //

@@ -50,6 +50,7 @@ public:
 	PairRect2D ViewArea;
 	
 	bool IsZoomedOut;
+	Real DefaultXViewArea;
 
 public:
 	cCamera(
