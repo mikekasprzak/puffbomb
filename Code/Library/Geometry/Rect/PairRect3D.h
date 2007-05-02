@@ -215,6 +215,31 @@ public:
 		return Point;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Contract a rectangle (like how a selection contract or expand works in PSP/Photoshop) //
+	inline const RectType Contract( const Real& Value ) {
+		RectType NewRect = *this;
+		
+		Vector3D Deformation( Value, Value, Value );
+		Deformation.x.MinClamp( NewRect.HalfShape().x );
+		Deformation.y.MinClamp( NewRect.HalfShape().y );
+		Deformation.z.MinClamp( NewRect.HalfShape().z );
+		
+		NewRect._P1 += Deformation;
+		NewRect._P2 -= Deformation;
+		
+		return NewRect;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Expand a rectangle (like how a selection contract or expand works in PSP/Photoshop) //
+	inline const RectType Expand( const Real& Value ) {
+		RectType NewRect = *this;
+		
+		NewRect._P1 -= Vector3D( Value, Value, Value );
+		NewRect._P2 += Vector3D( Value, Value, Value );
+		
+		return NewRect;
+	}
+	// - -------------------------------------------------------------------------------------- - //
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Adding vectors to offset the position of a rectangle //
