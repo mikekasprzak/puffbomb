@@ -44,9 +44,9 @@ public:
 
 public:	
 	// Check if a Bomb can be placed at a position //
-	bool CanPlaceBombHere( const Vector2D& _Pos ) const;
-	inline bool CanPlaceBombHere() const {
-		return CanPlaceBombHere( Pos );
+	bool CanPlaceBombHere( const Vector2D& _Pos, const int Index = -1 ) const;
+	inline bool CanPlaceBombHere( const int Index = -1 ) const {
+		return CanPlaceBombHere( Pos, Index );
 	}
 	
 	// Determine what bomb can be found at a position //

@@ -93,6 +93,7 @@ void cClassicCursor::Step() {
 
 			// Make us not enter other bombs //
 			PushMeOutOfOtherBombs( Selection );
+			PushMeOutOfOtherBombs( Selection );
 						
 			// Update Cursor //
 			Pos = Bomb[ Selection ].Pos;
@@ -142,7 +143,9 @@ void cClassicCursor::Step() {
 				}
 			}
 			else {
-				Selection = -1;
+				
+				if ( CanPlaceBombHere( Selection ) )
+					Selection = -1;
 			}
 		}
 	
@@ -289,8 +292,11 @@ void cClassicCursor::Draw() {
 	Gfx::EnableDepth();
 }
 // - ------------------------------------------------------------------------------------------ - //
-bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos ) const {
+bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos, const int Index ) const {
 	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
+		if ( Index == idx )
+			continue;
+			
 		if ( (Bomb[ idx ].Pos - _Pos).MagnitudeSquared() < Real(64+64) * Real(64+64) )
 			return false;
 	}	
