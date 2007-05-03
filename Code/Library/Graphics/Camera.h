@@ -51,6 +51,7 @@ public:
 	
 	bool IsZoomedOut;
 	Real DefaultXViewArea;
+	Real DefaultYViewArea;
 
 public:
 	cCamera(

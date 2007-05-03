@@ -51,6 +51,7 @@ cCamera::cCamera(
 	GetPos();
 	
 	DefaultXViewArea = Real( ViewArea._P2.x - ViewArea._P1.x );
+	DefaultYViewArea = Real( ViewArea._P2.y - ViewArea._P1.y );
 }
 // - ------------------------------------------------------------------------------------------ - //
 Vector2D cCamera::GetPos()
@@ -62,7 +63,21 @@ Vector2D cCamera::GetPos()
 		// Do the Calculation for Y as well as X !! //
 //		Log( LOG_HIGHEST_LEVEL, "Real( ViewArea._P2.x - ViewArea._P1.x ): " << Real( ViewArea._P2.x - ViewArea._P1.x ) );
 //		Log( LOG_HIGHEST_LEVEL, "DefaultXViewArea: " << DefaultXViewArea );
-		MinZoom = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / DefaultXViewArea ) * MinZoom;
+
+		Real TempMinZoomX = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / DefaultXViewArea ) * MinZoom;
+
+		Real TempMinZoomY = ( ( CameraBounds.P2().y - CameraBounds.P1().y ) / DefaultYViewArea ) * MinZoom;
+		
+		if( TempMinZoomX < TempMinZoomY )
+		{
+			MinZoom = TempMinZoomX;
+		}
+		else
+		{
+			MinZoom = TempMinZoomY;
+		}
+		
+		
 //		MinZoom = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / Real( 4800 ) ) * MinZoom;
 		
 		// To Limit the Max Zoom out //
