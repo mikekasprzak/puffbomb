@@ -41,6 +41,8 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 
 	Load( "2D/Menu/ClassicLevelPreview.form" );			// 4
 
+	Load( "2D/Menu/ClassicLevelConfirm.form" );			// 5
+
 }
 // - ------------------------------------------------------------------------------------------ - //
 cMenuManager::~cMenuManager()
@@ -59,9 +61,9 @@ void cMenuManager::Draw()
 			if( CurForm < Form.size() )
 			{
 				Form[ CurForm ]->Draw( 254 ); // To fix the disappearing Animation problem //
-				if( CurForm == 3 )
+				if( CurForm == 3 && CurForm != 5 && LastForm != 5  )
 				{
-					Form[ CurForm + 1 ]->Draw( 254 );
+					Form[ 4 ]->Draw( 254 );
 					
 					// Draw Minimap //
 					Gfx::PushMatrix();
@@ -82,7 +84,7 @@ void cMenuManager::Draw()
 						Gfx::DisableTex2D();
 					}
 					Gfx::PopMatrix();
-				}	
+				}
 			}
 			
 			CurZOffset *= Real( 0.75 );
@@ -112,32 +114,32 @@ void cMenuManager::Draw()
 		if( CurForm < Form.size() )
 		{
 			Form[ CurForm ]->Draw();
-			if( CurForm == 3 )
-			{
-				Form[ CurForm + 1 ]->Draw();
-					
-				// Draw Minimap //
-				Gfx::PushMatrix();
-				{
-					Gfx::Translate( Vector2D( Global::Right - Real( 300 ), Global::Bottom + Real( 280 ) ) );
-				
-					Gfx::EnableTex2D();
-			
-					Gfx::DrawQuads(
-						&MiniMapTexVertex[0],
-						&MiniMapTexUV[0],
-						MiniMapTexIndices,
-						4,
-						MiniMapTex.Id,
-						Gfx::White()
-					);
-					
-					Gfx::DisableTex2D();
-				}
-				Gfx::PopMatrix();
-			}			
 		}
-
+	}
+//	if( CurForm == 3 || CurForm == 5 && LastForm == 3 || LastForm == 5 )
+	if( CurForm == 3 && LastForm == 5 || LastForm == 3 && CurForm == 5 || TransTime <= GetTime() && CurForm == 3 )
+	{
+		Form[ 4 ]->Draw();
+			
+		// Draw Minimap //
+		Gfx::PushMatrix();
+		{
+			Gfx::Translate( Vector2D( Global::Right - Real( 300 ), Global::Bottom + Real( 280 ) ) );
+		
+			Gfx::EnableTex2D();
+	
+			Gfx::DrawQuads(
+				&MiniMapTexVertex[0],
+				&MiniMapTexUV[0],
+				MiniMapTexIndices,
+				4,
+				MiniMapTex.Id,
+				Gfx::White()
+			);
+			
+			Gfx::DisableTex2D();
+		}
+		Gfx::PopMatrix();
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -275,8 +277,15 @@ void cMenuManager::Step()
 					
 					UpdateClassicLevelSelect();
 					CurForm = 3;
+				break;
+				}
+				case 16: // Classic Level Confirm Form //
+				{
+					
+					CurForm = 5;
 				break;	
 				}
+
 				default:
 				{
 				
@@ -323,7 +332,7 @@ void cMenuManager::UpdateMiniMap()
 		}
 
 		// Load the appropriate minimap for this level //
-		MiniMapName = "Classic/" + String::BaseName( ClassicSaveData->MapData[ Form[ CurForm ]->Focus + CurLevelPivot ].MapName ) + ".pack.tx";
+		MiniMapName = "Classic/" + String::BaseName( ClassicSaveData->MapData[ Form[ 3 ]->Focus + CurLevelPivot ].MapName ) + ".pack.tx";
 		
 		MiniMapTex = TexturePool.Load( MiniMapName );
 		

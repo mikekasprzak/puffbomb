@@ -122,7 +122,8 @@ void cSuperFlow::StateFlow()
 					
 					if( State == stClassicGame )
 					{
-						CurClassicMap = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ]->Focus + MenuFlow.Engine->MenuManager.CurLevelPivot;
+//						CurClassicMap = MenuFlow.Engine->MenuManager.Form[ MenuFlow.Engine->MenuManager.CurForm ]->Focus + MenuFlow.Engine->MenuManager.CurLevelPivot;
+						CurClassicMap = MenuFlow.Engine->MenuManager.Form[ 3 ]->Focus + MenuFlow.Engine->MenuManager.CurLevelPivot;
 					}
 					else if( State == stGolfGame )
 					{	

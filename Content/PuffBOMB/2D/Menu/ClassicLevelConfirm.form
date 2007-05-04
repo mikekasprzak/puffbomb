@@ -1,0 +1,67 @@
+DialogPos		Left	+	100
+DialogPos		0		+	140
+
+DialogPos		Left	+	480
+DialogPos		0	-	140
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		350	-25
+IsPassive		0
+ActionID		2
+Text			Start Level
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		350	-75
+IsPassive		0
+ActionID		0
+Text			Load BestTime Replay
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		350	-125
+IsPassive		0
+ActionID		0
+Text			Load Alternate Replay
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		350	-175
+IsPassive		0
+ActionID		0
+Text			Load Prefered Replay
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		350	-225
+IsPassive		0
+ActionID		0
+Text			View Leaderboard
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		350	-275
+IsPassive		0
+ActionID		12
+Text			Back
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+BackID 12
+
+EndDialog

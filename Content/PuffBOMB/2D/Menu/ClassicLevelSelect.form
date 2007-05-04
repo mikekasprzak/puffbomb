@@ -10,7 +10,7 @@ CreateDialog
 
 TextLabel		100	-100
 IsPassive		0
-ActionID		2
+ActionID		16
 Text			?????????
 Scale			0.5
 Align			Left
