@@ -116,8 +116,8 @@ void cMenuManager::Draw()
 			Form[ CurForm ]->Draw();
 		}
 	}
-//	if( CurForm == 3 || CurForm == 5 && LastForm == 3 || LastForm == 5 )
-	if( CurForm == 3 && LastForm == 5 || LastForm == 3 && CurForm == 5 || TransTime <= GetTime() && CurForm == 3 )
+//	if( CurForm == 3 && LastForm == 5 || LastForm == 3 && CurForm == 5 || TransTime <= GetTime() && CurForm == 3 )
+	if( CurForm == 3 && LastForm == 5 || CurForm == 5 || TransTime <= GetTime() && CurForm == 3 )
 	{
 		Form[ 4 ]->Draw();
 			
@@ -244,9 +244,13 @@ void cMenuManager::Step()
 				}
 				case 12: // Classic Level Select Form //
 				{
+					int Focus = Form[ 3 ]->Focus;
+					
 					Form[ 3 ]->Clear();
 					Form[ 3 ]->Load( "2D/Menu/ClassicLevelSelect.form" );
 					
+					Form[ 3 ]->Focus = Focus;
+
 					UpdateClassicLevelSelect();
 					CurForm = 3;
 				break;	
@@ -318,8 +322,8 @@ void cMenuManager::Step()
 void cMenuManager::UpdateMiniMap()
 {
 	
-	Log( LOG_HIGHEST_LEVEL, "Form[ CurForm ]->Focus: " << Form[ CurForm ]->Focus );
-	Log( LOG_HIGHEST_LEVEL, "LevelsOnPage: " << LevelsOnPage );
+//	Log( LOG_HIGHEST_LEVEL, "Form[ CurForm ]->Focus: " << Form[ CurForm ]->Focus );
+//	Log( LOG_HIGHEST_LEVEL, "LevelsOnPage: " << LevelsOnPage );
 	
 	if( Form[ CurForm ]->Focus + CurLevelPivot < ClassicSaveData->MapData.size() &&
 		Form[ CurForm ]->Focus < LevelsOnPage )
