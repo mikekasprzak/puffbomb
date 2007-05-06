@@ -327,7 +327,36 @@ void cEngine2D::Draw() {
 //		}
 //	}
 
+	Gfx::EnableDepth();
+	Gfx::EnableTex2D();
+		
+	// First Pass Front StaticObject Draw //
+	{
+		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
+		for ( size_t idx = 0; idx < FrontStaticObject.size(); ++idx ) {
+			FrontStaticObject[ idx ]->Draw();
+		}
+	}
+	
+	Gfx::DisableDepth();
+	
+	// First Pass Passive Object Draw //
+	{
+		// Draw Passive Objects //
+		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
+			if ( PassiveObject[ idx ]->IsActive() ) { 
+				PassiveObject[ idx ]->Draw();
+			}
+		}
+	}
+	
+	Gfx::EnableDepth();
+	Gfx::EnableTex2D();
+		
 	// - -------------------------------------------------------------------------------------- - //
+	Gfx::DisableDepth();
+	Gfx::DisableTex2D();
+		
 	// Draw Debug Information //
 	{
 		Gfx::DisableTex2D();
@@ -362,33 +391,10 @@ void cEngine2D::Draw() {
 			}
 		}
 	}
-	// - -------------------------------------------------------------------------------------- - //
-
-	Gfx::EnableDepth();
-	Gfx::EnableTex2D();
-		
-	// First Pass Front StaticObject Draw //
-	{
-		// Draw Tiles (First, 'cause the objects as flat sprites clip 3D things funny) //
-		for ( size_t idx = 0; idx < FrontStaticObject.size(); ++idx ) {
-			FrontStaticObject[ idx ]->Draw();
-		}
-	}
-	
-	Gfx::DisableDepth();
-	
-	// First Pass Passive Object Draw //
-	{
-		// Draw Passive Objects //
-		for ( size_t idx = 0; idx < PassiveObject.size(); ++idx ) {
-			if ( PassiveObject[ idx ]->IsActive() ) { 
-				PassiveObject[ idx ]->Draw();
-			}
-		}
-	}
 	
 	Gfx::EnableDepth();
-	Gfx::EnableTex2D();
+	Gfx::EnableTex2D();	
+	// - -------------------------------------------------------------------------------------- - //		
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cEngine2D::LoadMap( const std::string MapName )

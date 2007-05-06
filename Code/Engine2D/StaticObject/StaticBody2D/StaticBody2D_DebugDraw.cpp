@@ -26,7 +26,7 @@ void cStaticBody2D::DrawEdge( const size_t Index, const Vector2D& Offset, const 
 	// Draw the Edge //
 	Gfx::Line(
 		PointA + Offset, PointB + Offset,
-		Selected ? Gfx::RGBA(255, 192, 64, 192) : Gfx::RGBA(255, 128, 0, 128)
+		Selected ? Gfx::RGBA(255, 255, 64, 255) : Gfx::RGBA(255, 255, 0, 192)
 		);
 	
 	// Draw the Edge Normal //

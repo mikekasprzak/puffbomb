@@ -121,6 +121,7 @@ public:
 	// Solve Collisions/Actions //
 	bool Solve( cBody2D& _Vs );
 	void Solve( class cStaticBody2D& _Vs, const Vector2D& _Offset = Vector2D::Zero );
+	void Solve( class cStaticBody2D& _Vs, const Vector2D& _Offset, const std::vector< int >& EdgeIndex );
 	bool Solve( class cImpulse& _Vs );
 
 	void ApplyImpulse( const class cImpulse& _Vs );

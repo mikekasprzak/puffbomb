@@ -20,8 +20,16 @@ void cDynamicComponent::Solve( cStaticObjectInstance& _Vs ) {
 		}
 	}
 	
+	// Generate an edge list from the Used list found inside the Instance //
+	std::vector< int > EdgeIndex;
+	for ( size_t idx = 0; idx < _Vs.UsedEdge.size(); idx++ ) {
+		if ( _Vs.UsedEdge[ idx ] ) {
+			EdgeIndex.push_back( idx );
+		}
+	}	
+	
 	// Solve the collision //
-	Body.Solve( _Vs.Object->Body, _Vs.Pos ); 
+	Body.Solve( _Vs.Object->Body, _Vs.Pos, EdgeIndex ); 
 }
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

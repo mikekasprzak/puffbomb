@@ -6,6 +6,19 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
+	// Find all edges //
+	std::vector< int > EdgeIndex;							// Store this Vector in thread/worker //
+	for ( size_t idx = 0; idx < _Vs.Edge.size(); idx++ ) {
+		//if ( OverlapRect == (_Vs.Edge[idx].BoundingRect + _Offset) )
+		{
+			EdgeIndex.push_back( idx );
+		}
+	}
+	
+	Solve( _Vs, _Offset, EdgeIndex );
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset, const std::vector< int >& EdgeIndex ) {
 	// Convert our pose parts in to something local //
 	std::vector< cSphere >& Sphere = Pose->Sphere;
 
@@ -39,14 +52,14 @@ void cBody2D::Solve( cStaticBody2D& _Vs, const Vector2D& _Offset ) {
 			PolyIndex.push_back( idx );
 		}
 	}
-	// Find all edges //
-	std::vector< int > EdgeIndex;							// Store this Vector in thread/worker //
-	for ( size_t idx = 0; idx < _Vs.Edge.size(); idx++ ) {
-		//if ( OverlapRect == (_Vs.Edge[idx].BoundingRect + _Offset) )
-		{
-			EdgeIndex.push_back( idx );
-		}
-	}	
+//	// Find all edges //
+//	std::vector< int > EdgeIndex;							// Store this Vector in thread/worker //
+//	for ( size_t idx = 0; idx < _Vs.Edge.size(); idx++ ) {
+//		//if ( OverlapRect == (_Vs.Edge[idx].BoundingRect + _Offset) )
+//		{
+//			EdgeIndex.push_back( idx );
+//		}
+//	}	
 	
 	// Do tests //
 	for ( size_t idx = 0; idx < SphereIndex.size(); idx++ ) {
