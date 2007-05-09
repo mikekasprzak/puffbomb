@@ -15,7 +15,7 @@ void cStaticBody2D::DrawThickEdge( const size_t Index, const Vector3D& Offset) c
 	// Draw the Edge //
 	Gfx::Line(
 		PointA, PointB,
-		Gfx::RGBA(255, 255, 255, 255)
+		Gfx::RGBA(0, 0, 0, 255)
 		);
 }
 // - ------------------------------------------------------------------------------------------ - //

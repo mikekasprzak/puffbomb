@@ -55,7 +55,7 @@ public:
 	}
 
 	inline void DrawThickEdges( ) const {
-		Gfx::SetLineWidth( 10 );
+		Gfx::SetLineWidth( 4 );
 			
 		Vector3D Offset( Pos.x, Pos.y, GetFrontPolygonZ() );
 		

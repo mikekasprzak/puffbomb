@@ -292,7 +292,7 @@ void cEngine2D::Draw() {
 		}
 	}
 	
-	// Lovely outlines //
+	// Static outlines //
 	{
 		Gfx::DisableDepth();
 		Gfx::DisableTex2D();
