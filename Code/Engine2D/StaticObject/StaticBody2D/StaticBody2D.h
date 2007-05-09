@@ -58,6 +58,8 @@ public:
 	
 	void DrawBoundingRect( const bool Selected = false, const Vector2D& Offset = Vector2D::Zero ) const;
 	// - -------------------------------------------------------------------------------------- - //
+	
+	void DrawThickEdge( const size_t Index, const Vector3D& Offset = Vector3D::Zero ) const;
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace Engine2D //

@@ -290,7 +290,20 @@ void cEngine2D::Draw() {
 		for ( size_t idx = 0; idx < BackStaticObject.size(); ++idx ) {
 			BackStaticObject[ idx ]->Draw();
 		}
-	}		
+	}
+	
+	// Lovely outlines //
+	{
+		Gfx::DisableDepth();
+		Gfx::DisableTex2D();
+		
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+			StaticObjectInstance[ idx ].DrawThickEdges();
+		}
+		
+		Gfx::EnableTex2D();
+		Gfx::EnableDepth();		
+	}
 
 	// First Pass Component Draw (White) //
 //	{

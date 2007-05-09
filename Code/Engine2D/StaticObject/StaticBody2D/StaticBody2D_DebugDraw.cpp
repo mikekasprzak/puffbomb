@@ -7,6 +7,18 @@
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
+void cStaticBody2D::DrawThickEdge( const size_t Index, const Vector3D& Offset) const {
+	const cStaticEdge& MyEdge = Edge[ Index ];
+	const Vector3D& PointA = (Nodes.Pos( MyEdge.a )).ToVector3D() + Offset;
+	const Vector3D& PointB = (Nodes.Pos( MyEdge.b )).ToVector3D() + Offset;
+
+	// Draw the Edge //
+	Gfx::Line(
+		PointA, PointB,
+		Gfx::RGBA(255, 255, 255, 255)
+		);
+}
+// - ------------------------------------------------------------------------------------------ - //
 void cStaticBody2D::DrawNode( const size_t Index, const Vector2D& Offset, const bool Selected ) const {
 	const Vector2D& MyNode = Nodes.Pos( Index );
 

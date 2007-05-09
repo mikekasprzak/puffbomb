@@ -10,6 +10,8 @@
 
 #include "StaticObject.h"
 #include "StaticObjectPool.h"
+
+#include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -51,8 +53,22 @@ public:
 		Object->Body.DrawEdges( Selection, Pos );
 		Object->Body.DrawNodes( Selection, Pos );
 	}
-	
-	inline Real GetFrontPolygonZ() {
+
+	inline void DrawThickEdges( ) const {
+		Gfx::SetLineWidth( 10 );
+			
+		Vector3D Offset( Pos.x, Pos.y, GetFrontPolygonZ() );
+		
+		// For every edge //
+		for ( size_t idx = 0; idx < UsedEdge.size(); idx++ ) {
+			if ( UsedEdge[ idx ] )
+				Object->Body.DrawThickEdge( idx, Offset );
+		}
+		
+		Gfx::SetLineWidth( 1 );
+	}
+
+	inline const Real GetFrontPolygonZ() const {
 		// Get the front Z of the bounding rectangle.  Adding zero, 'cause Z offset would be 0. //
 		return Object->BoundingRect.P2().z + Real::Zero;
 	}
