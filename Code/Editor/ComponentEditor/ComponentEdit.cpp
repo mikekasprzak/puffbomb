@@ -188,6 +188,11 @@ void cComponentEdit::Draw()
 	{
 		DynObj->Body.DrawSphere( idx, false );
 	}
+	// Draw Angular constraints //
+	for( size_t idx = 0; idx < DynObj->Body.Pose->AngleCross.size(); ++idx )
+	{
+		DynObj->Body.DrawAngleCross( idx, false );
+	}
 	// Draw springs //
 	for( size_t idx = 0; idx < DynObj->Body.SpringSize(); ++idx )
 	{
@@ -249,6 +254,17 @@ void cComponentEdit::Draw()
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
 		{
 			DynObj->Body.DrawNode( CurSelected[ idx ], true );
+		}
+		// Draw Angular constraints //
+		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
+		{
+			for( size_t AngleIdx = 0; AngleIdx < DynObj->Body.Pose->AngleCross.size(); ++AngleIdx )
+			{
+				if( CurSelected[ idx ] == DynObj->Body.Pose->AngleCross[ AngleIdx ].IndexPivot )
+				{
+					DynObj->Body.DrawAngleCross( AngleIdx, true );
+				}
+			}
 		}
 		// Draw selected spheres //
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
@@ -504,6 +520,8 @@ void cComponentEdit::Step()
 			BodySelectNode();
 		
 			BodyAddAngle();
+			
+			BodyAngleIndexes();
 			
 			BodyDeleteAngle();
 		}

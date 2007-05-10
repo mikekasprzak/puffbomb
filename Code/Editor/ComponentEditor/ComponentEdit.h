@@ -110,6 +110,7 @@ public:
 	// ComponentEditBodyAngle.cpp //
 	void BodyAddAngle();
 	void BodyDeleteAngle();
+	void BodyAngleIndexes();
 	
 public:
 	// ComponentEditBodySpring.cpp //
