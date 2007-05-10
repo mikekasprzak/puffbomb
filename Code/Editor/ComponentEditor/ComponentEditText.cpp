@@ -537,6 +537,16 @@ void cComponentEdit::DisplayMode()
 			);
 			break;
 		}
+		case ANGLE_CONSTRAINTS_MODE:
+		{
+			cFonts::FlangeLight.Write(
+				"Angle Mode",
+				ModePos,
+				FontSize,
+				Color
+			);
+			break;
+		}
 		case FACE_MODE:
 		{
 			cFonts::FlangeLight.Write(

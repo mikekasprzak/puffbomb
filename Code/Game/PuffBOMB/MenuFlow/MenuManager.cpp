@@ -38,9 +38,7 @@ cMenuManager::cMenuManager( cClassicSaveData* _ClassicSaveData ) :
 
 	Load( "2D/Menu/HelpOptions.form" );					// 2
 	Load( "2D/Menu/ClassicLevelSelect.form" );			// 3
-
 	Load( "2D/Menu/ClassicLevelPreview.form" );			// 4
-
 	Load( "2D/Menu/ClassicLevelConfirm.form" );			// 5
 
 }
@@ -321,10 +319,6 @@ void cMenuManager::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuManager::UpdateMiniMap()
 {
-	
-//	Log( LOG_HIGHEST_LEVEL, "Form[ CurForm ]->Focus: " << Form[ CurForm ]->Focus );
-//	Log( LOG_HIGHEST_LEVEL, "LevelsOnPage: " << LevelsOnPage );
-	
 	if( Form[ CurForm ]->Focus + CurLevelPivot < ClassicSaveData->MapData.size() &&
 		Form[ CurForm ]->Focus < LevelsOnPage )
 	{

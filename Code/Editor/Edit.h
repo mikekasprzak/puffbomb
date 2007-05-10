@@ -40,6 +40,7 @@
 #define COLL_DYNAMIC_COMP		13
 #define COLL_NODE_LINK			14
 #define COLL_HARD_NODE			15
+#define ANGLE_CONSTRAINTS_MODE 	16
 // - ------------------------------------------------------------------------------------------ - //
 typedef const unsigned int fl;
 // - ------------------------------------------------------------------------------------------ - //

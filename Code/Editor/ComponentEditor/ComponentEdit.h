@@ -105,6 +105,11 @@ public:
 	void BodyAddSphere();
 	void BodyDeleteSphere();
 	void BodyRadius( const Real RadiusDiff );
+
+public:
+	// ComponentEditBodyAngle.cpp //
+	void BodyAddAngle();
+	void BodyDeleteAngle();
 	
 public:
 	// ComponentEditBodySpring.cpp //

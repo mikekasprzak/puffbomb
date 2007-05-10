@@ -243,7 +243,7 @@ void cComponentEdit::Draw()
 		}
 	}
 	
-	if( CurMode <= SPRING_MODE )
+	if( CurMode <= SPRING_MODE || CurMode == ANGLE_CONSTRAINTS_MODE )
 	{
 		// Draw selected nodes //
 		for( size_t idx = 0; idx < CurSelected.size(); ++idx )
@@ -498,6 +498,14 @@ void cComponentEdit::Step()
 				}
 			}
 			BodyMoveNode();
+		}
+		else if( CurMode == ANGLE_CONSTRAINTS_MODE )
+		{
+			BodySelectNode();
+		
+			BodyAddAngle();
+			
+			BodyDeleteAngle();
 		}
 		else if( CurMode == SPRING_MODE )
 		{

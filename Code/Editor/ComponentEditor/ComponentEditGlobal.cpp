@@ -162,6 +162,10 @@ void cComponentEdit::SwitchMode()
 	{
 		CurMode = PIVOT_HANDLE_MODE;
 	}
+	else if( Button[ KEY_7 ].Pressed() )
+	{
+		CurMode = ANGLE_CONSTRAINTS_MODE;
+	}
 	else if( Button[ KEY_9 ].Pressed() )
 	{
 		CurMode = COMP_MESH_MODE;	
