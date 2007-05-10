@@ -105,7 +105,6 @@ void cBody2D::DeleteNode( size_t Number ) {
 	}
 
 	// Remove Springs, and offset greater ones //
-
 	for( size_t idx = 0; idx < Pose->Spring.size(); idx++ ) {
 		if ( Pose->Spring[ idx ].IndexA == Number ) {
 			DeleteSpring( idx );
@@ -122,6 +121,33 @@ void cBody2D::DeleteNode( size_t Number ) {
 		}
 		if ( Pose->Spring[ idx ].IndexB > Number ) {
 			Pose->Spring[ idx ].IndexB--;
+		}
+	}
+
+	// Remove AngleCrosses, and offset greater ones //
+	for( size_t idx = 0; idx < Pose->AngleCross.size(); idx++ ) {
+		if ( Pose->AngleCross[ idx ].IndexA == Number ) {
+			DeleteAngleCross( idx );
+			--idx;
+		}
+		else if ( Pose->AngleCross[ idx ].IndexB == Number ) {
+			DeleteAngleCross( idx );
+			--idx;
+		}
+		else if ( Pose->AngleCross[ idx ].IndexPivot == Number ) {
+			DeleteAngleCross( idx );
+			--idx;
+		}
+	}
+	for( size_t idx = 0; idx < Pose->AngleCross.size(); idx++ ) {			
+		if ( Pose->AngleCross[ idx ].IndexA > Number ) {
+			Pose->AngleCross[ idx ].IndexA--;
+		}
+		if ( Pose->AngleCross[ idx ].IndexB > Number ) {
+			Pose->AngleCross[ idx ].IndexB--;
+		}
+		if ( Pose->AngleCross[ idx ].IndexPivot > Number ) {
+			Pose->AngleCross[ idx ].IndexPivot--;
 		}
 	}
 
