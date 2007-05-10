@@ -58,11 +58,17 @@ void cBody2D::DrawAngleCross( const size_t Index, const bool Selected ) const {
 		Selected ? Gfx::RGBA(255, 64, 64, 192) : Gfx::RGBA(192, 64, 64, 128)
 		);
 	
-//	Gfx::Circle(
-//		Pos,
-//		Real( 4 ),
-//		Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192))
-//		);
+	Gfx::Circle(
+		PointA,
+		Real( 4 ),
+		Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192)
+		);
+		
+	Gfx::Circle(
+		PointB,
+		Real( 4 ),
+		Selected ? Gfx::RGBA(192, 192, 64, 255) : Gfx::RGBA(128, 128, 0, 192)
+		);
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cBody2D::DrawSphere( const size_t Index, const bool Selected ) const {
