@@ -31,6 +31,32 @@ void cBody2D::DeleteSpring( size_t Number ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+int cBody2D::AddAngleCross( size_t _IndexP, size_t _IndexA, size_t _IndexB ) {
+	// Make this an assert //
+	if ( _IndexP >= Nodes.Size() )
+		return -1;
+	if ( _IndexA >= Nodes.Size() )
+		return -1;
+	if ( _IndexB >= Nodes.Size() )
+		return -1;
+	// Test for less than zero too //
+	
+	Pose->AngleCross.push_back( cAngleCross( _IndexP, _IndexA, _IndexB ) );
+	
+	return Pose->AngleCross.size() - 1;
+}
+// - ------------------------------------------------------------------------------------------ - //
+void cBody2D::DeleteAngleCross( size_t Number ) {
+	// Make this an assert //
+	if ( Number >= Pose->AngleCross.size() )
+		return;
+	// Test for less than zero too //
+	
+	Pose->AngleCross.erase( Pose->AngleCross.begin() + Number );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 int cBody2D::AddSphere( size_t _Index ) {
 	// Make this an assert //
 	if ( _Index >= Nodes.Size() )

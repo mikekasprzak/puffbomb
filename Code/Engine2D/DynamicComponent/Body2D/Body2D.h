@@ -149,6 +149,9 @@ public:
 
 	int AddSpring( size_t _IndexA, size_t _IndexB );
 	void DeleteSpring( size_t Number );
+
+	int AddAngleCross( size_t _IndexP, size_t _IndexA, size_t _IndexB );
+	void DeleteAngleCross( size_t Number );
 	
 	int AddSphere( size_t _Index );
 	void DeleteSphere( size_t Number );
