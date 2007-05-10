@@ -292,18 +292,18 @@ void cEngine2D::Draw() {
 		}
 	}
 	
-	// Static outlines //
-	{
-		Gfx::DisableDepth();
-		Gfx::DisableTex2D();
-		
-		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
-			StaticObjectInstance[ idx ].DrawThickEdges();
-		}
-		
-		Gfx::EnableTex2D();
-		Gfx::EnableDepth();		
-	}
+//	// Static outlines //
+//	{
+//		Gfx::DisableDepth();
+//		Gfx::DisableTex2D();
+//		
+//		for ( size_t idx = 0; idx < StaticObjectInstance.size(); ++idx ) {
+//			StaticObjectInstance[ idx ].DrawThickEdges();
+//		}
+//		
+//		Gfx::EnableTex2D();
+//		Gfx::EnableDepth();		
+//	}
 
 	// First Pass Component Draw (White) //
 //	{
