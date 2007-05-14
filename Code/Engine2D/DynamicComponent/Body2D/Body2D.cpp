@@ -100,12 +100,9 @@ void cBody2D::CalculateInternalConstraints() {
 	
 	// AngleCross Constraints //
 	{
-		// Convert our pose parts in to something local //
-		std::vector< cAngleCross >& AngleCross = Pose->AngleCross;
-			
 		// For all springs, calculate their length //
-		for ( size_t idx = 0; idx < AngleCross.size(); idx++ ) {
-			AngleCross[ idx ].CalcMyAngleType( Nodes );
+		for ( size_t idx = 0; idx < Pose->AngleCross.size(); idx++ ) {
+			Pose->AngleCross[ idx ].CalcMyAngleType( Nodes );
 		}		
 	}
 }

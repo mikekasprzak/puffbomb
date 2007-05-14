@@ -97,7 +97,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 		BodyPose.resize( In.Read() );
 		// For every body //
 		for ( size_t idx = 0; idx < BodyPose.size(); idx++ ) {
-			// Write nodes //
+			// Read nodes //
 			BodyPose[ idx ].Node.resize( In.Read() );
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Node.size(); idx2++ ) {
 				In.Read( BodyPose[ idx ].Node[ idx2 ].Pos.x );
@@ -107,10 +107,10 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				//Log( 10, "Mo " << BodyPose[ idx ].Node[ idx2 ].Mass );
 			}
 
-			// Write Springs //
+			// Read Springs //
 			BodyPose[ idx ].Spring.resize( In.Read() );
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Spring.size(); idx2++ ) {
-				// Write //
+				// Read //
 				In.Read( BodyPose[ idx ].Spring[ idx2 ].IndexA );
 				In.Read( BodyPose[ idx ].Spring[ idx2 ].IndexB );
 				In.Read( BodyPose[ idx ].Spring[ idx2 ].Length );
@@ -118,16 +118,18 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				In.Read( BodyPose[ idx ].Spring[ idx2 ].Flags );
 			}
 
-			// Write AngleCross constraints //
+			// Read AngleCross constraints //
 			BodyPose[ idx ].AngleCross.resize( In.Read() );
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].AngleCross.size(); idx2++ ) {
-				// Write //
+				// Read //
 				In.Read( BodyPose[ idx ].AngleCross[ idx2 ].IndexPivot );
 				In.Read( BodyPose[ idx ].AngleCross[ idx2 ].IndexA );
 				In.Read( BodyPose[ idx ].AngleCross[ idx2 ].IndexB );
+				
+				BodyPose[ idx ].AngleCross[ idx2 ].CalcMyAngleType( BodyPose[ idx ].Node );
 			}
 
-			// Write Spheres //
+			// Read Spheres //
 			BodyPose[ idx ].Sphere.resize( In.Read() );
 			for ( size_t idx2 = 0; idx2 < BodyPose[ idx ].Sphere.size(); idx2++ ) {
 				In.Read( BodyPose[ idx ].Sphere[ idx2 ].Index );
@@ -180,7 +182,6 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				}
 			}
 		}
-
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

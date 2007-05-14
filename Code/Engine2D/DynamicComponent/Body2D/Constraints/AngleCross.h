@@ -45,23 +45,33 @@ public:
 	
 public:
 	// Calculate the type of angle we are //
-	inline bool CalcAngleType( cDynamicNodes& Node ) const {
+	inline bool CalcAngleType( const cDynamicNodes& Node ) const {
 		Vector2D PA = Node.Pos( IndexA ) - Node.Pos( IndexPivot );
 		Vector2D PB = Node.Pos( IndexB ) - Node.Pos( IndexPivot );
-		Real AngleType = PA.Tangent() * PB;
+		Real Angle = PA.Tangent() * PB;
 		
-		// True if acute //
-		if ( AngleType >= Real::Zero ) {
-			return true;
-		}
-		// False if obtuse //
-		return false;
+		// True if acute, False if obtuse //
+		return Angle >= Real::Zero;
 	}
 	
-	inline void CalcMyAngleType( cDynamicNodes& Node ) {
+	inline void CalcMyAngleType( const cDynamicNodes& Node ) {
 		AngleType = CalcAngleType( Node );
 	}
 
+	// Calculate the type of angle we are //
+	inline bool CalcAngleType( const std::vector< cBodyPoseNode >& Node ) const {
+		Vector2D PA = Node[ IndexA ].Pos - Node[ IndexPivot ].Pos;
+		Vector2D PB = Node[ IndexB ].Pos - Node[ IndexPivot ].Pos;
+		Real Angle = PA.Tangent() * PB;
+		
+		// True if acute, False if obtuse //
+		return Angle >= Real::Zero;
+	}
+	
+	inline void CalcMyAngleType( const std::vector< cBodyPoseNode >& Node ) {
+		AngleType = CalcAngleType( Node );
+	}
+	
 public:	
 	inline void Step( cDynamicNodes& Node ) {
 		// If the angle type has changed, then project on to the plane between Points A and B //
@@ -71,7 +81,7 @@ public:
 			
 			Vector2D ABTanNorm = AB.Tangent().Normal();
 			
-			Node.Pos( IndexPivot ) += (ABTanNorm * PA) * ABTanNorm;
+			Node.Pos( IndexPivot ) -= (ABTanNorm * PA) * ABTanNorm;
 		}
 	}
 };
