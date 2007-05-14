@@ -81,7 +81,7 @@ public:
 			
 			Vector2D ABTanNorm = AB.Tangent().Normal();
 			
-			Node.Pos( IndexPivot ) -= (ABTanNorm * PA) * ABTanNorm;
+			Node.Pos( IndexPivot ) += (ABTanNorm * PA) * ABTanNorm;
 		}
 	}
 };
