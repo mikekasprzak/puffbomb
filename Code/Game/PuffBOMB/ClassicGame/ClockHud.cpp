@@ -155,9 +155,14 @@ void cClockHud::Step() {
 	}
 	// Edit Mode //
 	else {		
-		// Flash Clock Colon //
+		
+		// Be sure numbers are visible //
+		Hud.GroupVisible( 2, true );
+
+		// Flash Clock Colon (must be after clock visibility, 'cause it's part of the same group) //
 		Hud.GroupVisible( 2, 2, ((FlickerClock / (Global::FrameRate >> 1) ) & 1) == 0 );
 			
+		// Set all the numbers to the number zero //
 		Hud.Group( 2, 0 ).AniLabel()->Animator.SetFrame( 0 );
 		Hud.Group( 2, 1 ).AniLabel()->Animator.SetFrame( 0 );
 		Hud.Group( 2, 3 ).AniLabel()->Animator.SetFrame( 0 );
