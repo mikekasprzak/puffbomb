@@ -291,7 +291,7 @@ void cClassicGameEngine::Step() {
 			}
 		
 			// Hack to follow the hamster.  we need a way to identify the collection to follow //
-			if( CameraTracking.size() >= 1 )
+			if( CameraTracking.size() >= 1 ) 
 			{
 				Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
 				

@@ -126,6 +126,11 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	
 	MiniMapInit();
 	
+	// Set the scoreboard //
+	for ( int idx = 0; idx < Player.size(); idx++ ) {
+		ScoreHud.StartScore( idx, Player[ idx ]->Score );
+	}
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cGolfGameEngine::~cGolfGameEngine() {
@@ -384,6 +389,11 @@ void cGolfGameEngine::Step() {
 			Camera->IsZoomedOut = false;
 		}
 		
+		// Update Scoreboard //
+		for ( int idx = 0; idx < Player.size(); idx++ ) {
+			ScoreHud.SetScore( idx, Player[ idx ]->Score );
+			ScoreHud.SetStroke( idx, Player[ idx ]->Stroke );
+		}
 		
 	//	PlayerAnimator.Step();
 	//	EndingAnimator.Step();

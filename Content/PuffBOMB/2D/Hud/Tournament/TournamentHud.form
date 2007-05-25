@@ -174,7 +174,7 @@ EndText
 TextLabel		384	64
 IsPassive		1
 ActionID		0
-Group			10
+Group			11
 Text			0
 Scale			0.5
 Color			255	255	255 255
@@ -183,7 +183,7 @@ EndText
 TextLabel		384	96
 IsPassive		1
 ActionID		0
-Group			10
+Group			12
 Text			0
 Scale			0.5
 Color			255	255	255 255
@@ -192,7 +192,7 @@ EndText
 TextLabel		384	128
 IsPassive		1
 ActionID		0
-Group			10
+Group			13
 Text			0
 Scale			0.5
 Color			255	255	255 255

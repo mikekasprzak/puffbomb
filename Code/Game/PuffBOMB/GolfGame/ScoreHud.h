@@ -13,10 +13,18 @@ private:
 	class cGolfGameEngine* Engine;
 public:
 	cForm Hud;
+	int Score[4];
+	int InterpolatingScore[4];
+	
+	int Stroke[4];
 	
 public:
 	cScoreHud();
 	~cScoreHud();
+	
+	void SetScore( const int _Player, const int _Score );
+	void StartScore( const int _Player, const int _Score );
+	void SetStroke( const int _Player, const int _Stroke );
 
 public:
 	void Step();
