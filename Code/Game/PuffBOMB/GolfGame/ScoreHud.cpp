@@ -10,9 +10,10 @@
 
 
 // - ------------------------------------------------------------------------------------------ - //
-cScoreHud::cScoreHud( ) :
+cScoreHud::cScoreHud( const int _PlayerCount ) :
 	Engine( dynamic_cast<cGolfGameEngine*>(Engine2D::cEngine2D::Current) ),
-	Hud( "2D/Hud/Tournament/TournamentHud.form" )
+	Hud( "2D/Hud/Tournament/TournamentHud.form" ),
+	PlayerCount( _PlayerCount )
 {
 	// Since I forget how to do array init lists (asuming they were even possible) //
 	for ( int idx = 0; idx < 4; idx ++ ) {
@@ -28,7 +29,17 @@ cScoreHud::~cScoreHud() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
-
+// - ------------------------------------------------------------------------------------------ - //
+void cScoreHud::SetPlayer( const int _Player ) {
+	// Assert on invalid player //
+	
+	// Flag something when the player number changes //
+	if ( CurrentPlayer != _Player ) {
+		
+	}
+	
+	CurrentPlayer = _Player;
+}
 // - ------------------------------------------------------------------------------------------ - //
 void cScoreHud::SetScore( const int _Player, const int _Score ) {
 	// Assert on invalid player //
@@ -43,7 +54,6 @@ void cScoreHud::SetScore( const int _Player, const int _Score ) {
 // - ------------------------------------------------------------------------------------------ - //
 void cScoreHud::StartScore( const int _Player, const int _Score ) {
 	// Assert on invalid player //
-
 	
 	Score[ _Player ] = _Score;
 	InterpolatingScore[ _Player ] = _Score;

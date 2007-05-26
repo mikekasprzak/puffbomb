@@ -18,9 +18,14 @@ public:
 	
 	int Stroke[4];
 	
+	int CurrentPlayer;
+	int PlayerCount;
+	
 public:
-	cScoreHud();
+	cScoreHud( const int _PlayerCount );
 	~cScoreHud();
+	
+	void SetPlayer( const int _Player );
 	
 	void SetScore( const int _Player, const int _Score );
 	void StartScore( const int _Player, const int _Score );

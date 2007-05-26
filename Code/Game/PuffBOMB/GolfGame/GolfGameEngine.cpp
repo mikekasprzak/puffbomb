@@ -24,6 +24,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	CurrentPlayer( _StartPlayer ),
 	BombGraphic( "GolfBomb.anim" ),
 	State( 1 ),
+	ScoreHud( _Players.size() ),
 	LevelComplete( false ),
 	HitBoundery( false ),
  	ArrowAnimator( "TrackingArrow.anim" ),
@@ -695,6 +696,8 @@ void cGolfGameEngine::TurnBasedPlay() {
 			};
 			case 2: {
 				// Stage 2 - Activate Players (if not activated) ------------------------------ - //
+				ScoreHud.SetPlayer( CurrentPlayer );
+				
 				if ( !Player[ CurrentPlayer ]->Finished ) {
 					// Since we're about to take action, add a stroke //
 					Player[ CurrentPlayer ]->AddStroke();
