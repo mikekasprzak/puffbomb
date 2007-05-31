@@ -215,11 +215,13 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 			OutScript << getenv("TextureTool") << " " <<
 				Art.Directory << "/" << Art.ImagePool[ idx ].FileName << " " << 
 				WorkingBaseName << idx << ".png " <<
-				getenv("CompTextureToolArgs") << endl;
+				getenv("CompTextureToolArgs") << 
+				endl;
 
 			OutScript << getenv("NVTextureTool") << " -bc2 " << /*getenv("NVTextureToolArgs") <<*/
 				WorkingBaseName << idx << ".png " << 
-				WorkingBaseName << idx << ".dds.tx "  << endl;
+				WorkingBaseName << idx << ".dds.tx" << 
+				endl;
 			
 			// Compress //
 			OutScript << getenv("Compress") << " " <<
