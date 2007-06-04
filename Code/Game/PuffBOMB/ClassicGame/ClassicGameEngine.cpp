@@ -210,6 +210,7 @@ void cClassicGameEngine::FrameStart() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cClassicGameEngine::FrameEnd() {
+	// Winning cheat - Will need to replace once Camera Tracking tracks different objects //
 	if ( CameraTracking.size() != 0 ) {
 		if ( CharactersAtEndZones == (int)CameraTracking.size() ) {
 			LevelComplete = true;
@@ -262,7 +263,7 @@ void cClassicGameEngine::Step() {
 			}
 			else {
 				// Clear various lists, 'cause we're about to repopulate them //
-				CameraTracking.clear();
+				CameraTracking.clear();			
 				Impulse.clear();
 				AlwaysActivePassives.clear();
 				PointsOfInterest.clear();
@@ -423,22 +424,22 @@ void cClassicGameEngine::Draw() {
 			Gfx::RGBA( 0, 0, 0, 80 )
 		);
 
-		// Draw the end zones on the minimap //
-		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); idx++ )
-		{
-			if( Map.ZoneInstanceInfo[ idx ].Id == 9 )
-			{
-				Vector2D EndBounds = ( ( Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() - Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() ) ) / Real( 4 ) / MiniMapRatio;
-				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
-				
-				Gfx::FilledRect(
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio - EndOffset,
-					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio - EndOffset,
-					Gfx::RGBA( 255, 255, 255, 80 )
-				);
-
-			}
-		}
+//		// Draw the end zones on the minimap //
+//		for( size_t idx = 0; idx < Map.ZoneInstanceInfo.size(); idx++ )
+//		{
+//			if( Map.ZoneInstanceInfo[ idx ].Id == 9 )
+//			{
+//				Vector2D EndBounds = ( ( Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() - Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() ) ) / Real( 4 ) / MiniMapRatio;
+//				Vector2D EndOffset = Vector2D( Camera->CameraBounds._P2.x, Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio;
+//				
+//				Gfx::FilledRect(
+//					Map.ZoneInstanceInfo[ idx ].BoundingRect.P1() / Real( 4 ) / MiniMapRatio - EndOffset,
+//					Map.ZoneInstanceInfo[ idx ].BoundingRect.P2() / Real( 4 ) / MiniMapRatio - EndOffset,
+//					Gfx::RGBA( 255, 255, 255, 80 )
+//				);
+//
+//			}
+//		}
 
 		Gfx::EnableTex2D();
 		
@@ -480,6 +481,16 @@ void cClassicGameEngine::Draw() {
 				);
 			}
 		}
+		
+		// Draw things of interest on the minimap //
+		for( size_t idx = 0; idx < PointsOfInterest.size(); idx++ )
+		{
+			Gfx::Circle(
+				Vector2D( PointsOfInterest[idx]->Pos.x - Camera->CameraBounds._P2.x, PointsOfInterest[idx]->Pos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio,
+				Real( 8 ),
+				Gfx::RGBA( 192, 0, 255, 255 )
+				);
+		}		
 		
 		Gfx::SetLineWidth( 1.0 );
 		

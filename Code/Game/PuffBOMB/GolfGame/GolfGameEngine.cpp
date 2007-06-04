@@ -546,6 +546,16 @@ void cGolfGameEngine::Draw() {
 			}
 		}
 		
+		// Draw things of interest on the minimap //
+		for( size_t idx = 0; idx < PointsOfInterest.size(); idx++ )
+		{
+			Gfx::Circle(
+				Vector2D( PointsOfInterest[idx]->Pos.x - Camera->CameraBounds._P2.x, PointsOfInterest[idx]->Pos.y - Camera->CameraBounds._P1.y ) / Real( 4 ) / MiniMapRatio,
+				Real( 8 ),
+				Gfx::RGBA( 192, 0, 255, 255 )
+				);
+		}
+				
 		Gfx::SetLineWidth( 1.0 );
 		
 		Gfx::EnableTex2D();
