@@ -1,0 +1,111 @@
+Global Keys
+
+KEY_F5												Switches to the Map Editor
+KEY_F6												Switches to the Collection Editor
+KEY_F8												Switches to the Component Editor
+
+KEY_END												Disables Autogrid adjust
+KEY_HOME											Enables Autogrid adjust
+KEY_PGUP											When Autogrid is disabled this will adjust current grid level
+KEY_PGDN											When Autogrid is disabled this will adjust current grid level
+
+KEY_EQUALS											Zooms in
+Mouse Scroll Up										Zooms in
+KEY_MINUS											Zooms out
+Mouse Scroll Down									Zooms out
+
+CTRL + S											Saves current Map, Collection or component
+
+Left_Click											Selects similar to windows (creating a box works as well)
+CTRL + Left_Click									De-Selects similar to windows (creating a box works as well)
+LEFT_SHIFT + Left_Click								Adds more to current selection similar to windows (creating a box works as well)
+
+
+Map Editor
+
+
+Collection Editor
+
+
+Component Editor
+
+KEY_NUMPAD_PLUS										Switches the current working Component
+KEY_NUMPAD_MINUS									Switches the current working Component
+
+KEY_J												Switches the current Mesh pose
+KEY_K												Switches the current Mesh pose
+
+KEY_N												Switches the current body pose
+KEY_M												Switches the current body pose
+
+KEY_O												Switches the current body pose
+KEY_P												Switches the current body pose
+
+KEY_TAB												Resets Zoom
+
+KEY_LEFT											Switches current animation frame
+KEY_RIGHT											Switches current animation frame
+
+KEY_1												BODY Node Mode
+	KEY_A												Add's a node at current mouse position and then snaps to grid
+	NUMPAD_0											Add's a node at current mouse position and then snaps to grid
+	KEY_A + LEFT_SHIFT									Add's a node at current mouse position
+	NUMPAD_0 + LEFT_SHIFT								Add's a node at current mouse position
+	KEY_DELETE											Deletes any currently selected nodes
+	LEFT_CTRL + Scroll									Modify node Mass by 1.0
+	LEFT_CTRL + LEFT_SHIFT + Scroll						Modify node Mass by 0.1
+	LEFT_CTRL + KEY_EQUALS								Increases node Mass by 1.0
+	LEFT_CTRL + LEFT_SHIFT + KEY_EQUALS					Increases node Mass by 0.1
+	LEFT_CTRL + KEY_MINUS								Decreases node Mass by 1.0
+	LEFT_CTRL + LEFT_SHIFT + KEY_MINUS					Decreases node Mass by 0.1
+KEY_2												BODY Sphere Mode
+	KEY_A												Add's a Sphere to the currently selected nodes
+	NUMPAD_0											Add's a Sphere to the currently selected nodes
+		( try not to add multiple spheres to the same node.  the game supports it but you cant editor any but the first.
+		  If this happens just delete the spheres and re-add it )
+	KEY_DELETE											Deletes any currently selected Spheres
+	LEFT_CTRL + Scroll									Modify node Sphere Size by 1.0
+	LEFT_CTRL + LEFT_SHIFT + Scroll						Modify node Sphere Size by 0.1
+	LEFT_CTRL + KEY_EQUALS								Increases node Sphere Size by 1.0
+	LEFT_CTRL + LEFT_SHIFT + KEY_EQUALS					Increases node Sphere Size by 0.1
+	LEFT_CTRL + KEY_MINUS								Decreases node Sphere Size by 1.0
+	LEFT_CTRL + LEFT_SHIFT + KEY_MINUS					Decreases node Sphere Size by 0.1
+KEY_3												BODY Spring Mode
+	KEY_A												Add's a Spring to 2 or more selected nodes
+	NUMPAD_0											Add's a Spring to 2 or more selected nodes
+	KEY_DELETE											Deletes any springs attached to any currently selected nodes
+KEY_4												MESH Node Mode
+	KEY_A												Add's a node at current mouse position and then snaps to grid
+	NUMPAD_0											Add's a node at current mouse position and then snaps to grid
+	KEY_A + LEFT_SHIFT									Add's a node at current mouse position
+	NUMPAD_0 + LEFT_SHIFT								Add's a node at current mouse position
+	KEY_DELETE											Deletes any currently selected nodes
+KEY_5												MESH Face Mode
+	KEY_A												Add's a Face to 3 selected mesh nodes
+	NUMPAD_0											Add's a Face to 3 selected mesh nodes
+	KEY_DELETE											Deletes a Face to 3 selected mesh nodes
+KEY_6												MESH Pivot Handle Mode
+	LEFT_CLICK											Selects a BODY Node or sets the PIVOT on a MESH Node
+	RIGHT_CLICK											Sets the HANDLE on a MESH Node
+KEY_7												Angle Constraint Mode
+	KEY_A												Add's an angular constraint to a selected node
+	KEY_DELETE											Deletes an angular constraint
+	KEY_Q												Sets IndexA to another Node ( where mouse pos is )
+	KEY_W												Sets IndexB to another Node ( where mouse pos is )
+KEY_9												Super Mesh Mode
+	KEY_A												Add's a Mesh Pose
+	NUMPAD_0											Add's a Mesh Pose
+	KEY_DELETE											Deletes a Mesh Pose
+	( Watch for bugs here it can easily crash the game if somthing is not right (run out of poses) or somthing. )
+	KEY_S												Scale the Current Component
+	KEY_Q												Reset the scale to 1.0
+	KEY_W												Reduce Current Scale in Half
+	KEY_E												Double Current Scale
+KEY_0												Super Body Mode
+	KEY_S												Scale the Current Component
+	KEY_Q												Reset the scale to 1.0
+	KEY_W												Reduce Current Scale in Half
+	KEY_E												Double Current Scale
+
+
+
