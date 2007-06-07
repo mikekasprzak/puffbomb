@@ -216,3 +216,34 @@ KEY_0												Super Body Mode
 
 
 
+How to add a new Collection
+
+Create dir structure
+
+Bridge/Body/Idle.Id00.Hold3/
+Add textures into that directory named
+
+Idle01.png
+Idle01.png
+etc.
+
+Run the editor and create the component
+quit editor
+
+run a make update
+
+Create collection ( Bridge in Game/puffbomb/CreateCollectionInstance.cpp )
+
+
+
+How to create a Mesh2D to the map preview
+
+open MapEdit.cpp
+MiniMapDynList.push_back( 128 );  <--- The same number that is in CreateCollectionInstance
+
+
+
+
+
+
+
