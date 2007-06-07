@@ -236,7 +236,7 @@ Create collection ( Bridge in Game/puffbomb/CreateCollectionInstance.cpp )
 
 
 
-How to create a Mesh2D to the map preview
+How to create a Mesh2D ( Collection ) to the map preview
 
 open MapEdit.cpp
 MiniMapDynList.push_back( 128 );  <--- The same number that is in CreateCollectionInstance
