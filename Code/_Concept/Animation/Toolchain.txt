@@ -1,0 +1,23 @@
+
+File named generation, and other content notes
+--------------------
+
+Currently, frameholds for animation are generated from a generic hold applied to the entire animation.
+What's needed is more detail in the ability to define it.
+
+My solution, two solutions.
+
+Expand on the functionality used to get information on the command line.  Follow the entire listing
+of all arguments, and accumulate actions found.  Currently, when we say "half", no matter how
+many times we say it, it's only done once.  These should now be compounded.  This should be combined
+with the next solution as well.
+
+Solution 2, is a general solution that should be applied moreover in the engine design.  A text
+information file where you can type important things in to it.  Transformations to apply to all or
+specific images, processes to run, target outputs, etc.
+
+This should be implemented in such a way that we can create mulitple platform profiles.
+
+Assets.Wii.pro perhaps?
+Assets.GL.pro
+
