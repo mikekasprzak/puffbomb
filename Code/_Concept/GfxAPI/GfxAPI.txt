@@ -1,0 +1,139 @@
+
+Some notes on graphic API design.
+---
+
+There something nice about the simplicity of QBASIC, and to a degree Allegro.
+
+"screen 13", and go.  You can start doing stuff.  Draw a line, a pixel, load a graphic and draw it.
+
+"allegro_init(); set_gfx_mode( ... );" and generally speaking, you're ready to go.
+
+
+gfx.useFullScreen();
+gfx.useWindowed(); // default //
+gfx.useBackBuffer();
+gfx.useZBuffer();
+gfx.useStencilBuffer();
+gfx.useOrtho(); // default //
+gfx.usePerspective();
+gfx.useMatrix( M ); // specific transformation matrix //
+gfx.useCamera(); // center's view, making 0,0 the middle of the screen, and +y = up //
+gfx( width, height ); // set the video mode. Fullscreen, use virtual next up video mode if small. //
+
+gfx.enableStencil();
+gfx.disableStencil();
+
+gfx.setActive(); // become active draw target (Image/Bitmap type can be alternativly selected) //
+
+
+Image myImage("gfx/FrankBrick.png");
+
+ImageInstance myInstance = myImage; // directly convertable //
+ImageInstance turnedInstance = myInstance.rotate( 0.1 ); // compoundable attributes //
+ImageInstance bigTurnedInstance = myInstance.scale( 2 ).rotate( 0.5 );
+
+draw( myImage, 10, 10 );
+draw( myInstance.scale(2), 40, 40 );
+
+myImage.draw( 10, 10 );
+myInstance.scale(2).draw( 40, 40 );
+
+draw( myInstance.useTarget( HDR ).scale(2), 40, 40 ); // ignore the global target //
+drawTarget( HDR, myInstance.scale(2), 40, 40 ); // ignore the global target //
+
+myInstance.useTarget( HDR ).scale(2).draw( 40, 40 );
+myInstance.scale(2).drawTarget( HDR, 40, 40 );
+
+
+Some sort of animation system too.  Given an argument to the Image, slice it up in to chunks.
+Left to right, top to bottom.
+
+Image myAnimation("gfx/Doctor.png", 32, 32);
+
+draw( myAnimation.frame(2), 10, 10 );
+
+Animation format too, for more detail and automatic stepping.
+
+Animation myAnim("DoctorAnimation.anim");
+
+draw( myAnim, x, y );
+myAnim.step();
+step( myAnim );
+
+
+3D co-ordinates, z is 0 by default.
+
+draw( myAnim, x, y, z );
+
+Vectors.
+
+Vector2D Pos( 10, 10 );
+draw( myAnim, Pos );
+
+line( 10, 10, 20, 20 );
+gfx.line( 10, 10, 20, 20 );
+gfx.color( 255, 255, 0, 255 ).line( 10, 10, 20, 20 );
+gfx.thickness( 4 ).line( x1, y1, x2, y2 );
+
+gfx.colorA( 255, 255, 0 ).colorB( 255, 0, 255 ).line( 10, 10, 20, 20 );
+gfx.thicknessA( 2 ).thicknessB( 4 ).line( 10, 10, 20, 20 );
+
+gfx.triangle( v1, v2, v3 );
+gfx.quad( v1, v2, v3, v4 );
+gfx.polygon( vector<Vector2D> );
+gfx.polygon( &Vector2D[10], 10 );
+
+gfx.draw( ... ); // though, a wrapper function in global/namespace scope for this //
+
+Or, instead of drawing to images, you draw to a "Surface".  This makes GL support cleaner, if things
+are "worded" to mean you need to copy a surface to an Image before you can use it.
+
+Surface minimap( 128, 128 );
+minimap.setActive();
+
+Surfaces can be software or hardware, depending on API implementation.  The difference has to do
+with how information is used on them.  Via hardware operations, or via software operations.
+Not all operations need to be implemented in both software and hardware, but it'd be nice for the
+flexibility.
+
+Model myModel("3d/GiantHouse.collada");
+
+Appropriate draw with offset functions.
+
+Matrix2x2 affineMatrix;
+Quaternion orientation;
+
+PixelShader myPShader("shaders/Phong.px");
+VertexShader myVShader("shaders/Standard.vx");
+
+draw( myModel.useShader( myPShader, myVShader ).rotate( orientation ), 10, 10, 10 );
+
+Orientations
+
+In 2D, 
+- an angle in "2pi" radians can describe an orientation
+- a 2x2 matrix or greater can describe an orientation
+In 3D,
+- a set of 3 angles can describe an orientation (euler)
+- a vector + angle can describe an orientation (up and spin)
+- a pair of vectors can describe an orientation (plane)
+- a quaternion can describe an orientation
+- a 3x3 matrix or greater can describe an orientation
+
+Screw pleuker and clifford algebra. :)
+
+A "plane" type could be a pair of vectors. Up+Cross.
+Easily convertable to a matrix (cross product), and likely quaternions too.
+
+----
+The following are important for prototyping goodness.
+
+gfx.useDoublePixel(); // various resolutions for that oldskool look //
+gfx.useTriplePixel();
+gfx.useQuadruplePixel();
+gfx.usePixelBlur(); // for glowy geo wars 'esc effects //
+
+As well, some sort of HDR support too.
+
+Either an addative color range thing, or a separate layer that's added to the back image.
+
