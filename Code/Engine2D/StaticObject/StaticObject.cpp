@@ -17,7 +17,7 @@
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
 void cStaticObject::Draw( const Vector2D& Offset ) {
-	Gfx::DrawMesh3D( Mesh, Offset.ToVector3D() );
+	Gfx::DrawMesh3D( Mesh, Offset.ToVector3D() + Vector3D( 0, 0, -20 ) );
 }	
 // - ------------------------------------------------------------------------------------------ - //
 void cStaticObject::Load( const std::string& FileName )
