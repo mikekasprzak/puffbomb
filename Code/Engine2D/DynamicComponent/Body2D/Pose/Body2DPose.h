@@ -13,6 +13,7 @@
 #include <DynamicComponent/Body2D/Constraints/Spring.h>
 #include <DynamicComponent/Body2D/Constraints/Sphere.h>
 #include <DynamicComponent/Body2D/Constraints/AngleCross.h>
+#include <DynamicComponent/Body2D/Constraints/RopeConstraint.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //
@@ -22,6 +23,7 @@ public:
 	std::vector< cSpring > Spring;
 	std::vector< cSphere > Sphere;
 	std::vector< cAngleCross > AngleCross;
+	std::vector< cRopeConstraint > RopeConstraint;
 		
 	Real TotalMass;
 	
