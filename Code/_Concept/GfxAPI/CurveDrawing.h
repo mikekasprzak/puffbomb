@@ -8,6 +8,16 @@
 //
 // Also, each vector contains part of the other vectors.  I think... I don't know what I'm talking
 // about, to be honest. ;)
+//
+// Ok.  3 Vectors, weighted by their "high order" time's, from cubed, to squared, to normal.
+// Somehow this works out mathematically.  Powerful square/cube stuff.
+// I suppose each vector counteracts each other, with the cube/squaring evening the distortion out.
+//
+// The 3.0's, look to be compounded.  C gets one.  B gets one.  But nevermind.  Order of operation
+// would dictate that the multiplication goes first, thusly making the C difference in B not scale
+// up.  Hmm.  A Bug?  What I assumed was C was 3x, B was 3x3x, and A... well that math wise just 
+// doesn't work out.  C would have to be the 3x3x if I was on to anything. Back to the drawing board
+// 
 // - ------------------------------------------------------------------------------------------ - //
 // Geometry Lib Reinterpretation //
 // - ------------------------------------------------------------------------------------------ - //
