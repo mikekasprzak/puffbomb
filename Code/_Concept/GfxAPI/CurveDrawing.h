@@ -1,6 +1,54 @@
-
+// - ------------------------------------------------------------------------------------------ - //
 // Taken from Wikipedia article on Bezier Curves //
 // http://en.wikipedia.org/wiki/Bezier_curve
+// - ------------------------------------------------------------------------------------------ - //
+// Analysis:
+//  The 3.0's found throughout the maths must be an optimization.
+// Say, if the values were grinded 3 times.
+//
+// Also, each vector contains part of the other vectors.  I think... I don't know what I'm talking
+// about, to be honest. ;)
+// - ------------------------------------------------------------------------------------------ - //
+// Geometry Lib Reinterpretation //
+// - ------------------------------------------------------------------------------------------ - //
+Vector2D PointOnCubicBezier( Vector2D Curve[4], Real Time )
+{
+    Real TimeSquared = Time * Time;
+    Real TimeCubed = TimeSquared * Time;
+
+    /* calculate the polynomial coefficients */
+    Vector2D c = 3.0 * (Curve[1] - Curve[0]);
+    Vector2D b = 3.0 * (Curve[2] - Curve[1]) - c;
+    Vector2D a = (Curve[3] - Curve[0]) - c - b;
+        
+    /* calculate the curve point at parameter value t */
+    return (a * TimeCubed) + (b * TimeSquared) + (c * Time) + Curve[0];
+}
+// - ------------------------------------------------------------------------------------------ - //
+// Given a curve, ask for a set of points
+// - ------------------------------------------------------------------------------------------ - //
+vector<Vector2D> PointsOnCubicBezier( Vector2D Curve[4], int Steps )
+{
+    /* calculate the polynomial coefficients */
+    Vector2D c = 3.0 * (Curve[1] - Curve[0]);
+    Vector2D b = 3.0 * (Curve[2] - Curve[1]) - c;
+    Vector2D a = (Curve[3] - Curve[0]) - c - b;
+
+	vector<Vector2D> Result;
+
+	for ( int idx = 0; idx < Steps; idx++ ) {
+		Real Time = Real( idx ) / Real( Steps );
+	    Real TimeSquared = Time * Time;
+	    Real TimeCubed = TimeSquared * Time;
+	        
+	    /* calculate the curve point at parameter value t */
+	    Result.push_back( (a * TimeCubed) + (b * TimeSquared) + (c * Time) + Curve[0] );
+	}
+	
+	return Result;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 /*
 Code to generate a cubic Bezier curve
@@ -67,3 +115,5 @@ void ComputeBezier( Point2D* cp, int numberOfPoints, Point2D* curve )
     for( i = 0; i < numberOfPoints; i++)
         curve[i] = PointOnCubicBezier( cp, i*dt );
 }
+
+
