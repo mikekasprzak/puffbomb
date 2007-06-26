@@ -18,6 +18,24 @@
 // up.  Hmm.  A Bug?  What I assumed was C was 3x, B was 3x3x, and A... well that math wise just 
 // doesn't work out.  C would have to be the 3x3x if I was on to anything. Back to the drawing board
 // 
+// Ok, from my initial calculations, it does appear the 3 is an optimization noting several copies.
+// As well, the cubing and squaring must be optimizations as well.
+//
+// We can think of the curve as a point reduction process. you reduce the number of points, to
+// get a single point, thusly resulting in a curve.
+// So we start with the points ABCD.  In between each pairing, we create a new point, EFG.
+// We continue the process and create new points HI.  The resulting point is the point between
+// these, J.
+//
+// Generally speaking, to actually use the formula the way I want to use it, I'd actually have to
+// do the Time in every subdivision thing.  It looks like, optimization wise, what they've done
+// is reduce the forumula with similar maths to acceleration/velocity (i.e. squaring numbers).
+// Thusly, that squaring and cubing is likely optimized sub operations.  Excellent.
+//
+// This is why flash is crazy fast! Because of this clever maths optimization, for the entire curve
+// all you need to do is plug in the time you want, and the squaring/cubing beast solves everything.
+//
+// This is some awesome mathematics optimization.  Damn.  I wish I knew this shit.  :)
 // - ------------------------------------------------------------------------------------------ - //
 // Geometry Lib Reinterpretation //
 // - ------------------------------------------------------------------------------------------ - //
