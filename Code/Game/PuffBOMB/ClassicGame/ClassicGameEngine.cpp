@@ -265,8 +265,10 @@ void cClassicGameEngine::Step() {
 				// Copy positions of our active objects, and mark them with an x //
 				LastNotablePosition.clear();
 				
-				for ( int idx = 0; idx < CameraTracking.size(); idx++ ) {
-					LastNotablePosition.push_back( CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.Center() );
+				for ( size_t idx = 0; idx < CameraTracking.size(); idx++ ) {
+					if ( CameraTracking[ idx ]->Component[ 0 ].Flags.Active() ) {
+						LastNotablePosition.push_back( CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.Center() );
+					}
 				}
 				
 				// Clear various lists, 'cause we're about to repopulate them //
@@ -393,23 +395,25 @@ void cClassicGameEngine::Draw() {
 	DenseParticle.Draw();
 	
 	// Draw X's that show last notable positions //
-	Gfx::DisableTex2D();
+	{
+		Gfx::DisableTex2D();
+		
+		for ( size_t idx = 0; idx < LastNotablePosition.size(); idx++ ) {
+			Gfx::SetLineWidth( 7.0 );
+			Gfx::Circle(
+				Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
+				Real( 32 ),
+				Gfx::RGBA( 0, 0, 0, 255 )
+				);
 	
-	for ( int idx = 0; idx < LastNotablePosition.size(); idx++ ) {
-		Gfx::SetLineWidth( 7.0 );
-		Gfx::Circle(
-			Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
-			Real( 32 ),
-			Gfx::RGBA( 0, 0, 0, 255 )
-			);
-
-		Gfx::SetLineWidth( 4.0 );
-		Gfx::Circle(
-			Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
-			Real( 32 ),
-			Gfx::RGBA( 255, 255, 255, 255 )
-			);
-	}	
+			Gfx::SetLineWidth( 4.0 );
+			Gfx::Circle(
+				Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
+				Real( 32 ),
+				Gfx::RGBA( 255, 255, 255, 255 )
+				);
+		}
+	}
 
 	//Gfx::EnableDepth();
 
