@@ -28,6 +28,9 @@ public:
 
 	// Our notable things to point out //
 	std::vector< Engine2D::cPassiveObject* > PointsOfInterest;
+	
+	// Our last notable places to mark (i.e. characters)
+	std::vector< Vector2D > LastNotablePosition;
 
 	cClockHud ClockHud;
 

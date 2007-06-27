@@ -262,6 +262,13 @@ void cClassicGameEngine::Step() {
 				ClockHud.StartActionMode();
 			}
 			else {
+				// Copy positions of our active objects, and mark them with an x //
+				LastNotablePosition.clear();
+				
+				for ( int idx = 0; idx < CameraTracking.size(); idx++ ) {
+					LastNotablePosition.push_back( CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.Center() );
+				}
+				
 				// Clear various lists, 'cause we're about to repopulate them //
 				CameraTracking.clear();			
 				Impulse.clear();
@@ -384,17 +391,37 @@ void cClassicGameEngine::Draw() {
 	// Particle System //
 	SolidParticle.Draw();
 	DenseParticle.Draw();
+	
+	// Draw X's that show last notable positions //
+	Gfx::DisableTex2D();
+	
+	for ( int idx = 0; idx < LastNotablePosition.size(); idx++ ) {
+		Gfx::SetLineWidth( 7.0 );
+		Gfx::Circle(
+			Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
+			Real( 32 ),
+			Gfx::RGBA( 0, 0, 0, 255 )
+			);
 
-	Gfx::EnableDepth();
+		Gfx::SetLineWidth( 4.0 );
+		Gfx::Circle(
+			Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
+			Real( 32 ),
+			Gfx::RGBA( 255, 255, 255, 255 )
+			);
+	}	
+
+	//Gfx::EnableDepth();
 
 	// Things to draw only when the game isn't active //
 	if ( !GameActive ) {
-		Gfx::DisableDepth();
 		Cursor.Draw();
-	}	
+	}
 
 	// -- Hud Camera Space -------------------------- //
 	HudCamera->Update();
+	
+	Gfx::EnableTex2D();
 
 	// Draw Points of interest tracking //
 	for ( size_t idx = 0; idx < PointsOfInterest.size(); idx++ ) {
