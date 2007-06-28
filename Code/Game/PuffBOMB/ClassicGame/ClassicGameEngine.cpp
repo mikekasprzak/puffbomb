@@ -397,20 +397,21 @@ void cClassicGameEngine::Draw() {
 	// Draw X's that show last notable positions //
 	{
 		Gfx::DisableTex2D();
+		Gfx::EnableBlend();
 		
 		for ( size_t idx = 0; idx < LastNotablePosition.size(); idx++ ) {
-			Gfx::SetLineWidth( 7.0 );
+			Gfx::SetLineWidth( 3.0 );
 			Gfx::Circle(
 				Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
-				Real( 32 ),
-				Gfx::RGBA( 0, 0, 0, 255 )
+				Real( 32+4 ),
+				Gfx::RGBA( 0, 0, 0, 128 )
 				);
 	
 			Gfx::SetLineWidth( 4.0 );
 			Gfx::Circle(
 				Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
 				Real( 32 ),
-				Gfx::RGBA( 255, 255, 255, 255 )
+				Gfx::RGBA( 255, 255, 255, 128 )
 				);
 		}
 	}
