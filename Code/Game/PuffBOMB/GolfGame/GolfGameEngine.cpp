@@ -834,6 +834,9 @@ void cGolfGameEngine::TurnBasedPlay() {
 							Player[ idx ]->Score += Player[ idx ]->Bonus;
 						}
 					}
+				
+					// End of a turn, reset the camera //
+					Camera->IsZoomedOut = false;
 				}
 				
 				// Change State, to ask player for his control (input) //
