@@ -299,7 +299,7 @@ void cClassicGameEngine::Step() {
 			if( CameraTracking.size() >= 1 ) 
 			{
 				// Use initial as rectangle //
-				Rect2D FollowRect; = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
+				Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
 				
 				// Add other rectangles to create a sum of all rectangles that is followed ? //
 				for ( size_t idx = 1; idx < CameraTracking.size(); idx++ ) {

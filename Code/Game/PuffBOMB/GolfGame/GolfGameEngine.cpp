@@ -128,7 +128,7 @@ cGolfGameEngine::cGolfGameEngine( const std::string& FileName, const std::vector
 	MiniMapInit();
 	
 	// Set the scoreboard //
-	for ( int idx = 0; idx < Player.size(); idx++ ) {
+	for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 		ScoreHud.StartScore( idx, Player[ idx ]->Score );
 	}
 	
@@ -379,19 +379,13 @@ void cGolfGameEngine::Step() {
 		SolidParticle.Step();
 		DenseParticle.Step();
 		
-		if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
-			//Camera->MinZoom = Global::HudZoom * Real( 3.5 );
-			//Camera->MinZoom = ( ( Camera->CameraBounds.P2().x - Camera->CameraBounds.P1().x ) / Real( 4800 ) ) * Camera->MinZoom;
-			Camera->IsZoomedOut = true;
-
-		}
-		else {
-			//Camera->MinZoom = Global::HudZoom * Real( 2.5 );
-			Camera->IsZoomedOut = false;
+		// Toggle camera zoomed or not //
+		if( Input::Pad[ 0 ].Button[ PAD_Y ].Pressed() ) {
+			Camera->IsZoomedOut = !Camera->IsZoomedOut;
 		}
 		
 		// Update Scoreboard //
-		for ( int idx = 0; idx < Player.size(); idx++ ) {
+		for ( size_t idx = 0; idx < Player.size(); idx++ ) {
 			ScoreHud.SetScore( idx, Player[ idx ]->Score );
 			ScoreHud.SetStroke( idx, Player[ idx ]->Stroke );
 		}
