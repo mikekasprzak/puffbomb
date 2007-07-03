@@ -381,7 +381,8 @@ void cGolfGameEngine::Step() {
 		
 		// Toggle camera zoomed or not //
 		if( Input::Pad[ 0 ].Button[ PAD_Y ].Pressed() ) {
-			Camera->IsZoomedOut = !Camera->IsZoomedOut;
+			//Camera->IsZoomedOut = !Camera->IsZoomedOut;
+			Camera->NextZoom();
 		}
 		
 		// Update Scoreboard //
@@ -836,7 +837,8 @@ void cGolfGameEngine::TurnBasedPlay() {
 					}
 				
 					// End of a turn, reset the camera //
-					Camera->IsZoomedOut = false;
+					Camera->ResetZoom();
+					//Camera->IsZoomedOut = false;
 				}
 				
 				// Change State, to ask player for his control (input) //

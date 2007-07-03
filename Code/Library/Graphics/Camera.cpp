@@ -39,7 +39,9 @@ cCamera::cCamera(
 		High( Vector2D( 0, 0 ) ),
 		CameraBounds( Vector2D( -10000, -10000 ), Vector2D( 20000, 20000 ) ),
 		ViewArea( Vector2D( -10, -10 ), Vector2D( 20, 20 ) ),
-		IsZoomedOut( false )
+		IsZoomedOut( false ),
+		ZoomLevel( 0 ),
+		MaxZoomLevel( 2 )
 {
 
 	Gfx::Viewport( XPos, YPos, Width, Height );
@@ -58,7 +60,10 @@ Vector2D cCamera::GetPos()
 {
 	MinZoom = Real( 2.5 ) * HudZoom;
 
-	if( IsZoomedOut )
+	// TODO: Make this use zoom level, 0 to MaxZoomLevel-1, and interpolate between the maximum //
+	// level of zoom, and the minimum level of zoom as more "MaxZoomLevel" steps are added //
+	//if( IsZoomedOut )
+	if ( ZoomLevel > 0 )
 	{
 		Real TempMinZoomX = ( ( CameraBounds.P2().x - CameraBounds.P1().x ) / DefaultXViewArea ) * MinZoom;
 

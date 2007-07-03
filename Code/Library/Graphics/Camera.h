@@ -52,6 +52,9 @@ public:
 	bool IsZoomedOut;
 	Real DefaultXViewArea;
 	Real DefaultYViewArea;
+	
+	int ZoomLevel;
+	int MaxZoomLevel;
 
 public:
 	cCamera(
@@ -75,6 +78,29 @@ public:
 	void UpdateTarget( const Vector2D& _Focus );
 	void Update();
 
+public:
+	inline void ResetZoom() {
+		ZoomLevel = 0;
+	}
+	
+	inline void NextZoom() {
+		ZoomLevel++;
+		if ( ZoomLevel >= MaxZoomLevel ) {
+			ZoomLevel = 0;
+		}
+	}
+	
+	inline void PreviousZoom() {
+		ZoomLevel--;
+		if ( ZoomLevel < 0 ) {
+			ZoomLevel = MaxZoomLevel - 1;
+		}
+	}
+	
+	inline void SetZoom( const Rect2D& _ZoomRect ) {
+		// TODO: take a rectangle, and set the zoom to fit it //
+	}
+	
 };
 
 // - ------------------------------------------------------------------------------------------ - //

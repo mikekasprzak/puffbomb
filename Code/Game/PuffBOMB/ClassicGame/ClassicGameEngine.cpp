@@ -288,7 +288,8 @@ void cClassicGameEngine::Step() {
 		
 		// Zoom the camera toggle //
 		if( Input::Pad[ 0 ].Button[ PAD_Y ].Pressed() ) {
-			Camera->IsZoomedOut = !Camera->IsZoomedOut;
+			//Camera->IsZoomedOut = !Camera->IsZoomedOut;
+			Camera->NextZoom();
 		}		
 		
 		// Only step the engine whilst we are active //
