@@ -286,25 +286,22 @@ void cClassicGameEngine::Step() {
 			}
 		}
 		
+		// Zoom the camera toggle //
+		if( Input::Pad[ 0 ].Button[ PAD_Y ].Pressed() ) {
+			Camera->IsZoomedOut = !Camera->IsZoomedOut;
+		}		
+		
 		// Only step the engine whilst we are active //
 		if ( GameActive ) {
 			// Stuff my engine does before ------------------------------------------------------ //
-			//Camera->MinZoom = Global::HudZoom * Real( 2 );
-			//Camera->MinZoom = Global::HudZoom * Real( 2.5 );
-			Camera->IsZoomedOut = false;
-					
-			if( Input::Pad[ 0 ].Button[ PAD_Y ] ) {
-				//Camera->MinZoom = Global::HudZoom * Real( 3.5 );
-				//Camera->MinZoom = ( ( Camera->CameraBounds.P2().x - Camera->CameraBounds.P1().x ) / Real( 4800 ) ) * Camera->MinZoom;
-				Camera->IsZoomedOut = true;
-
-			}
 		
 			// Hack to follow the hamster.  we need a way to identify the collection to follow //
 			if( CameraTracking.size() >= 1 ) 
 			{
-				Rect2D FollowRect = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
+				// Use initial as rectangle //
+				Rect2D FollowRect; = CameraTracking[ 0 ]->Component[ 0 ].Body.BoundingRect.ToRect();
 				
+				// Add other rectangles to create a sum of all rectangles that is followed ? //
 				for ( size_t idx = 1; idx < CameraTracking.size(); idx++ ) {
 					FollowRect += CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.ToRect();
 				}
