@@ -271,6 +271,17 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 
+	// - -------------------------------------------------------------------------------------- - //
+	// Return a special vector only with the x or y part that is largest //
+	// If you want this normalized, you must normalize it yourself, appropriately //
+	inline const Vector2D AxisAligned() const {
+		if ( x.Abs() >= y.Abs() )
+			return Vector2D( x, 0 );
+		else
+			return Vector2D( 0, y );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Specific Functions that apply to this type //

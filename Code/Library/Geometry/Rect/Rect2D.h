@@ -167,14 +167,20 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Rectangle Difference //
 	inline const RectType& operator -= ( const RectType& Vs ) {
-		*this = Pair( P1().Max( Vs.P1() ), P2().Min( Vs.P2() ) );
+		*this = _Pair(
+			Vector2D( P1().x.Max( Vs.P1().x ), P1().y.Max( Vs.P1().y ) ),
+			Vector2D( P2().x.Min( Vs.P2().x ), P2().y.Min( Vs.P2().y ) )
+			);
 
 		return *this;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Rectangle Union //
 	inline const RectType& operator += ( const RectType& Vs ) {
-		*this = Pair( P1().Min( Vs.P1() ), P2().Max( Vs.P2() ) );
+		*this = _Pair(
+			Vector2D( P1().x.Min( Vs.P1().x ), P1().y.Min( Vs.P1().y ) ),
+			Vector2D( P2().x.Max( Vs.P2().x ), P2().y.Max( Vs.P2().y ) )
+			);
 
 		return *this;
 	}
@@ -199,6 +205,29 @@ public:
 	
 		return Point;
 	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Given a point, find the nearest point on edge of the Rectangle //
+	inline const VectorType NearestEdgePoint( const VectorType& v ) const {
+		VectorType Point;
+		
+		// Construct a vector with the closest X edge and Y edge //
+		if ( (P1().x - v.x).Abs() < (P2().x - v.x).Abs() )
+			Point.x = P1().x;
+		else
+			Point.x = P2().x;
+		
+		if ( (P1().y - v.y).Abs() < (P2().y - v.y).Abs() )
+			Point.y = P1().y;
+		else
+			Point.y = P2().y;
+		
+		// Return a vector with 
+		if ( (Point.x - v.x).Abs() < (Point.y - v.y).Abs() )
+			return VectorType( Point.x, v.y );
+		else
+			return VectorType( v.x, Point.y );
+	}	
+	
 	// - -------------------------------------------------------------------------------------- - //
 	// Contract a rectangle (like how a selection contract or expand works in PSP/Photoshop) //
 	inline const RectType Contract( const Real& Value ) {
