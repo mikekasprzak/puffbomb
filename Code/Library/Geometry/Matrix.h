@@ -9,6 +9,7 @@
 #include "Matrix/Matrix1x2.h"
 #include "Matrix/Matrix2x1.h"
 #include "Matrix/Matrix2x2.h"
+#include "Matrix/Matrix3x3.h"
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -40,6 +41,12 @@ inline const Vector2D Vector2D::ApplyMatrix( const Matrix2x2& _Vs ) {
 	Temp = (this->ToMatrix2x1() * _Vs).ToVector2D();
 	return Temp;
 }
+// - ------------------------------------------------------------------------------------------ - //
+//inline const Vector2D Vector2D::ApplyMatrix( const Matrix3x3& _Vs ) {
+//	Vector2D Temp;
+//	Temp = (this->ToMatrix3x1() * _Vs).ToVector2D();
+//	return Temp;
+//}
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
