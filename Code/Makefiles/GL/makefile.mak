@@ -194,7 +194,7 @@ $(RELEASE_DIR)/%.bin.pack.mesh3d: Content/$(GAME_TARGET)/%.blend.mesh3d $(Mesh3D
 # Textures ------------------------------------------------------------------------------------- - #
 $(RELEASE_DIR)/%.pack.dds.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)
 	$(TextureTool) $< $(DATA_DIR)/$*.png $(TextureToolArgs)
-	$(NVTextureTool) -bc2 $(DATA_DIR)/$*.png $(DATA_DIR)/$*.dds.tx
+	$(NVTextureTool) -bc2 -nocuda $(DATA_DIR)/$*.png $(DATA_DIR)/$*.dds.tx
 	$(Compress) $(DATA_DIR)/$*.dds.tx $@
 # - -------------------------------------------------------------------------------------------- - #
 #$(RELEASE_DIR)/%.pack.tx: Content/$(GAME_TARGET)/%.png $(TextureTool) $(ALL_DEPEND)

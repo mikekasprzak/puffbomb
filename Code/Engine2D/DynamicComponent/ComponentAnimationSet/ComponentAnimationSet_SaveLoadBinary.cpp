@@ -218,7 +218,7 @@ void cComponentAnimationSet::SaveBinary( const std::string& CompFileName, const 
 				getenv("CompTextureToolArgs") << 
 				endl;
 
-			OutScript << getenv("NVTextureTool") << " -bc2 " << /*getenv("NVTextureToolArgs") <<*/
+			OutScript << getenv("NVTextureTool") << " -bc2 -nocuda " << /*getenv("NVTextureToolArgs") <<*/
 				WorkingBaseName << idx << ".png " << 
 				WorkingBaseName << idx << ".dds.tx" << 
 				endl;
