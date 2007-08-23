@@ -52,7 +52,13 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Constructors //
 	// - -------------------------------------------------------------------------------------- - //
-	inline Matrix3x3() {
+	inline Matrix3x3():
+		Array( (Real[]) { 
+			Real::One, Real::Zero, Real::Zero,
+			Real::Zero, Real::One, Real::Zero,
+			Real::Zero, Real::Zero, Real::One
+			} )
+	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	inline Matrix3x3( const Vector2D& _v1, const Vector2D& _v2, const Vector2D& _v3 ) :
