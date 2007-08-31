@@ -2,20 +2,18 @@
 -include config.mak
 -include Code/Game/$(GAME_TARGET)/Makefiles/game.mak
 # - -------------------------------------------------------------------------------------------- - #
-ARGS		:=	-j$(THREADS) -f Code/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
+ARGS		:=	-f Code/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
+ARG_THREADS	:=	-j$(THREADS) 
 # - -------------------------------------------------------------------------------------------- - #
 
 # - -------------------------------------------------------------------------------------------- - #
 normal: config.mak
 	@make update $(ARGS)
-	@make $(ARGS)
-# - -------------------------------------------------------------------------------------------- - #
-all: config.mak
-	@make all $(ARGS)
+	@make $(ARG_THREADS) $(ARGS)
 # - -------------------------------------------------------------------------------------------- - #
 run: config.mak
 	@make update $(ARGS)
-	@make run $(ARGS)
+	@make run $(ARG_THREADS) $(ARGS)
 # - -------------------------------------------------------------------------------------------- - #
 update: config.mak
 	@make update $(ARGS)
