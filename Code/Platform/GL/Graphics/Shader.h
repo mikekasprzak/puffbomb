@@ -5,6 +5,9 @@
 #define __Util_Shader_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <string>
+
+//#include <GL/gl.h>
+//#include <GL/glext.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cShader
 {
@@ -17,6 +20,8 @@ public:
 	// TODO: Or, make the shader class a complete effect.  Vertex and pixel shader.
 	// TODO: Or, make another type, render effect, that identifies what pixel and vertex shaders to
 	//       use //
+	//GLhandleARB Shader;
+	//GLhandleARB Program;
 
 
 #ifdef EDITOR
