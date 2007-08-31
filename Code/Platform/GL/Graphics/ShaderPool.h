@@ -20,8 +20,8 @@ public:
 	void AddSearchPaths()
 	{
 		SearchPath.Add( "Shaders" );
-		SearchPath.Add( "2D" );
-		SearchPath.Add( "Maps" );
+		//SearchPath.Add( "2D" );
+		//SearchPath.Add( "Maps" );
 	}
 	
 public:
@@ -40,7 +40,7 @@ public:
 
 };
 // - ------------------------------------------------------------------------------------------ - //
-extern cShaderPool ShaderPool;
+//extern cShaderPool ShaderPool;
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Graphics_ShaderPool_H__ //
 // - ------------------------------------------------------------------------------------------ - //
