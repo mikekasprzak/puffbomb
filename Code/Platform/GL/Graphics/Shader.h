@@ -20,7 +20,8 @@ public:
 	// TODO: Or, make the shader class a complete effect.  Vertex and pixel shader.
 	// TODO: Or, make another type, render effect, that identifies what pixel and vertex shaders to
 	//       use //
-	//GLhandleARB Shader;
+	
+	//GLhandleARB Shader;  // Don't need to save this?  Attach to Program, and throw away?
 	//GLhandleARB Program;
 
 
