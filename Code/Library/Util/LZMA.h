@@ -10,6 +10,7 @@ namespace LZMA {
 // - ------------------------------------------------------------------------------------------ - //
 	// Will unpack and return lzma file to bin //
 	// If no .pack extension was found it will return the bin data with no extraction //
+	// ** Uses "new", and should be deleted when done ** //
 	char* UnPack( const std::string& FileName );
 	// - -------------------------------------------------------------------------------------- - //
 

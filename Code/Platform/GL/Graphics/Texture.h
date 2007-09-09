@@ -8,25 +8,29 @@
 // - ------------------------------------------------------------------------------------------ - //
 class cTexture
 {
-public:
+public: // Standard information //
 	// Dimensions of the Texture //
 	unsigned int Width;
 	unsigned int Height;
 	
-	// Timestamp for the last time this texture was requested //
+	// The name of the file, so we can check it or reload it as needed once removed //
+	std::string FileName;
+
+public: // Information needed by Allocator //
+	// How much space we take up in VRAM (so allocator knows how much is used/needed) //
+	unsigned int DataSize;
+	
+	// Time stamp for the last time this texture was requested, in frames //
 	unsigned int FrameStamp;
 	
-	void* Pixels;
+	// Number of times this texture is used, before deleted //
+	unsigned int UseCount;
 
-public:
-	unsigned int PixelSize;
-	
+public:	// Platform specific information //
 	typedef unsigned int IdType;
 	IdType Id;  // GL specific //
 
-#ifdef EDITOR
-	std::string FileName;
-#endif // EDITOR //
+
 public:
 	void Load( const std::string& _FileName );
 	
@@ -36,8 +40,6 @@ public:
 		Width( 0 ),
 		Height( 0 ),
 		FrameStamp( 0 ),
-		Pixels( 0 ),
-		PixelSize( 0 ),
 		Id( 0 )
 	{
 	}
@@ -46,8 +48,6 @@ public:
 		Width( 0 ),
 		Height( 0 ),
 		FrameStamp( 0 ),
-		Pixels( 0 ),
-		PixelSize( 0 ),
 		Id( 0 )
 	{
 		Load( _FileName );

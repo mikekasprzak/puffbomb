@@ -26,12 +26,10 @@ struct DDS_IMAGE_DATA
 // - ------------------------------------------------------------------------------------------ - //
 void cTexture::Load( const std::string& _FileName )
 {
-#ifdef EDITOR
+	Log( 10, "Loading Texture... (" << _FileName << ")" );
+
 	FileName = _FileName;
-#endif // EDITOR //
-
-	Log( 10, "Attempting to load Texture" );
-
+	
 	// Validate it's a texture by checking end extension //
 	if( String::LastExtension( _FileName ) == ".tx" )
 	{
@@ -44,7 +42,7 @@ void cTexture::Load( const std::string& _FileName )
 		}
 		else {
 			unsigned int* tempPixelSize	= (unsigned int*)&Buffer[0];
-			PixelSize = *tempPixelSize;
+			unsigned int PixelSize = *tempPixelSize;
 		
 			unsigned int* tempWidth	= (unsigned int*)&Buffer[4];
 			Width = *tempWidth;
@@ -52,7 +50,7 @@ void cTexture::Load( const std::string& _FileName )
 			unsigned int* tempHeight	= (unsigned int*)&Buffer[8];
 			Height = *tempHeight;
 	
-			Pixels = (unsigned char*)&Buffer[12];
+			void* Data = (unsigned char*)&Buffer[12];
 			
 			glGenTextures( 1, &Id );
 			glBindTexture( GL_TEXTURE_2D, Id );
@@ -64,6 +62,8 @@ void cTexture::Load( const std::string& _FileName )
 	//		Log( LOG_HIGHEST_LEVEL, "Height = " << Height );
 			
 			if( PixelSize == 4 ) {
+				Log( 10, "Raw uncompressed 32bit Texture" );
+				
 				// Make it an Alpha Texture //
 			    glTexImage2D(
 			    	GL_TEXTURE_2D,
@@ -74,7 +74,7 @@ void cTexture::Load( const std::string& _FileName )
 					0,
 					GL_RGBA,
 					GL_UNSIGNED_BYTE,
-					Pixels
+					Data
 					);
 		
 				gluBuild2DMipmaps(
@@ -84,10 +84,12 @@ void cTexture::Load( const std::string& _FileName )
 					Height,
 					GL_RGBA,
 					GL_UNSIGNED_BYTE,
-					Pixels
+					Data
 					);
 			}
 			else {
+				Log( 10, "Raw uncompressed 24bit Texture" );
+				
 				// No Alpha in this Texture //
 			    glTexImage2D(
 			    	GL_TEXTURE_2D,
@@ -98,7 +100,7 @@ void cTexture::Load( const std::string& _FileName )
 					0,
 					GL_RGB,
 					GL_UNSIGNED_BYTE,
-					Pixels
+					Data
 					);
 		
 				gluBuild2DMipmaps(
@@ -108,16 +110,19 @@ void cTexture::Load( const std::string& _FileName )
 					Height,
 					GL_RGB,
 				    GL_UNSIGNED_BYTE,
-				    Pixels
+				    Data
 				    );
 			}
 		}
 		
 		delete[] Buffer;
+		
+		Log( 10, "Texture Loaded." );
 	}
-	
-	Log( 10, "Texture Loaded" );
-
+	else {
+		// TODO: Add .PNG file testing, as an alternative to .TX files, for development advantage //
+		Log( 10, "Error: Texture not loaded.  Not a .TX file (" << FileName << ")" );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
@@ -153,26 +158,35 @@ DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
 
     switch( ddsd->ddpfPixelFormat.dwFourCC )
     {
-        case FOURCC_DXT1:
+        case FOURCC_DXT1: {
+        	Log( 10, "Compressed DXT1 Texture (8:1)" );
+        	
             // DXT1's compression ratio is 8:1
             pDDSImageData->format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
             factor = 2;
             break;
+        }
 
-        case FOURCC_DXT3:
+        case FOURCC_DXT3: {
+        	Log( 10, "Compressed DXT3 Texture" );
+        	
             // DXT3's compression ratio is 4:1
             pDDSImageData->format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
             factor = 4;
             break;
+        }
 
-        case FOURCC_DXT5:
+        case FOURCC_DXT5: {
+        	Log( 10, "Compressed DXT5 Texture" );
+        	
             // DXT5's compression ratio is 4:1
             pDDSImageData->format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
             factor = 4;
             break;
+        }
 
         default:
-			Log( 10, "The DDS file doesn't appear to be compressed using DXT1, DXT3, or DXT5!" );
+			Log( 10, "Error: The DDS file doesn't appear to be DXT1, DXT3, or DXT5!" );
 			return NULL;
 	}
     // How big will the buffer need to be to load all of the pixel data 
@@ -225,7 +239,7 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	        nBlockSize = 8;
 	    else
 	        nBlockSize = 16;
-	
+	    
 	    glGenTextures( 1, &Id );
 	    glBindTexture( GL_TEXTURE_2D, Id );
 		
