@@ -74,10 +74,10 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 					BodyPose.back().Node.push_back(
 						cBodyPoseNode(
 							Vector2D(
-								atof( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
-								atof( Obj.Instruction[ idx ].Arg[ 1 ].c_str() )
+								(float)atof( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
+								(float)atof( Obj.Instruction[ idx ].Arg[ 1 ].c_str() )
 								),
-							atof( Obj.Instruction[ idx ].Arg[ 2 ].c_str() )
+							(float)atof( Obj.Instruction[ idx ].Arg[ 2 ].c_str() )
 							)
 						);
 				}
@@ -89,8 +89,8 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 						cSpring(
 							atoi( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
 							atoi( Obj.Instruction[ idx ].Arg[ 1 ].c_str() ),
-							atof( Obj.Instruction[ idx ].Arg[ 2 ].c_str() ),
-							atof( Obj.Instruction[ idx ].Arg[ 3 ].c_str() )
+							(float)atof( Obj.Instruction[ idx ].Arg[ 2 ].c_str() ),
+							(float)atof( Obj.Instruction[ idx ].Arg[ 3 ].c_str() )
 							)
 						);
 				}
@@ -117,7 +117,7 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 						cAngleCross(
 							atoi( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
 							atoi( Obj.Instruction[ idx ].Arg[ 1 ].c_str() ),
-							atof( Obj.Instruction[ idx ].Arg[ 2 ].c_str() )
+							(float)atof( Obj.Instruction[ idx ].Arg[ 2 ].c_str() )
 							)
 						);
 				}
@@ -129,7 +129,7 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 					BodyPose.back().Sphere.push_back(
 						cSphere(
 							atoi( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
-							atof( Obj.Instruction[ idx ].Arg[ 1 ].c_str() )
+							(float)atof( Obj.Instruction[ idx ].Arg[ 1 ].c_str() )
 							)
 						);
 				}
@@ -166,7 +166,7 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 				// ------ Scale ------------------------ //
 				// If a Node, add a node //
 				if ( Obj.Instruction[ idx ].Command == "MeshPose_Scale" ) {
-					MeshPose.back().TextureScale = atof( Obj.Instruction[ idx ].Arg[ 0 ].c_str() );
+					MeshPose.back().TextureScale = (float)atof( Obj.Instruction[ idx ].Arg[ 0 ].c_str() );
 				}
 
 				// ------ Node ------------------------- //
@@ -175,8 +175,8 @@ void cComponentAnimationSet::LoadText( const std::string& FileName ) {
 					MeshPose.back().Node.push_back(
 						cMeshPoseNode(
 							Vector2D(
-								atof( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
-								atof( Obj.Instruction[ idx ].Arg[ 1 ].c_str() )
+								(float)atof( Obj.Instruction[ idx ].Arg[ 0 ].c_str() ),
+								(float)atof( Obj.Instruction[ idx ].Arg[ 1 ].c_str() )
 								),
 							atoi( Obj.Instruction[ idx ].Arg[ 2 ].c_str() ),
 							atoi( Obj.Instruction[ idx ].Arg[ 3 ].c_str() )

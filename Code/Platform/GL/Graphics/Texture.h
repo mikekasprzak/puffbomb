@@ -9,17 +9,20 @@
 class cTexture
 {
 public:
-	typedef unsigned int IdType;
-	
-	unsigned int PixelSize;
+	// Dimensions of the Texture //
 	unsigned int Width;
 	unsigned int Height;
 	
-	IdType Id;  // Prob GL specific //
+	// Timestamp for the last time this texture was requested //
+	unsigned int FrameStamp;
+	
 	void* Pixels;
 
-	IdType WhiteId;
-	void* WhitePixels;
+public:
+	unsigned int PixelSize;
+	
+	typedef unsigned int IdType;
+	IdType Id;  // GL specific //
 
 #ifdef EDITOR
 	std::string FileName;
@@ -30,18 +33,22 @@ public:
 	void LoadCompressedTexture( const char* Buffer );
 public:
 	cTexture() :
-		Id( 0 ),
-		WhiteId( 0 )
+		Width( 0 ),
+		Height( 0 ),
+		FrameStamp( 0 ),
+		Pixels( 0 ),
+		PixelSize( 0 ),
+		Id( 0 )
 	{
-
 	}
 	
 	cTexture( const std::string& _FileName ) :
-		PixelSize( 0 ),
 		Width( 0 ),
 		Height( 0 ),
-		Id( 0 ),
-		WhiteId( 0 )
+		FrameStamp( 0 ),
+		Pixels( 0 ),
+		PixelSize( 0 ),
+		Id( 0 )
 	{
 		Load( _FileName );
 	}

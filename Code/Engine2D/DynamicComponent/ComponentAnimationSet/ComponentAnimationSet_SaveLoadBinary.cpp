@@ -152,7 +152,7 @@ void cComponentAnimationSet::LoadBinary( const std::string& FileName ) {
 				
 				// Load the texture //
 				cTexture& MyTexture = TexturePool.Load( string( MyString ) ); 
-				Texture[ idx ].Id[0] = MyTexture.WhiteId;
+				Texture[ idx ].Id[0] = 0;//MyTexture.WhiteId;
 				Texture[ idx ].Id[1] = MyTexture.Id;
 				Texture[ idx ].Id[2] = 0;
 			}

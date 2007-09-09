@@ -44,7 +44,7 @@ public:
 				return Dummy;
 			}
 			else {
-				Log( LOG_HIGHEST_LEVEL, "Not found in Pool.  Loading " << FileName );				
+				Log( LOG_HIGHEST_LEVEL, "Not found in Pool Cache.  Loading " << FileName );				
 			}
 
 			// If we're here, then an entry was found.  Load it, and add it to the map //

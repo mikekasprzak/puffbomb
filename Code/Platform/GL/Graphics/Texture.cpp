@@ -111,29 +111,6 @@ void cTexture::Load( const std::string& _FileName )
 				    Pixels
 				    );
 			}
-			
-			
-//			// Loads White border //
-//			unsigned int* HasWhite = (unsigned int*)&Buffer[ ( PixelSize * Width * Height ) + 12 ];
-//	
-//			if( *HasWhite == 4 )
-//			{
-//				glGenTextures( 1, &WhiteId );
-//				glBindTexture( GL_TEXTURE_2D, WhiteId );
-//				
-//				//Log( LOG_HIGHEST_LEVEL, "Loaded White Texture Id ( Texture Pool ( .tx ) ) " );
-//				
-//				WhitePixels = (unsigned char*)&Buffer[ ( PixelSize * Width * Height ) + 16 ];
-//				
-//				// Make it an Alpha Texture //
-//			    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, Width,
-//				  Height, 0, GL_RGBA,
-//				  GL_UNSIGNED_BYTE, WhitePixels );
-//		
-//				gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA8, Width,
-//			      Height, GL_RGBA,
-//			       GL_UNSIGNED_BYTE, WhitePixels );
-//			}
 		}
 		
 		delete[] Buffer;
