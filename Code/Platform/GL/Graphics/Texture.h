@@ -42,7 +42,9 @@ public:
 	cTexture() :
 		Width( 0 ),
 		Height( 0 ),
+		DataSize( 0 ),
 		FrameStamp( 0 ),
+		UseCount( 0 ),
 		Active( false ),
 		Id( 0 )
 	{
@@ -51,7 +53,9 @@ public:
 	cTexture( const std::string& _FileName ) :
 		Width( 0 ),
 		Height( 0 ),
+		DataSize( 0 ),
 		FrameStamp( 0 ),
+		UseCount( 0 ),
 		Active( false ),
 		Id( 0 )
 	{
