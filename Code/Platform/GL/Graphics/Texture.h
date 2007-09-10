@@ -25,6 +25,9 @@ public: // Information needed by Allocator //
 	
 	// Number of times this texture is used, before deleted //
 	unsigned int UseCount;
+	
+	// If a texture is active and loaded in VRAM //
+	bool Active; 
 
 public:	// Platform specific information //
 	typedef unsigned int IdType;
@@ -40,6 +43,7 @@ public:
 		Width( 0 ),
 		Height( 0 ),
 		FrameStamp( 0 ),
+		Active( false ),
 		Id( 0 )
 	{
 	}
@@ -48,6 +52,7 @@ public:
 		Width( 0 ),
 		Height( 0 ),
 		FrameStamp( 0 ),
+		Active( false ),
 		Id( 0 )
 	{
 		Load( _FileName );

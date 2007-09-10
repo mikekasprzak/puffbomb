@@ -60,6 +60,9 @@ void cTexture::Load( const std::string& _FileName )
 	//		Log( LOG_HIGHEST_LEVEL, "PixelSize = " << PixelSize );
 	//		Log( LOG_HIGHEST_LEVEL, "Width = " << Width );
 	//		Log( LOG_HIGHEST_LEVEL, "Height = " << Height );
+	
+			// Size hack, until I care to figure out how many mipmaps were generated //
+			DataSize = (int)((double)(PixelSize * Width * Height) * 1.277777777) + 1;
 			
 			if( PixelSize == 4 ) {
 				Log( 10, "Raw uncompressed 32bit Texture" );
@@ -117,11 +120,13 @@ void cTexture::Load( const std::string& _FileName )
 		
 		delete[] Buffer;
 		
-		Log( 10, "Texture Loaded." );
+		Active = true;
+		
+		Log( 10, "Texture Loaded.  " << DataSize << " bytes." );
 	}
 	else {
 		// TODO: Add .PNG file testing, as an alternative to .TX files, for development advantage //
-		Log( 10, "Error: Texture not loaded.  Not a .TX file (" << FileName << ")" );
+		Log( 10, "Error: Texture not loaded.  Not a .TX file (" << FileName << ") " );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -277,6 +282,8 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 	        nWidth  = (nWidth  / 2);
 	        nHeight = (nHeight / 2);
 	    }
+	    
+	    DataSize = nOffset;
 	}
 
 	if( pDDSImageData != NULL )
