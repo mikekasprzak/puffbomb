@@ -33,7 +33,6 @@ public:	// Platform specific information //
 	typedef unsigned int IdType;
 	IdType Id;  // GL specific //
 
-
 public:
 	void Load( const std::string& _FileName );
 	

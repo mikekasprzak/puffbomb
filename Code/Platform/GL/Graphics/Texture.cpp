@@ -267,14 +267,16 @@ void cTexture::LoadCompressedTexture( const char* Buffer )
 			
 			extern PFNGLCOMPRESSEDTEXIMAGE2DARBPROC glCompressedTexImage2DARB;
 			
-	        glCompressedTexImage2DARB( GL_TEXTURE_2D,
-	                                   i,
-	                                   pDDSImageData->format,
-	                                   nWidth,
-	                                   nHeight,
-	                                   0,
-	                                   nSize,
-	                                   pDDSImageData->pixels + nOffset );
+	        glCompressedTexImage2DARB( 
+	        	GL_TEXTURE_2D,
+	            i,
+	            pDDSImageData->format,
+				nWidth,
+				nHeight,
+				0,
+				nSize,
+				pDDSImageData->pixels + nOffset
+				);
 
 	        nOffset += nSize;
 	
