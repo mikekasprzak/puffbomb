@@ -49,6 +49,8 @@ void cTextureInfo::CacheToVRAM() {
 		//   maxiumum texture size.  If load code is threaded, each thread will need a buffer. //
 		
 		// Decompression code should know what type of file it is, PNG, TX, and their variants. //
+		
+		// Set Width, Height, and (uncompressed) DataSize variables //
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -59,6 +61,9 @@ void cTextureInfo::FreeVRAM() {
 		
 		// Note our texture is no longer cached //
 		VRAMCache = 0;
+		
+		// Reset the UseCount, since we were demoted from VRAM //
+		UseCount = 0;
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

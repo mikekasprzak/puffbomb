@@ -14,7 +14,6 @@ public:
 	
 	// Pointer to compressed data //
 	unsigned char* RAMCache;
-	
 
 	// A handle from GL that identifies the texture //
 	unsigned int VRAMCache;
@@ -31,8 +30,17 @@ public: // Information needed by Allocator //
 	// Time stamp for the last time this texture was requested, in frames //
 	unsigned int FrameStamp;
 	
-	// Number of times this texture is used, before deleted //
+	// For a possible smarter stamping technique, to check the actual age of the last use. //
+	// Set only after a gap beteen uses?  Not sure... might not be useful data. //
+	//unsigned int LastFrameStamp;
+	
+	// Number of times this texture is used, before deleted.  A statistic for prioritizing a //
+	//   heavily used texture ahead of a rarely used one, when VRAM space is requested. //
 	unsigned int UseCount;
+	
+	// A running total of currently active references to a texture.  Textures with a reference //
+	//   count of zero should be the first to be removed, as far as prioritization is concerned. //
+	unsigned int ReferenceCount;
 
 public:
 	cTextureInfo() :
@@ -44,7 +52,8 @@ public:
 		
 		DataSize( 0 ),
 		FrameStamp( 0 ),
-		UseCount( 0 )
+		UseCount( 0 ),
+		ReferenceCount( 0 )
 	{
 	}
 	
@@ -58,7 +67,8 @@ public:
 		
 		DataSize( 0 ),
 		FrameStamp( 0 ),
-		UseCount( 0 )
+		UseCount( 0 ),
+		ReferenceCount( 0 )
 	{
 		Load( _FileName, _CacheToVRAM, _CacheToRAM );
 	}
