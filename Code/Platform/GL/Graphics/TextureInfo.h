@@ -25,16 +25,9 @@ public:
 	unsigned int Width;
 	unsigned int Height;
 
-public: // Information needed by Allocator //
-	// How much space we take up in VRAM (so allocator knows how much is used/needed) //
-	//unsigned int DataSize;
-	
+public:
 	// Time stamp for the last time this texture was requested, in frames //
 	unsigned int FrameStamp;
-	
-	// For a possible smarter stamping technique, to check the actual age of the last use. //
-	// Set only after a gap beteen uses?  Not sure... might not be useful data. //
-	//unsigned int LastFrameStamp;
 	
 	// Number of times this texture is used, before deleted.  A statistic for prioritizing a //
 	//   heavily used texture ahead of a rarely used one, when VRAM space is requested. //
@@ -45,6 +38,7 @@ public: // Information needed by Allocator //
 	unsigned int ReferenceCount;
 
 public:
+	// Null Constructor //
 	cTextureInfo() :
 		RAMCache( 0 ),
 		RAMDataSize( 0 ),
@@ -60,6 +54,7 @@ public:
 	{
 	}
 	
+	// Normal use Constructor (or call Load yourself) //
 	cTextureInfo( const std::string& _FileName, const bool _CacheToVRAM = true, const bool _CacheToRAM = false ) :
 		RAMCache( 0 ),
 		RAMDataSize( 0 ),
@@ -76,25 +71,36 @@ public:
 		Load( _FileName, _CacheToVRAM, _CacheToRAM );
 	}
 	
+	// Destructor //
 	~cTextureInfo() {
 		FreeVRAM();
 		FreeRAM();
 	}
 
 public:
+	// Store a filename, clean up, and cache data as requested //
 	void Load( const std::string& _FileName, const bool _CacheToVRAM = true, const bool _CacheToRAM = false );
+		
+	// Load variant that takes only the caching parameters as arguments, using the already set //
+	//   filename as our
 	inline void Load( const bool _CacheToVRAM = true, const bool _CacheToRAM = false ) {
 		Load( FileName, _CacheToVRAM, _CacheToRAM );
 	}
 
+	// Load the respected data in to memory //
 	void CacheToVRAM();
 	void CacheToRAM();
 	
+	// Remove the respected data from memory //
 	void FreeVRAM();
 	void FreeRAM();
 
-	void Use( int MultiTexture = 0 );
-	
+	// Mark the texture as used this frame, caching it if it's not already available, and //
+	void Use( /*int MultiTexture = 0*/ );
+
+public:	
+	// Our reference counting system, handled by functions, so we can cleanly expand the //
+	//   functionality, as needed. //
 	inline void AddReference() {
 		ReferenceCount++;
 	}

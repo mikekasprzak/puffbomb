@@ -131,7 +131,7 @@ void cTextureInfo::FreeRAM() {
 //  use to remove textures that haven't been requested in a while, freeing up room for new //
 //  textures that need the room to fit. //
 // - ------------------------------------------------------------------------------------------ - //
-void cTextureInfo::Use( int /*MultiTexture*/ ) {
+void cTextureInfo::Use( /*int MultiTexture*/ ) {
 	// If the texture is NOT cached in VRAM, we need to cache it. //
 	if ( !VRAMCache ) {
 		CacheToVRAM();

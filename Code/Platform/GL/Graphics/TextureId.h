@@ -73,8 +73,8 @@ public:
 	}
 
 	// Use/Bind this texture to the geometry I'm about to render //
-	inline void Use( int MultiTexture = 0 ) const {
-		NewTexturePool[ Id ].Use( MultiTexture );
+	inline void Use( /*int MultiTexture = 0*/ ) const {
+		NewTexturePool[ Id ].Use( /*MultiTexture*/ );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
