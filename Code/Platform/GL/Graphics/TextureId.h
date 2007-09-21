@@ -54,22 +54,6 @@ public:
 		NewTexturePool[ Id ].AddReference();
 	}
 
-	// TODO: Determine if these functions are even needed at this level anymore. //
-	//   I think the allocation should now be done automatically, so there are no accidents //
-	inline void CacheToVRAM() {
-		NewTexturePool[ Id ].CacheToVRAM();
-	}
-	inline void FreeVRAM() {
-		NewTexturePool[ Id ].FreeVRAM();
-	}
-	
-	inline void CacheToRAM() {
-		NewTexturePool[ Id ].CacheToRAM();
-	}
-	inline void FreeRAM() {
-		NewTexturePool[ Id ].FreeRAM();
-	}
-
 	// Use/Bind this texture to the geometry I'm about to render //
 	inline void Use( int MultiTexture = 0 ) const {
 		NewTexturePool[ Id ].Use( MultiTexture );
