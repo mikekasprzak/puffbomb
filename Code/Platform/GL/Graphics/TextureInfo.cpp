@@ -40,12 +40,20 @@ void cTextureInfo::Load( const std::string& _FileName, const bool _CacheToVRAM, 
 void cTextureInfo::CacheToVRAM() {
 	// First, make sure we're not already in VRAM //
 	if ( !VRAMCache ) {
+		// Make sure there's room //
+		{
+			// If not, make room // 
+		}
+		
 		char* CompressedData = 0;
 		
 		// If not RAM cached, load the data manually //
 		if ( !RAMCache ) {
 			// FileIO magic goes here //
 			// Read in to a constant "load" buffer, to avoid fragmentation //
+			
+			// Note: LZMA Uncompress will need to be modified, or rather, a new one should be //
+			//   added, so the file can be loaded separately, and the data can thusly be read. //
 		}
 		else {
 			CompressedData = RAMCache;
@@ -123,7 +131,7 @@ void cTextureInfo::FreeRAM() {
 //  use to remove textures that haven't been requested in a while, freeing up room for new //
 //  textures that need the room to fit. //
 // - ------------------------------------------------------------------------------------------ - //
-void cTextureInfo::Use( int MultiTexture ) {
+void cTextureInfo::Use( int /*MultiTexture*/ ) {
 	// If the texture is NOT cached in VRAM, we need to cache it. //
 	if ( !VRAMCache ) {
 		CacheToVRAM();
@@ -132,11 +140,18 @@ void cTextureInfo::Use( int MultiTexture ) {
 	// If a multitexturing layer is requested, specify it //
 	// NOTE: This should always be done, so that the multitexture layer is always initally set. //
 	//   Otherwise, remove it entirely if no multitexturing support is needed. //
-	if ( MultiTexture ) {
+	//if ( MultiTexture )
+	{
 		// Set Multitexture layer //
+		//glClientActiveTexture( GL_TEXTURE0 + MultiTexture );
+		
+		// glMultiTexCoord not required with vertex arrays //
+		// glClientActiveTexture is the one you want for "glEnableClientState" array setup //
+		//   However, this should likely be implemented in the draw code //
+		// glActiveTexture sets the active unit.  Use with Bind? //
 	}
 	
 	// Bind Texture for use //
-	//glBind( ... );
+	glBindTexture( GL_TEXTURE_2D, VRAMCache );
 }
 // - ------------------------------------------------------------------------------------------ - //
