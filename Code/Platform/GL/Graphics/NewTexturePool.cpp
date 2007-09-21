@@ -36,6 +36,7 @@ cNewTexturePool::cNewTexturePool()
 	}
 	
 	// Build map for optimized searching //
+	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cNewTexturePool::~cNewTexturePool()
