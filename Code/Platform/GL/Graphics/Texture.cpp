@@ -5,7 +5,7 @@
 
 #include <Util/Debug.h>
 #include <Util/String.h>
-#include <Util/LZMA.h>
+#include <FileIO/LZMA.h>
 // - ------------------------------------------------------------------------------------------ - //
 //#define GL_GLEXT_PROTOTYPES 1
 #include <GL/gl.h>

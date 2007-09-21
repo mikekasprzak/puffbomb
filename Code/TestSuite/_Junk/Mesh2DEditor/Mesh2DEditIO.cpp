@@ -7,7 +7,7 @@
 #include "Input/Input.h"
 #include "Phiz/SphereObject.h"
 #include <Util/String.h>
-#include <Util/DirectoryCache.h>
+#include <FileIO/DirectoryCache.h>
 #include <Graphics/TexturePool.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <sys/types.h>

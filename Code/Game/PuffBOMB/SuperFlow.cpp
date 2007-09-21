@@ -26,7 +26,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Particle2D/FXLibrary.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Util/DirectoryCache.h>
+#include <FileIO/DirectoryCache.h>
 #include <Util/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 // Use an ENUM to generate unique numbers for each SuperFlow State //

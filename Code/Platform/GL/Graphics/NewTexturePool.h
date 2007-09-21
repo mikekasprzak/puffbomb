@@ -9,7 +9,7 @@
 #include <string>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-#include <Util/SearchPath.h>
+#include <FileIO/SearchPath.h>
 #include "TextureInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cNewTexturePool {

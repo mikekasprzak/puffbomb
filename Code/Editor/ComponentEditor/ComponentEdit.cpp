@@ -2,7 +2,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "ComponentEdit.h"
 
-#include <Util/DirectoryCache.h>
+#include <FileIO/DirectoryCache.h>
 
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>

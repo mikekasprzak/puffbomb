@@ -2,7 +2,7 @@
 // DisplayMesh //
 // - ------------------------------------------------------------------------------------------ - //
 #include "DisplayMesh.h"
-#include <Util/ScriptParser.h>
+#include <FileIO/ScriptParser.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <sstream>
 #include <fstream>

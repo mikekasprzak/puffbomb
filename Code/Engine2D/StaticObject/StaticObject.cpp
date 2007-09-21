@@ -7,7 +7,7 @@
 #include <Util/Debug.h>
 
 #include <Util/String.h>
-#include <Util/LZMA.h>
+#include <FileIO/LZMA.h>
 
 #include <Graphics/Gfx.h>
 #include <Graphics/TexturePool.h>

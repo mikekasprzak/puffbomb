@@ -4,7 +4,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 #include <Util/String.h>
-#include <Util/LZMA.h>
+#include <FileIO/LZMA.h>
 
 #include "Mesh3d.h"
 #include <Graphics/Gfx.h>

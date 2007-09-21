@@ -8,7 +8,7 @@
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/String.h>
-#include <Util/DirectoryCache.h>
+#include <FileIO/DirectoryCache.h>
 #include <Graphics/TexturePool.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;

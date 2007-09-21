@@ -8,7 +8,7 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Phiz/SphereObject.h>
-#include <Util/ScriptParser.h>
+#include <FileIO/ScriptParser.h>
 
 #include <vector>
 #include <string>

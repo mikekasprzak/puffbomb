@@ -4,7 +4,7 @@
 #include <algorithm>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-#include <Util/DirectoryCache.h>
+#include <FileIO/DirectoryCache.h>
 
 #include "AnimationGenerator.h"
 // - ------------------------------------------------------------------------------------------ - //
