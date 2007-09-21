@@ -47,6 +47,21 @@ cNewTexturePool::~cNewTexturePool()
 //	Pool.clear();
 }
 // - ------------------------------------------------------------------------------------------ - //
+unsigned int cNewTexturePool::Find( const std::string& _FileName ) const {
+	// Optimized Map Search //
+	
+	// Linear pattern matching search //
+	for ( size_t idx = 0; idx < TextureInfo.size(); idx++ ) {
+		// TODO: Do a better match test //
+		if (TextureInfo[idx].FileName == _FileName) {
+			return idx;
+		}
+	}
+	
+	// File not found... TODO: do something more extravagant. //
+	return 0;
+}
+// - ------------------------------------------------------------------------------------------ - //
 //void cNewTexturePool::Remove( const std::string& _FileName )
 //{
 //	glDeleteTextures( 1, &Pool.find( _FileName )->second.Id );
