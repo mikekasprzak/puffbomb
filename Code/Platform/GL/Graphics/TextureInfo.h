@@ -13,10 +13,12 @@ public:
 	std::string FileName;
 	
 	// Pointer to compressed data //
-	unsigned char* RAMCache;
+	char* RAMCache;
+	unsigned int RAMDataSize;
 
 	// A handle from GL that identifies the texture //
 	unsigned int VRAMCache;
+	unsigned int VRAMDataSize;
 
 public:
 	// Dimensions of the Texture //
@@ -25,7 +27,7 @@ public:
 
 public: // Information needed by Allocator //
 	// How much space we take up in VRAM (so allocator knows how much is used/needed) //
-	unsigned int DataSize;
+	//unsigned int DataSize;
 	
 	// Time stamp for the last time this texture was requested, in frames //
 	unsigned int FrameStamp;
@@ -45,12 +47,13 @@ public: // Information needed by Allocator //
 public:
 	cTextureInfo() :
 		RAMCache( 0 ),
+		RAMDataSize( 0 ),
 		VRAMCache( 0 ),
+		VRAMDataSize( 0 ),
 		
 		Width( 0 ),
 		Height( 0 ),
 		
-		DataSize( 0 ),
 		FrameStamp( 0 ),
 		UseCount( 0 ),
 		ReferenceCount( 0 )
@@ -58,14 +61,14 @@ public:
 	}
 	
 	cTextureInfo( const std::string& _FileName, const bool _CacheToVRAM = true, const bool _CacheToRAM = false ) :
-		FileName( _FileName ),
 		RAMCache( 0 ),
+		RAMDataSize( 0 ),
 		VRAMCache( 0 ),
+		VRAMDataSize( 0 ),
 		
 		Width( 0 ),
 		Height( 0 ),
 		
-		DataSize( 0 ),
 		FrameStamp( 0 ),
 		UseCount( 0 ),
 		ReferenceCount( 0 )

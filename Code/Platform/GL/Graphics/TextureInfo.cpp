@@ -1,6 +1,12 @@
 // - ------------------------------------------------------------------------------------------ - //
 // TextureInfo //
 // - ------------------------------------------------------------------------------------------ - //
+#include <fstream>
+// - ------------------------------------------------------------------------------------------ - //
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glext.h>
+// - ------------------------------------------------------------------------------------------ - //
 #include <Graphics/TextureInfo.h>
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -34,7 +40,7 @@ void cTextureInfo::Load( const std::string& _FileName, const bool _CacheToVRAM, 
 void cTextureInfo::CacheToVRAM() {
 	// First, make sure we're not already in VRAM //
 	if ( !VRAMCache ) {
-		unsigned char* CompressedData = 0;
+		char* CompressedData = 0;
 		
 		// If not RAM cached, load the data manually //
 		if ( !RAMCache ) {
@@ -58,9 +64,12 @@ void cTextureInfo::FreeVRAM() {
 	// First, make sure we are in VRAM //
 	if ( VRAMCache ) {
 		// Remove it from VRAM //
+		glDeleteTextures( 1, &VRAMCache );
 		
 		// Note our texture is no longer cached //
 		VRAMCache = 0;
+		
+		// TODO: Remove ourselves from the active list //
 		
 		// Reset the UseCount, since we were demoted from VRAM //
 		UseCount = 0;
@@ -76,10 +85,22 @@ void cTextureInfo::FreeVRAM() {
 void cTextureInfo::CacheToRAM() {
 	// First, make sure we're not already in RAM //
 	if ( !RAMCache ) {
-		// FileIO magic goes here //
+		// FileIO magic goes here.  TODO: Replace with general purpose library calls //
+		std::ifstream InFile( FileName.c_str(), std::ifstream::binary );
 		
-		// Allocate a block of memory, and read in the data as a whole //
-		//RamCache = new unsigned char[ LOTS!! ];
+		// Get the size of the file //
+		InFile.seekg( 0, std::ifstream::end );
+		RAMDataSize = InFile.tellg();
+		InFile.seekg( 0 );
+	
+		// Allocate a block of memory for the data //
+		RAMCache = new char[ RAMDataSize ];
+	
+		// Read in the data //
+		InFile.read( RAMCache, RAMDataSize );
+
+		// Close the File //
+		InFile.close();
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -87,10 +108,11 @@ void cTextureInfo::FreeRAM() {
 	// First, make sure we are in RAM //
 	if ( RAMCache ) {
 		// Remove it from RAM //
-		//delete [] RAMCache;
+		delete [] RAMCache;
 		
 		// Note our texture is no longer cached //
 		RAMCache = 0;
+		RAMDataSize = 0;
 	}	
 }
 // - ------------------------------------------------------------------------------------------ - //

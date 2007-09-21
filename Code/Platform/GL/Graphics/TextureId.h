@@ -43,6 +43,7 @@ public:
 	}
 
 	inline void CacheToVRAM() {
+		
 	}
 	inline void FreeVRAM() {
 	}
