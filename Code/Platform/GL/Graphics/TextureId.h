@@ -35,12 +35,12 @@ public:
 	}
 	
 	// Standard argument constructor (given a file and some options, flag me and cache me) //
-	inline cTextureId( const std::string& _FileName, const bool _CacheToVRAM = true, const bool _CacheToRAM = false ) :
+	inline cTextureId( const std::string& _FileName, const bool _CacheToVRAM = true ) :
 		Id( 0 )
 	{
 		// Load and cache this file (Tell the TextureInfo to do it at least) //
 		// Note: Reference counting for this one is done in Load	
-		Load( _FileName, _CacheToVRAM, _CacheToRAM );
+		Load( _FileName, _CacheToVRAM );
 	}
 	
 	// Destructor //
@@ -53,7 +53,7 @@ public:
 
 public:
 	// To get access to a texture, we need to "Load" it. Technically, just finding it in the pool //
-	inline void Load( const std::string& _FileName, const bool _CacheToVRAM = true, const bool _CacheToRAM = false ) {
+	inline void Load( const std::string& _FileName, const bool _CacheToVRAM = true ) {
 		// If we had an Id, remove our reference to the Id //
 		if ( Id ) {
 			NewTexturePool[ Id ].RemoveReference();
@@ -65,7 +65,7 @@ public:
 		// So long as we found an Id, Load the data and add a referenc //
 		if ( Id ) {
 			// Call their Load method with our caching arguments //
-			NewTexturePool[ Id ].Load( _CacheToVRAM, _CacheToRAM );
+			NewTexturePool[ Id ].Load( _CacheToVRAM );
 				
 			// Add a reference to that texture, so it knows it's in use //
 			NewTexturePool[ Id ].AddReference();
