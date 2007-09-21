@@ -7,6 +7,8 @@
 #include <GL/gl.h>
 #include <GL/glext.h>
 // - ------------------------------------------------------------------------------------------ - //
+#include <Util/String.h>
+// - ------------------------------------------------------------------------------------------ - //
 // The Global Class Instance (TODO: Singleton instead?) //
 cNewTexturePool NewTexturePool;
 // - ------------------------------------------------------------------------------------------ - //
@@ -16,6 +18,7 @@ cNewTexturePool::cNewTexturePool()
 	AddSearchPaths();
 	
 	// TODO: Fix SearchPath or DirectoryCache to work as I want it, not requiring seen below //
+	//   Or, change the concept of AddSearchPath's, to singe out all images I care about. //
 	
 	// Count the number of possible files //
 	int FileCount = 0;
@@ -36,17 +39,12 @@ cNewTexturePool::cNewTexturePool()
 	}
 	
 	// Build map for optimized searching //
-	
+	//for ( size_t idx = 0; idx < TextureInfo.size(); idx++ ) {
+	//}	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cNewTexturePool::~cNewTexturePool()
 {
-//	for( std::map<std::string,cTexture>::iterator it = Pool.begin(); it != Pool.end(); ++it )
-//	{
-//		glDeleteTextures( 1, &it->second.Id );
-//		Log( LOG_HIGHEST_LEVEL, "Deleted Texture Id ( Texture Pool ) " );
-//	}
-//	Pool.clear();
 }
 // - ------------------------------------------------------------------------------------------ - //
 unsigned int cNewTexturePool::Find( const std::string& _FileName ) const {
@@ -54,13 +52,13 @@ unsigned int cNewTexturePool::Find( const std::string& _FileName ) const {
 	
 	// Linear pattern matching search //
 	for ( size_t idx = 0; idx < TextureInfo.size(); idx++ ) {
-		// TODO: Do a better match test //
+		// TODO: Do a better match test.  String:: functions. //
 		if (TextureInfo[idx].FileName == _FileName) {
 			return idx;
 		}
 	}
 	
-	// File not found... TODO: do something more extravagant. //
+	// File not found... TODO: something more extravagant.  Assert. //
 	return 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
