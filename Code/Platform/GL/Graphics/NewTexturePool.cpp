@@ -24,13 +24,14 @@ cNewTexturePool::cNewTexturePool()
 	}
 	
 	// Create an array large enough to hold instances of every usable texture //
-	TextureInfo.resize( FileCount );
+	// Note: "+1" creates room for the dummy entry (0) //
+	TextureInfo.resize( FileCount + 1 );
 	
 	// Initialize every texture, FileName's names only //
 	for ( size_t idx = 0; idx < SearchPath.DirectoryCache.size(); idx++ ) {
 		// For all files in the search path //
-		for ( size_t idx2 = 0; idx2 < SearchPath.DirectoryCache[ idx ].File.size(); idx2++ ) {
-			TextureInfo[ idx ].Load( SearchPath.DirectoryCache[idx].File[idx2], false, false );
+		for ( size_t idx2 = 0; idx2 < SearchPath.DirectoryCache[idx].File.size(); idx2++ ) {
+			TextureInfo[ idx + 1 ].Load( SearchPath.DirectoryCache[idx].File[idx2], false, false );
 		}
 	}
 	

@@ -28,8 +28,10 @@ public:
 	inline cTextureId( const cTextureId& _Copy ) :
 		Id( _Copy.Id )
 	{
-		// Notify Texture it's now used (reference counting) //
-		NewTexturePool[ Id ].AddReference();
+		if ( Id ) {
+			// Notify Texture it's now used (reference counting) //
+			NewTexturePool[ Id ].AddReference();
+		}
 	}
 	
 	// Standard argument constructor (given a file and some options, flag me and cache me) //
@@ -43,8 +45,10 @@ public:
 	
 	// Destructor //
 	inline ~cTextureId() {
-		// Notify Texture it's been removed (reference counting) //
-		NewTexturePool[ Id ].RemoveReference();
+		if ( Id ) {
+			// Notify Texture it's been removed (reference counting) //
+			NewTexturePool[ Id ].RemoveReference();
+		}
 	}
 
 public:
@@ -56,13 +60,16 @@ public:
 		}
 		
 		// Lookup index of requested FileName //
-		Id = 0;
+		Id = NewTexturePool.Find( _FileName );
 		
-		// Call their Load method with our caching arguments //
-		NewTexturePool[ Id ].Load( _CacheToVRAM, _CacheToRAM );
-		
-		// Add a reference to that texture, so it knows it's in use //
-		NewTexturePool[ Id ].AddReference();
+		// So long as we found an Id, Load the data and add a referenc //
+		if ( Id ) {
+			// Call their Load method with our caching arguments //
+			NewTexturePool[ Id ].Load( _CacheToVRAM, _CacheToRAM );
+				
+			// Add a reference to that texture, so it knows it's in use //
+			NewTexturePool[ Id ].AddReference();
+		}
 	}
 
 	// Use/Bind this texture to the geometry I'm about to render //
