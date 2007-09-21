@@ -7,6 +7,12 @@
 #include "TextureInfo.h"
 #include "NewTexturePool.h"
 // - ------------------------------------------------------------------------------------------ - //
+// TextureId's are containers for texture references.  They're used to make sure data exists in //
+//   VRAM, and to use them in geometry rendering.  This is built on top of a more sophisticated //
+//   system that's designed to automatically handle removal of unused (or low priority) textures //
+//   from VRAM, so to make things just a little more seamless and easier than unloading and //
+//   reloading everything, every time. //
+// - ------------------------------------------------------------------------------------------ - //
 class cTextureId
 {
 	unsigned int Id;
@@ -21,14 +27,6 @@ public:
 	// Copy Constructor //
 	inline cTextureId( const cTextureId& _Copy ) :
 		Id( _Copy.Id )
-	{
-		// Notify Texture it's now used (reference counting) //
-		NewTexturePool[ Id ].AddReference();
-	}
-	
-	// TODO: Might be obsolete, because Id is private, and copy construction would do function //
-	inline cTextureId( const unsigned int _Id ) :
-		Id( _Id )
 	{
 		// Notify Texture it's now used (reference counting) //
 		NewTexturePool[ Id ].AddReference();
@@ -50,10 +48,10 @@ public:
 	}
 
 public:
+	// To get access to a texture, we need to "Load" it. Technically, just finding it in the pool //
 	inline void Load( const std::string& _FileName, const bool _CacheToVRAM = true, const bool _CacheToRAM = false ) {
-		// If we had an Id, we are about to lose it //
+		// If we had an Id, remove our reference to the Id //
 		if ( Id ) {
-			// Remove our reference to the Id //
 			NewTexturePool[ Id ].RemoveReference();
 		}
 		

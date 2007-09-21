@@ -19,18 +19,19 @@ public:
 	std::vector< cTextureInfo > TextureInfo;
 
 public:
-	
 	cNewTexturePool();
 	~cNewTexturePool();
 	
 	void AddSearchPaths()
 	{
+		// TODO: Is this the best way to populate file lists? //
 		SearchPath.Add( "Textures" );
 		SearchPath.Add( "2D" );
 		SearchPath.Add( "Maps" );
 	}
 	
 public:
+	// Array indexing operator for quick access to TextureInfo instances //
 	inline cTextureInfo& operator [] ( size_t _Index ) {
 		return TextureInfo[ _Index ];
 	}
@@ -38,9 +39,7 @@ public:
 		return TextureInfo[ _Index ];
 	}
 	
-//	inline unsigned int Load( const std::string _FileName ) {
-//		return (cPool< cTexture >::Load( _FileName )).Id;
-//	}
+	// TODO: Smart code that knows how to free up memory goes here... somewhere //
 
 public:	
 	// - -------------------------------------------------------------------------------------- - //
