@@ -5,17 +5,28 @@
 #define __Graphics_TextureId_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "TextureInfo.h"
+#include "NewTexturePool.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cTextureId
 {
 	unsigned int Id;
 
 public:
+	// Null Constructor //
 	inline cTextureId() :
 		Id( 0 )
 	{
 	}
 	
+	// Copy Constructor //
+	inline cTextureId( const cTextureId& _Copy ) :
+		Id( _Copy.Id )
+	{
+		// Notify Texture it's now used (reference counting) //
+		NewTexturePool[ Id ].AddReference();
+	}
+	
+	// TODO: Might be obsolete, because Id is private, and copy construction would do function //
 	inline cTextureId( const unsigned int _Id ) :
 		Id( _Id )
 	{
@@ -23,6 +34,7 @@ public:
 		NewTexturePool[ Id ].AddReference();
 	}
 	
+	// Standard argument constructor (given a file and some options, flag me and cache me) //
 	inline cTextureId( const std::string& _FileName, const bool _CacheToVRAM = true, const bool _CacheToRAM = false ) :
 		Id( 0 )
 	{
@@ -31,6 +43,7 @@ public:
 		Load( _FileName, _CacheToVRAM, _CacheToRAM );
 	}
 	
+	// Destructor //
 	inline ~cTextureId() {
 		// Notify Texture it's been removed (reference counting) //
 		NewTexturePool[ Id ].RemoveReference();
