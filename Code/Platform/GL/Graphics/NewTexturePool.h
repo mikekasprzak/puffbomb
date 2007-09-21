@@ -31,6 +31,13 @@ public:
 	}
 	
 public:
+	inline cTextureInfo& operator [] ( size_t _Index ) {
+		return TextureInfo[ _Index ];
+	}
+	inline const cTextureInfo& operator [] ( size_t _Index ) const {
+		return TextureInfo[ _Index ];
+	}
+	
 //	inline unsigned int Load( const std::string _FileName ) {
 //		return (cPool< cTexture >::Load( _FileName )).Id;
 //	}

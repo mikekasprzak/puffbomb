@@ -83,6 +83,9 @@ public:
 
 public:
 	void Load( const std::string& _FileName, const bool _CacheToVRAM = true, const bool _CacheToRAM = false );
+	inline void Load( const bool _CacheToVRAM = true, const bool _CacheToRAM = false ) {
+		Load( FileName, _CacheToVRAM, _CacheToRAM );
+	}
 
 	void CacheToVRAM();
 	void CacheToRAM();
@@ -91,6 +94,14 @@ public:
 	void FreeRAM();
 
 	void Use( int MultiTexture = 0 );
+	
+	inline void AddReference() {
+		ReferenceCount++;
+	}
+	
+	inline void RemoveReference() {
+		ReferenceCount--;
+	}	
 };
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Graphics_TextureInfo_H__ //
