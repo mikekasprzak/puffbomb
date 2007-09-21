@@ -13,13 +13,12 @@
 #include "TextureInfo.h"
 // - ------------------------------------------------------------------------------------------ - //
 class cNewTexturePool {
-// promote to private? //
-public:
 	cSearchPath SearchPath;
 	
 	std::vector< cTextureInfo > TextureInfo;
 
-	//std::map< 
+public:
+	std::map< std::string, unsigned int > LookUp;
 public:
 	cNewTexturePool();
 	~cNewTexturePool();
@@ -44,7 +43,7 @@ public:
 	}
 	
 	// Search code, given a filename, locate it, and return an Id //
-	unsigned int Find( const std::string& _FileName ) const;
+	unsigned int Find( const std::string& _FileName );
 
 	
 	// TODO: Smart code that knows how to free up memory goes here... somewhere //

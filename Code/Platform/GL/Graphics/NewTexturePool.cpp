@@ -39,18 +39,22 @@ cNewTexturePool::cNewTexturePool()
 	}
 	
 	// Build map for optimized searching //
-	//for ( size_t idx = 0; idx < TextureInfo.size(); idx++ ) {
-	//}	
+	for ( size_t idx = 0; idx < TextureInfo.size(); idx++ ) {
+		LookUp[ String::NoExtensions(TextureInfo[idx].FileName) ] = idx;
+	}	
 }
 // - ------------------------------------------------------------------------------------------ - //
 cNewTexturePool::~cNewTexturePool()
 {
 }
 // - ------------------------------------------------------------------------------------------ - //
-unsigned int cNewTexturePool::Find( const std::string& _FileName ) const {
+unsigned int cNewTexturePool::Find( const std::string& _FileName ) {
 	// Optimized Map Search //
+	if ( LookUp.find( String::NoExtensions(_FileName) ) != LookUp.end() ) {
+		return LookUp[ String::NoExtensions(_FileName) ];
+	}
 	
-	// Linear pattern matching search //
+	// Linear pattern matching search (if it contains the pattern, instead of exact match) //
 	for ( size_t idx = 0; idx < TextureInfo.size(); idx++ ) {
 		// Chop off the file extensions in both strings, and search the first string for the 2nd //
 		//   string.  If it contains it, then we have a match. //
