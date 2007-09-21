@@ -104,7 +104,12 @@ namespace String {
 		// Return the entire string after and including the first period //
 		return WorkString.substr( DotPos );
 	}
-	
+	// - -------------------------------------------------------------------------------------- - //
+	// Return all but the direct Extensions //
+	inline std::string NoExtensions( const std::string& _FileName ) {
+		// Return the entire string after excluding the file extensions //
+		return String::DirectorySlash( _FileName ) + String::BaseName( _FileName );
+	}	
 	// - -------------------------------------------------------------------------------------- - //
 	// Return the last extension in the filename //
 	inline std::string LastExtension( const std::string& _FileName ) {

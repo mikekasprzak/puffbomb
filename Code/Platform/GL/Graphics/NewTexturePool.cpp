@@ -52,8 +52,9 @@ unsigned int cNewTexturePool::Find( const std::string& _FileName ) const {
 	
 	// Linear pattern matching search //
 	for ( size_t idx = 0; idx < TextureInfo.size(); idx++ ) {
-		// TODO: Do a better match test.  String:: functions. //
-		if (TextureInfo[idx].FileName == _FileName) {
+		// Chop off the file extensions in both strings, and search the first string for the 2nd //
+		//   string.  If it contains it, then we have a match. //
+		if ( String::NoExtensions(TextureInfo[idx].FileName).find( String::NoExtensions(_FileName) ) != std::string::npos ) {
 			return idx;
 		}
 	}
