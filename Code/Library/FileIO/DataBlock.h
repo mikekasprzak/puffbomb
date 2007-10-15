@@ -84,18 +84,46 @@ inline DataBlock* new_DataBlock( const char* _FileName ) {
 // TODO: Add file offsetting as optional 3rd argument (defalts to 0) //
 // TODO: Or, add a "file" type that you can construct at the top of a function, and pass to these //
 // - ------------------------------------------------------------------------------------------ - //
-inline void read_DataBlock( DataBlock* p, const char* _FileName ) {
-	// Should I "false" resize it? //
-	// I shouldn't need to, since I'm better off using read allocator. //
+inline const size_t read_DataBlock( DataBlock* p, const char* _FileName ) {
+	// Open File //
+	FILE* fp = fopen( _FileName, "rb" );
+	if ( fp == 0 ) {
+		// TODO: Log file open error //
+		return 0;
+	}
 	
-	// return bytes read? //
+	// Determine how large file is //
+	fseek( fp, 0, SEEK_END );
+	size_t Size = ftell( fp );
+	rewind( fp );
 	
+	// Read data (only as much as the smallest size) //
+	size_t BytesRead = fread( p->Data, 1, Size > p->Size ? p->Size : Size, fp );
+	
+	// Close file //
+	fclose( fp );
+	
+	// Return the number of bytes read //
+	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline void write_DataBlock( DataBlock* p, const char* _FileName ) {
+inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
+	// Open File //
+	FILE* fp = fopen( _FileName, "wb" );
+	if ( fp == 0 ) {
+		// TODO: Log file open error //
+		return 0;
+	}
 	
-	// return bytes written? //
+	// Write the data //
+	size_t BytesWritten = fwrite( p->Data, 1, p->Size, fp );
+	// TODO: Assert on fire write error //
 	
+	// Close file //
+	fclose( fp );
+		
+	// Return the number of bytes read //
+	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -228,11 +256,18 @@ public:
 	{
 	}
 	
-	inline cDataBlock( const size_t _Size, const int _InitValue = 0 ) :
+	// Since this is a "power use" class, I'm making initializing optional //
+	inline cDataBlock( const size_t _Size ) :
+		_Data( new_DataBlock( _Size ) )
+	{
+	}
+	
+	inline cDataBlock( const size_t _Size, const int _InitValue ) :
 		_Data( new_DataBlock( _Size, _InitValue ) )
 	{
 	}
 	
+	// Given a filename as an argument, load it //
 	inline cDataBlock( const char* _FileName ) :
 		_Data( new_DataBlock( _FileName ) )
 	{
@@ -261,6 +296,14 @@ public:
 		return _Data->Data[ Index ];
 	}
 public:
+	inline void Load( const char* _FileName ) {
+		// Delete the file if there is one loaded //
+		if (_Data)
+			delete_DataBlock( _Data );
+		// load the file //
+		_Data = new_DataBlock( _FileName );
+	}
+	
 	inline void Resize( const size_t _Size ) {
 		if (_Data)
 			resize_DataBlock( &_Data, _Size );

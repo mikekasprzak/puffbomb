@@ -45,13 +45,13 @@ inline const size_t size_File( const char* _FileName ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-inline void read_Data( const char* _FileName, void* Data, const size_t _Size ) {
+inline const size_t read_Data( const char* _FileName, void* Data, const size_t _Size ) {
 	// Open File //
 	FILE* fp = fopen( _FileName, "rb" );
-	// TODO: Assert on file open error //
-//	if ( fp == 0 ) {
-//		return;
-//	}
+	if ( fp == 0 ) {
+		// TODO: Log file open error //
+		return 0;
+	}
 	
 	// Determine how large file is //
 	fseek( fp, 0, SEEK_END );
@@ -59,26 +59,32 @@ inline void read_Data( const char* _FileName, void* Data, const size_t _Size ) {
 	rewind( fp );
 	
 	// Read data (only as much as the smallest size) //
-	fread( Data, 1, Size > _Size ? _Size : Size, fp );
+	size_t BytesRead = fread( Data, 1, Size > _Size ? _Size : Size, fp );
 	
 	// Close file //
 	fclose( fp );
+	
+	// Return the number of bytes read //
+	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline void write_Data( const char* _FileName, void* Data, size_t _Size ) {
+inline const size_t write_Data( const char* _FileName, void* Data, size_t _Size ) {
 	// Open File //
 	FILE* fp = fopen( _FileName, "wb" );
-	// TODO: Assert on file open error //
-//	if ( fp == 0 ) {
-//		return;
-//	}
+	if ( fp == 0 ) {
+		// TODO: Log file open error //
+		return 0;
+	}
 	
 	// Write the data //
-	fwrite( Data, 1, _Size, fp );
+	size_t BytesWritten = fwrite( Data, 1, _Size, fp );
 	// TODO: Assert on fire write error //
 	
 	// Close file //
 	fclose( fp );
+	
+	// Return the number of bytes written //
+	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
