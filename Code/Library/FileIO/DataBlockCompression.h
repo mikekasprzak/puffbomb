@@ -12,7 +12,8 @@ namespace IO {
 // Decode packed LZMA data to a new DataBlock //
 inline DataBlock* unpack_LZMA_DataBlock( const DataBlock* _Src ) {
 	unsigned char LZMAProperties[LZMA_PROPERTIES_SIZE];
-	// Copy first byte of LZMA Properties? //
+	
+	// Copy first byte of LZMA Properties.  Somehow, this is vitally important. //
 	*LZMAProperties = _Src->Data[0];
 	
 	// Get the Uncompressed Size from the properties //
