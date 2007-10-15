@@ -57,7 +57,7 @@ inline DataBlock* new_DataBlock( const char* _FileName ) {
 	size_t Size = ftell( fp );
 	rewind( fp );
 	
-	// Allocate space //
+	// Allocate space (Size is automatically set inside new_DataBlock) //
 	DataBlock* p = new_DataBlock( Size );
 	// TODO: Assert failure allocating block //
 	
@@ -126,6 +126,12 @@ inline DataBlock* copy_DataBlock( DataBlock* _Src ) {
 	
 	// Return the block //
 	return NewBlock;
+}
+// - ------------------------------------------------------------------------------------------ - //
+// Set DataBlock //
+// - ------------------------------------------------------------------------------------------ - //
+inline void set_DataBlock( DataBlock* _Data, const int _InitValue ) {
+	memset( _Data->Data, _InitValue, _Data->Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -258,6 +264,15 @@ public:
 	inline void Resize( const size_t _Size ) {
 		if (_Data)
 			resize_DataBlock( &_Data, _Size );
+	}
+	
+	inline void Set( const int _InitValue ) {
+		if (_Data)
+			set_DataBlock( _Data, _InitValue );
+	}
+	
+	inline void Clear( ) {
+		Set( 0 );
 	}
 };
 // - ------------------------------------------------------------------------------------------ - //
