@@ -248,6 +248,7 @@ inline void resize_DataBlock( DataBlock** p, size_t _NewSize, const int _InitVal
 // Class version of DataBlock. Deletes self as it goes out of scope. //
 // - ------------------------------------------------------------------------------------------ - //
 class cDataBlock {
+protected:
 	DataBlock* _Data;
 	
 public:
@@ -274,6 +275,19 @@ public:
 	{
 	}
 	
+	// Given a DataBlock, make our DataBlock directly what we were given //
+	// Note: I'm now in charge of freeing, so don't try sharing data this way //
+	inline cDataBlock( DataBlock* _Src ) :
+		_Data( _Src )
+	{
+	}
+	
+	// Copy Constructor - replicates the contents of a DataBlock//
+	inline cDataBlock( const cDataBlock& _Src ) :
+		_Data( copy_DataBlock( _Src._Data ) )
+	{
+	}
+	
 	// Destructor //
 	inline ~cDataBlock() {
 		if (_Data)
@@ -295,6 +309,10 @@ public:
 	inline char& operator [] ( const size_t Index ) {
 		// TODO: Assert indexing in to valid memory, and within size? //
 		return _Data->Data[ Index ];
+	}
+	
+	inline DataBlock* operator * () {
+		return _Data;	
 	}
 public:
 	inline void Load( const char* _FileName ) {
@@ -318,6 +336,9 @@ public:
 	inline void Clear( ) {
 		Set( 0 );
 	}
+public:
+	// Compression Constructors //
+	inline static const cDataBlock UnpackLZMA( const cDataBlock& _Src );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace IO //
