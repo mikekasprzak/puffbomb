@@ -83,6 +83,7 @@ inline DataBlock* new_DataBlock( const char* _FileName ) {
 // These functions are for when you know how large a file is //
 // TODO: Add file offsetting as optional 3rd argument (defalts to 0) //
 // TODO: Or, add a "file" type that you can construct at the top of a function, and pass to these //
+// NOTE: The above should be part of the streaming library? //
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t read_DataBlock( DataBlock* p, const char* _FileName ) {
 	// Open File //
