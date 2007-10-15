@@ -7,6 +7,18 @@
 #include <cstring>
 #include <cstdio>
 // - ------------------------------------------------------------------------------------------ - //
+// NOTE: This code could "technically" be made in to a general purpose reader/writer for all //
+//   IO Operations.  F:/Art/DataFile.img for files, M1:/MyData.img for a memory card, 
+//   FTP://Urb.com/neffle.dat for a remote file, etc. //
+// This is open for debate though.  Memory Card code is almost worth abstracting to a custom //
+//   interface, because it's a different task than reading game data, saving editor information. //
+// The ability to poll local and remote data is fascinating though, even if it's LAN data. //
+// Thusly, it's probably of interest to be able to either define a source (CD, HD, LAN), and all //
+//   this code pulls from that source.  Do this on a per platform basis though. //
+// DS or PSP could benefit greatly from this. //
+// - ------------------------------------------------------------------------------------------ - //
+// TODO: Come up with a standard interface for streamable data. //
+// - ------------------------------------------------------------------------------------------ - //
 namespace IO {
 // - ------------------------------------------------------------------------------------------ - //
 // MemSET wrapper //
@@ -39,6 +51,23 @@ inline const size_t size_File( const char* _FileName ) {
 	fclose( fp );
 	
 	// Return data //
+	return Size;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+// TODO: File code.  
+//   - A File Type
+//   - a size checking function (that uses ftell( fp ) to find where it was, jump to the end, and
+//   jump back, so it's non destructive).
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t size_File( FILE* fp ) {
+	size_t Position = ftell( fp );
+	
+	fseek( fp, 0, SEEK_END );
+	size_t Size = ftell( fp );
+	fseek( fp, Position, SEEK_CUR );
+	
 	return Size;
 }
 // - ------------------------------------------------------------------------------------------ - //
