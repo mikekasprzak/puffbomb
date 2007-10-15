@@ -127,7 +127,12 @@ inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
 	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
-
+// For syntactical compatability, read_DataBlock which functions the same as new_DataBlock. //
+// - ------------------------------------------------------------------------------------------ - //
+inline DataBlock* read_DataBlock( const char* _FileName ) {
+	return new_DataBlock( _FileName );
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 // Copy one DataBlock to another, no larger than Destination Size Bytes //
@@ -276,7 +281,7 @@ public:
 	}
 	
 	// Given a DataBlock, make our DataBlock directly what we were given //
-	// Note: I'm now in charge of freeing, so don't try sharing data this way //
+	// Note: I'm now in charge of freeing, so don't try sharing this data //
 	inline cDataBlock( DataBlock* _Src ) :
 		_Data( _Src )
 	{
@@ -323,6 +328,12 @@ public:
 		_Data = new_DataBlock( _FileName );
 	}
 	
+	inline void Save( const char* _FileName ) {
+		if (_Data)
+			write_DataBlock( _Data, _FileName );
+	}
+
+public:
 	inline void Resize( const size_t _Size ) {
 		if (_Data)
 			resize_DataBlock( &_Data, _Size );
