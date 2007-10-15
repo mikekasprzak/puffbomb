@@ -28,7 +28,8 @@ inline DataBlock* unpack_LZMA_DataBlock( const DataBlock* _Src ) {
     }
 	
 	// Allocate memory for "Probs" //
-	state.Probs = (CProb *)malloc(LzmaGetNumProbs(&state.Properties) * sizeof(CProb));
+	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
+	//  (CProb *)malloc(LzmaGetNumProbs(&state.Properties) * sizeof(CProb));
 	if (state.Probs == 0) {
 		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
 		return 0;
@@ -52,6 +53,9 @@ inline DataBlock* unpack_LZMA_DataBlock( const DataBlock* _Src ) {
 		&outProcessed
 		);
 	// TODO: React to result of the decode //
+	
+	// Clean up work memory //
+	delete [] state.Probs;
 	
 	// Return our new LZMA decompressed data //
 	return UBuffer;
