@@ -73,7 +73,7 @@ inline const size_t unpack_LZMA_DataBlock( const DataBlock* _Src, DataBlock* _De
 	
 	// If the passed DataBlock is too small for our uncompressed data, fail //
 	if ( UncompressedSize > _Dest->Size ) {
-		// Not enough memory available it passed block! //
+		// Not enough memory available in passed block! //
 		return 0;
 	}
 	
