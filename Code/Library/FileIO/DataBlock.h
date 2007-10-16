@@ -360,6 +360,9 @@ public:
 	
 	inline static const cDataBlock UnpackBZIP( const cDataBlock& _Src );
 	inline static const cDataBlock PackBZIP( const cDataBlock& _Src );
+	
+	inline static const cDataBlock UnpackZLIB( const cDataBlock& _Src );
+	inline static const cDataBlock PackZLIB( const cDataBlock& _Src );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace IO //
