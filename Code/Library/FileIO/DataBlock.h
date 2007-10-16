@@ -355,7 +355,7 @@ public:
 		Set( 0 );
 	}
 public:
-	// Compression Constructors //
+	// Compression //
 	inline static const cDataBlock UnpackLZMA( const cDataBlock& _Src );
 	
 	inline static const cDataBlock UnpackBZIP( const cDataBlock& _Src );
@@ -363,6 +363,9 @@ public:
 	
 	inline static const cDataBlock UnpackZLIB( const cDataBlock& _Src );
 	inline static const cDataBlock PackZLIB( const cDataBlock& _Src );
+	
+	inline static const cDataBlock UnpackLZO( const cDataBlock& _Src );
+	inline static const cDataBlock PackLZO( const cDataBlock& _Src );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace IO //
