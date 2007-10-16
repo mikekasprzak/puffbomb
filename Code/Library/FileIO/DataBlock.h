@@ -201,6 +201,13 @@ inline void resize_DataBlock( DataBlock** p, const size_t _NewSize ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+// Variation of reallocate that looks at the internal size //
+// - ------------------------------------------------------------------------------------------ - //
+inline void reallocate_DataBlock( DataBlock** p ) {
+	reallocate_DataBlock( p, (*p)->Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 // Initializer capable versions of resize, reallocate, and copy //
@@ -350,6 +357,9 @@ public:
 public:
 	// Compression Constructors //
 	inline static const cDataBlock UnpackLZMA( const cDataBlock& _Src );
+	
+	inline static const cDataBlock UnpackBZIP( const cDataBlock& _Src );
+	inline static const cDataBlock PackBZIP( const cDataBlock& _Src );
 };
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace IO //
