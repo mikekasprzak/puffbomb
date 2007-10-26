@@ -18,6 +18,8 @@ const Real Real::SmallestUnit( 0.005 );
 	
 const Real Real::Pi( 3.1415926535897932384626433832795 );
 const Real Real::TwoPi( Pi+Pi );
+	
+const Real Real::Sin45( 0.70710678118654752440084436210485 );
 // - ------------------------------------------------------------------------------------------ - //
 Real Real::Random() {
 	return rand() / (double)RAND_MAX;

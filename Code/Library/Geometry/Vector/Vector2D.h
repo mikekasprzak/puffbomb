@@ -287,13 +287,21 @@ public:
 	// Specific Functions that apply to this type //
 	// - -------------------------------------------------------------------------------------- - //
 	// Normally I have clockwise and counterclockwise variants, but potential changes in the //
-	// Mapping co-ordinates make counterclockwise clockwise, and vice versa.  So instead, use //
-	// Tangent() and -Tangent() for the respected sides. //
+	//   Mapping co-ordinates make counterclockwise clockwise, and vice versa.  So instead, use //
+	//   Tangent() and -Tangent() for the respected sides. //
 	inline const Vector2D Tangent() const {
 		return Vector2D( y, -x );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-
+	// A 45 degree rotation of a vector.  Negating doesn't flip this, you want the -Tangent() of //
+	//   the rotation. i.e. -v.Rotate45().Tangent().  Alternatively, RotateNegative45() does this //
+	inline const Vector2D Rotate45() const {
+		return Vector2D( x + y, y - x ) * Real::Sin45;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline const Vector2D RotateNegative45() const {
+		return Vector2D( x - y, y + x ) * Real::Sin45;
+	}
 	// - -------------------------------------------------------------------------------------- - //
 public:
 	// - -------------------------------------------------------------------------------------- - //
