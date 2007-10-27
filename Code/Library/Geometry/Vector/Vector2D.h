@@ -63,7 +63,7 @@ public:
 		x( _x ),
 		y( _y )
 	{
-	}
+	}	
 	// - -------------------------------------------------------------------------------------- - //
 	inline const Vector2D& Set( const Real& _x, const Real& _y ) {
 		x = _x;
@@ -246,17 +246,17 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// If it's an Acute angle between vectors, the dot will return a positive number //
 	inline const bool IsAcuteAngle( const Vector2D& _Vs ) const {
-		return ((*this) * _Vs) > Real::Zero;
+		return ((*this) * _Vs.Tangent()) > Real::Zero;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// If it's an obtuse angle between vectors, the dot will return a negative number //
 	inline const bool IsObtuseAngle( const Vector2D& _Vs ) const {
-		return ((*this) * _Vs) < Real::Zero;
+		return ((*this) * _Vs.Tangent()) < Real::Zero;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// If it's a 90 degree angle between vectors, the dot will return zero (or near zero) //
 	inline const bool IsRightAngle( const Vector2D& _Vs ) const {
-		return ((*this) * _Vs).IsZero();
+		return ((*this) * _Vs.Tangent()).IsZero();
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	
