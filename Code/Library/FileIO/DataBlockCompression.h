@@ -193,7 +193,6 @@ const cDataBlock cDataBlock::UnpackLZMA( const cDataBlock& _Src ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
-
 // - ------------------------------------------------------------------------------------------ - //
 // Decode packed BZIP data to a new DataBlock //
 inline DataBlock* unpack_BZIP_DataBlock( DataBlock* _Src ) {
