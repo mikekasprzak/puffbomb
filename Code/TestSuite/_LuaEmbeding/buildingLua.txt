@@ -16,3 +16,6 @@ An option as well is to have a local separate Lua repository, and use an externa
 could be the case for all external libraries, have local repositories for them, and update them as
 needed.  In most situations, that'll be when new notable versions come out.  For some, Lua mainly,
 it'll be to make notable changes to suit integration in a codebase.
+
+Lua's load calls do error checking.  Thusly, all you need to do is load to verify if a chunk is
+valid.  Excellent.
