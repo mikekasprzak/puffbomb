@@ -10,7 +10,7 @@
 #include <Util/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 // The Global Class Instance (TODO: Singleton instead?) //
-cNewTexturePool NewTexturePool;
+//cNewTexturePool NewTexturePool;
 // - ------------------------------------------------------------------------------------------ - //
 cNewTexturePool::cNewTexturePool()
 {
