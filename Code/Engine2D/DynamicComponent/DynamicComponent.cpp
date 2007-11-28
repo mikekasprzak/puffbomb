@@ -39,9 +39,18 @@ void cDynamicComponent::StepAnimation() {
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::SetAnimation( const int AnimationNumber, const Real& _PlayBackRate ) {
-	Animator.SetAnimation( AnimationNumber, _PlayBackRate );
-	// Set the Pose //
-	Body.Pose = Animator.GetPose();
+	// Test if the animation exists //
+	if ( Animator.DoesAnimationExist( AnimationNumber ) ) {
+		// Set the requested animation //
+		Animator.SetAnimation( AnimationNumber, _PlayBackRate );
+		// Set the Pose //
+		Body.Pose = Animator.GetPose();
+	}
+	else {
+		// TODO: Log that an animation that doesn't exist was requested.
+		Log( 10, "ERROR: Animation " << AnimationNumber << " of " << Animator.GetLastAnimation() <<
+			" requested, but doesn't exist!" );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cDynamicComponent::SetArcingAnimation( const int AnimationNumber ) {

@@ -49,10 +49,10 @@ public:
 	std::vector< cFrameInfo > Frame;
 
 public:
-	cAnimation() :
-	LoopPoint( 0 ),
-	Interpolate( false ),
-	IsActive( true )
+	inline cAnimation() :
+		LoopPoint( 0 ),
+		Interpolate( false ),
+		IsActive( true )
 	{
 		Frame.push_back( cFrameInfo() );
 	}

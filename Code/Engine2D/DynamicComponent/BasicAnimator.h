@@ -104,7 +104,12 @@ public:
 	// Set the current animation to another one, that doesn't animate //
 	void SetStaticAnimation( const int& AnimationNumber ) {
 		SetAnimation( AnimationNumber, Real::Zero );
-	}	
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Return weather an animation exists or not //	
+	bool DoesAnimationExist( const int& AnimationNumber ) {
+		return Integer(AnimationNumber).InRange( 0, GetLastAnimation() );
+	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Get the current animation //
 	inline const int& GetAnimation() const {

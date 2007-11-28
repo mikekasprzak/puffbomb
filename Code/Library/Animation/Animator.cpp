@@ -67,10 +67,11 @@ void cAnimator::Step()
 			{
 				if( size_t( CurrentFrame ) < Animation->Frame.size() - 1 )
 				{
-					// Vertex Interpolation //
+					// If we have the same number of vertices, we can interpolate //
 					if( Animation->Frame[ CurrentFrame ].MyFrame.Vertex.size() ==
 						Animation->Frame[ CurrentFrame + 1 ].MyFrame.Vertex.size() )
 					{
+						// Vertex Interpolation //
 						for( size_t idx = 0; idx < InterpFrame.Vertex.size(); ++idx )
 						{
 							InterpFrame.Vertex[ idx ].Pos
