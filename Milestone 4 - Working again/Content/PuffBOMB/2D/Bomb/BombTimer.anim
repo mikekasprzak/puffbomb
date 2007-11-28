@@ -1,0 +1,402 @@
+Texture	BombTimer_01.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_02.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_03.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_04.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_05.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_06.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_07.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_08.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_09.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_10.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_11.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_12.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_13.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_14.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_15.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+Texture	BombTimer_16.tx
+
+Vertex	-96.0	96.0
+Vertex	-96.0	-96.0
+Vertex	96.0	-96.0
+Vertex	96.0	96.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	10.0
+
+
+LoopPoint 0

@@ -1,0 +1,21 @@
+
+FileIO
+------
+
+This needs to be standardized soon.  Right now there are multiple systems used for collecting data,
+and multiple methods of handling it.  Yet, many of them are very similar.
+
+At the core, there needs to be a standard FileIO library, a means to read and write text and binary
+data.  It can rely on existing systems, and should, for ease of implementation.
+
+On the PC's, the stream library is adequate, yet we have access to the C style file IO as well.
+It's of interest to perhaps to a C style File IO implementation, to easily port, as you're not 100%
+sure you'll have such an implementation available.  Some fancy subsystems, such as acquiring data
+from over the internet can most certainly benefit from a common interface.
+
+Also, for some reason, C file io has a lower code size bottleneck.  Not a significant issue, but 
+one to take note of none the less, given the ease of implementation (reading, writing, done).
+
+Directories also need to be considered in the heiarchy of things.  There are existing systems
+implemented in the pools, that could probably be standardized and streamlined.
+

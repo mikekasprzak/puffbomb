@@ -1,0 +1,80 @@
+DialogPos	Left	+	200
+DialogPos	Bottom		+	300
+
+DialogPos	Left	+	550
+DialogPos	Bottom		+	100
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		0	-25
+IsPassive		0
+ActionID		1
+Text			Exit
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+TextLabel		0	-65
+IsPassive		0
+ActionID		0
+Text			Go to Town
+Scale			0.5
+Color			155	155	255 255
+EndText
+
+DummyLabel		222	-422
+Group			1
+EndDummy
+
+TextLabel		0	-105
+IsPassive		0
+ActionID		0
+Text			Hammerings
+Scale			0.5
+Group			1
+Color			255	255	255 111
+SelColor		255	155	155 255
+EndText
+
+TextLabel		0	-145
+IsPassive		0
+ActionID		0
+Text			Wall Of Pain
+Scale			0.5
+Group			1
+Color			255	255	255 255
+EndText
+
+AniLabel		50	-185
+IsPassive		0
+ActionID		0
+Animation		Number0.anim
+SelectAni		Number1.anim
+CurrentFrame	0
+Color			155	155	255 255
+SelColor		255	155	155 255
+EndAni
+
+AniLabel		100	-185
+IsPassive		0
+ActionID		0
+Animation		Number2.anim
+SelectAni		Number3.anim
+CurrentFrame	0
+Color			255	255	255 255
+EndAni
+
+AniLabel		150	-185
+IsPassive		0
+ActionID		0
+Animation		Number4.anim
+SelectAni		Number5.anim
+CurrentFrame	0
+Color			255	255	255 255
+SelColor		255	255	255 255
+Group			1
+EndAni
+
+EndDialog

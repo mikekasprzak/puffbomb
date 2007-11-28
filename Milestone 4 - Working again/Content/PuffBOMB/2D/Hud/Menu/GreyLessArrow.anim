@@ -1,0 +1,26 @@
+Texture	TrackingArrow.tx
+
+Vertex	-48.0	48.0
+Vertex	-48.0	-48.0
+Vertex	48.0	-48.0
+Vertex	48.0	48.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	1000.0
+
+LoopPoint 0

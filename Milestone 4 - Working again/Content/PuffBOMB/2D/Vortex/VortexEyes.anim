@@ -1,0 +1,521 @@
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	180
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		0.0
+FUVc	0.0		0.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	0.0 	0.0
+FUVc	0.0		0.0
+
+Time	6
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	320
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		0.0
+FUVc	0.0		0.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	0.0 	0.0
+FUVc	0.0		0.0
+
+Time	6
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	180
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		0.0
+FUVc	0.0		0.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	0.0 	0.0
+FUVc	0.0		0.0
+
+Time	6
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	180
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		0.0
+FUVc	0.0		0.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	0.0 	0.0
+FUVc	0.0		0.0
+
+Time	4
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		0.0
+FUVc	0.0		0.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	0.0 	0.0
+FUVc	0.0		0.0
+
+Time	6
+
+
+Texture	VortexEyes.tx
+
+Vertex	-256.0	128.0
+Vertex	-256.0	-128.0
+Vertex	256.0	-128.0
+Vertex	256.0	128.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Time	2
+
+
+LoopPoint 0

@@ -1,0 +1,21 @@
+Hey Me!
+
+When building Lua via make, there's a setting called "generic".  This builds the library without
+the crazy ass MinGW DLL stupidity.  The file "INSTALL" then tells you what files you actually need.
+
+If you want configure the library, start in "luaconf.h".  Unfortunately, LUA is not designed to 
+easily convert the default type from double to float/int.  It should in theory work, but internally
+the math library will be calling double versions of math functions (sin(), cos(), instead of fsin()
+and fcos()).
+
+In a game situation, you will likely want a personal copy of Lua that you can modify in the engine.
+This way, you can make the above changes to an int or float, and other respected fixes as needed,
+and not have to deal with silly external dependacies.
+
+An option as well is to have a local separate Lua repository, and use an external reference.  This
+could be the case for all external libraries, have local repositories for them, and update them as
+needed.  In most situations, that'll be when new notable versions come out.  For some, Lua mainly,
+it'll be to make notable changes to suit integration in a codebase.
+
+Lua's load calls do error checking.  Thusly, all you need to do is load to verify if a chunk is
+valid.  Excellent.

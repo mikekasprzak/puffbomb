@@ -1,0 +1,20 @@
+// - ------------------------------------------------------------------------------------------ - //
+// RemotePlayer //
+// An arbitrary player, I don't care what it is on the other end, but it's remote from me //
+// - ------------------------------------------------------------------------------------------ - //
+#ifndef __Game_PuffBOMB_Player_RemotePlayer_H__
+#define __Game_PuffBOMB_Player_RemotePlayer_H__
+// - ------------------------------------------------------------------------------------------ - //
+#include "Player.h"
+// - ------------------------------------------------------------------------------------------ - //
+class cRemotePlayer: public cPlayer { 
+public:
+	cRemotePlayer( Engine2D::cDynamicCollection* _MyObject );
+	virtual ~cRemotePlayer();
+	
+public:
+	virtual bool Control();
+};
+// - ------------------------------------------------------------------------------------------ - //
+#endif // __Game_PuffBOMB_Player_RemotePlayer_H__ // 
+// - ------------------------------------------------------------------------------------------ - //

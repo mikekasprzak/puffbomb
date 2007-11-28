@@ -1,0 +1,55 @@
+- abstract or move the window title control somewhere, like into gfx.
+- System for fluid dynamics
+  - i.e. make some normal means for an object to, based on the area, change it's drift/gravity properties
+  - In water, the effect of gravity should be lessened, as the water acts to slow you down
+  - Also in water, you shold move slower, so drift is stronger
+  - the water slowing gravity effect might be achieved through only a stronger drift.
+- system for friction
+  - simple friction hack
+  - an additional drift factor that gets instantly set based on impact with collision
+  - per node
+- make objects capable of reading in the mesh files
+  - nodes start sections
+  - subsiquent commands 
+  - see document
+- add mesh debugging features
+  - various messages from loading a mesh file that describe what is wrong
+  - such messages as
+    - sphere without node error
+    - no such symlink "-1", "+2", etc...
+    - in file "blah"
+- define map format
+- make parser for the mesh files, that removes comments
+- add standard engine
+  - list of objects
+  - stepping of all objects
+  - in the future, object based positional optimization (grid, like betty, if appropriate)
+- figure out what exactly objects that don't move are.. nodes?
+  
+- draw all primatives
+  - node
+  - sphere
+  - spring
+  - stiff
+  - textures
+  ...
+
+- add debugging feature of sorts that allows you to toggle the primative drawing the engine uses
+  - perhaps only enabled in debug builds?
+  
+
+
+
+Front makefile
+- Launch Build process for every possible makable target
+- makable targets include
+  - Any folder under Tools or TestSuite that contains C or CPP code
+  - This becomes 
+  - Can cheat for now, specifying what ones to build... at least for tools
+  - While tools can be automated, testsuites would be idea if automatic
+- Makable Tool/TestSuite targets need to/should pull assets from a common pool of code
+- Tools/TestSuites should not rebuild unless called for explicitly (make tools ?)
+- Tools/TestSuites should depend on engines, libraries, and maybe the external's
+- Tools/TestSuites should never depend on game specific code, as that means they're generic enough
+  to be decentralized.
+- 

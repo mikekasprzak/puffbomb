@@ -1,0 +1,30 @@
+Texture	ClassicHud.tx
+
+Vertex	0	192
+Vertex	0	0
+Vertex	320	0
+Vertex	320	192
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		0.375
+FUVc	0.625	0.375
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	0.625 	0.375
+FUVc	0.625	0.0
+
+Time	0
+
+
+
+// Animation Properties //
+NotActive
+LoopPoint 0

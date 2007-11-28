@@ -1,0 +1,21 @@
+
+Good
+- Multiple bombs with varying detonation times
+- Multiple characters and multiple vortexes
+- Placed Bombs - Fixed bombs that the player can't change
+- Proximity bombs - Bombs that explode when something approaches them
+- Switches - Bombs and/or objects can trigger switches.  Switches can open doors, detach a rope, etc.
+- Juggling - Bombs can be used to keep a distracting object in the air, or stationary on an hill.
+- Squishy Objects - Tree's, bushes, and any number of gelatenous things.
+- Ropes - Ropes tying or holding things up, Vines hanging in the way, to elastic curves that distort or break.
+- Breakable objects - A mushroom that loses it's top, ropes, bridges, small structures like a log cabbin or Stonehedge.
+- Non exit vortexes - They try to suck you in, stopping you from getting to the real exit vortex.
+- Slingshotting - Using a non exit vortex to curve a shot.
+- No bomb zones or bomb only zones - Restrict bombs to parts of a level.  For example, force you to use a rock to move the character.
+- Bumpers - Like pinball, get a boost of speed upon contact.
+- Antigravity - Break, change, or distort gravity's effect.  From your basic "gravity pulls up", to all objects in motion move at a fixed rate (no more, no less), to harsh digital distortions that force 45 degree angles.
+- 
+
+
+Obsolete
+- Vaccuum objects - A combination of a vortex and an object.  Pulls things towards it clumping together in a mass, too large to fit in a smaller gap, or large and mennacing enough to knock down a structure.

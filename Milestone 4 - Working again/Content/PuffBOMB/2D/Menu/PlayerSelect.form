@@ -1,0 +1,49 @@
+DialogPos		0	-	80
+DialogPos		0	+	90
+
+DialogPos		0	+	80
+DialogPos		0	-	90
+
+Focus			1
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		140	-175
+IsPassive		0
+ActionID		7
+Text			Back
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		140	-25
+IsPassive		0
+ActionID		5
+Text			2 Players
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		140	-75
+IsPassive		0
+ActionID		5
+Text			3 Players
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		140	-125
+IsPassive		0
+ActionID		5
+Text			4 Players
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+BackID 7
+
+EndDialog

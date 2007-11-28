@@ -1,0 +1,243 @@
+DialogPos		Left	+	0
+DialogPos		Bottom	+	0
+
+DialogPos		Left	+	0
+DialogPos		Bottom	+	0
+
+Focus			0
+Texture			TournamentHud.tx
+CreateDialog
+
+
+// Full Border Outline //
+AniLabel		0	0
+IsPassive		1
+ActionID		0
+Group			10
+Animation		TournamentFullBorderOutline.anim
+SelectAni		TournamentFullBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	32
+IsPassive		1
+ActionID		0
+Group			11
+Animation		TournamentFullBorderOutline.anim
+SelectAni		TournamentFullBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	64
+IsPassive		1
+ActionID		0
+Group			12
+Animation		TournamentFullBorderOutline.anim
+SelectAni		TournamentFullBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	96
+IsPassive		1
+ActionID		0
+Group			13
+Animation		TournamentFullBorderOutline.anim
+SelectAni		TournamentFullBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+
+// Player Border Outlines //
+AniLabel		0	0
+IsPassive		1
+ActionID		0
+Group			20
+Animation		TournamentPlayerBorderOutline.anim
+SelectAni		TournamentPlayerBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	32
+IsPassive		1
+ActionID		0
+Group			21
+Animation		TournamentPlayerBorderOutline.anim
+SelectAni		TournamentPlayerBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	64
+IsPassive		1
+ActionID		0
+Group			22
+Animation		TournamentPlayerBorderOutline.anim
+SelectAni		TournamentPlayerBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	96
+IsPassive		1
+ActionID		0
+Group			23
+Animation		TournamentPlayerBorderOutline.anim
+SelectAni		TournamentPlayerBorderOutline.anim
+CurrentFrame	0
+EndAni
+
+
+// Full Border //
+AniLabel		0	0
+IsPassive		1
+ActionID		0
+Group			10
+Animation		TournamentFullBorder.anim
+SelectAni		TournamentFullBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	32
+IsPassive		1
+ActionID		0
+Group			11
+Animation		TournamentFullBorder.anim
+SelectAni		TournamentFullBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	64
+IsPassive		1
+ActionID		0
+Group			12
+Animation		TournamentFullBorder.anim
+SelectAni		TournamentFullBorder.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	96
+IsPassive		1
+ActionID		0
+Group			13
+Animation		TournamentFullBorder.anim
+SelectAni		TournamentFullBorder.anim
+CurrentFrame	0
+EndAni
+
+
+// Scores //
+TextLabel		160	32
+IsPassive		1
+ActionID		0
+Group			10
+Text			0
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+TextLabel		160	64
+IsPassive		1
+ActionID		0
+Group			11
+Text			0
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+TextLabel		160	96
+IsPassive		1
+ActionID		0
+Group			12
+Text			0
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+TextLabel		160	128
+IsPassive		1
+ActionID		0
+Group			13
+Text			0
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+
+// Strokes //
+TextLabel		384	32
+IsPassive		1
+ActionID		0
+Group			10
+Text			0
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+TextLabel		384	64
+IsPassive		1
+ActionID		0
+Group			11
+Text			0
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+TextLabel		384	96
+IsPassive		1
+ActionID		0
+Group			12
+Text			0
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+TextLabel		384	128
+IsPassive		1
+ActionID		0
+Group			13
+Text			0
+Scale			0.5
+Color			255	255	255 255
+EndText
+
+
+// Player Border //
+AniLabel		0	96
+IsPassive		1
+ActionID		0
+Group			23
+Animation		TournamentPlayer1Border.anim
+SelectAni		TournamentPlayer1Border.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	64
+IsPassive		1
+ActionID		0
+Group			22
+Animation		TournamentPlayer2Border.anim
+SelectAni		TournamentPlayer2Border.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	32
+IsPassive		1
+ActionID		0
+Group			21
+Animation		TournamentPlayer3Border.anim
+SelectAni		TournamentPlayer3Border.anim
+CurrentFrame	0
+EndAni
+
+AniLabel		0	0
+IsPassive		1
+ActionID		0
+Group			20
+Animation		TournamentPlayer4Border.anim
+SelectAni		TournamentPlayer4Border.anim
+CurrentFrame	0
+EndAni
+
+
+
+// Shut off the legacy border feature //
+IsVisible		0
+EndDialog

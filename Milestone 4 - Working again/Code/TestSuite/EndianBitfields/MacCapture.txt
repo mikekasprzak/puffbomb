@@ -1,0 +1,19 @@
+Normal.a (int) = 1985229328 (0x76543210)
+Normal.b (int) = -19088744 (0xfedcba98)
+Normal[0..7] = 0x76 54 32 10-fe dc ba 98
+
+Overlap.a (int:24) = 106181136 (0x6543210)
+Overlap.b (int:24) = -36984441 (0xfffffffffdcba987)
+Overlap.c (int:8)  = -2 (0xfffffffffffffffe)
+Overlap[0..7] = 0x65 43 21 d-cb a9 87 fe
+
+Exp.a (int:32) = 1985229328 (0x76543210)
+Exp.b (int:32) = -19088744 (0xfffffffffedcba98)
+Exp[0..7] = 0x76 54 32 10-fe dc ba 98
+
+76 54 32 10-fe dc ba 98
+65 43 21 0d-cb a9 87 fe
+76 54 32 10-fe dc ba 98
+
+
+65 43 21 0 | d-cb a9 87 | fe

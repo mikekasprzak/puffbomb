@@ -1,0 +1,22 @@
+Add these environment variables:
+
+DISTC_HOSTS=localhost ComputerA ComputerB
+
+Where ComputerA and B are additional computers.  Also put them in the order of priority.
+
+Next:
+
+TMPDIR=/c/msys/junk
+
+Or another folder to hold junk or temp files.  Use the full valid path.  /tmp may work, but caused
+us problems in the past.
+
+Then go in to your registry and change the "/cygdrive" to "/", thus making all paths relative to /.
+Or the other option is to just install the "CygwinMounts.reg" registry file.
+
+A standard daemon execution:
+
+distccd --daemon --allow 192.168.0.0/24
+
+Put the "run" shell script in "C:\mingw\bin", and verify that Mike fixed the execution line
+appropriately.

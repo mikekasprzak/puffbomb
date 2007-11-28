@@ -1,0 +1,1 @@
+g++ -I /Hammer/Code IOTest.cpp /Hammer/Code/External/Lzma/LzmaDecode.cpp bzip.a zlib.a lzo.a -o IOTest.exe

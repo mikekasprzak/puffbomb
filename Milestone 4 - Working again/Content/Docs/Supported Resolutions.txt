@@ -1,0 +1,45 @@
+// 4:3 Aspect Ratio // 
+
+//	Platform::ScreenW = 320;
+//	Platform::ScreenH = 240;
+
+//	Platform::ScreenW = 640;
+//	Platform::ScreenH = 480;
+
+//	Platform::ScreenW = 800;
+//	Platform::ScreenH = 600;
+
+//	Platform::ScreenW = 1024;
+//	Platform::ScreenH = 768;
+
+//	Platform::ScreenW = 1400;
+//	Platform::ScreenH = 1050;
+
+
+// 5:4 Aspect Ratio // 
+
+//	Platform::ScreenW = 1280;
+//	Platform::ScreenH = 1024;
+
+// 16:10 Aspect Ratio // 
+
+	Platform::ScreenW = 1920;
+	Platform::ScreenH = 1200;
+
+//	Platform::ScreenW = 1680;
+//	Platform::ScreenH = 1050;
+
+
+// 16:9 Aspect Ratio // 
+	// 720P Mode //
+//	Platform::ScreenW = 1280;
+//	Platform::ScreenH = 720;
+	// 1080P Mode //
+//	Platform::ScreenW = 1920;
+//	Platform::ScreenH = 1080;
+
+
+// Unknown Aspect Ratio //
+	// 480P Mode //
+//	Platform::ScreenW = 720;
+//	Platform::ScreenH = 480;

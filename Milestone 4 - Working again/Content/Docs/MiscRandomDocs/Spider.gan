@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Spider" company="Sykhronics Entertainment" webLink="www.sykhronics.com" view-date="2005-10-26" view-index="0" gantt-divider-location="524" resource-divider-location="251" version="2.0-pre1">
+<view zooming-state="default:2"/>
+<!-- -->
+<calendars>
+<day-types>
+<day-type id="0"/>
+<day-type id="1"/>
+<calendar id="1" name="default">
+<default-week sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
+<overriden-day-types/>
+<days/>
+</calendar>
+</day-types>
+</calendars>    <description>    </description>
+
+    <tasks color="#8cb6ce">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon" />
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon" />
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon" />
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text" />
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date" />
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date" />
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int" />
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int" />
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text" />
+            <taskproperty id="tpd9" name="predecessors" type="default" valuetype="text" />
+        </taskproperties>
+        <task id="0" name="Make Chart" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+            <depend id="2" type="2" difference="0"/>
+        </task>
+        <task id="2" name="Learn Engine" color="#8cb6ce" meeting="false" start="2005-10-27" duration="3" complete="0" fixed-start="false" priority="1" expand="true">
+            <depend id="4" type="2" difference="0"/>
+        </task>
+        <task id="4" name="Vertical Slice" color="#8cb6ce" meeting="false" start="2005-10-30" duration="4" complete="0" fixed-start="false" priority="1" expand="true">
+            <notes>
+                Purpose of this is to build a demo of the total game in a smaller focus.  
+            </notes>
+            <task id="5" name="Minimal Level Editor" color="#8cb6ce" meeting="false" start="2005-10-29" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                <task id="11" name="Object Placement" color="#8cb6ce" meeting="false" start="2005-10-29" duration="1" complete="0" fixed-start="false" priority="1" expand="false"/>
+                <task id="10" name="Importing from Blender" color="#8cb6ce" meeting="false" start="2005-10-29" duration="1" complete="0" fixed-start="false" priority="1" expand="false"/>
+            </task>
+            <task id="18" name="Game Content" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                <task id="21" name="Characters" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                    <task id="23" name="Polygon based" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="24" name="Appendages" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="55" name="Tighten Springs" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="25" name="Change size" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                        <task id="47" name="Larger = more appendages" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    </task>
+                    <task id="48" name="Combine characters" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                        <task id="49" name="Increased abilities" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    </task>
+                    <task id="35" name="Graphic" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                        <task id="36" name="Body" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                        <task id="37" name="Eyes" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    </task>
+                </task>
+                <task id="26" name="Some edible item" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                    <task id="34" name="Similar character size" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                </task>
+                <task id="20" name="Map" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                    <task id="38" name="Graphics" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                        <task id="39" name="3d model" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                        <task id="40" name="Background" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                        <task id="41" name="Textures" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    </task>
+                    <task id="50" name="Apply Textures" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                        <task id="51" name="Polygons" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                        <task id="52" name="Triangles" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                        <task id="53" name="Quads" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                        <task id="54" name="Circles" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    </task>
+                </task>
+                <task id="56" name="Make sufficent use of physics" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                    <task id="57" name="Pushinng Blocks to accomplish a task" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="58" name="Design mazes that use the gravity" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="59" name="Big Drops" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="60" name="Launch Player High (cannon)" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="61" name="Squash Player" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="62" name="Make use of weight ( Larger Bolder )" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="63" name="Small particles to simulate wind" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                </task>
+                <task id="22" name="At least one enemy" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                    <task id="30" name="Variable size (optional)" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="32" name="AI" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="33" name="Moveing" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                </task>
+                <task id="7" name="Audio" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                    <task id="16" name="Music (at least 1 complete song) (optional)" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                    <task id="17" name="Sound effects" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                </task>
+                <task id="15" name="Title Screen (optional)" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+            </task>
+            <task id="42" name="Hardware" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                <task id="43" name="Wrap OpenGL" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                <task id="44" name="Wrap Audio" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                <task id="45" name="Wrap Input" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true">
+                    <task id="46" name="Support several controllers" color="#8cb6ce" meeting="false" start="2005-10-26" duration="1" complete="0" fixed-start="false" priority="1" expand="true"/>
+                </task>
+            </task>
+        </task>
+    </tasks>
+
+    <resources>
+        <resource id="1" name="Mike" function="Default:0" contacts="" phone="" />
+        <resource id="2" name="Rich" function="Default:0" contacts="" phone="" />
+    </resources>
+
+    <allocations>
+        <allocation task-id="2" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="2" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+    </allocations>
+
+    <vacations>
+    </vacations>
+
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd3" order="0" width="228" />
+        <displaycolumn property-id="tpd4" order="1" width="15" />
+        <displaycolumn property-id="tpd5" order="2" width="15" />
+    </taskdisplaycolumns>
+
+    <previous>
+    </previous>
+
+
+<roles roleset-name="Default"/>
+<roles roleset-name="SoftwareDevelopment"/>
+</project>

@@ -1,0 +1,84 @@
+Texture	EndArrow.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Color 255 255 255 255
+
+Time	20.0
+
+Texture	EndArrow.tx
+
+Vertex	-256.0	352.0
+Vertex	-256.0	-160.0
+Vertex	256.0	-160.0
+Vertex	256.0	352.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Color 255 255 255 55
+
+Time	20.0
+
+Texture	EndArrow.tx
+
+Vertex	-256.0	256.0
+Vertex	-256.0	-256.0
+Vertex	256.0	-256.0
+Vertex	256.0	256.0
+
+FVa	0
+FVb	1
+FVc	2
+
+FUVa	0.0		0.0
+FUVb	0.0		1.0
+FUVc	1.0		1.0
+
+FVa	0
+FVb	2
+FVc	3
+
+FUVa	0.0		0.0
+FUVb	1.0 	1.0
+FUVc	1.0		0.0
+
+Color 255 255 255 255
+
+Time	0.0
+
+Interpolate
+
+LoopPoint 0

@@ -1,0 +1,76 @@
+DialogPos		0	-	140
+DialogPos		0	+	165
+
+DialogPos		0	+	140
+DialogPos		0	-	165
+
+Focus			0
+Texture			DialogBox.tx
+CreateDialog
+
+TextLabel		260	-25
+IsPassive		0
+ActionID		12
+Text			Classic Mode
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		260	-75
+IsPassive		0
+ActionID		6
+Text			Tournament Mode
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		260	-125
+IsPassive		0
+ActionID		8
+Text			Leaderboard
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		260	-175
+IsPassive		0
+ActionID		9
+Text			Achievements
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		260	-225
+IsPassive		0
+ActionID		10
+Text			Help & Options
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		260	-275
+IsPassive		0
+ActionID		11
+Text			Unlock Full Game
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+TextLabel		260	-325
+IsPassive		0
+ActionID		1
+Text			Return to Arcade
+Scale			0.5
+Align			Right
+Color			255	255	255 255
+EndText
+
+BackID -1
+
+EndDialog
