@@ -97,7 +97,7 @@ public:
 		}
 	}
 	
-	inline void SetZoom( const Rect2D& _ZoomRect ) {
+	inline void SetZoom( const Rect2D& /*_ZoomRect*/ ) {
 		// TODO: take a rectangle, and set the zoom to fit it //
 	}
 	

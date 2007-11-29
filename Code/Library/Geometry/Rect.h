@@ -211,7 +211,7 @@ const bool Rect3D::operator == ( const Vector3D& Vs ) const {
 	if ( Vs.x >= P1().x )
 		if ( Vs.x < P2().x )
 			if ( Vs.y >= P1().y )
-				if ( Vs.y < P2().y );
+				if ( Vs.y < P2().y )
 					if ( Vs.z >= P1().z )
 						return ( Vs.z < P2().z );
 	return false;
@@ -234,7 +234,7 @@ const bool RadiusRect3D::operator == ( const Vector3D& Vs ) const {
 	if ( Vs.x >= P1().x )
 		if ( Vs.x < P2().x )
 			if ( Vs.y >= P1().y )
-				if ( Vs.y < P2().y );
+				if ( Vs.y < P2().y )
 					if ( Vs.z >= P1().z )
 						return ( Vs.z < P2().z );
 	return false;
@@ -257,7 +257,7 @@ const bool PairRect3D::operator == ( const Vector3D& Vs ) const {
 	if ( Vs.x >= P1().x )
 		if ( Vs.x < P2().x )
 			if ( Vs.y >= P1().y )
-				if ( Vs.y < P2().y );
+				if ( Vs.y < P2().y )
 					if ( Vs.z >= P1().z )
 						return ( Vs.z < P2().z );
 	return false;

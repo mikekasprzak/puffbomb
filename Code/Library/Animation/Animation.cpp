@@ -15,7 +15,7 @@ bool cAnimation::Load( const std::string& FileName )
 	Frame.clear();
 	
 	cFrame TempFrame;
-	ABCSet< int > TempVertIdx;
+	ABCSet< int > TempVertIdx(0, 0, 0);
 	ABCSet< Vector2D > TempUV;
 	
 	int Color = Gfx::White();

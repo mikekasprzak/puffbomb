@@ -294,7 +294,7 @@ void cClassicCursor::Draw() {
 // - ------------------------------------------------------------------------------------------ - //
 bool cClassicCursor::CanPlaceBombHere( const Vector2D& _Pos, const int Index ) const {
 	for ( size_t idx = 0; idx < Bomb.size(); idx++ ) {
-		if ( Index == idx )
+		if ( Index == (int)idx )
 			continue;
 			
 		if ( (Bomb[ idx ].Pos - _Pos).MagnitudeSquared() < Real(64+64) * Real(64+64) )

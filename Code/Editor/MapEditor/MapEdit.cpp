@@ -16,7 +16,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
-extern int GetTime();
+extern size_t GetTime();
 // - ------------------------------------------------------------------------------------------ - //
 using namespace Input;
 // - ------------------------------------------------------------------------------------------ - //
@@ -507,7 +507,7 @@ void cMapEdit::Step()
 		Log( 10, "HudZoom " << Global::HudZoom );
 		Log( 10, "Camera->Pos.z " << Camera->Pos.z );*/
 		
-		if( GetTime() > OffsetTime && IsSaved )
+		if( (GetTime() > OffsetTime) && IsSaved )
 		{
 			CurMode = MiniMapLastMode;
 			SaveScreenshot();
@@ -872,7 +872,7 @@ void cMapEdit::SaveMap()
 		BackStaticObject.clear();
 		
 		// Sort static objects in to fronts and backs //
-		for ( int idx = 0; idx < StaticObjectInstance.size(); idx++ )
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); idx++ )
 		{
 			if( Map.StaticObjectInstanceInfo[ idx ].FileName.find( "Scene" ) == std::string::npos )
 			{

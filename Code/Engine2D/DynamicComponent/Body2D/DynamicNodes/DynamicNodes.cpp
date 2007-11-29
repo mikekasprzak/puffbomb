@@ -17,7 +17,7 @@ int cDynamicNodes::Add() {
 	return NodeA.size() - 1;
 }
 // - ------------------------------------------------------------------------------------------ - //
-const size_t cDynamicNodes::Resize( const size_t _Size ) {
+void cDynamicNodes::Resize( const size_t _Size ) {
 	NodeA.resize( _Size );
 	NodeB.resize( _Size );
 	Force.resize( _Size );

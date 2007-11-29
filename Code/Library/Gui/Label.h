@@ -22,6 +22,13 @@ public:
 	bool Visible;
 	
 public:
+	cLabel( ) :
+		IsPassive( true ),
+		ActionID( 0 ),
+		Group( 0 ),
+		Visible( false )
+	{
+	}
 	cLabel( const Vector2D& _Pos, const bool _IsPassive, const int _ActionID, Gfx::Color _Color, Gfx::Color _SelColor ) :
 		Pos( _Pos ),
 		IsPassive( _IsPassive ),

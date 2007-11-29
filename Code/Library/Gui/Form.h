@@ -16,6 +16,7 @@ class cForm
 public:
 	// Elements inside the form //
 	std::vector< cLabel* > Labels;
+	cLabel DummyLabel;
 
 	// Which labels can be selected by the controller and may have actions //
 	std::vector< int > ActiveLabels;

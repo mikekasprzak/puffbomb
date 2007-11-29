@@ -319,7 +319,7 @@ void cMenuManager::Step()
 // - ------------------------------------------------------------------------------------------ - //
 void cMenuManager::UpdateMiniMap()
 {
-	if( Form[ CurForm ]->Focus + CurLevelPivot < ClassicSaveData->MapData.size() &&
+	if( Form[ CurForm ]->Focus + CurLevelPivot < (int)ClassicSaveData->MapData.size() &&
 		Form[ CurForm ]->Focus < LevelsOnPage )
 	{
 
@@ -430,7 +430,7 @@ void cMenuManager::UpdateClassicLevelSelect()
 			}			
 		}
 		// Place the down arrow at the bottom //
-		if( LevelsOnPage + CurLevelPivot < ClassicSaveData->MapData.size() )
+		if( LevelsOnPage + CurLevelPivot < (int)ClassicSaveData->MapData.size() )
 		{
 			Form[ 3 ]->Labels.push_back( 
 				new cAniLabel(

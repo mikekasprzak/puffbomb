@@ -786,6 +786,8 @@ cLabel& cForm::Group( const int GroupIdx, const int Index )
 			MyIndex++;
 		}
 	}
+	// TODO: This might not work.  I added this line because it was causing a warning. //
+	return DummyLabel;
 }
 // - ------------------------------------------------------------------------------------------ - //
 void cForm::GroupPos( const int Group, const Vector2D& _Pos )

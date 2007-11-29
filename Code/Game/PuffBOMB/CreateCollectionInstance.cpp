@@ -13,7 +13,7 @@
 
 #include "Objects/VacuumObject/VacuumObject.h"
 // - ------------------------------------------------------------------------------------------ - //
-Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vector2D& Pos, const int Argument ) {
+Engine2D::cDynamicCollection* CreateCollectionInstance( const unsigned int Id, const Vector2D& Pos, const int /*Argument*/ ) {
 	// Switch based on the Id passed to the function //
 	switch ( Id ) {
 		

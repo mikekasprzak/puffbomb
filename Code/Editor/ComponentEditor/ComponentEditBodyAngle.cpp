@@ -35,18 +35,18 @@ void cComponentEdit::BodyAddAngle()
 					}
 				}
 
-				for( size_t idx2 = 0; idx2 < Pose->Node.size(); ++idx2 )
+				for( int idx2 = 0; idx2 < (int)Pose->Node.size(); ++idx2 )
 				{	
-					if( idx2 != CurSelected[ idx ] && idx2 != IndexA )
-					{	
-						TestDistance = ( Pose->Node[ idx2 ].Pos - Pose->Node[ CurSelected[ idx ] ].Pos ).Magnitude();
-					
-						if( TestDistance < IndexBDistance )
-						{
-							IndexBDistance = TestDistance;
-							IndexB = idx2;
+					if( (size_t)idx2 != CurSelected[ idx ] )
+						if ( idx2 != IndexA ) {	
+							TestDistance = ( Pose->Node[ idx2 ].Pos - Pose->Node[ CurSelected[ idx ] ].Pos ).Magnitude();
+						
+							if( TestDistance < IndexBDistance )
+							{
+								IndexBDistance = TestDistance;
+								IndexB = idx2;
+							}
 						}
-					}
 				}
 
 				DynObj->Body.AddAngleCross( CurSelected[idx], IndexA, IndexB );

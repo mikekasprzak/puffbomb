@@ -432,7 +432,7 @@ void cEngine2D::LoadMap( const std::string MapName )
 		}
 		
 		// Sort static objects in to fronts and backs //
-		for ( int idx = 0; idx < StaticObjectInstance.size(); idx++ ) {
+		for ( size_t idx = 0; idx < StaticObjectInstance.size(); idx++ ) {
 			if ( StaticObjectInstance[ idx ].GetFrontPolygonZ() >= Real::Zero ) {
 				FrontStaticObject.push_back( &StaticObjectInstance[ idx ] );
 			}

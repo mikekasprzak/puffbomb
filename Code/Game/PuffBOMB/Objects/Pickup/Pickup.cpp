@@ -9,7 +9,7 @@
 #include "Pickup.h"
 #include <Engine2D.h>
 // - ------------------------------------------------------------------------------------------ - //
-int cPickup::Message( int Msg, Engine2D::cDynamicComponent* const Sender ) {
+int cPickup::Message( int Msg, Engine2D::cDynamicComponent* const /*Sender*/ ) {
 	switch ( Msg ) {
 		// Impact //
 		case 1: {

@@ -303,7 +303,7 @@ void FXLibrary::Pickup( const Vector2D& Pos, const int Points )
 	Vector2D Acceleration = Vector2D::Zero;
 	Acceleration.y = Real( 0.05 );
 	
-	for( int idx = 0; idx < TempString.size(); idx++ )
+	for( size_t idx = 0; idx < TempString.size(); idx++ )
 	{
 		DenseParticle.Add(
 			Vector2D( Pos.x + Real( 38 * idx ) - ( ( Real( 38 * ( TempString.size() - 1 ) ) ) / Real( 2 ) ), Pos.y ), 		// Pos //
@@ -374,7 +374,7 @@ void FXLibrary::EnterVortex( const Vector2D& Pos, const int Points )
 	Vector2D Acceleration = Vector2D::Zero;
 	Acceleration.y = Real( 0.05 );
 	
-	for( int idx = 0; idx < TempString.size(); idx++ )
+	for( size_t idx = 0; idx < TempString.size(); idx++ )
 	{
 		DenseParticle.Add(
 			Vector2D( Pos.x + Real( 38 * idx ) - ( ( Real( 38 * ( TempString.size() - 1 ) ) ) / Real( 2 ) ), Pos.y ), 		// Pos //
