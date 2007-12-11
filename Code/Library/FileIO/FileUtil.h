@@ -50,6 +50,9 @@ inline const size_t size_File( FILE* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
+// TODO: Add a function for reading a DataBlock from an open file //
+// TODO: Also add functions for reading data of an expected size, zero terminated strings, etc. //
+
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace IO //
 // - ------------------------------------------------------------------------------------------ - //

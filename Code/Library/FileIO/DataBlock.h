@@ -128,10 +128,11 @@ inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 // For syntactical compatability, read_DataBlock which functions the same as new_DataBlock. //
+// Note: This is bad, as it's unclear allocation is done.  new_DataBlock() is preferred. //
 // - ------------------------------------------------------------------------------------------ - //
-inline DataBlock* read_DataBlock( const char* _FileName ) {
-	return new_DataBlock( _FileName );
-}
+//inline DataBlock* read_DataBlock( const char* _FileName ) {
+//	return new_DataBlock( _FileName );
+//}
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
