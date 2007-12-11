@@ -273,7 +273,7 @@ inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _Size, cons
 //	return Uncompressed;
 //}
 //// - ------------------------------------------------------------------------------------------ - //
-//// Encode packed ZLIB data to a new DataBlock //
+//// Encode packed LZO data to a new DataBlock //
 //inline DataBlock* pack_LZO_Data( void* _Src ) {
 //	// Allocate worst case space to store compressed data //
 //	DataBlock* Compressed = new_DataBlock( _Src->Size + (_Src->Size / 1000) + 12 + 4 );
