@@ -33,46 +33,6 @@ inline void copy_Data( void* _Src, void* _Dest, const size_t _Size ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 
-
-// - ------------------------------------------------------------------------------------------ - //
-// Get the size of a file in bytes //
-inline const size_t size_File( const char* _FileName ) {
-	// Open File //
-	FILE* fp = fopen( _FileName, "rb" );
-	if ( fp == 0 ) {
-		return 0;
-	}
-	
-	// Determine how large file is //
-	fseek( fp, 0, SEEK_END );
-	size_t Size = ftell( fp );
-	
-	// Close file //
-	fclose( fp );
-	
-	// Return data //
-	return Size;
-}
-// - ------------------------------------------------------------------------------------------ - //
-
-// - ------------------------------------------------------------------------------------------ - //
-// TODO: File code.  
-//   - A File Type
-//   - a size checking function (that uses ftell( fp ) to find where it was, jump to the end, and
-//   jump back, so it's non destructive).
-// - ------------------------------------------------------------------------------------------ - //
-inline const size_t size_File( FILE* fp ) {
-	size_t Position = ftell( fp );
-	
-	fseek( fp, 0, SEEK_END );
-	size_t Size = ftell( fp );
-	fseek( fp, Position, SEEK_CUR );
-	
-	return Size;
-}
-// - ------------------------------------------------------------------------------------------ - //
-
-
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t read_Data( const char* _FileName, void* Data, const size_t _Size ) {
 	// Open File //
@@ -158,5 +118,5 @@ inline void* new_Data( const char* _FileName ) {
 // - ------------------------------------------------------------------------------------------ - //
 }; // namespace IO //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataBlock_H__ //
+#endif // __Library_FileIO_DataUtil_H__ //
 // - ------------------------------------------------------------------------------------------ - //
