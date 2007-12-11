@@ -6,7 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
 
-#include <Util/String.h>
+#include <String/String.h>
 #include <FileIO/LZMA.h>
 
 #include <Graphics/Gfx.h>

@@ -4,7 +4,7 @@
 #include <Graphics/Shader.h>
 
 #include <Util/Debug.h>
-#include <Util/String.h>
+#include <String/String.h>
 #include <FileIO/LZMA.h>
 // - ------------------------------------------------------------------------------------------ - //
 //#define GL_GLEXT_PROTOTYPES 1

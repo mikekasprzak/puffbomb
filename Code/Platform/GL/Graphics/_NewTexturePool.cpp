@@ -7,7 +7,7 @@
 #include <GL/gl.h>
 #include <GL/glext.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Util/String.h>
+#include <String/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 // The Global Class Instance (TODO: Singleton instead?) //
 //cNewTexturePool NewTexturePool;

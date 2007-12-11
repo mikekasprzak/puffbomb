@@ -3,7 +3,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Input/Input.h>
 #include <Graphics/Gfx.h>
-#include <Util/String.h>
+#include <String/String.h>
 #include <Animation/AnimationPool.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Global.h>

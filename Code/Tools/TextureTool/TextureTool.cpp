@@ -9,7 +9,7 @@
 #include <SDL/SDL.h>
 
 #include <Util/ClassDesigner/Bits.h>
-#include <Util/String.h>
+#include <String/String.h>
 #include <FileIO/LZMA.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "pngwriter.h"

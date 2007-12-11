@@ -4,7 +4,7 @@
 
 #include <Graphics/Gfx.h>
 #include <Font/Fonts.h>
-#include <Util/String.h>
+#include <String/String.h>
 #include <Global.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <sstream>

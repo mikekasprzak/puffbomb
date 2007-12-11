@@ -3,7 +3,7 @@
 #include <fstream>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-#include <Util/String.h>
+#include <String/String.h>
 #include <FileIO/LZMA.h>
 
 #include "Mesh3d.h"

@@ -7,7 +7,7 @@
 
 #include <Graphics/Mesh3dPool.h>
 
-#include <Util/String.h>
+#include <String/String.h>
 #include <Util/Pool.h>
 // - ------------------------------------------------------------------------------------------ - //
 using namespace std;

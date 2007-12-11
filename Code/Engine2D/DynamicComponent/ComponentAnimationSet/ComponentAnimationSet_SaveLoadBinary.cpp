@@ -2,7 +2,7 @@
 #include <sstream>
 #include <fstream>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Util/String.h>
+#include <String/String.h>
 
 #include "ComponentAnimationSet.h"
 

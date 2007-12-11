@@ -9,7 +9,7 @@
 
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
-#include <Util/String.h>
+#include <String/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <iostream>
 #include <fstream>

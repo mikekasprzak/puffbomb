@@ -4,7 +4,7 @@
 #include <Graphics/Gfx.h>
 #include <Input/Input.h>
 #include <Graphics/Mesh3dPool.h>
-#include <Util/String.h>
+#include <String/String.h>
 
 // !!!! OPENGL !!!! //
 #include <gl/gl.h>

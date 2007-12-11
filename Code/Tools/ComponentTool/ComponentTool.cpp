@@ -11,7 +11,7 @@
 #include <GL/glext.h>
 
 #include <Util/ClassDesigner.h>
-#include <Util/String.h>
+#include <String/String.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <DynamicComponent/ComponentAnimationSet/ComponentAnimationSet.h>
 // - ------------------------------------------------------------------------------------------ - //

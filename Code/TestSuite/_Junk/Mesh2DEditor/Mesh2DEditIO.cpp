@@ -6,7 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Input/Input.h"
 #include "Phiz/SphereObject.h"
-#include <Util/String.h>
+#include <String/String.h>
 #include <FileIO/DirectoryCache.h>
 #include <Graphics/TexturePool.h>
 // - ------------------------------------------------------------------------------------------ - //

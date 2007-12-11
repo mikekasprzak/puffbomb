@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-#include "String.h"
+#include <String/String.h>
 #include "DirectoryCache.h"
 // - ------------------------------------------------------------------------------------------ - //
 // SearchPath Class that cache's directories (and all subdirectories) //

@@ -3,7 +3,7 @@
 #include "MapEdit.h"
 #include "Input/Input.h"
 #include <Graphics/Mesh3dPool.h>
-#include <Util/String.h>
+#include <String/String.h>
 #include <Global.h>
 #include <FileIO/DirectoryCache.h>
 #include <FileIO/ScriptParser.h>
