@@ -9,7 +9,7 @@
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Math/Vector.h>
-#include <Geometry/Set.h>
+#include <ClassDesigner/Set.h>
 #include <Global.h>
 
 #include <Animation/Animation.h>

@@ -10,7 +10,7 @@
 #include <sstream>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Math/Vector.h>
-#include <Geometry/Set.h>
+#include <ClassDesigner/Set.h>
 #include <Global.h>
 
 #include <Util/ClassDesigner.h>

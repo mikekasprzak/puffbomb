@@ -13,7 +13,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 //#include <Util/Debug.h>
 
-#include "../../Library/Geometry/Set.h"
+#include "../../Library/ClassDesigner/Set.h"
 //#include "../../Library/Geometry/Rect.h"
 //#include <Math/Vector.h>
 //#include <Geometry/Rect.h>

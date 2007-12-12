@@ -7,7 +7,7 @@
 // Todo: 
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-#include <Geometry/Integer.h>
+#include <Math/Integer.h>
 #include <Math/Real.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "AnimationFlags.h"

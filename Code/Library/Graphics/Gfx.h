@@ -9,7 +9,7 @@
 #include <Math/Real.h>
 #include <Math/Vector.h>
 #include <Geometry/Rect.h>
-#include <Geometry/Set.h>
+#include <ClassDesigner/Set.h>
 
 #include <Graphics/Mesh3D.h>
 // - ------------------------------------------------------------------------------------------ - //

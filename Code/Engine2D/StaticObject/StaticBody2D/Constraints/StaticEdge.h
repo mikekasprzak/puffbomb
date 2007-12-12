@@ -5,7 +5,7 @@
 #define __Engine2D_Physics_StaticBody2D_Constraints_StaticEdge_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
-#include <Geometry/Set.h>
+#include <ClassDesigner/Set.h>
 
 #include <Physics/Physics.h>
 // - ------------------------------------------------------------------------------------------ - //
