@@ -26,6 +26,8 @@ public:
 	{
 	}
 	
+	// TODO: Add adjustable initalization syntax //
+	
 //	// Copy Constructor - Exact replica version //
 //	inline Array( const Array<Type>& _Copy ) :
 //		CurrentSize( _Copy.CurrentSize ),
