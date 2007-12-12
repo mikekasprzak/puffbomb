@@ -121,6 +121,7 @@ public:
 	}
 	
 	// TODO: Insert, PushFront, and iterators //
+	// TODO: Search and sorting code //
 };
 // - ------------------------------------------------------------------------------------------ - //
 
