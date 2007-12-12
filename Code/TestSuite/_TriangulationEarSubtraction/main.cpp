@@ -10,7 +10,7 @@ using namespace std;
 // Select part from Geometry Library //
 #include <Math/Real.h>
 #include <Math/Vector.h>
-#include <Geometry/Matrix.h>
+#include <Math/Matrix.h>
 #include <Geometry/Rect.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "MatrixDraw.h"

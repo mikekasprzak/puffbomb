@@ -7,7 +7,7 @@
 #include "AnimationPool.h"
 
 #include <Graphics/Gfx.h>
-#include <Geometry/Matrix.h>
+#include <Math/Matrix.h>
 // - ------------------------------------------------------------------------------------------ - //
 cAnimator::cAnimator() :
 	Animation( 0 ),

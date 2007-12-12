@@ -2,7 +2,7 @@
 // ExitVortex //
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/Debug.h>
-#include <Geometry/Matrix.h>
+#include <Math/Matrix.h>
 
 #include "ExitVortex.h"
 #include <Engine2D.h>
