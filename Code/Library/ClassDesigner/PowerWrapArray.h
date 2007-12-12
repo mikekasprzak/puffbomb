@@ -27,6 +27,10 @@ public:
 		return CurrentSize;
 	}
 	
+	inline const size_t MaxSize() const {
+		return MaxSize;
+	}
+	
 	inline Type& operator [] ( const size_t Index ) {
 		// TODO: Assert if index larger than max size (current size?) //
 		return Data[ (BaseIndex+Index) & (MaxSize-1) ];

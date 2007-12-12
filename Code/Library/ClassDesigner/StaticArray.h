@@ -20,6 +20,10 @@ public:
 	inline const size_t Size() const {
 		return CurrentSize;
 	}
+
+	inline const size_t MaxSize() const {
+		return MaxSize;
+	}
 	
 	inline Type& operator [] ( const size_t Index ) {
 		// TODO: Assert if index larger than max size (current size?) //
