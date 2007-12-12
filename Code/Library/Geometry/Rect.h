@@ -7,6 +7,7 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 #include "Rect/Rect2D.h"
+#include "Rect/ShapeRect2D.h"
 #include "Rect/RadiusRect2D.h"
 #include "Rect/PairRect2D.h"
 
@@ -16,8 +17,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-// Rect vs. Rect //
-const bool Rect2D::operator == ( const Rect2D& Vs ) const {
+// ShapeRect vs. ShapeRect //
+const bool ShapeRect2D::operator == ( const ShapeRect2D& Vs ) const {
 	PairRect2D r( P1(), Shape() + Vs.Shape() );
 	Vector2D v( Vs.P2() );
 	
@@ -55,8 +56,8 @@ const bool PairRect2D::operator == ( const PairRect2D& Vs ) const {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-// Rect vs. Vector //
-const bool Rect2D::operator == ( const Vector2D& Vs ) const {
+// ShapeRect vs. Vector //
+const bool ShapeRect2D::operator == ( const Vector2D& Vs ) const {
 	if ( Vs.x >= P1().x )
 		if ( Vs.x < P2().x )
 			if ( Vs.y >= P1().y )
@@ -64,15 +65,15 @@ const bool Rect2D::operator == ( const Vector2D& Vs ) const {
 	return false;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const bool operator == ( const Vector2D& a, const Rect2D& b ) {
+inline const bool operator == ( const Vector2D& a, const ShapeRect2D& b ) {
 	return b == a;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const bool operator != ( const Rect2D& a, const Vector2D& b ) {
+inline const bool operator != ( const ShapeRect2D& a, const Vector2D& b ) {
 	return !(a == b);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const bool operator != ( const Vector2D& a, const Rect2D& b ) {
+inline const bool operator != ( const Vector2D& a, const ShapeRect2D& b ) {
 	return !(b == a);
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -124,12 +125,16 @@ inline const bool operator != ( const Vector2D& a, const PairRect2D& b ) {
 // - ------------------------------------------------------------------------------------------ - //
 // Rect Conversions //
 // - ------------------------------------------------------------------------------------------ - //
-const RadiusRect2D Rect2D::ToRadiusRect() const {
+const RadiusRect2D ShapeRect2D::ToRadiusRect() const {
 	return RadiusRect2D( P1(), Shape() );
 }
 // - ------------------------------------------------------------------------------------------ - //
-const PairRect2D Rect2D::ToPairRect() const {
+const PairRect2D ShapeRect2D::ToPairRect() const {
 	return PairRect2D( P1(), Shape() );
+}
+// - ------------------------------------------------------------------------------------------ - //
+const Rect2D ShapeRect2D::ToRect() const {
+	return Rect2D( P1(), Shape() );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -145,6 +150,10 @@ const PairRect2D RadiusRect2D::ToPairRect() const {
 	return PairRect2D::Radius( Center(), HalfShape() );
 }
 // - ------------------------------------------------------------------------------------------ - //
+const ShapeRect2D RadiusRect2D::ToShapeRect() const {
+	return ShapeRect2D::Radius( Center(), HalfShape() );
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -156,6 +165,10 @@ const Rect2D PairRect2D::ToRect() const {
 // - ------------------------------------------------------------------------------------------ - //
 const RadiusRect2D PairRect2D::ToRadiusRect() const {
 	return RadiusRect2D::Pair( P1(), P2() );
+}
+// - ------------------------------------------------------------------------------------------ - //
+const ShapeRect2D PairRect2D::ToShapeRect() const {
+	return ShapeRect2D::Pair( P1(), P2() );
 }
 // - ------------------------------------------------------------------------------------------ - //
 

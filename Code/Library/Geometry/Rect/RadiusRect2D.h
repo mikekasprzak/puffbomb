@@ -243,6 +243,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 public:
 	inline const class Rect2D ToRect() const;
+	inline const class ShapeRect2D ToShapeRect() const;
 	inline const class PairRect2D ToPairRect() const;
 	inline const RadiusRect2D& ToRadiusRect() const {
 		return *this;

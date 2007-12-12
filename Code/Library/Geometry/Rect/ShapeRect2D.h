@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// PairRect2D //
+// ShapeRect2D //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Geometry_PairRect2D_H__
-#define __Geometry_PairRect2D_H__
+#ifndef __Geometry_ShapeRect2D_H__
+#define __Geometry_ShapeRect2D_H__
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -10,38 +10,38 @@
 #include <Math/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 
-class PairRect2D : 
-	boost::additive<PairRect2D,
-	boost::arithmetic2<PairRect2D, Vector2D
+class ShapeRect2D : 
+	boost::additive<ShapeRect2D,
+	boost::arithmetic2<ShapeRect2D, Vector2D
 	> >
 {
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// A typedef for the current rect type, that way, similar code can be cut+paste easier //
-	typedef PairRect2D RectType;
+	typedef ShapeRect2D RectType;
 	typedef Vector2D VectorType;
 	// - -------------------------------------------------------------------------------------- - //
 	VectorType _P1;
-	VectorType _P2;
+	VectorType _Shape;
 	// - -------------------------------------------------------------------------------------- - //
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	PairRect2D() {
+	inline ShapeRect2D() {
 	}
 	// - -------------------------------------------------------------------------------------- - //
-
+	
 	// - -------------------------------------------------------------------------------------- - //
 	// Normal Creation (RectXD style (x,y,w,h)) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline PairRect2D( const Real& _x, const Real& _y, const Real& _w, const Real& _h ) :
+	inline ShapeRect2D( const Real& _x, const Real& _y, const Real& _w, const Real& _h ) :
 		_P1( _x, _y ),
-		_P2( _x + _w, _y + _h )
+		_Shape( _w, _h )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline PairRect2D( const VectorType& _Vec1, const VectorType& _Vec2 ) :
+	inline ShapeRect2D( const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1 ),
-		_P2( _Vec1 + _Vec2 )
+		_Shape( _Vec2 )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -49,26 +49,25 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Pair Creation (P1, P2) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline PairRect2D( const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
+	inline ShapeRect2D( const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1.x.Min( _Vec2.x ), _Vec1.y.Min( _Vec2.y ) ),
-		_P2( _Vec1.x.Max( _Vec2.x ), _Vec1.y.Max( _Vec2.y ) )
+		_Shape( (_Vec2.x - _Vec1.x).Abs(), (_Vec2.y - _Vec1.y).Abs() )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline PairRect2D( const bool&, const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
+	inline ShapeRect2D( const bool&, const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1 ),
-		_P2( _Vec2 )
+		_Shape( _Vec2 - _Vec1 )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
-
 
 	// - -------------------------------------------------------------------------------------- - //
 	// Radius Creation (Center, HalfShape) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline PairRect2D( const bool&, const bool&, const bool&, const VectorType& _VecCenter, const VectorType& _VecShape ) :
+	inline ShapeRect2D( const bool&, const bool&, const bool&, const VectorType& _VecCenter, const VectorType& _VecShape ) :
 		_P1( _VecCenter - _VecShape ),
-		_P2( _VecCenter + _VecShape )
+		_Shape( _VecShape + _VecShape )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
@@ -103,15 +102,15 @@ public:
 		return RectType( true, true, true, _Vec1, _Vec2 );
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	
+
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	inline const VectorType& P1() const {
+	inline const VectorType P1() const {
 		return _P1;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline const VectorType& P2() const {
-		return _P2;
+	inline const VectorType P2() const {
+		return _P1 + _Shape;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 
@@ -122,26 +121,26 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 
 	// - -------------------------------------------------------------------------------------- - //
-	inline const Real Width() const {
-		return P2().x - P1().x;
+	inline const Real& Width() const {
+		return _Shape.x;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	inline const Real HalfWidth() const {
 		return Width() * Real::Half;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline const Real Height() const {
-		return P2().y - P1().y;
+	inline const Real& Height() const {
+		return _Shape.y;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	inline const Real HalfHeight() const {
 		return Height() * Real::Half;
 	}
-	// - -------------------------------------------------------------------------------------- - //
-	
+	// - -------------------------------------------------------------------------------------- - //	
+
 	// - -------------------------------------------------------------------------------------- - //
 	inline const VectorType Shape() const {
-		return P2() - P1();
+		return _Shape;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	inline const VectorType HalfShape() const {
@@ -157,7 +156,7 @@ public:
 
 public:	
 	// - -------------------------------------------------------------------------------------- - //
-	// Test for intersection between rectangles //
+	// Test for intersection between Rectangles //
 	inline const bool operator == ( const RectType& Vs ) const;
 	// - -------------------------------------------------------------------------------------- - //
 	inline const bool operator != ( const RectType& Vs ) const {
@@ -168,18 +167,25 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Rectangle Difference //
 	inline const RectType& operator -= ( const RectType& Vs ) {
-		*this = Pair( P1().Max( Vs.P1() ), P2().Min( Vs.P2() ) );
+		*this = _Pair(
+			Vector2D( P1().x.Max( Vs.P1().x ), P1().y.Max( Vs.P1().y ) ),
+			Vector2D( P2().x.Min( Vs.P2().x ), P2().y.Min( Vs.P2().y ) )
+			);
 
 		return *this;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Rectangle Union //
 	inline const RectType& operator += ( const RectType& Vs ) {
-		*this = Pair( P1().Min( Vs.P1() ), P2().Max( Vs.P2() ) );
+		*this = _Pair(
+			Vector2D( P1().x.Min( Vs.P1().x ), P1().y.Min( Vs.P1().y ) ),
+			Vector2D( P2().x.Max( Vs.P2().x ), P2().y.Max( Vs.P2().y ) )
+			);
 
 		return *this;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Given a point, find the closest point on the Rectangle //
 	inline const VectorType ClosestPoint( const VectorType& v ) const {
 		VectorType Point;
 	
@@ -200,16 +206,39 @@ public:
 		return Point;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Given a point, find the nearest point on edge of the Rectangle //
+	inline const VectorType NearestEdgePoint( const VectorType& v ) const {
+		VectorType Point;
+		
+		// Construct a vector with the closest X edge and Y edge //
+		if ( (P1().x - v.x).Abs() < (P2().x - v.x).Abs() )
+			Point.x = P1().x;
+		else
+			Point.x = P2().x;
+		
+		if ( (P1().y - v.y).Abs() < (P2().y - v.y).Abs() )
+			Point.y = P1().y;
+		else
+			Point.y = P2().y;
+		
+		// Return a vector with 
+		if ( (Point.x - v.x).Abs() < (Point.y - v.y).Abs() )
+			return VectorType( Point.x, v.y );
+		else
+			return VectorType( v.x, Point.y );
+	}	
+	
+	// - -------------------------------------------------------------------------------------- - //
 	// Contract a rectangle (like how a selection contract or expand works in PSP/Photoshop) //
 	inline const RectType Contract( const Real& Value ) {
 		RectType NewRect = *this;
 		
-		Vector2D Deformation( Value, Value );
-		Deformation.x.MinClamp( NewRect.HalfShape().x );
-		Deformation.y.MinClamp( NewRect.HalfShape().y );
+		Vector2D Deformation( Value + Value, Value + Value );
+		Deformation.x.MinClamp( NewRect._Shape.x );
+		Deformation.y.MinClamp( NewRect._Shape.y );
 		
-		NewRect._P1 += Deformation;
-		NewRect._P2 -= Deformation;
+		NewRect._P1 += Deformation * Real::Half;
+		NewRect._Shape -= Deformation;
 		
 		return NewRect;
 	}
@@ -219,7 +248,8 @@ public:
 		RectType NewRect = *this;
 		
 		NewRect._P1 -= Vector2D( Value, Value );
-		NewRect._P2 += Vector2D( Value, Value );
+		NewRect._Shape += Vector2D( Value, Value );
+		NewRect._Shape += Vector2D( Value, Value );
 		
 		return NewRect;
 	}
@@ -240,13 +270,13 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 public:
 	inline const class Rect2D ToRect() const;
-	inline const class ShapeRect2D ToShapeRect() const;
 	inline const class RadiusRect2D ToRadiusRect() const;
-	inline const PairRect2D& ToPairRect() const {
+	inline const class PairRect2D ToPairRect() const;
+	inline const ShapeRect2D& ToShapeRect() const {
 		return *this;
 	}
 };
 
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Geometry_PairRect2D_H__ //
+#endif // __Geometry_ShapeRect2D_H__ //
 // - ------------------------------------------------------------------------------------------ - //
