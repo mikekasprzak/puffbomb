@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Rect3D //
+// ShapeRect3D //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Geometry_Rect3D_H__
-#define __Geometry_Rect3D_H__
+#ifndef __Geometry_ShapeRect3D_H__
+#define __Geometry_ShapeRect3D_H__
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -10,15 +10,15 @@
 #include <Math/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 
-class Rect3D : 
-	boost::additive<Rect3D,
-	boost::arithmetic2<Rect3D, Vector3D
+class ShapeRect3D : 
+	boost::additive<ShapeRect3D,
+	boost::arithmetic2<ShapeRect3D, Vector3D
 	> >
 {
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	// A typedef for the current rect type, that way, similar code can be cut+paste easier //
-	typedef Rect3D RectType;
+	typedef ShapeRect3D RectType;
 	typedef Vector3D VectorType;
 	// - -------------------------------------------------------------------------------------- - //
 	VectorType _P1;
@@ -26,20 +26,20 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 public:
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D() {
+	inline ShapeRect3D() {
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	
 	// - -------------------------------------------------------------------------------------- - //
 	// Normal Creation (RectXD style (x,y,w,h)) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const Real& _x, const Real& _y, const Real& _z, const Real& _w, const Real& _h, const Real& _l ) :
+	inline ShapeRect3D( const Real& _x, const Real& _y, const Real& _z, const Real& _w, const Real& _h, const Real& _l ) :
 		_P1( _x, _y, _z ),
 		_Shape( _w, _h, _l )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const VectorType& _Vec1, const VectorType& _Vec2 ) :
+	inline ShapeRect3D( const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1 ),
 		_Shape( _Vec2 )
 	{
@@ -49,13 +49,13 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Pair Creation (P1, P2) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
+	inline ShapeRect3D( const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1.x.Min( _Vec2.x ), _Vec1.y.Min( _Vec2.y ), _Vec1.z.Min( _Vec2.z ) ),
 		_Shape( (_Vec2.x - _Vec1.x).Abs(), (_Vec2.y - _Vec1.y).Abs(), (_Vec2.z - _Vec1.z).Abs() )
 	{
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const bool&, const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
+	inline ShapeRect3D( const bool&, const bool&, const VectorType& _Vec1, const VectorType& _Vec2 ) :
 		_P1( _Vec1 ),
 		_Shape( _Vec2 - _Vec1 )
 	{
@@ -65,7 +65,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 	// Radius Creation (Center, HalfShape) //
 	// - -------------------------------------------------------------------------------------- - //
-	inline Rect3D( const bool&, const bool&, const bool&, const VectorType& _VecCenter, const VectorType& _VecShape ) :
+	inline ShapeRect3D( const bool&, const bool&, const bool&, const VectorType& _VecCenter, const VectorType& _VecShape ) :
 		_P1( _VecCenter - _VecShape ),
 		_Shape( _VecShape + _VecShape )
 	{
@@ -256,13 +256,14 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 public:
+	inline const class Rect3D ToRect() const;
 	inline const class RadiusRect3D ToRadiusRect() const;
 	inline const class PairRect3D ToPairRect() const;
-	inline const Rect3D& ToRect() const {
+	inline const ShapeRect3D& ToShapeRect() const {
 		return *this;
 	}
 };
 
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Geometry_Rect3D_H__ //
+#endif // __Geometry_ShapeRect3D_H__ //
 // - ------------------------------------------------------------------------------------------ - //

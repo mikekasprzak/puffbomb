@@ -12,6 +12,7 @@
 #include "Rect/PairRect2D.h"
 
 #include "Rect/Rect3D.h"
+#include "Rect/ShapeRect3D.h"
 #include "Rect/RadiusRect3D.h"
 #include "Rect/PairRect3D.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -175,7 +176,7 @@ const ShapeRect2D PairRect2D::ToShapeRect() const {
 
 // - ------------------------------------------------------------------------------------------ - //
 // Rect vs. Rect //
-const bool Rect3D::operator == ( const Rect3D& Vs ) const {
+const bool ShapeRect3D::operator == ( const ShapeRect3D& Vs ) const {
 	PairRect3D r( P1(), Shape() + Vs.Shape() );
 	Vector3D v( Vs.P2() );
 	
@@ -220,7 +221,7 @@ const bool PairRect3D::operator == ( const PairRect3D& Vs ) const {
 
 // - ------------------------------------------------------------------------------------------ - //
 // Rect vs. Vector //
-const bool Rect3D::operator == ( const Vector3D& Vs ) const {
+const bool ShapeRect3D::operator == ( const Vector3D& Vs ) const {
 	if ( Vs.x >= P1().x )
 		if ( Vs.x < P2().x )
 			if ( Vs.y >= P1().y )
@@ -230,15 +231,15 @@ const bool Rect3D::operator == ( const Vector3D& Vs ) const {
 	return false;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const bool operator == ( const Vector3D& a, const Rect3D& b ) {
+inline const bool operator == ( const Vector3D& a, const ShapeRect3D& b ) {
 	return b == a;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const bool operator != ( const Rect3D& a, const Vector3D& b ) {
+inline const bool operator != ( const ShapeRect3D& a, const Vector3D& b ) {
 	return !(a == b);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const bool operator != ( const Vector3D& a, const Rect3D& b ) {
+inline const bool operator != ( const Vector3D& a, const ShapeRect3D& b ) {
 	return !(b == a);
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -294,12 +295,16 @@ inline const bool operator != ( const Vector3D& a, const PairRect3D& b ) {
 // - ------------------------------------------------------------------------------------------ - //
 // Rect Conversions //
 // - ------------------------------------------------------------------------------------------ - //
-const RadiusRect3D Rect3D::ToRadiusRect() const {
+const RadiusRect3D ShapeRect3D::ToRadiusRect() const {
 	return RadiusRect3D( P1(), Shape() );
 }
 // - ------------------------------------------------------------------------------------------ - //
-const PairRect3D Rect3D::ToPairRect() const {
+const PairRect3D ShapeRect3D::ToPairRect() const {
 	return PairRect3D( P1(), Shape() );
+}
+// - ------------------------------------------------------------------------------------------ - //
+const Rect3D ShapeRect3D::ToRect() const {
+	return Rect3D( P1(), Shape() );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -315,6 +320,10 @@ const PairRect3D RadiusRect3D::ToPairRect() const {
 	return PairRect3D::Radius( Center(), HalfShape() );
 }
 // - ------------------------------------------------------------------------------------------ - //
+const ShapeRect3D RadiusRect3D::ToShapeRect() const {
+	return ShapeRect3D::Radius( Center(), HalfShape() );
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -326,6 +335,10 @@ const Rect3D PairRect3D::ToRect() const {
 // - ------------------------------------------------------------------------------------------ - //
 const RadiusRect3D PairRect3D::ToRadiusRect() const {
 	return RadiusRect3D::Pair( P1(), P2() );
+}
+// - ------------------------------------------------------------------------------------------ - //
+const ShapeRect3D PairRect3D::ToShapeRect() const {
+	return ShapeRect3D::Pair( P1(), P2() );
 }
 // - ------------------------------------------------------------------------------------------ - //
 

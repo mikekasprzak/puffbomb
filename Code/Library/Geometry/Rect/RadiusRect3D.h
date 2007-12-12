@@ -261,6 +261,7 @@ public:
 	// - -------------------------------------------------------------------------------------- - //
 public:
 	inline const class Rect3D ToRect() const;
+	inline const class ShapeRect3D ToShapeRect() const;
 	inline const class PairRect3D ToPairRect() const;
 	inline const RadiusRect3D& ToRadiusRect() const {
 		return *this;
