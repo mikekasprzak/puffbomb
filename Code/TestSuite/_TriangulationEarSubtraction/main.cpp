@@ -8,8 +8,8 @@
 using namespace std;
 // - ------------------------------------------------------------------------------------------ - //
 // Select part from Geometry Library //
-#include <Geometry/Real.h>
-#include <Geometry/Vector.h>
+#include <Math/Real.h>
+#include <Math/Vector.h>
 #include <Geometry/Matrix.h>
 #include <Geometry/Rect.h>
 // - ------------------------------------------------------------------------------------------ - //

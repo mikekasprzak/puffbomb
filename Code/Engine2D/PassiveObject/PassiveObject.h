@@ -6,7 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <string>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 #include <Physics/Physics.h>
 
 #include <Animation/Animator.h>

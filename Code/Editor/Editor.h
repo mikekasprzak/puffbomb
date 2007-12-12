@@ -8,7 +8,7 @@
 
 
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 
 #include "MapEditor/MapEdit.h"
 #include "CollectionEditor/CollectionEdit.h"

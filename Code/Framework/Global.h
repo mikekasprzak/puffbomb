@@ -7,7 +7,7 @@
 #include <Util/Debug.h>
 #include <Util/ClassDesigner.h>
 
-#include <Geometry/Real.h>
+#include <Math/Real.h>
 namespace Global {
 	extern Real Top;
 	extern Real Bottom;

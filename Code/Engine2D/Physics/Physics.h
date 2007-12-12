@@ -6,8 +6,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
 
-#include <Geometry/Real.h>
-#include <Geometry/Vector.h>
+#include <Math/Real.h>
+#include <Math/Vector.h>
 #include <Geometry/Rect.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {

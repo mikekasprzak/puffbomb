@@ -4,7 +4,7 @@
 #ifndef __Engine2D_Graphics_Mesh2D_MeshOrientation_H__
 #define __Engine2D_Graphics_Mesh2D_MeshOrientation_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 #include <Geometry/Matrix.h>
 
 #include <DynamicComponent/Body2D/DynamicNodes/DynamicNodes.h>

@@ -4,7 +4,7 @@
 #ifndef __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__
 #define __Engine2D_Engine_DynamicComponent_Binary_PackedUV_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Real.h>
+#include <Math/Real.h>
 // - ------------------------------------------------------------------------------------------ - //
 namespace Engine2D {
 // - ------------------------------------------------------------------------------------------ - //

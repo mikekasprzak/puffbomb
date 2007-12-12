@@ -4,7 +4,7 @@
 #ifndef __Game_PuffBOMB_Player_Player_H__
 #define __Game_PuffBOMB_Player_Player_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 
 #include <DynamicCollection/DynamicCollection.h>
 // - ------------------------------------------------------------------------------------------ - //

@@ -8,9 +8,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <boost/operators.hpp>
 
-#include <Geometry/Real.h>
-#include <Geometry/Vector/Vector2D.h>
-#include <Geometry/Vector/Vector3D.h>
+#include <Math/Real.h>
+#include <Math/Vector/Vector2D.h>
+#include <Math/Vector/Vector3D.h>
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //

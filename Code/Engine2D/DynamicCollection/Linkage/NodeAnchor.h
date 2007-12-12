@@ -4,8 +4,8 @@
 #ifndef __Engine2D_Physics_NodeAnchor_H__
 #define __Engine2D_Physics_NodeAnchor_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Real.h>
-#include <Geometry/Vector.h>
+#include <Math/Real.h>
+#include <Math/Vector.h>
 
 #include <DynamicComponent/DynamicComponent.h>
 

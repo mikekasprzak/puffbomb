@@ -5,8 +5,8 @@
 #define __Engine2D_Physics_Body2D_Constraints_RopeConstraint_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <Util/ClassDesigner.h>
-#include <Geometry/Real.h>
-#include <Geometry/Vector.h>
+#include <Math/Real.h>
+#include <Math/Vector.h>
 
 #include <DynamicComponent/Body2D/DynamicNodes/DynamicNodes.h>
 

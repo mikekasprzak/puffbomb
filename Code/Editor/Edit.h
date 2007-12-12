@@ -9,7 +9,7 @@
 #include <string>
 #include <sstream>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 #include <Geometry/Set.h>
 #include <Global.h>
 

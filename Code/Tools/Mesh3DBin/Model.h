@@ -15,7 +15,7 @@
 
 #include "../../Library/Geometry/Set.h"
 //#include "../../Library/Geometry/Rect.h"
-//#include <Geometry/Vector.h>
+//#include <Math/Vector.h>
 //#include <Geometry/Rect.h>
 
 //#include <Graphics/TexturePool.h>

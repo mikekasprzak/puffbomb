@@ -4,8 +4,8 @@
 #ifndef __Engine2D_Physics_Impulse_H__
 #define __Engine2D_Physics_Impulse_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Real.h>
-#include <Geometry/Vector.h>
+#include <Math/Real.h>
+#include <Math/Vector.h>
 
 #include <Physics/Physics.h>
 // - ------------------------------------------------------------------------------------------ - //

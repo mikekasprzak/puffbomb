@@ -4,7 +4,7 @@
 #ifndef __Engine2D_CreateCollectionInstance_H__
 #define __Engine2D_CreateCollectionInstance_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 
 #include <DynamicCollection/DynamicCollection.h>
 // - ------------------------------------------------------------------------------------------ - //

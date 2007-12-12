@@ -4,7 +4,7 @@
 #ifndef __Engine2D_Engine_ExitVortex_H__
 #define __Engine2D_Engine_ExitVortex_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Real.h>
+#include <Math/Real.h>
 #include <PassiveObject/PassiveCommonClockObject.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cExitVortex: public Engine2D::cPassiveCommonClockObject {

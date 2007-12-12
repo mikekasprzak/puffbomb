@@ -4,7 +4,7 @@
 #ifndef __Rendo_Particle_H__
 #define __Rendo_Particle_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 #include <Graphics/Gfx.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include <Animation/Animator.h>

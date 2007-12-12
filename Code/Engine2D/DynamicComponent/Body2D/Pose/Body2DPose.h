@@ -6,8 +6,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Real.h>
-#include <Geometry/Vector.h>
+#include <Math/Real.h>
+#include <Math/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 #include "BodyPoseNode.h"
 #include <DynamicComponent/Body2D/Constraints/Spring.h>

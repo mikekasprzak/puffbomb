@@ -4,7 +4,7 @@
 #ifndef __Rendo_FXLibrary_H__
 #define __Rendo_FXLibrary_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 #include <Animation/Animation.h>
 // - ------------------------------------------------------------------------------------------ - //
 class FXLibrary

@@ -4,7 +4,7 @@
 #ifndef __ClassicGame_PuffBOMB_BombInfo_H__
 #define __ClassicGame_PuffBOMB_BombInfo_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <Geometry/Vector.h>
+#include <Math/Vector.h>
 // - ------------------------------------------------------------------------------------------ - //
 class cBombInfo { 
 public:
