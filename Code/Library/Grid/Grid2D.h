@@ -4,7 +4,7 @@
 #ifndef __Grid_Grid2D_H__
 #define __Grid_Grid2D_H__
 // - ------------------------------------------------------------------------------------------ - //
-// TODO: Flipping, Math Functions, Insert (creating rows and columns to fit)
+// TODO: Math Functions, Insert (creating rows and columns to fit)
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
