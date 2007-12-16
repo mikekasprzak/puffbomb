@@ -4,7 +4,7 @@
 #ifndef __Grid_Grid2D_H__
 #define __Grid_Grid2D_H__
 // - ------------------------------------------------------------------------------------------ - //
-// TODO: Flipping, Math Functions
+// TODO: Flipping, Math Functions, Insert (creating rows and columns to fit)
 // - ------------------------------------------------------------------------------------------ - //
 #include <vector>
 // - ------------------------------------------------------------------------------------------ - //
@@ -78,7 +78,7 @@ public:
 	
 private:
 	// - -------------------------------------------------------------------------------------- - //
-	static inline std::vector< tType > CopyData(
+	static inline const std::vector< tType > CopyData(
 		const Grid2D< tType >& Src,
 		const size_t NewWidth,
 		const size_t NewHeight,
@@ -122,7 +122,7 @@ private:
 	}	
 	// - -------------------------------------------------------------------------------------- - //
 public:
-	static inline Grid2D< tType > Merge(
+	static inline const Grid2D< tType > Merge(
 		const Grid2D< tType >& GridA,
 		const Grid2D< tType >& GridB,
 		const int GridAX,
@@ -184,6 +184,69 @@ public:
 		return NewGrid;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	static inline const Grid2D< tType > RotateCW( const Grid2D< tType >& Src ) {
+		Grid2D< tType > NewGrid( Src.Height(), Src.Width() );
+		
+		size_t SrcHeight = Src.Height();
+		for ( size_t _y = SrcHeight; _y--; ) {
+			for ( size_t _x = Src.Width(); _x--; ) {
+				NewGrid( (SrcHeight-1)-_y, _x ) = Src( _x, _y );
+			}
+		}		
+		
+		return NewGrid;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	static inline const Grid2D< tType > RotateCCW( const Grid2D< tType >& Src ) {
+		Grid2D< tType > NewGrid( Src.Height(), Src.Width() );
+		
+		size_t SrcWidth = Src.Width();
+		for ( size_t _y = Src.Height(); _y--; ) {
+			for ( size_t _x = SrcWidth; _x--; ) {
+				NewGrid( _y, (SrcWidth-1)-_x ) = Src( _x, _y );
+			}
+		}		
+		
+		return NewGrid;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline const Grid2D< tType > RotateCW( ) {
+		return RotateCW( *this );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline const Grid2D< tType > RotateCCW( ) {
+		return RotateCCW( *this );
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline const Grid2D< tType > FlipX( ) {
+		Grid2D< tType > NewGrid( Width(), Height() );
+		
+		size_t SrcWidth = Width();
+		size_t SrcHeight = Height();
+		for ( size_t _y = SrcHeight; _y--; ) {
+			for ( size_t _x = SrcWidth; _x--; ) {
+				NewGrid( (SrcWidth-1)-_x, _y ) = operator()( _x, _y );
+			}
+		}		
+		
+		return NewGrid;		
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	inline const Grid2D< tType > FlipY( ) {
+		Grid2D< tType > NewGrid( Width(), Height() );
+		
+		size_t SrcWidth = Width();
+		size_t SrcHeight = Height();
+		for ( size_t _y = SrcHeight; _y--; ) {
+			for ( size_t _x = SrcWidth; _x--; ) {
+				NewGrid( _x, (SrcHeight-1)-_y ) = operator()( _x, _y );
+			}
+		}		
+		
+		return NewGrid;		
+	}
+	// - -------------------------------------------------------------------------------------- - //
+		
 public:
 	// - -------------------------------------------------------------------------------------- - //
 	inline void Resize( const size_t NewWidth, const size_t NewHeight, const tType& InitValue = tType() ) {
