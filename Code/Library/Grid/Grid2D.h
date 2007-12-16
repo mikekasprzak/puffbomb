@@ -184,6 +184,268 @@ public:
 		return NewGrid;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	static inline const Grid2D< tType > MergeBlend(
+		const Grid2D< tType >& GridA,
+		const Grid2D< tType >& GridB,
+		const int GridAX,
+		const int GridAY,
+		const int GridBX,
+		const int GridBY,
+		const tType& TestValue = tType(),
+		const tType& InitValue = tType()
+		)
+	{
+		// Top corner of the grid //
+		int GridX1 = GridAX;
+		int GridY1 = GridAY;
+		
+		if ( GridX1 > GridBX )
+			GridX1 = GridBX;
+		if ( GridY1 > GridBY )
+			GridY1 = GridBY;
+
+			
+		// Bottom corner of the grid //
+		int GridX2 = GridAX + GridA.Width();
+		int GridY2 = GridAY + GridA.Height();
+		
+		if ( GridX2 < (int)(GridBX + GridB.Width()) )
+			GridX2 = GridBX + GridB.Width();
+		if ( GridY2 < (int)(GridBY + GridB.Height()) )
+			GridY2 = GridBY + GridB.Height();
+
+		
+		// Calculate the dimensions //
+		int Width = GridX2 - GridX1;
+		int Height = GridY2 - GridY1;
+
+		
+		// Calculate Start Positions //
+		int AX = GridAX - GridX1;
+		int AY = GridAY - GridY1;
+		int BX = GridBX - GridX1;
+		int BY = GridBY - GridY1;
+			
+		// Create a vector to hold our copy //
+		Grid2D< tType > NewGrid( Width, Height, InitValue );
+
+		// Copy GridA //
+		for ( size_t _y = GridA.Height(); _y--; ) {
+			for ( size_t _x = GridA.Width(); _x--; ) {
+				if ( GridA( _x, _y ) != TestValue )
+					NewGrid( AX + _x, AY + _y ) = GridA( _x, _y );
+			}
+		}
+
+		// Copy GridB //
+		for ( size_t _y = GridB.Height(); _y--; ) {
+			for ( size_t _x = GridB.Width(); _x--; ) {
+				if ( GridB( _x, _y ) != TestValue )
+					NewGrid( BX + _x, BY + _y ) = GridB( _x, _y );
+			}
+		}
+		
+		// Return the grid //
+		return NewGrid;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	static inline const Grid2D< tType > MergeBlendOnly(
+		const Grid2D< tType >& GridA,
+		const Grid2D< tType >& GridB,
+		const int GridAX,
+		const int GridAY,
+		const int GridBX,
+		const int GridBY,
+		const tType& TestValue = tType(),
+		const tType& InitValue = tType()
+		)
+	{
+		// Top corner of the grid //
+		int GridX1 = GridAX;
+		int GridY1 = GridAY;
+		
+		if ( GridX1 > GridBX )
+			GridX1 = GridBX;
+		if ( GridY1 > GridBY )
+			GridY1 = GridBY;
+
+			
+		// Bottom corner of the grid //
+		int GridX2 = GridAX + GridA.Width();
+		int GridY2 = GridAY + GridA.Height();
+		
+		if ( GridX2 < (int)(GridBX + GridB.Width()) )
+			GridX2 = GridBX + GridB.Width();
+		if ( GridY2 < (int)(GridBY + GridB.Height()) )
+			GridY2 = GridBY + GridB.Height();
+
+		
+		// Calculate the dimensions //
+		int Width = GridX2 - GridX1;
+		int Height = GridY2 - GridY1;
+
+		
+		// Calculate Start Positions //
+		int AX = GridAX - GridX1;
+		int AY = GridAY - GridY1;
+		int BX = GridBX - GridX1;
+		int BY = GridBY - GridY1;
+			
+		// Create a vector to hold our copy //
+		Grid2D< tType > NewGrid( Width, Height, InitValue );
+
+		// Copy GridA //
+		for ( size_t _y = GridA.Height(); _y--; ) {
+			for ( size_t _x = GridA.Width(); _x--; ) {
+				if ( GridA( _x, _y ) == TestValue )
+					NewGrid( AX + _x, AY + _y ) = GridA( _x, _y );
+			}
+		}
+
+		// Copy GridB //
+		for ( size_t _y = GridB.Height(); _y--; ) {
+			for ( size_t _x = GridB.Width(); _x--; ) {
+				if ( GridB( _x, _y ) == TestValue )
+					NewGrid( BX + _x, BY + _y ) = GridB( _x, _y );
+			}
+		}
+		
+		// Return the grid //
+		return NewGrid;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	static inline const Grid2D< tType > MergeBlendOnlyMask(
+		const Grid2D< tType >& GridA,
+		const Grid2D< tType >& GridB,
+		const int GridAX,
+		const int GridAY,
+		const int GridBX,
+		const int GridBY,
+		const tType& TestValue = tType(),
+		const tType& MaskValue = tType(),
+		const tType& InitValue = tType()
+		)
+	{
+		// Top corner of the grid //
+		int GridX1 = GridAX;
+		int GridY1 = GridAY;
+		
+		if ( GridX1 > GridBX )
+			GridX1 = GridBX;
+		if ( GridY1 > GridBY )
+			GridY1 = GridBY;
+
+			
+		// Bottom corner of the grid //
+		int GridX2 = GridAX + GridA.Width();
+		int GridY2 = GridAY + GridA.Height();
+		
+		if ( GridX2 < (int)(GridBX + GridB.Width()) )
+			GridX2 = GridBX + GridB.Width();
+		if ( GridY2 < (int)(GridBY + GridB.Height()) )
+			GridY2 = GridBY + GridB.Height();
+
+		
+		// Calculate the dimensions //
+		int Width = GridX2 - GridX1;
+		int Height = GridY2 - GridY1;
+
+		
+		// Calculate Start Positions //
+		int AX = GridAX - GridX1;
+		int AY = GridAY - GridY1;
+		int BX = GridBX - GridX1;
+		int BY = GridBY - GridY1;
+			
+		// Create a vector to hold our copy //
+		Grid2D< tType > NewGrid( Width, Height, InitValue );
+
+		// Copy GridA //
+		for ( size_t _y = GridA.Height(); _y--; ) {
+			for ( size_t _x = GridA.Width(); _x--; ) {
+				if ( GridA( _x, _y ) == TestValue )
+					NewGrid( AX + _x, AY + _y ) = MaskValue;
+			}
+		}
+
+		// Copy GridB //
+		for ( size_t _y = GridB.Height(); _y--; ) {
+			for ( size_t _x = GridB.Width(); _x--; ) {
+				if ( GridB( _x, _y ) == TestValue )
+					NewGrid( BX + _x, BY + _y ) = MaskValue;
+			}
+		}
+		
+		// Return the grid //
+		return NewGrid;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	static inline const Grid2D< tType > MergeBlendMask(
+		const Grid2D< tType >& GridA,
+		const Grid2D< tType >& GridB,
+		const int GridAX,
+		const int GridAY,
+		const int GridBX,
+		const int GridBY,
+		const tType& TestValue = tType(),
+		const tType& MaskValue = tType(),
+		const tType& InitValue = tType()
+		)
+	{
+		// Top corner of the grid //
+		int GridX1 = GridAX;
+		int GridY1 = GridAY;
+		
+		if ( GridX1 > GridBX )
+			GridX1 = GridBX;
+		if ( GridY1 > GridBY )
+			GridY1 = GridBY;
+
+			
+		// Bottom corner of the grid //
+		int GridX2 = GridAX + GridA.Width();
+		int GridY2 = GridAY + GridA.Height();
+		
+		if ( GridX2 < (int)(GridBX + GridB.Width()) )
+			GridX2 = GridBX + GridB.Width();
+		if ( GridY2 < (int)(GridBY + GridB.Height()) )
+			GridY2 = GridBY + GridB.Height();
+
+		
+		// Calculate the dimensions //
+		int Width = GridX2 - GridX1;
+		int Height = GridY2 - GridY1;
+
+		
+		// Calculate Start Positions //
+		int AX = GridAX - GridX1;
+		int AY = GridAY - GridY1;
+		int BX = GridBX - GridX1;
+		int BY = GridBY - GridY1;
+			
+		// Create a vector to hold our copy //
+		Grid2D< tType > NewGrid( Width, Height, InitValue );
+
+		// Copy GridA //
+		for ( size_t _y = GridA.Height(); _y--; ) {
+			for ( size_t _x = GridA.Width(); _x--; ) {
+				if ( GridA( _x, _y ) != TestValue )
+					NewGrid( AX + _x, AY + _y ) = MaskValue;
+			}
+		}
+
+		// Copy GridB //
+		for ( size_t _y = GridB.Height(); _y--; ) {
+			for ( size_t _x = GridB.Width(); _x--; ) {
+				if ( GridB( _x, _y ) != TestValue )
+					NewGrid( BX + _x, BY + _y ) = MaskValue;
+			}
+		}
+		
+		// Return the grid //
+		return NewGrid;
+	}
+	// - -------------------------------------------------------------------------------------- - //
 	static inline const Grid2D< tType > RotateCW( const Grid2D< tType >& Src ) {
 		Grid2D< tType > NewGrid( Src.Height(), Src.Width() );
 		
