@@ -228,7 +228,7 @@ inline void copy_DataBlock( DataBlock* _Src, DataBlock* _Dest, const int _InitVa
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline void reallocate_DataBlock( DataBlock** p, size_t _NewSize, const int _InitValue ) {
+inline void reallocate_DataBlock( DataBlock** p, const size_t _NewSize, const int _InitValue ) {
 	// Allocate our new block //
 	DataBlock* NewBlock = new_DataBlock( _NewSize );
 	
@@ -242,7 +242,7 @@ inline void reallocate_DataBlock( DataBlock** p, size_t _NewSize, const int _Ini
 	(*p) = NewBlock;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline void resize_DataBlock( DataBlock** p, size_t _NewSize, const int _InitValue ) {
+inline void resize_DataBlock( DataBlock** p, const size_t _NewSize, const int _InitValue ) {
 	// A cheat.  We can resize the block without reallocating
 	if ( _NewSize <= (*p)->Size ) {
 		// Set the size to the new size, and we're done //
