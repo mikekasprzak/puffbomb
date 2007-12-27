@@ -7,6 +7,7 @@
 #include <cstring>
 // - ------------------------------------------------------------------------------------------ - //
 // TODO: Insertion code, Alignment resizing (min, max), searching, sorting  //
+// NOTE: Consider making reallocate specific to max size change.
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 struct Array {
@@ -86,6 +87,44 @@ inline void delete_Array( Array<Type>* p ) {
 	delete p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// New that set the maximum size //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* newmax_Array( const size_t _MaxSize ) {
+	Array<Type>* p = reinterpret_cast<Array<Type>*>(new char[ (_MaxSize * sizeof(Type)) + sizeof(Array<Type>) ]);
+
+	p->Size = 0;
+	p->MaxSize = _MaxSize;
+
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* newmax_Array( const size_t _MaxSize, const size_t _Size ) {
+	Array<Type>* p = reinterpret_cast<Array<Type>*>(new char[ (_MaxSize * sizeof(Type)) + sizeof(Array<Type>) ]);
+
+	p->Size = _Size;
+	p->MaxSize = _MaxSize;
+
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* newmax_Array( const size_t _MaxSize, const size_t _Size, const Type& _InitValue ) {
+	// Allocate it //
+	Array<Type>* NewArray = newmax_Array<Type>( _MaxSize, _Size );
+	
+	// Initialize it //
+	set_Array<Type>( NewArray, _InitValue );
+	
+	// Return it //
+	return NewArray;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -170,6 +209,54 @@ inline void reallocate_Array( Array<Type>** p ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
+inline void reallocatemax_Array( Array<Type>** p, const size_t _NewMaxSize ) {
+	// Allocate our new block //
+	Array<Type>* NewArray = newmax_Array<Type>( _NewMaxSize, (*p)->Size );
+	
+	// Copy the data to our new block //
+	copy_Array<Type>( *p, NewArray );
+	
+	// Delete the old block ponted to //
+	delete_Array<Type>( *p );
+	
+	// Make the pointer point to the new block //
+	(*p) = NewArray;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void reallocatemax_Array( Array<Type>** p, const size_t _NewMaxSize, const size_t _NewSize ) {
+	// Allocate our new block //
+	Array<Type>* NewArray = newmax_Array<Type>( _NewMaxSize, _NewSize );
+	
+	// Copy the data to our new block //
+	copy_Array<Type>( *p, NewArray );
+	
+	// Delete the old block ponted to //
+	delete_Array<Type>( *p );
+	
+	// Make the pointer point to the new block //
+	(*p) = NewArray;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void reallocatemax_Array( Array<Type>** p, const size_t _NewMaxSize, const size_t _NewSize, const Type& _InitValue ) {
+	// Allocate our new block //
+	Array<Type>* NewArray = newmax_Array<Type>( _NewMaxSize, _NewSize );
+	
+	// Copy the data to our new block //
+	copy_Array<Type>( *p, NewArray, _InitValue );
+	
+	// Delete the old block ponted to //
+	delete_Array<Type>( *p );
+	
+	// Make the pointer point to the new block //
+	(*p) = NewArray;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
 inline void resize_Array( Array<Type>** p, const size_t _NewSize ) {
 	// A cheat.  We can resize the block without reallocating
 	if ( _NewSize <= (*p)->MaxSize ) {
@@ -206,11 +293,56 @@ inline void resize_Array( Array<Type>** p, const size_t _NewSize, const Type& _I
 }
 // - ------------------------------------------------------------------------------------------ - //
 
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void resize2_Array( Array<Type>** p, const size_t _NewSize ) {
+	// A cheat.  We can resize the block without reallocating
+	if ( _NewSize <= (*p)->MaxSize ) {
+		// Set the size to the new size, and we're done //
+		(*p)->Size = _NewSize;
+	}
+	else {
+		// Well, we tried.  We need to reallocate and copy the data. //
+		size_t DoubleSize = (*p)->MaxSize + (*p)->MaxSize;
+		size_t NewMaxSize = DoubleSize > _NewSize ? DoubleSize : _NewSize;
+		
+		reallocatemax_Array<Type>( p, NewMaxSize, _NewSize );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void resize2_Array( Array<Type>** p, const size_t _NewSize, const Type& _InitValue ) {
+	// A cheat.  We can resize the block without reallocating
+	if ( _NewSize <= (*p)->MaxSize ) {
+		size_t OldSize = (*p)->Size;
+		
+		// Set the size to the new size, and we're done //
+		(*p)->Size = _NewSize;
+		
+		// If this grows us //
+		if ( OldSize < _NewSize ) {
+			// Fill in new values with passed value //
+			for( size_t idx = (_NewSize - OldSize); idx--; ) {
+				(*p)->Data[OldSize + idx] = _InitValue;
+			}
+		}
+	}
+	else {
+		// Well, we tried.  We need to reallocate and copy the data. //
+		size_t DoubleSize = (*p)->MaxSize + (*p)->MaxSize;
+		size_t NewMaxSize = DoubleSize > _NewSize ? DoubleSize : _NewSize;
+		
+		reallocatemax_Array<Type>( p, NewMaxSize, _NewSize, _InitValue );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
 
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline void pushback_Array( Array<Type>** p, const Type& _InitValue ) {
-	resize_Array( p, (*p)->Size + 1, _InitValue );
+	resize2_Array( p, (*p)->Size + 1, _InitValue );
 } 
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
@@ -220,6 +352,28 @@ inline Type popback_Array( Array<Type>** p ) {
 	
 	return (*p)->Data[ (*p)->Size ];
 } 
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+// Push and pop large groups of objects on to the Array //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void pushblockback_Array( Array<Type>** p, const size_t _Value ) {
+	resize2_Array( p, (*p)->Size + _Value );
+} 
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void pushblockback_Array( Array<Type>** p, const size_t _Value, const Type& _InitValue ) {
+	resize2_Array( p, (*p)->Size + _Value, _InitValue );
+} 
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Type popblockback_Array( Array<Type>** p, const size_t _Value ) {
+	// TODO: Assert if Size == 0 //
+	(*p)->Size -= _Value;
+	
+	return (*p)->Data[ (*p)->Size ];
+}
 // - ------------------------------------------------------------------------------------------ - //
 
 

@@ -26,13 +26,11 @@ struct Heap {
 inline Heap* new_Heap( const size_t _IndexCount, const size_t _DataSize ) {
 	Heap* p = new Heap;
 
-	// Allocate an array for our entries, and reset Size, since we plan to pushback //
-	p->Index = new_Array<size_t>(_IndexCount);
-	resize_Array<size_t>( &p->Index, 0 );
+	// Allocate an array for our entries //
+	p->Index = newmax_Array<size_t>(_IndexCount);
 	
-	// Allocate a mass of data, and reset Size, since we plan to pushback //
-	p->Data = new_Array<char>(_DataSize);
-	resize_Array<char>( &p->Data, 0 );
+	// Allocate a mass of data //
+	p->Data = newmax_Array<char>(_DataSize);
 
 	return p;
 }
@@ -56,10 +54,13 @@ inline size_t allocate_Heap( Heap* p, const size_t _MemorySize ) {
 	pushback_Array<size_t>( &p->Index, p->Data->Size );
 	
 	// Allocate memory //
-	p->Data->Size += _MemorySize;
-	
-	if ( p->Data->Size > p->Data->MaxSize )
-		reallocate_Array<char>( &p->Data );
+	pushblockback_Array<char>( &p->Data, _MemorySize );
+//	
+//	p->Data->Size += _MemorySize;
+//	
+//	// TODO: Update Array to include a means of growing size //
+//	if ( p->Data->Size > p->Data->MaxSize )
+//		reallocate_Array<char>( &p->Data );
 	
 	// Return key //
 	return Key;
