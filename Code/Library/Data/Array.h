@@ -4,26 +4,62 @@
 #ifndef __Library_Data_Array_H__
 #define __Library_Data_Array_H__
 // - ------------------------------------------------------------------------------------------ - //
-//#include <cstdio>
+#include <cstring>
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 struct Array {
-	size_t CurrentSize;
+	size_t Size;
 	size_t MaxSize;
 	Type* Data;
 };
 // - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// Set Array //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void set_Array( Array<Type>* _Dest, const Type& _InitValue ) {
+	// Set value in all entries //
+	for( size_t idx = _Dest->Size; idx--; ) {
+		_Dest->Data[idx] = _InitValue;
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+// Copy one Array to another, no larger than Destination Array Size //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest ) {
+	// If source is smaller than the destination //
+	if ( _Dest->Size > _Src->Size ) {
+		// Copy only Source number of entries //
+		for( size_t idx = _Src->Size; idx--; ) {
+			_Dest->Data[idx] = _Src->Data[idx];
+		}
+	}
+	else {
+		// Copy Destination number of entries //
+		for( size_t idx = _Dest->Size; idx--; ) {
+			_Dest->Data[idx] = _Src->Data[idx];
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline Array<Type>* new_Array( const size_t _Size ) {
 	Array<Type>* p = new Array<Type>;
 
-	p->CurrentSize = _Size;
+	p->Size = _Size;
 	p->MaxSize = _Size;
 	
 	// Allocate our data //
-	p->Data = new Type[_Size];
+	if ( _Size )
+		p->Data = new Type[_Size];
+	else
+		p->Data = 0;
 
 	return p;
 }
@@ -31,42 +67,123 @@ inline Array<Type>* new_Array( const size_t _Size ) {
 // Use this alternative "new" function when you want to initialize the Arary to a value //
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline Array<Type>* new_Array( const size_t _Size, const Type _InitValue ) {
+inline Array<Type>* new_Array( const size_t _Size, const Type& _InitValue ) {
 	// Allocate it //
-	Array* NewArray = new_Array( _Size );
+	Array<Type>* NewArray = new_Array<Type>( _Size );
 	
 	// Initialize it //
-	for( int idx = _Size; idx--; ) {
-		NewArray->Data[idx] = _InitValue;
-	}
-	//memset( NewArray->Data, _InitValue, NewArray->Size );
+	set_Array<Type>( NewArray, _InitValue );
 	
 	// Return it //
 	return NewArray;
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline Array<Type>* new_Array() {
-	Array<Type>* p = new Array<Type>;
-
-	p->CurrentSize = 0;
-	p->MaxSize = 0;
-	
-	// Normally, we'd allocate something, but we were given nothing to allocate //
-	p->Data = 0;
-
-	return p;
-}
-// - ------------------------------------------------------------------------------------------ - //
-
-// - ------------------------------------------------------------------------------------------ - //
-inline void delete_Array( Array* p ) {
+inline void delete_Array( Array<Type>* p ) {
 	if ( p->Data )
 		delete [] p->Data;
 	
 	delete p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest, const Type& _InitValue ) {
+	// If source is smaller than the destination //
+	if ( _Dest->Size > _Src->Size ) {
+		// Copy Source number of entries //
+		for( size_t idx = _Src->Size; idx--; ) {
+			_Dest->Data[idx] = _Src->Data[idx];
+		}
+		
+		// Fill the rest of the data with initializer //
+		Type* NewDest = &_Dest->Data[_Src->Size];
+		for( size_t idx = (_Dest->Size - _Src->Size); idx--; ) {
+			NewDest[idx] = _InitValue;
+		}
+	}
+	else {
+		// Copy Destination number of entries //
+		for( size_t idx = _Dest->Size; idx--; ) {
+			_Dest->Data[idx] = _Src->Data[idx];
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+// Return a duplicate of an Array //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* copy_Array( Array<Type>* _Src ) {
+	// Allocate our new block //
+	Array<Type>* NewBlock = new_Array<Type>( _Src->Size );
+	
+	// Copy the data to our new block //
+	copy_Array<Type>( _Src, NewBlock );
+	
+	// Return the block //
+	return NewBlock;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// I'm not sure if I really need these, since the members are obviously accessable //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t size_Array( Array<Type>* p ) {
+	return p->Size;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t maxsize_Array( Array<Type>* p ) {
+	return p->MaxSize;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void reallocate_Array( Array<Type>* p, const size_t _NewSize ) {
+	// Allocate our new block //
+	Array<Type>* NewArray = new_Array<Type>( _NewSize );
+	
+	// Copy the data to our new block //
+	copy_Array<Type>( *p, NewArray );
+	
+	// Delete the old block ponted to //
+	delete_Array<Type>( *p );
+	
+	// Make the pointer point to the new block //
+	(*p) = NewArray;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void reallocate_Array( Array<Type>* p, const size_t _NewSize, const Type& _InitValue ) {
+	// Allocate our new block //
+	Array<Type>* NewArray = new_Array<Type>( _NewSize );
+	
+	// Copy the data to our new block //
+	copy_Array<Type>( *p, NewArray, _InitValue );
+	
+	// Delete the old block ponted to //
+	delete_Array<Type>( *p );
+	
+	// Make the pointer point to the new block //
+	(*p) = NewArray;
+}
+// - ------------------------------------------------------------------------------------------ - //
+// Variation of reallocate that looks at the internal size //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void reallocate_Array( Array<Type>** p ) {
+	reallocate_Array<Type>( p, (*p)->Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 
 // - ------------------------------------------------------------------------------------------ - //
