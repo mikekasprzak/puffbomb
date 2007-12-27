@@ -18,7 +18,7 @@ struct DataBlock {
 // - ------------------------------------------------------------------------------------------ - //
 inline DataBlock* new_DataBlock( const size_t _Size ) {
 	//DataBlock* p = (DataBlock*)(new char[_Size+4]);
-	DataBlock* p = reinterpret_cast<DataBlock*>(new char[_Size+(sizeof(DataBlock)]);
+	DataBlock* p = reinterpret_cast<DataBlock*>(new char[ _Size + sizeof(DataBlock) ]);
 	p->Size = _Size;
 	return p;
 }
@@ -73,7 +73,7 @@ inline DataBlock* new_DataBlock( const char* _FileName ) {
 // - ------------------------------------------------------------------------------------------ - //
 // Variation for C++ Strings //
 // - ------------------------------------------------------------------------------------------ - //
-//inline DataBlock* new_DataBlock( const string _FileName ) {
+//inline DataBlock* new_DataBlock( const string& _FileName ) {
 //	return new_DataBlock( _FileName.c_str() );
 //}
 // - ------------------------------------------------------------------------------------------ - //
