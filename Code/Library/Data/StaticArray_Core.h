@@ -1,18 +1,18 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Array - A dynamically allocated array.  A C implementation, and a lightweight STL vector. //
+// StaticArray - A statically allocated array.  A C implementation, and a lightweight STL vector. //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_Array_Core_H__
-#define __Library_Data_Array_Core_H__
+#ifndef __Library_Data_StaticArray_Core_H__
+#define __Library_Data_StaticArray_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <cstring>
+
 // - ------------------------------------------------------------------------------------------ - //
 // TODO: Insertion code, Alignment resizing (min, max), searching, sorting  //
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-struct Array {
-	size_t MaxSize;
+template< class Type, size_t MaxSize >
+struct StaticArray {
+//	size_t MaxSize;
 	size_t Size;
-	Type Data[0];
+	Type Data[MaxSize];
 	
 	// Since we're structurally compatible with DataBlock's (but smarter), allow conversion. //
 	inline struct DataBlock* ToDataBlock() {
@@ -23,20 +23,20 @@ struct Array {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-// Set Array //
+// Set StaticArray //
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void set_Array( Array<Type>* _Dest, const Type& _InitValue ) {
+template< class Type, size_t MaxSize >
+inline void set_StaticArray( StaticArray<Type,MaxSize>* _Dest, const Type& _InitValue ) {
 	// Set value in all entries //
 	for( size_t idx = _Dest->Size; idx--; ) {
 		_Dest->Data[idx] = _InitValue;
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-// Copy one Array to another, no larger than Destination Array Size //
+// Copy one StaticArray to another, no larger than Destination StaticArray Size //
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest ) {
+template< class Type, size_t MaxSize >
+inline void copy_StaticArray( StaticArray<Type,MaxSize>* _Src, StaticArray<Type,MaxSize>* _Dest ) {
 	// If source is smaller than the destination //
 	if ( _Dest->Size > _Src->Size ) {
 		// Copy only Source number of entries //
@@ -55,42 +55,41 @@ inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline Array<Type>* new_Array( const size_t _Size ) {
-	Array<Type>* p = reinterpret_cast<Array<Type>*>(new char[ (_Size * sizeof(Type)) + sizeof(Array<Type>) ]);
+template< class Type, size_t MaxSize >
+inline StaticArray<Type,MaxSize>* new_StaticArray( const size_t _Size ) {
+	StaticArray<Type,MaxSize>* p = reinterpret_cast<StaticArray<Type,MaxSize>*>(new char[ (_Size * sizeof(Type)) + sizeof(StaticArray<Type,MaxSize>) ]);
 
 	p->Size = _Size;
-	p->MaxSize = _Size;
 
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
 // Use this alternative "new" function when you want to initialize the Arary to a value //
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline Array<Type>* new_Array( const size_t _Size, const Type& _InitValue ) {
+template< class Type, size_t MaxSize >
+inline StaticArray<Type,MaxSize>* new_StaticArray( const size_t _Size, const Type& _InitValue ) {
 	// Allocate it //
-	Array<Type>* NewArray = new_Array<Type>( _Size );
+	StaticArray<Type,MaxSize>* NewStaticArray = new_StaticArray<Type,MaxSize>( _Size );
 	
 	// Initialize it //
-	set_Array<Type>( NewArray, _InitValue );
+	set_StaticArray<Type,MaxSize>( NewStaticArray, _InitValue );
 	
 	// Return it //
-	return NewArray;
+	return NewStaticArray;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void delete_Array( Array<Type>* p ) {
+template< class Type, size_t MaxSize >
+inline void delete_StaticArray( StaticArray<Type,MaxSize>* p ) {
 	delete p;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest, const Type& _InitValue ) {
+template< class Type, size_t MaxSize >
+inline void copy_StaticArray( StaticArray<Type,MaxSize>* _Src, StaticArray<Type,MaxSize>* _Dest, const Type& _InitValue ) {
 	// If source is smaller than the destination //
 	if ( _Dest->Size > _Src->Size ) {
 		// Copy Source number of entries //
@@ -112,15 +111,15 @@ inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest, const Type& _Init
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-// Return a duplicate of an Array //
+// Return a duplicate of an StaticArray //
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline Array<Type>* copy_Array( Array<Type>* _Src ) {
+template< class Type, size_t MaxSize >
+inline StaticArray<Type,MaxSize>* copy_StaticArray( StaticArray<Type,MaxSize>* _Src ) {
 	// Allocate our new block //
-	Array<Type>* NewBlock = new_Array<Type>( _Src->Size );
+	StaticArray<Type,MaxSize>* NewBlock = new_StaticArray<Type,MaxSize>( _Src->Size );
 	
 	// Copy the data to our new block //
-	copy_Array<Type>( _Src, NewBlock );
+	copy_StaticArray<Type,MaxSize>( _Src, NewBlock );
 	
 	// Return the block //
 	return NewBlock;
@@ -129,63 +128,63 @@ inline Array<Type>* copy_Array( Array<Type>* _Src ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void reallocate_Array( Array<Type>** p, const size_t _NewSize ) {
+template< class Type, size_t MaxSize >
+inline void reallocate_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _NewSize ) {
 	// Allocate our new block //
-	Array<Type>* NewArray = new_Array<Type>( _NewSize );
+	StaticArray<Type,MaxSize>* NewStaticArray = new_StaticArray<Type,MaxSize>( _NewSize );
 	
 	// Copy the data to our new block //
-	copy_Array<Type>( *p, NewArray );
+	copy_StaticArray<Type,MaxSize>( *p, NewStaticArray );
 	
 	// Delete the old block ponted to //
-	delete_Array<Type>( *p );
+	delete_StaticArray<Type,MaxSize>( *p );
 	
 	// Make the pointer point to the new block //
-	(*p) = NewArray;
+	(*p) = NewStaticArray;
 }
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void reallocate_Array( Array<Type>** p, const size_t _NewSize, const Type& _InitValue ) {
+template< class Type, size_t MaxSize >
+inline void reallocate_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _NewSize, const Type& _InitValue ) {
 	// Allocate our new block //
-	Array<Type>* NewArray = new_Array<Type>( _NewSize );
+	StaticArray<Type,MaxSize>* NewStaticArray = new_StaticArray<Type,MaxSize>( _NewSize );
 	
 	// Copy the data to our new block //
-	copy_Array<Type>( *p, NewArray, _InitValue );
+	copy_StaticArray<Type,MaxSize>( *p, NewStaticArray, _InitValue );
 	
 	// Delete the old block ponted to //
-	delete_Array<Type>( *p );
+	delete_StaticArray<Type,MaxSize>( *p );
 	
 	// Make the pointer point to the new block //
-	(*p) = NewArray;
+	(*p) = NewStaticArray;
 }
 // - ------------------------------------------------------------------------------------------ - //
 // Variation of reallocate that looks at the internal size //
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void reallocate_Array( Array<Type>** p ) {
-	reallocate_Array<Type>( p, (*p)->Size );
+template< class Type, size_t MaxSize >
+inline void reallocate_StaticArray( StaticArray<Type,MaxSize>** p ) {
+	reallocate_StaticArray<Type,MaxSize>( p, (*p)->Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void resize_Array( Array<Type>** p, const size_t _NewSize ) {
+template< class Type, size_t MaxSize >
+inline void resize_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _NewSize ) {
 	// A cheat.  We can resize the block without reallocating
-	if ( _NewSize <= (*p)->MaxSize ) {
+	if ( _NewSize <= MaxSize ) {
 		// Set the size to the new size, and we're done //
 		(*p)->Size = _NewSize;
 	}
 	else {
 		// Well, we tried.  We need to reallocate and copy the data. //
-		reallocate_Array<Type>( p, _NewSize );
+		reallocate_StaticArray<Type,MaxSize>( p, _NewSize );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void resize_Array( Array<Type>** p, const size_t _NewSize, const Type& _InitValue ) {
+template< class Type, size_t MaxSize >
+inline void resize_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _NewSize, const Type& _InitValue ) {
 	// A cheat.  We can resize the block without reallocating
-	if ( _NewSize <= (*p)->MaxSize ) {
+	if ( _NewSize <= MaxSize ) {
 		size_t OldSize = (*p)->Size;
 		
 		// Set the size to the new size, and we're done //
@@ -198,23 +197,24 @@ inline void resize_Array( Array<Type>** p, const size_t _NewSize, const Type& _I
 				(*p)->Data[OldSize + idx] = _InitValue;
 			}
 		}
+		
 	}
 	else {
 		// Well, we tried.  We need to reallocate and copy the data. //
-		reallocate_Array<Type>( p, _NewSize, _InitValue );
+		reallocate_StaticArray<Type,MaxSize>( p, _NewSize, _InitValue );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline void pushback_Array( Array<Type>** p, const Type& _InitValue ) {
-	resize_Array( p, (*p)->Size + 1, _InitValue );
+template< class Type, size_t MaxSize >
+inline void pushback_StaticArray( StaticArray<Type,MaxSize>** p, const Type& _InitValue ) {
+	resize_StaticArray( p, (*p)->Size + 1, _InitValue );
 } 
 // - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline Type popback_Array( Array<Type>** p ) {
+template< class Type, size_t MaxSize >
+inline Type popback_StaticArray( StaticArray<Type,MaxSize>** p ) {
 	// TODO: Assert if Size == 0 //
 	(*p)->Size--;
 	
@@ -224,5 +224,5 @@ inline Type popback_Array( Array<Type>** p ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_Array_Core_H__ //
+#endif // __Library_Data_StaticArray_Core_H__ //
 // - ------------------------------------------------------------------------------------------ - //

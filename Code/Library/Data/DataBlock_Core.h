@@ -155,8 +155,19 @@ inline void reallocate_DataBlock( DataBlock** p, const size_t _NewSize, const in
 inline void resize_DataBlock( DataBlock** p, const size_t _NewSize, const int _InitValue ) {
 	// A cheat.  We can resize the block without reallocating
 	if ( _NewSize <= (*p)->Size ) {
+		size_t OldSize = (*p)->Size;
+		
 		// Set the size to the new size, and we're done //
 		(*p)->Size = _NewSize;
+		
+		// Note this will never happen, since this is normally a max size test //
+//		// If this grows us //
+//		if ( OldSize < _NewSize ) {
+//			// Fill in new values with passed value //
+//			for( size_t idx = (_NewSize - OldSize); idx--; ) {
+//				(*p)->Data[OldSize + idx] = _InitValue;
+//			}
+//		}
 	}
 	else {
 		// Well, we tried.  We need to reallocate and copy the data. //
@@ -164,6 +175,20 @@ inline void resize_DataBlock( DataBlock** p, const size_t _NewSize, const int _I
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+inline void pushback_DataBlock( DataBlock** p, const int _InitValue ) {
+	resize_DataBlock( p, (*p)->Size + 1, _InitValue );
+} 
+// - ------------------------------------------------------------------------------------------ - //
+inline int popback_Array( DataBlock** p ) {
+	// TODO: Assert if Size == 0 //
+	(*p)->Size--;
+	
+	return (*p)->Data[ (*p)->Size ];
+} 
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
