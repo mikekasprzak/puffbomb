@@ -6,7 +6,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 #include "DataBlock_Core.h"
-//#include "DataBlock_File.h"
+#include "DataBlock_File.h"
+#include "DataBlock_Class.h"
 
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Data_DataBlock_H__ //
