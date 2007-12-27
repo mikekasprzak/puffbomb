@@ -6,6 +6,11 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <cstring>
 // - ------------------------------------------------------------------------------------------ - //
+// The type must use a Data pointer.  Otherwise, we can't reallocate.  //
+// It's also unfortunate that I've had to make it a pointer+pointer, meaning that the functions //
+//   return a pointer, as well the returned data contains a pointer.  //
+// This may be avoidable with the C++ Type. //
+// - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 struct Array {
 	size_t Size;
@@ -147,7 +152,7 @@ inline const size_t maxsize_Array( Array<Type>* p ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline void reallocate_Array( Array<Type>* p, const size_t _NewSize ) {
+inline void reallocate_Array( Array<Type>** p, const size_t _NewSize ) {
 	// Allocate our new block //
 	Array<Type>* NewArray = new_Array<Type>( _NewSize );
 	
@@ -162,7 +167,7 @@ inline void reallocate_Array( Array<Type>* p, const size_t _NewSize ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline void reallocate_Array( Array<Type>* p, const size_t _NewSize, const Type& _InitValue ) {
+inline void reallocate_Array( Array<Type>** p, const size_t _NewSize, const Type& _InitValue ) {
 	// Allocate our new block //
 	Array<Type>* NewArray = new_Array<Type>( _NewSize );
 	
@@ -181,6 +186,35 @@ inline void reallocate_Array( Array<Type>* p, const size_t _NewSize, const Type&
 template< class Type >
 inline void reallocate_Array( Array<Type>** p ) {
 	reallocate_Array<Type>( p, (*p)->Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void resize_Array( Array<Type>** p, const size_t _NewSize ) {
+	// A cheat.  We can resize the block without reallocating
+	if ( _NewSize <= (*p)->MaxSize ) {
+		// Set the size to the new size, and we're done //
+		(*p)->Size = _NewSize;
+	}
+	else {
+		// Well, we tried.  We need to reallocate and copy the data. //
+		reallocate_Array<Type>( p, _NewSize );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void resize_Array( Array<Type>** p, const size_t _NewSize, const Type& _InitValue ) {
+	// A cheat.  We can resize the block without reallocating
+	if ( _NewSize <= (*p)->MaxSize ) {
+		// Set the size to the new size, and we're done //
+		(*p)->Size = _NewSize;
+	}
+	else {
+		// Well, we tried.  We need to reallocate and copy the data. //
+		reallocate_Array<Type>( p, _NewSize, _InitValue );
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 
