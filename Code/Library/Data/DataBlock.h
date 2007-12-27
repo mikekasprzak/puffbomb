@@ -18,7 +18,7 @@ struct DataBlock {
 // - ------------------------------------------------------------------------------------------ - //
 inline DataBlock* new_DataBlock( const size_t _Size ) {
 	//DataBlock* p = (DataBlock*)(new char[_Size+4]);
-	DataBlock* p = reinterpret_cast<DataBlock*>(new char[_Size+4]);
+	DataBlock* p = reinterpret_cast<DataBlock*>(new char[_Size+(sizeof(DataBlock)]);
 	p->Size = _Size;
 	return p;
 }
