@@ -13,9 +13,14 @@
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 struct Array {
-	size_t Size;
 	size_t MaxSize;
-	Type* Data;
+	size_t Size;
+	Type Data[0];
+	
+	// Since we're structurally compatible with DataBlock's (but smarter), allow conversion. //
+	inline struct DataBlock* ToDataBlock() {
+		return reinterpret_cast<struct DataBlock*>(&Size);
+	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -55,16 +60,10 @@ inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline Array<Type>* new_Array( const size_t _Size ) {
-	Array<Type>* p = new Array<Type>;
+	Array<Type>* p = reinterpret_cast<Array<Type>*>(new char[ (_Size * sizeof(Type)) + sizeof(Array<Type>) ]);
 
 	p->Size = _Size;
 	p->MaxSize = _Size;
-	
-	// Allocate our data //
-	if ( _Size )
-		p->Data = new Type[_Size];
-	else
-		p->Data = 0;
 
 	return p;
 }
@@ -87,9 +86,6 @@ inline Array<Type>* new_Array( const size_t _Size, const Type& _InitValue ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline void delete_Array( Array<Type>* p ) {
-	if ( p->Data )
-		delete [] p->Data;
-	
 	delete p;
 }
 // - ------------------------------------------------------------------------------------------ - //
