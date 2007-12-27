@@ -6,10 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include <cstring>
 // - ------------------------------------------------------------------------------------------ - //
-// The type must use a Data pointer.  Otherwise, we can't reallocate.  //
-// It's also unfortunate that I've had to make it a pointer+pointer, meaning that the functions //
-//   return a pointer, as well the returned data contains a pointer.  //
-// This may be avoidable with the C++ Type. //
+// TODO: Insertion code, Alignment resizing (min, max),  //
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 struct Array {
@@ -90,6 +87,7 @@ inline void delete_Array( Array<Type>* p ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
+
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest, const Type& _InitValue ) {
@@ -128,22 +126,6 @@ inline Array<Type>* copy_Array( Array<Type>* _Src ) {
 	return NewBlock;
 }
 // - ------------------------------------------------------------------------------------------ - //
-
-
-// - ------------------------------------------------------------------------------------------ - //
-// I'm not sure if I really need these, since the members are obviously accessable //
-// - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline const size_t size_Array( Array<Type>* p ) {
-	return p->Size;
-}
-// - ------------------------------------------------------------------------------------------ - //
-template< class Type >
-inline const size_t maxsize_Array( Array<Type>* p ) {
-	return p->MaxSize;
-}
-// - ------------------------------------------------------------------------------------------ - //
-
 
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -213,6 +195,23 @@ inline void resize_Array( Array<Type>** p, const size_t _NewSize, const Type& _I
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void pushback_Array( Array<Type>** p, const Type& _InitValue ) {
+	resize_Array( p, p->Size + 1, _InitValue );
+} 
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Type popback_Array( Array<Type>** p ) {
+	// TODO: Assert if Size == 0 //
+	p->Size--;
+	
+	return p->Data[ p->Size ];
+} 
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Data_Array_H__ //
