@@ -1,22 +1,23 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DataBlock Hash32 - Data Hashing //
+// Array Hash32 - Data Hashing //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_DataBlock_Hash32_H__
-#define __Library_Data_DataBlock_Hash32_H__
+#ifndef __Library_Data_Array_Hash32_H__
+#define __Library_Data_Array_Hash32_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "DataUtil_Hash32.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
-inline unsigned int hash32_DataBlock( const DataBlock* Data ) {
+template< class Type >
+inline unsigned int hash32_Array( const Array<Type>* Data ) {
 	// TODO: Assert zero pointer //
 	if (!Data)
 		return 0;
 		
-	return hash32_Data( Data->Data, Data->Size );
+	return hash32_Data( Data->Data, Data->Size * sizeof(Type) );
 }
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namepsace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_DataBlock_Hash32_H__ //
+#endif // __Library_Data_Array_Hash32_H__ //
 // - ------------------------------------------------------------------------------------------ - //

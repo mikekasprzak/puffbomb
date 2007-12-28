@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // DataUtil Hash32 - Data Hashing //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_DataUtil_Hash32_H__
-#define __Library_FileIO_DataUtil_Hash32_H__
+#ifndef __Library_Data_DataUtil_Hash32_H__
+#define __Library_Data_DataUtil_Hash32_H__
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -12,7 +12,7 @@
 // longword at a time would be faster (need alpha-style "is any byte 0"),
 // or just use the first longword
 // - ------------------------------------------------------------------------------------------ - // 
-unsigned int hash32_String( const char *str ) {
+inline unsigned int hash32_String( const char *str ) {
 	if (!str)
 		return 0;
  
@@ -25,7 +25,7 @@ unsigned int hash32_String( const char *str ) {
 	return acc;
 }
 // - ------------------------------------------------------------------------------------------ - //
-unsigned int hash32_Data( const char *str, size_t size ) {
+inline unsigned int hash32_Data( const char *str, size_t size ) {
 	if (!str)
 		return 0;
  
@@ -41,5 +41,5 @@ unsigned int hash32_Data( const char *str, size_t size ) {
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namepsace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataUtil_Hash32_H__ //
+#endif // __Library_Data_DataUtil_Hash32_H__ //
 // - ------------------------------------------------------------------------------------------ - //

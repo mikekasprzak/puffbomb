@@ -6,6 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "DataBlock_Core.h"
 #include "DataBlock_File.h"
+#include "DataBlock_Hash32.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -126,7 +127,9 @@ public:
 	inline static const cDataBlock PackLZO( const cDataBlock& _Src );
 
 	// Hash //
-	inline static const unsigned int Hash32( const cDataBlock& _Src );
+	inline const unsigned int Hash32() const {
+		return hash32_DataBlock( _Data );
+	}
 	//inline static const MD5Hash HashMD5( const cDataBlock& _Src  );
 	//inline static const SHA1Hash HashSHA1( const cDataBlock& _Src  );
 };

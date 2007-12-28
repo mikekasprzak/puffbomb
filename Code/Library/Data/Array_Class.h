@@ -6,6 +6,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 #include "Array_Core.h"
 #include "Array_File.h"
+#include "Array_Hash32.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -154,7 +155,9 @@ public:
 	inline static const cArray<Type> PackLZO( const cArray<Type>& _Src );
 	
 	// Hash //
-	inline static const unsigned int Hash32( const cArray<Type>& _Src );
+	inline const unsigned int Hash32() const {
+		return hash32_Array( _Data );
+	}
 	//inline static const MD5Hash HashMD5( const cArray<Type>& _Src  );
 	//inline static const SHA1Hash HashSHA1( const cArray<Type>& _Src  );
 };
