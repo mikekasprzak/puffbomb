@@ -1,16 +1,17 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DataBlockCompression - Compression code for DataBlock library //
+// ArrayCompression - Compression code for Array library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_DataBlock_LZMA_H__
-#define __Library_Data_DataBlock_LZMA_H__
+#ifndef __Library_Data_Array_LZMA_H__
+#define __Library_Data_Array_LZMA_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "DataBlock.h"
+#include "Array.h"
 #include <External/Lzma/LzmaDecode.h>
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
-// Decode packed LZMA data to a new DataBlock //
-inline DataBlock* unpack_LZMA_DataBlock( const DataBlock* _Src ) {
+// Decode packed LZMA data to a new Array //
+template< class Type >
+inline Array<Type>* unpack_LZMA_Array( const Array<Type>* _Src ) {
 	unsigned char LZMAProperties[LZMA_PROPERTIES_SIZE];
 	
 	// Copy first byte of LZMA Properties.  Somehow, this is vitally important. //
@@ -38,8 +39,8 @@ inline DataBlock* unpack_LZMA_DataBlock( const DataBlock* _Src ) {
 //		return 0;
 //	}
 	
-	// Allocate a new DataBlock for our uncompressed Data //
-	DataBlock* UBuffer = new_DataBlock( UncompressedSize );
+	// Allocate a new Array for our uncompressed Data //
+	Array<Type>* UBuffer = new_Array<Type>( UncompressedSize );
 
 	// Temporary variables modified by decode function, so to learn about how it went //
 	size_t inProcessed = 0;
@@ -64,8 +65,9 @@ inline DataBlock* unpack_LZMA_DataBlock( const DataBlock* _Src ) {
 	return UBuffer;
 }
 // - ------------------------------------------------------------------------------------------ - //
-// Decode packed LZMA data to a passed DataBlock //
-inline const size_t unpack_LZMA_DataBlock( const DataBlock* _Src, DataBlock* _Dest ) {
+// Decode packed LZMA data to a passed Array //
+template< class Type >
+inline const size_t unpack_LZMA_Array( const Array<Type>* _Src, Array<Type>* _Dest ) {
 	unsigned char LZMAProperties[LZMA_PROPERTIES_SIZE];
 	
 	// Copy first byte of LZMA Properties.  Somehow, this is vitally important. //
@@ -74,7 +76,7 @@ inline const size_t unpack_LZMA_DataBlock( const DataBlock* _Src, DataBlock* _De
 	// Get the Uncompressed Size from the properties //
 	unsigned long long int UncompressedSize = *((unsigned long long int*)&_Src->Data[LZMA_PROPERTIES_SIZE]);
 	
-	// If the passed DataBlock is too small for our uncompressed data, fail //
+	// If the passed Array is too small for our uncompressed data, fail //
 	if ( UncompressedSize > _Dest->Size ) {
 		// Not enough memory available in passed block! //
 		return 0;
@@ -124,13 +126,14 @@ inline const size_t unpack_LZMA_DataBlock( const DataBlock* _Src, DataBlock* _De
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-const cDataBlock cDataBlock::UnpackLZMA( const cDataBlock& _Src ) {
-	return cDataBlock( unpack_LZMA_DataBlock( _Src._Data ) );
+template< class Type >
+const cArray<Type> cArray<Type>::UnpackLZMA( const cArray<Type>& _Src ) {
+	return cArray<Type>( unpack_LZMA_Array<Type>( _Src._Data ) );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_DataBlock_LZMA_H__ //
+#endif // __Library_Data_Array_LZMA_H__ //
 // - ------------------------------------------------------------------------------------------ - //

@@ -6,8 +6,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 #include "DataBlock_Core.h"
-#include "DataBlock_File.h"
 #include "DataBlock_Hash32.h"
+#include "DataBlock_File.h"
 #include "DataBlock_Class.h"
 
 // - ------------------------------------------------------------------------------------------ - //
