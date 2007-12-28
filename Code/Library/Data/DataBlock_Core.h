@@ -181,7 +181,7 @@ inline void pushback_DataBlock( DataBlock** p, const int _InitValue ) {
 	resize_DataBlock( p, (*p)->Size + 1, _InitValue );
 } 
 // - ------------------------------------------------------------------------------------------ - //
-inline int popback_Array( DataBlock** p ) {
+inline int popback_DataBlock( DataBlock** p ) {
 	// TODO: Assert if Size == 0 //
 	(*p)->Size--;
 	

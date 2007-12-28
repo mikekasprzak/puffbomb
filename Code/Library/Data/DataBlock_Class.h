@@ -104,6 +104,14 @@ public:
 	inline void Clear( ) {
 		Set( 0 );
 	}
+	
+	inline void PushBack( const int _InitValue ) {
+		pushback_DataBlock( &_Data, _InitValue );
+	}
+	
+	inline const int PopBack() {
+		return popback_DataBlock( &_Data );
+	}
 public:
 	// Compression //
 	inline static const cDataBlock UnpackLZMA( const cDataBlock& _Src );

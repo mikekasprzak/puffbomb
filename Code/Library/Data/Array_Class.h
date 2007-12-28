@@ -27,7 +27,7 @@ public:
 	{
 	}
 	
-	inline cArray( const size_t _Size, const int _InitValue ) :
+	inline cArray( const size_t _Size, const Type& _InitValue ) :
 		_Data( new_Array<Type>( _Size, _InitValue ) )
 	{
 	}
@@ -103,7 +103,7 @@ public:
 			resize_Array<Type>( &_Data, _Size );
 	}
 	
-	inline void Set( const int _InitValue ) {
+	inline void Set( const Type& _InitValue ) {
 		// TODO: Make this Data Check an Assert //				
 		if (_Data)
 			set_Array<Type>( _Data, _InitValue );
@@ -112,6 +112,34 @@ public:
 	inline void Clear( ) {
 		Set( 0 );
 	}
+	
+	inline void Reset( ) {
+		Resize( 0 );
+	}
+	
+	inline void PushBack( const Type& _InitValue ) {
+		pushback_Array<Type>( &_Data, _InitValue );
+	}
+	
+	inline const Type PopBack() {
+		return popback_Array<Type>( &_Data );
+	}
+	
+public:
+	// STL Compatability //
+	inline void push_back( const Type& _InitValue ) {
+		PushBack( _InitValue );
+	}
+	inline const Type pop_back() {
+		return PopBack();
+	}
+	inline void clear() {
+		Reset();
+	}
+	inline void resize( const size_t _Size ) {
+		Resize( _Size );
+	}
+	
 public:
 	// Compression //
 	inline static const cArray<Type> UnpackLZMA( const cArray<Type>& _Src );
