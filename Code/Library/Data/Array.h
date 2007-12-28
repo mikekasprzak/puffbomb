@@ -7,6 +7,7 @@
 
 #include "Array_Core.h"
 #include "Array_File.h"
+#include "Array_Class.h"
 
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Data_Array_H__ //

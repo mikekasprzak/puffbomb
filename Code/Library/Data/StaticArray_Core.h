@@ -129,46 +129,6 @@ inline StaticArray<Type,MaxSize>* copy_StaticArray( StaticArray<Type,MaxSize>* _
 
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type, size_t MaxSize >
-inline void reallocate_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _NewSize ) {
-	// Allocate our new block //
-	StaticArray<Type,MaxSize>* NewStaticArray = new_StaticArray<Type,MaxSize>( _NewSize );
-	
-	// Copy the data to our new block //
-	copy_StaticArray<Type,MaxSize>( *p, NewStaticArray );
-	
-	// Delete the old block ponted to //
-	delete_StaticArray<Type,MaxSize>( *p );
-	
-	// Make the pointer point to the new block //
-	(*p) = NewStaticArray;
-}
-// - ------------------------------------------------------------------------------------------ - //
-template< class Type, size_t MaxSize >
-inline void reallocate_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _NewSize, const Type& _InitValue ) {
-	// Allocate our new block //
-	StaticArray<Type,MaxSize>* NewStaticArray = new_StaticArray<Type,MaxSize>( _NewSize );
-	
-	// Copy the data to our new block //
-	copy_StaticArray<Type,MaxSize>( *p, NewStaticArray, _InitValue );
-	
-	// Delete the old block ponted to //
-	delete_StaticArray<Type,MaxSize>( *p );
-	
-	// Make the pointer point to the new block //
-	(*p) = NewStaticArray;
-}
-// - ------------------------------------------------------------------------------------------ - //
-// Variation of reallocate that looks at the internal size //
-// - ------------------------------------------------------------------------------------------ - //
-template< class Type, size_t MaxSize >
-inline void reallocate_StaticArray( StaticArray<Type,MaxSize>** p ) {
-	reallocate_StaticArray<Type,MaxSize>( p, (*p)->Size );
-}
-// - ------------------------------------------------------------------------------------------ - //
-
-
-// - ------------------------------------------------------------------------------------------ - //
-template< class Type, size_t MaxSize >
 inline void resize_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _NewSize ) {
 	// A cheat.  We can resize the block without reallocating
 	if ( _NewSize <= MaxSize ) {
@@ -176,8 +136,8 @@ inline void resize_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _New
 		(*p)->Size = _NewSize;
 	}
 	else {
-		// Well, we tried.  We need to reallocate and copy the data. //
-		reallocate_StaticArray<Type,MaxSize>( p, _NewSize );
+		// Well, we're static.  If we could reallocate, we would.  Oh well. //
+		// TODO: Assert, static allocation failed. //
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -200,8 +160,8 @@ inline void resize_StaticArray( StaticArray<Type,MaxSize>** p, const size_t _New
 		
 	}
 	else {
-		// Well, we tried.  We need to reallocate and copy the data. //
-		reallocate_StaticArray<Type,MaxSize>( p, _NewSize, _InitValue );
+		// Well, we're static.  If we could reallocate, we would.  Oh well. //
+		// TODO: Assert, static allocation failed. //
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //

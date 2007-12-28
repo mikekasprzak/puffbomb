@@ -116,6 +116,11 @@ public:
 	
 	inline static const cDataBlock UnpackLZO( const cDataBlock& _Src );
 	inline static const cDataBlock PackLZO( const cDataBlock& _Src );
+
+	// Hash //
+	inline static const unsigned int Hash32( const cDataBlock& _Src );
+	//inline static const MD5Hash HashMD5( const cDataBlock& _Src  );
+	//inline static const SHA1Hash HashSHA1( const cDataBlock& _Src  );
 };
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
