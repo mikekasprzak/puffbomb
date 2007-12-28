@@ -33,13 +33,16 @@ inline const void* unpack_LZMA_Data( const void* _Src, const size_t _Size, size_
 		//Log( LOG_MESH_INFO, "Incorrect stream properties (LZMA.h)" );
  	  	return 0;
     }
-	
-	// Allocate memory for "Probs" //
-	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
-	if (state.Probs == 0) {
-		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
-		return 0;
-	}
+
+	CProb Probs[ LzmaGetNumProbs(&state.Properties) ];
+	state.Probs = (UInt16*)&Probs;
+
+//	// Allocate memory for "Probs" //
+//	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
+//	if (state.Probs == 0) {
+//		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
+//		return 0;
+//	}
 	
 	// Allocate a new DataBlock for our uncompressed Data //
 	const char* UBuffer = reinterpret_cast<const char*>(new_Data( UncompressedSize ));
@@ -61,7 +64,7 @@ inline const void* unpack_LZMA_Data( const void* _Src, const size_t _Size, size_
 	// TODO: React to result of the decode //
 	
 	// Clean up work memory //
-	delete [] state.Probs;
+//	delete [] state.Probs;
 	
 	// Return our new LZMA decompressed data //
 	return reinterpret_cast<const void*>(UBuffer);
@@ -93,13 +96,16 @@ inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _Size, cons
 		//Log( LOG_MESH_INFO, "Incorrect stream properties (LZMA.h)" );
  	  	return 0;
     }
-	
-	// Allocate memory for "Probs" //
-	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
-	if (state.Probs == 0) {
-		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
-		return 0;
-	}
+
+	CProb Probs[ LzmaGetNumProbs(&state.Properties) ];
+	state.Probs = (UInt16*)&Probs;
+
+//	// Allocate memory for "Probs" //
+//	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
+//	if (state.Probs == 0) {
+//		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
+//		return 0;
+//	}
 	
 	// Temporary variables modified by decode function, so to learn about how it went //
 	size_t inProcessed = 0;
@@ -118,7 +124,7 @@ inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _Size, cons
 	// TODO: React to result of the decode //
 	
 	// Clean up work memory //
-	delete [] state.Probs;
+//	delete [] state.Probs;
 	
 	// Return our new LZMA decompressed data //
 	return UncompressedSize;
