@@ -4,13 +4,15 @@
 #ifndef __Library_Data_FileUtil_H__
 #define __Library_Data_FileUtil_H__
 // - ------------------------------------------------------------------------------------------ - //
+// TODO: Add a function for reading a DataBlock from an open file //
+// TODO: Also add functions for reading data of an expected size, zero terminated strings, etc. //
+// TODO: Add functions for reading/adapting floating point numbers from IEEE to other needed types
+// TODO: Add functions for converting/writing floats to fixed point numbers (a cheat)
+// - ------------------------------------------------------------------------------------------ - //
 #include <cstring>
 #include <cstdio>
 
 #include "EndianUtil.h"
-// - ------------------------------------------------------------------------------------------ - //
-// TODO: Add a function for reading a DataBlock from an open file //
-// TODO: Also add functions for reading data of an expected size, zero terminated strings, etc. //
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -142,61 +144,61 @@ inline const double read_double_File( FILE* fp ) {
 // - ------------------------------------------------------------------------------------------ - //
 // Platform endianness inversion read //
 // - ------------------------------------------------------------------------------------------ - //
-inline const long long int reade_int64_File( FILE* fp ) {
+inline const long long int readswap_int64_File( FILE* fp ) {
 	long long int Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap8(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const unsigned long long int reade_uint64_File( FILE* fp ) {
+inline const unsigned long long int readswap_uint64_File( FILE* fp ) {
 	unsigned long long int Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap8(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const int reade_int_File( FILE* fp ) {
+inline const int readswap_int_File( FILE* fp ) {
 	int Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap4(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const unsigned int reade_uint_File( FILE* fp ) {
+inline const unsigned int readswap_uint_File( FILE* fp ) {
 	unsigned int Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap4(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const short reade_short_File( FILE* fp ) {
+inline const short readswap_short_File( FILE* fp ) {
 	short Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap2(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const unsigned short reade_ushort_File( FILE* fp ) {
+inline const unsigned short readswap_ushort_File( FILE* fp ) {
 	unsigned short Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap2(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const char reade_char_File( FILE* fp ) {
+inline const char readswap_char_File( FILE* fp ) {
 	char Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return Target;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const unsigned char reade_uchar_File( FILE* fp ) {
+inline const unsigned char readswap_uchar_File( FILE* fp ) {
 	unsigned char Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return Target;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const float reade_float_File( FILE* fp ) {
+inline const float readswap_float_File( FILE* fp ) {
 	float Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap4(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const double reade_double_File( FILE* fp ) {
+inline const double readswap_double_File( FILE* fp ) {
 	double Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap8(Target);
@@ -215,10 +217,24 @@ inline const Type read_File( FILE* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const Type reade_File( FILE* fp ) {
+inline const Type readswap_File( FILE* fp ) {
 	Type Target;
 	fread( &Target, sizeof(Target), 1, fp );
 	return byteswap(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type readbe_File( FILE* fp ) {
+	Type Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return beswap(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type readle_File( FILE* fp ) {
+	Type Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return leswap(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
 
