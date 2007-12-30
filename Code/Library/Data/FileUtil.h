@@ -9,7 +9,8 @@
 
 #include "EndianUtil.h"
 // - ------------------------------------------------------------------------------------------ - //
-// TODO: Come up with a standard interface for streamable data. //
+// TODO: Add a function for reading a DataBlock from an open file //
+// TODO: Also add functions for reading data of an expected size, zero terminated strings, etc. //
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -35,11 +36,6 @@ inline const size_t size_File( const char* _FileName ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
-// - ------------------------------------------------------------------------------------------ - //
-// TODO: File code.  
-//   - A File Type
-//   - a size checking function (that uses ftell( fp ) to find where it was, jump to the end, and
-//   jump back, so it's non destructive).
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t size_File( FILE* fp ) {
 	size_t Position = ftell( fp );
@@ -143,23 +139,88 @@ inline const double read_double_File( FILE* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
-
-
 // - ------------------------------------------------------------------------------------------ - //
 // Platform endianness inversion read //
 // - ------------------------------------------------------------------------------------------ - //
+inline const long long int reade_int64_File( FILE* fp ) {
+	long long int Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap8(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const unsigned long long int reade_uint64_File( FILE* fp ) {
+	unsigned long long int Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap8(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
 inline const int reade_int_File( FILE* fp ) {
 	int Target;
-	unsigned char Data[sizeof(Target)];
-	fread( &Data, sizeof(Target), 1, fp );
-	
-	return Data[3] | (Data[2] << 8 ) | (Data[1] << 16) | (Data[0] << 24);
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap4(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const unsigned int reade_uint_File( FILE* fp ) {
+	unsigned int Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap4(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const short reade_short_File( FILE* fp ) {
+	short Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap2(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const unsigned short reade_ushort_File( FILE* fp ) {
+	unsigned short Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap2(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const char reade_char_File( FILE* fp ) {
+	char Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return Target;
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const unsigned char reade_uchar_File( FILE* fp ) {
+	unsigned char Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return Target;
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const float reade_float_File( FILE* fp ) {
+	float Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap4(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const double reade_double_File( FILE* fp ) {
+	double Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap8(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 
-// TODO: Add a function for reading a DataBlock from an open file //
-// TODO: Also add functions for reading data of an expected size, zero terminated strings, etc. //
+// - ------------------------------------------------------------------------------------------ - //
+// Templated Access functions (read_File<int>( fp );) //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type read_File( FILE* fp ) {
+	Type Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return Target;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type reade_File( FILE* fp ) {
+	Type Target;
+	fread( &Target, sizeof(Target), 1, fp );
+	return byteswap(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //

@@ -7,52 +7,101 @@
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const Type byteswap2( const Type _Src ) {
-//	EndianUtil::uEndianMunge<Type> Src;
-//	Src.Source = _Src;
-//	
-//	EndianUtil::uEndianMunge<Type> Copy;
-//	Copy.Byte[0] = Src.Byte[1];
-//	Copy.Byte[1] = Src.Byte[0];
-//	
-//	return Copy.Source;
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const Type byteswap4( const Type _Src ) {
-//	EndianUtil::uEndianMunge<Type> Src;
-//	Src.Source = _Src;
-//	
-//	EndianUtil::uEndianMunge<Type> Copy;
-//	Copy.Byte[0] = Src.Byte[3];
-//	Copy.Byte[1] = Src.Byte[2];
-//	Copy.Byte[2] = Src.Byte[1];
-//	Copy.Byte[3] = Src.Byte[0];
-//	
-//	return Copy.Source;
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const Type byteswap8( const Type _Src ) {
-//	EndianUtil::uEndianMunge<Type> Src;
-//	Src.Source = _Src;
-//	
-//	EndianUtil::uEndianMunge<Type> Copy;
-//	Copy.Byte[0] = Src.Byte[7];
-//	Copy.Byte[1] = Src.Byte[6];
-//	Copy.Byte[2] = Src.Byte[5];
-//	Copy.Byte[3] = Src.Byte[4];
-//	Copy.Byte[4] = Src.Byte[3];
-//	Copy.Byte[5] = Src.Byte[2];
-//	Copy.Byte[6] = Src.Byte[1];
-//	Copy.Byte[7] = Src.Byte[0];
-//	
-//	return Copy.Source;
-//}
-//// - ------------------------------------------------------------------------------------------ - //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type beswap2( const Type _Src ) {
+	return _Src;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type leswap2( const Type _Src ) {
+	return byteswap2( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
 
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type beswap3( const Type _Src ) {
+	return _Src;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type leswap3( const Type _Src ) {
+	return byteswap3( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type beswap4( const Type _Src ) {
+	return _Src;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type leswap4( const Type _Src ) {
+	return byteswap4( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type beswap6( const Type _Src ) {
+	return _Src;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type leswap6( const Type _Src ) {
+	return byteswap6( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type beswap8( const Type _Src ) {
+	return _Src;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type leswap8( const Type _Src ) {
+	return byteswap8( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type beswap16( const Type _Src ) {
+	return _Src;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type leswap16( const Type _Src ) {
+	return byteswap16( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type beswap32( const Type _Src ) {
+	return _Src;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type leswap32( const Type _Src ) {
+	return byteswap32( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type beswap64( const Type _Src ) {
+	return _Src;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type leswap64( const Type _Src ) {
+	return byteswap64( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //

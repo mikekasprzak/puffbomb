@@ -236,6 +236,32 @@ inline const Type byteswap64( const Type _Src ) {
 	return Copy.Source;
 }
 // - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type byteswap( const Type Target ) {
+	// Return the appropriately swapped data (inlining should eliminate the if's) //
+	if ( sizeof( Target ) == 1 )
+		return Target;
+	else if ( sizeof(Target) == 2 )
+		return byteswap2(Target);
+	else if ( sizeof(Target) == 3 )
+		return byteswap3(Target);
+	else if ( sizeof(Target) == 4 )
+		return byteswap4(Target);
+	else if ( sizeof(Target) == 6 )
+		return byteswap6(Target);
+	else if ( sizeof(Target) == 8 )
+		return byteswap8(Target);
+	else if ( sizeof(Target) == 16 )
+		return byteswap16(Target);
+	else if ( sizeof(Target) == 32 )
+		return byteswap32(Target);
+	else if ( sizeof(Target) == 64 )
+		return byteswap64(Target);
+	
+	// TODO: Assert on Swap identification failure //
+	return Target;
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //

@@ -7,9 +7,13 @@
 
 #include "EndianUtil_Core.h"
 
-// TODO: Test which endianness the current platform is via a macro test, and include that header //
-#include "EndianUtil_Little.h"
-//#include "EndianUtil_Big.h"
+#ifdef BIG_ENDIAN
+	#include "EndianUtil_Big.h"
+#else
+	#include "EndianUtil_Little.h"
+#endif // BIG_ENDIAN //
+
+#include "EndianUtil_Accessory.h"
 
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Data_EndianUtil_H__ //
