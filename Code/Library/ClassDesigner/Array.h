@@ -4,7 +4,7 @@
 #ifndef __Library_ClassDesigner_Array_H__
 #define __Library_ClassDesigner_Array_H__
 // - ------------------------------------------------------------------------------------------ - //
-//#include <cstdio>
+#include <cstring>
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 class Array {
