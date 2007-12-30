@@ -263,6 +263,94 @@ inline const Type byteswap( const Type Target ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
+
+// - ------------------------------------------------------------------------------------------ - //
+// Process entire blocks of memory full of data that needs swapping //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap2( const Type* _Src, const size_t Count ) {
+	for ( size_t idx = Count; idx--; ) {
+		_Src[ idx ] = byteswap2( _Src[ idx ] );
+	}
+	
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap3( const Type* _Src, const size_t Count ) {
+	for ( size_t idx = Count; idx--; ) {
+		_Src[ idx ] = byteswap3( _Src[ idx ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap4( const Type* _Src, const size_t Count ) {
+	for ( size_t idx = Count; idx--; ) {
+		_Src[ idx ] = byteswap4( _Src[ idx ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap6( const Type* _Src, const size_t Count ) {
+	for ( size_t idx = Count; idx--; ) {
+		_Src[ idx ] = byteswap6( _Src[ idx ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap8( const Type* _Src, const size_t Count ) {
+	for ( size_t idx = Count; idx--; ) {
+		_Src[ idx ] = byteswap8( _Src[ idx ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap16( const Type* _Src, const size_t Count ) {
+	for ( size_t idx = Count; idx--; ) {
+		_Src[ idx ] = byteswap16( _Src[ idx ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap32( const Type* _Src, const size_t Count ) {
+	for ( size_t idx = Count; idx--; ) {
+		_Src[ idx ] = byteswap32( _Src[ idx ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap64( const Type* _Src, const size_t Count ) {
+	for ( size_t idx = Count; idx--; ) {
+		_Src[ idx ] = byteswap64( _Src[ idx ] );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void byteswap( const Type* _Src, const size_t Count ) {
+	// Execute the appropriately data swap (inlining should eliminate the if's) //
+	if ( sizeof(Type) == 1 )
+		return;
+	else if ( sizeof(Type) == 2 )
+		byteswap2( _Src, Count );
+	else if ( sizeof(Type) == 3 )
+		byteswap3( _Src, Count );
+	else if ( sizeof(Type) == 4 )
+		byteswap4( _Src, Count );
+	else if ( sizeof(Type) == 6 )
+		byteswap6( _Src, Count );
+	else if ( sizeof(Type) == 8 )
+		byteswap8( _Src, Count );
+	else if ( sizeof(Type) == 16 )
+		byteswap16( _Src, Count );
+	else if ( sizeof(Type) == 32 )
+		byteswap32( _Src, Count );
+	else if ( sizeof(Type) == 64 )
+		byteswap64( _Src, Count );
+	else {
+		// TODO: Assert that an invalid byte swap was requested //
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
