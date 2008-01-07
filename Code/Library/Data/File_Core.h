@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// FileUtil - C "FILE*" wrapping and utility library //
+// File - C "FILE*" wrapping and utility library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_FileUtil_Core_H__
-#define __Library_Data_FileUtil_Core_H__
+#ifndef __Library_Data_File_Core_H__
+#define __Library_Data_File_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
 // TODO: Add a function for reading a DataBlock from an open file //
 // TODO: Also add functions for reading data of an expected size, zero terminated strings, etc. //
@@ -148,5 +148,5 @@ inline const size_t writele_File( FILE* fp, const Type Data ) {
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_FileUtil_Core_H__ //
+#endif // __Library_Data_File_Core_H__ //
 // - ------------------------------------------------------------------------------------------ - //

@@ -1,13 +1,13 @@
 // - ------------------------------------------------------------------------------------------ - //
-// FileUtil - C "FILE*" wrapping and utility library //
+// File - C "FILE*" wrapping and utility library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_FileUtil_H__
-#define __Library_Data_FileUtil_H__
+#ifndef __Library_Data_File_H__
+#define __Library_Data_File_H__
 // - ------------------------------------------------------------------------------------------ - //
 
-#include "FileUtil_Core.h"
-#include "FileUtil_LongReads.h"
+#include "File_Core.h"
+#include "File_LongReads.h"
 
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_FileUtil_H__ //
+#endif // __Library_Data_File_H__ //
 // - ------------------------------------------------------------------------------------------ - //
