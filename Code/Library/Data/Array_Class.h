@@ -153,11 +153,13 @@ public:
 	inline void UnpackBZIP( DataBlock* _Src );
 	inline DataBlock* PackBZIP();
 	
-	inline static const cArray<Type> UnpackZLIB( const cArray<Type>& _Src );
-	inline static const cArray<Type> PackZLIB( const cArray<Type>& _Src );
+	inline void UnpackZLIB( cDataBlock& _Src );
+	inline void UnpackZLIB( DataBlock* _Src );
+	inline DataBlock* PackZLIB();
 	
-	inline static const cArray<Type> UnpackLZO( const cArray<Type>& _Src );
-	inline static const cArray<Type> PackLZO( const cArray<Type>& _Src );
+	inline void UnpackLZO( cDataBlock& _Src );
+	inline void UnpackLZO( DataBlock* _Src );
+	inline DataBlock* PackLZO();
 	
 	// Hash //
 	inline const unsigned int Hash32() const {
