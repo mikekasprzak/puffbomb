@@ -4,32 +4,41 @@
 #ifndef __Library_Data_Data_ZLIB_H__
 #define __Library_Data_Data_ZLIB_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "Data.h"
-#include <External/ZLib/zlib.h>
+// TODO: Add endianness adaptation to this code.  If we're in big endian mode, be sure we //
+//   convert sizes defaulty encoded as little endian to big endian. //
+// - ------------------------------------------------------------------------------------------ - //
+#include "Data_Core.h"
+#include "DataBlock_Core.h"
+#include "DataBlock_ZLIB.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
-//// - ------------------------------------------------------------------------------------------ - //
-//// Decode packed ZLIB data to a new DataBlock //
-//inline DataBlock* unpack_ZLIB_Data( void* _Src ) {
-//	// Assume the compressed DataBlock contains a DataBlock, who's size is the uncompressed size //
-//	DataBlock* Compressed = reinterpret_cast<DataBlock*>(_Src->Data);
-//	
-//	// Allocate a memory block equal to the uncompressed size //
-//	DataBlock* Uncompressed = new_DataBlock( Compressed->Size );
-//	
-//	// Decompress the Data //
-//	int Error = uncompress(
-//		(Bytef*)Uncompressed->Data,
-//		(uLongf*)&Uncompressed->Size,
-//		(const Bytef*)Compressed->Data, // Compressed Data (After Size, and Uncompressed Size (8 bytes)) //
-//		_Src->Size - 4 // Source size, since we have an extra 4 byte uncompressed size //
-//		);
-//	// TODO: Assert on uncompress error //
-//	//if ( Error != Z_OK )
-//	
-//	// Return the uncompressed buffer //
-//	return Uncompressed;
-//}
+// - ------------------------------------------------------------------------------------------ - //
+// Decode packed ZLIB data to a new DataBlock //
+inline const size_t unpack_ZLIB_Data( void* _Src, const size_t _SrcSize, void** _Dest, size_t* _DestSize ) {
+	// Assume the compressed DataBlock contains a DataBlock, who's size is the uncompressed size //
+	DataBlock* Compressed = reinterpret_cast<DataBlock*>(_Src);
+	
+	size_t UncompressedSize = Compressed->Size;
+
+	// Allocate a memory block equal to the uncompressed size //
+	char* Uncompressed = (char*)new_Data( UncompressedSize );
+	
+	// Decompress the Data //
+	int Error = uncompress(
+		(Bytef*)Uncompressed,
+		(uLongf*)&UncompressedSize,
+		(const Bytef*)Compressed->Data, // Compressed Data (After Size, and Uncompressed Size (8 bytes)) //
+		_SrcSize - 4 // Source size, since we have an extra 4 byte uncompressed size //
+		);
+	// TODO: Assert on uncompress error //
+	//if ( Error != Z_OK )
+	
+	*_Dest = Uncompressed;
+	*_DestSize = UncompressedSize;
+	
+	// Return the uncompressed buffer //
+	return UncompressedSize;
+}
 //// - ------------------------------------------------------------------------------------------ - //
 //// Encode packed ZLIB data to a new DataBlock //
 //inline DataBlock* pack_ZLIB_Data( void* _Src ) {
