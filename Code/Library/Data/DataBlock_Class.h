@@ -128,8 +128,10 @@ public:
 	inline static cDataBlock PackZLIB( cDataBlock& _Src );
 	inline static cDataBlock PackZLIB( DataBlock* _Src );
 	
-	inline static const cDataBlock UnpackLZO( const cDataBlock& _Src );
-	inline static const cDataBlock PackLZO( const cDataBlock& _Src );
+	inline static cDataBlock UnpackLZO( cDataBlock& _Src );
+	inline static cDataBlock UnpackLZO( DataBlock* _Src );
+	inline static cDataBlock PackLZO( cDataBlock& _Src );
+	inline static cDataBlock PackLZO( DataBlock* _Src );
 
 	// Hash //
 	inline const unsigned int Hash32() const {

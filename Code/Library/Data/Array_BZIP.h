@@ -26,7 +26,13 @@ inline Array<Type>* unpack_BZIP_Array( DataBlock* _Src ) {
 // Decode packed BZIP data to a new Array //
 template< class Type >
 inline Array<Type>* unpack_BZIP_Array( char* _Src, const size_t _SrcSize ) {
-
+	DataBlock* Uncompressed = unpack_BZIP_DataBlock( _Src, _SrcSize );
+	Array<Type>* UncompressedArray = new_Array<Type>( Uncompressed );
+	
+	// Delet our intermediary //
+	delete_DataBlock( Uncompressed );
+	
+	return UncompressedArray;
 }
 // - ------------------------------------------------------------------------------------------ - //
 // Encode array data to a packed BZIP DataBlock //

@@ -26,7 +26,13 @@ inline Array<Type>* unpack_LZO_Array( DataBlock* _Src ) {
 // Decode packed LZO data to a new Array //
 template< class Type >
 inline Array<Type>* unpack_LZO_Array( char* _Src, const size_t _SrcSize ) {
-
+	DataBlock* Uncompressed = unpack_LZO_DataBlock( _Src, _SrcSize );
+	Array<Type>* UncompressedArray = new_Array<Type>( Uncompressed );
+	
+	// Delet our intermediary //
+	delete_DataBlock( Uncompressed );
+	
+	return UncompressedArray;
 }
 // - ------------------------------------------------------------------------------------------ - //
 // Encode array data to a packed LZO DataBlock //
