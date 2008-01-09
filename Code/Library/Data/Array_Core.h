@@ -5,6 +5,7 @@
 #define __Library_Data_Array_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <cstring>
+#include "DataBlock_Core.h"
 // - ------------------------------------------------------------------------------------------ - //
 // TODO: Insertion code, Alignment resizing (min, max), searching, sorting  //
 // NOTE: Consider making reallocate specific to max size change.
@@ -53,6 +54,34 @@ inline void copy_Array( Array<Type>* _Src, Array<Type>* _Dest ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void copy_Array( DataBlock* _Src, Array<Type>* _Dest ) {
+	Type* SrcPtr = (Type*)_Src->Data;
+	size_t SrcSize = _Src->Size / sizeof( Type );
+	
+	// If source is smaller than the destination //
+	if ( _Dest->Size > SrcSize ) {
+		// Copy only Source number of entries //
+		for( size_t idx = SrcSize; idx--; ) {
+			_Dest->Data[idx] = SrcPtr[idx];
+		}
+	}
+	else {
+		// Copy Destination number of entries //
+		for( size_t idx = _Dest->Size; idx--; ) {
+			_Dest->Data[idx] = SrcPtr[idx];
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void copy_DataBlock( Array<Type>* _Src, DataBlock* _Dest  ) {
+	char* SrcPtr = (char*)_Src->Data;
+	size_t SrcSize = _Src->Size * sizeof( Type );
+	
+	copy_DataBlock( SrcPtr, SrcSize, _Dest );
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
@@ -66,7 +95,7 @@ inline Array<Type>* new_Array( const size_t _Size ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
-// Use this alternative "new" function when you want to initialize the Arary to a value //
+// Use this alternative "new" function when you want to initialize the Array to a value //
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline Array<Type>* new_Array( const size_t _Size, const Type& _InitValue ) {
@@ -163,6 +192,33 @@ inline Array<Type>* copy_Array( Array<Type>* _Src ) {
 	
 	// Return the block //
 	return NewBlock;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* new_Array( Array<Type>* _Src ) {
+	return copy_Array<Type>( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// Construct an Array from a DataBlock //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* copy_Array( DataBlock* _Src ) {
+	// Allocate our new block //
+	Array<Type>* NewBlock = new_Array<Type>( _Src->Size / sizeof(Type) );
+	
+	// Copy the data to our new block //
+	copy_Array<Type>( _Src, NewBlock );
+	
+	// Return the block //
+	return NewBlock;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* new_Array( DataBlock* _Src ) {
+	return copy_Array<Type>( _Src );
 }
 // - ------------------------------------------------------------------------------------------ - //
 

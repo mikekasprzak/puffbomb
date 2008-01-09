@@ -60,6 +60,18 @@ inline void copy_DataBlock( DataBlock* _Src, DataBlock* _Dest ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline void copy_DataBlock( char* _Src, const size_t _SrcSize, DataBlock* _Dest ) {
+	// If source is smaller than the destination //
+	if ( _Dest->Size > _SrcSize ) {
+		// Copy source number of bytes //
+		memcpy( _Dest->Data, _Src, _SrcSize );
+	}
+	else {
+		// Otherwise, copy destination number of bytes //
+		memcpy( _Dest->Data, _Src, _Dest->Size );
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
 // Return a duplicate of a DataBlock //
 // - ------------------------------------------------------------------------------------------ - //
 inline DataBlock* copy_DataBlock( DataBlock* _Src ) {
@@ -72,6 +84,29 @@ inline DataBlock* copy_DataBlock( DataBlock* _Src ) {
 	// Return the block //
 	return NewBlock;
 }
+// - ------------------------------------------------------------------------------------------ - //
+inline DataBlock* new_DataBlock( DataBlock* _Src ) {
+	return copy_DataBlock( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+inline DataBlock* copy_DataBlock( char* _Src, const size_t _SrcSize ) {
+	// Allocate our new block //
+	DataBlock* NewBlock = new_DataBlock( _SrcSize );
+	
+	// Copy the data to our new block //
+	copy_DataBlock( _Src, _SrcSize, NewBlock );
+	
+	// Return the block //
+	return NewBlock;
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline DataBlock* new_DataBlock( char* _Src, const size_t _SrcSize ) {
+	return copy_DataBlock( _Src, _SrcSize );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 // - ------------------------------------------------------------------------------------------ - //
 // Set DataBlock //
 // - ------------------------------------------------------------------------------------------ - //
