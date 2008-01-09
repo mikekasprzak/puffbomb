@@ -1,13 +1,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 // DataCompression - Compression code for Data library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_Data_LZMA_H__
-#define __Library_FileIO_Data_LZMA_H__
+#ifndef __Library_Data_Data_LZMA_H__
+#define __Library_Data_Data_LZMA_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "Data.h"
 #include <External/Lzma/LzmaDecode.h>
 // - ------------------------------------------------------------------------------------------ - //
-//namespace IO {
+//namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 // Decode packed LZMA data to a void* (Size is lost though, as it isn't returned) //
 // - ------------------------------------------------------------------------------------------ - //
@@ -36,13 +36,6 @@ inline const void* unpack_LZMA_Data( const void* _Src, const size_t _Size, size_
 
 	CProb Probs[ LzmaGetNumProbs(&state.Properties) ];
 	state.Probs = (UInt16*)&Probs;
-
-//	// Allocate memory for "Probs" //
-//	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
-//	if (state.Probs == 0) {
-//		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
-//		return 0;
-//	}
 	
 	// Allocate a new DataBlock for our uncompressed Data //
 	const char* UBuffer = reinterpret_cast<const char*>(new_Data( UncompressedSize ));
@@ -61,10 +54,6 @@ inline const void* unpack_LZMA_Data( const void* _Src, const size_t _Size, size_
 		UncompressedSize,
 		&outProcessed
 		);
-	// TODO: React to result of the decode //
-	
-	// Clean up work memory //
-//	delete [] state.Probs;
 	
 	// Return our new LZMA decompressed data //
 	return reinterpret_cast<const void*>(UBuffer);
@@ -99,13 +88,6 @@ inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _Size, cons
 
 	CProb Probs[ LzmaGetNumProbs(&state.Properties) ];
 	state.Probs = (UInt16*)&Probs;
-
-//	// Allocate memory for "Probs" //
-//	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
-//	if (state.Probs == 0) {
-//		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
-//		return 0;
-//	}
 	
 	// Temporary variables modified by decode function, so to learn about how it went //
 	size_t inProcessed = 0;
@@ -121,18 +103,14 @@ inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _Size, cons
 		UncompressedSize,
 		&outProcessed
 		);
-	// TODO: React to result of the decode //
-	
-	// Clean up work memory //
-//	delete [] state.Probs;
-	
+
 	// Return our new LZMA decompressed data //
 	return UncompressedSize;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-//}; // namespace IO //
+//}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_Data_LZMA_H__ //
+#endif // __Library_Data_Data_LZMA_H__ //
 // - ------------------------------------------------------------------------------------------ - //
