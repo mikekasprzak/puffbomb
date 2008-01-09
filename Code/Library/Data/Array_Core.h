@@ -17,9 +17,9 @@ struct Array {
 	Type Data[0];
 	
 	// Since we're structurally compatible with DataBlock's (but smarter), allow conversion. //
-	inline struct DataBlock* ToDataBlock() {
-		return reinterpret_cast<struct DataBlock*>(&Size);
-	}
+//	inline struct DataBlock* ToDataBlock() {
+//		return reinterpret_cast<struct DataBlock*>(&Size);
+//	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -221,6 +221,27 @@ inline Array<Type>* new_Array( DataBlock* _Src ) {
 	return copy_Array<Type>( _Src );
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline DataBlock* copy_DataBlock( Array<Type>* _Src ) {
+	// Allocate our new block //
+	DataBlock* NewBlock = new_DataBlock( _Src->Size * sizeof( Type ) );
+	
+	// Copy the data to our new block //
+	copy_DataBlock( _Src, NewBlock );
+	
+	// Return the block //
+	return NewBlock;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline DataBlock* new_DataBlock( Array<Type>* _Src ) {
+	return copy_DataBlock( _Src );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 
 // - ------------------------------------------------------------------------------------------ - //

@@ -115,6 +115,7 @@ public:
 	}
 public:
 	// Compression //
+	inline static const cDataBlock UnpackLZMA( const DataBlock* _Src );
 	inline static const cDataBlock UnpackLZMA( const cDataBlock& _Src );
 	
 	inline static const cDataBlock UnpackBZIP( const cDataBlock& _Src );

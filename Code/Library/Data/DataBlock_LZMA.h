@@ -31,13 +31,6 @@ inline DataBlock* unpack_LZMA_DataBlock( const DataBlock* _Src ) {
 	CProb Probs[ LzmaGetNumProbs(&state.Properties) ];
 	state.Probs = (UInt16*)&Probs;
 	
-	// Allocate memory for "Probs" //
-//	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
-//	if (state.Probs == 0) {
-//		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
-//		return 0;
-//	}
-	
 	// Allocate a new DataBlock for our uncompressed Data //
 	DataBlock* UBuffer = new_DataBlock( UncompressedSize );
 
@@ -55,10 +48,6 @@ inline DataBlock* unpack_LZMA_DataBlock( const DataBlock* _Src ) {
 		UncompressedSize,
 		&outProcessed
 		);
-	// TODO: React to result of the decode //
-	
-	// Clean up work memory //
-//	delete [] state.Probs;
 	
 	// Return our new LZMA decompressed data //
 	return UBuffer;
@@ -92,13 +81,6 @@ inline const size_t unpack_LZMA_DataBlock( const DataBlock* _Src, DataBlock* _De
 	CProb Probs[ LzmaGetNumProbs(&state.Properties) ];
 	state.Probs = (UInt16*)&Probs;
 
-//	// Allocate memory for "Probs" //
-//	state.Probs = new CProb[ LzmaGetNumProbs(&state.Properties) ];
-//	if (state.Probs == 0) {
-//		//Log( LOG_MESH_INFO, "state.Probs == 0 (LZMA.h)" );
-//		return 0;
-//	}
-	
 	// Temporary variables modified by decode function, so to learn about how it went //
 	size_t inProcessed = 0;
 	size_t outProcessed = 0;
@@ -113,10 +95,6 @@ inline const size_t unpack_LZMA_DataBlock( const DataBlock* _Src, DataBlock* _De
 		UncompressedSize,
 		&outProcessed
 		);
-	// TODO: React to result of the decode //
-	
-	// Clean up work memory //
-//	delete [] state.Probs;
 	
 	// Return the size of the uncompressed data on success //
 	return UncompressedSize;
@@ -126,6 +104,10 @@ inline const size_t unpack_LZMA_DataBlock( const DataBlock* _Src, DataBlock* _De
 // - ------------------------------------------------------------------------------------------ - //
 const cDataBlock cDataBlock::UnpackLZMA( const cDataBlock& _Src ) {
 	return cDataBlock( unpack_LZMA_DataBlock( _Src._Data ) );
+}
+// - ------------------------------------------------------------------------------------------ - //
+const cDataBlock cDataBlock::UnpackLZMA( const DataBlock* _Src ) {
+	return cDataBlock( unpack_LZMA_DataBlock( _Src ) );
 }
 // - ------------------------------------------------------------------------------------------ - //
 

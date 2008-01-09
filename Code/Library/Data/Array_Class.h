@@ -4,6 +4,9 @@
 #ifndef __Library_Data_Array_Class_H__
 #define __Library_Data_Array_Class_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include "DataBlock_Core.h"
+#include "DataBlock_Class.h"
+
 #include "Array_Core.h"
 #include "Array_File.h"
 #include "Array_Hash32.h"
@@ -143,7 +146,8 @@ public:
 	
 public:
 	// Compression //
-	inline static const cArray<Type> UnpackLZMA( const cArray<Type>& _Src );
+	inline static const cArray<Type> UnpackLZMA( const cDataBlock& _Src );
+	inline static const cArray<Type> UnpackLZMA( DataBlock* _Src );
 	
 	inline static const cArray<Type> UnpackBZIP( const cArray<Type>& _Src );
 	inline static const cArray<Type> PackBZIP( const cArray<Type>& _Src );

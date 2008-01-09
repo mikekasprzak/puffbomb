@@ -87,10 +87,15 @@ inline Array<Type>* unpack_LZMA_Array( DataBlock* _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//const cArray<Type> cArray<Type>::UnpackLZMA( const cArray<Type>& _Src ) {
-//	return cArray<Type>( unpack_LZMA_Array<Type>( _Src._Data ) );
-//}
+template< class Type >
+const cArray<Type> cArray<Type>::UnpackLZMA( const cDataBlock& _Src ) {
+	return cArray<Type>( unpack_LZMA_Array<Type>( _Src.Data() ) );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+const cArray<Type> cArray<Type>::UnpackLZMA( DataBlock* _Src ) {
+	return cArray<Type>( unpack_LZMA_Array<Type>( _Src ) );
+}
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
