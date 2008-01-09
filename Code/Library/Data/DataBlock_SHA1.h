@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // DataBlock SHA1 Hash - SHA1 Hashing code for DataBlock library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_DataBlock_SHA1_H__
-#define __Library_FileIO_DataBlock_SHA1_H__
+#ifndef __Library_Data_DataBlock_SHA1_H__
+#define __Library_Data_DataBlock_SHA1_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "DataBlock.h"
 #include <External/SHA1/sha1.h>
@@ -17,5 +17,5 @@ inline const void* hash_SHA1_DataBlock( const void* _Src, const size_t _Size, si
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataBlock_SHA1_H__ //
+#endif // __Library_Data_DataBlock_SHA1_H__ //
 // - ------------------------------------------------------------------------------------------ - //

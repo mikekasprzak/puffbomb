@@ -1,13 +1,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 // DataBlockCompression - Compression code for DataBlock library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_DataBlock_BZIP_H__
-#define __Library_FileIO_DataBlock_BZIP_H__
+#ifndef __Library_Data_DataBlock_BZIP_H__
+#define __Library_Data_DataBlock_BZIP_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "DataBlock.h"
 #include <External/BZip/bzlib.h>
 // - ------------------------------------------------------------------------------------------ - //
-//namespace IO {
+//namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 // Decode packed BZIP data to a new DataBlock //
 inline DataBlock* unpack_BZIP_DataBlock( DataBlock* _Src ) {
@@ -82,7 +82,7 @@ const cDataBlock cDataBlock::PackBZIP( const cDataBlock& _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-//}; // namespace IO //
+//}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataBlock_BZIP_H__ //
+#endif // __Library_Data_DataBlock_BZIP_H__ //
 // - ------------------------------------------------------------------------------------------ - //

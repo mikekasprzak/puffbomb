@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // DataBlock MD5 Hash - MD5 Hashing code for DataBlock library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_DataBlock_MD5_H__
-#define __Library_FileIO_DataBlock_MD5_H__
+#ifndef __Library_Data_DataBlock_MD5_H__
+#define __Library_Data_DataBlock_MD5_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "DataBlock.h"
 #include <External/MD5/md5.h>
@@ -17,5 +17,5 @@ inline const void* hash_MD5_DataBlock( const void* _Src, const size_t _Size, siz
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataBlock_MD5_H__ //
+#endif // __Library_Data_DataBlock_MD5_H__ //
 // - ------------------------------------------------------------------------------------------ - //

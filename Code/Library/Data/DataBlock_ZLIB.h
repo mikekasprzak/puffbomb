@@ -1,13 +1,13 @@
 // - ------------------------------------------------------------------------------------------ - //
 // DataBlockCompression - Compression code for DataBlock library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_DataBlock_ZLIB_H__
-#define __Library_FileIO_DataBlock_ZLIB_H__
+#ifndef __Library_Data_DataBlock_ZLIB_H__
+#define __Library_Data_DataBlock_ZLIB_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "DataBlock.h"
 #include <External/ZLib/zlib.h>
 // - ------------------------------------------------------------------------------------------ - //
-//namespace IO {
+//namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 // Decode packed ZLIB data to a new DataBlock //
 inline DataBlock* unpack_ZLIB_DataBlock( DataBlock* _Src ) {
@@ -76,7 +76,7 @@ const cDataBlock cDataBlock::PackZLIB( const cDataBlock& _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-//}; // namespace IO //
+//}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataBlock_ZLIB_H__ //
+#endif // __Library_Data_DataBlock_ZLIB_H__ //
 // - ------------------------------------------------------------------------------------------ - //
