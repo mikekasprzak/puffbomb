@@ -1,21 +1,21 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DataUtil MD5 Hash - MD5 Hashing code for DataUtil library //
+// Data SHA1 Hash - SHA1 Hashing code for Data library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_DataUtil_MD5_H__
-#define __Library_FileIO_DataUtil_MD5_H__
+#ifndef __Library_FileIO_Data_SHA1_H__
+#define __Library_FileIO_Data_SHA1_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "DataUtil.h"
-#include <External/MD5/md5.h>
+#include "Data.h"
+#include <External/SHA1/sha1.h>
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
-// Hash a block of data with an MD5 sum //
+// Hash a block of data with an SHA1 sum //
 // - ------------------------------------------------------------------------------------------ - //
-inline const void* hash_MD5_Data( const void* _Src, const size_t _Size, size_t* _DestSize = 0 ) {
+inline const void* hash_SHA1_Data( const void* _Src, const size_t _Size, size_t* _DestSize = 0 ) {
 	// TODO: This function
 }
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataUtil_MD5_H__ //
+#endif // __Library_FileIO_Data_SHA1_H__ //
 // - ------------------------------------------------------------------------------------------ - //

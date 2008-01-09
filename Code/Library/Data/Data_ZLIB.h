@@ -1,10 +1,10 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DataUtilCompression - Compression code for DataUtil library //
+// DataCompression - Compression code for Data library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_DataUtil_ZLIB_H__
-#define __Library_FileIO_DataUtil_ZLIB_H__
+#ifndef __Library_FileIO_Data_ZLIB_H__
+#define __Library_FileIO_Data_ZLIB_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "DataUtil.h"
+#include "Data.h"
 #include <External/ZLib/zlib.h>
 // - ------------------------------------------------------------------------------------------ - //
 //namespace IO {
@@ -68,5 +68,5 @@
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace IO //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataUtil_ZLIB_H__ //
+#endif // __Library_FileIO_Data_ZLIB_H__ //
 // - ------------------------------------------------------------------------------------------ - //

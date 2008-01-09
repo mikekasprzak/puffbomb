@@ -1,20 +1,20 @@
 // - ------------------------------------------------------------------------------------------ - //
-// EndianUtil - Endian manipulation functions //
+// Endian - Endian manipulation functions //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_EndianUtil_H__
-#define __Library_Data_EndianUtil_H__
+#ifndef __Library_Data_Endian_H__
+#define __Library_Data_Endian_H__
 // - ------------------------------------------------------------------------------------------ - //
 
-#include "EndianUtil_Core.h"
+#include "Endian_Core.h"
 
 #ifdef BIG_ENDIAN
-	#include "EndianUtil_Big.h"
+	#include "Endian_Big.h"
 #else
-	#include "EndianUtil_Little.h"
+	#include "Endian_Little.h"
 #endif // BIG_ENDIAN //
 
-#include "EndianUtil_Accessory.h"
+#include "Endian_Accessory.h"
 
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_EndianUtil_H__ //
+#endif // __Library_Data_Endian_H__ //
 // - ------------------------------------------------------------------------------------------ - //

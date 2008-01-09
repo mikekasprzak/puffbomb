@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// EndianUtil - Endian manipulation functions //
+// Endian - Endian manipulation functions //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_EndianUtil_Core_H__
-#define __Library_Data_EndianUtil_Core_H__
+#ifndef __Library_Data_Endian_Core_H__
+#define __Library_Data_Endian_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
 // TODO: Add block swapping functions //
 // - ------------------------------------------------------------------------------------------ - //
@@ -10,7 +10,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Putting the uEndianMunge class in it's own namespace, since it's not needed elsewhere //
 // - ------------------------------------------------------------------------------------------ - //
-namespace EndianUtil {
+namespace Endian {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 union uEndianMunge {
@@ -18,16 +18,16 @@ union uEndianMunge {
 	unsigned char Byte[ sizeof(Type ) ];
 };
 // - ------------------------------------------------------------------------------------------ - //
-}; // namespace EndianUtil //
+}; // namespace Endian //
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const Type byteswap2( const Type _Src ) {
-	EndianUtil::uEndianMunge<Type> Src;
+	Endian::uEndianMunge<Type> Src;
 	Src.Source = _Src;
 	
-	EndianUtil::uEndianMunge<Type> Copy;
+	Endian::uEndianMunge<Type> Copy;
 	Copy.Byte[0] = Src.Byte[1];
 	Copy.Byte[1] = Src.Byte[0];
 	
@@ -36,10 +36,10 @@ inline const Type byteswap2( const Type _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const Type byteswap3( const Type _Src ) {
-	EndianUtil::uEndianMunge<Type> Src;
+	Endian::uEndianMunge<Type> Src;
 	Src.Source = _Src;
 	
-	EndianUtil::uEndianMunge<Type> Copy;
+	Endian::uEndianMunge<Type> Copy;
 	Copy.Byte[0] = Src.Byte[2];
 	Copy.Byte[1] = Src.Byte[1];
 	Copy.Byte[2] = Src.Byte[0];
@@ -49,10 +49,10 @@ inline const Type byteswap3( const Type _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const Type byteswap4( const Type _Src ) {
-	EndianUtil::uEndianMunge<Type> Src;
+	Endian::uEndianMunge<Type> Src;
 	Src.Source = _Src;
 	
-	EndianUtil::uEndianMunge<Type> Copy;
+	Endian::uEndianMunge<Type> Copy;
 	Copy.Byte[0] = Src.Byte[3];
 	Copy.Byte[1] = Src.Byte[2];
 	Copy.Byte[2] = Src.Byte[1];
@@ -63,10 +63,10 @@ inline const Type byteswap4( const Type _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const Type byteswap6( const Type _Src ) {
-	EndianUtil::uEndianMunge<Type> Src;
+	Endian::uEndianMunge<Type> Src;
 	Src.Source = _Src;
 	
-	EndianUtil::uEndianMunge<Type> Copy;
+	Endian::uEndianMunge<Type> Copy;
 	Copy.Byte[0] = Src.Byte[5];
 	Copy.Byte[1] = Src.Byte[4];
 	Copy.Byte[2] = Src.Byte[3];
@@ -79,10 +79,10 @@ inline const Type byteswap6( const Type _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const Type byteswap8( const Type _Src ) {
-	EndianUtil::uEndianMunge<Type> Src;
+	Endian::uEndianMunge<Type> Src;
 	Src.Source = _Src;
 	
-	EndianUtil::uEndianMunge<Type> Copy;
+	Endian::uEndianMunge<Type> Copy;
 	Copy.Byte[0] = Src.Byte[7];
 	Copy.Byte[1] = Src.Byte[6];
 	Copy.Byte[2] = Src.Byte[5];
@@ -97,10 +97,10 @@ inline const Type byteswap8( const Type _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const Type byteswap16( const Type _Src ) {
-	EndianUtil::uEndianMunge<Type> Src;
+	Endian::uEndianMunge<Type> Src;
 	Src.Source = _Src;
 	
-	EndianUtil::uEndianMunge<Type> Copy;
+	Endian::uEndianMunge<Type> Copy;
 	Copy.Byte[0]  = Src.Byte[15];
 	Copy.Byte[1]  = Src.Byte[14];
 	Copy.Byte[2]  = Src.Byte[13];
@@ -123,10 +123,10 @@ inline const Type byteswap16( const Type _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const Type byteswap32( const Type _Src ) {
-	EndianUtil::uEndianMunge<Type> Src;
+	Endian::uEndianMunge<Type> Src;
 	Src.Source = _Src;
 	
-	EndianUtil::uEndianMunge<Type> Copy;
+	Endian::uEndianMunge<Type> Copy;
 	Copy.Byte[0]  = Src.Byte[31];
 	Copy.Byte[1]  = Src.Byte[30];
 	Copy.Byte[2]  = Src.Byte[29];
@@ -165,10 +165,10 @@ inline const Type byteswap32( const Type _Src ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const Type byteswap64( const Type _Src ) {
-	EndianUtil::uEndianMunge<Type> Src;
+	Endian::uEndianMunge<Type> Src;
 	Src.Source = _Src;
 	
-	EndianUtil::uEndianMunge<Type> Copy;
+	Endian::uEndianMunge<Type> Copy;
 	Copy.Byte[0]  = Src.Byte[63];
 	Copy.Byte[1]  = Src.Byte[62];
 	Copy.Byte[2]  = Src.Byte[61];
@@ -353,5 +353,5 @@ inline void byteswap( const Type* _Src, const size_t Count = 1 ) {
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_EndianUtil_Core_H__ //
+#endif // __Library_Data_Endian_Core_H__ //
 // - ------------------------------------------------------------------------------------------ - //

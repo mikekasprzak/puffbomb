@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DataUtil - Data utility/reading/writing wrapping library //
+// Data - Data utility/reading/writing wrapping library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_DataUtil_H__
-#define __Library_Data_DataUtil_H__
+#ifndef __Library_Data_Data_H__
+#define __Library_Data_Data_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <cstring>
 #include <cstdio>
@@ -19,7 +19,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 // NOTE: Update.  Instead of this being a general purpose reader/writer, it's a framework. //
 //   What this means is you simply write functions that take the new source a source, in custom //
-//   "new_Data", "read_Data" and "write_Data" functions.  Name it "DataUtil_MySource.h", and //
+//   "new_Data", "read_Data" and "write_Data" functions.  Name it "Data_MySource.h", and //
 //   place is in your library heiarchy.  Then to support a new source, you include it from it's //
 //   library's folder.  Easy clean extendability. //
 // - ------------------------------------------------------------------------------------------ - //
@@ -233,5 +233,5 @@ inline void resize_Data( void** p, const size_t _OldSize, const size_t _NewSize,
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_DataUtil_H__ //
+#endif // __Library_Data_Data_H__ //
 // - ------------------------------------------------------------------------------------------ - //

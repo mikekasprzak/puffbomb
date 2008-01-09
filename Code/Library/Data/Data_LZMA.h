@@ -1,10 +1,10 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DataUtilCompression - Compression code for DataUtil library //
+// DataCompression - Compression code for Data library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_FileIO_DataUtil_LZMA_H__
-#define __Library_FileIO_DataUtil_LZMA_H__
+#ifndef __Library_FileIO_Data_LZMA_H__
+#define __Library_FileIO_Data_LZMA_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "DataUtil.h"
+#include "Data.h"
 #include <External/Lzma/LzmaDecode.h>
 // - ------------------------------------------------------------------------------------------ - //
 //namespace IO {
@@ -134,5 +134,5 @@ inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _Size, cons
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace IO //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_FileIO_DataUtil_LZMA_H__ //
+#endif // __Library_FileIO_Data_LZMA_H__ //
 // - ------------------------------------------------------------------------------------------ - //

@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// EndianUtil Accessory - Endian functions that rely on the prior BE or LE header //
+// Endian Accessory - Endian functions that rely on the prior BE or LE header //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_EndianUtil_Accessory_H__
-#define __Library_Data_EndianUtil_Accessory_H__
+#ifndef __Library_Data_Endian_Accessory_H__
+#define __Library_Data_Endian_Accessory_H__
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -65,5 +65,5 @@ inline const Type leswap( const Type Target ) {
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_EndianUtil_Accessory_H__ //
+#endif // __Library_Data_Endian_Accessory_H__ //
 // - ------------------------------------------------------------------------------------------ - //
