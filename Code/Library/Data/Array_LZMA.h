@@ -16,7 +16,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Decode packed LZMA data to a new Array //
 template< class Type >
-inline Array<Type>* unpack_LZMA_Array( DataBlock* _Src ) {
+inline Array<Type>* unpack_LZMA_Array( const DataBlock* _Src ) {
 	unsigned char LZMAProperties[LZMA_PROPERTIES_SIZE];
 	
 	// Copy first byte of LZMA Properties.  Somehow, this is vitally important. //
