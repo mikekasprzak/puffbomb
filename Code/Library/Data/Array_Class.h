@@ -146,11 +146,12 @@ public:
 	
 public:
 	// Compression //
-	inline static const cArray<Type> UnpackLZMA( const cDataBlock& _Src );
-	inline static const cArray<Type> UnpackLZMA( DataBlock* _Src );
+	inline void UnpackLZMA( const cDataBlock& _Src );
+	inline void UnpackLZMA( const DataBlock* _Src );
 	
-	inline static const cArray<Type> UnpackBZIP( const cArray<Type>& _Src );
-	inline static const cArray<Type> PackBZIP( const cArray<Type>& _Src );
+	inline void UnpackBZIP( cDataBlock& _Src );
+	inline void UnpackBZIP( DataBlock* _Src );
+	inline DataBlock* PackBZIP();
 	
 	inline static const cArray<Type> UnpackZLIB( const cArray<Type>& _Src );
 	inline static const cArray<Type> PackZLIB( const cArray<Type>& _Src );

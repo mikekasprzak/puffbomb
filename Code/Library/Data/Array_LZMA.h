@@ -88,13 +88,13 @@ inline Array<Type>* unpack_LZMA_Array( DataBlock* _Src ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-const cArray<Type> cArray<Type>::UnpackLZMA( const cDataBlock& _Src ) {
-	return cArray<Type>( unpack_LZMA_Array<Type>( _Src.Data() ) );
+inline void cArray<Type>::UnpackLZMA( const cDataBlock& _Src ) {
+	*this = cArray<Type>( unpack_LZMA_Array<Type>( _Src.Data() ) );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-const cArray<Type> cArray<Type>::UnpackLZMA( DataBlock* _Src ) {
-	return cArray<Type>( unpack_LZMA_Array<Type>( _Src ) );
+inline void cArray<Type>::UnpackLZMA( const DataBlock* _Src ) {
+	*this = cArray<Type>( unpack_LZMA_Array<Type>( _Src ) );
 }
 // - ------------------------------------------------------------------------------------------ - //
 

@@ -44,15 +44,20 @@ inline DataBlock* pack_BZIP_DataBlock( Array<Type>* _Src ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//const cArray<Type> cArray<Type>::UnpackBZIP( const cArray<Type>& _Src ) {
-//	return cArray<Type>( unpack_BZIP_Array( _Src._Data ) );
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//const cArray<Type> cArray<Type>::PackBZIP( const cArray<Type>& _Src ) {
-//	return cArray<Type>( pack_BZIP_Array( _Src._Data ) );
-//}
+template< class Type >
+inline void cArray<Type>::UnpackBZIP( cDataBlock& _Src ) {
+	*this = cArray<Type>( unpack_BZIP_Array<Type>( _Src._Data ) );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline void cArray<Type>::UnpackBZIP( DataBlock* _Src ) {
+	*this = cArray<Type>( unpack_BZIP_Array<Type>( _Src ) );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline DataBlock* cArray<Type>::PackBZIP() {
+	return pack_BZIP_DataBlock( _Data );
+}
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
