@@ -15,11 +15,6 @@ struct Array {
 	size_t MaxSize;
 	size_t Size;
 	Type Data[0];
-	
-	// Since we're structurally compatible with DataBlock's (but smarter), allow conversion. //
-//	inline struct DataBlock* ToDataBlock() {
-//		return reinterpret_cast<struct DataBlock*>(&Size);
-//	}
 };
 // - ------------------------------------------------------------------------------------------ - //
 
