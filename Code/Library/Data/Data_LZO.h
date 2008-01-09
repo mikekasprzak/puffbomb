@@ -4,36 +4,40 @@
 #ifndef __Library_Data_Data_LZO_H__
 #define __Library_Data_Data_LZO_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "Data.h"
-#include <External/Lzo/minilzo.h>
+// TODO: Add endianness adaptation to this code.  If we're in big endian mode, be sure we //
+//   convert sizes defaulty encoded as little endian to big endian. //
+// - ------------------------------------------------------------------------------------------ - //
+#include "Data_Core.h"
+#include "DataBlock_Core.h"
+#include "DataBlock_LZO.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
-//// - ------------------------------------------------------------------------------------------ - //
-//// NOTE: LZO compression should have and use static work memory.  Allocation slows it down. //
-//// - ------------------------------------------------------------------------------------------ - //
-//// Decode packed LZO data to a new DataBlock //
-//inline DataBlock* unpack_LZO_Data( void* _Src ) {
-//	// Assume the compressed DataBlock contains a DataBlock, who's size is the uncompressed size //
-//	DataBlock* Compressed = reinterpret_cast<DataBlock*>(_Src->Data);
-//	
-//	// Allocate a memory block equal to the uncompressed size //
-//	DataBlock* Uncompressed = new_DataBlock( Compressed->Size );
-//	
-//	// Decompress the Data //
-//	int Error = lzo1x_decompress(
-//		(const lzo_bytep)Compressed->Data, // Compressed Data (After Size, and Uncompressed Size (8 bytes)) //
-//		_Src->Size - 4, // Source size, since we have an extra 4 byte uncompressed size //
-//		(lzo_bytep)Uncompressed->Data,
-//		(lzo_uintp)&Uncompressed->Size,
-//		(lzo_voidp)0 // No work memory needed //
-//		);
-//	// TODO: Assert on uncompress error //
-//	//if ( Error != Z_OK )
-//	
-//	// Return the uncompressed buffer //
-//	return Uncompressed;
-//}
-//// - ------------------------------------------------------------------------------------------ - //
+// - ------------------------------------------------------------------------------------------ - //
+// Decode packed LZO data to a new DataBlock //
+inline DataBlock* unpack_LZO_Data( void* _Src, const size_t _SrcSize, void** _Dest, size_t* _DestSize ) {
+	// Assume the compressed DataBlock contains a DataBlock, who's size is the uncompressed size //
+	DataBlock* Compressed = reinterpret_cast<DataBlock*>(_Src);
+	
+	size_t UncompressedSize = Compressed->Size;
+
+	// Allocate a memory block equal to the uncompressed size //
+	DataBlock* Uncompressed = new_DataBlock( UncompressedSize );
+	
+	// Decompress the Data //
+	int Error = lzo1x_decompress(
+		(const lzo_bytep)Compressed->Data, // Compressed Data (After Size, and Uncompressed Size (8 bytes)) //
+		_SrcSize - 4, // Source size, since we have an extra 4 byte uncompressed size //
+		(lzo_bytep)Uncompressed,
+		(lzo_uintp)&UncompressedSize,
+		(lzo_voidp)0 // No work memory needed //
+		);
+	// TODO: Assert on uncompress error //
+	//if ( Error != Z_OK )
+	
+	// Return the uncompressed buffer //
+	return Uncompressed;
+}
+// - ------------------------------------------------------------------------------------------ - //
 //// Encode packed LZO data to a new DataBlock //
 //inline DataBlock* pack_LZO_Data( void* _Src ) {
 //	// Allocate worst case space to store compressed data //
