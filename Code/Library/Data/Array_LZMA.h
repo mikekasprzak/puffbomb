@@ -37,7 +37,6 @@ inline Array<Type>* unpack_LZMA_Array( const DataBlock* _Src ) {
 	CProb Probs[ LzmaGetNumProbs(&state.Properties) ];
 	state.Probs = (UInt16*)&Probs;
 	
-	
 	// Allocate a new Array for our uncompressed Data //
 	Array<Type>* UBuffer = new_Array<Type>( UncompressedSize / sizeof(Type) );
 	
@@ -57,8 +56,6 @@ inline Array<Type>* unpack_LZMA_Array( const DataBlock* _Src ) {
 		UncompressedSize,
 		&outProcessed
 		);
-	// TODO: React to result of the decode //
-
 	
 	// Return our new LZMA decompressed data //
 	return UBuffer;
