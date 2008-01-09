@@ -17,13 +17,6 @@
 // Decode packed LZMA data to a new Array //
 template< class Type >
 inline Array<Type>* unpack_LZMA_Array( DataBlock* _Src ) {
-//	DataBlock* Uncompressed = unpack_LZMA_DataBlock( _Src );
-//	Array<Type>* UncompressedArray = new_Array<Type>( Uncompressed );
-//	
-//	delete_DataBlock( Uncompressed );
-//	
-//	return UncompressedArray;	
-
 	unsigned char LZMAProperties[LZMA_PROPERTIES_SIZE];
 	
 	// Copy first byte of LZMA Properties.  Somehow, this is vitally important. //
