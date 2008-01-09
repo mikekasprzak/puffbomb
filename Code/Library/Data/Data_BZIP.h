@@ -4,37 +4,45 @@
 #ifndef __Library_Data_Data_BZIP_H__
 #define __Library_Data_Data_BZIP_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "Data.h"
+#include "Data_Core.h"
+
+#include "DataBlock_Core.h"
+
 #include <External/BZip/bzlib.h>
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
-//// - ------------------------------------------------------------------------------------------ - //
-//// Decode packed BZIP data to a new DataBlock //
-//inline const size_t unpack_BZIP_Data( const void* _Src, const size_t _Size, const void** _Dest, const size_t _DestSize ) {
-//	// Assume the compressed DataBlock contains a DataBlock, who's size is the uncompressed size //
-//	DataBlock* Compressed = reinterpret_cast<DataBlock*>(_Src->Data);
-//	
-//	// Allocate a memory block equal to the uncompressed size //
-//	DataBlock* Uncompressed = new_DataBlock( Compressed->Size );
-//	
-//	// Decompress the Data //
-//	int Error = BZ2_bzBuffToBuffDecompress(
-//		Uncompressed->Data,
-//		&Uncompressed->Size,
-//		Compressed->Data, // Compressed Data (After Size, and Uncompressed Size (8 bytes)) //
-//		_Src->Size - 4, // Source size, since we have an extra 4 byte uncompressed size //
-//		0, // small (0 - more memory used, faster. 1 - less memory (2300k max), slower) //
-//		0 // verbosity (0, don't talk) //
-//		);
-//	// TODO: Assert on uncompress error //
-//	//if ( Error != BZ_OK )
-//	
-//	// Return the uncompressed buffer //
-//	return Uncompressed;
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//// Encode packed BZIP data to a new DataBlock //
-//inline DataBlock* pack_BZIP_Data( const void* _Src, const size_t _Size, const void** _Dest, const size_t _DestSize ) {
+// - ------------------------------------------------------------------------------------------ - //
+// Decode packed BZIP data to a new DataBlock //
+inline const size_t unpack_BZIP_Data( void* _Src, const size_t _SrcSize, void** _Dest, size_t* _DestSize ) {
+	// Assume the compressed DataBlock contains a DataBlock, who's size is the uncompressed size //
+	DataBlock* Compressed = reinterpret_cast<DataBlock*>(_Src);
+	
+	size_t UncompressedSize = Compressed->Size;
+	
+	// Allocate a memory block equal to the uncompressed size //
+	char* Uncompressed = (char*)new_Data( UncompressedSize );
+	
+	// Decompress the Data //
+	int Error = BZ2_bzBuffToBuffDecompress(
+		Uncompressed,
+		&UncompressedSize,
+		Compressed->Data, // Compressed Data (After Size, and Uncompressed Size (8 bytes)) //
+		_SrcSize - 4, // Source size, since we have an extra 4 byte uncompressed size //
+		0, // small (0 - more memory used, faster. 1 - less memory (2300k max), slower) //
+		0 // verbosity (0, don't talk) //
+		);
+	// TODO: Assert on uncompress error //
+	//if ( Error != BZ_OK )
+	
+	*_Dest = Uncompressed;
+	*_DestSize = UncompressedSize;
+	
+	// Return the uncompressed buffer //
+	return UncompressedSize;
+}
+// - ------------------------------------------------------------------------------------------ - //
+// Encode packed BZIP data to a new DataBlock //
+//inline const size_t pack_BZIP_Data( const void* _Src, const size_t _Size, void** _Dest, size_t* _DestSize ) {
 //	// Allocate worst case space to store compressed data //
 //	DataBlock* Compressed = new_DataBlock( _Src->Size + (_Src->Size / 100) + 600 + 4 );
 //	
@@ -68,7 +76,10 @@
 //	// Return the compressed buffer //
 //	return Compressed;
 //}
-//// - ------------------------------------------------------------------------------------------ - //
+// - ------------------------------------------------------------------------------------------ - //
+//	// Allocate worst case space to store compressed data //
+//	size_t CompressedSize =  _Src->Size + (_Src->Size / 100) + 600 + 4;
+//	char* Compressed = new_Data( CompressedSize );
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //

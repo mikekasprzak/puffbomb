@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Data - Data utility/reading/writing wrapping library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_Data_H__
-#define __Library_Data_Data_H__
+#ifndef __Library_Data_Data_Core_H__
+#define __Library_Data_Data_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <cstring>
 #include <cstdio>
@@ -33,7 +33,7 @@ inline void set_Data( const int _Value, void* _Data, const size_t _Size ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 // MemCPY wrapper //
-inline void copy_Data( void* _Src, void* _Dest, const size_t _Size ) {
+inline void copy_Data( const void* _Src, void* _Dest, const size_t _Size ) {
 	memcpy( _Dest, _Src, _Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -123,15 +123,15 @@ inline void* new_Data( const char* _FileName ) {
 // - ------------------------------------------------------------------------------------------ - //
 // Copy one DataBlock to another, no larger than Destination Size Bytes //
 // - ------------------------------------------------------------------------------------------ - //
-inline void copy_Data( void* _Src, const size_t _SrcSize, void* _Dest, const size_t _DestSize ) {
+inline void copy_Data( const void* _SrcData, const size_t _SrcSize, void* _DestData, const size_t _DestSize ) {
 	// If source is smaller than the destination //
 	if ( _DestSize > _SrcSize ) {
 		// Copy source number of bytes //
-		memcpy( _Dest, _Src, _SrcSize );
+		copy_Data( _SrcData, _DestData, _SrcSize );
 	}
 	else {
 		// Otherwise, copy destination number of bytes //
-		memcpy( _DestData, _SrcData, _DestSize );
+		copy_Data( _SrcData, _DestData, _DestSize );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -139,7 +139,7 @@ inline void copy_Data( void* _Src, const size_t _SrcSize, void* _Dest, const siz
 // - ------------------------------------------------------------------------------------------ - //
 inline void* copy_Data( const void* _Src, const size_t _Size ) {
 	// Allocate our new block //
-	DataBlock* NewData = new_Data( _Size );
+	void* NewData = new_Data( _Size );
 	
 	// Copy the data to our new block //
 	copy_Data( _Src, _Size, NewData, _Size );
@@ -187,17 +187,17 @@ inline void resize_Data( void** p, const size_t _OldSize, const size_t _NewSize 
 // Initializer capable versions of resize, reallocate, and copy //
 // - ------------------------------------------------------------------------------------------ - //
 // Copy one DataBlock to another, no larger than Destination Size Bytes //
-inline void copy_Data( void* _Src, const size_t _SrcSize, void* _Dest, const size_t _DestSize, const int _InitValue ) {
+inline void copy_Data( const void* _Src, const size_t _SrcSize, void* _Dest, const size_t _DestSize, const int _InitValue ) {
 	// If source is smaller than the destination //
 	if ( _DestSize > _SrcSize ) {
 		// Copy source number of bytes //
-		memcpy( _Dest, _Src, _SrcSize );
+		copy_Data( _Src, _Dest, _SrcSize );
 		// Fill the rest of the data with initializer //
-		memset( &_Dest[_SrcSize], _InitValue, _DestSize - _SrcSize );
+		set_Data( _InitValue, &(((char*)_Dest)[_SrcSize]), _DestSize - _SrcSize );
 	}
 	else {
 		// Otherwise, copy destination number of bytes //
-		memcpy( _Dest, _Src, _DestSize );
+		copy_Data( _Src, _Dest, _DestSize );
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -233,5 +233,5 @@ inline void resize_Data( void** p, const size_t _OldSize, const size_t _NewSize,
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_Data_H__ //
+#endif // __Library_Data_Data_Core_H__ //
 // - ------------------------------------------------------------------------------------------ - //

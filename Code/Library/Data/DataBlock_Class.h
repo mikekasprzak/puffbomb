@@ -118,8 +118,10 @@ public:
 	inline static const cDataBlock UnpackLZMA( const DataBlock* _Src );
 	inline static const cDataBlock UnpackLZMA( const cDataBlock& _Src );
 	
-	inline static const cDataBlock UnpackBZIP( const cDataBlock& _Src );
-	inline static const cDataBlock PackBZIP( const cDataBlock& _Src );
+	inline static cDataBlock UnpackBZIP( cDataBlock& _Src );
+	inline static cDataBlock UnpackBZIP( DataBlock* _Src );
+	inline static cDataBlock PackBZIP( cDataBlock& _Src );
+	inline static cDataBlock PackBZIP( DataBlock* _Src );
 	
 	inline static const cDataBlock UnpackZLIB( const cDataBlock& _Src );
 	inline static const cDataBlock PackZLIB( const cDataBlock& _Src );
