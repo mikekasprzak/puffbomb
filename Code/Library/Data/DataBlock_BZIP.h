@@ -4,6 +4,9 @@
 #ifndef __Library_Data_DataBlock_BZIP_H__
 #define __Library_Data_DataBlock_BZIP_H__
 // - ------------------------------------------------------------------------------------------ - //
+// TODO: Add endianness adaptation to this code.  If we're in big endian mode, be sure we //
+//   convert sizes defaulty encoded as little endian to big endian. //
+// - ------------------------------------------------------------------------------------------ - //
 #include "DataBlock.h"
 #include <External/BZip/bzlib.h>
 // - ------------------------------------------------------------------------------------------ - //
@@ -34,7 +37,7 @@ inline DataBlock* unpack_BZIP_DataBlock( DataBlock* _Src ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 // Decode packed BZIP data to a new DataBlock //
-inline DataBlock* unpack_BZIP_DataBlock( char* _Src, const size_t _SrcSize ) {
+inline DataBlock* unpack_BZIP_DataBlock( void* _Src, const size_t _SrcSize ) {
 	// Assume the compressed DataBlock contains a DataBlock, who's size is the uncompressed size //
 	DataBlock* Compressed = reinterpret_cast<DataBlock*>(_Src);
 	
@@ -94,7 +97,7 @@ inline DataBlock* pack_BZIP_DataBlock( DataBlock* _Src ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 // Encode packed BZIP data to a new DataBlock //
-inline DataBlock* pack_BZIP_DataBlock( char* _Src, const size_t _SrcSize ) {
+inline DataBlock* pack_BZIP_DataBlock( void* _Src, const size_t _SrcSize ) {
 	// Allocate worst case space to store compressed data //
 	DataBlock* Compressed = new_DataBlock( _SrcSize + (_SrcSize / 100) + 600 + 4 );
 	

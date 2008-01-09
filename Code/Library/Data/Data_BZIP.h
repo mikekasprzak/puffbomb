@@ -4,8 +4,10 @@
 #ifndef __Library_Data_Data_BZIP_H__
 #define __Library_Data_Data_BZIP_H__
 // - ------------------------------------------------------------------------------------------ - //
+// TODO: Add endianness adaptation to this code.  If we're in big endian mode, be sure we //
+//   convert sizes defaulty encoded as little endian to big endian. //
+// - ------------------------------------------------------------------------------------------ - //
 #include "Data_Core.h"
-
 #include "DataBlock_Core.h"
 
 #include <External/BZip/bzlib.h>
