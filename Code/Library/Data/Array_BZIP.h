@@ -17,6 +17,7 @@ inline Array<Type>* unpack_BZIP_Array( DataBlock* _Src ) {
 	DataBlock* Uncompressed = unpack_BZIP_DataBlock( _Src );
 	Array<Type>* UncompressedArray = new_Array<Type>( Uncompressed );
 	
+	// Delet our intermediary //
 	delete_DataBlock( Uncompressed );
 	
 	return UncompressedArray;
@@ -28,20 +29,21 @@ inline Array<Type>* unpack_BZIP_Array( char* _Src, const size_t _SrcSize ) {
 
 }
 // - ------------------------------------------------------------------------------------------ - //
-// Encode packed BZIP data to a new Array //
+// Encode array data to a packed BZIP DataBlock //
 template< class Type >
-inline DataBlock* pack_BZIP_Array( Array<Type>* _Src ) {
+inline DataBlock* pack_BZIP_DataBlock( Array<Type>* _Src ) {
 	DataBlock* Source = copy_DataBlock( (char*)_Src->Data, _Src->Size * sizeof( Type ) );
 	DataBlock* Compressed = pack_BZIP_DataBlock( Source );
 	
+	// Delete our Intermediary //
 	delete_DataBlock( Source );
 	
 	return Compressed;
 }
-//// - ------------------------------------------------------------------------------------------ - //
-//
-//
-//// - ------------------------------------------------------------------------------------------ - //
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
 //template< class Type >
 //const cArray<Type> cArray<Type>::UnpackBZIP( const cArray<Type>& _Src ) {
 //	return cArray<Type>( unpack_BZIP_Array( _Src._Data ) );
