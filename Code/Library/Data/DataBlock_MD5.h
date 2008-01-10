@@ -4,15 +4,15 @@
 #ifndef __Library_Data_DataBlock_MD5_H__
 #define __Library_Data_DataBlock_MD5_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "DataBlock.h"
-#include <External/MD5/md5.h>
+#include "DataBlock_Core.h"
+#include "Data_MD5.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 // Hash a block of data with an MD5 sum //
 // - ------------------------------------------------------------------------------------------ - //
-inline const void* hash_MD5_DataBlock( const void* _Src, const size_t _Size, size_t* _DestSize = 0 ) {
-	// TODO: This function
+inline const MD5Hash hash_MD5_DataBlock( const DataBlock* _Src ) {
+	return hash_MD5_Data( _Src->Data, _Src->Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //

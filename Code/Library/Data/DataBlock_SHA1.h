@@ -4,15 +4,15 @@
 #ifndef __Library_Data_DataBlock_SHA1_H__
 #define __Library_Data_DataBlock_SHA1_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "DataBlock.h"
-#include <External/SHA1/sha1.h>
+#include "DataBlock_Core.h"
+#include "Data_SHA1.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 // Hash a block of data with an SHA1 sum //
 // - ------------------------------------------------------------------------------------------ - //
-inline const void* hash_SHA1_DataBlock( const void* _Src, const size_t _Size, size_t* _DestSize = 0 ) {
-	// TODO: This function
+inline const SHA1Hash hash_SHA1_DataBlock( const DataBlock* _Src ) {
+	return hash_SHA1_Data( _Src->Data, _Src->Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
