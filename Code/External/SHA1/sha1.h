@@ -17,10 +17,17 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
 #ifndef SHA1_H
-# define SHA1_H 1
+#define SHA1_H 1
 
-# include <stdio.h>
-# include <stdint.h>
+#include <stdio.h>
+#include <stdint.h>
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus //
+
+#define SHA1_DIGEST_SIZE 20
 
 /* Structure to save state of computation between the single steps.  */
 struct sha1_ctx
@@ -83,5 +90,9 @@ extern int sha1_stream (FILE *stream, void *resblock);
    output yields to the wanted ASCII representation of the message
    digest.  */
 extern void *sha1_buffer (const char *buffer, size_t len, void *resblock);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus //
 
 #endif
