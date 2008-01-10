@@ -4,15 +4,22 @@
 #ifndef __Library_Data_Data_MD5_H__
 #define __Library_Data_Data_MD5_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "Data.h"
-#include <External/MD5/md5.h>
+#include "Data_Core.h"
+#include "MD5Hash.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 // Hash a block of data with an MD5 sum //
 // - ------------------------------------------------------------------------------------------ - //
-inline const void* hash_MD5_Data( const void* _Src, const size_t _Size, size_t* _DestSize = 0 ) {
-	// TODO: This function
+inline const MD5Hash hash_MD5_Data( const void* _Src, const size_t _Size ) {
+	MD5Hash Key;
+	
+	md5_ctx HashInfo;
+	md5_init_ctx( &HashInfo );
+	md5_process_bytes( _Src, _Size, &HashInfo );
+	md5_finish_ctx( &HashInfo, (void*)&Key.Hash );
+	
+	return Key;
 }
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
