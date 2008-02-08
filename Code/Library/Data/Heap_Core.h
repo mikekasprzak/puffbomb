@@ -23,14 +23,14 @@ struct Heap {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline Heap* new_Heap( const size_t _IndexCount, const size_t _DataSize ) {
+inline Heap* new_Heap( const size_t _IndexMax, const size_t _DataMax ) {
 	Heap* p = new Heap;
 
 	// Allocate an array for our entries //
-	p->Index = newmax_Array<size_t>(_IndexCount);
+	p->Index = newmax_Array<size_t>(_IndexMax);
 	
 	// Allocate a mass of data //
-	p->Data = newmax_Array<char>(_DataSize);
+	p->Data = newmax_Array<char>(_DataMax);
 
 	return p;
 }
@@ -48,19 +48,13 @@ inline void delete_Heap( Heap* p ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-inline size_t allocate_Heap( Heap* p, const size_t _MemorySize ) {
+inline size_t allocate_Heap( Heap* p, const size_t _AllocationSize ) {
 	// Allocate a key //
 	size_t Key = p->Index->Size;
 	pushback_Array<size_t>( &p->Index, p->Data->Size );
 	
 	// Allocate memory //
-	pushblockback_Array<char>( &p->Data, _MemorySize );
-//	
-//	p->Data->Size += _MemorySize;
-//	
-//	// TODO: Update Array to include a means of growing size //
-//	if ( p->Data->Size > p->Data->MaxSize )
-//		reallocate_Array<char>( &p->Data );
+	pushblockback_Array<char>( &p->Data, _AllocationSize );
 	
 	// Return key //
 	return Key;
