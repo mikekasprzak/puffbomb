@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Directory - File Name tree cataloging library //
+// Archive - File Name tree cataloging library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_Directory_H__
-#define __Library_Data_Directory_H__
+#ifndef __Library_Data_Archive_H__
+#define __Library_Data_Archive_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <cstring>
 #include <cstdio>
@@ -10,26 +10,26 @@
 #include "Array.h"
 #include "Heap.h"
 // - ------------------------------------------------------------------------------------------ - //
-// Directories are lists of file names.  They can be populated manually, or be polled from disk
-//   and other sources.  The next step up from a Directory is an Archive, which contains data too.
-//
-// TODO: When indexing a string, consider attaching the name (BaseName) to the front.
+// Archives are lists of file names with Data.  They can be populated manually, or be polled from
+//   disk and other sources.
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
-struct Directory {
-	// The given Base Directory name (include the trailing backslash .. ?) //
+struct Archive {
+	// The given Base Archive name (include the trailing backslash .. ?) //
 	char* Name;
 	// A heap of filenames //
 	Heap* FileName;
+	// A heap of Data (DataBlocks?) //
+	Heap* Data;
 };
 // - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
-// Create a dummy empty File Name list //
-inline Directory* new_Directory() {
-	Directory* NewDir = new Directory;
+// Create a dummy empty Archive //
+inline Archive* new_Archive() {
+	Archive* NewDir = new Archive;
 	
 	// Create and initalize an empty name string //
 	NewDir->Name = new char[ 1 ];
@@ -40,41 +40,46 @@ inline Directory* new_Directory() {
 	return NewDir;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline Directory* new_Directory( const char* _BaseName ) {
-	Directory* NewDir = new Directory;
+inline Archive* new_Archive( const char* _BaseName ) {
+	Archive* NewArchive = new Archive;
 	
 	size_t NameLength = strlen(_BaseName);
 	
-	NewDir->Name = new char[NameLength];
-	memcpy( NewDir->Name, _BaseName, NameLength );
+	NewArchive->Name = new char[NameLength];
+	memcpy( NewArchive->Name, _BaseName, NameLength );
 	
-	// Allocate some starting room.  Should be large enough for "." and "..". //
-	NewDir->FileName = new_Heap(0, 0);
+	// Allocate an empty FileName table //
+	NewArchive->FileName = new_Heap(0, 0);
+	
+	// Allocate an empty Data table //
+	NewArchive->Data = new_Heap(0, 0);
 	
 	// Work //
 	
-	return NewDir;
+	return NewArchive;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline void delete_Directory( Directory* p ) {
+inline void delete_Archive( Archive* p ) {
 	if ( p->Name )
 		delete [] p->Name;
 	if ( p->FileName )
 		delete_Heap( p->FileName );
+	if ( p->Data )
+		delete_Heap( p->Data );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline void add_Directory( Directory* p, char* _String ) {
-	size_t StringLength = strlen( _String );
-	
-	size_t Index = allocate_Heap( p->FileName, StringLength );
-	memcpy( index_Heap( p->FileName, Index ), _String, StringLength );
-}
+//inline void add_Archive( Archive* p, char* _String ) {
+//	size_t StringLength = strlen( _String );
+//	
+//	size_t Index = allocate_Heap( p->FileName, StringLength );
+//	memcpy( index_Heap( p->FileName, Index ), _String, StringLength );
+//}
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_Directory_H__ //
+#endif // __Library_Data_Archive_H__ //
 // - ------------------------------------------------------------------------------------------ - //
