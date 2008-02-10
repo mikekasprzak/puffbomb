@@ -19,7 +19,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 struct Directory {
 	// The given Base Directory name (include the trailing backslash .. ?) //
-	char* Name;
+	char* BaseName;
 	// A heap of filenames //
 	Heap* FileName;
 };
@@ -32,8 +32,8 @@ inline Directory* new_Directory() {
 	Directory* NewDir = new Directory;
 	
 	// Create and initalize an empty name string //
-	NewDir->Name = new char[ 1 ];
-	NewDir->Name[0] = 0;
+	NewDir->BaseName = new char[ 1 ];
+	NewDir->BaseName[0] = 0;
 	
 	NewDir->FileName = new_Heap(0, 0);
 	
@@ -43,10 +43,10 @@ inline Directory* new_Directory() {
 inline Directory* new_Directory( const char* _BaseName ) {
 	Directory* NewDir = new Directory;
 	
-	size_t NameLength = strlen(_BaseName);
+	size_t NameLength = strlen(_BaseName) + 1;
 	
-	NewDir->Name = new char[NameLength];
-	memcpy( NewDir->Name, _BaseName, NameLength );
+	NewDir->BaseName = new char[NameLength];
+	memcpy( NewDir->BaseName, _BaseName, NameLength );
 	
 	// Allocate some starting room.  Should be large enough for "." and "..". //
 	NewDir->FileName = new_Heap(0, 0);
@@ -57,8 +57,8 @@ inline Directory* new_Directory( const char* _BaseName ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 inline void delete_Directory( Directory* p ) {
-	if ( p->Name )
-		delete [] p->Name;
+	if ( p->BaseName )
+		delete [] p->BaseName;
 	if ( p->FileName )
 		delete_Heap( p->FileName );
 }
