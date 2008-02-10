@@ -65,13 +65,22 @@ inline void delete_Directory( Directory* p ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline void add_Directory( Directory* p, char* _String ) {
-	size_t StringLength = strlen( _String );
+inline void add_Directory( Directory* p, const char* _String ) {
+	size_t StringLength = strlen( _String ) + 1;
 	
 	size_t Index = allocate_Heap( p->FileName, StringLength );
 	memcpy( index_Heap( p->FileName, Index ), _String, StringLength );
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline size_t size_Directory( const Directory* p ) {
+	return size_Heap( p->FileName );
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const char* index_Directory( const Directory* p, const size_t Index ) { 
+	return index_Heap( p->FileName, Index );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
