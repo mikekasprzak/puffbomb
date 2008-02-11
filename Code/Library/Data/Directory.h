@@ -7,7 +7,7 @@
 #include <cstring>
 #include <cstdio>
 
-#include "Array.h"
+#include "String.h"
 #include "Heap.h"
 // - ------------------------------------------------------------------------------------------ - //
 // Directories are lists of file names.  They can be populated manually, or be polled from disk
@@ -32,8 +32,7 @@ inline Directory* new_Directory() {
 	Directory* NewDir = new Directory;
 	
 	// Create and initalize an empty name string //
-	NewDir->BaseName = new char[ 1 ];
-	NewDir->BaseName[0] = 0;
+	NewDir->BaseName = new_String("");
 	
 	NewDir->FileName = new_Heap(0, 0);
 	
@@ -43,12 +42,7 @@ inline Directory* new_Directory() {
 inline Directory* new_Directory( const char* _BaseName ) {
 	Directory* NewDir = new Directory;
 	
-	size_t NameLength = strlen(_BaseName) + 1;
-	
-	NewDir->BaseName = new char[NameLength];
-	memcpy( NewDir->BaseName, _BaseName, NameLength );
-	
-	// Allocate some starting room.  Should be large enough for "." and "..". //
+	NewDir->BaseName = new_String( _BaseName );
 	NewDir->FileName = new_Heap(0, 0);
 	
 	// Work //
@@ -59,6 +53,7 @@ inline Directory* new_Directory( const char* _BaseName ) {
 inline void delete_Directory( Directory* p ) {
 	if ( p->BaseName )
 		delete [] p->BaseName;
+		
 	if ( p->FileName )
 		delete_Heap( p->FileName );
 }
@@ -66,10 +61,11 @@ inline void delete_Directory( Directory* p ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 inline void add_Directory( Directory* p, const char* _String ) {
-	size_t StringLength = strlen( _String ) + 1;
+	size_t StringLength = length_String( _String ) + 1;
 	
-	size_t Index = allocate_Heap( p->FileName, StringLength );
-	memcpy( index_Heap( p->FileName, Index ), _String, StringLength );
+//	size_t Index = allocate_Heap( p->FileName, StringLength );
+//	memcpy( index_Heap( p->FileName, Index ), _String, StringLength );
+	allocate_Heap( p->FileName, _String, StringLength );
 }
 // - ------------------------------------------------------------------------------------------ - //
 inline size_t size_Directory( const Directory* p ) {

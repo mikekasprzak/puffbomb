@@ -48,6 +48,18 @@ inline void delete_Heap( Heap* p ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
+inline char* index_Heap( Heap* p, const size_t _Index ) {
+	return &(p->Data->Data[ p->Index->Data[ _Index ] ]);
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t size_Heap( Heap* p ) {
+	return p->Index->Size;
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t heapsize_Heap( Heap* p ) {
+	return p->Data->Size;
+}
+// - ------------------------------------------------------------------------------------------ - //
 inline size_t allocate_Heap( Heap* p, const size_t _AllocationSize ) {
 	// Allocate a key //
 	size_t Key = p->Index->Size;
@@ -60,16 +72,19 @@ inline size_t allocate_Heap( Heap* p, const size_t _AllocationSize ) {
 	return Key;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline char* index_Heap( Heap* p, const size_t _Index ) {
-	return &(p->Data->Data[ p->Index->Data[ _Index ] ]);
-}
-// - ------------------------------------------------------------------------------------------ - //
-inline const size_t size_Heap( Heap* p ) {
-	return p->Index->Size;
-}
-// - ------------------------------------------------------------------------------------------ - //
-inline const size_t heapsize_Heap( Heap* p ) {
-	return p->Data->Size;
+inline size_t allocate_Heap( Heap* p, const char* Src, const size_t _AllocationSize ) {
+	// Allocate a key //
+	size_t Key = p->Index->Size;
+	pushback_Array<size_t>( &p->Index, p->Data->Size );
+	
+	// Allocate memory //
+	pushblockback_Array<char>( &p->Data, _AllocationSize );
+	
+	// Copy Data //
+	copy_Data( Src, index_Heap( p, Key ), _AllocationSize );
+	
+	// Return key //
+	return Key;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
