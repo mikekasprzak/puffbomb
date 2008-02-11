@@ -60,15 +60,13 @@ inline void delete_Directory( Directory* p ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline void add_Directory( Directory* p, const char* _String ) {
+inline const size_t add_Directory( Directory* p, const char* _String ) {
 	size_t StringLength = length_String( _String ) + 1;
 	
-//	size_t Index = allocate_Heap( p->FileName, StringLength );
-//	memcpy( index_Heap( p->FileName, Index ), _String, StringLength );
-	allocate_Heap( p->FileName, _String, StringLength );
+	return allocate_Heap( p->FileName, _String, StringLength );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline size_t size_Directory( const Directory* p ) {
+inline const size_t size_Directory( const Directory* p ) {
 	return size_Heap( p->FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
