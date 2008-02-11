@@ -45,7 +45,7 @@ inline const char* index_Directory( const Directory* p, const size_t Index ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline void populate_Directory( Directory* p, const char* SearchDirectory, const char* Prefix ) {
+inline void populate_Directory( Directory* p, const char* SearchDirectory, const char* Prefix = "" ) {
 	// Extract the directory part, and open the directory //
 	DIR* ThisDir = opendir( SearchDirectory );
 
@@ -132,7 +132,7 @@ inline Directory* new_Directory( const char* _BaseName ) {
 	NewDir->FileName = new_Heap(0, 0);
 	
 	// Work //
-	populate_Directory( NewDir, NewDir->BaseName, "" );
+	populate_Directory( NewDir, NewDir->BaseName );
 	
 	return NewDir;
 }
