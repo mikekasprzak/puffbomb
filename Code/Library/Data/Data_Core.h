@@ -37,6 +37,11 @@ inline void copy_Data( const void* _Src, void* _Dest, const size_t _Size ) {
 	memcpy( _Dest, _Src, _Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
+// MemMove wrapper //
+inline void move_Data( const void* _Src, void* _Dest, const size_t _Size ) {
+	memmove( _Dest, _Src, _Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
 // MemCMP wrapper //
 inline const int compare_Data( const void* const _Src, const void* _Dest, const size_t _Size ) {
 	return memcmp( _Dest, _Src, _Size );
