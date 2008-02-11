@@ -55,8 +55,7 @@ inline void populate_Directory( Directory* p, const char* SearchDirectory, const
 	
 	// While we still have entries left in this directory //
 	while( Data != 0 ) {
-		// Full path and name of the file //
-		//std::string CurrentFile = SearchDirectory + String::Slash + Data->d_name;
+		// Build the full path name of the file //
 		char* CurrentFile = new char[ length_String(SearchDirectory) + 1 + length_String(Data->d_name) + 1 ];
 		copy_String( SearchDirectory, CurrentFile );
 		cat_String( "/", CurrentFile );
@@ -78,7 +77,6 @@ inline void populate_Directory( Directory* p, const char* SearchDirectory, const
 					cat_String( "/", PrefixString );
 					
 					// Recursive call //
-					//populate_Directory( p, CurrentFile, Prefix + Data->d_name + String::Slash );
 					populate_Directory( p, CurrentFile, PrefixString );
 						
 					// Delete our prefix string //
@@ -87,8 +85,6 @@ inline void populate_Directory( Directory* p, const char* SearchDirectory, const
 		}
 		// If it's a regular file //
 		else if ( _S_ISREG( Status.st_mode ) ) {
-			//File.push_back( Prefix + Data->d_name );
-
 			// Build our filename string //
 			char* NewFile = new char[ length_String(Prefix) + length_String(Data->d_name) + 1 ];
 			copy_String( Prefix, NewFile );
@@ -101,6 +97,7 @@ inline void populate_Directory( Directory* p, const char* SearchDirectory, const
 			delete_String( NewFile );
 		}
 		
+		// Remove our string //
 		delete_String( CurrentFile );
 	
 		// Read the next entry //
@@ -150,6 +147,8 @@ inline void delete_Directory( Directory* p ) {
 		delete_Heap( p->FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
+
+
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
