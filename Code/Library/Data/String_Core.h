@@ -35,16 +35,16 @@ inline const bool compare_String( const char* StrA, const char* StrB ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 // Note: strcpy needs enough room in Destination to hold the source string and a null character //
-inline const char* copyn_String( const char* Src, char* Dest, const size_t Number ) {
+inline const char* copy_String( const char* Src, char* Dest, const size_t Number ) {
 	return strncpy( Dest, Src, Number );
 }
 // - ------------------------------------------------------------------------------------------ - //
 // Note: strcat needs enough room in Destination to hold both strings and a null character //
-inline const char* catn_String( const char* Src, char* Dest, const size_t Number ) {
+inline const char* cat_String( const char* Src, char* Dest, const size_t Number ) {
 	return strncat( Dest, Src, Number );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const bool comparen_String( const char* StrA, const char* StrB, const size_t Number ) {
+inline const bool compare_String( const char* StrA, const char* StrB, const size_t Number ) {
 	return strncmp( StrA, StrB, Number ) == 0;
 }
 // - ------------------------------------------------------------------------------------------ - //
