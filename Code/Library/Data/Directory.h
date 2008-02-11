@@ -132,6 +132,7 @@ inline Directory* new_Directory( const char* _BaseName ) {
 	NewDir->FileName = new_Heap(0, 0);
 	
 	// Work //
+	populate_Directory( NewDir, NewDir->BaseName, "" );
 	
 	return NewDir;
 }
