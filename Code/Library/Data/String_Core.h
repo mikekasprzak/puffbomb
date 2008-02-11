@@ -51,10 +51,19 @@ inline const bool compare_String( const char* StrA, const char* StrB, const size
 
 
 // - ------------------------------------------------------------------------------------------ - //
+// NOTE: Should this be removed, and replaced with just new?? //
 inline char* copy_String( const char* Src ) {
 	char* Copy = new char[ length_String( Src ) + 1 ];
 	
 	copy_String( Src, Copy );
+	
+	return Copy;
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline char* copy_String( const char* Src, const size_t Number ) {
+	char* Copy = new char[ Number + 1 ];
+	
+	copy_String( Src, Copy, Number );
 	
 	return Copy;
 }
