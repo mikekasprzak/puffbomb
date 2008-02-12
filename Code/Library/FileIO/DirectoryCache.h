@@ -48,7 +48,9 @@ public:
 			}
 			// If it's a regular file //
 			else if ( _S_ISREG( Status.st_mode ) ) {
-				File.push_back( Prefix + Data->d_name );
+				if( Data->d_name[0] != '.' ) 
+					if( Data->d_name[0] != '_' ) 
+						File.push_back( Prefix + Data->d_name );
 			}
 		
 			// Read the next entry //
