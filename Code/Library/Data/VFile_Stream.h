@@ -22,22 +22,22 @@ inline const size_t size_Stream( VFILE* fp ) {
 // Opening Stream //
 // - ------------------------------------------------------------------------------------------ - //
 template<>
-inline VFILE* open_Stream<VFILE*>( const char* ) {
+inline VFILE* open_Stream<VFILE>( const char* ) {
 	return open_VFile();
 }
 // - ------------------------------------------------------------------------------------------ - //
 template<>
-inline VFILE* open_Stream<VFILE*>( const char*, const char* ) {
+inline VFILE* open_Stream<VFILE>( const char*, const char* ) {
 	return open_VFile();
 }
 // - ------------------------------------------------------------------------------------------ - //
 template<>
-inline VFILE* open_readonly_Stream<VFILE*>( const char* ) {
+inline VFILE* open_readonly_Stream<VFILE>( const char* ) {
 	return open_readonly_VFile();
 }
 // - ------------------------------------------------------------------------------------------ - //
 template<>
-inline VFILE* open_writeonly_Stream<VFILE*>( const char* ) {
+inline VFILE* open_writeonly_Stream<VFILE>( const char* ) {
 	return open_writeonly_VFile();
 }
 // - ------------------------------------------------------------------------------------------ - //

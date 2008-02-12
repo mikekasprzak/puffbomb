@@ -166,7 +166,7 @@ inline const size_t write_DataBlock( const DataBlock* p, VFILE* fp ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 template< class STREAM >
-inline const size_t read_DataBlock( DataBlock* p, STREAM fp ) {
+inline const size_t read_DataBlock( DataBlock* p, STREAM* fp ) {
 	// Read Size //
 	size_t Size = read_Stream<size_t>( fp );
 	
@@ -180,7 +180,7 @@ inline const size_t read_DataBlock( DataBlock* p, STREAM fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class STREAM >
-inline const size_t write_DataBlock( const DataBlock* p, STREAM fp ) {
+inline const size_t write_DataBlock( const DataBlock* p, STREAM* fp ) {
 	// Write Size //
 	size_t BytesWritten = write_Stream( fp, p->Size );
 	

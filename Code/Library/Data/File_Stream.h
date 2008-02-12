@@ -22,22 +22,22 @@ inline const size_t size_Stream( FILE* fp ) {
 // Opening Stream //
 // - ------------------------------------------------------------------------------------------ - //
 template<>
-inline FILE* open_Stream<FILE*>( const char* FileName ) {
+inline FILE* open_Stream<FILE>( const char* FileName ) {
 	return open_File( FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template<>
-inline FILE* open_Stream<FILE*>( const char* FileName, const char* OpenMask ) {
+inline FILE* open_Stream<FILE>( const char* FileName, const char* OpenMask ) {
 	return open_File( FileName, OpenMask );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template<>
-inline FILE* open_readonly_Stream<FILE*>( const char* FileName ) {
+inline FILE* open_readonly_Stream<FILE>( const char* FileName ) {
 	return open_readonly_File( FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template<>
-inline FILE* open_writeonly_Stream<FILE*>( const char* FileName ) {
+inline FILE* open_writeonly_Stream<FILE>( const char* FileName ) {
 	return open_writeonly_File( FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
