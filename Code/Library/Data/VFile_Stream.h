@@ -33,12 +33,12 @@ inline VFILE* open_Stream<VFILE*>( const char*, const char* ) {
 // - ------------------------------------------------------------------------------------------ - //
 template<>
 inline VFILE* open_readonly_Stream<VFILE*>( const char* ) {
-	return open_VFile();
+	return open_readonly_VFile();
 }
 // - ------------------------------------------------------------------------------------------ - //
 template<>
 inline VFILE* open_writeonly_Stream<VFILE*>( const char* ) {
-	return open_VFile();
+	return open_writeonly_VFile();
 }
 // - ------------------------------------------------------------------------------------------ - //
 

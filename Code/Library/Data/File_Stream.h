@@ -1,131 +1,83 @@
 // - ------------------------------------------------------------------------------------------ - //
-// File - C "FILE*" wrapping and utility library //
+// File Stream - File functions adapted to Stream syntax.
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_File_Core_H__
-#define __Library_Data_File_Core_H__
+#ifndef __Library_Data_File_Stream_H__
+#define __Library_Data_File_Stream_H__
 // - ------------------------------------------------------------------------------------------ - //
-// TODO: Add a function for reading a DataBlock from an open file //
-// TODO: Also add functions for reading data of an expected size, zero terminated strings, etc. //
-// TODO: Add functions for reading/adapting floating point numbers from IEEE to other needed types
-// TODO: Add functions for converting/writing floats to fixed point numbers (a cheat)
-// - ------------------------------------------------------------------------------------------ - //
-#include <cstring>
-#include <cstdio>
-
-#include "Endian.h"
+#include "Stream_Core.h"
+#include "File_Core.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-// Get the size of a file in bytes //
-// - ------------------------------------------------------------------------------------------ - //
-inline const size_t size_File( const char* _FileName ) {
-	// Open File //
-	FILE* fp = fopen( _FileName, "rb" );
-	if ( fp == 0 ) {
-		return 0;
-	}
-	
-	// Determine how large file is //
-	fseek( fp, 0, SEEK_END );
-	size_t Size = ftell( fp );
-	
-	// Close file //
-	fclose( fp );
-	
-	// Return data //
-	return Size;
-}
-// - ------------------------------------------------------------------------------------------ - //
-
-// - ------------------------------------------------------------------------------------------ - //
 // Get the size of an open file, in bytes //
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t size_File( FILE* fp ) {
-	size_t Position = ftell( fp );
-	
-//	fpos_t Position;
-//	fgetpos( fp, &Position );
-	
-	fseek( fp, 0, SEEK_END );
-	size_t Size = ftell( fp );
-	fseek( fp, Position, SEEK_SET );
-	
-//	fsetpos( fp, &Position );
-	
-	return Size;
+inline const size_t size_Stream( FILE* fp ) {
+	return size_File( fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-// Opening files //
+// Opening Stream //
 // - ------------------------------------------------------------------------------------------ - //
-inline FILE* open_File( const char* _FileName, const char* _OpenMask = "rb" ) {
-	return fopen( _FileName, _OpenMask );
+template<>
+inline FILE* open_Stream<FILE*>( const char* FileName ) {
+	return open_File( FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline FILE* open_readonly_File( const char* _FileName ) {
-	return fopen( _FileName, "rb" );
+template<>
+inline FILE* open_Stream<FILE*>( const char* FileName, const char* OpenMask ) {
+	return open_File( FileName, OpenMask );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline FILE* open_writeonly_File( const char* _FileName ) {
-	return fopen( _FileName, "wb" );
+template<>
+inline FILE* open_readonly_Stream<FILE*>( const char* FileName ) {
+	return open_readonly_File( FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
-
-// NOTE: C library has 2 interesting functions.  tmpfile() and tmpname( .. ).  tmpfile creates //
-//   a temorary file instance, that erases itself when closed.  tmpname returns a legit temporary //
-//   filename, that does not conflict (with what, I don't know).  If you choose to open the file, //
-//   don't forget to delete it with "remove( "File.blah" );". //
-
-
-// - ------------------------------------------------------------------------------------------ - //
-// Closing Files //
-// - ------------------------------------------------------------------------------------------ - //
-inline void close_File( FILE* fp ) {
-	fclose( fp );
+template<>
+inline FILE* open_writeonly_Stream<FILE*>( const char* FileName ) {
+	return open_writeonly_File( FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
+// - ------------------------------------------------------------------------------------------ - //
+// Closing Stream //
+// - ------------------------------------------------------------------------------------------ - //
+inline void close_Stream( FILE* fp ) {
+	close_File( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
 
-// NOTE: fread( TargetPointer, DataSize, Count, FilePointer ); //
 
 // - ------------------------------------------------------------------------------------------ - //
 // Templated read functions (read_File<int>( fp );) //
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const Type read_File( FILE* fp ) {
-	Type Target;
-	fread( &Target, sizeof(Target), 1, fp );
-	return Target;
+inline const Type read_Stream( FILE* fp ) {
+	return read_File<Type>( fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const Type readswap_File( FILE* fp ) {
-	Type Target;
-	fread( &Target, sizeof(Target), 1, fp );
-	return byteswap(Target);
+inline const Type readswap_Stream( FILE* fp ) {
+	return readswap_File<Type>( fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const Type readbe_File( FILE* fp ) {
-	Type Target;
-	fread( &Target, sizeof(Target), 1, fp );
-	return beswap(Target);
+inline const Type readbe_Stream( FILE* fp ) {
+	return readbe_File<Type>( fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const Type readle_File( FILE* fp ) {
-	Type Target;
-	fread( &Target, sizeof(Target), 1, fp );
-	return leswap(Target);
+inline const Type readle_Stream( FILE* fp ) {
+	return readle_File<Type>( fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t read_File( FILE* fp, char* Data, const size_t Size ) {
-	return fread( Data, Size, 1, fp );
+inline const size_t read_Stream( FILE* fp, char* Data, const size_t Size ) {
+	return read_File( fp, Data, Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -133,37 +85,33 @@ inline const size_t read_File( FILE* fp, char* Data, const size_t Size ) {
 // Templated read functions (read_File<int>( fp );) //
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const size_t write_File( FILE* fp, const Type Data ) {
-	return fwrite( &Data, sizeof(Data), 1, fp );
+inline const size_t write_Stream( FILE* fp, const Type Data ) {
+	return write_File( fp, Data );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const size_t writeswap_File( FILE* fp, const Type Data ) {
-	Type Copy = byteswap(Data);
-	return fwrite( &Copy, sizeof(Data), 1, fp );
+inline const size_t writeswap_Stream( FILE* fp, const Type Data ) {
+	return writeswap_File( fp, Data );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const size_t writebe_File( FILE* fp, const Type Data ) {
-	Type Copy = beswap(Data);
-	return fwrite( &Copy, sizeof(Data), 1, fp );
-}
+inline const size_t writebe_Stream( FILE* fp, const Type Data ) {
+	return writebe_File( fp, Data );}
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const size_t writele_File( FILE* fp, const Type Data ) {
-	Type Copy = leswap(Data);
-	return fwrite( &Copy, sizeof(Data), 1, fp );
+inline const size_t writele_Stream( FILE* fp, const Type Data ) {
+	return writele_File( fp, Data );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_File( FILE* fp, const char* Data, const size_t Size ) {
-	return fwrite( Data, Size, 1, fp );
+inline const size_t write_Stream( FILE* fp, const char* Data, const size_t Size ) {
+	return write_File( fp, Data, Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_File_Core_H__ //
+#endif // __Library_Data_File_Stream_H__ //
 // - ------------------------------------------------------------------------------------------ - //
