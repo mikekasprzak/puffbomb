@@ -110,7 +110,7 @@ inline const size_t read_Array( Array<Type>* p, FILE* fp ) {
 	size_t DataSize = p->Size * sizeof(Type);
 	
 	// Read data (only as much as the smallest size) //
-	size_t BytesRead = read_File( fp, p->Data, Size > DataSize ? DataSize : Size );
+	size_t BytesRead = read_File( fp, (char*)&p->Data[0], Size > DataSize ? DataSize : Size );
 	
 	// Return the number of bytes read //
 	return BytesRead;
@@ -119,10 +119,10 @@ inline const size_t read_Array( Array<Type>* p, FILE* fp ) {
 template< class Type >
 inline const size_t write_Array( Array<Type>* p, FILE* fp ) {
 	// Write Size //
-	write_File( fp, p->Size );
+	write_File( fp, p->Size * sizeof(Type) );
 
 	// Write the data //
-	size_t BytesWritten = write_File( fp, p->Data, p->Size * sizeof(Type) );
+	size_t BytesWritten = write_File( fp, (char*)&p->Data[0], p->Size * sizeof(Type) );
 
 	// TODO: Assert on fire write error //
 			

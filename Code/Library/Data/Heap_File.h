@@ -1,10 +1,10 @@
 // - ------------------------------------------------------------------------------------------ - //
-// DataBlock File - Extended DataBlock features, reading, writing, and initializing from a file/FILE*
+// Heap File - Extended Heap features, reading, writing, and initializing from a file/FILE*
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_DataBlock_File_H__
-#define __Library_Data_DataBlock_File_H__
+#ifndef __Library_Data_Heap_File_H__
+#define __Library_Data_Heap_File_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "DataBlock_Core.h"
+#include "Heap_Core.h"
 #include "File.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
@@ -13,55 +13,41 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Use this alternative "new" function when you don't know how big a file is //
 // - ------------------------------------------------------------------------------------------ - //
-inline DataBlock* new_DataBlock( const char* _FileName ) {
-	// Open File //
-	FILE* fp = open_readonly_File( _FileName );
-	if ( fp == 0 ) {
-		return 0;
-	}
-	
-	// Determine how large file is //
-	size_t Size = size_File( fp );
-	
-	// Allocate space (Size is automatically set inside new_DataBlock) //
-	DataBlock* p = new_DataBlock( Size );
-	
-	// Read data //
-	read_File( fp, p->Data, Size );
-	
-	// Close file //
-	close_File( fp );
-	
-	// Return data //
-	return p;
-}
-// - ------------------------------------------------------------------------------------------ - //
-// Variation for C++ Strings //
-// - ------------------------------------------------------------------------------------------ - //
-//inline DataBlock* new_DataBlock( const string& _FileName ) {
-//	return new_DataBlock( _FileName.c_str() );
+//inline Heap* new_Heap( const char* _FileName ) {
+//	// Open File //
+//	FILE* fp = open_readonly_File( _FileName );
+//	if ( fp == 0 ) {
+//		return 0;
+//	}
+//	
+//	// Determine how large file is //
+//	size_t Size = size_File( fp );
+//	
+//	// Allocate space (Size is automatically set inside new_Heap) //
+//	Heap* p = new_Heap( Size );
+//	
+//	// Read data //
+//	read_File( fp, p->Data, Size );
+//	
+//	// Close file //
+//	close_File( fp );
+//	
+//	// Return data //
+//	return p;
 //}
 // - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
-// These functions are for when you know how large a file is //
-// TODO: Add file offsetting as optional 3rd argument (defalts to 0) //
-// TODO: Or, add a "file" type that you can construct at the top of a function, and pass to these //
-// NOTE: The above should be part of the streaming library? //
-// - ------------------------------------------------------------------------------------------ - //
-inline const size_t read_DataBlock( DataBlock* p, const char* _FileName ) {
+inline const size_t read_Heap( Heap* p, const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_readonly_File( _FileName );
 	if ( fp == 0 ) {
 		return 0;
 	}
 	
-	// Determine how large file is //
-	size_t Size = size_File( fp );
-	
-	// Read data (only as much as the smallest size) //
-	size_t BytesRead = read_File( fp, p->Data, Size > p->Size ? p->Size : Size );
+	size_t BytesRead = read_Array( p->Index, fp );
+	BytesRead += read_Array( p->Data, fp ); 
 
 	// Close file //
 	close_File( fp );
@@ -70,15 +56,15 @@ inline const size_t read_DataBlock( DataBlock* p, const char* _FileName ) {
 	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
+inline const size_t write_Heap( Heap* p, const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_writeonly_File( _FileName );
 	if ( fp == 0 ) {
 		return 0;
 	}
-	
-	// Write the data //
-	size_t BytesWritten = write_File( fp, p->Data, p->Size );
+
+	size_t BytesWritten = write_Array( p->Index, fp );
+	BytesWritten += write_Array( p->Data, fp ); 
 
 	// TODO: Assert on fire write error //
 	
@@ -89,39 +75,34 @@ inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
 	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
-// For syntactical compatability, read_DataBlock which functions the same as new_DataBlock. //
-// Note: This is bad, as it's unclear allocation is done.  new_DataBlock() is preferred. //
+// For syntactical compatability, read_Heap which functions the same as new_Heap. //
+// Note: This is bad, as it's unclear allocation is done.  new_Heap() is preferred. //
 // - ------------------------------------------------------------------------------------------ - //
-//inline DataBlock* read_DataBlock( const char* _FileName ) {
-//	return new_DataBlock( _FileName );
+//inline Heap* read_Heap( const char* _FileName ) {
+//	return new_Heap( _FileName );
 //}
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_DataBlock( DataBlock* p, FILE* fp ) {
-	// Write Size //
-	write_File( fp, p->Size );
-	
-	// Write the data //
-	size_t BytesWritten = write_File( fp, p->Data, p->Size );
+inline const size_t write_Heap( Heap* p, FILE* fp ) {
+	size_t BytesWritten = write_Array( p->Index, fp );
+	BytesWritten += write_Array( p->Data, fp ); 
+
 	
 	// TODO: Assert on fire write error //
 		
 	// Return the number of bytes read //
-	return BytesWritten + sizeof( p->Size );
+	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t read_DataBlock( DataBlock* p, FILE* fp ) {
-	// Read Size //
-	size_t Size = read_File<size_t>( fp );
-	
-	// Read data (only as much as the smallest size) //
-	size_t BytesRead = read_File( fp, p->Data, Size > p->Size ? p->Size : Size );
+inline const size_t read_Heap( Heap* p, FILE* fp ) {
+	size_t BytesRead = read_Array( p->Index, fp );
+	BytesRead += read_Array( p->Data, fp ); 
 		
 	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
 	
 	// Return the number of bytes read //
-	return BytesRead + sizeof( Size );
+	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -129,5 +110,5 @@ inline const size_t read_DataBlock( DataBlock* p, FILE* fp ) {
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_DataBlock_Core_H__ //
+#endif // __Library_Data_Heap_Core_H__ //
 // - ------------------------------------------------------------------------------------------ - //
