@@ -34,6 +34,27 @@ inline Directory* new_Directory( FILE* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline Directory* new_Directory( VFILE* fp ) {
+	Directory* p = new Directory;
+	
+	p->BaseName = new_String( fp );
+	p->FileName = new_Heap( fp );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline Directory* new_Directory( STREAM* fp ) {
+	Directory* p = new Directory;
+	
+	p->BaseName = new_String( fp );
+	p->FileName = new_Heap( fp );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
 inline Directory* read_Directory( const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_readonly_File( _FileName );

@@ -58,6 +58,36 @@ inline Array<Type>* new_Array( FILE* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* new_Array( VFILE* fp ) {
+	// Read Size (in bytes) //
+	size_t Size = read_VFile<size_t>( fp );
+	
+	// Allocate space (size in bytes divided by the size of a type) //
+	Array<Type>* p = new_Array<Type>( Size / sizeof(Type) );
+	
+	// Read data (in bytes) //
+	read_VFile( fp, (char*)&p->Data[0], Size );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type, class STREAM >
+inline Array<Type>* new_Array( STREAM* fp ) {
+	// Read Size (in bytes) //
+	size_t Size = read_Stream<size_t>( fp );
+	
+	// Allocate space (size in bytes divided by the size of a type) //
+	Array<Type>* p = new_Array<Type>( Size / sizeof(Type) );
+	
+	// Read data (in bytes) //
+	read_Stream( fp, (char*)&p->Data[0], Size );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 // These functions are for when you know how large a file is //

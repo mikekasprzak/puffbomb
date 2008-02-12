@@ -53,6 +53,35 @@ inline DataBlock* new_DataBlock( FILE* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline DataBlock* new_DataBlock( VFILE* fp ) {
+	// Read Size //
+	size_t Size = read_VFile<size_t>( fp );
+	
+	// Allocate space (Size is automatically set inside new_DataBlock) //
+	DataBlock* p = new_DataBlock( Size );
+	
+	// Read data //
+	read_VFile( fp, p->Data, Size );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline DataBlock* new_DataBlock( STREAM* fp ) {
+	// Read Size //
+	size_t Size = read_Stream<size_t>( fp );
+	
+	// Allocate space (Size is automatically set inside new_DataBlock) //
+	DataBlock* p = new_DataBlock( Size );
+	
+	// Read data //
+	read_Stream( fp, p->Data, Size );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //

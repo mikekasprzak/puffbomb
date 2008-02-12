@@ -48,6 +48,27 @@ inline Heap* new_Heap( FILE* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline Heap* new_Heap( VFILE* fp ) {
+	Heap* p = new Heap;
+	
+	p->Index = new_Array<size_t>( fp );
+	p->Data = new_Array<char>( fp );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline Heap* new_Heap( STREAM* fp ) {
+	Heap* p = new Heap;
+	
+	p->Index = new_Array<size_t>( fp );
+	p->Data = new_Array<char>( fp );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
