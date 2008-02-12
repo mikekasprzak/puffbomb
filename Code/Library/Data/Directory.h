@@ -18,7 +18,7 @@
 //
 // TODO: When indexing a string, consider attaching the name (BaseName/) to the front.
 // TODO: Searching for a file (given a pattern to match)
-// TODO: Saving and loading Directories to and from disk/streams.  :)
+// TODO: Saving and loading Directories to and from disk/streams. (Need FILE* library)
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
