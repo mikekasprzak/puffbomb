@@ -16,6 +16,7 @@
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 struct VFILE {
+	size_t Position;
 	Array<char>* Data;
 };
 // - ------------------------------------------------------------------------------------------ - //
@@ -34,6 +35,7 @@ inline const size_t size_File( VFILE* fp ) {
 // - ------------------------------------------------------------------------------------------ - //
 inline VFILE* open_VFile( char* = "rb" ) {
 	VFILE* MyFile = new VFILE;
+	MyFile->Position = 0;
 	MyFile->Data = new Array<char>();
 	return MyFile;
 }
@@ -66,76 +68,107 @@ inline void close_VFile( VFILE* fp ) {
 
 // NOTE: fread( TargetPointer, DataSize, Count, FilePointer ); //
 
-//// - ------------------------------------------------------------------------------------------ - //
-//// Templated read functions (read_File<int>( fp );) //
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const Type read_VFile( VFILE* fp ) {
-//	Type Target;
-//	fread( &Target, sizeof(Target), 1, fp );
-//	return Target;
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const Type readswap_VFile( VFILE* fp ) {
-//	Type Target;
-//	fread( &Target, sizeof(Target), 1, fp );
-//	return byteswap(Target);
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const Type readbe_VFile( VFILE* fp ) {
-//	Type Target;
-//	fread( &Target, sizeof(Target), 1, fp );
-//	return beswap(Target);
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const Type readle_VFile( VFILE* fp ) {
-//	Type Target;
-//	fread( &Target, sizeof(Target), 1, fp );
-//	return leswap(Target);
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//
-//// - ------------------------------------------------------------------------------------------ - //
-//inline const size_t read_VFile( VFILE* fp, char* Data, const size_t Size ) {
-//	return fread( Data, Size, 1, fp );
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//
-//// - ------------------------------------------------------------------------------------------ - //
-//// Templated read functions (read_File<int>( fp );) //
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const size_t write_VFile( VFILE* fp, const Type Data ) {
-//	return fwrite( &Data, sizeof(Data), 1, fp );
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const size_t writeswap_VFile( VFILE* fp, const Type Data ) {
-//	Type Copy = byteswap(Data);
+// - ------------------------------------------------------------------------------------------ - //
+// Templated read functions (read_File<int>( fp );) //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type read_VFile( VFILE* fp ) {	
+	Type Target;
+	copy_Data( &(fp->Data[Position]), (char*)&Target, sizeof( Target ) );
+	Position += sizeof( Target );
+	//fread( &Target, sizeof(Target), 1, fp );
+	return Target;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type readswap_VFile( VFILE* fp ) {
+	Type Target;
+	copy_Data( &(fp->Data[Position]), (char*)&Target, sizeof( Target ) );
+	Position += sizeof( Target );
+	//fread( &Target, sizeof(Target), 1, fp );
+	return byteswap(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type readbe_VFile( VFILE* fp ) {
+	Type Target;
+	copy_Data( &(fp->Data[Position]), (char*)&Target, sizeof( Target ) );
+	Position += sizeof( Target );
+	//fread( &Target, sizeof(Target), 1, fp );
+	return beswap(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const Type readle_VFile( VFILE* fp ) {
+	Type Target;
+	copy_Data( &(fp->Data[Position]), (char*)&Target, sizeof( Target ) );
+	Position += sizeof( Target );
+	//fread( &Target, sizeof(Target), 1, fp );
+	return leswap(Target);
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t read_VFile( VFILE* fp, char* Data, const size_t Size ) {
+	copy_Data( &(fp->Data[Position]), Data, Size );
+	Position += Size;
+	return Size;
+
+	//return fread( Data, Size, 1, fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+// Templated read functions (read_File<int>( fp );) //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t write_VFile( VFILE* fp, const Type Data ) {
+	copy_Data( (char*)&Data, &(fp->Data[Position]), sizeof( Data ) );
+	Position += sizeof( Data );
+	return sizeof( Data );
+	//return fwrite( &Data, sizeof(Data), 1, fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t writeswap_VFile( VFILE* fp, const Type Data ) {
+	Type Copy = byteswap(Data);
+	
+	copy_Data( (char*)&Copy, &(fp->Data[Position]), sizeof( Copy ) );
+	Position += sizeof( Copy );
+	return sizeof( Copy );
 //	return fwrite( &Copy, sizeof(Data), 1, fp );
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const size_t writebe_VFile( VFILE* fp, const Type Data ) {
-//	Type Copy = beswap(Data);
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t writebe_VFile( VFILE* fp, const Type Data ) {
+	Type Copy = beswap(Data);
+	
+	copy_Data( (char*)&Copy, &(fp->Data[Position]), sizeof( Copy ) );
+	Position += sizeof( Copy );
+	return sizeof( Copy );
 //	return fwrite( &Copy, sizeof(Data), 1, fp );
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//template< class Type >
-//inline const size_t writele_VFile( VFILE* fp, const Type Data ) {
-//	Type Copy = leswap(Data);
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t writele_VFile( VFILE* fp, const Type Data ) {
+	Type Copy = leswap(Data);
+	
+	copy_Data( (char*)&Copy, &(fp->Data[Position]), sizeof( Copy ) );
+	Position += sizeof( Copy );
+	return sizeof( Copy );
 //	return fwrite( &Copy, sizeof(Data), 1, fp );
-//}
-//// - ------------------------------------------------------------------------------------------ - //
-//
-//// - ------------------------------------------------------------------------------------------ - //
-//inline const size_t write_VFile( VFILE* fp, const char* Data, const size_t Size ) {
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t write_VFile( VFILE* fp, const char* Data, const size_t Size ) {
+	copy_Data( Data, &(fp->Data[Position]), Size );
+	Position += Size;
+	return Size;
+
 //	return fwrite( Data, Size, 1, fp );
-//}
-//// - ------------------------------------------------------------------------------------------ - //
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
