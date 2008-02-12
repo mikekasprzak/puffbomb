@@ -12,6 +12,9 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Archives are lists of file names with Data.  They can be populated manually, or be polled from
 //   disk and other sources.
+//
+// Unfortunately, for archives to work, we need either array of DataBlock pointers, or heap 
+//   insert/deletes.
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -21,7 +24,8 @@ struct Archive {
 	// A heap of filenames //
 	Heap* FileName;
 	// A heap of Data (DataBlocks?) //
-	Heap* Data;
+	//Heap* Data;
+	Array<DataBlock*> Data;
 };
 // - ------------------------------------------------------------------------------------------ - //
 
