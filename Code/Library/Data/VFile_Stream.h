@@ -96,7 +96,8 @@ inline const size_t writeswap_Stream( VFILE* fp, const Type Data ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const size_t writebe_Stream( VFILE* fp, const Type Data ) {
-	return writebe_VFile( fp, Data );}
+	return writebe_VFile( fp, Data );
+}
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const size_t writele_Stream( VFILE* fp, const Type Data ) {

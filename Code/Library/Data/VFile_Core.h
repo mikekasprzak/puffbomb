@@ -7,7 +7,7 @@
 // TODO: Add functions for reading/adapting floating point numbers from IEEE to other needed types
 // TODO: Add functions for converting/writing floats to fixed point numbers (a cheat)
 // - ------------------------------------------------------------------------------------------ - //
-#include "Array.h"
+#include "Array_Core.h"
 
 #include "Endian.h"
 // - ------------------------------------------------------------------------------------------ - //
@@ -70,7 +70,7 @@ inline void close_VFile( VFILE* fp ) {
 // Templated read functions (read_File<int>( fp );) //
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const Type read_VFile( VFILE* fp ) {	
+inline const Type read_VFile( VFILE* fp ) {
 	Type Target;
 	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );

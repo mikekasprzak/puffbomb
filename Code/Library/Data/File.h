@@ -7,7 +7,6 @@
 
 #include "File_Core.h"
 #include "File_LongReads.h"
-#include "File_File.h"
 
 #include "File_Stream.h"
 
