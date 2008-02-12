@@ -9,7 +9,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-// Use this alternative "new" function when you want to read a whole file //
+// Use this alternative "new" function when you don't know how big it is //
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline Array<Type>* new_Array( const char* _FileName ) {
@@ -34,6 +34,21 @@ inline Array<Type>* new_Array( const char* _FileName ) {
 	
 	// Close file //
 	close_File( fp );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* new_Array( FILE* fp ) {
+	// Read Size (in bytes) //
+	size_t Size = read_File<size_t>( fp );
+	
+	// Allocate space (size in bytes divided by the size of a type) //
+	Array<Type>* p = new_Array<Type>( Size / sizeof(Type) );
+	
+	// Read data (in bytes) //
+	read_File( fp, (char*)&p->Data[0], Size );
 	
 	// Return data //
 	return p;
@@ -85,7 +100,7 @@ inline const size_t write_Array( Array<Type>* p, const char* _FileName ) {
 	// Close file //
 	close_File( fp );
 		
-	// Return the number of bytes read //
+	// Return the number of bytes written //
 	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -104,7 +119,7 @@ inline const size_t write_Array( Array<Type>* p, const char* _FileName ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const size_t read_Array( Array<Type>* p, FILE* fp ) {
-	// Read Size //
+	// Read Size (in bytes) //
 	size_t Size = read_File<size_t>( fp );
 	
 	size_t DataSize = p->Size * sizeof(Type);
@@ -113,21 +128,21 @@ inline const size_t read_Array( Array<Type>* p, FILE* fp ) {
 	size_t BytesRead = read_File( fp, (char*)&p->Data[0], Size > DataSize ? DataSize : Size );
 	
 	// Return the number of bytes read //
-	return BytesRead;
+	return BytesRead + sizeof( size_t );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const size_t write_Array( Array<Type>* p, FILE* fp ) {
-	// Write Size //
+	// Write Size (Size multiplied by size of a type) //
 	write_File( fp, p->Size * sizeof(Type) );
 
-	// Write the data //
+	// Write the data (Size multiplied by size of a type) //
 	size_t BytesWritten = write_File( fp, (char*)&p->Data[0], p->Size * sizeof(Type) );
 
 	// TODO: Assert on fire write error //
 			
-	// Return the number of bytes read //
-	return BytesWritten;
+	// Return the number of bytes written //
+	return BytesWritten + sizeof( size_t );
 }
 // - ------------------------------------------------------------------------------------------ - //
 

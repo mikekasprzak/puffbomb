@@ -36,11 +36,19 @@ inline DataBlock* new_DataBlock( const char* _FileName ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
-// Variation for C++ Strings //
-// - ------------------------------------------------------------------------------------------ - //
-//inline DataBlock* new_DataBlock( const string& _FileName ) {
-//	return new_DataBlock( _FileName.c_str() );
-//}
+inline DataBlock* new_DataBlock( FILE* fp ) {
+	// Read Size //
+	size_t Size = read_File<size_t>( fp );
+	
+	// Allocate space (Size is automatically set inside new_DataBlock) //
+	DataBlock* p = new_DataBlock( Size );
+	
+	// Read data //
+	read_File( fp, p->Data, Size );
+	
+	// Return data //
+	return p;
+}
 // - ------------------------------------------------------------------------------------------ - //
 
 
@@ -85,7 +93,7 @@ inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
 	// Close file //
 	close_File( fp );
 		
-	// Return the number of bytes read //
+	// Return the number of bytes write //
 	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -98,19 +106,6 @@ inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_DataBlock( DataBlock* p, FILE* fp ) {
-	// Write Size //
-	write_File( fp, p->Size );
-	
-	// Write the data //
-	size_t BytesWritten = write_File( fp, p->Data, p->Size );
-	
-	// TODO: Assert on fire write error //
-		
-	// Return the number of bytes read //
-	return BytesWritten + sizeof( p->Size );
-}
-// - ------------------------------------------------------------------------------------------ - //
 inline const size_t read_DataBlock( DataBlock* p, FILE* fp ) {
 	// Read Size //
 	size_t Size = read_File<size_t>( fp );
@@ -122,6 +117,19 @@ inline const size_t read_DataBlock( DataBlock* p, FILE* fp ) {
 	
 	// Return the number of bytes read //
 	return BytesRead + sizeof( Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t write_DataBlock( DataBlock* p, FILE* fp ) {
+	// Write Size //
+	write_File( fp, p->Size );
+	
+	// Write the data //
+	size_t BytesWritten = write_File( fp, p->Data, p->Size );
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes write //
+	return BytesWritten + sizeof( p->Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
