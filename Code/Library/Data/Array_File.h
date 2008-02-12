@@ -155,5 +155,72 @@ inline const size_t write_Array( const Array<Type>* p, FILE* fp ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
+// VFILE* Versions read and write sizes //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t read_Array( Array<Type>* p, VFILE* fp ) {
+	// Read Size (in bytes) //
+	size_t Size = read_VFile<size_t>( fp );
+	
+	// Verify if we have enough room //
+	size_t DataSize = p->Size * sizeof(Type);
+	
+	// Read data (only as much as the smallest size) //
+	size_t BytesRead = read_VFile( fp, (char*)&p->Data[0], Size > DataSize ? DataSize : Size );
+	
+	// Return the number of bytes read //
+	return BytesRead + sizeof( size_t );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t write_Array( const Array<Type>* p, VFILE* fp ) {
+	// Write Size (Size multiplied by size of a type) //
+	size_t BytesWritten = write_VFile( fp, p->Size * sizeof(Type) );
+
+	// Write the data (Size multiplied by size of a type) //
+	BytesWritten += write_VFile( fp, (char*)&p->Data[0], p->Size * sizeof(Type) );
+
+	// TODO: Assert on fire write error //
+			
+	// Return the number of bytes written //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// STREAM* Versions read and write sizes //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type, class STREAM >
+inline const size_t read_Array( Array<Type>* p, STREAM* fp ) {
+	// Read Size (in bytes) //
+	size_t Size = read_Stream<size_t>( fp );
+	
+	// Verify if we have enough room //
+	size_t DataSize = p->Size * sizeof(Type);
+	
+	// Read data (only as much as the smallest size) //
+	size_t BytesRead = read_File( fp, (char*)&p->Data[0], Size > DataSize ? DataSize : Size );
+	
+	// Return the number of bytes read //
+	return BytesRead + sizeof( size_t );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type, class STREAM >
+inline const size_t write_Array( const Array<Type>* p, STREAM* fp ) {
+	// Write Size (Size multiplied by size of a type) //
+	size_t BytesWritten = write_Stream( fp, p->Size * sizeof(Type) );
+
+	// Write the data (Size multiplied by size of a type) //
+	BytesWritten += write_Stream( fp, (char*)&p->Data[0], p->Size * sizeof(Type) );
+
+	// TODO: Assert on fire write error //
+			
+	// Return the number of bytes written //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Data_Array_File_H__ //
 // - ------------------------------------------------------------------------------------------ - //
