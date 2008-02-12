@@ -43,16 +43,16 @@ inline const size_t size_File( const char* _FileName ) {
 // Get the size of an open file, in bytes //
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t size_File( FILE* fp ) {
-	//size_t Position = ftell( fp );
+	size_t Position = ftell( fp );
 	
-	fpos_t Position;
-	fgetpos( fp, &Position );
+//	fpos_t Position;
+//	fgetpos( fp, &Position );
 	
 	fseek( fp, 0, SEEK_END );
 	size_t Size = ftell( fp );
-	//fseek( fp, Position, SEEK_SET );
+	fseek( fp, Position, SEEK_SET );
 	
-	fsetpos( fp, &Position );
+//	fsetpos( fp, &Position );
 	
 	return Size;
 }
