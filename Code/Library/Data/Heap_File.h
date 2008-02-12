@@ -13,28 +13,27 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Use this alternative "new" function when you don't know how big a file is //
 // - ------------------------------------------------------------------------------------------ - //
-//inline Heap* new_Heap( const char* _FileName ) {
-//	// Open File //
-//	FILE* fp = open_readonly_File( _FileName );
-//	if ( fp == 0 ) {
-//		return 0;
-//	}
-//	
-//	// Determine how large file is //
-//	size_t Size = size_File( fp );
-//	
-//	// Allocate space (Size is automatically set inside new_Heap) //
-//	Heap* p = new_Heap( Size );
-//	
-//	// Read data //
-//	read_File( fp, p->Data, Size );
-//	
-//	// Close file //
-//	close_File( fp );
-//	
-//	// Return data //
-//	return p;
-//}
+inline Heap* new_Heap( const char* _FileName ) {
+	// Open File //
+	FILE* fp = open_readonly_File( _FileName );
+	if ( fp == 0 ) {
+		return 0;
+	}
+	
+	// Heap is too complicated a type to rely on the file size alone, so we need to read //
+	//   and write a stored heap in much the same way as we would to a FILE*. //
+	Heap* p = new Heap;
+	
+	p->Index = new_Array<size_t>( fp );
+	p->Data = new_Array<char>( fp );
+
+	
+	// Close file //
+	close_File( fp );
+	
+	// Return data //
+	return p;
+}
 // - ------------------------------------------------------------------------------------------ - //
 inline Heap* new_Heap( FILE* fp ) {
 	Heap* p = new Heap;
@@ -97,7 +96,6 @@ inline const size_t write_Heap( Heap* p, const char* _FileName ) {
 inline const size_t write_Heap( Heap* p, FILE* fp ) {
 	size_t BytesWritten = write_Array( p->Index, fp );
 	BytesWritten += write_Array( p->Data, fp ); 
-
 	
 	// TODO: Assert on fire write error //
 		
