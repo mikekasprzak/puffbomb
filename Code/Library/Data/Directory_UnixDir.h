@@ -60,16 +60,20 @@ inline void populate_Directory( Directory* p, const char* SearchDirectory, const
 		}
 		// If it's a regular file //
 		else if ( _S_ISREG( Status.st_mode ) ) {
-			// Build our filename string //
-			char* NewFile = new char[ length_String(Prefix) + length_String(Data->d_name) + 1 ];
-			copy_String( Prefix, NewFile );
-			cat_String( Data->d_name, NewFile );
-
-			// Add the file //
-			add_Directory( p, NewFile );
-			
-			// Delet our filename string //
-			delete_String( NewFile );
+			if( Data->d_name[0] != '.' ) {
+				if( Data->d_name[0] != '_' ) {
+					// Build our filename string //
+					char* NewFile = new char[ length_String(Prefix) + length_String(Data->d_name) + 1 ];
+					copy_String( Prefix, NewFile );
+					cat_String( Data->d_name, NewFile );
+		
+					// Add the file //
+					add_Directory( p, NewFile );
+					
+					// Delet our filename string //
+					delete_String( NewFile );
+				}
+			}
 		}
 		
 		// Remove our string //
