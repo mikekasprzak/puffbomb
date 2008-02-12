@@ -1,5 +1,5 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Stream - 
+// Stream - Streams are standard interface for data sources, to share a common syntax. //
 // - ------------------------------------------------------------------------------------------ - //
 #ifndef __Library_Data_Stream_H__
 #define __Library_Data_Stream_H__

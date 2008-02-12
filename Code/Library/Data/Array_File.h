@@ -4,8 +4,12 @@
 #ifndef __Library_Data_Array_File_H__
 #define __Library_Data_Array_File_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "Array.h"
-#include "File.h"
+#include "Stream_Core.h"
+#include "File_Core.h"
+#include "VFile_Core.h"
+
+#include "Array_Core.h"
+#include "DataBlock_File.h"
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //

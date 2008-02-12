@@ -8,6 +8,7 @@
 #include "Array_Core.h"
 #include "Array_Hash32.h"
 #include "Array_File.h"
+
 #include "Array_Class.h"
 
 // - ------------------------------------------------------------------------------------------ - //

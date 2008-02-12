@@ -4,8 +4,11 @@
 #ifndef __Library_Data_DataBlock_File_H__
 #define __Library_Data_DataBlock_File_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include "Stream_Core.h"
+#include "File_Core.h"
+#include "VFile_Core.h"
+
 #include "DataBlock_Core.h"
-#include "File.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -133,6 +136,63 @@ inline const size_t write_DataBlock( const DataBlock* p, FILE* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t read_DataBlock( DataBlock* p, VFILE* fp ) {
+	// Read Size //
+	size_t Size = read_VFile<size_t>( fp );
+	
+	// Read data (only as much as the smallest size) //
+	size_t BytesRead = read_VFile( fp, p->Data, Size > p->Size ? p->Size : Size );
+		
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead + sizeof( Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t write_DataBlock( const DataBlock* p, VFILE* fp ) {
+	// Write Size //
+	size_t BytesWritten = write_VFile( fp, p->Size );
+	
+	// Write the data //
+	BytesWritten += write_VFile( fp, p->Data, p->Size );
+	
+	// TODO: Assert on file write error //
+		
+	// Return the number of bytes write //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline const size_t read_DataBlock( DataBlock* p, STREAM fp ) {
+	// Read Size //
+	size_t Size = read_Stream<size_t>( fp );
+	
+	// Read data (only as much as the smallest size) //
+	size_t BytesRead = read_Stream( fp, p->Data, Size > p->Size ? p->Size : Size );
+		
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead + sizeof( Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline const size_t write_DataBlock( const DataBlock* p, STREAM fp ) {
+	// Write Size //
+	size_t BytesWritten = write_Stream( fp, p->Size );
+	
+	// Write the data //
+	BytesWritten += write_Stream( fp, p->Data, p->Size );
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes write //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //

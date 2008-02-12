@@ -4,7 +4,7 @@
 #ifndef __Library_Data_Array_Core_H__
 #define __Library_Data_Array_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <cstring>
+//#include <cstring>
 #include "DataBlock_Core.h"
 // - ------------------------------------------------------------------------------------------ - //
 // TODO: Insertion code, Alignment resizing (min, max), searching, sorting  //

@@ -5,6 +5,7 @@
 #define __Library_Data_Array_Class_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "DataBlock_Core.h"
+#include "DataBlock_File.h"
 #include "DataBlock_Class.h"
 
 #include "Array_Core.h"
