@@ -4,8 +4,6 @@
 #ifndef __Library_Data_VFile_Core_H__
 #define __Library_Data_VFile_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
-// TODO: Add a function for reading a DataBlock from an open file //
-// TODO: Also add functions for reading data of an expected size, zero terminated strings, etc. //
 // TODO: Add functions for reading/adapting floating point numbers from IEEE to other needed types
 // TODO: Add functions for converting/writing floats to fixed point numbers (a cheat)
 // - ------------------------------------------------------------------------------------------ - //
@@ -76,7 +74,6 @@ inline const Type read_VFile( VFILE* fp ) {
 	Type Target;
 	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );
-	//fread( &Target, sizeof(Target), 1, fp );
 	return Target;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -85,7 +82,6 @@ inline const Type readswap_VFile( VFILE* fp ) {
 	Type Target;
 	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );
-	//fread( &Target, sizeof(Target), 1, fp );
 	return byteswap(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -94,7 +90,6 @@ inline const Type readbe_VFile( VFILE* fp ) {
 	Type Target;
 	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );
-	//fread( &Target, sizeof(Target), 1, fp );
 	return beswap(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -103,7 +98,6 @@ inline const Type readle_VFile( VFILE* fp ) {
 	Type Target;
 	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );
-	//fread( &Target, sizeof(Target), 1, fp );
 	return leswap(Target);
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -113,8 +107,6 @@ inline const size_t read_VFile( VFILE* fp, char* Data, const size_t Size ) {
 	copy_Data( &(fp->Data[fp->Position]), Data, Size );
 	fp->Position += Size;
 	return Size;
-
-	//return fread( Data, Size, 1, fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -127,7 +119,6 @@ inline const size_t write_VFile( VFILE* fp, const Type Data ) {
 	copy_Data( (char*)&Data, &(fp->Data[fp->Position]), sizeof( Data ) );
 	fp->Position += sizeof( Data );
 	return sizeof( Data );
-	//return fwrite( &Data, sizeof(Data), 1, fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
@@ -138,7 +129,6 @@ inline const size_t writeswap_VFile( VFILE* fp, const Type Data ) {
 	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
 	return sizeof( Copy );
-//	return fwrite( &Copy, sizeof(Data), 1, fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
@@ -149,7 +139,6 @@ inline const size_t writebe_VFile( VFILE* fp, const Type Data ) {
 	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
 	return sizeof( Copy );
-//	return fwrite( &Copy, sizeof(Data), 1, fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
@@ -160,7 +149,6 @@ inline const size_t writele_VFile( VFILE* fp, const Type Data ) {
 	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
 	return sizeof( Copy );
-//	return fwrite( &Copy, sizeof(Data), 1, fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
@@ -171,8 +159,6 @@ inline const size_t write_VFile( VFILE* fp, const char* Data, const size_t Size 
 	copy_Data( Data, &(fp->Data[fp->Position]), Size );
 	fp->Position += Size;
 	return Size;
-
-//	return fwrite( Data, Size, 1, fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
