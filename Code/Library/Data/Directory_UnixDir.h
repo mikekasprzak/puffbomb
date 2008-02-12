@@ -1,8 +1,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Directory - File Name tree cataloging library //
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_Directory_File_H__
-#define __Library_Data_Directory_File_H__
+#ifndef __Library_Data_Directory_UnixDir_H__
+#define __Library_Data_Directory_UnixDir_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include <dirent.h>
 #include <sys/stat.h>
@@ -106,5 +106,5 @@ inline Directory* new_Directory( const char* _BaseName ) {
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_Directory_File_H__ //
+#endif // __Library_Data_Directory_UnixDir_H__ //
 // - ------------------------------------------------------------------------------------------ - //
