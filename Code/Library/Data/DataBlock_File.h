@@ -15,25 +15,29 @@
 // - ------------------------------------------------------------------------------------------ - //
 inline DataBlock* new_DataBlock( const char* _FileName ) {
 	// Open File //
-	FILE* fp = fopen( _FileName, "rb" );
+//	FILE* fp = fopen( _FileName, "rb" );
+	FILE* fp = open_readonly_File( _FileName );
 	if ( fp == 0 ) {
 		return 0;
 	}
 	
 	// Determine how large file is //
-	fseek( fp, 0, SEEK_END );
-	size_t Size = ftell( fp );
-	rewind( fp );
+//	fseek( fp, 0, SEEK_END );
+//	size_t Size = ftell( fp );
+//	rewind( fp );
+	size_t Size = size_File( fp );
 	
 	// Allocate space (Size is automatically set inside new_DataBlock) //
 	DataBlock* p = new_DataBlock( Size );
 	// TODO: Assert failure allocating block //
 	
 	// Read data //
-	fread( p->Data, 1, Size, fp );
+//	fread( p->Data, 1, Size, fp );
+	read_File( fp, p->Data, Size );
 	
 	// Close file //
-	fclose( fp );
+//	fclose( fp );
+	close_File( fp );
 	
 	// Return data //
 	return p;
@@ -55,22 +59,25 @@ inline DataBlock* new_DataBlock( const char* _FileName ) {
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t read_DataBlock( DataBlock* p, const char* _FileName ) {
 	// Open File //
-	FILE* fp = fopen( _FileName, "rb" );
+//	FILE* fp = fopen( _FileName, "rb" );
+	FILE* fp = open_readonly_File( _FileName );
 	if ( fp == 0 ) {
-		// TODO: Log file open error //
 		return 0;
 	}
 	
 	// Determine how large file is //
-	fseek( fp, 0, SEEK_END );
-	size_t Size = ftell( fp );
-	rewind( fp );
+//	fseek( fp, 0, SEEK_END );
+//	size_t Size = ftell( fp );
+//	rewind( fp );
+	size_t Size = size_File( fp );
 	
 	// Read data (only as much as the smallest size) //
-	size_t BytesRead = fread( p->Data, 1, Size > p->Size ? p->Size : Size, fp );
-	
+//	size_t BytesRead = fread( p->Data, 1, Size > p->Size ? p->Size : Size, fp );
+	size_t BytesRead = read_File( fp, p->Data, Size > p->Size ? p->Size : Size );
+
 	// Close file //
-	fclose( fp );
+	//fclose( fp );
+	close_File( fp );
 	
 	// Return the number of bytes read //
 	return BytesRead;
@@ -78,18 +85,22 @@ inline const size_t read_DataBlock( DataBlock* p, const char* _FileName ) {
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
 	// Open File //
-	FILE* fp = fopen( _FileName, "wb" );
+//	FILE* fp = fopen( _FileName, "wb" );
+	FILE* fp = open_writeonly_File( _FileName );
 	if ( fp == 0 ) {
-		// TODO: Log file open error //
 		return 0;
 	}
 	
 	// Write the data //
-	size_t BytesWritten = fwrite( p->Data, 1, p->Size, fp );
+//	size_t BytesWritten = fwrite( p->Data, 1, p->Size, fp );
+	size_t BytesWritten = write_File( fp, p->Data, p->Size );
+
+
 	// TODO: Assert on fire write error //
 	
 	// Close file //
-	fclose( fp );
+	//fclose( fp );
+	close_File( fp );
 		
 	// Return the number of bytes read //
 	return BytesWritten;
@@ -109,7 +120,8 @@ inline const size_t write_DataBlock( DataBlock* p, FILE* fp ) {
 	write_File( fp, p->Size );
 	
 	// Write the data //
-	size_t BytesWritten = fwrite( p->Data, 1, p->Size, fp );
+	//size_t BytesWritten = fwrite( p->Data, 1, p->Size, fp );
+	size_t BytesWritten = write_File( fp, p->Data, p->Size );
 	
 	// TODO: Assert on fire write error //
 		
@@ -122,7 +134,8 @@ inline const size_t read_DataBlock( DataBlock* p, FILE* fp ) {
 	size_t Size = read_File<size_t>( fp );
 	
 	// Read data (only as much as the smallest size) //
-	size_t BytesRead = fread( p->Data, 1, Size > p->Size ? p->Size : Size, fp );
+	//size_t BytesRead = fread( p->Data, 1, Size > p->Size ? p->Size : Size, fp );
+	size_t BytesRead = read_File( fp, p->Data, Size > p->Size ? p->Size : Size );
 		
 	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
 	

@@ -43,11 +43,16 @@ inline const size_t size_File( const char* _FileName ) {
 // Get the size of an open file, in bytes //
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t size_File( FILE* fp ) {
-	size_t Position = ftell( fp );
+	//size_t Position = ftell( fp );
+	
+	fpos_t Position;
+	fgetpos( fp, &Position );
 	
 	fseek( fp, 0, SEEK_END );
 	size_t Size = ftell( fp );
-	fseek( fp, Position, SEEK_CUR );
+	//fseek( fp, Position, SEEK_SET );
+	
+	fsetpos( fp, &Position );
 	
 	return Size;
 }
@@ -56,15 +61,15 @@ inline const size_t size_File( FILE* fp ) {
 // - ------------------------------------------------------------------------------------------ - //
 // Opening files //
 // - ------------------------------------------------------------------------------------------ - //
-inline FILE* open_File( char* _FileName, char* _OpenMask = "rb" ) {
+inline FILE* open_File( const char* _FileName, char* _OpenMask = "rb" ) {
 	return fopen( _FileName, _OpenMask );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline FILE* open_readonly_File( char* _FileName ) {
+inline FILE* open_readonly_File( const char* _FileName ) {
 	return fopen( _FileName, "rb" );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline FILE* open_writeonly_File( char* _FileName ) {
+inline FILE* open_writeonly_File( const char* _FileName ) {
 	return fopen( _FileName, "wb" );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -119,6 +124,12 @@ inline const Type readle_File( FILE* fp ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+inline const size_t read_File( FILE* fp, char* Data, const size_t Size ) {
+	return fread( Data, Size, 1, fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 // Templated read functions (read_File<int>( fp );) //
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
@@ -142,6 +153,12 @@ template< class Type >
 inline const size_t writele_File( FILE* fp, const Type Data ) {
 	Type Copy = leswap(Data);
 	return fwrite( &Copy, sizeof(Data), 1, fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t write_File( FILE* fp, const char* Data, const size_t Size ) {
+	return fwrite( Data, Size, 1, fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
