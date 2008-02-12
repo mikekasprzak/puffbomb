@@ -60,6 +60,39 @@ inline char* new_String( FILE* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline char* new_String( VFILE* fp ) {
+	// Read Size //
+	size_t Size = read_VFile<size_t>( fp );
+	
+	// Allocate space //
+	char* p = new char[ Size + 1 ];
+	
+	// Read data //
+	read_VFile( fp, p, Size );
+	
+	p[ Size ] = 0;
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline char* read_String( STREAM* fp ) {
+	// Read Size //
+	size_t Size = read_Stream<size_t>( fp );
+	
+	// Allocate space //
+	char* p = new char[ Size + 1 ];
+	
+	// Read data //
+	read_Stream( fp, p, Size );
+	
+	p[ Size ] = 0;
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //

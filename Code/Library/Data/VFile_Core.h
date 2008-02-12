@@ -72,7 +72,7 @@ inline void close_VFile( VFILE* fp ) {
 template< class Type >
 inline const Type read_VFile( VFILE* fp ) {
 	Type Target;
-	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
+	copy_Data( &(fp->Data->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );
 	return Target;
 }
@@ -80,7 +80,7 @@ inline const Type read_VFile( VFILE* fp ) {
 template< class Type >
 inline const Type readswap_VFile( VFILE* fp ) {
 	Type Target;
-	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
+	copy_Data( &(fp->Data->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );
 	return byteswap(Target);
 }
@@ -88,7 +88,7 @@ inline const Type readswap_VFile( VFILE* fp ) {
 template< class Type >
 inline const Type readbe_VFile( VFILE* fp ) {
 	Type Target;
-	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
+	copy_Data( &(fp->Data->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );
 	return beswap(Target);
 }
@@ -96,7 +96,7 @@ inline const Type readbe_VFile( VFILE* fp ) {
 template< class Type >
 inline const Type readle_VFile( VFILE* fp ) {
 	Type Target;
-	copy_Data( &(fp->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
+	copy_Data( &(fp->Data->Data[fp->Position]), (char*)&Target, sizeof( Target ) );
 	fp->Position += sizeof( Target );
 	return leswap(Target);
 }
@@ -104,7 +104,7 @@ inline const Type readle_VFile( VFILE* fp ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t read_VFile( VFILE* fp, char* Data, const size_t Size ) {
-	copy_Data( &(fp->Data[fp->Position]), Data, Size );
+	copy_Data( &(fp->Data->Data[fp->Position]), Data, Size );
 	fp->Position += Size;
 	return Size;
 }
@@ -116,8 +116,10 @@ inline const size_t read_VFile( VFILE* fp, char* Data, const size_t Size ) {
 template< class Type >
 inline const size_t write_VFile( VFILE* fp, const Type Data ) {
 	pushblockback_Array( &(fp->Data), sizeof(Data) );
-	copy_Data( (char*)&Data, &(fp->Data[fp->Position]), sizeof( Data ) );
+
+	copy_Data( (char*)&Data, &(fp->Data->Data[fp->Position]), sizeof( Data ) );
 	fp->Position += sizeof( Data );
+	
 	return sizeof( Data );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -126,8 +128,10 @@ inline const size_t writeswap_VFile( VFILE* fp, const Type Data ) {
 	Type Copy = byteswap(Data);
 	
 	pushblockback_Array( &(fp->Data), sizeof(Copy) );
-	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
+	
+	copy_Data( (char*)&Copy, &(fp->Data->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
+	
 	return sizeof( Copy );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -136,8 +140,10 @@ inline const size_t writebe_VFile( VFILE* fp, const Type Data ) {
 	Type Copy = beswap(Data);
 	
 	pushblockback_Array( &(fp->Data), sizeof(Copy) );
-	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
+	
+	copy_Data( (char*)&Copy, &(fp->Data->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
+	
 	return sizeof( Copy );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -146,8 +152,10 @@ inline const size_t writele_VFile( VFILE* fp, const Type Data ) {
 	Type Copy = leswap(Data);
 	
 	pushblockback_Array( &(fp->Data), sizeof(Copy) );
-	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
+	
+	copy_Data( (char*)&Copy, &(fp->Data->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
+	
 	return sizeof( Copy );
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -156,7 +164,7 @@ inline const size_t writele_VFile( VFILE* fp, const Type Data ) {
 inline const size_t write_VFile( VFILE* fp, const char* Data, const size_t Size ) {
 	pushblockback_Array( &(fp->Data), Size );
 	
-	copy_Data( Data, &(fp->Data[fp->Position]), Size );
+	copy_Data( Data, &(fp->Data->Data[fp->Position]), Size );
 	fp->Position += Size;
 	return Size;
 }

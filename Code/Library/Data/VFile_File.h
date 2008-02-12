@@ -46,21 +46,21 @@ inline void delete_VFile( VFILE* fp ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 // This function is only so useful, as it relys on the arrays being correctly allocated //
-inline const size_t read_File_VFile( VFILE* p, const char* _FileName ) {
+inline const size_t readfile_VFile( VFILE* p, const char* _FileName ) {
 	size_t BytesRead = read_Array( p->Data, _FileName ); 
 
 	// Return the number of bytes read //
 	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_File_VFile( const VFILE* p, const char* _FileName ) {
+inline const size_t writefile_VFile( const VFILE* p, const char* _FileName ) {
 	size_t BytesWritten = write_Array( p->Data, _FileName ); 
 
 	// Return the number of bytes read //
 	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline VFILE* read_File_VFile( const char* _FileName ) {
+inline VFILE* readfile_VFile( const char* _FileName ) {
 	return new_VFile( _FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
