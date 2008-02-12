@@ -76,6 +76,17 @@ inline char* new_String( VFILE* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline char* read_String( FILE* fp ) {
+	return new_String( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline char* read_String( VFILE* fp ) {
+	return new_String( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+// Another situation where we couldn't use new_String.  Same reason as before.  This template //
+//   would cause all kinds of linking problems, since it would evaluate to many posibilities. //
+// - ------------------------------------------------------------------------------------------ - //
 template< class STREAM >
 inline char* read_String( STREAM* fp ) {
 	// Read Size //

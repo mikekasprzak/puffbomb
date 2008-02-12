@@ -55,6 +55,25 @@ inline Directory* new_Directory( STREAM* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline Directory* read_Directory( FILE* fp ) {
+	return new_Directory( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline Directory* read_Directory( VFILE* fp ) {
+	return new_Directory( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline Directory* read_Directory( STREAM* fp ) {
+	return new_Directory( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// This is our "new_Directory" that takes a file.  We can't use new, because it's taken up by //
+//   UnixDir's "new_Directory" call.  It takes a string and poll's that from disk. //
+// - ------------------------------------------------------------------------------------------ - //
 inline Directory* read_Directory( const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_readonly_File( _FileName );

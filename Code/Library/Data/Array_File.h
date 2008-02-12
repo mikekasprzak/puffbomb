@@ -88,6 +88,22 @@ inline Array<Type>* new_Array( STREAM* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* read_Array( FILE* fp ) {
+	return new_Array<Type>( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline Array<Type>* read_Array( VFILE* fp ) {
+	return new_Array<Type>( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type, class STREAM >
+inline Array<Type>* read_Array( STREAM* fp ) {
+	return new_Array<Type>( fp );
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 // These functions are for when you know how large a file is //
