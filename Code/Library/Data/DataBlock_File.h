@@ -78,7 +78,7 @@ inline const size_t read_DataBlock( DataBlock* p, const char* _FileName ) {
 	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
+inline const size_t write_DataBlock( const DataBlock* p, const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_writeonly_File( _FileName );
 	if ( fp == 0 ) {
@@ -119,17 +119,17 @@ inline const size_t read_DataBlock( DataBlock* p, FILE* fp ) {
 	return BytesRead + sizeof( Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_DataBlock( DataBlock* p, FILE* fp ) {
+inline const size_t write_DataBlock( const DataBlock* p, FILE* fp ) {
 	// Write Size //
-	write_File( fp, p->Size );
+	size_t BytesWritten = write_File( fp, p->Size );
 	
 	// Write the data //
-	size_t BytesWritten = write_File( fp, p->Data, p->Size );
+	BytesWritten += write_File( fp, p->Data, p->Size );
 	
 	// TODO: Assert on fire write error //
 		
 	// Return the number of bytes write //
-	return BytesWritten + sizeof( p->Size );
+	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
 

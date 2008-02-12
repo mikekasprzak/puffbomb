@@ -72,6 +72,8 @@ inline const size_t read_Array( Array<Type>* p, const char* _FileName ) {
 	
 	// Determine how large file is //
 	size_t Size = size_File( fp );
+	
+	// Verify if we have enough room //
 	size_t DataSize = p->Size * sizeof(Type);
 	
 	// Read data (only as much as the smallest size) //
@@ -85,7 +87,7 @@ inline const size_t read_Array( Array<Type>* p, const char* _FileName ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const size_t write_Array( Array<Type>* p, const char* _FileName ) {
+inline const size_t write_Array( const Array<Type>* p, const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_writeonly_File( _FileName );
 	if ( fp == 0 ) {
@@ -122,6 +124,7 @@ inline const size_t read_Array( Array<Type>* p, FILE* fp ) {
 	// Read Size (in bytes) //
 	size_t Size = read_File<size_t>( fp );
 	
+	// Verify if we have enough room //
 	size_t DataSize = p->Size * sizeof(Type);
 	
 	// Read data (only as much as the smallest size) //
@@ -132,17 +135,17 @@ inline const size_t read_Array( Array<Type>* p, FILE* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
-inline const size_t write_Array( Array<Type>* p, FILE* fp ) {
+inline const size_t write_Array( const Array<Type>* p, FILE* fp ) {
 	// Write Size (Size multiplied by size of a type) //
-	write_File( fp, p->Size * sizeof(Type) );
+	size_t BytesWritten = write_File( fp, p->Size * sizeof(Type) );
 
 	// Write the data (Size multiplied by size of a type) //
-	size_t BytesWritten = write_File( fp, (char*)&p->Data[0], p->Size * sizeof(Type) );
+	BytesWritten += write_File( fp, (char*)&p->Data[0], p->Size * sizeof(Type) );
 
 	// TODO: Assert on fire write error //
 			
 	// Return the number of bytes written //
-	return BytesWritten + sizeof( size_t );
+	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
 

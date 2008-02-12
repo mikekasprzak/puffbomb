@@ -1,32 +1,36 @@
 // - ------------------------------------------------------------------------------------------ - //
-// Heap File - Extended Heap features, reading, writing, and initializing from a file/FILE*
+// String File - Extended String features, reading, writing, and initializing from a file/FILE*
 // - ------------------------------------------------------------------------------------------ - //
-#ifndef __Library_Data_Heap_File_H__
-#define __Library_Data_Heap_File_H__
+#ifndef __Library_Data_String_File_H__
+#define __Library_Data_String_File_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "Heap_Core.h"
+#include "String_Core.h"
 #include "File.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-// Use this alternative "new" function when you don't know how big a file is //
+// Unfortunately, since we use char* to represent a filename, we can't use new_String here. //
+//   So instead, we're overloading read without a target string argument. //
 // - ------------------------------------------------------------------------------------------ - //
-inline Heap* new_Heap( const char* _FileName ) {
+inline char* read_String( const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_readonly_File( _FileName );
 	if ( fp == 0 ) {
 		return 0;
 	}
 	
-	// Heap is too complicated a type to rely on the file size alone, so we need to read //
-	//   and write a stored heap in much the same way as we would to a FILE*. //
-	Heap* p = new Heap;
+	// Read Size //
+	size_t Size = read_File<size_t>( fp );
 	
-	p->Index = new_Array<size_t>( fp );
-	p->Data = new_Array<char>( fp );
-
+	// Allocate space //
+	char* p = new char[ Size + 1 ];
+	
+	// Read data //
+	read_File( fp, p->Data, Size );
+	
+	p[ Size ] = 0;
 	
 	// Close file //
 	close_File( fp );
@@ -35,11 +39,19 @@ inline Heap* new_Heap( const char* _FileName ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline Heap* new_Heap( FILE* fp ) {
-	Heap* p = new Heap;
+// Use this alternative "new" function when you don't know how big a file is //
+// - ------------------------------------------------------------------------------------------ - //
+inline char* new_String( FILE* fp ) {
+	// Read Size //
+	size_t Size = read_File<size_t>( fp );
 	
-	p->Index = new_Array<size_t>( fp );
-	p->Data = new_Array<char>( fp );
+	// Allocate space //
+	char* p = new char[ Size + 1 ];
+	
+	// Read data //
+	read_File( fp, p->Data, Size );
+	
+	p[ Size ] = 0;
 	
 	// Return data //
 	return p;
@@ -48,70 +60,95 @@ inline Heap* new_Heap( FILE* fp ) {
 
 
 // - ------------------------------------------------------------------------------------------ - //
-// This function is only so useful, as it relys on the arrays being correctly allocated //
-inline const size_t read_Heap( Heap* p, const char* _FileName ) {
+// These functions are for when you know how large a file is //
+// TODO: Add file offsetting as optional 3rd argument (defalts to 0) //
+// TODO: Or, add a "file" type that you can construct at the top of a function, and pass to these //
+// NOTE: The above should be part of the streaming library? //
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t read_String( char* p, const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_readonly_File( _FileName );
 	if ( fp == 0 ) {
 		return 0;
 	}
 	
-	size_t BytesRead = read_Array( p->Index, fp );
-	BytesRead += read_Array( p->Data, fp ); 
-
+	// Read Size //
+	size_t Size = read_File<size_t>( fp );
+	
+	// Read data //
+	size_t BytesRead = read_File( fp, p, Size );
+	
+	p[ Size ] = 0;
+	
 	// Close file //
 	close_File( fp );
 	
 	// Return the number of bytes read //
-	return BytesRead;
+	return BytesRead + sizeof( size_t );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_Heap( const Heap* p, const char* _FileName ) {
+inline const size_t write_String( const char* p, const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_writeonly_File( _FileName );
 	if ( fp == 0 ) {
 		return 0;
 	}
-
-	size_t BytesWritten = write_Array( p->Index, fp );
-	BytesWritten += write_Array( p->Data, fp ); 
+	
+	// Calculate Size //
+	size_t Size = length_String( p );
+	
+	// Write Size //
+	size_t BytesWritten = write_File( fp, Size );
+	
+	// Write the data //
+	BytesWritten += write_File( fp, p, Size );
 
 	// TODO: Assert on fire write error //
 	
 	// Close file //
 	close_File( fp );
 		
-	// Return the number of bytes read //
+	// Return the number of bytes write //
 	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
-// For syntactical compatability, read_Heap which functions the same as new_Heap. //
-// Note: This is bad, as it's unclear allocation is done.  new_Heap() is preferred. //
+// For syntactical compatability, read_String which functions the same as new_String. //
+// Note: This is bad, as it's unclear allocation is done.  new_String() is preferred. //
 // - ------------------------------------------------------------------------------------------ - //
-//inline Heap* read_Heap( const char* _FileName ) {
-//	return new_Heap( _FileName );
+//inline String* read_String( const char* _FileName ) {
+//	return new_String( _FileName );
 //}
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-// This function is only so useful, as it rely's on the arrays being correctly allocated //
-inline const size_t read_Heap( Heap* p, FILE* fp ) {
-	size_t BytesRead = read_Array( p->Index, fp );
-	BytesRead += read_Array( p->Data, fp ); 
-		
+inline const size_t read_String( char* p, FILE* fp ) {
+	// Read Size //
+	size_t Size = read_File<size_t>( fp );
+	
+	// Read data //
+	size_t BytesRead = read_File( fp, p, Size );
+	
+	p[ Size ] = 0;
+			
 	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
 	
 	// Return the number of bytes read //
-	return BytesRead;
+	return BytesRead + sizeof( Size );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_Heap( const Heap* p, FILE* fp ) {
-	size_t BytesWritten = write_Array( p->Index, fp );
-	BytesWritten += write_Array( p->Data, fp ); 
+inline const size_t write_String( const char* p, FILE* fp ) {
+	// Calculate Size //
+	size_t Size = length_String( p );
+	
+	// Write Size //
+	size_t BytesWritten = write_File( fp, Size );
+	
+	// Write the data //
+	BytesWritten += write_File( fp, p, Size );
 	
 	// TODO: Assert on fire write error //
 		
-	// Return the number of bytes read //
+	// Return the number of bytes write //
 	return BytesWritten;
 }
 // - ------------------------------------------------------------------------------------------ - //
@@ -120,5 +157,5 @@ inline const size_t write_Heap( const Heap* p, FILE* fp ) {
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
 // - ------------------------------------------------------------------------------------------ - //
-#endif // __Library_Data_Heap_Core_H__ //
+#endif // __Library_Data_String_Core_H__ //
 // - ------------------------------------------------------------------------------------------ - //
