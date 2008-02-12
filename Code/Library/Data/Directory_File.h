@@ -4,9 +4,6 @@
 #ifndef __Library_Data_Directory_File_H__
 #define __Library_Data_Directory_File_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <cstring>
-#include <cstdio>
-
 #include <dirent.h>
 #include <sys/stat.h>
 

@@ -4,9 +4,6 @@
 #ifndef __Library_Data_Directory_Core_H__
 #define __Library_Data_Directory_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include <cstring>
-#include <cstdio>
-
 #include "String.h"
 #include "Heap.h"
 // - ------------------------------------------------------------------------------------------ - //
