@@ -104,7 +104,39 @@ inline const size_t write_Array( Array<Type>* p, const char* _FileName ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 
-// File Versions read and write sizes //
+// - ------------------------------------------------------------------------------------------ - //
+// FILE* Versions read and write sizes //
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t read_Array( Array<Type>* p, FILE* fp ) {
+	// Read Size //
+	size_t Size = read_File<size_t>( fp );
+	
+	size_t DataSize = p->Size * sizeof(Type);
+	
+	// Read data (only as much as the smallest size) //
+	size_t BytesRead = fread( p->Data, 1, Size > DataSize ? DataSize : Size, fp );
+	
+	// Return the number of bytes read //
+	return BytesRead;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class Type >
+inline const size_t write_Array( Array<Type>* p, FILE* fp ) {
+	// Write Size //
+	write_File( fp, p->Size );
+
+	// Write the data //
+	size_t BytesWritten = fwrite( p->Data, 1, p->Size * sizeof(Type), fp );
+
+	// TODO: Assert on fire write error //
+	
+		
+	// Return the number of bytes read //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Data_Array_File_H__ //

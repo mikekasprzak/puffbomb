@@ -5,6 +5,7 @@
 #define __Library_Data_DataBlock_File_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "DataBlock_Core.h"
+#include "File.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -101,6 +102,35 @@ inline const size_t write_DataBlock( DataBlock* p, const char* _FileName ) {
 //	return new_DataBlock( _FileName );
 //}
 // - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t write_DataBlock( DataBlock* p, FILE* fp ) {
+	// Write Size //
+	write_File( fp, p->Size );
+	
+	// Write the data //
+	size_t BytesWritten = fwrite( p->Data, 1, p->Size, fp );
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes read //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t read_DataBlock( DataBlock* p, FILE* fp ) {
+	// Read Size //
+	size_t Size = read_File<size_t>( fp );
+	
+	// Read data (only as much as the smallest size) //
+	size_t BytesRead = fread( p->Data, 1, Size > p->Size ? p->Size : Size, fp );
+		
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namespace Data //
