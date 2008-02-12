@@ -4,8 +4,11 @@
 #ifndef __Library_Data_Heap_File_H__
 #define __Library_Data_Heap_File_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include "Stream_Core.h"
+#include "File_Core.h"
+#include "VFile_Core.h"
+
 #include "Heap_Core.h"
-#include "File.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -106,6 +109,56 @@ inline const size_t read_Heap( Heap* p, FILE* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t write_Heap( const Heap* p, FILE* fp ) {
+	size_t BytesWritten = write_Array( p->Index, fp );
+	BytesWritten += write_Array( p->Data, fp ); 
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes read //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// This function is only so useful, as it rely's on the arrays being correctly allocated //
+inline const size_t read_Heap( Heap* p, VFILE* fp ) {
+	size_t BytesRead = read_Array( p->Index, fp );
+	BytesRead += read_Array( p->Data, fp ); 
+		
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead;
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t write_Heap( const Heap* p, VFILE* fp ) {
+	size_t BytesWritten = write_Array( p->Index, fp );
+	BytesWritten += write_Array( p->Data, fp ); 
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes read //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// This function is only so useful, as it rely's on the arrays being correctly allocated //
+template< class STREAM >
+inline const size_t read_Heap( Heap* p, STREAM* fp ) {
+	size_t BytesRead = read_Array( p->Index, fp );
+	BytesRead += read_Array( p->Data, fp ); 
+		
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline const size_t write_Heap( const Heap* p, STREAM* fp ) {
 	size_t BytesWritten = write_Array( p->Index, fp );
 	BytesWritten += write_Array( p->Data, fp ); 
 	

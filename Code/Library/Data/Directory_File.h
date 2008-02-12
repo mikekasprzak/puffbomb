@@ -4,6 +4,10 @@
 #ifndef __Library_Data_Directory_File_H__
 #define __Library_Data_Directory_File_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include "Stream_Core.h"
+#include "File_Core.h"
+#include "VFile_Core.h"
+
 #include "Directory_Core.h"
 // - ------------------------------------------------------------------------------------------ - //
 // Directories are lists of file names.  They can be populated manually, or be polled from disk
@@ -113,6 +117,55 @@ inline const size_t read_Directory( Directory* p, FILE* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t write_Directory( const Directory* p, FILE* fp ) {
+	size_t BytesWritten = write_String( p->BaseName, fp );
+	BytesWritten += write_Heap( p->FileName, fp ); 
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes read //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+// This function is only so useful, as it rely's on the arrays being correctly allocated //
+inline const size_t read_Directory( Directory* p, VFILE* fp ) {
+	size_t BytesRead = read_String( p->BaseName, fp );
+	BytesRead += read_Heap( p->FileName, fp ); 
+		
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead;
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t write_Directory( const Directory* p, VFILE* fp ) {
+	size_t BytesWritten = write_String( p->BaseName, fp );
+	BytesWritten += write_Heap( p->FileName, fp ); 
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes read //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+
+// - ------------------------------------------------------------------------------------------ - //
+// This function is only so useful, as it rely's on the arrays being correctly allocated //
+template< class STREAM >
+inline const size_t read_Directory( Directory* p, STREAM* fp ) {
+	size_t BytesRead = read_String( p->BaseName, fp );
+	BytesRead += read_Heap( p->FileName, fp ); 
+		
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead;
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline const size_t write_Directory( const Directory* p, STREAM* fp ) {
 	size_t BytesWritten = write_String( p->BaseName, fp );
 	BytesWritten += write_Heap( p->FileName, fp ); 
 	
