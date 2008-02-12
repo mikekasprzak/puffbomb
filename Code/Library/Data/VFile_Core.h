@@ -123,6 +123,7 @@ inline const size_t read_VFile( VFILE* fp, char* Data, const size_t Size ) {
 // - ------------------------------------------------------------------------------------------ - //
 template< class Type >
 inline const size_t write_VFile( VFILE* fp, const Type Data ) {
+	pushblockback_Array( &(fp->Data), sizeof(Data) );
 	copy_Data( (char*)&Data, &(fp->Data[fp->Position]), sizeof( Data ) );
 	fp->Position += sizeof( Data );
 	return sizeof( Data );
@@ -133,6 +134,7 @@ template< class Type >
 inline const size_t writeswap_VFile( VFILE* fp, const Type Data ) {
 	Type Copy = byteswap(Data);
 	
+	pushblockback_Array( &(fp->Data), sizeof(Copy) );
 	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
 	return sizeof( Copy );
@@ -143,6 +145,7 @@ template< class Type >
 inline const size_t writebe_VFile( VFILE* fp, const Type Data ) {
 	Type Copy = beswap(Data);
 	
+	pushblockback_Array( &(fp->Data), sizeof(Copy) );
 	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
 	return sizeof( Copy );
@@ -153,6 +156,7 @@ template< class Type >
 inline const size_t writele_VFile( VFILE* fp, const Type Data ) {
 	Type Copy = leswap(Data);
 	
+	pushblockback_Array( &(fp->Data), sizeof(Copy) );
 	copy_Data( (char*)&Copy, &(fp->Data[fp->Position]), sizeof( Copy ) );
 	fp->Position += sizeof( Copy );
 	return sizeof( Copy );
@@ -162,6 +166,8 @@ inline const size_t writele_VFile( VFILE* fp, const Type Data ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 inline const size_t write_VFile( VFILE* fp, const char* Data, const size_t Size ) {
+	pushblockback_Array( &(fp->Data), Size );
+	
 	copy_Data( Data, &(fp->Data[fp->Position]), Size );
 	fp->Position += Size;
 	return Size;
