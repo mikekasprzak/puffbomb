@@ -4,8 +4,11 @@
 #ifndef __Library_Data_String_File_H__
 #define __Library_Data_String_File_H__
 // - ------------------------------------------------------------------------------------------ - //
+#include "Stream_Core.h"
+#include "File_Core.h"
+#include "VFile_Core.h"
+
 #include "String_Core.h"
-#include "File.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
@@ -145,6 +148,74 @@ inline const size_t write_String( const char* p, FILE* fp ) {
 	
 	// Write the data //
 	BytesWritten += write_File( fp, p, Size );
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes write //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t read_String( char* p, VFILE* fp ) {
+	// Read Size //
+	size_t Size = read_VFile<size_t>( fp );
+	
+	// Read data //
+	size_t BytesRead = read_VFile( fp, p, Size );
+	
+	p[ Size ] = 0;
+			
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead + sizeof( Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
+inline const size_t write_String( const char* p, VFILE* fp ) {
+	// Calculate Size //
+	size_t Size = length_String( p );
+	
+	// Write Size //
+	size_t BytesWritten = write_VFile( fp, Size );
+	
+	// Write the data //
+	BytesWritten += write_VFile( fp, p, Size );
+	
+	// TODO: Assert on fire write error //
+		
+	// Return the number of bytes write //
+	return BytesWritten;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline const size_t read_String( char* p, STREAM* fp ) {
+	// Read Size //
+	size_t Size = read_Stream<size_t>( fp );
+	
+	// Read data //
+	size_t BytesRead = read_Stream( fp, p, Size );
+	
+	p[ Size ] = 0;
+			
+	// TODO: If I happen to only read some of the file, less than Size, that would be bad. //
+	
+	// Return the number of bytes read //
+	return BytesRead + sizeof( Size );
+}
+// - ------------------------------------------------------------------------------------------ - //
+template< class STREAM >
+inline const size_t write_String( const char* p, STREAM* fp ) {
+	// Calculate Size //
+	size_t Size = length_String( p );
+	
+	// Write Size //
+	size_t BytesWritten = write_Stream( fp, Size );
+	
+	// Write the data //
+	BytesWritten += write_Stream( fp, p, Size );
 	
 	// TODO: Assert on fire write error //
 		
