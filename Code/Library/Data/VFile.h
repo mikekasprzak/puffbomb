@@ -7,6 +7,7 @@
 
 #include "VFile_Core.h"
 //#include "VFile_LongReads.h"
+#include "VFile_Stream.h"
 
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Data_VFile_H__ //
