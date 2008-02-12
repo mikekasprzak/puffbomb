@@ -9,6 +9,7 @@
 
 #include "String_Core.h"
 #include "String_Hash32.h"
+#include "String_File.h"
 
 // - ------------------------------------------------------------------------------------------ - //
 //}; // namepsace Data //

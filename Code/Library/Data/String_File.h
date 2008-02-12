@@ -28,7 +28,7 @@ inline char* read_String( const char* _FileName ) {
 	char* p = new char[ Size + 1 ];
 	
 	// Read data //
-	read_File( fp, p->Data, Size );
+	read_File( fp, p, Size );
 	
 	p[ Size ] = 0;
 	
@@ -49,7 +49,7 @@ inline char* new_String( FILE* fp ) {
 	char* p = new char[ Size + 1 ];
 	
 	// Read data //
-	read_File( fp, p->Data, Size );
+	read_File( fp, p, Size );
 	
 	p[ Size ] = 0;
 	
