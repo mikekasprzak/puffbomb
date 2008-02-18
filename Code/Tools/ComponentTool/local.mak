@@ -25,6 +25,8 @@ CODE_DIRS		:=	Engine2D/DynamicComponent \
 					Platform/GL/Graphics \
 					External \
 					Library/Geometry \
+					Library/Math \
+					Library/FileIO \
 					Library/Util \
 					Library/Animation \
 # - -------------------------------------------------------------------------------------------- - #

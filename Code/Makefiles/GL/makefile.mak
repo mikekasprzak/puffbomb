@@ -212,7 +212,7 @@ $(RELEASE_DIR)/%.bin.comp: Content/$(GAME_TARGET)/%.comp $(ComponentTool) $(ALL_
 # - -------------------------------------------------------------------------------------------- - #
 # Run generated shell scripts from the component stage
 $(DATA_DIR)/%.done.sh: $(DATA_DIR)/%.sh
-	$<
+	sh $<
 	$(Touch) $@
 #$(DATA_DIR)/Content/$(GAME_TARGET)/%.done.sh
 # - -------------------------------------------------------------------------------------------- - #
