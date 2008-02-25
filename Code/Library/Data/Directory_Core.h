@@ -4,8 +4,10 @@
 #ifndef __Library_Data_Directory_Core_H__
 #define __Library_Data_Directory_Core_H__
 // - ------------------------------------------------------------------------------------------ - //
-#include "String.h"
-#include "Heap.h"
+#include "String_Core.h"
+#include "String_File.h"
+#include "Heap_Core.h"
+#include "Heap_File.h"
 // - ------------------------------------------------------------------------------------------ - //
 // Directories are lists of file names.  They can be populated manually, or be polled from disk
 //   and other sources.  The next step up from a Directory is an Archive, which contains data too.
