@@ -44,16 +44,16 @@ inline Directory* new_Directory( VFILE* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
-template< class STREAM >
-inline Directory* new_Directory( STREAM* fp ) {
-	Directory* p = new Directory;
-	
-	p->BaseName = new_String( fp );
-	p->FileName = new_Heap( fp );
-	
-	// Return data //
-	return p;
-}
+//template< class STREAM >
+//inline Directory* new_Directory( STREAM* fp ) {
+//	Directory* p = new Directory;
+//	
+//	p->BaseName = new_String( fp );
+//	p->FileName = new_Heap( fp );
+//	
+//	// Return data //
+//	return p;
+//}
 // - ------------------------------------------------------------------------------------------ - //
 inline Directory* read_Directory( FILE* fp ) {
 	return new_Directory( fp );
@@ -63,10 +63,10 @@ inline Directory* read_Directory( VFILE* fp ) {
 	return new_Directory( fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
-template< class STREAM >
-inline Directory* read_Directory( STREAM* fp ) {
-	return new_Directory( fp );
-}
+//template< class STREAM >
+//inline Directory* read_Directory( STREAM* fp ) {
+//	return new_Directory( fp );
+//}
 // - ------------------------------------------------------------------------------------------ - //
 
 
