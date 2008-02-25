@@ -7,6 +7,7 @@
 // TODO: Add functions for reading/adapting floating point numbers from IEEE to other needed types
 // TODO: Add functions for converting/writing floats to fixed point numbers (a cheat)
 // - ------------------------------------------------------------------------------------------ - //
+#include "Data_Core.h"
 #include "Array_Core.h"
 
 #include "Endian.h"

@@ -8,6 +8,8 @@
 #include "File_Core.h"
 #include "VFile_Core.h"
 
+#include "Array_File.h"
+
 #include "Heap_Core.h"
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
