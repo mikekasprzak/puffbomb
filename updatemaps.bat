@@ -1,1 +1,1 @@
-make -f Code/Makefiles/minimaps.mak
+make -f Content/Makefiles/minimaps.mak

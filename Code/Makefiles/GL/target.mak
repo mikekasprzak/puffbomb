@@ -7,7 +7,7 @@ LIBS			:=	-Lmingw32/lib -lmingw32 -lSDLmain -lSDL -lSDL_image \
 
 # - -------------------------------------------------------------------------------------------- - #
 # - Linking (Default Target) ------------------------------------------------------------------- - #
-$(RELEASE_DIR)/$(BINARY_TARGET): $(ALL_DEPEND) $(CONTENT) $(.O_FILES)
+$(RELEASE_DIR)/$(BINARY_TARGET): $(ALL_DEPEND) $(.O_FILES)
 	g++ $(LIB_DIRS) $(LINK_FLAGS) $(.O_FILES) $(LIBS) -o $(OBJ_DIR)/$(BINARY_TARGET)
 	strip -s $(OBJ_DIR)/$(BINARY_TARGET) -o $@
 # - -------------------------------------------------------------------------------------------- - #

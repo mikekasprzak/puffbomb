@@ -1,5 +1,5 @@
 # - -------------------------------------------------------------------------------------------- - #
-include Code/Makefiles/tools.mak
+include Content/Makefiles/tools.mak
 # - -------------------------------------------------------------------------------------------- - #
 SEARCH_DIR		:=	Output/PuffBOMB/GL/Data/Maps
 TARGET_DIR		:=	Content/PuffBOMB/Maps
@@ -10,7 +10,8 @@ FILES			:=	$(shell $(TreeTool) $(SEARCH_DIR) .tx)
 # - -------------------------------------------------------------------------------------------- - #
 
 $(SEARCH_DIR)/MiniMaps: $(FILES:.blackkey.quarter.tx=.proc.tx)
-	@$(Echo) Minimaps updated.
+	
+#	@$(Echo) Minimaps updated.
 
 # - -------------------------------------------------------------------------------------------- - #
 $(SEARCH_DIR)/%.proc.tx: $(SEARCH_DIR)/%.blackkey.quarter.tx $(TextureTool)

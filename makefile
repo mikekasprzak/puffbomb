@@ -21,13 +21,23 @@ update: config.mak
 clean: config.mak
 	@make clean $(ARGS)
 # - -------------------------------------------------------------------------------------------- - #
-cleanall: config.mak
-	@make cleanall $(ARGS)
-# - -------------------------------------------------------------------------------------------- - #
-cleancontent: config.mak
-	@make cleancontent $(ARGS)
+#cleanall: config.mak
+#	@make cleanall $(ARGS)
 # - -------------------------------------------------------------------------------------------- - #
 
+.phony: content tools testsuite
+
+# - -------------------------------------------------------------------------------------------- - #
+cleancontent: config.mak
+	@make clean -f Content/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
+#	@make clean -f Content/Makefiles/minimaps.mak --no-print-directory
+# - -------------------------------------------------------------------------------------------- - #
+content:
+	@make update -f Content/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
+	@make -f Content/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
+	@make -f Content/Makefiles/minimaps.mak --no-print-directory
+# - -------------------------------------------------------------------------------------------- - #
+	
 # - -------------------------------------------------------------------------------------------- - #
 tools:
 	@make PLATFORM=Tools --no-print-directory
