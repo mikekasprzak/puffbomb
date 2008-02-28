@@ -1,7 +1,7 @@
 # - -------------------------------------------------------------------------------------------- - #
 -include $(SEARCH_DIR)/local.mak
 include Code/Makefiles/tools.mak
-include Code/Makefiles/Gl/platform.mak
+include Code/Makefiles/$(HOST_PLATFORM)/platform.mak
 # - -------------------------------------------------------------------------------------------- - #
 INCLUDE_DIRS	:=	$(addprefix -I ,$(INCLUDE_DIRS))
 LIB_DIRS		:=	$(addprefix -L ,$(LIB_DIRS))
