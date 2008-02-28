@@ -1,7 +1,7 @@
 
-#include <windows.h>
+#include <SDL/SDL.h>
 
 extern int GetTime();
 int GetTime() {
-	return timeGetTime();
+	return SDL_GetTicks();
 }
