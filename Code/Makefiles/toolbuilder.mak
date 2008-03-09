@@ -1,4 +1,5 @@
 # - -------------------------------------------------------------------------------------------- - #
+include config.mak
 -include $(SEARCH_DIR)/local.mak
 include Code/Makefiles/tools.mak
 include Code/Makefiles/$(HOST_PLATFORM)/platform.mak

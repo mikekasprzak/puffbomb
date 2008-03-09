@@ -12,7 +12,7 @@
 #include <GL/glu.h>
 #include <GL/glext.h>
 // - ------------------------------------------------------------------------------------------ - //
-#include <ddraw.h>    // Required for DirectX's DDSURFACEDESC2 structure definition
+//#include <ddraw.h>    // Required for DirectX's DDSURFACEDESC2 structure definition
 // - ------------------------------------------------------------------------------------------ - //
 struct DDS_IMAGE_DATA
 {
@@ -129,6 +129,118 @@ void cTexture::Load( const std::string& _FileName )
 		Log( 10, "Error: Texture not loaded.  Not a .TX file (" << FileName << ") " );
 	}
 }
+// - ------------------------------------------------------------------------------------------ - //
+typedef unsigned int DWORD;
+typedef unsigned short WORD;
+typedef int LONG;
+typedef unsigned char BYTE;
+typedef void* LPVOID;
+
+#ifndef MAKEFOURCC
+    #define MAKEFOURCC(ch0, ch1, ch2, ch3)                              \
+                ((DWORD)(BYTE)(ch0) | ((DWORD)(BYTE)(ch1) << 8) |   \
+                ((DWORD)(BYTE)(ch2) << 16) | ((DWORD)(BYTE)(ch3) << 24 ))
+#endif //defined(MAKEFOURCC)
+
+/*
+ * FOURCC codes for DX compressed-texture pixel formats
+ */
+#define FOURCC_DXT1  (MAKEFOURCC('D','X','T','1'))
+#define FOURCC_DXT2  (MAKEFOURCC('D','X','T','2'))
+#define FOURCC_DXT3  (MAKEFOURCC('D','X','T','3'))
+#define FOURCC_DXT4  (MAKEFOURCC('D','X','T','4'))
+#define FOURCC_DXT5  (MAKEFOURCC('D','X','T','5'))
+
+
+typedef struct {
+  DWORD dw1;
+  DWORD dw2;
+} DDCOLORKEY;
+
+typedef struct _DDSCAPS2 {
+  DWORD  dwCaps;
+  DWORD  dwCaps2;
+  DWORD  dwCaps3;
+  DWORD  dwCaps4;
+} DDSCAPS2;
+
+typedef struct _DDPIXELFORMAT {
+  DWORD  dwSize;
+  DWORD  dwFlags;
+  DWORD  dwFourCC;
+union {
+  DWORD  dwRGBBitCount;
+  DWORD  dwYUVBitCount;
+  DWORD  dwZBufferBitDepth;
+  DWORD  dwAlphaBitDepth;
+  DWORD  dwLuminanceBitCount;
+  DWORD  dwBumpBitCount;
+  DWORD  dwPrivateFormatBitCount;
+} ;
+union {
+  DWORD  dwRBitMask;
+  DWORD  dwYBitMask;
+  DWORD  dwStencilBitDepth;
+  DWORD  dwLuminanceBitMask;
+  DWORD  dwBumpDuBitMask;
+  DWORD  dwOperations;
+} ;
+union {
+  DWORD  dwGBitMask;
+  DWORD  dwUBitMask;
+  DWORD  dwZBitMask;
+  DWORD  dwBumpDvBitMask;
+  struct {
+    WORD wFlipMSTypes;
+    WORD wBltMSTypes;
+  } MultiSampleCaps;
+} ;
+union {
+  DWORD  dwBBitMask;
+  DWORD  dwVBitMask;
+  DWORD  dwStencilBitMask;
+  DWORD  dwBumpLuminanceBitMask;
+} ;
+union {
+  DWORD  dwRGBAlphaBitMask;
+  DWORD  dwYUVAlphaBitMask;
+  DWORD  dwLuminanceAlphaBitMask;
+  DWORD  dwRGBZBitMask;
+  DWORD  dwYUVZBitMask;
+} ;
+} DDPIXELFORMAT;
+
+typedef struct _DDSURFACEDESC2 {
+    DWORD         dwSize;
+    DWORD         dwFlags;
+    DWORD         dwHeight;
+    DWORD         dwWidth;
+    union
+    {
+        LONG      lPitch;
+        DWORD     dwLinearSize;
+    };
+    DWORD         dwBackBufferCount;
+    union
+    {
+        DWORD     dwMipMapCount;
+        DWORD     dwRefreshRate;
+    };
+    DWORD         dwAlphaBitDepth;
+    DWORD         dwReserved;
+    LPVOID        lpSurface;
+    union
+    {
+        DDCOLORKEY    ddckCKDestOverlay;
+        DWORD         dwEmptyFaceColor;
+    };
+    DDCOLORKEY    ddckCKDestBlt;
+    DDCOLORKEY    ddckCKSrcOverlay;
+    DDCOLORKEY    ddckCKSrcBlt;
+    DDPIXELFORMAT ddpfPixelFormat;
+    DDSCAPS2      ddsCaps;
+    DWORD         dwTextureStage;
+} DDSURFACEDESC2;
 // - ------------------------------------------------------------------------------------------ - //
 DDS_IMAGE_DATA* loadDDSTextureFile( const char* Buffer )
 {

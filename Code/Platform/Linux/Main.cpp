@@ -82,7 +82,7 @@ SDL_Surface* SetVideoMode() {
 	Global::ScreenH = SCREEN_H;
 #endif // SCREEN_H //
 	
-	int ColorDepth = 32;
+	int ColorDepth = 24;
 	Global::AspectRatio = Real( Global::ScreenW ) / Real( Global::ScreenH );
 	
 	// Pre window creation GL Attributes //
@@ -94,7 +94,7 @@ SDL_Surface* SetVideoMode() {
 //	SDL_GL_SetAttribute( SDL_GL_BUFFER_SIZE, 32 );
 
 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, true );	
-	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 32 );
+	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 24 );
 //	SDL_GL_SetAttribute( SDL_GL_STENCIL_SIZE, 32 );
 
 //	SDL_GL_SetAttribute( SDL_GL_ACCUM_RED_SIZE, 8 );

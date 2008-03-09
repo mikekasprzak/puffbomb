@@ -11,6 +11,7 @@
 
 #include <dirent.h>
 #include <sys/stat.h>
+
 // - ------------------------------------------------------------------------------------------ - //
 class cDirectoryCache {
 public:
@@ -36,18 +37,18 @@ public:
 			std::string CurrentFile = SearchDirectory + String::Slash + Data->d_name;
 
 			// Get the status of the file //
-			struct _stat Status;
-			_stat( CurrentFile.c_str(), &Status );
+			struct stat Status;
+			stat( CurrentFile.c_str(), &Status );
 			
 			// If it's a directory //
-			if ( _S_ISDIR( Status.st_mode ) ) {
+			if ( S_ISDIR( Status.st_mode ) ) {
 				// Recursively do this again, if not a dot file or folder //
 				if( Data->d_name[0] != '.' ) 
 					if( Data->d_name[0] != '_' ) 
 						PopulateDir( CurrentFile, Prefix + Data->d_name + String::Slash );
 			}
 			// If it's a regular file //
-			else if ( _S_ISREG( Status.st_mode ) ) {
+			else if ( S_ISREG( Status.st_mode ) ) {
 				if( Data->d_name[0] != '.' ) 
 					if( Data->d_name[0] != '_' ) 
 						File.push_back( Prefix + Data->d_name );

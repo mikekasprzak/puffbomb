@@ -56,8 +56,10 @@ namespace LZMA {
 			}
 			char* UBuffer = new char [UFileSize];
 		
-			size_t inProcessed = 0;
-			size_t outProcessed = 0;
+			//size_t inProcessed = 0;
+			SizeT inProcessed = 0;
+			//size_t outProcessed = 0;
+			SizeT outProcessed = 0;
 			int res = LzmaDecode( &state, ( unsigned char* )&buffer[ LZMA_PROPERTIES_SIZE + 8 ], FileSize, &inProcessed, ( unsigned char* )UBuffer, UFileSize, &outProcessed );
 			
 			delete[] buffer;

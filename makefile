@@ -34,8 +34,8 @@ cleancontent: config.mak
 # - -------------------------------------------------------------------------------------------- - #
 content:
 	@make update -f Content/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
-	@make -f Content/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
-	@make -f Content/Makefiles/minimaps.mak --no-print-directory
+	@make $(ARG_THREADS) -f Content/Makefiles/$(PLATFORM)/makefile.mak --no-print-directory
+	@make $(ARG_THREADS) -f Content/Makefiles/minimaps.mak --no-print-directory
 # - -------------------------------------------------------------------------------------------- - #
 	
 # - -------------------------------------------------------------------------------------------- - #

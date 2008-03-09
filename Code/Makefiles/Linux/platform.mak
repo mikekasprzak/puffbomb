@@ -5,9 +5,9 @@ BINARY_TARGET	:=	$(GAME_TARGET)
  
 # - -------------------------------------------------------------------------------------------- - #
 INCLUDE_DIRS	+=	Code/$(SYSTEM_TARGET) Code/$(ENGINE) Code/Framework Code/Library Code/External Code \
-					/usr/local/include Code/Game/JunkGame Code/Game/$(GAME_TARGET) Code/Platform/GL
+					/usr/include Code/Game/JunkGame Code/Game/$(GAME_TARGET) Code/Platform/GL
 # - -------------------------------------------------------------------------------------------- - #
-LIB_DIRS		+=	/usr/local/lib
+LIB_DIRS		+=	/usr/lib
 # - -------------------------------------------------------------------------------------------- - #
 
 # - -------------------------------------------------------------------------------------------- - #
