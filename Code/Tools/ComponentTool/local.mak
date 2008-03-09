@@ -1,8 +1,10 @@
 # - -------------------------------------------------------------------------------------------- - #
 # Libraries to link against (including -l) ----------------------------------------------------- - #
-#LIBS			:=	-Lmingw32/lib -lmingw32 -lSDLmain -lSDL -lSDL_image -lopengl32 -lglu32
-
+ifeq ($(HOST_PLATFORM),GL)
+LIBS			:=	-Lmingw32/lib -lmingw32 -lSDLmain -lSDL -lSDL_image -lopengl32 -lglu32
+else
 LIBS			:=	-lSDLmain -lSDL -lSDL_image -lGL -lGLU
+endif
 # - -------------------------------------------------------------------------------------------- - #
 
 # - -------------------------------------------------------------------------------------------- - #
