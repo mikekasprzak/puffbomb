@@ -4,11 +4,11 @@ BUILT_TOOLS		:=	Output/Tools
 
 # - -------------------------------------------------------------------------------------------- - #
 # Tools ---------------------------------------------------------------------------------------- - #
-export TreeTool			:=	Tools/TreeTool
-export PatternTool		:=	Tools/PatternTool
+export TreeTool			:=	Tools/TreeTool$(PROGRAM_SUFFIX)
+export PatternTool		:=	Tools/PatternTool$(PROGRAM_SUFFIX)
 export Run				:=	sh Tools/run
-export Compress			:=	Tools/lzma e
-export NVTextureTool	:=	Tools/NVTextureTool/NVCompress
+export Compress			:=	Tools/lzma$(PROGRAM_SUFFIX) e
+export NVTextureTool	:=	Tools/NVTextureTool/NVCompress$(PROGRAM_SUFFIX)
 
 export MakeDir			:=	mkdir -p
 export ChangeDir		:=	cd
