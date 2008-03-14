@@ -898,7 +898,7 @@ void PowerOfTwoFilter( cTex& Tex, int RoundUp, bool isSmooth )
 						
 						//TempColor = Tex.Pixels[ TempIdx ] + ( Tex.Pixels[ TempIdx + 1 ] << 8 ) + ( Tex.Pixels[ TempIdx + 2 ] << 16 ) + ( Tex.Pixels[ TempIdx + 3 ] << 24 );
 						
-						if( IdxTracker == idx )z
+						if( IdxTracker == idx )
 						{
 							Color = Tex.Pixels[ idx ] + ( Tex.Pixels[ idx + 1 ] << 8 ) + ( Tex.Pixels[ idx + 2 ] << 16 ) + ( Tex.Pixels[ idx + 3 ] << 24 );
 						}
