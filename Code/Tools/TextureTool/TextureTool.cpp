@@ -35,6 +35,9 @@ void FattenFilter( cTex& Tex );
 void HalfFilter( cTex& Tex );
 void BlackKeyFilter( cTex& Tex );
 void WhiteFilter( cTex& Tex, int SWhite );
+void PowerOfTwoFilter( cTex& Tex, int RoundUp, bool isSmooth = false );
+// 0 - Round Down, 1 - Round Up, 2 - Round to the closest
+
 // - ------------------------------------------------------------------------------------------ - //
 //	FlagFilters
 typedef const unsigned int fl;
@@ -125,6 +128,8 @@ int main( int argc, char* argv[] ) {
 	// - -------------------------------------------------------------------------------------- - //
 	// Apply processing filters // 
 	// - -------------------------------------------------------------------------------------- - //
+	//PowerOfTwoFilter( Tex, 2);
+	
 	ApplyFilters( FilterFlags, Tex );
 	
 	// - -------------------------------------------------------------------------------------- - //
@@ -816,7 +821,249 @@ void WhiteFilter( cTex& Tex, int SWhite )
 				}
 			}
 		}
-		
 	}
 }
+// - ------------------------------------------------------------------------------------------ - //
+void PowerOfTwoFilter( cTex& Tex, int RoundUp, bool isSmooth )
+{
+	cTex NewTex;
+	
+	NewTex.PixelSize = Tex.PixelSize;
+	
+	unsigned int NewWidth = 1;
+	unsigned int NewHeight = 1;
+	while( NewWidth < Tex.Width )
+	{
+		NewWidth *= 2;
+	}
+	while( NewHeight < Tex.Height )
+	{
+		NewHeight *= 2;
+	}
+	
+	if( RoundUp == 0 )
+	{
+		// Will round the texture height down to the nearest power of two
+		NewTex.Height = NewHeight / 2;
+	}
+	else if( RoundUp == 1 )
+	{
+		// Will round the texture height up to the nearest power of two
+		NewTex.Height = NewHeight;
+	}
+	else if( RoundUp == 2 )
+	{
+		if( NewHeight - Tex.Height <= Tex.Height - (NewHeight / 2) )
+		{
+			// Will round the texture height to the nearest power of two
+			NewTex.Height = NewHeight;
+		}
+		else
+		{
+			// Will round the texture height to the nearest power of two
+			NewTex.Height = NewHeight / 2;
+		}
+	}
+
+	NewTex.Width = Tex.Width;
+	
+	NewTex.Pixels = new unsigned char[ NewWidth * NewHeight * NewTex.PixelSize ];
+
+	float TexHeightOffset = (float)Tex.Height / (float)NewTex.Height;
+
+	if( NewTex.PixelSize == 4 )
+	{
+		if( isSmooth )
+		{
+			int IdxTracker = 0;
+			for( size_t y = 0; y < NewTex.Height; ++y )
+			{
+				for( size_t x = 0; x < NewTex.Width; ++x )
+				{
+					for( size_t ColorIdx = 0; ColorIdx < NewTex.PixelSize; ++ColorIdx )
+					{
+						unsigned int TempColor = 0;
+						unsigned int Color = 0;
+												
+						unsigned int NewIdx = ( ( x * NewTex.PixelSize ) + ( y * NewTex.PixelSize * NewTex.Width ) + ColorIdx );
+						unsigned int idx = ( ( x * NewTex.PixelSize ) + ( ( int( (float)y * TexHeightOffset ) * NewTex.PixelSize * NewTex.Width ) ) + ColorIdx );
+						unsigned int TempIdx = idx;
+						if( y > 0 )
+						{
+							TempIdx -= ( Tex.Width * NewTex.PixelSize + 4 );
+						}
+						
+						//TempColor = Tex.Pixels[ TempIdx ] + ( Tex.Pixels[ TempIdx + 1 ] << 8 ) + ( Tex.Pixels[ TempIdx + 2 ] << 16 ) + ( Tex.Pixels[ TempIdx + 3 ] << 24 );
+						//Color = Tex.Pixels[ idx ] + ( Tex.Pixels[ idx + 1 ] << 8 ) + ( Tex.Pixels[ idx + 2 ] << 16 ) + ( Tex.Pixels[ idx + 3 ] << 24 );
+						
+						//TempColor = Tex.Pixels[ TempIdx ] + ( Tex.Pixels[ TempIdx + 1 ] << 8 ) + ( Tex.Pixels[ TempIdx + 2 ] << 16 ) + ( Tex.Pixels[ TempIdx + 3 ] << 24 );
+						
+						if( IdxTracker == idx )z
+						{
+							Color = Tex.Pixels[ idx ] + ( Tex.Pixels[ idx + 1 ] << 8 ) + ( Tex.Pixels[ idx + 2 ] << 16 ) + ( Tex.Pixels[ idx + 3 ] << 24 );
+						}
+						else
+						{
+							IdxTracker = idx;
+							
+							int Red = ( ( int( Tex.Pixels[ idx ] ) + int( Tex.Pixels[ TempIdx ] ) ) / 2 );
+							int Green = ( ( int( Tex.Pixels[ idx + 1 ] ) + int( Tex.Pixels[ TempIdx + 1 ] ) ) / 2 );
+							int Blue = ( ( int( Tex.Pixels[ idx + 2 ] ) + int( Tex.Pixels[ TempIdx + 2 ] ) ) / 2 );
+							int Alpha = ( ( int( Tex.Pixels[ idx + 3 ] ) + int( Tex.Pixels[ TempIdx + 3 ] ) ) / 2 );
+							if( int( Tex.Pixels[ idx + 3 ] ) == 0 )
+							{
+							//	Alpha = int( Tex.Pixels[ TempIdx + 3 ] );
+							}
+							else if( int( Tex.Pixels[ TempIdx + 3 ] ) == 0 )
+							{
+							//	Alpha = int( Tex.Pixels[ idx + 3 ] );
+							}
+							
+							Color = Red + ( Green << 8 ) + ( Blue << 16 ) + ( Alpha << 24 );
+						}
+						IdxTracker += 1;
+								
+						NewTex.Pixels[NewIdx] = Color;
+						
+					}
+				}
+			}			
+		}
+		else
+		{
+			for( size_t y = 0; y < NewTex.Height; ++y )
+			{
+				for( size_t x = 0; x < NewTex.Width; ++x )
+				{
+					for( size_t ColorIdx = 0; ColorIdx < NewTex.PixelSize; ++ColorIdx )
+					{
+						unsigned int Color = 0;
+						
+						unsigned int NewIdx = ( ( x * NewTex.PixelSize ) + ( y * NewTex.PixelSize * NewTex.Width ) + ColorIdx );
+						unsigned int idx = ( ( x * NewTex.PixelSize ) + ( ( int( (float)y * TexHeightOffset ) * NewTex.PixelSize * NewTex.Width )  ) + ColorIdx );
+
+						Color = Tex.Pixels[ idx ] + ( Tex.Pixels[ idx + 1 ] << 8 ) + ( Tex.Pixels[ idx + 2 ] << 16 ) + ( Tex.Pixels[ idx + 3 ] << 24 );
+
+						NewTex.Pixels[NewIdx] = Color;
+						
+					}
+				}
+			}
+		}
+
+		if( RoundUp == 0 )
+		{
+			// Will round the texture width down to the nearest power of two
+			NewTex.Width = NewWidth / 2;
+		}
+		else if( RoundUp == 1 )
+		{
+			// Will round the texture width up to the nearest power of two
+			NewTex.Width = NewWidth;
+		}
+		else if( RoundUp == 2 )
+		{
+			if( NewWidth - Tex.Width <= Tex.Width - (NewWidth / 2) )
+			{
+				// Will round the texture width to the nearest power of two
+				NewTex.Width = NewWidth;
+			}
+			else
+			{
+				// Will round the texture width to the nearest power of two
+				NewTex.Width = NewWidth / 2;
+			}
+		}
+		
+		
+		if( isSmooth )
+		{
+			cTex TempTex;
+			TempTex.Pixels = new unsigned char[ NewWidth * NewHeight * NewTex.PixelSize ];
+			memcpy( TempTex.Pixels, NewTex.Pixels, NewWidth * NewHeight * NewTex.PixelSize );
+
+			float TexWidthOffset = (float)Tex.Width / (float)NewTex.Width;
+			
+			int IdxTracker = 0;
+			
+			for( size_t y = 0; y < NewTex.Height; ++y )
+			{
+				for( size_t x = 0; x < NewTex.Width; ++x )
+				{
+					for( size_t ColorIdx = 0; ColorIdx < NewTex.PixelSize; ++ColorIdx )
+					{
+						unsigned int Color = 0;
+						
+						unsigned int NewIdx = ( ( x * NewTex.PixelSize ) + ( y * NewTex.PixelSize * NewTex.Width ) + ColorIdx );
+						unsigned int idx = ( ( int( float( x * TexWidthOffset ) ) * NewTex.PixelSize ) + ( ( y * NewTex.PixelSize * Tex.Width ) ) + ColorIdx );
+						unsigned int TempIdx = idx;
+						if( x > 0 )
+						{
+							TempIdx -= 1 * NewTex.PixelSize;
+						}
+
+						if( IdxTracker == idx )
+						{
+							Color = TempTex.Pixels[ idx ] + ( TempTex.Pixels[ idx + 1 ] << 8 ) + ( TempTex.Pixels[ idx + 2 ] << 16 ) + ( TempTex.Pixels[ idx + 3 ] << 24 );
+						}
+						else
+						{
+							IdxTracker = idx;
+								
+							int Red = ( ( int( TempTex.Pixels[ idx ] ) + int( TempTex.Pixels[ TempIdx ] ) ) / 2 );
+							int Green = ( ( int( TempTex.Pixels[ idx + 1 ] ) + int( TempTex.Pixels[ TempIdx + 1 ] ) ) / 2 );
+							int Blue = ( ( int( TempTex.Pixels[ idx + 2 ] ) + int( TempTex.Pixels[ TempIdx + 2 ] ) ) / 2 );
+							int Alpha = ( ( int( TempTex.Pixels[ idx + 3 ] ) + int( TempTex.Pixels[ TempIdx + 3 ] ) ) / 2 );
+							if( int( TempTex.Pixels[ idx + 3 ] ) == 0 )
+							{
+							//	Alpha = int( TempTex.Pixels[ TempIdx + 3 ] );
+							}
+							else if( int( TempTex.Pixels[ TempIdx + 3 ] ) == 0 )
+							{
+							//	Alpha = int( TempTex.Pixels[ idx + 3 ] );
+							}
+							
+							Color = Red + ( Green << 8 ) + ( Blue << 16 ) + ( Alpha << 24 );
+						}
+						IdxTracker += 1;
+
+						NewTex.Pixels[NewIdx] = Color;
+						
+					}
+				}
+			}
+		}
+		else
+		{
+			cTex TempTex;
+			TempTex.Pixels = new unsigned char[ NewWidth * NewHeight * NewTex.PixelSize ];
+			memcpy( TempTex.Pixels, NewTex.Pixels, NewWidth * NewHeight * NewTex.PixelSize );
+
+			float TexWidthOffset = (float)Tex.Width / (float)NewTex.Width;
+			
+			for( size_t y = 0; y < NewTex.Height; ++y )
+			{
+				for( size_t x = 0; x < NewTex.Width; ++x )
+				{
+					for( size_t ColorIdx = 0; ColorIdx < NewTex.PixelSize; ++ColorIdx )
+					{
+
+						unsigned int Color = 0;
+						
+						unsigned int NewIdx = ( ( x * NewTex.PixelSize ) + ( y * NewTex.PixelSize * NewTex.Width ) + ColorIdx );
+						unsigned int idx = ( ( int( float( x * TexWidthOffset ) ) * NewTex.PixelSize ) + ( ( y * NewTex.PixelSize * Tex.Width ) ) + ColorIdx );
+					
+						Color = TempTex.Pixels[ idx ] + ( TempTex.Pixels[ idx + 1 ] << 8 ) + ( TempTex.Pixels[ idx + 2 ] << 16 ) + ( TempTex.Pixels[ idx + 3 ] << 24 );
+						NewTex.Pixels[NewIdx] = Color;
+						
+					}
+				}
+			}
+		}
+	}
+
+	Tex = NewTex;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
 // - ------------------------------------------------------------------------------------------ - //
