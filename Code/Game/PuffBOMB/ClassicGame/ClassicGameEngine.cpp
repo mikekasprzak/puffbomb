@@ -98,6 +98,13 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	
 	// MiniMap //
 	MiniMapInit();
+	
+	// Create Notable Positions Storage //
+	for ( size_t idx = 0; idx < CameraTracking.size(); idx++ ) {					
+		if ( CameraTracking[ idx ]->Component[ 0 ].Flags.Active() ) {
+			NotablePosition.push_back( std::vector< Vector2D >() );
+		}
+	}
 }
 // - ------------------------------------------------------------------------------------------ - //
 cClassicGameEngine::~cClassicGameEngine() {
@@ -253,6 +260,12 @@ void cClassicGameEngine::Step() {
 			GameActive = !GameActive;
 			
 			if ( GameActive ) {
+				for ( size_t idx = 0; idx < CameraTracking.size(); idx++ ) {					
+					if ( CameraTracking[ idx ]->Component[ 0 ].Flags.Active() ) {
+						NotablePosition[idx].clear();
+					}
+				}
+							
 				// Add bombs here, 'cause they could be tweaked up until this point //
 				AddBombs();
 				// Deselect the current bomb //
@@ -263,13 +276,13 @@ void cClassicGameEngine::Step() {
 			}
 			else {
 				// Copy positions of our active objects, and mark them with an x //
-				LastNotablePosition.clear();
-				
-				for ( size_t idx = 0; idx < CameraTracking.size(); idx++ ) {
-					if ( CameraTracking[ idx ]->Component[ 0 ].Flags.Active() ) {
-						LastNotablePosition.push_back( CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.Center() );
-					}
-				}
+//				LastNotablePosition.clear();
+//				
+//				for ( size_t idx = 0; idx < CameraTracking.size(); idx++ ) {
+//					if ( CameraTracking[ idx ]->Component[ 0 ].Flags.Active() ) {
+//						LastNotablePosition.push_back( CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.Center() );
+//					}
+//				}
 				
 				// Clear various lists, 'cause we're about to repopulate them //
 				CameraTracking.clear();			
@@ -312,8 +325,14 @@ void cClassicGameEngine::Step() {
 			
 			// Engine Step ---------------------------------------------------------------------- //
 			cEngine2D::Step();
-
+				
 			// Stuff my engine does after ------------------------------------------------------- //			
+			for ( size_t idx = 0; idx < CameraTracking.size(); idx++ ) {					
+				if ( CameraTracking[ idx ]->Component[ 0 ].Flags.Active() ) {
+					NotablePosition[idx].push_back( CameraTracking[ idx ]->Component[ 0 ].Body.BoundingRect.Center() );
+				}
+			}	
+
 			if( Input::Button[ MOUSE_1 ] ) {
 				Vector2D BobPos = Vector2D(
 						Real( ( int( Input::Mouse.x * Real( Global::HudW ) ) )
@@ -392,25 +411,27 @@ void cClassicGameEngine::Draw() {
 	SolidParticle.Draw();
 	DenseParticle.Draw();
 	
-	// Draw X's that show last notable positions //
+	// Draw Trails //
 	{
 		Gfx::DisableTex2D();
 		Gfx::EnableBlend();
 		
-		for ( size_t idx = 0; idx < LastNotablePosition.size(); idx++ ) {
-			Gfx::SetLineWidth( 3.0 );
-			Gfx::Circle(
-				Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
-				Real( 32+4 ),
-				Gfx::RGBA( 0, 0, 0, 128 )
-				);
-	
-			Gfx::SetLineWidth( 4.0 );
-			Gfx::Circle(
-				Vector2D( LastNotablePosition[idx].x, LastNotablePosition[idx].y ),
-				Real( 32 ),
-				Gfx::RGBA( 255, 255, 255, 128 )
-				);
+		for ( size_t idx2 = 0; idx2 < CameraTracking.size(); idx2++ ) {
+			for ( size_t idx = 0; idx < NotablePosition[idx2].size(); idx++ ) {
+				Gfx::SetLineWidth( 3.0 );
+				Gfx::Circle(
+					Vector2D( NotablePosition[idx2][idx].x, NotablePosition[idx2][idx].y ),
+					Real( 32+4 ),
+					Gfx::RGBA( 0, 0, 0, 128 )
+					);
+		
+				Gfx::SetLineWidth( 4.0 );
+				Gfx::Circle(
+					Vector2D( NotablePosition[idx2][idx].x, NotablePosition[idx2][idx].y ),
+					Real( 32 ),
+					Gfx::RGBA( 255, 255, 255, 128 )
+					);
+			}
 		}
 	}
 
