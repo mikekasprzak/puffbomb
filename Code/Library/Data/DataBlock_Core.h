@@ -48,7 +48,7 @@ inline DataBlock* new_DataBlock( const size_t _Size, const int _InitValue ) {
 // - ------------------------------------------------------------------------------------------ - //
 // Copy one DataBlock to another, no larger than Destination Size Bytes //
 // - ------------------------------------------------------------------------------------------ - //
-inline void copy_DataBlock( DataBlock* _Src, DataBlock* _Dest ) {
+inline void copy_DataBlock( const DataBlock* _Src, DataBlock* _Dest ) {
 	// If source is smaller than the destination //
 	if ( _Dest->Size > _Src->Size ) {
 		// Copy source number of bytes //
@@ -60,7 +60,7 @@ inline void copy_DataBlock( DataBlock* _Src, DataBlock* _Dest ) {
 	}
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline void copy_DataBlock( char* _Src, const size_t _SrcSize, DataBlock* _Dest ) {
+inline void copy_DataBlock( const char* _Src, const size_t _SrcSize, DataBlock* _Dest ) {
 	// If source is smaller than the destination //
 	if ( _Dest->Size > _SrcSize ) {
 		// Copy source number of bytes //
@@ -74,7 +74,7 @@ inline void copy_DataBlock( char* _Src, const size_t _SrcSize, DataBlock* _Dest 
 // - ------------------------------------------------------------------------------------------ - //
 // Return a duplicate of a DataBlock //
 // - ------------------------------------------------------------------------------------------ - //
-inline DataBlock* copy_DataBlock( DataBlock* _Src ) {
+inline DataBlock* copy_DataBlock( const DataBlock* _Src ) {
 	// Allocate our new block //
 	DataBlock* NewBlock = new_DataBlock( _Src->Size );
 	
@@ -85,13 +85,13 @@ inline DataBlock* copy_DataBlock( DataBlock* _Src ) {
 	return NewBlock;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline DataBlock* new_DataBlock( DataBlock* _Src ) {
+inline DataBlock* new_DataBlock( const DataBlock* _Src ) {
 	return copy_DataBlock( _Src );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline DataBlock* copy_DataBlock( char* _Src, const size_t _SrcSize ) {
+inline DataBlock* copy_DataBlock( const char* _Src, const size_t _SrcSize ) {
 	// Allocate our new block //
 	DataBlock* NewBlock = new_DataBlock( _SrcSize );
 	
@@ -102,7 +102,7 @@ inline DataBlock* copy_DataBlock( char* _Src, const size_t _SrcSize ) {
 	return NewBlock;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline DataBlock* new_DataBlock( char* _Src, const size_t _SrcSize ) {
+inline DataBlock* new_DataBlock( const char* _Src, const size_t _SrcSize ) {
 	return copy_DataBlock( _Src, _SrcSize );
 }
 // - ------------------------------------------------------------------------------------------ - //
