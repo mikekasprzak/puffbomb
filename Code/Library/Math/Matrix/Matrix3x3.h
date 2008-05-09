@@ -185,7 +185,7 @@ public:
 	// Regular Functions //
 	// - -------------------------------------------------------------------------------------- - //
 	// Creates a scaling Matrix from a vector //
-	inline static const Matrix3x3 Scale( const Vector2D& _Vs ) {
+	inline static const Matrix3x3 Scaling( const Vector2D& _Vs ) {
 		Matrix3x3 Matrix(
 			_Vs.x, Real::Zero, Real::Zero,
 			Real::Zero, _Vs.y, Real::Zero,
@@ -196,7 +196,7 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Creates a scaling Matrix from a vector //
-	inline static const Matrix3x3 Scale( const Vector3D& _Vs ) {
+	inline static const Matrix3x3 Scaling( const Vector3D& _Vs ) {
 		Matrix3x3 Matrix(
 			_Vs.x, Real::Zero, Real::Zero,
 			Real::Zero, _Vs.y, Real::Zero,
@@ -207,7 +207,7 @@ public:
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	// Creates a scaling matrix from a scalar //
-	inline static const Matrix3x3 Scale( const Real& Scalar ) {
+	inline static const Matrix3x3 Scaling( const Real& Scalar ) {
 		Matrix3x3 Matrix(
 			Scalar, Real::Zero, Real::Zero,
 			Real::Zero, Scalar, Real::Zero,
@@ -216,6 +216,30 @@ public:
 		
 		return Matrix;
 	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Creates a translating Matrix from a vector //
+	inline static const Matrix3x3 Translating( const Vector2D& _Vs ) {
+		Matrix3x3 Matrix(
+			Real::One, Real::Zero, Real::Zero,
+			Real::Zero, Real::One, Real::Zero,
+			_Vs.x, _Vs.y, Real::One
+			);
+		
+		return Matrix;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Creates a translating Matrix from a vector //
+	inline static const Matrix3x3 Translating( const Vector3D& _Vs ) {
+		Matrix3x3 Matrix(
+			Real::One, Real::Zero, Real::Zero,
+			Real::Zero, Real::One, Real::Zero,
+			_Vs.x, _Vs.y, Real::One
+			);
+		
+		return Matrix;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+
 	// - -------------------------------------------------------------------------------------- - //
 };
 // - ------------------------------------------------------------------------------------------ - //
