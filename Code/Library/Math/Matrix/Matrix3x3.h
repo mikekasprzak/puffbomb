@@ -239,6 +239,28 @@ public:
 		return Matrix;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Creates a rotation Matrix from a vector ((0,1) being an untransformed matrix) //
+	inline static const Matrix3x3 Rotating( const Vector2D& _Vs ) {
+		Matrix3x3 Matrix(
+			_Vs.y, -_Vs.x, Real::Zero,
+			_Vs.x, _Vs.y, Real::Zero,
+			Real::Zero, Real::Zero, Real::One
+			);
+		
+		return Matrix;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	// Creates a rotation Matrix from an Angle //
+	inline static const Matrix3x3 Rotating( const Real& Angle ) {
+		Matrix3x3 Matrix(
+			Angle.Cos(), -Angle.Sin(), Real::Zero,
+			Angle.Sin(), Angle.Cos(), Real::Zero,
+			Real::Zero, Real::Zero, Real::One
+			);
+		
+		return Matrix;
+	}
+	// - -------------------------------------------------------------------------------------- - //
 
 	// - -------------------------------------------------------------------------------------- - //
 };
