@@ -71,29 +71,29 @@ cClassicGameEngine::cClassicGameEngine( const std::string& FileName ) :
 	Gfx::DisableMouseDraw();
 	
 	
-	// Pop-up Help Menu Hack //
-	{
-		//Real HalfWidth = HelpTex.Width / 2;
-		//Real HalfHeight = HelpTex.Height / 2;
-	
-		Real HalfWidth = HelpTex.Width;
-		Real HalfHeight = HelpTex.Height;
-		
-		HelpTexVertex[0] = Vector3D( -HalfWidth, -HalfHeight, 0.0 );
-		HelpTexVertex[1] = Vector3D( HalfWidth, -HalfHeight, 0.0 );
-		HelpTexVertex[2] = Vector3D( HalfWidth, HalfHeight, 0.0 );
-		HelpTexVertex[3] = Vector3D( -HalfWidth, HalfHeight, 0.0 );
-	
-		HelpTexUV[0] = Vector2D( 0.0, 1.0 );
-		HelpTexUV[1] = Vector2D( 1.0, 1.0 );
-		HelpTexUV[2] = Vector2D( 1.0, 0.0 );
-		HelpTexUV[3] = Vector2D( 0.0, 0.0 );
-	
-		HelpTexIndices[0] = 0;
-		HelpTexIndices[1] = 1;
-		HelpTexIndices[2] = 2;
-		HelpTexIndices[3] = 3;
-	}	
+//	// Pop-up Help Menu Hack //
+//	{
+//		//Real HalfWidth = HelpTex.Width / 2;
+//		//Real HalfHeight = HelpTex.Height / 2;
+//	
+//		Real HalfWidth = HelpTex.Width;
+//		Real HalfHeight = HelpTex.Height;
+//		
+//		HelpTexVertex[0] = Vector3D( -HalfWidth, -HalfHeight, 0.0 );
+//		HelpTexVertex[1] = Vector3D( HalfWidth, -HalfHeight, 0.0 );
+//		HelpTexVertex[2] = Vector3D( HalfWidth, HalfHeight, 0.0 );
+//		HelpTexVertex[3] = Vector3D( -HalfWidth, HalfHeight, 0.0 );
+//	
+//		HelpTexUV[0] = Vector2D( 0.0, 1.0 );
+//		HelpTexUV[1] = Vector2D( 1.0, 1.0 );
+//		HelpTexUV[2] = Vector2D( 1.0, 0.0 );
+//		HelpTexUV[3] = Vector2D( 0.0, 0.0 );
+//	
+//		HelpTexIndices[0] = 0;
+//		HelpTexIndices[1] = 1;
+//		HelpTexIndices[2] = 2;
+//		HelpTexIndices[3] = 3;
+//	}	
 	
 	
 	// MiniMap //
