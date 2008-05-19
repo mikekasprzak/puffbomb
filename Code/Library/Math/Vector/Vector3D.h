@@ -284,6 +284,7 @@ public:
 	// Explicit Conversion Functions //
 	// - -------------------------------------------------------------------------------------- - //
 	inline const class Vector2D ToVector2D() const;
+	inline const class Vector3D ToHomoVector3D() const;
 	inline const class Vector4D ToVector4D() const;
 	inline const class Vector4D ToHomoVector4D() const;
 	
