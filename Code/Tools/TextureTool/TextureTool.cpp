@@ -428,15 +428,15 @@ void BlackenFilter( cTex& Tex )
 void FlipFilter( cTex& Tex )
 {
 	{
-		for( size_t y = 0; y < Tex.Height; ++y )
+		for( size_t y = 0; y < Tex.Height>>1; ++y )
 		{
 			for( size_t x = 0; x < Tex.Width; ++x )
 			{
-				unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
-				
-				unsigned int idx2 = ( x * Tex.PixelSize ) + ( (Tex.Height-1-y) * Tex.PixelSize * Tex.Width );
-				
-				for ( unsigned int idx3 = 0; idx3 < Tex.PixelSize; idx3++ ) {
+				for( size_t ColorIdx = 0; ColorIdx < Tex.PixelSize; ++ColorIdx ) {
+					unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) + ColorIdx;
+					
+					unsigned int idx2 = ( x * Tex.PixelSize ) + ( ((Tex.Height-1)-y) * Tex.PixelSize * Tex.Width ) + ColorIdx;
+	
 					unsigned char Old = Tex.Pixels[ idx ];
 					Tex.Pixels[ idx ] = Tex.Pixels[ idx2 ];
 					Tex.Pixels[ idx2 ] = Old;
@@ -451,16 +451,16 @@ void MirrorFilter( cTex& Tex )
 	{
 		for( size_t y = 0; y < Tex.Height; ++y )
 		{
-			for( size_t x = 0; x < Tex.Width; ++x )
+			for( size_t x = 0; x < Tex.Width>>1; ++x )
 			{
-				unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
+				for( size_t ColorIdx = 0; ColorIdx < Tex.PixelSize; ++ColorIdx ) {
+					unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) + ColorIdx;
 				
-				unsigned int idx2 = ( (Tex.Width-1-x) * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
+					unsigned int idx2 = ( ((Tex.Width-1)-x) * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width ) + ColorIdx;
 				
-				for ( unsigned int idx3 = 0; idx3 < Tex.PixelSize; idx3++ ) {
-					unsigned char Old = Tex.Pixels[ idx + idx3 ];
-					Tex.Pixels[ idx + idx3 ] = Tex.Pixels[ idx2 + idx3 ];
-					Tex.Pixels[ idx2 + idx3 ] = Old;
+					unsigned char Old = Tex.Pixels[ idx ];
+					Tex.Pixels[ idx ] = Tex.Pixels[ idx2 ];
+					Tex.Pixels[ idx2 ] = Old;
 				}
 			}
 		}
