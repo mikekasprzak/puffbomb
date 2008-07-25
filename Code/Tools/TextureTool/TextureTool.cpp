@@ -37,6 +37,8 @@ void BlackKeyFilter( cTex& Tex );
 void WhiteFilter( cTex& Tex, int SWhite );
 void PowerOfTwoFilter( cTex& Tex, int RoundUp, bool isSmooth = false );
 // 0 - Round Down, 1 - Round Up, 2 - Round to the closest
+void FlipFilter( cTex& Tex );
+void MirrorFilter( cTex& Tex );
 
 // - ------------------------------------------------------------------------------------------ - //
 //	FlagFilters
@@ -46,6 +48,8 @@ fl flHalf 		= bit5;
 fl flQuarter 	= bit6;
 fl flEighth 	= bit7;
 fl flWhite	 	= bit8;
+fl flFlip	 	= bit10;
+fl flMirror	 	= bit11;
 
 fl flBlackKey	= bit15;
 fl flRGB 		= bit16;
@@ -218,6 +222,16 @@ unsigned int Filters( const std::string PathFileName )
 		FilterFlags |= flFatten;
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	if( String::HasAnyExtension( PathFileName, "flip" ) )
+	{
+		FilterFlags |= flFlip;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	if( String::HasAnyExtension( PathFileName, "mirror" ) )
+	{
+		FilterFlags |= flMirror;
+	}
+	// - -------------------------------------------------------------------------------------- - //
 	if( String::HasAnyExtension( PathFileName, "blackkey" ) )
 	{
 		FilterFlags |= flBlackKey;
@@ -291,6 +305,22 @@ void ApplyFilters( unsigned int& FilterFlags, cTex& Tex )
 			
 		FilterFlags ^= flFatten;
 		cout << "Fatten filter applied" << endl;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	if( FilterFlags & flFlip )
+	{
+		FlipFilter( Tex );
+			
+		FilterFlags ^= flFlip;
+		cout << "Flip filter applied" << endl;
+	}
+	// - -------------------------------------------------------------------------------------- - //
+	if( FilterFlags & flMirror )
+	{
+		MirrorFilter( Tex );
+			
+		FilterFlags ^= flMirror;
+		cout << "Mirror filter applied" << endl;
 	}
 	// - -------------------------------------------------------------------------------------- - //
 	if( FilterFlags & flBlackKey )
@@ -389,6 +419,48 @@ void BlackenFilter( cTex& Tex )
 					Tex.Pixels[ idx ] = 0;
 					Tex.Pixels[ idx + 1] = 0;
 					Tex.Pixels[ idx + 2] = 0;
+				}
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void FlipFilter( cTex& Tex )
+{
+	{
+		for( size_t y = 0; y < Tex.Height; ++y )
+		{
+			for( size_t x = 0; x < Tex.Width; ++x )
+			{
+				unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
+				
+				unsigned int idx2 = ( x * Tex.PixelSize ) + ( (Tex.Height-1-y) * Tex.PixelSize * Tex.Width );
+				
+				for ( unsigned int idx3 = 0; idx3 < Tex.PixelSize; idx3++ ) {
+					unsigned char Old = Tex.Pixels[ idx ];
+					Tex.Pixels[ idx ] = Tex.Pixels[ idx2 ];
+					Tex.Pixels[ idx2 ] = Old;
+				}
+			}
+		}
+	}
+}
+// - ------------------------------------------------------------------------------------------ - //
+void MirrorFilter( cTex& Tex )
+{
+	{
+		for( size_t y = 0; y < Tex.Height; ++y )
+		{
+			for( size_t x = 0; x < Tex.Width; ++x )
+			{
+				unsigned int idx = ( x * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
+				
+				unsigned int idx2 = ( (Tex.Width-1-x) * Tex.PixelSize ) + ( y * Tex.PixelSize * Tex.Width );
+				
+				for ( unsigned int idx3 = 0; idx3 < Tex.PixelSize; idx3++ ) {
+					unsigned char Old = Tex.Pixels[ idx + idx3 ];
+					Tex.Pixels[ idx + idx3 ] = Tex.Pixels[ idx2 + idx3 ];
+					Tex.Pixels[ idx2 + idx3 ] = Old;
 				}
 			}
 		}
