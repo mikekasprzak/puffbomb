@@ -266,7 +266,18 @@ public:
 		return rand() % Value;
 	}
 	// - -------------------------------------------------------------------------------------- - //
-	
+
+
+	// - -------------------------------------------------------------------------------------- - //
+	static inline const int Clamp( const int Value, const int Min, const int Max ) {
+		if ( Value < Min )
+			return Min;
+		else if ( Value > Max )
+			return Max;
+		else
+			return Value;
+	}	
+	// - -------------------------------------------------------------------------------------- - //
 public:
 	
 };
