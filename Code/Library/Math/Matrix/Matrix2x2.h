@@ -76,6 +76,11 @@ public:
 		return Array[ idx ];
 	}
 	// - -------------------------------------------------------------------------------------- - //
+	// Indexing //
+	inline const Real& operator [] ( const int& idx ) const {
+		return Array[ idx ];
+	}
+	// - -------------------------------------------------------------------------------------- - //
 	inline Real& operator () ( const int& _x, const int& _y ) {
 		return Array[ (_y << 1) + _x ];
 	}
