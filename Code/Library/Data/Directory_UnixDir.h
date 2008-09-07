@@ -30,11 +30,11 @@ inline void populate_Directory( DIRECTORY* p, const char* SearchDirectory, const
 		cat_String( Data->d_name, CurrentFile );
 
 		// Get the status of the file //
-		struct _stat Status;
-		_stat( CurrentFile, &Status );
+		struct stat Status;
+		stat( CurrentFile, &Status );
 		
 		// If it's a directory //
-		if ( _S_ISDIR( Status.st_mode ) ) {
+		if ( S_ISDIR( Status.st_mode ) ) {
 			// Recursively do this again, if not a dot file or folder //
 			if( Data->d_name[0] != '.' ) 
 				if( Data->d_name[0] != '_' ) {
@@ -52,7 +52,7 @@ inline void populate_Directory( DIRECTORY* p, const char* SearchDirectory, const
 				}
 		}
 		// If it's a regular file //
-		else if ( _S_ISREG( Status.st_mode ) ) {
+		else if ( S_ISREG( Status.st_mode ) ) {
 			if( Data->d_name[0] != '.' ) {
 				if( Data->d_name[0] != '_' ) {
 					// Build our filename string //
@@ -102,19 +102,19 @@ inline DIRECTORY* new_Directory( const char* _BaseName ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 inline bool is_Directory( const char* _Name ) {
-	struct _stat Status;
-	_stat( _Name, &Status );
+	struct stat Status;
+	stat( _Name, &Status );
 	
 	// If it's a directory //
-	return _S_ISDIR( Status.st_mode );
+	return S_ISDIR( Status.st_mode );
 }
 // - ------------------------------------------------------------------------------------------ - //
 inline bool is_File( const char* _Name ) {
-	struct _stat Status;
-	_stat( _Name, &Status );
+	struct stat Status;
+	stat( _Name, &Status );
 	
 	// If it's a directory //
-	return _S_ISREG( Status.st_mode );
+	return S_ISREG( Status.st_mode );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
