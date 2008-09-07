@@ -24,8 +24,8 @@
 // - ------------------------------------------------------------------------------------------ - //
 // Use this alternative "new" function when you don't know how big a file is //
 // - ------------------------------------------------------------------------------------------ - //
-inline Directory* new_Directory( FILE* fp ) {
-	Directory* p = new Directory;
+inline DIRECTORY* new_Directory( FILE* fp ) {
+	DIRECTORY* p = new DIRECTORY;
 	
 	p->BaseName = new_String( fp );
 	p->FileName = new_Heap( fp );
@@ -34,8 +34,8 @@ inline Directory* new_Directory( FILE* fp ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline Directory* new_Directory( VFILE* fp ) {
-	Directory* p = new Directory;
+inline DIRECTORY* new_Directory( VFILE* fp ) {
+	DIRECTORY* p = new DIRECTORY;
 	
 	p->BaseName = new_String( fp );
 	p->FileName = new_Heap( fp );
@@ -45,8 +45,8 @@ inline Directory* new_Directory( VFILE* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 //template< class STREAM >
-//inline Directory* new_Directory( STREAM* fp ) {
-//	Directory* p = new Directory;
+//inline DIRECTORY* new_Directory( STREAM* fp ) {
+//	DIRECTORY* p = new DIRECTORY;
 //	
 //	p->BaseName = new_String( fp );
 //	p->FileName = new_Heap( fp );
@@ -55,16 +55,16 @@ inline Directory* new_Directory( VFILE* fp ) {
 //	return p;
 //}
 // - ------------------------------------------------------------------------------------------ - //
-inline Directory* read_Directory( FILE* fp ) {
+inline DIRECTORY* read_Directory( FILE* fp ) {
 	return new_Directory( fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline Directory* read_Directory( VFILE* fp ) {
+inline DIRECTORY* read_Directory( VFILE* fp ) {
 	return new_Directory( fp );
 }
 // - ------------------------------------------------------------------------------------------ - //
 //template< class STREAM >
-//inline Directory* read_Directory( STREAM* fp ) {
+//inline DIRECTORY* read_Directory( STREAM* fp ) {
 //	return new_Directory( fp );
 //}
 // - ------------------------------------------------------------------------------------------ - //
@@ -74,7 +74,7 @@ inline Directory* read_Directory( VFILE* fp ) {
 // This is our "new_Directory" that takes a file.  We can't use new, because it's taken up by //
 //   UnixDir's "new_Directory" call.  It takes a string and poll's that from disk. //
 // - ------------------------------------------------------------------------------------------ - //
-inline Directory* read_Directory( const char* _FileName ) {
+inline DIRECTORY* read_Directory( const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_readonly_File( _FileName );
 	if ( fp == 0 ) {
@@ -83,7 +83,7 @@ inline Directory* read_Directory( const char* _FileName ) {
 	
 	// Directory is too complicated a type to rely on the file size alone, so we need to read //
 	//   and write a stored heap in much the same way as we would to a FILE*. //
-	Directory* p = new Directory;
+	DIRECTORY* p = new DIRECTORY;
 	
 	p->BaseName = new_String( fp );
 	p->FileName = new_Heap( fp );
@@ -100,7 +100,7 @@ inline Directory* read_Directory( const char* _FileName ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 // This function is only so useful, as it relys on the arrays being correctly allocated //
-inline const size_t read_Directory( Directory* p, const char* _FileName ) {
+inline const size_t read_Directory( DIRECTORY* p, const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_readonly_File( _FileName );
 	if ( fp == 0 ) {
@@ -117,7 +117,7 @@ inline const size_t read_Directory( Directory* p, const char* _FileName ) {
 	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_Directory( const Directory* p, const char* _FileName ) {
+inline const size_t write_Directory( const DIRECTORY* p, const char* _FileName ) {
 	// Open File //
 	FILE* fp = open_writeonly_File( _FileName );
 	if ( fp == 0 ) {
@@ -146,7 +146,7 @@ inline const size_t write_Directory( const Directory* p, const char* _FileName )
 
 // - ------------------------------------------------------------------------------------------ - //
 // This function is only so useful, as it rely's on the arrays being correctly allocated //
-inline const size_t read_Directory( Directory* p, FILE* fp ) {
+inline const size_t read_Directory( DIRECTORY* p, FILE* fp ) {
 	size_t BytesRead = read_String( p->BaseName, fp );
 	BytesRead += read_Heap( p->FileName, fp ); 
 		
@@ -156,7 +156,7 @@ inline const size_t read_Directory( Directory* p, FILE* fp ) {
 	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_Directory( const Directory* p, FILE* fp ) {
+inline const size_t write_Directory( const DIRECTORY* p, FILE* fp ) {
 	size_t BytesWritten = write_String( p->BaseName, fp );
 	BytesWritten += write_Heap( p->FileName, fp ); 
 	
@@ -169,7 +169,7 @@ inline const size_t write_Directory( const Directory* p, FILE* fp ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 // This function is only so useful, as it rely's on the arrays being correctly allocated //
-inline const size_t read_Directory( Directory* p, VFILE* fp ) {
+inline const size_t read_Directory( DIRECTORY* p, VFILE* fp ) {
 	size_t BytesRead = read_String( p->BaseName, fp );
 	BytesRead += read_Heap( p->FileName, fp ); 
 		
@@ -179,7 +179,7 @@ inline const size_t read_Directory( Directory* p, VFILE* fp ) {
 	return BytesRead;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t write_Directory( const Directory* p, VFILE* fp ) {
+inline const size_t write_Directory( const DIRECTORY* p, VFILE* fp ) {
 	size_t BytesWritten = write_String( p->BaseName, fp );
 	BytesWritten += write_Heap( p->FileName, fp ); 
 	
@@ -194,7 +194,7 @@ inline const size_t write_Directory( const Directory* p, VFILE* fp ) {
 // - ------------------------------------------------------------------------------------------ - //
 // This function is only so useful, as it rely's on the arrays being correctly allocated //
 template< class STREAM >
-inline const size_t read_Directory( Directory* p, STREAM* fp ) {
+inline const size_t read_Directory( DIRECTORY* p, STREAM* fp ) {
 	size_t BytesRead = read_String( p->BaseName, fp );
 	BytesRead += read_Heap( p->FileName, fp ); 
 		
@@ -205,7 +205,7 @@ inline const size_t read_Directory( Directory* p, STREAM* fp ) {
 }
 // - ------------------------------------------------------------------------------------------ - //
 template< class STREAM >
-inline const size_t write_Directory( const Directory* p, STREAM* fp ) {
+inline const size_t write_Directory( const DIRECTORY* p, STREAM* fp ) {
 	size_t BytesWritten = write_String( p->BaseName, fp );
 	BytesWritten += write_Heap( p->FileName, fp ); 
 	

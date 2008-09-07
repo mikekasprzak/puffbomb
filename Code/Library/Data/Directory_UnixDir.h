@@ -14,7 +14,7 @@
 
 // - ------------------------------------------------------------------------------------------ - //
 // This is called recursively. //
-inline void populate_Directory( Directory* p, const char* SearchDirectory, const char* Prefix ) {
+inline void populate_Directory( DIRECTORY* p, const char* SearchDirectory, const char* Prefix ) {
 	// Extract the directory part, and open the directory //
 	DIR* ThisDir = opendir( SearchDirectory );
 
@@ -80,15 +80,15 @@ inline void populate_Directory( Directory* p, const char* SearchDirectory, const
 	closedir( ThisDir );		
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline void populate_Directory( Directory* p ) {
+inline void populate_Directory( DIRECTORY* p ) {
 	populate_Directory( p, p->BaseName, "" );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 
 // - ------------------------------------------------------------------------------------------ - //
-inline Directory* new_Directory( const char* _BaseName ) {
-	Directory* NewDir = new Directory;
+inline DIRECTORY* new_Directory( const char* _BaseName ) {
+	DIRECTORY* NewDir = new DIRECTORY;
 	
 	NewDir->BaseName = new_String( _BaseName );
 	NewDir->FileName = new_Heap(0, 0);

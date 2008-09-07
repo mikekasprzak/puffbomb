@@ -18,7 +18,7 @@
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
-struct Directory {
+struct DIRECTORY {
 	// The given Base Directory name (include the trailing backslash .. ?) //
 	char* BaseName;
 	// A heap of filenames //
@@ -27,25 +27,25 @@ struct Directory {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t add_Directory( Directory* p, const char* _String ) {
+inline const size_t add_Directory( DIRECTORY* p, const char* _String ) {
 	size_t StringLength = length_String( _String ) + 1;
 	
 	return allocate_Heap( p->FileName, _String, StringLength );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t size_Directory( const Directory* p ) {
+inline const size_t size_Directory( const DIRECTORY* p ) {
 	return size_Heap( p->FileName );
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline const char* index_Directory( const Directory* p, const size_t Index ) { 
+inline const char* index_Directory( const DIRECTORY* p, const size_t Index ) { 
 	return index_Heap( p->FileName, Index );
 }
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
 // Create a dummy empty File Name list //
-inline Directory* new_Directory() {
-	Directory* NewDir = new Directory;
+inline DIRECTORY* new_Directory() {
+	DIRECTORY* NewDir = new DIRECTORY;
 	
 	// Create and initalize an empty name string //
 	NewDir->BaseName = new_String("");
@@ -55,7 +55,7 @@ inline Directory* new_Directory() {
 	return NewDir;
 }
 // - ------------------------------------------------------------------------------------------ - //
-inline void delete_Directory( Directory* p ) {
+inline void delete_Directory( DIRECTORY* p ) {
 	if ( p->BaseName )
 		delete [] p->BaseName;
 		
@@ -66,8 +66,8 @@ inline void delete_Directory( Directory* p ) {
 
 // - ------------------------------------------------------------------------------------------ - //
 // Create a directory from an existing directory, by pattern matching //
-inline Directory* new_Directory( Directory* p, const char* Pattern ) {
-	Directory* NewDir = new_Directory();
+inline DIRECTORY* new_Directory( DIRECTORY* p, const char* Pattern ) {
+	DIRECTORY* NewDir = new_Directory();
 	delete_String( NewDir->BaseName );
 	NewDir->BaseName = new_String( p->BaseName );
 	
