@@ -39,6 +39,29 @@ inline DataBlock* new_DataBlock( const char* _FileName ) {
 	return p;
 }
 // - ------------------------------------------------------------------------------------------ - //
+inline DataBlock* new_DataBlock( char* _FileName ) {
+	// Open File //
+	FILE* fp = open_readonly_File( _FileName );
+	if ( fp == 0 ) {
+		return 0;
+	}
+	
+	// Determine how large file is //
+	size_t Size = size_File( fp );
+	
+	// Allocate space (Size is automatically set inside new_DataBlock) //
+	DataBlock* p = new_DataBlock( Size );
+	
+	// Read data //
+	read_File( fp, p->Data, Size );
+	
+	// Close file //
+	close_File( fp );
+	
+	// Return data //
+	return p;
+}
+// - ------------------------------------------------------------------------------------------ - //
 inline DataBlock* new_DataBlock( FILE* fp ) {
 	// Read Size //
 	size_t Size = read_File<size_t>( fp );
