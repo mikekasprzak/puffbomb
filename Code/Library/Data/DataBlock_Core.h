@@ -190,7 +190,7 @@ inline void reallocate_DataBlock( DataBlock** p, const size_t _NewSize, const in
 inline void resize_DataBlock( DataBlock** p, const size_t _NewSize, const int _InitValue ) {
 	// A cheat.  We can resize the block without reallocating
 	if ( _NewSize <= (*p)->Size ) {
-		size_t OldSize = (*p)->Size;
+		//size_t OldSize = (*p)->Size;
 		
 		// Set the size to the new size, and we're done //
 		(*p)->Size = _NewSize;
