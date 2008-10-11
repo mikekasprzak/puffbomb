@@ -100,6 +100,38 @@ inline const char* find_String( const char* Pattern, const char* Str ) {
 // - ------------------------------------------------------------------------------------------ - //
 
 // - ------------------------------------------------------------------------------------------ - //
+inline char* comma_String( const int Number ) {
+	static char Text[32];
+	char Sign[2];
+	
+	int AbsNumber = Number;
+	if ( AbsNumber < 0 ) {
+		AbsNumber = -AbsNumber;
+		Sign[0] = '-';
+		Sign[1] = 0;
+	}
+	else {
+		Sign[0] = 0;
+	}
+	
+	if ( AbsNumber < 1000 ) {
+		sprintf( Text, "%s%i", Sign, AbsNumber );
+	}
+	else if ( AbsNumber < 1000000 ) {
+		sprintf( Text, "%s%i,%003i", Sign, AbsNumber / 1000, AbsNumber % 1000 );
+	}
+	else if ( AbsNumber < 1000000000 ) {
+		sprintf( Text, "%s%i,%003i,%003i", Sign, (AbsNumber/1000000), (AbsNumber / 1000) % 1000, AbsNumber % 1000 );
+	}
+	else {
+		sprintf( Text, "%s%i,%003i,%003i,%003i", Sign, (AbsNumber/1000000000), (AbsNumber/1000000) % 1000, (AbsNumber / 1000) % 1000, AbsNumber % 1000 );
+	}
+	
+	return Text;
+}
+// - ------------------------------------------------------------------------------------------ - //
+
+// - ------------------------------------------------------------------------------------------ - //
 //}; // namepsace Data //
 // - ------------------------------------------------------------------------------------------ - //
 #endif // __Library_Data_String_Core_H__ //
