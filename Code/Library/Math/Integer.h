@@ -241,7 +241,7 @@ public:
 	// Square Root //
 	inline const Integer Sqrt() const {
 		if ( !IsZero() )
-			return (int)std::sqrt( Value );
+			return (int)std::sqrt( (float)Value );
 		else
 			return 0;
 	}
