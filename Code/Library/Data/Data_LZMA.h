@@ -5,13 +5,67 @@
 #define __Library_Data_Data_LZMA_H__
 // - ------------------------------------------------------------------------------------------ - //
 #include "Data.h"
-#include <External/Lzma/LzmaDecode.h>
+// - ------------------------------------------------------------------------------------------ - //
+#include <External/LzmaAllocators.h>
+// - ------------------------------------------------------------------------------------------ - //
+extern "C" {
+#include <External/LZMA/LzmaDec.h>
+};
 // - ------------------------------------------------------------------------------------------ - //
 //namespace Data {
 // - ------------------------------------------------------------------------------------------ - //
 // Decode packed LZMA data to a void* (Size is lost though, as it isn't returned) //
 // - ------------------------------------------------------------------------------------------ - //
-inline const void* unpack_LZMA_Data( const void* _Src, const size_t _Size, size_t* _DestSize = 0 ) {
+inline const void* unpack_LZMA_Data( const void* _Src, const size_t _SrcSize, size_t* _DestSize = 0 ) {
+	const char* Src = reinterpret_cast<const char*>(_Src);
+
+	// Take a copy of the File Header (for some reason) //
+	unsigned char header[LZMA_PROPS_SIZE + 8];
+	copy_Data( Src, &header[0], sizeof( header ) );
+
+	// Get the Uncompressed Size from the properties (WARNING! 5 BYTES IN!) //
+	UInt64 UncompressedSize = (*((UInt64*)&Src[4]))>>8;
+//	UInt64 UncompressedSize = *((UInt64*)&Src[LZMA_PROPS_SIZE]);	
+
+	// Allocate LZMA Workspace //
+	CLzmaDec state;
+	LzmaDec_Construct(&state);
+	{
+		int Result = LzmaDec_Allocate(&state, header, LZMA_PROPS_SIZE, &lzma_alloc_struct);
+		if (Result != SZ_OK)
+			return 0;
+	}
+
+	// Allocate a new DataBlock for our uncompressed Data //
+	void* UBuffer = new_Data( UncompressedSize );
+
+	size_t destLength = (size_t)UncompressedSize;
+	size_t srcLength = _SrcSize;
+	ELzmaStatus Status;
+
+	// Initialize the LZMA Decoder //
+	LzmaDec_Init(&state);
+
+	// Decompress File //
+    int Result = LzmaDec_DecodeToBuf(
+		&state,
+		(unsigned char*)UBuffer->Data,
+		&destLength, 
+        (unsigned char*)&Src[ LZMA_PROPS_SIZE + 8 ],
+		&srcLength,
+		LZMA_FINISH_END,
+		&Status
+		);
+
+	// NOTE: This call can do *some bytes* by changing to LZMA_FINISH_ANY, and calling multiple times //
+	// TODO: Something about errors //
+
+	// Shutdown the LZMA Decoder
+	LzmaDec_Free(&state, &lzma_alloc_struct);
+
+	return UBuffer;
+
+/*
 	unsigned char LZMAProperties[LZMA_PROPERTIES_SIZE];
 	const char* Src = reinterpret_cast<const char*>(_Src);
 	
@@ -19,7 +73,7 @@ inline const void* unpack_LZMA_Data( const void* _Src, const size_t _Size, size_
 	*LZMAProperties = Src[0];
 	
 	// Get the Uncompressed Size from the properties //
-	unsigned long long int UncompressedSize = *((unsigned long long int*)&Src[LZMA_PROPERTIES_SIZE]);
+	UInt64 UncompressedSize = *((Int64*)&Src[LZMA_PROPERTIES_SIZE]);
 	
 	// If a destination size was passed //
 	if ( _DestSize )
@@ -57,12 +111,63 @@ inline const void* unpack_LZMA_Data( const void* _Src, const size_t _Size, size_
 	
 	// Return our new LZMA decompressed data //
 	return reinterpret_cast<const void*>(UBuffer);
+*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 // Decode packed LZMA data to a passed void* and size_t //
 // - ------------------------------------------------------------------------------------------ - //
-inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _Size, const void** _Dest, const size_t _DestSize ) {
-	unsigned char LZMAProperties[LZMA_PROPERTIES_SIZE];
+inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _SrcSize, const void** _Dest, const size_t _DestSize ) {
+	const char* Src = reinterpret_cast<const char*>(_Src);
+
+	// Take a copy of the File Header (for some reason) //
+	unsigned char header[LZMA_PROPS_SIZE + 8];
+	copy_Data( Src, &header[0], sizeof( header ) );
+
+	// Get the Uncompressed Size from the properties (WARNING! 5 BYTES IN!) //
+	UInt64 UncompressedSize = *((UInt64*)&Src[LZMA_PROPS_SIZE]);	
+
+	// If the passed DataBlock is too small for our uncompressed data, fail //
+	if ( UncompressedSize > _DestSize ) {
+		// Not enough memory available in passed block! //
+		return 0;
+	}
+
+	// Allocate LZMA Workspace //
+	CLzmaDec state;
+	LzmaDec_Construct(&state);
+	{
+		int Result = LzmaDec_Allocate(&state, header, LZMA_PROPS_SIZE, &lzma_alloc_struct);
+		if (Result != SZ_OK)
+			return 0;
+	}
+
+	size_t destLength = (size_t)UncompressedSize;
+	size_t srcLength = _SrcSize;
+	ELzmaStatus Status;
+
+	// Initialize the LZMA Decoder //
+	LzmaDec_Init(&state);
+
+	// Decompress File //
+    int Result = LzmaDec_DecodeToBuf(
+		&state,
+		(unsigned char*)_Dest,
+		&destLength, 
+        (unsigned char*)&Src[ LZMA_PROPS_SIZE + 8 ],
+		&srcLength,
+		LZMA_FINISH_END,
+		&Status
+		);
+
+	// NOTE: This call can do *some bytes* by changing to LZMA_FINISH_ANY, and calling multiple times //
+	// TODO: Something about errors //
+
+	// Shutdown the LZMA Decoder
+	LzmaDec_Free(&state, &lzma_alloc_struct);
+
+	return UncompressedSize;
+
+/*	unsigned char LZMAProperties[LZMA_PROPERTIES_SIZE];
 	const char* Src = reinterpret_cast<const char*>(_Src);
 	
 	// Copy first byte of LZMA Properties.  Somehow, this is vitally important. //
@@ -106,6 +211,7 @@ inline const size_t unpack_LZMA_Data( const void* _Src, const size_t _Size, cons
 
 	// Return our new LZMA decompressed data //
 	return UncompressedSize;
+*/
 }
 // - ------------------------------------------------------------------------------------------ - //
 
